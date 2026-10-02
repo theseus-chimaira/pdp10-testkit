@@ -5,7 +5,7 @@
  *
  * Intended family:
  *   TRNN  AC,imm18    test AC right half against imm18,
- *                     skip if tested bits are zero,
+ *                     skip if tested bits are nonzero,
  *                     no modification
  *
  * Ordinary C branch shape:

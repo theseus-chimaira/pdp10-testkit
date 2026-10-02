@@ -5,7 +5,7 @@
  *
  * Intended form:
  *   TRNE AC,imm18    test AC & imm18, no modification,
- *                    skip when the tested right-half bits are nonzero
+ *                    skip when the tested right-half bits are zero
  *
  * Keep masks strictly in the right half:
  *   000000,,xxxxxx
