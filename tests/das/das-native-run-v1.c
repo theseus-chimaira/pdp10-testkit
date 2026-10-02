@@ -6,10 +6,11 @@
     (SYS_RUN_V2_FIXED_WORDS + 7U * RUN_RECORD_WORDS + 2U)
 
 static kword_t das_path[] = {
-    16UL,
-    PDP10_SIX6('/','S','Y','S','T','E'),
-    PDP10_SIX6('M','/','E','X','E','C'),
-    PDP10_SIX6('/','D','A','S',' ',' ')
+    21UL,
+    PDP10_SIX6('/','O','P','T','I','O'),
+    PDP10_SIX6('N','/','B','A','S','E'),
+    PDP10_SIX6('/','E','X','E','C','/'),
+    PDP10_SIX6('D','A','S',' ',' ',' ')
 };
 
 static kword_t das_name[] = {
