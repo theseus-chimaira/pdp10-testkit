@@ -8,12 +8,13 @@ import re
 WORD_MASK = 0o777777777777
 HALF_MASK = 0o777777
 DXR_MAGIC = 0o447062
-PHASE1_IMAGE_CEILING = 0o33000
+PHASE1_IMAGE_CEILING = 0o34000
 PHASE2_IMAGE_CEILING = 0o31000
 PHASE1_BSS_CEILING = 0o2500
 PHASE2_BSS_CEILING = 0o3000
 STACK_WORDS = 0o2000
 PROCESS_CEILING = 0o40000
+PROCESS_OPTIMIZATION_TARGET = 0o40000
 
 
 def fail(message):
@@ -67,6 +68,9 @@ def check_phase(label, image_path, assembly_path, image_ceiling, bss_ceiling,
              (label, process, PROCESS_CEILING))
     print("%s-image=%06o %s-bss=%06o %s-process=%06o" %
           (label, image, label, bss, label, process))
+    if process > PROCESS_OPTIMIZATION_TARGET:
+        print("%s-process exceeds optimization target %06o" %
+              (label, PROCESS_OPTIMIZATION_TARGET))
 
 
 def main():

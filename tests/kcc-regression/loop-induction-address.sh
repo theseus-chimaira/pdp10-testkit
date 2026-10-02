@@ -12,6 +12,7 @@ mkdir -p "$TMP"
 
 cat > "$TMP/test.c" <<'SRC'
 volatile int sink;
+extern void use_word(int);
 
 int simple(int a)
 {
@@ -35,6 +36,20 @@ int with_continue(int a)
         s += v[i];
     }
     return s;
+}
+
+int branch_calls(int a)
+{
+    int v[6];
+    int expect[6];
+    int i;
+    for (i = 0; i < 6; ++i) {
+        if (v[i] != expect[i]) {
+            use_word(v[i]);
+            use_word(expect[i]);
+        }
+    }
+    return a;
 }
 
 int body_write(int a)
@@ -137,7 +152,7 @@ for cpu in pdp6 ka10 pdp10 ki10; do
         }
     done
 
-    for fn in body_write address_taken volatile_array byte_array stride_two labelled; do
+    for fn in body_write address_taken volatile_array byte_array stride_two labelled branch_calls; do
         text=$(body "$fn" "$asm")
         if printf '%s\n' "$text" | grep -Eq 'addi[[:space:]]+[0-7]+,1'; then
             echo "$cpu: $fn incorrectly strength-reduced" >&2

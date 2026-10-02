@@ -176,8 +176,12 @@ main(void)
     das_argv[3] = output_path;
     das_argv[4] = source_path;
     rc = run_child(das_path, das_argv, 5U, 1);
-    if (rc != 0)
+    if (rc != 0) {
+        put_text("DAS STATUS ");
+        put_octal((kword_t)(unsigned int)rc);
+        put_text("\r\n");
         fail('A');
+    }
     if (dsys_stat(output_path, &st) != 0 || st.size_words != 6UL)
         fail('S');
     fd = dsys_open(output_path, SYS_O_RDONLY);

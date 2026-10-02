@@ -8,9 +8,10 @@ WORD_MASK = 0o777777777777
 HALF_MASK = 0o777777
 DXR_MAGIC = 0o447062
 STACK_WORDS = 0o2000
-MAX_IMAGE_WORDS = 0o36000
+MAX_IMAGE_WORDS = 0o34000
 MAX_BSS_WORDS = 0o20000
 MAX_PROCESS_WORDS = 0o40000
+PROCESS_OPTIMIZATION_TARGET = 0o40000
 MAX_DRIVER_IMAGE_WORDS = 0o2000
 
 
@@ -59,6 +60,9 @@ def check_phase(label, path):
              (label, process, MAX_PROCESS_WORDS))
     print("%s image=%06o bss=%06o process=%06o" %
           (label, image, bss, process))
+    if process > PROCESS_OPTIMIZATION_TARGET:
+        print("%s process exceeds optimization target %06o" %
+              (label, PROCESS_OPTIMIZATION_TARGET))
 
 
 def main():

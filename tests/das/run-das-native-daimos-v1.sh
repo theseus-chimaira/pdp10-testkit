@@ -24,12 +24,12 @@ s6=$work/test.s6rec
 mkdir -p "$user"
 trap 'rm -rf "$work"' 0 1 2 3 15
 
-cc=$PDP10_PREFIX/bin/pdp10-dec-none-gcc
+kcc=$PDP10_PREFIX/bin/kcc
 das=$DAS_ROOT/das
 dlink=$PDP10_PREFIX/bin/dlink
 simh=$PDP10_PREFIX/bin/pdp6
 
-for tool in "$cc" "$das" "$dlink" "$simh" "$DAS_ROOT/s6text"; do
+for tool in "$kcc" "$das" "$dlink" "$simh" "$DAS_ROOT/s6text"; do
     [ -x "$tool" ] || fail "missing tool: $tool"
 done
 for image in das.dxr das1.dxr das2.dxr; do
@@ -38,13 +38,16 @@ done
 
 incs="-I$DAIMOS_REPO/system/kernel/boot -I$DAIMOS_REPO/system/kernel/core -I$DAIMOS_REPO/system/kernel/drivers -I$DAIMOS_REPO/system/kernel/fs -I$DAIMOS_REPO/system/kernel/mm -I$DAIMOS_REPO/system/kernel/modules -I$DAIMOS_REPO/system/kernel/proc -I$DAIMOS_REPO/system/kernel/storage -I$DAIMOS_REPO/userland/libc -I$PDP10_PREFIX/include"
 
-"$cc" -std=c99 -Os $incs -S "$TEST_ROOT/das-native-run-v1.c" -o "$user/init.s"
+"$kcc" -Pgnu99 -O -x=pdp6 -m=gas $incs -S \
+    "$TEST_ROOT/das-native-run-v1.c" -o "$user/init.s"
 "$das" -F -C -O "$user/init.dobj" "$user/init.s"
 "$das" -F -C -O "$user/crt0.dobj" "$DAIMOS_REPO/userland/libc/crt0.s"
 "$das" -F -C -O "$user/syscall.dobj" "$DAIMOS_REPO/userland/libc/syscall.s"
-libgcc=$($cc -print-libgcc-file-name)
+"$das" -F -C -O "$user/syscall_helpers.dobj" \
+    "$DAIMOS_REPO/userland/libc/syscall_helpers.s"
 "$dlink" --daimos-uuo-relax -b 020 -o "$user/init.dxr" -M "$user/init.map" \
-    "$user/crt0.dobj" "$user/syscall.dobj" "$user/init.dobj" "$libgcc"
+    "$user/crt0.dobj" "$user/syscall.dobj" "$user/syscall_helpers.dobj" \
+    "$user/init.dobj"
 
 cat > "$src" <<'EOF'
         .TEXT
@@ -58,10 +61,11 @@ EOF
 
 PATH="$PDP10_PREFIX/bin:$PATH" make -C "$DAIMOS_REPO/system/boot/pdp6" image \
     BUILD="$build/system/boot/pdp6" PDP10_PREFIX="$PDP10_PREFIX" \
-    DAS="$DAS_ROOT/das" DASFLAGS=-F PROC_BOOT_USERS=1 \
+    DAS="$DAS_ROOT/das" DASFLAGS=-F DAS_REPO="$DAS_ROOT" \
+    DAS_NATIVE_BUILD="$NATIVE_BUILD_DIR" PROC_BOOT_USERS=1 \
     D6FS_LOGSTORE_BLOCKS=010 D6FS_SWAP_TAIL_BLOCKS=010 \
     SYSTEM_INIT_DXR="$user/init.dxr" \
-    D6FS_EXTRA_ARGS="-f /SYSTEM/EXEC/DAS:$NATIVE_BUILD_DIR/das.dxr:555:dxr -f /SYSTEM/EXEC/DAS1:$NATIVE_BUILD_DIR/das1.dxr:555:dxr -f /SYSTEM/EXEC/DAS2:$NATIVE_BUILD_DIR/das2.dxr:555:dxr -f /TEMP/TEST.S:$s6:644:binwords" \
+    D6FS_EXTRA_ARGS="-f /TEMP/TEST.S:$s6:644:binwords" \
     >/dev/null
 
 boot=$build/system/boot/pdp6
