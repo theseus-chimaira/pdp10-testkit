@@ -1,0 +1,8 @@
+loader-test: base-loader-reject-rules
+
+Expected future loader behavior:
+  reject when (object.mach_mask & current_machine_bit) == 0
+  reject when required capabilities are not supported
+  reject when ABI is not V1A_ADDR18 for V1A userland
+
+A pdp10 object must be rejected on PDP6. A base object may run on PDP6, KA10, and KI10 after validation.

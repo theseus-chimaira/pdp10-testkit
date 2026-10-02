@@ -1,0 +1,10 @@
+link-test: base-link-intersection-rules
+
+Expected future linker behavior:
+  base + base     => base mask
+  base + pdp10    => pdp10 mask
+  base + ki10     => KI10-only mask
+  pdp6 + pdp10    => empty mask, link error
+  pdp6 + ki10     => empty mask, link error
+
+Required capabilities are ORed. Machine masks are intersected.

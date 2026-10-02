@@ -1,0 +1,84 @@
+# Shared KCC/GCC tests whose runtime/codegen results remain valid, but whose
+# generated size/performance MUST NOT be directly compared because a builtin,
+# optimizer hint, opacity primitive, varargs primitive, or compatibility helper
+# has intentionally different lowering between the two compilers.
+# Format: TEST<TAB>CONSTRUCTS<TAB>REASON
+tests/isa/pdp10-insn/ADJSP.c	__builtin_alloca	KCC compatibility macro calls kcc_alloca while GCC uses builtin stack allocation
+tests/isa/pdp10-insn/AOBJ.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/AOJ.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/isa/pdp10-insn/BLT.c	__builtin_memcpy,__builtin_memset	KCC compatibility macro calls memcpy while GCC may use builtin lowering; KCC compatibility macro calls memset while GCC may use builtin lowering
+tests/isa/pdp10-insn/FFS.c	OPAQUE_REG,__builtin_ffs	KCC no-op compatibility barrier differs from GCC register-opacity barrier; KCC compatibility macro calls kcc_ffs while GCC uses builtin lowering
+tests/isa/pdp10-insn/HLLES.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HLLOS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HLLS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HLLZS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HLRES.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HLROS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HLRS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HLRZS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRLES.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRLOS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRLS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRLZS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRRES.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRROS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRRS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/HRRZS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/JRST.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/isa/pdp10-insn/LSH.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/isa/pdp10-insn/LSHC.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/isa/pdp10-insn/MOVE.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/isa/pdp10-insn/MOVM.c	OPAQUE_REG,__builtin_abs	KCC no-op compatibility barrier differs from GCC register-opacity barrier; KCC compatibility macro expands to ordinary conditional arithmetic
+tests/isa/pdp10-insn/MOVS.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/isa/pdp10-insn/MUL.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/isa/pdp10-insn/SETZ.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/SKIP.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/SOJ.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/SOS.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TDC.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TDNE.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TDNN.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TDO.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TDZ.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TLNE.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TLNN.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TRC.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TRNE.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TRNN.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TRO.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TRZ.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TSC.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TSNE.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TSNN.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TSO.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/isa/pdp10-insn/TSZ.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/abssi3.c	__builtin_abs	KCC compatibility macro expands to ordinary conditional arithmetic
+tests/codegen/pattern/addsi3.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/allocate_stack.c	__builtin_alloca	KCC compatibility macro calls kcc_alloca while GCC uses builtin stack allocation
+tests/codegen/pattern/allocate_stack_dynamic.c	OPAQUE_REG,__builtin_alloca	KCC no-op compatibility barrier differs from GCC register-opacity barrier; KCC compatibility macro calls kcc_alloca while GCC uses builtin stack allocation
+tests/codegen/pattern/andsi3.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/aosa_sosa.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/cmpdi.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/dimode_pressure.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/divsi3.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/extv.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/extzv.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/ffssi2.c	__builtin_ffs	KCC compatibility macro calls kcc_ffs while GCC uses builtin lowering
+tests/codegen/pattern/insv.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/iorsi3.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/movdi.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/move_and_skip.c	OPAQUE_REG,likely,unlikely	KCC no-op compatibility barrier differs from GCC register-opacity barrier; KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/move_and_skip_pressure.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/movsi.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/one_cmplsi2.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
+tests/codegen/pattern/smaxsi3.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/sminsi3.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/smulsi3_highpart.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/test_and_skip.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/umaxsi3.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/uminsi3.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/xorsi3.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/codegen/pattern/zero_extendhisi2.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/semantic/regression/varargs.c	__builtin_va_start,__builtin_va_arg,__builtin_va_end	KCC compatibility varargs macro differs from GCC builtin handling
+tests/semantic/runtime/runtime-builtin-memcpy-string-1byte.c	__builtin_memcpy	KCC compatibility macro calls memcpy while GCC may use builtin lowering
+tests/semantic/runtime/runtime-memcpy-string-1byte.c	__builtin_memcpy	KCC compatibility macro calls memcpy while GCC may use builtin lowering

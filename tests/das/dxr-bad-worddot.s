@@ -1,0 +1,2 @@
+        .entry start
+start:  WORD    .

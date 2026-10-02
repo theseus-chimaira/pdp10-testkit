@@ -1,0 +1,16 @@
+work
+__pycache__
+/asm-diffs/
+/asm-results/
+/err/
+/gen/
+/logdir/
+/results/
+/runtime-results/
+/state-results/
+/workdir/
+/*.log
+
+# DAS test artifacts
+pdp10-jfcl-alias-tests.state/
+tests/das/__pycache__/

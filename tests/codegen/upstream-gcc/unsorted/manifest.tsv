@@ -1,0 +1,1484 @@
+kind	source_rel	dest_rel	action	dg_do	dg_options	flags
+torture-compile	gcc.c-torture/compile/20000105-1.c	compile/20000105-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000105-2.c	compile/20000105-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000120-1.c	compile/20000120-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000120-2.c	compile/20000120-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000127-1.c	compile/20000127-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20000211-1.c	compile/20000211-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000211-3.c	compile/20000211-3.c	compile			
+torture-compile	gcc.c-torture/compile/20000224-1.c	compile/20000224-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000314-1.c	compile/20000314-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000314-2.c	compile/20000314-2.c	compile			uses-malloc
+torture-compile	gcc.c-torture/compile/20000319-1.c	compile/20000319-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000326-1.c	compile/20000326-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000326-2.c	compile/20000326-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000329-1.c	compile/20000329-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20000403-1.c	compile/20000403-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000403-2.c	compile/20000403-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000405-1.c	compile/20000405-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20000405-2.c	compile/20000405-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000405-3.c	compile/20000405-3.c	compile			
+torture-compile	gcc.c-torture/compile/20000412-1.c	compile/20000412-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000412-2.c	compile/20000412-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000420-1.c	compile/20000420-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000420-2.c	compile/20000420-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000427-1.c	compile/20000427-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000502-1.c	compile/20000502-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000504-1.c	compile/20000504-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000511-1.c	compile/20000511-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000517-1.c	compile/20000517-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000518-1.c	compile/20000518-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000523-1.c	compile/20000523-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000605-1.c	compile/20000605-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000606-1.c	compile/20000606-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000609-1.c	compile/20000609-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000629-1.c	compile/20000629-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000701-1.c	compile/20000701-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000717-1.c	compile/20000717-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000718.c	compile/20000718.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20000728-1.c	compile/20000728-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000802-1.c	compile/20000802-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000803-1.c	compile/20000803-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000804-1.c	compile/20000804-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000818-1.c	compile/20000818-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20000825-1.c	compile/20000825-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000827-1.c	compile/20000827-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000922-1.c	compile/20000922-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000923-1.c	compile/20000923-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001018-1.c	compile/20001018-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001024-1.c	compile/20001024-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001109-1.c	compile/20001109-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001109-2.c	compile/20001109-2.c	compile			
+torture-compile	gcc.c-torture/compile/20001116-1.c	compile/20001116-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001121-1.c	compile/20001121-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001123-1.c	compile/20001123-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001123-2.c	compile/20001123-2.c	compile			
+torture-compile	gcc.c-torture/compile/20001205-1.c	compile/20001205-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001212-1.c	compile/20001212-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20001221-1.c	compile/20001221-1.c	compile			
+torture-compile	gcc.c-torture/compile/20001222-1.c	compile/20001222-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20001226-1.c	compile/20001226-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010102-1.c	compile/20010102-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010107-1.c	compile/20010107-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010112-1.c	compile/20010112-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010113-1.c	compile/20010113-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010114-1.c	compile/20010114-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010114-2.c	compile/20010114-2.c	compile			
+torture-compile	gcc.c-torture/compile/20010117-1.c	compile/20010117-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010117-2.c	compile/20010117-2.c	compile			
+torture-compile	gcc.c-torture/compile/20010118-1.c	compile/20010118-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010124-1.c	compile/20010124-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010202-1.c	compile/20010202-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010209-1.c	compile/20010209-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010226-1.c	compile/20010226-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010227-1.c	compile/20010227-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010313-1.c	compile/20010313-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010320-1.c	compile/20010320-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010326-1.c	compile/20010326-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010327-1.c	compile/20010327-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010328-1.c	compile/20010328-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010329-1.c	compile/20010329-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010404-1.c	compile/20010404-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010408-1.c	compile/20010408-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010421-1.c	compile/20010421-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010423-1.c	compile/20010423-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010426-1.c	compile/20010426-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010503-1.c	compile/20010503-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010510-1.c	compile/20010510-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010516-1.c	compile/20010516-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010518-1.c	compile/20010518-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010518-2.c	compile/20010518-2.c	compile			
+torture-compile	gcc.c-torture/compile/20010525-1.c	compile/20010525-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010605-1.c	compile/20010605-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010605-2.c	compile/20010605-2.c	compile			
+torture-compile	gcc.c-torture/compile/20010605-3.c	compile/20010605-3.c	compile			
+torture-compile	gcc.c-torture/compile/20010610-1.c	compile/20010610-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010611-1.c	compile/20010611-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010701-1.c	compile/20010701-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010706-1.c	compile/20010706-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010711-1.c	compile/20010711-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010711-2.c	compile/20010711-2.c	compile			
+torture-compile	gcc.c-torture/compile/20010714-1.c	compile/20010714-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010824-1.c	compile/20010824-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010903-1.c	compile/20010903-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010903-2.c	compile/20010903-2.c	compile			
+torture-compile	gcc.c-torture/compile/20010911-1.c	compile/20010911-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011010-1.c	compile/20011010-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011023-1.c	compile/20011023-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011029-1.c	compile/20011029-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011106-1.c	compile/20011106-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011106-2.c	compile/20011106-2.c	compile			
+torture-compile	gcc.c-torture/compile/20011109-1.c	compile/20011109-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20011114-1.c	compile/20011114-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011114-2.c	compile/20011114-2.c	compile			
+torture-compile	gcc.c-torture/compile/20011114-3.c	compile/20011114-3.c	compile			
+torture-compile	gcc.c-torture/compile/20011114-4.c	compile/20011114-4.c	compile			
+torture-compile	gcc.c-torture/compile/20011119-1.c	compile/20011119-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011119-2.c	compile/20011119-2.c	compile			
+torture-compile	gcc.c-torture/compile/20011130-1.c	compile/20011130-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011130-2.c	compile/20011130-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20011205-1.c	compile/20011205-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011217-1.c	compile/20011217-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011217-2.c	compile/20011217-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20011218-1.c	compile/20011218-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011219-1.c	compile/20011219-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20011219-2.c	compile/20011219-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20011229-1.c	compile/20011229-1.c	compile			
+torture-compile	gcc.c-torture/compile/20011229-2.c	compile/20011229-2.c	compile			
+torture-compile	gcc.c-torture/compile/20020103-1.c	compile/20020103-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020106-1.c	compile/20020106-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020109-1.c	compile/20020109-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020109-2.c	compile/20020109-2.c	compile			
+torture-compile	gcc.c-torture/compile/20020110.c	compile/20020110.c	compile			
+torture-compile	gcc.c-torture/compile/20020116-1.c	compile/20020116-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020120-1.c	compile/20020120-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20020121-1.c	compile/20020121-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020206-1.c	compile/20020206-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020210-1.c	compile/20020210-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020303-1.c	compile/20020303-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020304-1.c	compile/20020304-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020304-2.c	compile/20020304-2.c	compile			
+torture-compile	gcc.c-torture/compile/20020309-1.c	compile/20020309-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020309-2.c	compile/20020309-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20020312-1.c	compile/20020312-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020314-1.c	compile/20020314-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020315-1.c	compile/20020315-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020318-1.c	compile/20020318-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020319-1.c	compile/20020319-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020320-1.c	compile/20020320-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020323-1.c	compile/20020323-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020330-1.c	compile/20020330-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20020409-1.c	compile/20020409-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020617-1.c	compile/20020617-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020617-2.c	compile/20020617-2.c	compile			
+torture-compile	gcc.c-torture/compile/20020617-3.c	compile/20020617-3.c	compile			
+torture-compile	gcc.c-torture/compile/900116-1.c	compile/900116-1.c	compile			
+torture-compile	gcc.c-torture/compile/900216-1.c	compile/900216-1.c	compile			
+torture-compile	gcc.c-torture/compile/900313-1.c	compile/900313-1.c	compile			
+torture-compile	gcc.c-torture/compile/900407-1.c	compile/900407-1.c	compile			
+torture-compile	gcc.c-torture/compile/900516-1.c	compile/900516-1.c	compile			
+torture-compile	gcc.c-torture/compile/920301-1.c	compile/920301-1.c	compile			
+torture-compile	gcc.c-torture/compile/920409-1.c	compile/920409-1.c	compile			
+torture-compile	gcc.c-torture/compile/920409-2.c	compile/920409-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920410-1.c	compile/920410-1.c	compile			maybe-fp,uses-printf
+torture-compile	gcc.c-torture/compile/920410-2.c	compile/920410-2.c	compile			
+torture-compile	gcc.c-torture/compile/920411-2.c	compile/920411-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920413-1.c	compile/920413-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920415-1.c	compile/920415-1.c	compile			
+torture-compile	gcc.c-torture/compile/920428-1.c	compile/920428-1.c	compile			
+torture-compile	gcc.c-torture/compile/920428-2.c	compile/920428-2.c	compile			maybe-fp,uses-printf,uses-fprintf,uses-files
+torture-compile	gcc.c-torture/compile/920428-3.c	compile/920428-3.c	compile			
+torture-compile	gcc.c-torture/compile/920428-4.c	compile/920428-4.c	compile			
+torture-compile	gcc.c-torture/compile/920428-5.c	compile/920428-5.c	compile			
+torture-compile	gcc.c-torture/compile/920428-6.c	compile/920428-6.c	compile			
+torture-compile	gcc.c-torture/compile/920428-7.c	compile/920428-7.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920501-1.c	compile/920501-1.c	compile			
+torture-compile	gcc.c-torture/compile/920501-10.c	compile/920501-10.c	compile			
+torture-compile	gcc.c-torture/compile/920501-11.c	compile/920501-11.c	compile			
+torture-compile	gcc.c-torture/compile/920501-12.c	compile/920501-12.c	compile			
+torture-compile	gcc.c-torture/compile/920501-13.c	compile/920501-13.c	compile			
+torture-compile	gcc.c-torture/compile/920501-15.c	compile/920501-15.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920501-16.c	compile/920501-16.c	compile			
+torture-compile	gcc.c-torture/compile/920501-17.c	compile/920501-17.c	compile			
+torture-compile	gcc.c-torture/compile/920501-18.c	compile/920501-18.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920501-19.c	compile/920501-19.c	compile			
+torture-compile	gcc.c-torture/compile/920501-2.c	compile/920501-2.c	compile			
+torture-compile	gcc.c-torture/compile/920501-20.c	compile/920501-20.c	compile			uses-setjmp
+torture-compile	gcc.c-torture/compile/920501-21.c	compile/920501-21.c	compile			
+torture-compile	gcc.c-torture/compile/920501-22.c	compile/920501-22.c	compile			
+torture-compile	gcc.c-torture/compile/920501-23.c	compile/920501-23.c	compile			
+torture-compile	gcc.c-torture/compile/920501-3.c	compile/920501-3.c	compile			
+torture-compile	gcc.c-torture/compile/920501-4.c	compile/920501-4.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920501-6.c	compile/920501-6.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920501-7.c	compile/920501-7.c	compile			
+torture-compile	gcc.c-torture/compile/920501-8.c	compile/920501-8.c	compile			
+torture-compile	gcc.c-torture/compile/920501-9.c	compile/920501-9.c	compile			
+torture-compile	gcc.c-torture/compile/920502-1.c	compile/920502-1.c	compile			
+torture-compile	gcc.c-torture/compile/920502-2.c	compile/920502-2.c	compile			
+torture-compile	gcc.c-torture/compile/920520-1.c	compile/920520-1.c	compile			
+torture-compile	gcc.c-torture/compile/920521-1.c	compile/920521-1.c	compile			
+torture-compile	gcc.c-torture/compile/920529-1.c	compile/920529-1.c	compile			
+torture-compile	gcc.c-torture/compile/920608-1.c	compile/920608-1.c	compile			
+torture-compile	gcc.c-torture/compile/920611-2.c	compile/920611-2.c	compile			
+torture-compile	gcc.c-torture/compile/920615-1.c	compile/920615-1.c	compile			
+torture-compile	gcc.c-torture/compile/920617-1.c	compile/920617-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920617-2.c	compile/920617-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920623-1.c	compile/920623-1.c	compile			
+torture-compile	gcc.c-torture/compile/920624-1.c	compile/920624-1.c	compile			
+torture-compile	gcc.c-torture/compile/920625-1.c	compile/920625-1.c	compile			
+torture-compile	gcc.c-torture/compile/920625-2.c	compile/920625-2.c	compile			
+torture-compile	gcc.c-torture/compile/920626-1.c	compile/920626-1.c	compile			
+torture-compile	gcc.c-torture/compile/920701-1.c	compile/920701-1.c	compile			
+torture-compile	gcc.c-torture/compile/920702-1.c	compile/920702-1.c	compile			
+torture-compile	gcc.c-torture/compile/920706-1.c	compile/920706-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920710-2.c	compile/920710-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920711-1.c	compile/920711-1.c	compile			
+torture-compile	gcc.c-torture/compile/920721-1.c	compile/920721-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920723-1.c	compile/920723-1.c	compile			maybe-fp,uses-malloc
+torture-compile	gcc.c-torture/compile/920729-1.c	compile/920729-1.c	compile			
+torture-compile	gcc.c-torture/compile/920806-1.c	compile/920806-1.c	compile			
+torture-compile	gcc.c-torture/compile/920808-1.c	compile/920808-1.c	compile			
+torture-compile	gcc.c-torture/compile/920809-1.c	compile/920809-1.c	compile			
+torture-compile	gcc.c-torture/compile/920817-1.c	compile/920817-1.c	compile			
+torture-compile	gcc.c-torture/compile/920820-1.c	compile/920820-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920821-1.c	compile/920821-1.c	compile			
+torture-compile	gcc.c-torture/compile/920821-2.c	compile/920821-2.c	compile			
+torture-compile	gcc.c-torture/compile/920825-1.c	compile/920825-1.c	compile			
+torture-compile	gcc.c-torture/compile/920825-2.c	compile/920825-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920826-1.c	compile/920826-1.c	compile			
+torture-compile	gcc.c-torture/compile/920828-1.c	compile/920828-1.c	compile			
+torture-compile	gcc.c-torture/compile/920829-1.c	compile/920829-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920831-1.c	compile/920831-1.c	compile			
+torture-compile	gcc.c-torture/compile/920902-1.c	compile/920902-1.c	compile			
+torture-compile	gcc.c-torture/compile/920909-1.c	compile/920909-1.c	compile			
+torture-compile	gcc.c-torture/compile/920917-1.c	compile/920917-1.c	compile			
+torture-compile	gcc.c-torture/compile/920928-1.c	compile/920928-1.c	compile			
+torture-compile	gcc.c-torture/compile/920928-2.c	compile/920928-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920928-3.c	compile/920928-3.c	compile			
+torture-compile	gcc.c-torture/compile/920928-4.c	compile/920928-4.c	compile			
+torture-compile	gcc.c-torture/compile/920928-5.c	compile/920928-5.c	compile			
+torture-compile	gcc.c-torture/compile/920928-6.c	compile/920928-6.c	compile			
+torture-compile	gcc.c-torture/compile/921004-1.c	compile/921004-1.c	compile			
+torture-compile	gcc.c-torture/compile/921011-1.c	compile/921011-1.c	compile			
+torture-compile	gcc.c-torture/compile/921011-2.c	compile/921011-2.c	compile			
+torture-compile	gcc.c-torture/compile/921012-1.c	compile/921012-1.c	compile			
+torture-compile	gcc.c-torture/compile/921012-2.c	compile/921012-2.c	compile			
+torture-compile	gcc.c-torture/compile/921013-1.c	compile/921013-1.c	compile			
+torture-compile	gcc.c-torture/compile/921019-1.c	compile/921019-1.c	compile			
+torture-compile	gcc.c-torture/compile/921021-1.c	compile/921021-1.c	compile			
+torture-compile	gcc.c-torture/compile/921024-1.c	compile/921024-1.c	compile			
+torture-compile	gcc.c-torture/compile/921026-1.c	compile/921026-1.c	compile			
+torture-compile	gcc.c-torture/compile/921103-1.c	compile/921103-1.c	compile			
+torture-compile	gcc.c-torture/compile/921109-1.c	compile/921109-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/921111-1.c	compile/921111-1.c	compile			
+torture-compile	gcc.c-torture/compile/921116-2.c	compile/921116-2.c	compile			
+torture-compile	gcc.c-torture/compile/921118-1.c	compile/921118-1.c	compile			
+torture-compile	gcc.c-torture/compile/921126-1.c	compile/921126-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/921202-1.c	compile/921202-1.c	compile			
+torture-compile	gcc.c-torture/compile/921202-2.c	compile/921202-2.c	compile			
+torture-compile	gcc.c-torture/compile/921203-1.c	compile/921203-1.c	compile			
+torture-compile	gcc.c-torture/compile/921203-2.c	compile/921203-2.c	compile			
+torture-compile	gcc.c-torture/compile/921206-1.c	compile/921206-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/921227-1.c	compile/921227-1.c	compile			
+torture-compile	gcc.c-torture/compile/930109-1.c	compile/930109-1.c	compile			
+torture-compile	gcc.c-torture/compile/930109-2.c	compile/930109-2.c	compile			
+torture-compile	gcc.c-torture/compile/930111-1.c	compile/930111-1.c	compile			
+torture-compile	gcc.c-torture/compile/930117-1.c	compile/930117-1.c	compile			
+torture-compile	gcc.c-torture/compile/930118-1.c	compile/930118-1.c	compile			
+torture-compile	gcc.c-torture/compile/930120-1.c	compile/930120-1.c	compile			maybe-fp,uses-printf
+torture-compile	gcc.c-torture/compile/930126-1.c	compile/930126-1.c	compile			
+torture-compile	gcc.c-torture/compile/930210-1.c	compile/930210-1.c	compile			
+torture-compile	gcc.c-torture/compile/930217-1.c	compile/930217-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/930222-1.c	compile/930222-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/930325-1.c	compile/930325-1.c	compile			
+torture-compile	gcc.c-torture/compile/930326-1.c	compile/930326-1.c	compile			
+torture-compile	gcc.c-torture/compile/930411-1.c	compile/930411-1.c	compile			
+torture-compile	gcc.c-torture/compile/930421-1.c	compile/930421-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/930427-2.c	compile/930427-2.c	compile			
+torture-compile	gcc.c-torture/compile/930503-1.c	compile/930503-1.c	compile			
+torture-compile	gcc.c-torture/compile/930503-2.c	compile/930503-2.c	compile			
+torture-compile	gcc.c-torture/compile/930506-1.c	compile/930506-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/930506-2.c	compile/930506-2.c	compile			
+torture-compile	gcc.c-torture/compile/930510-1.c	compile/930510-1.c	compile			
+torture-compile	gcc.c-torture/compile/930513-1.c	compile/930513-1.c	compile			
+torture-compile	gcc.c-torture/compile/930513-2.c	compile/930513-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/930513-3.c	compile/930513-3.c	compile			
+torture-compile	gcc.c-torture/compile/930523-1.c	compile/930523-1.c	compile			
+torture-compile	gcc.c-torture/compile/930525-1.c	compile/930525-1.c	compile			
+torture-compile	gcc.c-torture/compile/930527-1.c	compile/930527-1.c	compile			
+torture-compile	gcc.c-torture/compile/930529-1.c	compile/930529-1.c	compile			
+torture-compile	gcc.c-torture/compile/930530-1.c	compile/930530-1.c	compile			
+torture-compile	gcc.c-torture/compile/930602-1.c	compile/930602-1.c	compile			
+torture-compile	gcc.c-torture/compile/930603-1.c	compile/930603-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/930607-1.c	compile/930607-1.c	compile			
+torture-compile	gcc.c-torture/compile/930611-1.c	compile/930611-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/930618-1.c	compile/930618-1.c	compile			
+torture-compile	gcc.c-torture/compile/930621-1.c	compile/930621-1.c	compile			
+torture-compile	gcc.c-torture/compile/930623-1.c	compile/930623-1.c	compile			
+torture-compile	gcc.c-torture/compile/930702-1.c	compile/930702-1.c	compile			
+torture-compile	gcc.c-torture/compile/930926-1.c	compile/930926-1.c	compile			
+torture-compile	gcc.c-torture/compile/930927-1.c	compile/930927-1.c	compile			
+torture-compile	gcc.c-torture/compile/931003-1.c	compile/931003-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/931004-1.c	compile/931004-1.c	compile			
+torture-compile	gcc.c-torture/compile/931013-1.c	compile/931013-1.c	compile			
+torture-compile	gcc.c-torture/compile/931013-2.c	compile/931013-2.c	compile			
+torture-compile	gcc.c-torture/compile/931013-3.c	compile/931013-3.c	compile			
+torture-compile	gcc.c-torture/compile/931018-1.c	compile/931018-1.c	compile			
+torture-compile	gcc.c-torture/compile/931031-1.c	compile/931031-1.c	compile			
+torture-compile	gcc.c-torture/compile/931102-1.c	compile/931102-1.c	compile			
+torture-compile	gcc.c-torture/compile/931102-2.c	compile/931102-2.c	compile			
+torture-compile	gcc.c-torture/compile/931203-1.c	compile/931203-1.c	compile			
+torture-compile	gcc.c-torture/compile/940611-1.c	compile/940611-1.c	compile			
+torture-compile	gcc.c-torture/compile/940712-1.c	compile/940712-1.c	compile			
+torture-compile	gcc.c-torture/compile/940718-1.c	compile/940718-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/941014-1.c	compile/941014-1.c	compile			
+torture-compile	gcc.c-torture/compile/941014-2.c	compile/941014-2.c	compile			
+torture-compile	gcc.c-torture/compile/941014-3.c	compile/941014-3.c	compile			
+torture-compile	gcc.c-torture/compile/941014-4.c	compile/941014-4.c	compile			
+torture-compile	gcc.c-torture/compile/941019-1.c	compile/941019-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/941111-1.c	compile/941111-1.c	compile			
+torture-compile	gcc.c-torture/compile/941113-1.c	compile/941113-1.c	compile			
+torture-compile	gcc.c-torture/compile/950122-1.c	compile/950122-1.c	compile			
+torture-compile	gcc.c-torture/compile/950124-1.c	compile/950124-1.c	compile			
+torture-compile	gcc.c-torture/compile/950221-1.c	compile/950221-1.c	compile			
+torture-compile	gcc.c-torture/compile/950329-1.c	compile/950329-1.c	compile			
+torture-compile	gcc.c-torture/compile/950512-1.c	compile/950512-1.c	compile			
+torture-compile	gcc.c-torture/compile/950530-1.c	compile/950530-1.c	compile			
+torture-compile	gcc.c-torture/compile/950607-1.c	compile/950607-1.c	compile			
+torture-compile	gcc.c-torture/compile/950610-1.c	compile/950610-1.c	compile			
+torture-compile	gcc.c-torture/compile/950612-1.c	compile/950612-1.c	compile			uses-printf
+torture-compile	gcc.c-torture/compile/950613-1.c	compile/950613-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/950618-1.c	compile/950618-1.c	compile			
+torture-compile	gcc.c-torture/compile/950719-1.c	compile/950719-1.c	compile			
+torture-compile	gcc.c-torture/compile/950729-1.c	compile/950729-1.c	compile			
+torture-compile	gcc.c-torture/compile/950816-1.c	compile/950816-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/950816-2.c	compile/950816-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/950816-3.c	compile/950816-3.c	compile			
+torture-compile	gcc.c-torture/compile/950910-1.c	compile/950910-1.c	compile			
+torture-compile	gcc.c-torture/compile/950919-1.c	compile/950919-1.c	compile			
+torture-compile	gcc.c-torture/compile/950921-1.c	compile/950921-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/950922-1.c	compile/950922-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/951004-1.c	compile/951004-1.c	compile			
+torture-compile	gcc.c-torture/compile/951106-1.c	compile/951106-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/951116-1.c	compile/951116-1.c	compile			
+torture-compile	gcc.c-torture/compile/951128-1.c	compile/951128-1.c	compile			
+torture-compile	gcc.c-torture/compile/951220-1.c	compile/951220-1.c	compile			
+torture-compile	gcc.c-torture/compile/951222-1.c	compile/951222-1.c	compile			uses-setjmp
+torture-compile	gcc.c-torture/compile/960106-1.c	compile/960106-1.c	compile			
+torture-compile	gcc.c-torture/compile/960130-1.c	compile/960130-1.c	compile			
+torture-compile	gcc.c-torture/compile/960201-1.c	compile/960201-1.c	compile			
+torture-compile	gcc.c-torture/compile/960218-1.c	compile/960218-1.c	compile			
+torture-compile	gcc.c-torture/compile/960220-1.c	compile/960220-1.c	compile			
+torture-compile	gcc.c-torture/compile/960221-1.c	compile/960221-1.c	compile			
+torture-compile	gcc.c-torture/compile/960319-1.c	compile/960319-1.c	compile			
+torture-compile	gcc.c-torture/compile/960514-1.c	compile/960514-1.c	compile			
+torture-compile	gcc.c-torture/compile/960704-1.c	compile/960704-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/960829-1.c	compile/960829-1.c	compile			
+torture-compile	gcc.c-torture/compile/961004-1.c	compile/961004-1.c	compile			
+torture-compile	gcc.c-torture/compile/961010-1.c	compile/961010-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/961019-1.c	compile/961019-1.c	compile			
+torture-compile	gcc.c-torture/compile/961031-1.c	compile/961031-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/961126-1.c	compile/961126-1.c	compile			
+torture-compile	gcc.c-torture/compile/961203-1.c	compile/961203-1.c	compile			
+torture-compile	gcc.c-torture/compile/970206-1.c	compile/970206-1.c	compile			
+torture-compile	gcc.c-torture/compile/970214-1.c	compile/970214-1.c	compile			
+torture-compile	gcc.c-torture/compile/980329-1.c	compile/980329-1.c	compile			
+torture-compile	gcc.c-torture/compile/980408-1.c	compile/980408-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980504-1.c	compile/980504-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980506-1.c	compile/980506-1.c	compile			
+torture-compile	gcc.c-torture/compile/980506-2.c	compile/980506-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980511-1.c	compile/980511-1.c	compile			
+torture-compile	gcc.c-torture/compile/980701-1.c	compile/980701-1.c	compile			
+torture-compile	gcc.c-torture/compile/980706-1.c	compile/980706-1.c	compile			
+torture-compile	gcc.c-torture/compile/980726-1.c	compile/980726-1.c	compile			
+torture-compile	gcc.c-torture/compile/980729-1.c	compile/980729-1.c	compile			
+torture-compile	gcc.c-torture/compile/980816-1.c	compile/980816-1.c	compile			
+torture-compile	gcc.c-torture/compile/980821-1.c	compile/980821-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980825-1.c	compile/980825-1.c	compile			
+torture-compile	gcc.c-torture/compile/981001-1.c	compile/981001-1.c	compile			
+torture-compile	gcc.c-torture/compile/981001-2.c	compile/981001-2.c	compile			
+torture-compile	gcc.c-torture/compile/981001-3.c	compile/981001-3.c	compile			
+torture-compile	gcc.c-torture/compile/981001-4.c	compile/981001-4.c	compile			
+torture-compile	gcc.c-torture/compile/981006-1.c	compile/981006-1.c	compile	compile		
+torture-compile	gcc.c-torture/compile/981007-1.c	compile/981007-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/981022-1.c	compile/981022-1.c	compile			
+torture-compile	gcc.c-torture/compile/981107-1.c	compile/981107-1.c	compile			
+torture-compile	gcc.c-torture/compile/981223-1.c	compile/981223-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/990107-1.c	compile/990107-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/990117-1.c	compile/990117-1.c	compile			
+torture-compile	gcc.c-torture/compile/990203-1.c	compile/990203-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/990517-1.c	compile/990517-1.c	compile			
+torture-compile	gcc.c-torture/compile/990519-1.c	compile/990519-1.c	compile			
+torture-compile	gcc.c-torture/compile/990523-1.c	compile/990523-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/990527-1.c	compile/990527-1.c	compile			
+torture-compile	gcc.c-torture/compile/990617-1.c	compile/990617-1.c	compile			uses-printf
+torture-compile	gcc.c-torture/compile/990625-1.c	compile/990625-1.c	compile			
+torture-compile	gcc.c-torture/compile/990625-2.c	compile/990625-2.c	compile			
+torture-compile	gcc.c-torture/compile/990801-1.c	compile/990801-1.c	compile			
+torture-compile	gcc.c-torture/compile/990801-2.c	compile/990801-2.c	compile			
+torture-compile	gcc.c-torture/compile/990829-1.c	compile/990829-1.c	compile			
+torture-compile	gcc.c-torture/compile/990913-1.c	compile/990913-1.c	compile			
+torture-compile	gcc.c-torture/compile/990928-1.c	compile/990928-1.c	compile			
+torture-compile	gcc.c-torture/compile/991008-1.c	compile/991008-1.c	compile			
+torture-compile	gcc.c-torture/compile/991026-1.c	compile/991026-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991026-2.c	compile/991026-2.c	compile			uses-printf
+torture-compile	gcc.c-torture/compile/991127-1.c	compile/991127-1.c	compile			
+torture-compile	gcc.c-torture/compile/991202-1.c	compile/991202-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991208-1.c	compile/991208-1.c	compile			
+torture-compile	gcc.c-torture/compile/991213-1.c	compile/991213-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991213-2.c	compile/991213-2.c	compile			
+torture-compile	gcc.c-torture/compile/991213-3.c	compile/991213-3.c	compile			
+torture-compile	gcc.c-torture/compile/991214-1.c	compile/991214-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991214-2.c	compile/991214-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991229-1.c	compile/991229-1.c	compile			
+torture-compile	gcc.c-torture/compile/991229-2.c	compile/991229-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991229-3.c	compile/991229-3.c	compile			
+torture-compile	gcc.c-torture/compile/calls.c	compile/calls.c	compile			
+torture-compile	gcc.c-torture/compile/cmpdi-1.c	compile/cmpdi-1.c	compile			
+torture-compile	gcc.c-torture/compile/combine-hang.c	compile/combine-hang.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/cpp-1.c	compile/cpp-1.c	compile			
+torture-compile	gcc.c-torture/compile/cpp-2.c	compile/cpp-2.c	compile			
+torture-compile	gcc.c-torture/compile/dll.c	compile/dll.c	compile			
+torture-compile	gcc.c-torture/compile/funcptr-1.c	compile/funcptr-1.c	compile			uses-printf
+torture-compile	gcc.c-torture/compile/goto-1.c	compile/goto-1.c	compile			
+torture-compile	gcc.c-torture/compile/init-1.c	compile/init-1.c	compile			
+torture-compile	gcc.c-torture/compile/init-2.c	compile/init-2.c	compile			
+torture-compile	gcc.c-torture/compile/init-3.c	compile/init-3.c	compile			
+torture-compile	gcc.c-torture/compile/labels-1.c	compile/labels-1.c	compile			
+torture-compile	gcc.c-torture/compile/labels-2.c	compile/labels-2.c	compile			
+torture-compile	gcc.c-torture/compile/labels-3.c	compile/labels-3.c	compile			
+torture-compile	gcc.c-torture/compile/packed-1.c	compile/packed-1.c	compile			
+torture-compile	gcc.c-torture/compile/structs.c	compile/structs.c	compile			
+torture-compile	gcc.c-torture/compile/widechar-1.c	compile/widechar-1.c	compile			
+torture-compile	gcc.c-torture/compile/zero-strct-1.c	compile/zero-strct-1.c	compile			
+torture-execute	gcc.c-torture/execute/20000112-1.c	execute/20000112-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000113-1.c	execute/20000113-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000121-1.c	execute/20000121-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000205-1.c	execute/20000205-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000217-1.c	execute/20000217-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000223-1.c	execute/20000223-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20000224-1.c	execute/20000224-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000225-1.c	execute/20000225-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000227-1.c	execute/20000227-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000313-1.c	execute/20000313-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000314-1.c	execute/20000314-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000314-2.c	execute/20000314-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000314-3.c	execute/20000314-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000402-1.c	execute/20000402-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000403-1.c	execute/20000403-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000412-1.c	execute/20000412-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000412-2.c	execute/20000412-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000412-3.c	execute/20000412-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000412-4.c	execute/20000412-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000412-5.c	execute/20000412-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000412-6.c	execute/20000412-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000419-1.c	execute/20000419-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000422-1.c	execute/20000422-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000503-1.c	execute/20000503-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000511-1.c	execute/20000511-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000519-1.c	execute/20000519-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000519-2.c	execute/20000519-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000523-1.c	execute/20000523-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000528-1.c	execute/20000528-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000603-1.c	execute/20000603-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20000605-1.c	execute/20000605-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20000605-2.c	execute/20000605-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000605-3.c	execute/20000605-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000622-1.c	execute/20000622-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000703-1.c	execute/20000703-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000706-1.c	execute/20000706-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000706-2.c	execute/20000706-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000706-3.c	execute/20000706-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000706-4.c	execute/20000706-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000706-5.c	execute/20000706-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000707-1.c	execute/20000707-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000715-1.c	execute/20000715-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000715-2.c	execute/20000715-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000717-1.c	execute/20000717-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000717-2.c	execute/20000717-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000717-3.c	execute/20000717-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000717-4.c	execute/20000717-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000717-5.c	execute/20000717-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000722-1.c	execute/20000722-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000726-1.c	execute/20000726-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000731-1.c	execute/20000731-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20000731-2.c	execute/20000731-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000801-1.c	execute/20000801-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000801-2.c	execute/20000801-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000801-3.c	execute/20000801-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000801-4.c	execute/20000801-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000808-1.c	execute/20000808-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000815-1.c	execute/20000815-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000818-1.c	execute/20000818-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000819-1.c	execute/20000819-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000822-1.c	execute/20000822-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000910-1.c	execute/20000910-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000910-2.c	execute/20000910-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20000914-1.c	execute/20000914-1.c	semantic-candidate			uses-malloc
+torture-execute	gcc.c-torture/execute/20000917-1.c	execute/20000917-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001009-1.c	execute/20001009-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001009-2.c	execute/20001009-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001011-1.c	execute/20001011-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001013-1.c	execute/20001013-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001017-1.c	execute/20001017-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20001017-2.c	execute/20001017-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001024-1.c	execute/20001024-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001026-1.c	execute/20001026-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001027-1.c	execute/20001027-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001031-1.c	execute/20001031-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001101.c	execute/20001101.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001108-1.c	execute/20001108-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001111-1.c	execute/20001111-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001112-1.c	execute/20001112-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001121-1.c	execute/20001121-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20001124-1.c	execute/20001124-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001130-1.c	execute/20001130-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001130-2.c	execute/20001130-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001203-1.c	execute/20001203-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001203-2.c	execute/20001203-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001221-1.c	execute/20001221-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001228-1.c	execute/20001228-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20001229-1.c	execute/20001229-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010106-1.c	execute/20010106-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010114-1.c	execute/20010114-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010116-1.c	execute/20010116-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010118-1.c	execute/20010118-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20010119-1.c	execute/20010119-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010122-1.c	execute/20010122-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010123-1.c	execute/20010123-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010124-1.c	execute/20010124-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010129-1.c	execute/20010129-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010206-1.c	execute/20010206-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010209-1.c	execute/20010209-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010221-1.c	execute/20010221-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010222-1.c	execute/20010222-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010224-1.c	execute/20010224-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010325-1.c	execute/20010325-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010329-1.c	execute/20010329-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010403-1.c	execute/20010403-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010409-1.c	execute/20010409-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010422-1.c	execute/20010422-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010518-1.c	execute/20010518-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010518-2.c	execute/20010518-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010520-1.c	execute/20010520-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010604-1.c	execute/20010604-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010605-1.c	execute/20010605-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010605-2.c	execute/20010605-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20010711-1.c	execute/20010711-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010717-1.c	execute/20010717-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010723-1.c	execute/20010723-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010724-1.c	execute/20010724-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010904-1.c	execute/20010904-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010904-2.c	execute/20010904-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010910-1.c	execute/20010910-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010915-1.c	execute/20010915-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010924-1.c	execute/20010924-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20010925-1.c	execute/20010925-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011008-3.c	execute/20011008-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011019-1.c	execute/20011019-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011024-1.c	execute/20011024-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011109-1.c	execute/20011109-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011109-2.c	execute/20011109-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011113-1.c	execute/20011113-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011114-1.c	execute/20011114-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011115-1.c	execute/20011115-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011121-1.c	execute/20011121-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011126-1.c	execute/20011126-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011126-2.c	execute/20011126-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011128-1.c	execute/20011128-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011217-1.c	execute/20011217-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20011219-1.c	execute/20011219-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20011223-1.c	execute/20011223-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020103-1.c	execute/20020103-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020107-1.c	execute/20020107-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020108-1.c	execute/20020108-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020118-1.c	execute/20020118-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020127-1.c	execute/20020127-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020129-1.c	execute/20020129-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020201-1.c	execute/20020201-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020206-1.c	execute/20020206-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020206-2.c	execute/20020206-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020213-1.c	execute/20020213-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20020215-1.c	execute/20020215-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020216-1.c	execute/20020216-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020219-1.c	execute/20020219-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020225-1.c	execute/20020225-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020225-2.c	execute/20020225-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20020226-1.c	execute/20020226-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020227-1.c	execute/20020227-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20020307-1.c	execute/20020307-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020314-1.c	execute/20020314-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20020320-1.c	execute/20020320-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020321-1.c	execute/20020321-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20020402-1.c	execute/20020402-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020402-2.c	execute/20020402-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020402-3.c	execute/20020402-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020404-1.c	execute/20020404-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020406-1.c	execute/20020406-1.c	semantic-candidate			uses-printf,uses-malloc
+torture-execute	gcc.c-torture/execute/20020411-1.c	execute/20020411-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20020412-1.c	execute/20020412-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020413-1.c	execute/20020413-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/20020613-1.c	execute/20020613-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020613-2.c	execute/20020613-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020613-3.c	execute/20020613-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020617-1.c	execute/20020617-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020813-1.c	execute/20020813-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020813-2.c	execute/20020813-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020813-3.c	execute/20020813-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020813-4.c	execute/20020813-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020814-1.c	execute/20020814-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020814-2.c	execute/20020814-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020821-1.c	execute/20020821-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020823-1.c	execute/20020823-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020826-1.c	execute/20020826-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020827-1.c	execute/20020827-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020828-1.c	execute/20020828-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020828-2.c	execute/20020828-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020828-3.c	execute/20020828-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020830-1.c	execute/20020830-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020903-1.c	execute/20020903-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20020907-1.c	execute/20020907-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20021022-1.c	execute/20021022-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20021022-2.c	execute/20021022-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20021101-1.c	execute/20021101-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20021127-1.c	execute/20021127-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20021127-2.c	execute/20021127-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20030120-1.c	execute/20030120-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/20030202-1.c	execute/20030202-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/900409-1.c	execute/900409-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920202-1.c	execute/920202-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920302-1.c	execute/920302-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920409-1.c	execute/920409-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920410-1.c	execute/920410-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920411-1.c	execute/920411-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920415-1.c	execute/920415-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920428-1.c	execute/920428-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920428-1.s	execute/920428-1.s	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920428-2.c	execute/920428-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920429-1.c	execute/920429-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-1.c	execute/920501-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-2.c	execute/920501-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-3.c	execute/920501-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-4.c	execute/920501-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-5.c	execute/920501-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-6.c	execute/920501-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-7.c	execute/920501-7.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920501-8.c	execute/920501-8.c	semantic-candidate			maybe-fp,uses-printf
+torture-execute	gcc.c-torture/execute/920501-9.c	execute/920501-9.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920506-1.c	execute/920506-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920520-1.c	execute/920520-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920603-1.c	execute/920603-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920604-1.c	execute/920604-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920612-1.c	execute/920612-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920612-2.c	execute/920612-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920618-1.c	execute/920618-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920625-1.c	execute/920625-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/920710-1.c	execute/920710-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/920711-1.c	execute/920711-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920721-1.c	execute/920721-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920721-2.c	execute/920721-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/920721-3.c	execute/920721-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920721-4.c	execute/920721-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920726-1.c	execute/920726-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920728-1.c	execute/920728-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920730-1.c	execute/920730-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920731-1.c	execute/920731-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920810-1.c	execute/920810-1.c	semantic-candidate			uses-malloc
+torture-execute	gcc.c-torture/execute/920812-1.c	execute/920812-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920829-1.c	execute/920829-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920908-1.c	execute/920908-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920908-2.c	execute/920908-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920909-1.c	execute/920909-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920922-1.c	execute/920922-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/920929-1.c	execute/920929-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921006-1.c	execute/921006-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921007-1.c	execute/921007-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921013-1.c	execute/921013-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921016-1.c	execute/921016-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921017-1.c	execute/921017-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921019-1.c	execute/921019-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921019-2.c	execute/921019-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921029-1.c	execute/921029-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921104-1.c	execute/921104-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921110-1.c	execute/921110-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921112-1.c	execute/921112-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921113-1.c	execute/921113-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921117-1.c	execute/921117-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921123-1.c	execute/921123-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921123-2.c	execute/921123-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921124-1.c	execute/921124-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921202-1.c	execute/921202-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921202-2.c	execute/921202-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921204-1.c	execute/921204-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921207-1.c	execute/921207-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921208-1.c	execute/921208-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921208-2.c	execute/921208-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/921215-1.c	execute/921215-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921218-1.c	execute/921218-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/921218-2.c	execute/921218-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930106-1.c	execute/930106-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930111-1.c	execute/930111-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930123-1.c	execute/930123-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930126-1.c	execute/930126-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930208-1.c	execute/930208-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930406-1.c	execute/930406-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930408-1.c	execute/930408-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930429-1.c	execute/930429-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930429-2.c	execute/930429-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930513-1.c	execute/930513-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930513-2.c	execute/930513-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930518-1.c	execute/930518-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930526-1.c	execute/930526-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930527-1.c	execute/930527-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930529-1.c	execute/930529-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930603-1.c	execute/930603-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930603-2.c	execute/930603-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930603-3.c	execute/930603-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930608-1.c	execute/930608-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930614-1.c	execute/930614-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930614-2.c	execute/930614-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930621-1.c	execute/930621-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930622-1.c	execute/930622-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930622-2.c	execute/930622-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930628-1.c	execute/930628-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930630-1.c	execute/930630-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930702-1.c	execute/930702-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930713-1.c	execute/930713-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930718-1.c	execute/930718-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930719-1.c	execute/930719-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930725-1.c	execute/930725-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930818-1.c	execute/930818-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/930916-1.c	execute/930916-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930921-1.c	execute/930921-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930929-1.c	execute/930929-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930930-1.c	execute/930930-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/930930-2.c	execute/930930-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/931002-1.c	execute/931002-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-1.c	execute/931004-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-10.c	execute/931004-10.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-11.c	execute/931004-11.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-12.c	execute/931004-12.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-13.c	execute/931004-13.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-14.c	execute/931004-14.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-2.c	execute/931004-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-3.c	execute/931004-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-4.c	execute/931004-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-5.c	execute/931004-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-6.c	execute/931004-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-7.c	execute/931004-7.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-8.c	execute/931004-8.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931004-9.c	execute/931004-9.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931005-1.c	execute/931005-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931009-1.c	execute/931009-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931012-1.c	execute/931012-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931017-1.c	execute/931017-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931018-1.c	execute/931018-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931031-1.c	execute/931031-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931102-1.c	execute/931102-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931102-2.c	execute/931102-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931110-1.c	execute/931110-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931110-2.c	execute/931110-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931208-1.c	execute/931208-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/931228-1.c	execute/931228-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/940115-1.c	execute/940115-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/940122-1.c	execute/940122-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/941014-1.c	execute/941014-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/941014-2.c	execute/941014-2.c	semantic-candidate			uses-printf,uses-malloc
+torture-execute	gcc.c-torture/execute/941015-1.c	execute/941015-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/941021-1.c	execute/941021-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/941025-1.c	execute/941025-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/941031-1.c	execute/941031-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/941101-1.c	execute/941101-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/941110-1.c	execute/941110-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/941202-1.c	execute/941202-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950221-1.c	execute/950221-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950322-1.c	execute/950322-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950426-1.c	execute/950426-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950426-2.c	execute/950426-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950503-1.c	execute/950503-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950511-1.c	execute/950511-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950512-1.c	execute/950512-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950605-1.c	execute/950605-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950607-1.c	execute/950607-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950607-2.c	execute/950607-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950612-1.c	execute/950612-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950621-1.c	execute/950621-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950628-1.c	execute/950628-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950704-1.c	execute/950704-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950706-1.c	execute/950706-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950710-1.c	execute/950710-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950714-1.c	execute/950714-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950809-1.c	execute/950809-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950906-1.c	execute/950906-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950915-1.c	execute/950915-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/950929-1.c	execute/950929-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/951003-1.c	execute/951003-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/951115-1.c	execute/951115-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/951204-1.c	execute/951204-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960116-1.c	execute/960116-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960117-1.c	execute/960117-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960209-1.c	execute/960209-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960215-1.c	execute/960215-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/960218-1.c	execute/960218-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960219-1.c	execute/960219-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960301-1.c	execute/960301-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960302-1.c	execute/960302-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960311-1.c	execute/960311-1.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/960311-2.c	execute/960311-2.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/960311-3.c	execute/960311-3.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/960312-1.c	execute/960312-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960317-1.c	execute/960317-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960321-1.c	execute/960321-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960326-1.c	execute/960326-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960327-1.c	execute/960327-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960402-1.c	execute/960402-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960405-1.c	execute/960405-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/960416-1.c	execute/960416-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960419-1.c	execute/960419-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960419-2.c	execute/960419-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960512-1.c	execute/960512-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/960513-1.c	execute/960513-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/960521-1.c	execute/960521-1.c	semantic-candidate			uses-malloc
+torture-execute	gcc.c-torture/execute/960608-1.c	execute/960608-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960801-1.c	execute/960801-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960802-1.c	execute/960802-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960830-1.c	execute/960830-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/960909-1.c	execute/960909-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961004-1.c	execute/961004-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961017-1.c	execute/961017-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961017-2.c	execute/961017-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961026-1.c	execute/961026-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961112-1.c	execute/961112-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961122-1.c	execute/961122-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961122-2.c	execute/961122-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961125-1.c	execute/961125-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961206-1.c	execute/961206-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961213-1.c	execute/961213-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/961223-1.c	execute/961223-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/970214-1.c	execute/970214-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/970214-2.c	execute/970214-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/970217-1.c	execute/970217-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/970923-1.c	execute/970923-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980205.c	execute/980205.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/980223.c	execute/980223.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980424-1.c	execute/980424-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980505-1.c	execute/980505-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980505-2.c	execute/980505-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980506-1.c	execute/980506-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980506-2.c	execute/980506-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980506-3.c	execute/980506-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980526-1.c	execute/980526-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980526-2.c	execute/980526-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980526-3.c	execute/980526-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980602-1.c	execute/980602-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980602-2.c	execute/980602-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980604-1.c	execute/980604-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/980605-1.c	execute/980605-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/980608-1.c	execute/980608-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980612-1.c	execute/980612-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980617-1.c	execute/980617-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980618-1.c	execute/980618-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980701-1.c	execute/980701-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980707-1.c	execute/980707-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980709-1.c	execute/980709-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/980716-1.c	execute/980716-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/980929-1.c	execute/980929-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/981001-1.c	execute/981001-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/981019-1.c	execute/981019-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/981130-1.c	execute/981130-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/981206-1.c	execute/981206-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990106-1.c	execute/990106-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990106-2.c	execute/990106-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990117-1.c	execute/990117-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/990127-1.c	execute/990127-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990127-2.c	execute/990127-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/990128-1.c	execute/990128-1.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/990130-1.c	execute/990130-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990208-1.c	execute/990208-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990211-1.c	execute/990211-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990222-1.c	execute/990222-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990324-1.c	execute/990324-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990326-1.c	execute/990326-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990404-1.c	execute/990404-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990413-2.c	execute/990413-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/990513-1.c	execute/990513-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990524-1.c	execute/990524-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990525-1.c	execute/990525-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990525-2.c	execute/990525-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990527-1.c	execute/990527-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990531-1.c	execute/990531-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990604-1.c	execute/990604-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990628-1.c	execute/990628-1.c	semantic-candidate			uses-malloc
+torture-execute	gcc.c-torture/execute/990804-1.c	execute/990804-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990811-1.c	execute/990811-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990826-0.c	execute/990826-0.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/990827-1.c	execute/990827-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/990829-1.c	execute/990829-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/990923-1.c	execute/990923-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991014-1.c	execute/991014-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991016-1.c	execute/991016-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991019-1.c	execute/991019-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/991023-1.c	execute/991023-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991030-1.c	execute/991030-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/991112-1.c	execute/991112-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991118-1.c	execute/991118-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991201-1.c	execute/991201-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991202-1.c	execute/991202-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991202-2.c	execute/991202-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991202-3.c	execute/991202-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991216-1.c	execute/991216-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991216-2.c	execute/991216-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991216-3.c	execute/991216-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991216-4.c	execute/991216-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991221-1.c	execute/991221-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991227-1.c	execute/991227-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/991228-1.c	execute/991228-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/align-1.c	execute/align-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/align-2.c	execute/align-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/anon-1.c	execute/anon-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/arith-1.c	execute/arith-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/arith-ll.c	execute/arith-ll.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/arith-rand.c	execute/arith-rand.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/ashldi-1.c	execute/ashldi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/ashrdi-1.c	execute/ashrdi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bcp-1.c	execute/bcp-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bf-layout-1.c	execute/bf-layout-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bf-pack-1.c	execute/bf-pack-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bf-sign-1.c	execute/bf-sign-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bf-sign-2.c	execute/bf-sign-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bf64-1.c	execute/bf64-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bitfld-1.c	execute/bitfld-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/bitfld-2.c	execute/bitfld-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/boot.c	execute/boot.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/built-in-setjmp.c	execute/built-in-setjmp.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-abs-1.c	execute/builtin-abs-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-abs-2.c	execute/builtin-abs-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-complex-1.c	execute/builtin-complex-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/builtin-noret-1.c	execute/builtin-noret-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-prefetch-1.c	execute/builtin-prefetch-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-prefetch-2.c	execute/builtin-prefetch-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-prefetch-3.c	execute/builtin-prefetch-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-prefetch-4.c	execute/builtin-prefetch-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-prefetch-5.c	execute/builtin-prefetch-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-prefetch-6.c	execute/builtin-prefetch-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/builtin-types-compatible-p.c	execute/builtin-types-compatible-p.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/cbrt.c	execute/cbrt.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/cmpdi-1.c	execute/cmpdi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/cmpsi-1.c	execute/cmpsi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/comp-goto-1.c	execute/comp-goto-1.c	semantic-candidate			maybe-fp,uses-malloc
+torture-execute	gcc.c-torture/execute/comp-goto-2.c	execute/comp-goto-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/complex-1.c	execute/complex-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/complex-2.c	execute/complex-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/complex-3.c	execute/complex-3.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/complex-4.c	execute/complex-4.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/complex-5.c	execute/complex-5.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/compndlit-1.c	execute/compndlit-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/conversion.c	execute/conversion.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/cvt-1.c	execute/cvt-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/dbra-1.c	execute/dbra-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/divconst-1.c	execute/divconst-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/divconst-2.c	execute/divconst-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/divconst-3.c	execute/divconst-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/divmod-1.c	execute/divmod-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/eeprof-1.c	execute/eeprof-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/enum-1.c	execute/enum-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/enum-2.c	execute/enum-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/func-ptr-1.c	execute/func-ptr-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/gofast.c	execute/gofast.c	semantic-candidate			maybe-fp,uses-fprintf
+torture-execute	gcc.c-torture/execute/index-1.c	execute/index-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/inst-check.c	execute/inst-check.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/int-compare.c	execute/int-compare.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/longlong.c	execute/longlong.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-1.c	execute/loop-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-10.c	execute/loop-10.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-11.c	execute/loop-11.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-12.c	execute/loop-12.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-2.c	execute/loop-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-2b.c	execute/loop-2b.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-2c.c	execute/loop-2c.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-2d.c	execute/loop-2d.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-2e.c	execute/loop-2e.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-2f.c	execute/loop-2f.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-2g.c	execute/loop-2g.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-3.c	execute/loop-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-3b.c	execute/loop-3b.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-3c.c	execute/loop-3c.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-4.c	execute/loop-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-4b.c	execute/loop-4b.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-5.c	execute/loop-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-6.c	execute/loop-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-7.c	execute/loop-7.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/loop-8.c	execute/loop-8.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/loop-9.c	execute/loop-9.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/lshrdi-1.c	execute/lshrdi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/memcpy-1.c	execute/memcpy-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/memcpy-2.c	execute/memcpy-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/memcpy-bi.c	execute/memcpy-bi.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/memset-1.c	execute/memset-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/mod-1.c	execute/mod-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/nest-stdar-1.c	execute/nest-stdar-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/nestfunc-1.c	execute/nestfunc-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/nestfunc-2.c	execute/nestfunc-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/nestfunc-3.c	execute/nestfunc-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/nestfunc-4.c	execute/nestfunc-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/old.tort.c	execute/old.tort.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/packed-1.c	execute/packed-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/packed-2.c	execute/packed-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pending-4.c	execute/pending-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/ptr-arith-1.c	execute/ptr-arith-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/ptr-arith-2.c	execute/ptr-arith-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/regstack-1.c	execute/regstack-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/scope-1.c	execute/scope-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/scope-2.c	execute/scope-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/stdio-opt-1.c	execute/stdio-opt-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/stdio-opt-2.c	execute/stdio-opt-2.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/stdio-opt-3.c	execute/stdio-opt-3.c	semantic-candidate			uses-fprintf
+torture-execute	gcc.c-torture/execute/strcmp-1.c	execute/strcmp-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/strct-pack-1.c	execute/strct-pack-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/strct-pack-2.c	execute/strct-pack-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/strct-pack-3.c	execute/strct-pack-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/strct-pack-4.c	execute/strct-pack-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/strct-stdarg-1.c	execute/strct-stdarg-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/strct-varg-1.c	execute/strct-varg-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-1.c	execute/string-opt-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-10.c	execute/string-opt-10.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-11.c	execute/string-opt-11.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-12.c	execute/string-opt-12.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-13.c	execute/string-opt-13.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-14.c	execute/string-opt-14.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-15.c	execute/string-opt-15.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-16.c	execute/string-opt-16.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-2.c	execute/string-opt-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-3.c	execute/string-opt-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-4.c	execute/string-opt-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-5.c	execute/string-opt-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-6.c	execute/string-opt-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-7.c	execute/string-opt-7.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-8.c	execute/string-opt-8.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/string-opt-9.c	execute/string-opt-9.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/strlen-1.c	execute/strlen-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/strncmp-1.c	execute/strncmp-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/struct-ini-1.c	execute/struct-ini-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/struct-ini-2.c	execute/struct-ini-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/struct-ini-3.c	execute/struct-ini-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/struct-ini-4.c	execute/struct-ini-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/struct-ret-1.c	execute/struct-ret-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/struct-ret-2.c	execute/struct-ret-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/tmp.c	execute/tmp.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/tstdi-1.c	execute/tstdi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/unroll-1.c	execute/unroll-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-1.c	execute/va-arg-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-10.c	execute/va-arg-10.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-11.c	execute/va-arg-11.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-12.c	execute/va-arg-12.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-13.c	execute/va-arg-13.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-14.c	execute/va-arg-14.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-15.c	execute/va-arg-15.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-16.c	execute/va-arg-16.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-17.c	execute/va-arg-17.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-18.c	execute/va-arg-18.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-19.c	execute/va-arg-19.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-2.c	execute/va-arg-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-20.c	execute/va-arg-20.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-21.c	execute/va-arg-21.c	semantic-candidate			uses-malloc
+torture-execute	gcc.c-torture/execute/va-arg-22.c	execute/va-arg-22.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-3.c	execute/va-arg-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-4.c	execute/va-arg-4.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/va-arg-5.c	execute/va-arg-5.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-6.c	execute/va-arg-6.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-7.c	execute/va-arg-7.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/va-arg-8.c	execute/va-arg-8.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/va-arg-9.c	execute/va-arg-9.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/wchar_t-1.c	execute/wchar_t-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/widechar-1.c	execute/widechar-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/widechar-2.c	execute/widechar-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/zerolen-1.c	execute/zerolen-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/zerolen-2.c	execute/zerolen-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000412-1.c	execute/pdp10/20000412-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000412-3.c	execute/pdp10/20000412-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000528-1.c	execute/pdp10/20000528-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000707-1.c	execute/pdp10/20000707-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000717-1.c	execute/pdp10/20000717-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000717-4.c	execute/pdp10/20000717-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000717-5.c	execute/pdp10/20000717-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20000819-1.c	execute/pdp10/20000819-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20001130-2.c	execute/pdp10/20001130-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20010106-1.c	execute/pdp10/20010106-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20010118-1.c	execute/pdp10/20010118-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/20010122-1.c	execute/pdp10/20010122-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20010123-1.c	execute/pdp10/20010123-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20010124-1.c	execute/pdp10/20010124-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20010206-1.c	execute/pdp10/20010206-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20010224-1.c	execute/pdp10/20010224-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20010518-2.c	execute/pdp10/20010518-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20011109-1.c	execute/pdp10/20011109-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20011113-1.c	execute/pdp10/20011113-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20011217-1.c	execute/pdp10/20011217-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/20011219-1.c	execute/pdp10/20011219-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020206-1.c	execute/pdp10/20020206-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020206-2.c	execute/pdp10/20020206-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020314-1.c	execute/pdp10/20020314-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/20020404-1.c	execute/pdp10/20020404-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020406-1.c	execute/pdp10/20020406-1.c	semantic-candidate			uses-printf,uses-malloc
+torture-execute	gcc.c-torture/execute/pdp10/20020507-1.c	execute/pdp10/20020507-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020507-2.c	execute/pdp10/20020507-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020507-3.c	execute/pdp10/20020507-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020527-1.c	execute/pdp10/20020527-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/20020617-1.c	execute/pdp10/20020617-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/920302-1.c	execute/pdp10/920302-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/920415-1.c	execute/pdp10/920415-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/920501-1.c	execute/pdp10/920501-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/920501-5.c	execute/pdp10/920501-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/920625-1.c	execute/pdp10/920625-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/920721-4.c	execute/pdp10/920721-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/920909-1.c	execute/pdp10/920909-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/930106-1.c	execute/pdp10/930106-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/930111-1.c	execute/pdp10/930111-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/930123-1.c	execute/pdp10/930123-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/930513-1.c	execute/pdp10/930513-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/930930-1.c	execute/pdp10/930930-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/931004-5.c	execute/pdp10/931004-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/931004-6.c	execute/pdp10/931004-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/931017-1.c	execute/pdp10/931017-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/931102-2.c	execute/pdp10/931102-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/960117-1.c	execute/pdp10/960117-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/960513-1.c	execute/pdp10/960513-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/961223-1.c	execute/pdp10/961223-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/980526-2.c	execute/pdp10/980526-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/981206-1.c	execute/pdp10/981206-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/990106-1.c	execute/pdp10/990106-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/990106-2.c	execute/pdp10/990106-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/990117-1.c	execute/pdp10/990117-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/990208-1.c	execute/pdp10/990208-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/990326-1.c	execute/pdp10/990326-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/990531-1.c	execute/pdp10/990531-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/990811-1.c	execute/pdp10/990811-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/991014-1.c	execute/pdp10/991014-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/991112-1.c	execute/pdp10/991112-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/arith-ll.c	execute/pdp10/arith-ll.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/pdp10/arith-rand.c	execute/pdp10/arith-rand.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/ashldi-1.c	execute/pdp10/ashldi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/ashrdi-1.c	execute/pdp10/ashrdi-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/bcp-1.c	execute/pdp10/bcp-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/bf-layout-1.c	execute/pdp10/bf-layout-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/bf-pack-1.c	execute/pdp10/bf-pack-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/bf-sign-1.c	execute/pdp10/bf-sign-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/bf-sign-2.c	execute/pdp10/bf-sign-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/built-in-setjmp.c	execute/pdp10/built-in-setjmp.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/builtin-complex-1.c	execute/pdp10/builtin-complex-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/comp-goto-1.c	execute/pdp10/comp-goto-1.c	semantic-candidate			maybe-fp,uses-malloc
+torture-execute	gcc.c-torture/execute/pdp10/complex-1.c	execute/pdp10/complex-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/complex-2.c	execute/pdp10/complex-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/conversion.c	execute/pdp10/conversion.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/gofast.c	execute/pdp10/gofast.c	semantic-candidate			maybe-fp,uses-fprintf
+torture-execute	gcc.c-torture/execute/pdp10/index-1.c	execute/pdp10/index-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/ll-1.c	execute/pdp10/ll-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/loop-2b.c	execute/pdp10/loop-2b.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/packed-1.c	execute/pdp10/packed-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/packed-2.c	execute/pdp10/packed-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/ptr-arith-1.c	execute/pdp10/ptr-arith-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-1.c	execute/pdp10/strct-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-2.c	execute/pdp10/strct-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-3.c	execute/pdp10/strct-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-4.c	execute/pdp10/strct-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-pack-1.c	execute/pdp10/strct-pack-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/strct-pack-2.c	execute/pdp10/strct-pack-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-pack-3.c	execute/pdp10/strct-pack-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-pack-4.c	execute/pdp10/strct-pack-4.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-stdarg-1.c	execute/pdp10/strct-stdarg-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-varg-1.c	execute/pdp10/strct-varg-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/strct-varg-1b.c	execute/pdp10/strct-varg-1b.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/pdp10/string-opt-15.c	execute/pdp10/string-opt-15.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/string-opt-3.c	execute/pdp10/string-opt-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/string-opt-5.c	execute/pdp10/string-opt-5.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/string-opt-6.c	execute/pdp10/string-opt-6.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/string-opt-7.c	execute/pdp10/string-opt-7.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/string-opt-8.c	execute/pdp10/string-opt-8.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/tmp.c	execute/pdp10/tmp.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-1.c	execute/pdp10/va-arg-1.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-10.c	execute/pdp10/va-arg-10.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-19.c	execute/pdp10/va-arg-19.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-2.c	execute/pdp10/va-arg-2.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-22.c	execute/pdp10/va-arg-22.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-3.c	execute/pdp10/va-arg-3.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-4.c	execute/pdp10/va-arg-4.c	semantic-candidate			uses-printf
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-5.c	execute/pdp10/va-arg-5.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-6.c	execute/pdp10/va-arg-6.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-7.c	execute/pdp10/va-arg-7.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-8.c	execute/pdp10/va-arg-8.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/pdp10/va-arg-9.c	execute/pdp10/va-arg-9.c	semantic-candidate			
+torture-execute	gcc.c-torture/execute/ieee/20000320-1.c	execute/ieee/20000320-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/20001122-1.c	execute/ieee/20001122-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/20010114-2.c	execute/ieee/20010114-2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/20010226-1.c	execute/ieee/20010226-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/20011123-1.c	execute/ieee/20011123-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/920518-1.c	execute/ieee/920518-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/920810-1.c	execute/ieee/920810-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/930529-1.c	execute/ieee/930529-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/980619-1.c	execute/ieee/980619-1.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/fp-cmp-1.c	execute/ieee/fp-cmp-1.c	semantic-candidate			maybe-fp,uses-signal
+torture-execute	gcc.c-torture/execute/ieee/fp-cmp-2.c	execute/ieee/fp-cmp-2.c	semantic-candidate			maybe-fp,uses-signal
+torture-execute	gcc.c-torture/execute/ieee/fp-cmp-3.c	execute/ieee/fp-cmp-3.c	semantic-candidate			maybe-fp,uses-signal
+torture-execute	gcc.c-torture/execute/ieee/fp-cmp-4.c	execute/ieee/fp-cmp-4.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/fp-cmp-5.c	execute/ieee/fp-cmp-5.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/hugeval.c	execute/ieee/hugeval.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/minuszero.c	execute/ieee/minuszero.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/mzero2.c	execute/ieee/mzero2.c	semantic-candidate			maybe-fp
+torture-execute	gcc.c-torture/execute/ieee/rbug.c	execute/ieee/rbug.c	semantic-candidate			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/386.c	unsorted/386.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/86.c	unsorted/86.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG1.c	unsorted/BUG1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG11.c	unsorted/BUG11.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/BUG12.c	unsorted/BUG12.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG13.c	unsorted/BUG13.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG16.c	unsorted/BUG16.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG17.c	unsorted/BUG17.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/BUG18.c	unsorted/BUG18.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/BUG2.c	unsorted/BUG2.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG21.c	unsorted/BUG21.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG22.c	unsorted/BUG22.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/BUG23.c	unsorted/BUG23.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG24.c	unsorted/BUG24.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG25.c	unsorted/BUG25.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG3.c	unsorted/BUG3.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG4.c	unsorted/BUG4.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/BUG5.c	unsorted/BUG5.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/BUG6.c	unsorted/BUG6.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/DFcmp.c	unsorted/DFcmp.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/HIcmp.c	unsorted/HIcmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/HIset.c	unsorted/HIset.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/PYRBUG.c	unsorted/PYRBUG.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/QIcmp.c	unsorted/QIcmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/QIset.c	unsorted/QIset.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/SFset.c	unsorted/SFset.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/SIcmp.c	unsorted/SIcmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/SIset.c	unsorted/SIset.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/UHIcmp.c	unsorted/UHIcmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/UQIcmp.c	unsorted/UQIcmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/USIcmp.c	unsorted/USIcmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/a.c	unsorted/a.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/a1.c	unsorted/a1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/a3.c	unsorted/a3.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/aa.c	unsorted/aa.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/aaa.c	unsorted/aaa.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/abs.c	unsorted/abs.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/ac.c	unsorted/ac.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/acc.c	unsorted/acc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/add.c	unsorted/add.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/add386.c	unsorted/add386.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/addcc.c	unsorted/addcc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/andm.c	unsorted/andm.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/andmem.c	unsorted/andmem.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/andn.c	unsorted/andn.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/andok.c	unsorted/andok.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/andsi.c	unsorted/andsi.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/andsparc.c	unsorted/andsparc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/aos.c	unsorted/aos.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/arr.c	unsorted/arr.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/as.c	unsorted/as.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/ase.c	unsorted/ase.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/b.c	unsorted/b.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/b1.c	unsorted/b1.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/b2.c	unsorted/b2.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/b3.c	unsorted/b3.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/b88.c	unsorted/b88.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/bad.c	unsorted/bad.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/band.c	unsorted/band.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bb0.c	unsorted/bb0.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bb1.c	unsorted/bb1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bbb.c	unsorted/bbb.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bc.c	unsorted/bc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bcopy.c	unsorted/bcopy.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bf.c	unsorted/bf.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/bfins.c	unsorted/bfins.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bfx.c	unsorted/bfx.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/bge.c	unsorted/bge.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/bit.c	unsorted/bit.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bitf.c	unsorted/bitf.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bitw.c	unsorted/bitw.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/blk.c	unsorted/blk.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/bt.c	unsorted/bt.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bt386.c	unsorted/bt386.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/bug.c	unsorted/bug.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bugc.c	unsorted/bugc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/buns.c	unsorted/buns.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/bx.c	unsorted/bx.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/c.c	unsorted/c.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/c1.c	unsorted/c1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/c2.c	unsorted/c2.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/call.c	unsorted/call.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/call386.c	unsorted/call386.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/callind.c	unsorted/callind.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/cc.c	unsorted/cc.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/charmtst.c	unsorted/charmtst.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/cmb.c	unsorted/cmb.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/cmp.c	unsorted/cmp.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/cmphi.c	unsorted/cmphi.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/cmpsi386.c	unsorted/cmpsi386.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/cmul.c	unsorted/cmul.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/cn1.c	unsorted/cn1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/comb.c	unsorted/comb.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/consec.c	unsorted/consec.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/const.c	unsorted/const.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/conv.c	unsorted/conv.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/conv_tst.c	unsorted/conv_tst.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/cp.c	unsorted/cp.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/csebug.c	unsorted/csebug.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/cvt.c	unsorted/cvt.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/d.c	unsorted/d.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/dbl_parm.c	unsorted/dbl_parm.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/dblbug.c	unsorted/dblbug.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/ddd.c	unsorted/ddd.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/dead.c	unsorted/dead.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/delay.c	unsorted/delay.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/di.c	unsorted/di.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/dic.c	unsorted/dic.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/dilayout.c	unsorted/dilayout.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/dimove.c	unsorted/dimove.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/dimul.c	unsorted/dimul.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/div.c	unsorted/div.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/divdf.c	unsorted/divdf.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/dm.c	unsorted/dm.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/dshift.c	unsorted/dshift.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/e.c	unsorted/e.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/ex.c	unsorted/ex.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/ext.c	unsorted/ext.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/f1.c	unsorted/f1.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/f2.c	unsorted/f2.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/fdmul.c	unsorted/fdmul.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/flo.c	unsorted/flo.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/float.c	unsorted/float.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/flt_const.c	unsorted/flt_const.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/fnul.c	unsorted/fnul.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/foo.c	unsorted/foo.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/forgetcc.c	unsorted/forgetcc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/fq.c	unsorted/fq.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/g.c	unsorted/g.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/gen_tst.c	unsorted/gen_tst.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/glob.c	unsorted/glob.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/gronk.c	unsorted/gronk.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/hi.c	unsorted/hi.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/hibug.c	unsorted/hibug.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/i++.c	unsorted/i++.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/i.c	unsorted/i.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/ic.c	unsorted/ic.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/icmp.c	unsorted/icmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/ifreg.c	unsorted/ifreg.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/imm.c	unsorted/imm.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/isinf.c	unsorted/isinf.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/jmp.c	unsorted/jmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/jumptab.c	unsorted/jumptab.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/l.c	unsorted/l.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/layout.c	unsorted/layout.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/lbug.c	unsorted/lbug.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/ll1.c	unsorted/ll1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/llbug.c	unsorted/llbug.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/lll.c	unsorted/lll.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/load8.c	unsorted/load8.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/loadhicc.c	unsorted/loadhicc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/log2.c	unsorted/log2.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/logic.c	unsorted/logic.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/loop-1.c	unsorted/loop-1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/loop386.c	unsorted/loop386.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/lop.c	unsorted/lop.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/m1.c	unsorted/m1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/m2.c	unsorted/m2.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/m5.c	unsorted/m5.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/m68.c	unsorted/m68.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mbyte.c	unsorted/mbyte.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mchar.c	unsorted/mchar.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mcmp.c	unsorted/mcmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mdouble.c	unsorted/mdouble.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/memtst.c	unsorted/memtst.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/miscomp.c	unsorted/miscomp.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/mm.c	unsorted/mm.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mod.c	unsorted/mod.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/modcc.c	unsorted/modcc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/move.c	unsorted/move.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/move_qhi.c	unsorted/move_qhi.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mregtst.c	unsorted/mregtst.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/msp.c	unsorted/msp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mtst.c	unsorted/mtst.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mu.c	unsorted/mu.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mul.c	unsorted/mul.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mword.c	unsorted/mword.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/mword1.c	unsorted/mword1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/n.c	unsorted/n.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/n1.c	unsorted/n1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/nand.c	unsorted/nand.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/neg.c	unsorted/neg.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/o.c	unsorted/o.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/omit.c	unsorted/omit.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/opout.c	unsorted/opout.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/opt.c	unsorted/opt.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/or.c	unsorted/or.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/or386.c	unsorted/or386.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/p.c	unsorted/p.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/parms.c	unsorted/parms.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/pass.c	unsorted/pass.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/pmt.c	unsorted/pmt.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/poor.c	unsorted/poor.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/pp.c	unsorted/pp.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/pret-arg.c	unsorted/pret-arg.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/pyr.c	unsorted/pyr.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/pyr2.c	unsorted/pyr2.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/q.c	unsorted/q.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/r.c	unsorted/r.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/r1.c	unsorted/r1.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/rel.c	unsorted/rel.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/rmsc.c	unsorted/rmsc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/round.c	unsorted/round.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/run.c	unsorted/run.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/s.c	unsorted/s.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/sar.c	unsorted/sar.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/sc.c	unsorted/sc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/scal.c	unsorted/scal.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/scc.c	unsorted/scc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/scond.c	unsorted/scond.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/selfrec.c	unsorted/selfrec.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/seq.c	unsorted/seq.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/set386.c	unsorted/set386.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/set88.c	unsorted/set88.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/sh.c	unsorted/sh.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/shand.c	unsorted/shand.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/shft.c	unsorted/shft.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/shift.c	unsorted/shift.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/shloop.c	unsorted/shloop.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/shm.c	unsorted/shm.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/signext.c	unsorted/signext.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/signext2.c	unsorted/signext2.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/sim.c	unsorted/sim.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/simple.c	unsorted/simple.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/sne.c	unsorted/sne.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/sound.c	unsorted/sound.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/sparcbug.c	unsorted/sparcbug.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/speed.c	unsorted/speed.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/stor.c	unsorted/stor.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/store0.c	unsorted/store0.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/storecc.c	unsorted/storecc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/str.c	unsorted/str.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/stru.c	unsorted/stru.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/structret.c	unsorted/structret.c	needs-review			maybe-fp,uses-printf
+torture-unsorted	gcc.c-torture/unsorted/stuct.c	unsorted/stuct.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/sub32.c	unsorted/sub32.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/subcc.c	unsorted/subcc.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/subcse.c	unsorted/subcse.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/sym.c	unsorted/sym.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/symconst.c	unsorted/symconst.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/t.c	unsorted/t.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/test-flow.c	unsorted/test-flow.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/test-loop.c	unsorted/test-loop.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/test.c	unsorted/test.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/time.c	unsorted/time.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/tmp.c	unsorted/tmp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/trivial.c	unsorted/trivial.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/trunc.c	unsorted/trunc.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/u.c	unsorted/u.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/udconvert.c	unsorted/udconvert.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/udivmod4.c	unsorted/udivmod4.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/uns.c	unsorted/uns.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/uns_tst.c	unsorted/uns_tst.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/uuarg.c	unsorted/uuarg.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/v.c	unsorted/v.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/w.c	unsorted/w.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/ww.c	unsorted/ww.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/x.c	unsorted/x.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xb.c	unsorted/xb.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/xbg.c	unsorted/xbg.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xc.c	unsorted/xc.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xcsebug.c	unsorted/xcsebug.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xdi.c	unsorted/xdi.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xfoo.c	unsorted/xfoo.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xi.c	unsorted/xi.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xlop.c	unsorted/xlop.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xmtst.c	unsorted/xmtst.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xneg.c	unsorted/xneg.c	needs-review			maybe-fp
+torture-unsorted	gcc.c-torture/unsorted/xopt.c	unsorted/xopt.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xor.c	unsorted/xor.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xorn.c	unsorted/xorn.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/xp.c	unsorted/xp.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xpp.c	unsorted/xpp.c	needs-review			uses-printf
+torture-unsorted	gcc.c-torture/unsorted/xs.c	unsorted/xs.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xsh.c	unsorted/xsh.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xz.c	unsorted/xz.c	needs-review			
+torture-unsorted	gcc.c-torture/unsorted/xzz.c	unsorted/xzz.c	needs-review			

@@ -1,0 +1,10 @@
+        .ENTRY START
+        .TEXT
+START:  MOVEI   1,MESSAGE
+        JRST    DONE
+MESSAGE: SIXBIT /HELLO /
+DONE:   HALT
+        .DATA
+VALUE:  WORD    0,,MESSAGE
+        .BSS
+SPACE:  BLOCK   3

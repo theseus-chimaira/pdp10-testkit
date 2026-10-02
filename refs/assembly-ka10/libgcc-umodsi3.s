@@ -1,0 +1,374 @@
+	.data
+	.align	2
+gum_a:
+	.long	68719476735
+	.align	2
+gum_b:
+	.long	37
+	.align	2
+vgum_a:
+	.long	68719466860
+	.align	2
+vgum_b:
+	.long	11
+	.align	2
+gum_pair:
+	.long	68719464391
+	.long	19
+	.align	2
+gum_slot:
+	.long	0
+	.long	5
+
+nonzero_usint:
+	movei 4,3
+	jumpe 1,%L1
+	move 4,1
+%L1:
+	move 1,4
+	popj 17,
+
+umodsi_var:
+	push 17,10
+	move 10,1
+	move 1,2
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	pop 17,10
+	popj 17,
+
+umodsi_mem:
+	push 17,10
+	move 10,1
+	move 1,(2)
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,(10)
+	pushj 17,__umodsi3
+	pop 17,10
+	popj 17,
+
+umodsi_global:
+	move 1,gum_b
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,gum_a
+	pushj 17,__umodsi3
+	popj 17,
+
+umodsi_volatile:
+	push 17,10
+	move 10,vgum_a
+	move 1,vgum_b
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	pop 17,10
+	popj 17,
+
+umodsi_const_3:
+	move 4,[-252525252525]
+	mul 4,1
+	ashc 4,-44
+	move 3,1
+	ash 3,-43
+	and 3,[-252525252525]
+	add 5,3
+	move 4,1
+	add 4,5
+	lsh 4,-1
+	move 3,4
+	lsh 3,1
+	add 3,4
+	sub 1,3
+	popj 17,
+
+umodsi_const_5:
+	move 4,[-146314631463]
+	mul 4,1
+	ashc 4,-44
+	move 3,1
+	ash 3,-43
+	and 3,[-146314631463]
+	add 5,3
+	move 4,1
+	add 4,5
+	lsh 4,-2
+	move 3,4
+	lsh 3,2
+	add 3,4
+	sub 1,3
+	popj 17,
+
+umodsi_const_37:
+	move 4,[-105140672637]
+	mul 4,1
+	ashc 4,-44
+	move 3,1
+	ash 3,-43
+	and 3,[-105140672637]
+	add 5,3
+	move 4,1
+	add 4,5
+	lsh 4,-5
+	imuli 4,45
+	sub 1,4
+	popj 17,
+
+umodsi_high_num:
+	push 17,10
+	move 10,1
+	tlo 10,400000
+	move 1,2
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	pop 17,10
+	popj 17,
+
+umodsi_high_den:
+	push 17,10
+	move 10,1
+	tlo 2,200000
+	move 1,2
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	pop 17,10
+	popj 17,
+
+umodsi_max_num:
+	pushj 17,nonzero_usint
+	move 2,1
+	seto 1,
+	pushj 17,__umodsi3
+	popj 17,
+
+umodsi_store:
+	add 17,[2,,2]
+	movem 10,-1(17)
+	movem 11,(17)
+	move 11,1
+	move 10,2
+	move 1,3
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	movem 1,(11)
+	move 10,-1(17)
+	move 11,(17)
+	add 17,[-2,,-2]
+	popj 17,
+
+umodsi_update:
+	push 17,10
+	move 10,1
+	move 1,2
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,(10)
+	pushj 17,__umodsi3
+	movem 1,(10)
+	pop 17,10
+	popj 17,
+
+umodsi_struct:
+	push 17,10
+	move 10,1
+	move 1,1(1)
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,(10)
+	pushj 17,__umodsi3
+	pop 17,10
+	popj 17,
+
+umodsi_struct_store:
+	add 17,[2,,2]
+	movem 10,-1(17)
+	movem 11,(17)
+	move 10,1
+	move 11,2
+	move 1,1(1)
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,(10)
+	pushj 17,__umodsi3
+	movem 1,(11)
+	add 1,1(11)
+	move 10,-1(17)
+	move 11,(17)
+	add 17,[-2,,-2]
+	popj 17,
+
+umodsi_branch:
+	push 17,10
+	move 10,1
+	move 1,2
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	movei 3,0
+	jumpe 1,%L17
+	skipl 3,1
+	caml 3,[1000000]
+	tdza 3,3
+	movei 3,1
+	movei 4,2
+	sub 4,3
+	move 3,4
+%L17:
+	move 1,3
+	pop 17,10
+	popj 17,
+
+umodsi_array:
+	push 17,10
+	move 10,1
+	add 10,2
+	move 1,1(10)
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,(10)
+	pushj 17,__umodsi3
+	pop 17,10
+	popj 17,
+
+umodsi_mix:
+	add 17,[2,,2]
+	movem 10,-1(17)
+	movem 11,(17)
+	move 10,1
+	move 11,3
+	move 1,2
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	move 10,1
+	addi 1,7
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,11
+	pushj 17,__umodsi3
+	add 1,10
+	move 10,-1(17)
+	move 11,(17)
+	add 17,[-2,,-2]
+	popj 17,
+
+umodsi_call_arg:
+	push 17,10
+	move 10,1
+	move 1,2
+	pushj 17,nonzero_usint
+	move 2,1
+	move 1,10
+	pushj 17,__umodsi3
+	move 10,1
+	pushj 17,use_usint
+	move 1,10
+	pop 17,10
+	popj 17,
+
+	.globl	use_libgcc_umodsi3
+use_libgcc_umodsi3:
+	add 17,[10,,10]
+	movei 0,-7(17)
+	hrli 0,10
+	blt 0,-3(17)
+	move 11,1
+	move 12,2
+	move 14,3
+	move 6,1
+	tlo 6,400000
+	movem 6,-2(17)
+	move 1,2
+	pushj 17,nonzero_usint
+	movem 1,-1(17)
+	movei 6,15
+	movem 6,(17)
+	movei 1,gum_c
+	move 2,11
+	move 3,12
+	pushj 17,umodsi_store
+	movem 1,gum_c
+	movei 13,-2(17)
+	move 1,13
+	move 2,-1(17)
+	pushj 17,umodsi_update
+	move 1,11
+	move 2,12
+	pushj 17,umodsi_var
+	move 10,1
+	move 2,13
+	addi 2,2
+	move 1,13
+	pushj 17,umodsi_mem
+	add 10,1
+	pushj 17,umodsi_global
+	add 10,1
+	pushj 17,umodsi_volatile
+	add 10,1
+	move 1,11
+	pushj 17,umodsi_const_3
+	add 10,1
+	move 1,11
+	pushj 17,umodsi_const_5
+	add 10,1
+	move 1,11
+	pushj 17,umodsi_const_37
+	add 10,1
+	move 1,11
+	move 2,12
+	pushj 17,umodsi_high_num
+	add 10,1
+	move 1,11
+	move 2,12
+	pushj 17,umodsi_high_den
+	add 10,1
+	move 1,12
+	pushj 17,umodsi_max_num
+	add 10,1
+	movei 1,gum_pair
+	pushj 17,umodsi_struct
+	add 10,1
+	movei 1,gum_pair
+	movei 2,gum_slot
+	pushj 17,umodsi_struct_store
+	add 10,1
+	move 1,11
+	move 2,12
+	pushj 17,umodsi_branch
+	add 10,1
+	andi 14,1
+	move 1,13
+	move 2,14
+	pushj 17,umodsi_array
+	add 10,1
+	move 1,11
+	move 2,12
+	move 3,gum_c
+	pushj 17,umodsi_mix
+	add 10,1
+	move 1,11
+	move 2,12
+	pushj 17,umodsi_call_arg
+	add 10,1
+	move 1,10
+	movei 0,10
+	hrli 0,-7(17)
+	blt 0,14
+	add 17,[-10,,-10]
+	popj 17,
+
+	.bss
+gum_c:
+	.space	4

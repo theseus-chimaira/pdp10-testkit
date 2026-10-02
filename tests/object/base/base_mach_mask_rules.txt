@@ -1,0 +1,8 @@
+object-test: base-mach-mask-rules
+
+Expected future DOBJ/DEXE metadata:
+  -march=base  => mach_mask contains PDP6, KA10, KI10 and later validated KS/KL/XKL machines.
+  -march=pdp10 => mach_mask contains KA10, KI10 and later validated PDP-10 machines, but not PDP6.
+  -march=ki10  => mach_mask contains KI10 only unless explicitly widened by a compatible profile.
+
+No machine_max field is allowed; compatibility is a set, not a range.
