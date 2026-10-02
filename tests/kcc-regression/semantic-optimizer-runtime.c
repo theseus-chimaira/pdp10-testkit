@@ -30,6 +30,16 @@ dup_index(int *p, int i)
     return p[i] + p[i];
 }
 
+/* Object optimization must not push a negation backward through unsigned
+ * division/remainder.  In particular, (-x) % d is not -(x % d) in unsigned
+ * arithmetic.  DAS's packed opcode lookup exposed this as an adjacent-table
+ * selection when compiling (2U - (x % 3U)) * 10U. */
+static unsigned
+unsigned_remainder_negation(unsigned x)
+{
+    return (2U - (x % 3U)) * 10U;
+}
+
 int
 main(void)
 {
@@ -54,5 +64,11 @@ main(void)
         return 5;
     if ((x == 13) != 1 || (x != 7) != 1 || (x < 20) != 1)
         return 6;
+    if (unsigned_remainder_negation(319U) != 10U)
+        return 7;
+    if (unsigned_remainder_negation(318U) != 20U)
+        return 8;
+    if (unsigned_remainder_negation(320U) != 0U)
+        return 9;
     return 0;
 }
