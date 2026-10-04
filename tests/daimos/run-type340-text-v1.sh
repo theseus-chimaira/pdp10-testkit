@@ -23,5 +23,20 @@ if grep -Eq '\.block[[:space:]]+(03726|2006)' \
         echo 'type340-text-v1: display text buffer leaked into MRES BSS' >&2
         exit 1
 fi
+grep -Eq '^[[:space:]]*blko[[:space:]]+0130,dpy_refresh_iowd' \
+    "$DAIMOS_REPO/system/kernel/drivers/dpy_io.s" || {
+        echo 'type340-text-v1: retained refresh is not using Type-344 BLKO' >&2
+        exit 1
+}
+if awk '
+    /^dpy_putchar:/ { in_putchar=1 }
+    in_putchar && /^dpy_text_setup_words:/ { exit }
+    in_putchar { print }
+' "$DAIMOS_REPO/system/kernel/drivers/dpy_io.s" |
+    grep -Eq 'datao[[:space:]]+0130'; then
+        echo 'type340-text-v1: terminal putchar performs DPY DATAO' >&2
+        exit 1
+fi
 
 printf '%s\n' 'type340-text-v1: permanent-buffer policy PASS'
+printf '%s\n' 'type340-text-v1: BLKO refresh policy PASS'
