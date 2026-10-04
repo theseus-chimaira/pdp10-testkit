@@ -58,6 +58,8 @@ main(void)
         if (dpy_text_active == 0UL ||
             dpy_cell_get(0U, 0U) != (unsigned int)('L' - 040))
                 fail("first character not retained");
+        if (dpy_text_rows_used != 1UL)
+                fail("first visible row bound is wrong");
 
         if (dpy_text_putchar('o') != 0 ||
             dpy_cell_get(0U, 1U) != (unsigned int)('O' - 040))
@@ -77,6 +79,8 @@ main(void)
         if (arena[DPY_TEXT_LENGTH_OFF] == 0UL ||
             arena[DPY_TEXT_LENGTH_OFF] > (kword_t)DPY_TEXT_PROG_WORDS)
                 fail("compiled row length outside cache bound");
+        if (arena[DPY_TEXT_LENGTH_OFF] != 1UL)
+                fail("short row was not trimmed to one native word");
 
         if (dpy_text_putchar('[') != 0)
                 fail("shifted SIXBIT punctuation failed");
@@ -93,12 +97,40 @@ main(void)
                 fail("shifted SIXBIT punctuation state missing");
 
         if (dpy_text_putchar(014U) != 0)
+                fail("sparse-frame form feed failed");
+        {
+                static const char login[] = "LOGIN: ";
+                static const char shell[] = "DSH V1";
+                for (i = 0U; login[i] != 0; ++i)
+                        if (dpy_text_putchar((unsigned int)login[i]) != 0)
+                                fail("sparse LOGIN row failed");
+                if (dpy_text_rows_used != 1UL ||
+                    arena[DPY_TEXT_LENGTH_OFF] != 2UL ||
+                    arena[DPY_TEXT_PROG_OFF] != 0141707111672UL ||
+                    arena[DPY_TEXT_PROG_OFF + 1U] != 0353535353433UL)
+                        fail("LOGIN row is not compact two-word Type-342");
+                if (dpy_text_putchar(015U) != 0 ||
+                    dpy_text_putchar(012U) != 0)
+                        fail("sparse row advance failed");
+                for (i = 0U; shell[i] != 0; ++i)
+                        if (dpy_text_putchar((unsigned int)shell[i]) != 0)
+                                fail("sparse DSH row failed");
+                if (dpy_text_rows_used != 2UL ||
+                    arena[DPY_TEXT_LENGTH_OFF + 1U] != 2UL)
+                        fail("visible-row bound did not stop after DSH row");
+        }
+
+        if (dpy_text_putchar(014U) != 0)
                 fail("form feed failed");
+        if (dpy_text_rows_used != 0UL)
+                fail("form feed did not clear visible-row bound");
         for (i = 0U; i < DPY_TEXT_COLS; ++i)
                 if (dpy_text_putchar('A') != 0)
                         fail("full-row output failed");
         if (dpy_text_row != 1U || dpy_text_col != 0U)
                 fail("84-column wrap is wrong");
+        if (dpy_text_rows_used != 1UL)
+                fail("full first row visible bound is wrong");
 
         if (dpy_text_putchar(014U) != 0)
                 fail("second form feed failed");
@@ -109,6 +141,7 @@ main(void)
         }
         if (dpy_text_top != 1UL ||
             dpy_text_row != DPY_TEXT_ROWS - 1U ||
+            dpy_text_rows_used != (kword_t)(DPY_TEXT_ROWS - 1U) ||
             alloc_calls != 1U)
                 fail("42-row ring scroll is wrong");
 
