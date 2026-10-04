@@ -15,6 +15,12 @@ mkdir -p "$work"
     tests/daimos/type340-text-v1.c -o "$work/type340-text-v1"
 "$work/type340-text-v1"
 
+grep -Eq '^#define[[:space:]]+DPY_TEXT_ROW_WORDS[[:space:]]+14U$' \
+    "$DAIMOS_REPO/system/kernel/drivers/dpy_text.c" || {
+        echo 'type340-text-v1: logical row is not 14 packed SIXBIT words' >&2
+        exit 1
+}
+
 # The large text/cache store must remain an MM allocation, never fixed MRES
 # BSS.  This is also the permanent-size accounting contract.
 grep -q 'MM_TYPE_KERNEL_DYNAMIC' "$DAIMOS_REPO/system/kernel/drivers/dpy_text.c"

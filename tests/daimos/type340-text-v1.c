@@ -55,12 +55,13 @@ main(void)
         if (alloc_calls != 1U ||
             requested_words != (kword_t)DPY_TEXT_ALLOC_WORDS)
                 fail("wrong first-use allocation");
-        if (dpy_text_active == 0UL || dpy_cell_get(0U, 0U) != (unsigned int)'L')
+        if (dpy_text_active == 0UL ||
+            dpy_cell_get(0U, 0U) != (unsigned int)('L' - 040))
                 fail("first character not retained");
 
         if (dpy_text_putchar('o') != 0 ||
-            dpy_cell_get(0U, 1U) != (unsigned int)'o')
-                fail("lowercase character not retained");
+            dpy_cell_get(0U, 1U) != (unsigned int)('O' - 040))
+                fail("lowercase character was not normalized to SIXBIT");
 
         ncode = (unsigned int)arena[DPY_TEXT_LENGTH_OFF] * 6U;
         saw_so = 0U;
@@ -71,11 +72,25 @@ main(void)
                 if (saw_so != 0U && cached_code(0U, i) == DPY_T342_SI)
                         saw_si_after_so = 1U;
         }
-        if (saw_so == 0U || saw_si_after_so == 0U)
-                fail("compiled lowercase shift state missing");
+        if (saw_so != 0U)
+                fail("ordinary lowercase incorrectly entered shifted text");
         if (arena[DPY_TEXT_LENGTH_OFF] == 0UL ||
             arena[DPY_TEXT_LENGTH_OFF] > (kword_t)DPY_TEXT_PROG_WORDS)
                 fail("compiled row length outside cache bound");
+
+        if (dpy_text_putchar('[') != 0)
+                fail("shifted SIXBIT punctuation failed");
+        ncode = (unsigned int)arena[DPY_TEXT_LENGTH_OFF] * 6U;
+        saw_so = 0U;
+        saw_si_after_so = 0U;
+        for (i = 0U; i < ncode; ++i) {
+                if (cached_code(0U, i) == DPY_T342_SO)
+                        saw_so = 1U;
+                if (saw_so != 0U && cached_code(0U, i) == DPY_T342_SI)
+                        saw_si_after_so = 1U;
+        }
+        if (saw_so == 0U || saw_si_after_so == 0U)
+                fail("shifted SIXBIT punctuation state missing");
 
         if (dpy_text_putchar(014U) != 0)
                 fail("form feed failed");
