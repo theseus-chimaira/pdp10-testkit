@@ -53,6 +53,43 @@ awk '
         echo 'type340-text-v1: banner/text transition sentinel missing' >&2
         exit 1
 }
+awk '
+    /^dpy_pi_handler:/ { in_handler=1 }
+    /^dpy_clock_handler:/ { exit }
+    in_handler { print }
+' "$DAIMOS_REPO/system/kernel/drivers/dpy_io.s" > "$work/dpy-handler.s"
+grep -Eq '^dpy_pi_refresh_complete:' "$work/dpy-handler.s" || {
+        echo 'type340-text-v1: retained frame has no completion state' >&2
+        exit 1
+}
+awk '
+    /^dpy_pi_refresh_complete:/ { in_done=1 }
+    in_done { print }
+' "$work/dpy-handler.s" |
+    grep -Eq 'setzm[[:space:]]+dpy_pending' || {
+        echo 'type340-text-v1: frame completion does not release DPY ownership' >&2
+        exit 1
+}
+if awk '
+    /^dpy_pi_handler:/ { in_handler=1 }
+    /^dpy_pi_refresh_complete:/ { exit }
+    in_handler { print }
+' "$work/dpy-handler.s" |
+    grep -Eq 'setzm[[:space:]]+dpy_pending'; then
+        echo 'type340-text-v1: DPY ownership released between frame words' >&2
+        exit 1
+fi
+for label in proc_sched_pi_resched proc_sched_timer_done; do
+    awk -v label="$label" '
+        $0 ~ "^" label ":" { in_path=1 }
+        in_path && /^[_A-Za-z][_A-Za-z0-9]*:/ && $0 !~ "^" label ":" { exit }
+        in_path { print }
+    ' "$DAIMOS_REPO/system/kernel/proc/proc_pdp6.s" |
+        grep -Eq 'trne[[:space:]]+1,000400' || {
+            echo "type340-text-v1: $label can switch while PI7 is held" >&2
+            exit 1
+    }
+done
 if awk '
     /^dpy_putchar:/ { in_putchar=1 }
     in_putchar && /^dpy_text_setup_words:/ { exit }
@@ -66,3 +103,5 @@ fi
 printf '%s\n' 'type340-text-v1: permanent-buffer policy PASS'
 printf '%s\n' 'type340-text-v1: DATAO refresh policy PASS'
 printf '%s\n' 'type340-text-v1: banner/text transition policy PASS'
+printf '%s\n' 'type340-text-v1: frame-ownership policy PASS'
+printf '%s\n' 'type340-text-v1: nested-PI scheduler policy PASS'
