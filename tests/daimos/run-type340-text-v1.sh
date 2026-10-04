@@ -24,14 +24,33 @@ grep -Eq '^#define[[:space:]]+DPY_TEXT_ROW_WORDS[[:space:]]+14U$' \
 # The large text/cache store must remain an MM allocation, never fixed MRES
 # BSS.  This is also the permanent-size accounting contract.
 grep -q 'MM_TYPE_KERNEL_DYNAMIC' "$DAIMOS_REPO/system/kernel/drivers/dpy_text.c"
+grep -Eq "dpy\)[[:space:]]+echo 'dpy_io dpy_text'" \
+    "$DAIMOS_REPO/system/boot/pdp6/image/report-permanent.sh" || {
+        echo 'type340-text-v1: permanent-size omits resident dpy_text code' >&2
+        exit 1
+}
 if grep -Eq '\.block[[:space:]]+(03726|2006)' \
     "$DAIMOS_REPO/system/kernel/drivers/dpy_io.s"; then
         echo 'type340-text-v1: display text buffer leaked into MRES BSS' >&2
         exit 1
 fi
-grep -Eq '^[[:space:]]*blko[[:space:]]+0130,dpy_refresh_iowd' \
+grep -Eq '^[[:space:]]*datao[[:space:]]+0130,1' \
     "$DAIMOS_REPO/system/kernel/drivers/dpy_io.s" || {
-        echo 'type340-text-v1: retained refresh is not using Type-344 BLKO' >&2
+        echo 'type340-text-v1: retained refresh has no Type-344 DATAO path' >&2
+        exit 1
+}
+if grep -Eq '^[[:space:]]*blko[[:space:]]+0130' \
+    "$DAIMOS_REPO/system/kernel/drivers/dpy_io.s"; then
+        echo 'type340-text-v1: Type-344 refresh incorrectly uses BLKO' >&2
+        exit 1
+fi
+awk '
+    /^dpy_refresh_banner:/ { in_banner=1 }
+    in_banner && /^dpy_refresh_start_send:/ { exit }
+    in_banner { print }
+' "$DAIMOS_REPO/system/kernel/drivers/dpy_io.s" |
+    grep -Eq 'movei[[:space:]]+1,DPY_TEXT_ROWS' || {
+        echo 'type340-text-v1: banner/text transition sentinel missing' >&2
         exit 1
 }
 if awk '
@@ -45,4 +64,5 @@ if awk '
 fi
 
 printf '%s\n' 'type340-text-v1: permanent-buffer policy PASS'
-printf '%s\n' 'type340-text-v1: BLKO refresh policy PASS'
+printf '%s\n' 'type340-text-v1: DATAO refresh policy PASS'
+printf '%s\n' 'type340-text-v1: banner/text transition policy PASS'
