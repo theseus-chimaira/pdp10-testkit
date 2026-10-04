@@ -5,7 +5,7 @@ PDP10_TOOLS_REPO = ../pdp10-tools
 PDP10_TOOLS_BIN = $(PDP10_PREFIX)/bin
 
 
-.PHONY: all check-prefix verify list list-kcc list-gcc test test-parallel test-das-fast test-das test-das-native test-gcc-bare-libgcc reset clean check-kcc-regression check-kcc-semantic check-kcc-all
+.PHONY: all check-prefix verify list list-kcc list-gcc test test-parallel test-das-fast test-das test-das-native test-gcc-bare-libgcc test-daimos-type340-text reset clean check-kcc-regression check-kcc-semantic check-kcc-all
 
 check-prefix:
 	@test -n "$(PDP10_PREFIX)" || { echo "PDP10_PREFIX must be set" >&2; exit 2; }
@@ -98,6 +98,11 @@ test-das-native: check-prefix
 
 test-gcc-bare-libgcc: check-prefix
 	@PDP10_PREFIX="$(PDP10_PREFIX)" tests/validation/gcc/bare-runtime/test-badl-tables-v1.sh
+
+test-daimos-type340-text:
+	@test -n "$(TMPDIR)" || { echo "TMPDIR must be set" >&2; exit 2; }
+	@TMPDIR="$(TMPDIR)" DAIMOS_REPO="$${DAIMOS_REPO:-../DAIMOS}" \
+		tests/daimos/run-type340-text-v1.sh
 
 
 test-pdp10-tools: check-prefix
