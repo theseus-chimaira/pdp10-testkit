@@ -40,6 +40,14 @@ test "$(grep -c '^FOLD' tests/cross.plan)" -eq 1
         tests/skip-tail.dobj >tests/skip-tail.out
 test "$(grep -c '^FOLD' tests/skip-tail.plan || true)" -eq 0
 
+# A skip two words before a candidate block can skip the apparent terminating
+# JRST immediately before it and enter the candidate directly.  Since that
+# implicit entry has no relocation, p10fold must never remove the block.
+"$mk" skip-entry tests/skip-entry.dobj
+"$p10fold" -m 4 -P tests/skip-entry.plan \
+        tests/skip-entry.dobj >tests/skip-entry.out
+test "$(grep -c '^FOLD' tests/skip-entry.plan || true)" -eq 0
+
 # A direct cross-object plan exercises independent LH18/RH18 relocation
 # retargeting and movement of a symbol following removed donor TEXT.
 "$mk" reloc-anchor tests/reloc-a.dobj

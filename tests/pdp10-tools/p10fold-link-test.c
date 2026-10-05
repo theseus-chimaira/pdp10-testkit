@@ -115,6 +115,42 @@ make_skip_tail(const char *name)
 }
 
 static int
+make_skip_entry(const char *name)
+{
+    struct dobj_object o;
+    int rc;
+
+    memset(&o, 0, sizeof(o));
+    o.text_words = 12UL;
+    o.symbol_count = 1UL;
+    o.text = (struct dobj_word *)calloc(12U, sizeof(*o.text));
+    o.symbols = (struct dobj_symbol *)calloc(1U, sizeof(*o.symbols));
+    if (o.text == NULL || o.symbols == NULL) {
+        dobj_free(&o);
+        return -1;
+    }
+
+    /* CAIE at 0 may skip the JRST at 1 and enter the duplicate block at 2.
+     * That implicit edge has no relocation and therefore makes 2..5
+     * non-removable.  The identical block at 7 is an address-stable anchor. */
+    o.text[0] = instruction(0302U, 1U, 0UL); /* CAIE 1,0 */
+    o.text[1] = instruction(0254U, 0U, 6UL);
+    fill_block(&o.text[2]);
+    o.text[6] = instruction(0254U, 0U, 11UL);
+    fill_block(&o.text[7]);
+    o.text[11] = instruction(0263U, 017U, 0UL);
+
+    strcpy(o.symbols[0].name, "anchor");
+    o.symbols[0].kind = DOBJ_SYM_DEF;
+    o.symbols[0].sec = DOBJ_SEC_TEXT;
+    o.symbols[0].value = dobj_word_halves(0UL, 7UL);
+
+    rc = save_object(name, &o);
+    dobj_free(&o);
+    return rc;
+}
+
+static int
 make_xanchor(const char *name)
 {
     struct dobj_object o;
@@ -283,6 +319,8 @@ main(int argc, char **argv)
         return argc == 3 && make_cross(argv[2]) == 0 ? 0 : 1;
     if (argc >= 3 && strcmp(argv[1], "skip-tail") == 0)
         return argc == 3 && make_skip_tail(argv[2]) == 0 ? 0 : 1;
+    if (argc >= 3 && strcmp(argv[1], "skip-entry") == 0)
+        return argc == 3 && make_skip_entry(argv[2]) == 0 ? 0 : 1;
     if (argc >= 3 && strcmp(argv[1], "xanchor") == 0)
         return argc == 3 && make_xanchor(argv[2]) == 0 ? 0 : 1;
     if (argc >= 3 && strcmp(argv[1], "xdonor") == 0)
