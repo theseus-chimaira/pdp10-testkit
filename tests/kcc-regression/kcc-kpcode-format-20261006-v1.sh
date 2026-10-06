@@ -117,6 +117,7 @@ structured_records(void)
     FILE *fp = tmpfile();
     SYMBOL s1, s2;
     PCODE p;
+    PCODE q;
     INT words[32];
     unsigned int kind, n;
     int ok;
@@ -125,6 +126,7 @@ structured_records(void)
     memset(&s1, 0, sizeof(s1));
     memset(&s2, 0, sizeof(s2));
     memset(&p, 0, sizeof(p));
+    memset(&q, 0, sizeof(q));
     strcpy(s1.Sname, "same");
     strcpy(s2.Sname, "same");
     s1.Sclass = s2.Sclass = SC_EXTREF;
@@ -133,10 +135,15 @@ structured_records(void)
     p.Preg = 3;
     p.Pindex = 4;
     p.Poffset = (INT)-7;
+    q.Ptype = PTA_RCONST;
+    q.Pop = P_MOVE;
+    q.Preg = 1;
+    q.Pvalue = (INT)0400000000147LL;
 
     ok = kpcode_write_symbol(fp, 7, &s1) == 0;
     ok = ok && kpcode_write_symbol(fp, 8, &s2) == 0;
     ok = ok && kpcode_write_pcode(fp, &p, 7) == 0;
+    ok = ok && kpcode_write_pcode(fp, &q, 0) == 0;
     rewind(fp);
 
     ok = ok && kpcode_read_record(fp, &kind, words, 32, &n) == 0;
@@ -148,7 +155,11 @@ structured_records(void)
     ok = ok && words[KPCODE_PCODE_SYMID] == 7;
     ok = ok && words[KPCODE_PCODE_PREG] == 3;
     ok = ok && words[KPCODE_PCODE_REG2] == 4;
-    ok = ok && words[KPCODE_PCODE_OFFSET] == -7;
+    ok = ok && kpcode_decode_pcode(words, n, &p, &s1) == 0;
+    ok = ok && p.Poffset == (INT)-7;
+    ok = ok && kpcode_read_record(fp, &kind, words, 32, &n) == 0;
+    ok = ok && kpcode_decode_pcode(words, n, &p, NULL) == 0;
+    ok = ok && p.Pvalue == (INT)0400000000147LL;
     fclose(fp);
     return ok;
 }
@@ -156,6 +167,11 @@ structured_records(void)
 int
 main(void)
 {
+    INT chunks[KPCODE_INT_CHUNKS];
+    INT wide = (INT)~(unsigned INT)0;
+
+    kpcode_pack_int(chunks, wide);
+    if (kpcode_unpack_int(chunks) != wide) return 7;
     if (!roundtrip_header()) return 1;
     if (!bad_magic()) return 2;
     if (!bad_version()) return 3;
