@@ -10,11 +10,29 @@ mkdir -p "$work"
 
 cat > "$work/test.c" <<'EOF'
 #include "cckir.h"
+#include "ccvla.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 SYMBOL *symbol;
+void int_error(char *fmt, ...) { (void)fmt; }
+SYMBOL *curfn;
+SYMBOL *Reg_Id[R_MAXREG - R_MAX_NOPRESERVE];
+int _reg_count;
+INT maxauto;
+int stackrefs, stkgoto;
+char fn_main, fnabidirect, fnargkeepmask, fnargdropmask, fnargpredropmask;
+static int test_labmax;
+int labmax(void) { return test_labmax; }
+void labset(int n) { test_labmax = n; }
+void labrename(SYMBOL *s, unsigned int n)
+{
+    char tmp[IDENTSIZE]; int p = IDENTSIZE - 1;
+    tmp[p] = '\0';
+    do { tmp[--p] = (char)('0' + n % 10U); n /= 10U; } while (n && p > 1);
+    tmp[--p] = '$'; strcpy(s->Sname, tmp + p);
+}
 
 static int graph_roundtrip(void)
 {
@@ -43,7 +61,8 @@ static int graph_roundtrip(void)
     stag.Tspec = TS_STRUCT; stag.Tsize = 1; stag.Tsmtag = &tag;
 
     strcpy(sa.Sname, "same"); strcpy(sb.Sname, "same");
-    sa.Sclass = sb.Sclass = SC_AUTO; sa.Stype = sb.Stype = &shared;
+    sa.Sclass = sb.Sclass = SC_AUTO; sa.Sflags = sb.Sflags = SF_LOCAL;
+    sa.Stype = sb.Stype = &shared;
     tag.Sclass = SC_TAG; strcpy(tag.Sname, "^T"); tag.Stype = &stag;
     member.Sclass = SC_MEMBER; strcpy(member.Sname, "+m");
     member.Stype = &base; member.Ssmtag = &tag; tag.Ssmnext = &member;
@@ -105,6 +124,17 @@ static int module_identity_roundtrip(void)
     r1.Nop = N_EXPRLIST; r1.Ntype = &base; r1.Nleft = &i1;
     i2 = i1; r2 = r1; r2.Nleft = &i2;
 
+    curfn = &glob;
+    maxauto = 7;
+    fnabidirect = 1;
+    fnargkeepmask = 012;
+    fnargdropmask = 004;
+    fnargpredropmask = 002;
+    fn_main = 1;
+    _reg_count = 1;
+    Reg_Id[0] = &glob;
+    stackrefs = 3;
+    stkgoto = 1;
     if (kir_write_header(fp) != 0 || kir_write_extdef(fp, &r1) != 0) return 202;
     glob.Srefs = 3;                 /* Parser saw two further references. */
     if (kir_write_extdef(fp, &r2) != 0) return 203;
@@ -112,6 +142,11 @@ static int module_identity_roundtrip(void)
     rewind(fp);
     if (kir_read_header(fp) != 0 || kir_read_next(fp, &kind, &out1) != 0) return 205;
     if (kind != KIR_REC_EXTDEF || out1 == NULL) return 206;
+    if (curfn != out1->Nleft->Nid) return 214;
+    if (maxauto != 7 || !fnabidirect || fnargkeepmask != 012
+      || fnargdropmask != 004 || fnargpredropmask != 002 || !fn_main
+      || _reg_count != 1 || Reg_Id[0] != curfn
+      || stackrefs != 3 || stkgoto != 1) return 215;
     saved_sym = out1->Nleft->Nid;
     saved_type = out1->Nleft->Ntype;
     if (saved_sym == NULL || saved_sym->Srefs != 1) return 207;
@@ -126,6 +161,46 @@ static int module_identity_roundtrip(void)
     if (symbol == NULL || symbol->Snext != saved_sym || saved_sym->Snext != NULL) return 213;
     fclose(fp);
     kir_free_module();
+    return 0;
+}
+
+static int vla_metadata_roundtrip(void)
+{
+    FILE *fp = tmpfile();
+    TYPE base, vla;
+    SYMBOL obj, bsym, baseptr, mark;
+    NODE root, ident, bound;
+    NODE *out = NULL, *obound;
+    SYMBOL *oobj;
+    int kind;
+
+    if (!fp) return 301;
+    memset(&base,0,sizeof(base)); memset(&vla,0,sizeof(vla));
+    memset(&obj,0,sizeof(obj)); memset(&bsym,0,sizeof(bsym));
+    memset(&baseptr,0,sizeof(baseptr)); memset(&mark,0,sizeof(mark));
+    memset(&root,0,sizeof(root)); memset(&ident,0,sizeof(ident)); memset(&bound,0,sizeof(bound));
+    base.Tspec=TS_INT; base.Tsize=1;
+    vla.Tspec=TS_ARRAY; vla.Tflag=TF_VLA; vla.Tsubt=&base;
+    strcpy(obj.Sname,"vlaobj"); obj.Sclass=SC_AUTO; obj.Sflags=SF_LOCAL; obj.Stype=&vla;
+    strcpy(bsym.Sname,"vlab1"); bsym.Sclass=SC_AUTO; bsym.Sflags=SF_LOCAL; bsym.Stype=&base;
+    strcpy(baseptr.Sname,"vlap1"); baseptr.Sclass=SC_AUTO; baseptr.Sflags=SF_LOCAL; baseptr.Stype=&base;
+    strcpy(mark.Sname,"vlam1"); mark.Sclass=SC_AUTO; mark.Sflags=SF_LOCAL; mark.Stype=&base;
+    bound.Nop=N_ICONST; bound.Ntype=&base; bound.Niconst=7;
+    ident.Nop=Q_IDENT; ident.Ntype=&vla; ident.Nid=&obj;
+    root.Nop=N_EXPRLIST; root.Ntype=&base; root.Nleft=&ident;
+    if (vlainfoadd_v12(&vla,&bound,&bsym,1) != 0) return 302;
+    if (vlaobjaddmeta_v12(&obj,&baseptr,&mark) != 0) return 303;
+    if (kir_write_header(fp) != 0 || kir_write_extdef(fp,&root) != 0) return 304;
+    rewind(fp); vlaclear_v12();
+    if (kir_read_header(fp) != 0 || kir_read_next(fp,&kind,&out) != 0) return 305;
+    if (kind != KIR_REC_EXTDEF || out == NULL) return 306;
+    oobj=out->Nleft->Nid;
+    obound=vlaboundexpr_v11(out->Nleft->Ntype);
+    if (obound == NULL || obound->Nop != N_ICONST || obound->Niconst != 7) return 307;
+    if (vlaboundsym_v11(out->Nleft->Ntype) == NULL) return 308;
+    if (!vlaboundcaptured_v12(out->Nleft->Ntype)) return 309;
+    if (vlabase_v11(oobj) == NULL || vlaobjmarkget_v12(oobj) == NULL) return 310;
+    kir_free_graph(out); vlaclear_v12(); fclose(fp);
     return 0;
 }
 
@@ -144,6 +219,10 @@ int main(void)
         int rc = module_identity_roundtrip();
         if (rc) { fprintf(stderr, "module_identity_roundtrip failed: %d\n", rc); return 13; }
     }
+    {
+        int rc = vla_metadata_roundtrip();
+        if (rc) { fprintf(stderr, "vla_metadata_roundtrip failed: %d\n", rc); return 14; }
+    }
     puts("kcc-kir-format: PASS");
     return 0;
 }
@@ -151,5 +230,6 @@ EOF
 
 "$HOSTCC" -std=c99 -funsigned-char -I"$KCC_SOURCE" \
     "$work/test.c" "$KCC_SOURCE/cckirwrite.c" "$KCC_SOURCE/cckirread.c" \
+    "$KCC_SOURCE/ccvla.c" \
     -o "$work/test"
 "$work/test"

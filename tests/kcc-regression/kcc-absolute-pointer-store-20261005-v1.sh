@@ -7,8 +7,11 @@ kcc_setup_env
 base=$(CDPATH= cd -- "$(dirname "$0")" && pwd -P)
 out="$TMPDIR/kcc-absolute-pointer-store-20261005-v1-$$.s"
 trap 'rm -f "$out"' EXIT HUP INT TERM
-"$KCC" -Pgnu99 -x=pdp6 -m=gas -S \
-    "$base/kcc-absolute-pointer-store-20261005-v1.c" -o "$out" >/dev/null
+(
+    cd "$base"
+    "$KCC" -Pgnu99 -x=pdp6 -m=gas -S \
+        kcc-absolute-pointer-store-20261005-v1.c -o "$out" >/dev/null
+)
 # The second store must be absolute.  0(AC) here is the historical miscompile.
 grep -Eq '^[[:space:]]*movem[[:space:]]+[0-7]+,056$' "$out"
 if grep -Eq '^[[:space:]]*movem[[:space:]]+[0-7]+,0\([0-7]+\)$' "$out"; then
