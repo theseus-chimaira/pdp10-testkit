@@ -29,11 +29,12 @@ done
 
 test -x "$bindir/p10run"
 test -x "$bindir/darc"
+test -x "$bindir/csix"
 test -L "$bindir/pdp10-dec-none-darc"
 
 ${MAKE:-make} -C "$root" uninstall PDP10_PREFIX=/usr/local DESTDIR="$work/root" >/dev/null
 
-for f in mkdsk mkdt mkstream mktap words2pt dlink darc p10run \
+for f in mkdsk mkdt mkstream mktap words2pt dlink darc p10run csix \
     pdp10-dec-none-darc $stale
 do
     test ! -e "$bindir/$f" || {
