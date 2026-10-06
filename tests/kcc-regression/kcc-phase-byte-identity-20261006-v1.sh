@@ -1,0 +1,75 @@
+#!/bin/sh
+set -eu
+
+: "${TMPDIR:?TMPDIR must be set}"
+: "${KCC_SOURCE:?KCC_SOURCE must point to the KCC tree}"
+: "${PDP10_PREFIX:?PDP10_PREFIX must be set}"
+
+HOSTCC=${HOSTCC:-cc}
+root=$(CDPATH= cd -- "$KCC_SOURCE" && pwd -P)
+work="$TMPDIR/kcc-phase-byte-identity-20261006-v1-$$"
+trap 'rm -rf "$work"' EXIT HUP INT TERM
+mkdir -p "$work/bin" "$work/int" "$work/split" "$work/kpt"
+
+all_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c cclex.c ccnode.c ccout.c ccpp.c ccreg.c ccstmt.c ccsym.c cctype.c ccopt.c'
+cpp_src='cc.c ccasmb.c ccdata.c ccerr.c ccout.c ccpp.c ccppout.c ccsym.c'
+core_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c cclex.c ccnode.c ccout.c ccreg.c ccstmt.c ccsym.c cctype.c ccopt.c ccppin.c'
+
+build_host_phase()
+{
+    out=$1
+    defs=$2
+    shift 2
+    (
+        cd "$root"
+        # shellcheck disable=SC2086
+        "$HOSTCC" -std=c99 -funsigned-char -O2 \
+            -DHOST_DAIMOS=1 -DHOST_UNIX=0 $defs "$@" -o "$out"
+    )
+}
+
+# shellcheck disable=SC2086
+build_host_phase "$work/bin/kcc-integrated-v1" '' $all_src
+# shellcheck disable=SC2086
+build_host_phase "$work/bin/kcpp-v1" '-DKCC_PHASE_CPP=1' $cpp_src
+# shellcheck disable=SC2086
+build_host_phase "$work/bin/kcc1-v1" '-DKCC_PHASE_CORE=1' $core_src
+
+run_mode()
+{
+    mode=$1
+    case "$mode" in
+    opt) optflag=-O ;;
+    noopt) optflag=-n ;;
+    *) echo "bad mode: $mode" >&2; exit 2 ;;
+    esac
+
+    n=0
+    for src in $all_src; do
+        b=${src%.c}
+        n=$((n + 1))
+        printf 'phase-byte-identity %s [%02d/24] %s\n' "$mode" "$n" "$src"
+
+        common="-Pgnu99 $optflag -x=pdp6 -m=gas -DHOST_DAIMOS=1 -DHOST_UNIX=0 -Iself/include/ -Hself/include/"
+        (
+            cd "$root"
+            # shellcheck disable=SC2086
+            "$work/bin/kcc-integrated-v1" $common -S "$src" \
+                -o "$work/int/$b-$mode.s" >/dev/null
+            # shellcheck disable=SC2086
+            "$work/bin/kcpp-v1" $common "$src" > "$work/kpt/$b-$mode.kpt"
+        )
+        "$work/bin/kcc1-v1" -Pgnu99 "$optflag" -x=pdp6 -m=gas -S \
+            "$work/kpt/$b-$mode.kpt" -o "$work/split/$b-$mode.s" >/dev/null
+
+        if ! cmp -s "$work/int/$b-$mode.s" "$work/split/$b-$mode.s"; then
+            echo "phase-byte-identity: mismatch for $src ($mode): integrated vs KCPP/KCC1" >&2
+            diff -u "$work/int/$b-$mode.s" "$work/split/$b-$mode.s" | sed -n '1,160p' >&2 || true
+            exit 1
+        fi
+    done
+}
+
+run_mode opt
+run_mode noopt
+echo 'kcc-phase-byte-identity: PASS'
