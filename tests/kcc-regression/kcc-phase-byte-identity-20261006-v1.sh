@@ -12,8 +12,8 @@ trap 'rm -rf "$work"' EXIT HUP INT TERM
 mkdir -p "$work/bin" "$work/int" "$work/split" "$work/kpt"
 mkdir -p "$work/kir" "$work/kp1" "$work/kp1-kir" "$work/kopt" "$work/kopt-kir"
 
-all_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c cclex.c ccnode.c ccout.c ccoututil.c ccpp.c ccreg.c ccstmt.c ccsym.c cctype.c ccopt.c ccvla.c'
-cpp_src='cc.c ccasmb.c ccdata.c ccerr.c ccout.c ccpp.c ccppout.c ccsym.c'
+all_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c cclex.c ccnode.c ccout.c ccoututil.c ccpp.c ccsrc.c ccreg.c ccstmt.c ccsym.c cctype.c ccopt.c ccvla.c'
+cpp_src='cc.c ccasmb.c ccdata.c ccerr.c ccout.c ccpp.c ccppout.c ccsym.c ccsrc.c'
 core_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c cclex.c ccnode.c ccout.c ccoututil.c ccreg.c ccstmt.c ccsym.c cctype.c ccopt.c ccppin.c ccvla.c'
 kparse_src='cc.c ccasmb.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c cclex.c ccnode.c ccppin.c ccstmt.c ccsym.c cctype.c ccoututil.c cckirwrite.c ccvla.c'
 kgen_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c ccnode.c ccreg.c ccsym.c cctype.c ccopt.c ccoututil.c cckpwrite.c cckpout.c cckirread.c ccvla.c'
