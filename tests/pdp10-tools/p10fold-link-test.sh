@@ -112,6 +112,22 @@ grep -E 'POLICY REJECTIONS: [1-9][0-9]* ONE-JRST SUBRUNS NOT ON COLD LIST' \
 grep -F 'ANALYSIS ONLY: NO CROSS-DOMAIN FOLD PLAN IS EMITTED.' \
         tests/xcross.out >/dev/null
 
+# A cross-domain one-JRST donor may not begin immediately after a skip.  The
+# skip can bypass the retained JRST and enter the tail which a future fold
+# would remove.  This edge is implicit in the instruction stream, so no
+# relocation exists for a linker to retarget.
+"$mk" xskip-donor tests/xskip-donor.dobj
+cat >>tests/cold.list <<'EOF_COLD_SKIP'
+cold_skip
+EOF_COLD_SKIP
+"$p10fold" -m 4 -a tests/xanchor.dobj -C tests/cold.list \
+        tests/xskip-donor.dobj >tests/xskip-cross.out
+if grep -F 'JRST-COLD tests/xskip-donor.dobj+000001' \
+        tests/xskip-cross.out >/dev/null; then
+        echo 'p10fold allowed one-JRST fold with skip entry into removed tail' >&2
+        exit 1
+fi
+
 # If the existing anchor-domain fold plan removes an anchor range, that range
 # must not be counted as a usable external anchor.
 cat >tests/xanchor.fold <<'EOF_XFOLD'

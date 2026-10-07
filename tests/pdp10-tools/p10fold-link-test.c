@@ -208,6 +208,42 @@ make_xdonor(const char *name)
 }
 
 static int
+make_xskip_donor(const char *name)
+{
+    struct dobj_object o;
+    int rc;
+
+    memset(&o, 0, sizeof(o));
+    o.text_words = 5UL;
+    o.symbol_count = 1UL;
+    o.text = (struct dobj_word *)calloc(5U, sizeof(*o.text));
+    o.symbols = (struct dobj_symbol *)calloc(1U, sizeof(*o.symbols));
+    if (o.text == NULL || o.symbols == NULL) {
+        dobj_free(&o);
+        return -1;
+    }
+
+    /*
+     * The duplicate block begins at word 1, but CAIE at word 0 can skip the
+     * first word and enter word 2 directly.  A one-JRST fold at word 1 would
+     * retain only that entry JRST and delete words 2..4, so the implicit skip
+     * edge makes the candidate unsafe even though no relocation targets the
+     * removed tail.
+     */
+    o.text[0] = instruction(0302U, 1U, 0UL); /* CAIE 1,0 */
+    fill_block_seed(&o.text[1], 010UL);
+
+    strcpy(o.symbols[0].name, "cold_skip");
+    o.symbols[0].kind = DOBJ_SYM_DEF;
+    o.symbols[0].sec = DOBJ_SEC_TEXT;
+    o.symbols[0].value = dobj_word_halves(0UL, 0UL);
+
+    rc = save_object(name, &o);
+    dobj_free(&o);
+    return rc;
+}
+
+static int
 make_reloc_anchor(const char *name)
 {
     struct dobj_object o;
@@ -325,6 +361,8 @@ main(int argc, char **argv)
         return argc == 3 && make_xanchor(argv[2]) == 0 ? 0 : 1;
     if (argc >= 3 && strcmp(argv[1], "xdonor") == 0)
         return argc == 3 && make_xdonor(argv[2]) == 0 ? 0 : 1;
+    if (argc >= 3 && strcmp(argv[1], "xskip-donor") == 0)
+        return argc == 3 && make_xskip_donor(argv[2]) == 0 ? 0 : 1;
     if (argc >= 3 && strcmp(argv[1], "reloc-anchor") == 0)
         return argc == 3 && make_reloc_anchor(argv[2]) == 0 ? 0 : 1;
     if (argc >= 3 && strcmp(argv[1], "reloc-donor") == 0)
