@@ -1,6 +1,6 @@
 # DAS tests
 
-This directory owns DAS assembler regressions.  Generic `pdp10-tools`
+This directory owns DAS assembler regressions.  Generic DAIMOS host-tool
 regressions live under `tests/pdp10-tools`; the assembler source tree contains
 build/install logic only.
 

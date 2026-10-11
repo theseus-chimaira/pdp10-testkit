@@ -9,11 +9,13 @@ repo=$(CDPATH= cd -- "$PDP10_TOOLS_REPO" && pwd)
 work=$TMPDIR/pdp10-tools-regression-v1-$$
 trap 'rm -rf "$work"' 0 1 2 3 15
 mkdir -p "$work/tests"
+build="$work/build"
+bin="$build/tools/host"
 
-${MAKE:-make} -C "$repo" all
+${MAKE:-make} -C "$repo" all BUILD_ROOT="$build"
 
 for f in dlink darc p10run pdp10-objdump p10fold p10super mktap csix; do
-        ln -s "$repo/$f" "$work/$f"
+        ln -s "$bin/$f" "$work/$f"
 done
 ln -s "$repo/p10run.c" "$work/p10run.c"
 
@@ -52,7 +54,7 @@ ${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/p10fold-link-mk" \
         TMPDIR="$TMPDIR" CSIX="$work/csix" ./tests/csix-v1-test.sh
 )
 
-TMPDIR="$TMPDIR" PDP10_TOOLS_REPO="$repo" \
+TMPDIR="$TMPDIR" PDP10_TOOLS_REPO="$repo" BUILD_ROOT="$build" \
         "$here/install-cleanup-test.sh"
 
 echo 'pdp10-tools generic regressions: PASS'

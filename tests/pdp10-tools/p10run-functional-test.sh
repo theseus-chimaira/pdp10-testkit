@@ -2,7 +2,8 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/.." && pwd)
-tmp=${TMPDIR:-/tmp}/p10run-functional-$$
+: "${TMPDIR:?TMPDIR must be set}"
+tmp=$TMPDIR/p10run-functional-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp/prefix/bin" "$tmp/work"
 
@@ -45,17 +46,19 @@ cat > "$tmp/prefix/bin/dlink" <<'EOF_DLINK'
 set -eu
 out=
 map=
+base=0
 while test $# -gt 0; do
     case "$1" in
         -o) shift; out=$1 ;;
         -M) shift; map=$1 ;;
+        -b) shift; base=$1 ;;
     esac
     shift
 done
 test -n "$out"
 test -n "$map"
 dd if=/dev/zero of="$out" bs=8 count=1 2>/dev/null
-printf 'RESULT 10\n' > "$map"
+printf 'RESULT %o\n' "$((0$base + 8))" > "$map"
 EOF_DLINK
 chmod +x "$tmp/prefix/bin/dlink"
 

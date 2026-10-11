@@ -1,7 +1,8 @@
 PDP10_PREFIX ?=
 JOBS ?= 1
 DAS_ROOT ?= ../das
-PDP10_TOOLS_REPO = ../pdp10-tools
+DAIMOS_REPO ?= ../DAIMOS
+PDP10_TOOLS_REPO = $(DAIMOS_REPO)/tools/host
 PDP10_TOOLS_BIN = $(PDP10_PREFIX)/bin
 
 

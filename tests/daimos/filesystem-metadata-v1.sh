@@ -3,7 +3,7 @@ set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 DAIMOS_SRC=${DAIMOS_SRC:-$(CDPATH= cd -- "$ROOT/../DAIMOS" && pwd)}
-PDP10_TOOLS_SRC=${PDP10_TOOLS_SRC:-$(CDPATH= cd -- "$ROOT/../pdp10-tools" && pwd)}
+PDP10_TOOLS_SRC=${PDP10_TOOLS_SRC:-$DAIMOS_SRC/tools/host}
 PDP10_PREFIX=${PDP10_PREFIX:-/usr/local}
 MKTSFS=${MKTSFS:-$PDP10_PREFIX/bin/mktsfs}
 TSFSCHECK=${TSFSCHECK:-$PDP10_PREFIX/bin/tsfscheck}
