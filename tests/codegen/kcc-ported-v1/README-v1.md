@@ -1,3 +1,13 @@
+# Five KCC ABI, store, and absolute-value regressions (v10)
+
+Normalized `abi-first-call-lifetime`, `abi-query-liveness`,
+`direct-assignment-store`, `live-abi-index`, and `abs-store-movm`
+from their legacy wrappers. All selected KCC optimized cells passed.
+KCC-specific instruction policies remain in force; the two-word direct
+store checker accepts the original MOVEM pair on PDP-6/KA10 and DMOVEM
+on KI10/KS10. All five source programs also compiled in the 16 native
+GCC combinations (four CPUs and four optimization levels), giving 80
+additional GCC compile-only codegen checks.
 # Five more shared C / KCC policy regressions (v9)
 
 The regressions `constant-branch-chain`, `abs-query-movm`,

@@ -174,12 +174,22 @@ def div_helper_selection(lines):
     return errors
 
 
+def direct_assignment_store(lines):
+    text = "\n".join(lines)
+    stores = (
+        re.search(r"(?im)^\s*movem\s+[1-7],gd$", text) and
+        re.search(r"(?im)^\s*movem\s+[1-7],gd\+1$", text))
+    double = re.search(r"(?im)^\s*dmovem\s+[1-7],gd$", text)
+    return [] if stores or double else ["missing expected two-word direct store"]
+
+
 CHECKS = {
     "dimode-div-one-scratch": div_one_scratch,
     "dimode-div-reuse-bit-temp": div_reuse_bit_temp,
     "dimode-mod-no-quotient": mod_no_quotient,
     "dimode-div-helper-cost": div_helper_cost,
     "dimode-div-helper-selection": div_helper_selection,
+    "direct-assignment-store": direct_assignment_store,
 }
 
 
