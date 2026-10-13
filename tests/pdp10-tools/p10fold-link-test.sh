@@ -2,7 +2,7 @@
 set -eu
 
 : "${TMPDIR:?TMPDIR must be set}"
-work=$(mktemp -d "${TMPDIR%/}/p10fold-link-v1.XXXXXX")
+work=$(mktemp -d "${TMPDIR%/}/p10fold-link.XXXXXX")
 trap 'rm -rf "$work"' EXIT HUP INT TERM
 mkdir -p "$work/tests"
 cd "$work"

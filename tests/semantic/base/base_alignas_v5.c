@@ -1,6 +1,6 @@
 volatile int __test_exit;
 
-#include "test-compiler-compat-v1.h"
+#include "test-compiler-compat.h"
 #define ALIGNAS_V5(n) TEST_ALIGNAS(n)
 
 struct alignas_v5_s {

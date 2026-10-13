@@ -2,7 +2,7 @@
 set -eu
 
 : "${TMPDIR:?TMPDIR must be set}"
-work=$(mktemp -d "${TMPDIR%/}/p10super-rewrite-v1.XXXXXX")
+work=$(mktemp -d "${TMPDIR%/}/p10super-rewrite.XXXXXX")
 trap 'rm -rf "$work"' EXIT HUP INT TERM
 
 ./tests/p10super-rewrite-mk "$work/valid.dobj" valid

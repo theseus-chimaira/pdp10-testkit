@@ -8,12 +8,12 @@ pdp10_setup_env
 case "${1-}" in
     verify|all)
         shift
-        exec python3 tools/p10tk-suites-v1.py verify "$@"
+        exec python3 tools/p10tk-suites.py verify "$@"
         ;;
     das-fast|das|das-native|gcc-bare-libgcc|pdp10-tools|clean|kcc-regression|kcc-semantic|kcc-all)
         suite=$1
         shift
-        exec python3 tools/p10tk-suites-v1.py "$suite" "$@"
+        exec python3 tools/p10tk-suites.py "$suite" "$@"
         ;;
     list|list-kcc|list-gcc)
         suite=$1

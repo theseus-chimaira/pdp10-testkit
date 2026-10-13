@@ -82,10 +82,9 @@ failures are retried unless `--skip-failures` is given.
 
 ## Why not replay `cell.log`?
 
-The old helper `tools/p10tk-parallel-cells.py` tried to replay shell commands
+The retired parallel-cell helper tried to replay shell commands
 extracted from previous `cell.log` files.  That is brittle: the saved commands
 may depend on the old checkout path, environment, or `PATH`.  If the toolchain
 commands cannot be found, every cell can fail immediately with return code 127.
 
-`tools/p10tk-parallel-cells.py` is now only a compatibility wrapper.  New runs
-should call `run-tests.sh -j N` directly.
+The compatibility wrapper has been removed. Runs should call `run-tests.sh -j N` directly.

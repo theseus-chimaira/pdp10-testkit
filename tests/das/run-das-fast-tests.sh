@@ -152,9 +152,9 @@ fi
 "$DAS_ROOT/das" -A -O "$ALIGN" "$TEST_ROOT/dxr-align.s"
 "$TEST_ROOT/dxr-align-check.py" "$ALIGN"
 "$DAS_ROOT/das" -A -L "$BLOCK_EXPR_LABELS" -O "$BLOCK_EXPR" \
-    "$TEST_ROOT/dxr-block-expr-v1.s"
-"$TEST_ROOT/check-dxr-block-expr-v1.sh" "$BLOCK_EXPR_LABELS"
-if "$DAS_ROOT/das" -A -O "$BAD_EXPR" "$TEST_ROOT/dxr-bad-block-digit-v1.s" >/dev/null 2>&1; then
+    "$TEST_ROOT/dxr-block-expr.s"
+"$TEST_ROOT/check-dxr-block-expr.sh" "$BLOCK_EXPR_LABELS"
+if "$DAS_ROOT/das" -A -O "$BAD_EXPR" "$TEST_ROOT/dxr-bad-block-digit.s" >/dev/null 2>&1; then
     echo "DAS accepted invalid octal .block digit" >&2
     exit 1
 fi
@@ -165,23 +165,23 @@ fi
 "$DAS_ROOT/das" -A -O "$COND_REPT" "$TEST_ROOT/dxr-conditional-rept.s"
 "$TEST_ROOT/dxr-conditional-rept-check.py" "$COND_REPT"
 "$TEST_ROOT/check-dxr-conditional-rept-errors.sh" "$TEST_ROOT" "$DAS_ROOT/das"
-"$DAS_ROOT/das" -A -F -O "$IRP" "$TEST_ROOT/dxr-irp-irpc-v1.s"
-"$TEST_ROOT/dxr-irp-irpc-v1-check.py" "$IRP"
-"$TEST_ROOT/check-dxr-irp-irpc-errors-v1.sh" "$DAS_ROOT/das"
-"$DAS_ROOT/das" -A -F -O "$JUMP_JRST" "$TEST_ROOT/dxr-jump-jrst-fold-v1.s"
-"$TEST_ROOT/dxr-jump-jrst-fold-v1-check.py" "$JUMP_JRST"
-BRANCH_BARRIER_PLAIN="$TMPDIR/das-branch-barrier-plain-v1.dxr"
-BRANCH_BARRIER_OPT="$TMPDIR/das-branch-barrier-opt-v1.dxr"
-"$DAS_ROOT/das" -A -O "$BRANCH_BARRIER_PLAIN" "$TEST_ROOT/dxr-branch-barrier-v1.s"
-"$DAS_ROOT/das" -A -F -O "$BRANCH_BARRIER_OPT" "$TEST_ROOT/dxr-branch-barrier-v1.s"
+"$DAS_ROOT/das" -A -F -O "$IRP" "$TEST_ROOT/dxr-irp-irpc.s"
+"$TEST_ROOT/dxr-irp-irpc-check.py" "$IRP"
+"$TEST_ROOT/check-dxr-irp-irpc-errors.sh" "$DAS_ROOT/das"
+"$DAS_ROOT/das" -A -F -O "$JUMP_JRST" "$TEST_ROOT/dxr-jump-jrst-fold.s"
+"$TEST_ROOT/dxr-jump-jrst-fold-check.py" "$JUMP_JRST"
+BRANCH_BARRIER_PLAIN="$TMPDIR/das-branch-barrier-plain.dxr"
+BRANCH_BARRIER_OPT="$TMPDIR/das-branch-barrier-opt.dxr"
+"$DAS_ROOT/das" -A -O "$BRANCH_BARRIER_PLAIN" "$TEST_ROOT/dxr-branch-barrier.s"
+"$DAS_ROOT/das" -A -F -O "$BRANCH_BARRIER_OPT" "$TEST_ROOT/dxr-branch-barrier.s"
 cmp "$BRANCH_BARRIER_PLAIN" "$BRANCH_BARRIER_OPT"
 echo "DAS deferred-branch phase-barrier contract passed"
-"$DAS_ROOT/das" -A -O "$MACRO" "$TEST_ROOT/dxr-macro-v1.s"
-"$TEST_ROOT/dxr-macro-v1-check.py" "$MACRO"
+"$DAS_ROOT/das" -A -O "$MACRO" "$TEST_ROOT/dxr-macro.s"
+"$TEST_ROOT/dxr-macro-check.py" "$MACRO"
 "$DAS_ROOT/das" -A -F -L "$MACRO_LABELS" \
-    -O "$MACRO_OPT" "$TEST_ROOT/dxr-macro-opt-label-v1.s"
-"$TEST_ROOT/dxr-macro-opt-label-v1-check.py" "$MACRO_OPT" "$MACRO_LABELS"
-"$TEST_ROOT/check-dxr-macro-errors-v1.sh" "$TEST_ROOT" "$DAS_ROOT/das"
+    -O "$MACRO_OPT" "$TEST_ROOT/dxr-macro-opt-label.s"
+"$TEST_ROOT/dxr-macro-opt-label-check.py" "$MACRO_OPT" "$MACRO_LABELS"
+"$TEST_ROOT/check-dxr-macro-errors.sh" "$TEST_ROOT" "$DAS_ROOT/das"
 for badsrc in dxr-bad-conditional.s dxr-bad-conditional-reloc.s; do
     if "$DAS_ROOT/das" -A -O "$BAD_EXPR" "$TEST_ROOT/$badsrc" >/dev/null 2>&1; then
         echo "DAS accepted invalid conditional $badsrc" >&2

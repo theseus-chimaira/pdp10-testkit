@@ -2,7 +2,7 @@
 set -eu
 
 : "${TMPDIR:?TMPDIR must be set}"
-work=$(mktemp -d "${TMPDIR%/}/p10super-cfg-v1.XXXXXX")
+work=$(mktemp -d "${TMPDIR%/}/p10super-cfg.XXXXXX")
 trap 'rm -rf "$work"' EXIT HUP INT TERM
 
 check_guard()

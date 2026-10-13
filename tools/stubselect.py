@@ -1,6 +1,6 @@
 # Selectively emit semantic-test support stubs.
 #
-# The old runners appended support/test-stubs.s to every linked test.  That file
+# The old runners appended a monolithic test-stubs assembly file. That file
 # intentionally contains generic symbols such as f and use_ptr, which can
 # collide with test-local functions.  Emit only stubs that the generated
 # assembly actually references and does not define.

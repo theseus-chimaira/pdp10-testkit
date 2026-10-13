@@ -1,6 +1,6 @@
 volatile int __test_exit;
 
-#include "test-compiler-compat-v1.h"
+#include "test-compiler-compat.h"
 #define ALIGNOF_V3(t) TEST_ALIGNOF(t)
 
 struct alignof_v3_s {

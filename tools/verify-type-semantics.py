@@ -12,7 +12,7 @@ reader = csv.DictReader(rows, delimiter='\t', fieldnames=[
     'type_id', 'compiler', 'spelling', 'value_bits', 'storage_words',
     'representation', 'comparability'])
 data = list(reader)
-required = {'pdp10-int71-v1', 'pdp10-uint71-v1', 'pdp10-raw72-v1'}
+required = {'pdp10-int71', 'pdp10-uint71', 'pdp10-raw72'}
 found = {row['type_id'] for row in data}
 missing = sorted(required - found)
 if missing:

@@ -201,7 +201,7 @@ def failures(name, asm, machine=None):
     if name not in CHECKS:
         return ["unknown KCC assembly checker " + name]
     if name in ("direct-assignment-store", "cheap-optimizer-pass",
-                "sidiv-shared-edge-v1"):
+                "sidiv-shared-edge"):
         if machine is None:
             return ["processor not supplied for " + name]
         return CHECKS[name](asm.splitlines(), machine)
@@ -462,7 +462,7 @@ def _legacy_cheap_pass(lines, machine):
 
 
 CHECKS.update({
-    "identical-pure-fold-v1": _legacy_identical,
+    "identical-pure-fold": _legacy_identical,
     "cheap-optimizer-pass": _legacy_cheap_pass,
 })
 
@@ -637,7 +637,7 @@ def _shared_fixed_epilogue(lines):
     return errors
 
 
-CHECKS["shared-fixed-epilogue-v1"] = _shared_fixed_epilogue
+CHECKS["shared-fixed-epilogue"] = _shared_fixed_epilogue
 
 
 def _sidiv_pair(lines, names):
@@ -703,13 +703,13 @@ def _subbp_index(lines):
 
 
 CHECKS.update({
-    "sidiv-divmod-cse-v2": _sidiv_divmod,
-    "sidiv-idiv-pair-cse-v3": _sidiv_pair_cse,
-    "terminal-commutative-ac1-v1": _terminal_commutative,
-    "subbp-index-arithmetic-v1": _subbp_index,
+    "sidiv-divmod-cse": _sidiv_divmod,
+    "sidiv-idiv-pair-cse": _sidiv_pair_cse,
+    "terminal-commutative-ac1": _terminal_commutative,
+    "subbp-index-arithmetic": _subbp_index,
 })
 
 
 _MACHINE_CHECKS = {"direct-assignment-store", "cheap-optimizer-pass",
-                   "sidiv-shared-edge-v1"}
-CHECKS["sidiv-shared-edge-v1"] = _sidiv_shared
+                   "sidiv-shared-edge"}
+CHECKS["sidiv-shared-edge"] = _sidiv_shared

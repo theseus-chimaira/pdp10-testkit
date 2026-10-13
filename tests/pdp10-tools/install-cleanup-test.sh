@@ -3,9 +3,9 @@ set -eu
 
 : "${TMPDIR:?TMPDIR must be set}"
 : "${PDP10_TOOLS_REPO:?PDP10_TOOLS_REPO must be set}"
-BUILD_ROOT=${BUILD_ROOT:-$TMPDIR/pdp10-tools-install-build-v1-$$}
+BUILD_ROOT=${BUILD_ROOT:-$TMPDIR/pdp10-tools-install-build-$$}
 root=$(CDPATH= cd -- "$PDP10_TOOLS_REPO" && pwd)
-work=$TMPDIR/pdp10-tools-install-cleanup-v1-$$
+work=$TMPDIR/pdp10-tools-install-cleanup-$$
 trap 'rm -rf "$work"' EXIT HUP INT TERM
 
 prefix=$work/root/usr/local

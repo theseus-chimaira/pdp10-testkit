@@ -79,7 +79,7 @@ def target_variants(workdir, kcc):
 
 
 CHECKS = {
-    "output-path-dotdot-v8": output_path_dotdot,
+    "output-path-dotdot": output_path_dotdot,
     "target-variants": target_variants,
 }
 
@@ -146,7 +146,7 @@ def local_dse(workdir, kcc):
 
 CHECKS.update({
     "kl10-section0-codegen": kl10_section0,
-    "local-dse-v1": local_dse,
+    "local-dse": local_dse,
 })
 
 

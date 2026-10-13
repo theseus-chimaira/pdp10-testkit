@@ -6,7 +6,7 @@ set -eu
 
 here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo=$(CDPATH= cd -- "$PDP10_TOOLS_REPO" && pwd)
-work=$TMPDIR/pdp10-tools-regression-v1-$$
+work=$TMPDIR/pdp10-tools-regression-$$
 trap 'rm -rf "$work"' 0 1 2 3 15
 mkdir -p "$work/tests"
 build="$work/build"
@@ -24,7 +24,7 @@ for f in dobj-test.c pdp10-objdump-test.c pdp10-objdump-test.sh \
         p10super-cfg-test.c p10super-cfg-test.sh \
         p10super-rewrite-test.c p10super-rewrite-test.sh \
         p10run-functional-test.sh \
-        csix-v1-test.sh; do
+        csix-test.sh; do
         cp "$here/$f" "$work/tests/$f"
 done
 chmod 755 "$work/tests"/*.sh
@@ -50,7 +50,7 @@ ${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/p10fold-link-mk" \
         ./tests/p10super-cfg-test.sh
         ./tests/p10super-rewrite-test.sh
         ./tests/p10run-functional-test.sh
-        TMPDIR="$TMPDIR" CSIX="$work/csix" ./tests/csix-v1-test.sh
+        TMPDIR="$TMPDIR" CSIX="$work/csix" ./tests/csix-test.sh
 )
 
 TMPDIR="$TMPDIR" PDP10_TOOLS_REPO="$repo" BUILD_ROOT="$build" \
