@@ -46,3 +46,9 @@ instructions for a pair of signed/unsigned 72-bit complements, rejecting
 alternate XOR/AND masks that lose the duplicated low-word sign-bit
 invariant. All four optimized KCC CPU profiles (PDP-6, KA10, KI10, KS10)
 passed the normalized regular-expression policy.
+
+## Peephole conditional return
+
+`peephole-return-v1.c` preserves the original negative assertion against
+consecutive `SKIPA 1,[-1]` and `JRST` instructions after unsigned comparison.
+KCC native PDP-6 optimized code generation passed the normalized check.
