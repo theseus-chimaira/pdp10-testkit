@@ -825,3 +825,27 @@ profiles compiled all ten; KCC PDP-6 optimized/KA10 unoptimized rejected
 | 950122-1 | 18-bit unsigned short multiply and result; HRRZ/MUL and truncation |
 
 No CPU/OS dependencies required for compilation. No compiler corrections.
+
+---
+
+## Batch 33
+
+Ten portable compile regressions reviewed with native KCC PDP-6 optimized
+and GCC PDP-6 -O0/KI10 -O2. All compiled for GCC. KCC rejected
+950613-1 (GNU local computed-goto labels), retaining the failure.
+
+| Test | Plausibility evidence |
+|---|---|
+| 950124-1 | conditional calls with early return; PUSHJ, JUMPE/JUMPN and JRST |
+| 950221-1 | signed short/struct member handling; HRRE/HRRZ and MOVEM |
+| 950329-1 | nested loop calls and branching; PUSHJ/JRST and jump checks |
+| 950512-1 | 16-bit/byte packing into char array; masking, IBP and moves |
+| 950530-1 | pointer subtraction and halving; SUB, ASH/LSH, sign checks |
+| 950607-1 | JPEG-like aggregate/field arithmetic; shifts and stores |
+| 950610-1 | VLA parameter syntax and empty function; optimized POPJ |
+| 950612-1 | large instruction-decoder switch; LDB, shift, conditional jumps |
+| 950613-1 | GNU computed-goto table; GCC branches/moves, KCC rejects extension |
+| 950618-1 | tail-call lowering; direct JRST when optimized |
+
+No source requires a non-PDP-10 OS or special processor. Representative
+assembly checked; complete per-cell verification remains separate.
