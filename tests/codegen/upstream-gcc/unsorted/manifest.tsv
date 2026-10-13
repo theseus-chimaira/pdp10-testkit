@@ -1,14 +1,14 @@
 kind	source_rel	dest_rel	action	dg_do	dg_options	flags
-torture-compile	gcc.c-torture/compile/20000105-1.c	compile/20000105-1.c	compile			
-torture-compile	gcc.c-torture/compile/20000105-2.c	compile/20000105-2.c	compile			
-torture-compile	gcc.c-torture/compile/20000120-1.c	compile/20000120-1.c	compile			
-torture-compile	gcc.c-torture/compile/20000120-2.c	compile/20000120-2.c	compile			
-torture-compile	gcc.c-torture/compile/20000127-1.c	compile/20000127-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/20000211-1.c	compile/20000211-1.c	compile			
-torture-compile	gcc.c-torture/compile/20000211-3.c	compile/20000211-3.c	compile			
-torture-compile	gcc.c-torture/compile/20000224-1.c	compile/20000224-1.c	compile			
-torture-compile	gcc.c-torture/compile/20000314-1.c	compile/20000314-1.c	compile			
-torture-compile	gcc.c-torture/compile/20000314-2.c	compile/20000314-2.c	compile			uses-malloc
+torture-compile	gcc.c-torture/compile/20000105-1.c	reviewed-v1/compile/20000105-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000105-2.c	reviewed-v1/compile/20000105-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000120-1.c	reviewed-v1/compile/20000120-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000120-2.c	reviewed-v1/compile/20000120-2.c	compile			
+torture-compile	gcc.c-torture/compile/20000127-1.c	reviewed-v1/compile/20000127-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20000211-1.c	reviewed-v1/compile/20000211-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000211-3.c	reviewed-v1/compile/20000211-3.c	compile			
+torture-compile	gcc.c-torture/compile/20000224-1.c	reviewed-v1/compile/20000224-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000314-1.c	reviewed-v1/compile/20000314-1.c	compile			
+torture-compile	gcc.c-torture/compile/20000314-2.c	reviewed-v1/compile/20000314-2.c	compile			uses-malloc
 torture-compile	gcc.c-torture/compile/20000319-1.c	compile/20000319-1.c	compile			
 torture-compile	gcc.c-torture/compile/20000326-1.c	compile/20000326-1.c	compile			
 torture-compile	gcc.c-torture/compile/20000326-2.c	compile/20000326-2.c	compile			
