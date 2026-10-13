@@ -173,3 +173,27 @@ of PowerPC, SH and SPARC concern original bug history, not required hardware.
 
 No source or compiler errors corrected. Compiler output checked for plausible
 instruction families; full per-cell review remains outstanding.
+
+---
+
+## Batch 7
+
+Ten generic C compiler tests, no required OS/hardware. Representative
+checks: KCC PDP-6 opt, KA10 noopt; GCC PDP-6 -O0, KI10 -O2. GCC compiled
+all ten; KCC rejected 20010114-2 and 20010124-1 and compiled eight.
+
+| Source | Purpose and plausible output |
+|---|---|
+| 20010107-1 | function pointer derived from address; PUSHJ through pointer |
+| 20010112-1 | optional fixed-register variable with generic fallback; trivial return |
+| 20010113-1 | static pointer initializer constant; data only |
+| 20010114-1 | typedef shadowing by parameter; simple function return |
+| 20010114-2 | C99 bool/aggregate initialization; data only, KCC rejects |
+| 20010117-1 | unsigned byte subtraction and sign bit check; LDB/TRNE/DPB |
+| 20010117-2 | unsigned narrow arithmetic, masks, stores; LDB, ANDI, SUB and DPB |
+| 20010118-1 | static counter, loop, call and pointer side effects; PUSHJ/AOS and branches |
+| 20010124-1 | frontend initializer/declaration regression; data only, KCC rejects |
+| 20010202-1 | VLA parameter declarator and empty body; stack setup absent when optimized |
+
+Architecture-specific register names, where present in conditional source,
+are disabled by preprocessor on PDP-10. Compile-only, no semantic pass claim.
