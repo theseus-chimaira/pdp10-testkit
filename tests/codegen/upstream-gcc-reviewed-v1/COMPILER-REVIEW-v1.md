@@ -659,3 +659,25 @@ noopt and GCC PDP-6 -O0/KI10 -O2 profiles. No external OS dependency.
 | 921103-1 | unsigned field arithmetic in loop; branches, setup and call |
 
 No unresolved issue identified beyond lack of exhaustive per-cell proof.
+
+---
+
+## Batch 26
+
+Ten generic compiler tests; representative KCC PDP-6 opt/KA10 noopt
+compiled nine, rejected 921203-1; GCC PDP-6 -O0/KI10 -O2 compiled all.
+
+| Source | Code plausibility review |
+|---|---|
+| 921109-1 | mixed float/struct operations and branch; MOVNS/DMOVE/DMOVEM |
+| 921111-1 | linked structure loop and pointer indexing; JUMPGE/ADDI |
+| 921116-2 | variable struct-array address arithmetic; ASH/LSH/ADD |
+| 921118-1 | inline wide multiplication and call; IMUL/MULI |
+| 921126-1 | wide division and conditional bit test; LSH/AND/soft helper |
+| 921202-1 | three large stack arrays and loop calls; frame and PUSHJ |
+| 921202-2 | variable shift loop; LSH and conditional branch |
+| 921203-1 | incomplete char array as strcpy destination; GCC call or DPB, KCC rejects |
+| 921203-2 | variadic function returning char struct; PUSHJ and aggregate return sequence |
+| 921206-1 | float math and char-map access; DMOVE/DMOVEM, branches |
+
+No executable OS/runtime requirement; all are compile-only. No fixes.
