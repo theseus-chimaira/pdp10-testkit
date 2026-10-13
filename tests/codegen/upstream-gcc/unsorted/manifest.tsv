@@ -216,16 +216,15 @@ torture-compile	gcc.c-torture/compile/920729-1.c	reviewed-v1/compile/920729-1.c	
 torture-compile	gcc.c-torture/compile/920806-1.c	reviewed-v1/compile/920806-1.c	compile			
 torture-compile	gcc.c-torture/compile/920808-1.c	reviewed-v1/compile/920808-1.c	compile			
 torture-compile	gcc.c-torture/compile/920809-1.c	reviewed-v1/compile/920809-1.c	compile			
-torture-compile	gcc.c-torture/compile/920817-1.c	compile/920817-1.c	compile			
-torture-compile	gcc.c-torture/compile/920820-1.c	compile/920820-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920821-1.c	compile/920821-1.c	compile			
-torture-compile	gcc.c-torture/compile/920821-2.c	compile/920821-2.c	compile			
-torture-compile	gcc.c-torture/compile/920825-1.c	compile/920825-1.c	compile			
-torture-compile	gcc.c-torture/compile/920825-2.c	compile/920825-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920826-1.c	compile/920826-1.c	compile			
-torture-compile	gcc.c-torture/compile/920828-1.c	compile/920828-1.c	compile			
-torture-compile	gcc.c-torture/compile/920829-1.c	compile/920829-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920831-1.c	compile/920831-1.c	compile			
+torture-compile	gcc.c-torture/compile/920817-1.c	reviewed-v1/compile/920817-1.c	compile			
+torture-compile	gcc.c-torture/compile/920820-1.c	reviewed-v1/compile/920820-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920821-2.c	reviewed-v1/compile/920821-2.c	compile			
+torture-compile	gcc.c-torture/compile/920825-1.c	reviewed-v1/compile/920825-1.c	compile			
+torture-compile	gcc.c-torture/compile/920825-2.c	reviewed-v1/compile/920825-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920826-1.c	reviewed-v1/compile/920826-1.c	compile			
+torture-compile	gcc.c-torture/compile/920828-1.c	reviewed-v1/compile/920828-1.c	compile			
+torture-compile	gcc.c-torture/compile/920829-1.c	reviewed-v1/compile/920829-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920831-1.c	reviewed-v1/compile/920831-1.c	compile			
 torture-compile	gcc.c-torture/compile/920902-1.c	compile/920902-1.c	compile			
 torture-compile	gcc.c-torture/compile/920909-1.c	compile/920909-1.c	compile			
 torture-compile	gcc.c-torture/compile/920917-1.c	compile/920917-1.c	compile			

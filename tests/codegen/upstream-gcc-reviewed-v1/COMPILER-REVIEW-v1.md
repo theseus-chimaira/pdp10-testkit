@@ -589,3 +589,26 @@ GCC PDP-6 -O0/KI10 -O2 cells compiled. No runtime intended.
 
 No incompatible OS or peripheral dependency. Invalid-runtime-input cases are
 retained only for compile-only optimizer stress. No compiler changes.
+
+---
+
+## Batch 23
+
+Nine sources accepted, one empty source deleted. Sampled GCC PDP-6 -O0/
+KI10 -O2 compiled all candidates; KCC PDP-6 opt/KA10 noopt rejected
+920817-1, 920825-1 and compiled other meaningful cases.
+
+| Source | Code-generation plausibility |
+|---|---|
+| 920817-1 | GNU inline function and increment; AOS/POPJ/PUSHJ, KCC rejects |
+| 920820-1 | double-to-72-bit integer conversion; helper call |
+| 920821-2 | aggregate copy of 25-word arrays; BLT or HRL/BLT |
+| 920825-1 | packed bitfield and pragma; DPB, KCC rejects |
+| 920825-2 | loop stores of floating data; DMOVEM and branch |
+| 920826-1 | computed jump from byte-pointer contents; ANDI/JRST |
+| 920828-1 | char-array index range conditional; CAILE and byte pointer arithmetic |
+| 920829-1 | floating division, comparison and dead assignment; helper/branch optimized away |
+| 920831-1 | computed jump from word argument; ANDI/JRST |
+
+**Excluded/deleted:** 920821-1.c contained only `/* empty */` and no
+compiler/assembler construct to inspect. Its source and entries were removed.
