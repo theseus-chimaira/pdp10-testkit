@@ -2,6 +2,15 @@
 
 ## Selected semantics
 
+Signed 36-to-71-bit widening sign-extends the high word and preserves the
+complete low source word, including its duplicated sign position. Unsigned
+36-to-71-bit widening transfers the source high bit into the upper word and
+keeps the remaining 35 bits in the low word. Narrow 6-, 7-, 8-, 9-, and
+18-bit values first undergo the ordinary 36-bit integer promotion.
+
+KCC previously cleared the low-word sign position during signed widening;
+the correction preserves the low word and normalizes constant materialization.
+
 DAIMOS conversions retain the low destination-width bits.  Unsigned results
 use modulo arithmetic.  Signed results interpret the retained bits as a
 PDP-10 two's-complement word.
