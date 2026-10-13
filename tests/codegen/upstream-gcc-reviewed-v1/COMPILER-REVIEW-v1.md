@@ -517,3 +517,28 @@ filename prefixes) after correcting the transient inspection script.
 
 No unsupported device or operating system is needed to compile these sources.
 No compiler fixes applied. Full per-cell comparison remains outstanding.
+
+---
+
+## Batch 20
+
+Eight useful tests accepted; two deleted after assembly inspection.
+KCC PDP-6 opt/KA10 noopt compiled six of the accepted tests and rejected
+920501-7 and 920501-8. GCC PDP-6 -O0/KI10 -O2 compiled all accepted cases.
+
+| Source | Plausibility |
+|---|---|
+| 920501-6 | integer-to-float store; FSC/FLTR and MOVEM |
+| 920501-7 | GNU label-address subtraction and conditional recursion; address/MULI/ASH, KCC rejects |
+| 920501-8 | pointer-to-integer local initializer; GCC frame/address, KCC rejects |
+| 920501-9 | short return from unsigned constant; HRRE/HRROI |
+| 920502-1 | indirect computed goto through function pointer array; JRST |
+| 920502-2 | discarded 72-bit shift expression; optimized POPJ |
+| 920529-1 | unreachable mixed-word accumulator loop after abort; dead-code elimination to JRST |
+| 920608-1 | short-pointer loads/stores and signed arithmetic; LDB/IBP/IOR |
+
+**Excluded/deleted:** `920520-1.c` and `920521-1.c`. Their generated
+PDP-10 GCC assembly contains raw inline-asm text `4`, `f`, and `g` as
+instructions. That is not meaningful or valid PDP-10 assembler input, so a
+compile-only pass would give misleading target coverage. Original source
+copies and matrix/manifest entries were all removed. No compiler changes.
