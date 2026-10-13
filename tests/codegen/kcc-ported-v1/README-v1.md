@@ -1,3 +1,11 @@
+# Five KCC PDP-6 code-generation regressions
+
+The original sources and assembly assertions from
+`gnu-packed-copy-stream-codegen`, `shift-scratch-reg`,
+`unsigned-constant-compare`, `tail-memory-arg`, and
+`narrow-cast-conversion` are now matrix-registered. All five
+installed KCC PDP-6 optimized cells passed. Required, forbidden,
+and exact-count patterns were carried over from the legacy scripts.
 # Five additional KCC instruction regressions
 
 The C sources and original assertions from `direct-deref-tail`,
