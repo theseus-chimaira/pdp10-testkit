@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC instruction assertion migration. */
 /* codegen-require-regex: "(?i)MOVN" "(?i)SETZ" "source" */
 /* codegen-forbid-regex: "%DIDIV" */

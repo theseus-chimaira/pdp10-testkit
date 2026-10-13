@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC instruction assertion migration. */
 /* codegen-require-regex: "(?im)^\\s*TLZ\\s+[^,]+,0400000$" "(?im)^\\s*TRNE\\s+[^,]+,1$" "(?im)^\\s*LSH\\s+[^,]+,-1$" "(?im)^\\s*LSH\\s+[^,]+,1$" "(?im)^\\s*AND\\s+[^,]+,\\[0377777777777\\]$" "(?im)^\\s*lshc\\s+[^,]+,0\\([^)]*\\)$" "(?im)^\\s*ashc\\s+[^,]+,0\\([^)]*\\)$" */
 typedef long long Dint;

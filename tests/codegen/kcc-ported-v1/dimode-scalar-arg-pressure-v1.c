@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC source and codegen assertions. */
 long highmul_add(x, y, q)
 long x;

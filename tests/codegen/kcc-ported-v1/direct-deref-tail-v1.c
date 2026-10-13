@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC codegen assertion migrated from legacy shell. */
 /* codegen-require-regex: "(?ims)^direct:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*jrst\\s+foo\\s*$" "(?ims)^indirect:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*pushj\\s+17,0\\([0-7]+\\)\\s*$" */
 extern int foo();

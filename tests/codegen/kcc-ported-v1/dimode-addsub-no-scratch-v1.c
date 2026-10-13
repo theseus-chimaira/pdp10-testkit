@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC instruction regression, migrated to native matrix. */
 /* codegen-require-regex: "DIADD" "DISUB" */
 /* codegen-forbid-regex: "SETZ" "LSH.*-43" */

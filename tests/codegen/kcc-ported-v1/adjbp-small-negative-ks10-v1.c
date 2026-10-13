@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* CPU-specific KCC negative byte-pointer adjustment checks. */
 /* codegen-require-regex: "(?ims)^m1:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*adjbp\\s+" "(?ims)^m2:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*adjbp\\s+" "(?ims)^m3:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*adjbp\\s+" "(?ims)^m4:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*adjbp\\s+" "(?ims)^m5:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*adjbp\\s+" */
 volatile int __test_exit;

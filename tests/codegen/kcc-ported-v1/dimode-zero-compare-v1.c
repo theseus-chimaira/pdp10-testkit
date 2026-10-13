@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC assembly policy, preserved. */
 /* codegen-require-regex: "(?ims)\\A(?:(?!^\\s*skipn\\s+).)*^\\s*skipn\\s+[^\\n]*\\n(?:(?!^\\s*skipn\\s+).)*^\\s*skipn\\s+[^\\n]*\\n(?:(?!^\\s*skipn\\s+).)*^\\s*skipn\\s+[^\\n]*\\n(?:(?!^\\s*skipn\\s+).)*^\\s*skipn\\s+[^\\n]*\\n(?:(?!^\\s*skipn\\s+).)*^\\s*skipn\\s+[^\\n]*\\n(?:(?!^\\s*skipn\\s+).)*^\\s*skipn\\s+[^\\n]*\\n" "(?ims)\\A(?:(?!^\\s*skipe\\s+).)*^\\s*skipe\\s+[^\\n]*\\n(?:(?!^\\s*skipe\\s+).)*^\\s*skipe\\s+[^\\n]*\\n(?:(?!^\\s*skipe\\s+).)*^\\s*skipe\\s+[^\\n]*\\n(?:(?!^\\s*skipe\\s+).)*^\\s*skipe\\s+[^\\n]*\\n(?:(?!^\\s*skipe\\s+).)*^\\s*skipe\\s+[^\\n]*\\n(?:(?!^\\s*skipe\\s+).)*^\\s*skipe\\s+[^\\n]*\\n" */
 /* codegen-forbid-regex: "(?im)^\\s*cam(e|n)\\s+" */

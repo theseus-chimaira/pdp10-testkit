@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC codegen assertion migrated from legacy shell. */
 /* codegen-require-regex: "(?im)^\\s*CAML?\\s+" */
 typedef long long D;

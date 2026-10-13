@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Migrated KCC assembly assertions. */
 /* codegen-require-regex: "(?i)hrlz" */
 /* codegen-forbid-regex: "(?im)^\\s*lsh\\s+.*,22" */

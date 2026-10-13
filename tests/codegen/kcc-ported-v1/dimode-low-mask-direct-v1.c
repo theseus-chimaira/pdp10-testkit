@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC assembly policy, preserved. */
 /* codegen-require-regex: "(?i)SETZ" "(?i)AND.*\\[1\\]" "(?i)AND.*\\[377\\]" "(?i)AND.*\\[7777\\]" "(?i)AND.*\\[1777\\]" */
 /* codegen-forbid-regex: "(?i)SETZ\\s+[4-7],|MOVEI\\s+[4-7],(1|377|7777|1777)" */

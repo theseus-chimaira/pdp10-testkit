@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC 72-bit folded expressions; preserve original per-function checks. */
 /* codegen-forbid-regex: "(?im)^\\s*(LSHC|ASHC)\\s+" */
 /* codegen-require-regex: "(?ims)^l34:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*MOVSI\\s+2,0?200000" "(?ims)^l70:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*MOVSI\\s+1,0?400000" "(?ims)^r35:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*MOVEI\\s+1,1" "(?ims)^r35:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*SETZ\\s+2," "(?ims)^ar35:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*MOVE\\s+1,\\[0?777777777777\\]" "(?ims)^ar70:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*MOVE\\s+2,\\[0?377777777777\\]" "(?ims)^ceq:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*MOVEI\\s+1,1" "(?ims)^clt:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*MOVEI\\s+1,1" */

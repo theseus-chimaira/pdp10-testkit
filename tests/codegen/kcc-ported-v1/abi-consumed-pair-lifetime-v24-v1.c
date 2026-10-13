@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC source and codegen assertions. */
 typedef long long int71_t;
 

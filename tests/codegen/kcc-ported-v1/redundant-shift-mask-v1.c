@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC codegen assertion migrated from legacy shell. */
 /* codegen-require-regex: "(?ims)^needed:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?andi\\s+" */
 /* codegen-forbid-regex: "(?ims)^redundant:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?andi\\s+" */

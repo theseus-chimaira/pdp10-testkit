@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Migrated original KCC instruction assertions. */
 /* codegen-require-regex: "(?ims)^shift1:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:lsh\\s+1,1)" "(?ims)^shift_add_self:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:move\\s+[0-7]+,1)" "(?ims)^shift_add_other:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:lsh\\s+1,1)" "(?ims)^shift_xor:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:lsh\\s+1,-3)" "(?ims)^ash_add:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:ash\\s+1,-2)" */
 /* codegen-forbid-regex: "(?ims)^shift1:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:move\\s+[0-7]+,1|move\\s+1,[0-7]+)" */

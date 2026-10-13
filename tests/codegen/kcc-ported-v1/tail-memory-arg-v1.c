@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC source and original assembly policies. */
 /* codegen-require-regex: "(?i)move\\s+1,rootvp" "(?i)jrst\\s+target" */
 /* codegen-forbid-regex: "(?i)move\\s+[5-7],rootvp" */

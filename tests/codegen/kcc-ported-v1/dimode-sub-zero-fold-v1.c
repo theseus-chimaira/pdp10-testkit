@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Migrated original KCC assembly-pattern regression. */
 /* codegen-forbid-regex: "%DISUB" */
 typedef long long Dint;

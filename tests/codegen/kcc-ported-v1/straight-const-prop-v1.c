@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Migrated original KCC instruction assertions. */
 /* codegen-require-regex: "(?ims)^chain:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:movei\\s+1,7)" "(?ims)^reassignment:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:movei\\s+1,1)" "(?ims)^call_barrier:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:cai|cam|jump|skip)" "(?ims)^pointer_barrier:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:cai|cam|jump|skip)" "(?ims)^volatile_barrier:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:cai|cam|jump|skip)" */
 /* codegen-forbid-regex: "(?ims)^chain:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:cai|cam|jrst\\s+%L)" "(?ims)^reassignment:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:cai|cam)" */

@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC regression checks. */
 /* codegen-require-regex: "(?ims)^callit:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:^\\s*move\\s+16,1(\\s|$))" "(?ims)^callit:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:^\\s*pushj\\s+17,0\\(16\\)(\\s|$))" */
 /* codegen-forbid-regex: "(?ims)^callit:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:^\\s*pushj\\s+17,0\\([1-4]\\)(\\s|$))" */

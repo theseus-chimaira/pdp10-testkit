@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* CPU-specific KCC negative byte-pointer adjustment checks. */
 /* codegen-require-regex: "(?ims)^m1:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*hrrz\\s+16,0\\(17\\)" "(?ims)^m2:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*hrrz\\s+16,0\\(17\\)" "(?ims)^m3:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*hrrz\\s+16,0\\(17\\)" "(?ims)^m4:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*hrrz\\s+16,0\\(17\\)" "(?ims)^m5:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?^\\s*hrrz\\s+16,0\\(17\\)" */
 /* codegen-forbid-regex: "(?ims)^m1:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?%ADJBPH" "(?ims)^m2:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?%ADJBPH" "(?ims)^m3:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?%ADJBPH" "(?ims)^m4:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?%ADJBPH" "(?ims)^m5:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?%ADJBPH" */

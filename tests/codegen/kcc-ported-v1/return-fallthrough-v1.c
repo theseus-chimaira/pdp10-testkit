@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC codegen assertion migrated from legacy shell. */
 /* codegen-require-regex: "(?im)^\\s*pushj\\s+17,h\\s*$" */
 /* codegen-forbid-regex: "(?im)^\\s*jrst\\s+(%L[0-9]+)\\s*\\n\\1:" */

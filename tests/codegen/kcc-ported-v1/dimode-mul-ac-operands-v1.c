@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Normalized KCC assembly assertions. */
 /* codegen-require-regex: "(?i)MUL" "(?i)IMUL" */
 /* codegen-forbid-regex: "(?ims)%DIMUM(?:(?!POPJ).)*?(?:PUSH\\s+17|POP\\s+17|SUB\\s+17,\\[1,,1\\])" */

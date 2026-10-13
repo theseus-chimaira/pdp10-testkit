@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC instruction regression, migrated to native matrix. */
 /* codegen-require-regex: "(?i)move[i]?\\s+1,\\[?0?377777777777\\]?" "(?i)move[i]?\\s+2,\\[?0?377777777777\\]?" "(?ims)\\A(?:(?!^\\s*movsi\\s+1,0?400000).)*^\\s*movsi\\s+1,0?400000[^\\n]*\\n(?:(?!^\\s*movsi\\s+1,0?400000).)*^\\s*movsi\\s+1,0?400000[^\\n]*\\n(?:(?!^\\s*movsi\\s+1,0?400000).)*^\\s*movsi\\s+1,0?400000[^\\n]*\\n(?:(?!^\\s*movsi\\s+1,0?400000).)*^\\s*movsi\\s+1,0?400000[^\\n]*\\n" "(?i)move\\s+1,\\[0?377777777777\\]" "(?i)move\\s+2,\\[0?377777777777\\]" */
 typedef unsigned long long U;

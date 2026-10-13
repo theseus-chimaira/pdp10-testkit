@@ -270,9 +270,14 @@ def default_forbidden(arch):
     return set()
 
 
-def policy_for(src, arch):
+def policy_for(src, arch, compiler='kcc'):
     d = directives(src)
     forb = default_forbidden(arch)
+    # Historical KCC instruction patterns are not portable to GCC.  Keep
+    # target-architecture restrictions, but make source-specific checks an
+    # explicit KCC-only policy when the fixture opts into sharing its C input.
+    if compiler == 'gcc' and 'codegen-kcc-policy-only' in d:
+        return forb, set(), [], []
     if 'codegen-forbid' in d:
         forb |= set(x.upper() for x in d['codegen-forbid'])
     if 'codegen-allow' in d:
@@ -948,7 +953,7 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         asm_text = read_text(asm_path)
         mnems = asm_mnemonics(asm_text)
         forbidden, required, forbid_regex, require_regex = policy_for(
-            ROOT / src, cell['arch'])
+            ROOT / src, cell['arch'], cell['compiler'])
         bad = sorted(mnems & forbidden)
         miss = sorted(required - mnems)
         bad_regex, miss_regex, invalid_regex = regex_policy_failures(

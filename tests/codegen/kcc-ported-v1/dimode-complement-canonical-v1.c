@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Migrated KCC canonical 72-bit complement regression. */
 /* codegen-require-regex: "(?ims)\\A(?:(?!^\\s*setca\\s).)*^\\s*setca\\s[^\\n]*\\n(?:(?!^\\s*setca\\s).)*^\\s*setca\\s[^\\n]*\\n(?:(?!^\\s*setca\\s).)*^\\s*setca\\s[^\\n]*\\n(?:(?!^\\s*setca\\s).)*^\\s*setca\\s[^\\n]*\\n(?:(?!^\\s*setca\\s).)*\\Z" */
 /* codegen-forbid-regex: "(?im)^\\s*xor\\s+[^,]+,\\[377777777777\\]" "(?im)^\\s*and\\s+[^,]+,\\[377777777777\\]" */

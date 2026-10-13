@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Migrated original KCC instruction assertions. */
 /* codegen-require-regex: "(?ims)^rotv:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:|^\\s*rot\\s+).)*^\\s*rot\\s+[^\\n]*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:|^\\s*rot\\s+).)*(?=^[A-Za-z_][A-Za-z0-9_]*:|\\Z)" "(?ims)^rot5:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:^\\s*rot\\s+[0-7]+,5)" "(?ims)^rotrv:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:|^\\s*rot\\s+).)*^\\s*rot\\s+[^\\n]*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:|^\\s*rot\\s+).)*(?=^[A-Za-z_][A-Za-z0-9_]*:|\\Z)" "(?ims)^rotrv:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:|^\\s*movn\\s+).)*^\\s*movn\\s+[^\\n]*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:|^\\s*movn\\s+).)*(?=^[A-Za-z_][A-Za-z0-9_]*:|\\Z)" "(?ims)^rotr5:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:^\\s*rot\\s+[0-7]+,0?37)" */
 /* codegen-forbid-regex: "(?ims)^rotvol:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:rot\\s+)" "(?ims)^rotsigned:\\s*\\n(?:(?!^[A-Za-z_][A-Za-z0-9_]*:).)*?(?:rot\\s+)" */

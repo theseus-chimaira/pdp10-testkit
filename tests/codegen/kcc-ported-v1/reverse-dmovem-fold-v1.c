@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC assembly policy, preserved. */
 /* codegen-require-regex: "DIADD" */
 /* codegen-forbid-regex: "(?im)^\\s*d?movem\\s+[1-4],-?[0-9]+\\(17\\)" */

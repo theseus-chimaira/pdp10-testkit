@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC source and original assembly policies. */
 /* codegen-require-regex: "lsh" */
 /* codegen-forbid-regex: "(?i)push\\s+17,16|move\\s+16,0\\(17\\)" */

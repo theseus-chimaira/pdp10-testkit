@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC source and codegen assertions. */
 static float ff(a, b)
 float a;

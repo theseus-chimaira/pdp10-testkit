@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC ADJBP constant increment regression: pdp6. */
 /* codegen-forbid-regex: "%ADJBPH" */
 /* codegen-require-regex: "(?ims)\\A(?:(?!^\\s*ibp\\s).)*^\\s*ibp\\s[^\\n]*\\n(?:(?!^\\s*ibp\\s).)*^\\s*ibp\\s[^\\n]*\\n(?:(?!^\\s*ibp\\s).)*\\Z" */

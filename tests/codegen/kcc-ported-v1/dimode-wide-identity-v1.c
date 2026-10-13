@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Normalized KCC assembly assertions. */
 /* codegen-require-regex: "(?im)^\\s*LSHC\\s+[^,]+,-43$" "(?im)^\\s*LSHC\\s+[^,]+,-44$" "(?im)^\\s*LSHC\\s+[^,]+,-106$" */
 /* codegen-forbid-regex: "lshc\\s+[^\\n]*,-1" */

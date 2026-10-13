@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC instruction assertion migration. */
 /* codegen-require-regex: "(?im)lsh\\s+[0-7]+,-0*32\\s*$" "(?im)lsh\\s+[0-7]+,0*32\\s*$" */
 /* codegen-forbid-regex: "(?im)movei\\s+([0-7]+),0*32\\s*$" "(?im)movn\\s+[0-7]+,[0-7]+\\s*$" */

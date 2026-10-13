@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Normalized KCC assembly assertions. */
 /* codegen-require-regex:  */
 /* codegen-forbid-regex:  */

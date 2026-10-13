@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Original KCC source and codegen assertions. */
 float fmul(a, b)
 float a;

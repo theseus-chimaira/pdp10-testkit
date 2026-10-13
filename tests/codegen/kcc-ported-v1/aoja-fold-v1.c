@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Ported KCC-specific assembler shape regression. */
 /* codegen-require-regex: "(?im)^\s*aoja\s+1,%L[0-9]+" */
 /* codegen-forbid-regex: "(?im)^\s*addi\s+1,1\s*\n\s*jrst\s+%L[0-9]+" */

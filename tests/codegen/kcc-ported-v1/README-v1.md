@@ -1,3 +1,22 @@
+# GCC cross-compiler compilation coverage (v1)
+
+An exhaustive native GCC compilation audit was performed for all 70
+migrated KCC source fixtures across PDP-6, KA10, KI10, KS10 and
+`-O0`, `-O1`, `-O2`, `-Os`. All 16 combinations compiled for
+66 fixtures, giving 1056 new GCC matrix code-generation cells.
+
+`codegen-kcc-policy-only: yes` retains all existing KCC instruction
+assertions for KCC and suppresses only these KCC-specific directives
+for GCC. The existing generic architecture opcode restrictions still
+apply. GCC coverage currently validates successful assembly generation,
+not equivalence of KCC's instruction-selection policies or runtime
+correctness.
+
+The remaining four fixtures were not enrolled because GCC compilation
+failed: `gnu-packed-copy-stream-codegen`,
+`mixed-byte-struct-static-init`, `narrow-cast-conversion`, and
+`subbp-byte-size-range`. Keep their KCC-only checks and investigate
+compiler extension compatibility separately.
 # Four verified KCC matrix migrations (v6)
 
 The `indexed-store-forward`, `indirect-call-byteptr`,

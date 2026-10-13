@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Migrated KCC assembly assertions. */
 /* codegen-require-regex: "(?ims)\\A(?:(?!^\\s*andi\\s+[0-7]+,0?777\\s*$).)*^\\s*andi\\s+[0-7]+,0?777\\s*$\\n(?:(?!^\\s*andi\\s+[0-7]+,0?777\\s*$).)*^\\s*andi\\s+[0-7]+,0?777\\s*$\\n(?:(?!^\\s*andi\\s+[0-7]+,0?777\\s*$).)*\\Z" */
 /* codegen-forbid-regex: "(?im)^\\s*andi\\s+([0-7]+),0?777\\s*\\n\\s*andi\\s+\\1,0?777\\s*$" */

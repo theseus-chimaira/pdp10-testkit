@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC 72-bit pair address-copy elimination. */
 /* codegen-require-regex: "(?i)DIADD" */
 /* codegen-forbid-regex: "(?im)^\\s*(setm|movei)\\s+.*\\(17\\)" */

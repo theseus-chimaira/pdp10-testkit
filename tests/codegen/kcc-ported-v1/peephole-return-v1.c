@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Preserve the original rejection of SKIPA -1 followed by JRST. */
 /* codegen-forbid-regex: "(?im)^\\s*skipa\\s+1,\\[-1\\]\\s*\\n\\s*jrst\\s+" */
 unsigned slots[32];

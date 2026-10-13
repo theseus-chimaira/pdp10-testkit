@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Preserved late skip/jump folding regression. */
 /* codegen-require-regex: "(?im)^\\s*jumpe\\s+[0-9]+," */
 /* codegen-forbid-regex: "(?im)^\\s*skipn\\s+([0-7]+),\\1\\s*\\n\\s*jrst\\s+" */
