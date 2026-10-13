@@ -1,3 +1,16 @@
+# Five KCC optimizer regressions: v5
+
+The five shell regressions `rotate-idiom`, `signed-power2-div`,
+`straight-const-prop`, `dimode-div-one` and
+`return-register-chain` are registered as matrix code-generation fixtures.
+Function-local required and forbidden instructions, exact rotate/remainder
+counts, and required call evaluation were preserved. Installed KCC
+optimized cells passed on the relevant PDP-6, KA10, KI10, KS10 and
+PDP10-family profiles.
+
+`kl10-section0-codegen` was investigated and independently compiled
+successfully, but its wrapper remains: the matrix has no KL10 processor
+column, so deleting it would lose the explicit `-x=kl10` check.
 # Five KCC PDP-6 code-generation regressions
 
 The original sources and assembly assertions from
