@@ -394,7 +394,6 @@ torture-compile	gcc.c-torture/compile/990913-1.c	reviewed-v1/compile/990913-1.c	
 torture-compile	gcc.c-torture/compile/990928-1.c	reviewed-v1/compile/990928-1.c	compile			
 torture-compile	gcc.c-torture/compile/991008-1.c	reviewed-v1/compile/991008-1.c	compile			
 torture-compile	gcc.c-torture/compile/991026-1.c	reviewed-v1/compile/991026-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/991026-2.c	reviewed-v1/compile/991026-2.c	compile			uses-printf
 torture-compile	gcc.c-torture/compile/991127-1.c	reviewed-v1/compile/991127-1.c	compile			
 torture-compile	gcc.c-torture/compile/991202-1.c	reviewed-v1/compile/991202-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/991208-1.c	reviewed-v1/compile/991208-1.c	compile			
