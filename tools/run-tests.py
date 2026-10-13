@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import print_function
 import argparse
+import hashlib
 import csv
 import multiprocessing
 import os
@@ -96,6 +97,14 @@ def safe_name(s):
     return re.sub(r'[^A-Za-z0-9_.-]+', '_', s)
 
 
+def execution_name(src):
+    """Keep simulator run identifiers bounded without losing uniqueness."""
+    name = safe_name(src)
+    if len(name) <= 48:
+        return name
+    return name[:30] + '-' + hashlib.sha256(src.encode('utf-8')).hexdigest()[:16]
+
+
 def read_text(path):
     try:
         return Path(path).read_text(errors='ignore')
@@ -112,7 +121,11 @@ def write_text(path, text):
 
 
 def label_exists(asm_text, name):
-    return re.search(r'(?m)^' + re.escape(name) + r':', asm_text) is not None
+    symbol = re.escape(name)
+    # GCC commonly emits uninitialized test observables with .comm rather
+    # than an ordinary label. Both forms define inspectable memory symbols.
+    return re.search(r'(?m)^(?:' + symbol + r'\s*:|\s*\.(?:comm|lcomm)\s+' +
+                     symbol + r'\s*,)', asm_text) is not None
 
 
 def needed_kcc_runtime_symbols(asm_text):
@@ -868,7 +881,7 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
             cmd = [str(bins['p10run']), '--machine', cell['machine'], '--mode', 'deposit', '--exec-mode', 'step',
                    '--step-limit', os.environ.get('P10_SWEEP_STEP_LIMIT', '100000000'),
                    '--timeout', P10_TIMEOUT,
-                   '--workdir', str(rdir), '--name', safe_name(src)]
+                   '--workdir', str(rdir), '--name', execution_name(src)]
             if label_exists(asm_text, '__test_exit'):
                 cmd += ['--expect', '__test_exit=0']
             if label_exists(asm_text, 'fail_id'):
