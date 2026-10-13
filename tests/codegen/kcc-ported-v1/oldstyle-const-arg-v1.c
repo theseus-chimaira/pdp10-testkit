@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Preserves the original KCC assembly checks. */
 /* codegen-kcc-diagnostic-forbid-regex: "\\[(Advisory|Note|Warning|Error)\\]|warnings? detected|errors? detected" */
 static int

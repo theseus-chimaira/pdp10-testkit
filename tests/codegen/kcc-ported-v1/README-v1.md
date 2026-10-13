@@ -1,3 +1,17 @@
+# Five more shared C / KCC policy regressions (v9)
+
+The regressions `constant-branch-chain`, `abs-query-movm`,
+`abs-query-movm-extended`, `dead-local-store`, and
+`store-forward-gap` now use matrix C fixtures. Original KCC
+function-local required/forbidden assembly checks are preserved.
+All five passed on native PDP-6, KA10, KI10, and KS10 optimized KCC.
+
+All five also compiled successfully with GCC at `-O0`, `-O1`,
+`-O2`, and `-Os` on each of the four native CPUs (80 cells).
+The six fixtures from migration v8 were likewise confirmed as GCC
+compile-compatible in all 96 combinations and enabled in the matrix.
+GCC is exempt only from KCC-specific instruction expectations;
+these cross-compiler cells validate assembly generation, not runtime.
 # Six further KCC regressions (v8)
 
 Normalized `adjbp-helper-shared-scratch-v1`,

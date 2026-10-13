@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Preserves the original KCC assembly checks. */
 /* codegen-kcc-check: "dimode-div-one-scratch" */
 long long sq(long long a, long long b) { return a / b; }

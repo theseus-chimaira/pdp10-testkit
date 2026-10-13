@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* Preserves the original KCC assembly checks. */
 /* codegen-kcc-check: "dimode-div-helper-cost" */
 long long d1(long long a, long long b) { return a / b; }
