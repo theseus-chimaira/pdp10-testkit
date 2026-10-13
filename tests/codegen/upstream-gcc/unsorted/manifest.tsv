@@ -401,16 +401,15 @@ torture-compile	gcc.c-torture/compile/991213-1.c	reviewed-v1/compile/991213-1.c	
 torture-compile	gcc.c-torture/compile/991213-2.c	reviewed-v1/compile/991213-2.c	compile			
 torture-compile	gcc.c-torture/compile/991213-3.c	reviewed-v1/compile/991213-3.c	compile			
 torture-compile	gcc.c-torture/compile/991214-1.c	reviewed-v1/compile/991214-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/991214-2.c	compile/991214-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/991229-1.c	compile/991229-1.c	compile			
-torture-compile	gcc.c-torture/compile/991229-2.c	compile/991229-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/991229-3.c	compile/991229-3.c	compile			
-torture-compile	gcc.c-torture/compile/calls.c	compile/calls.c	compile			
-torture-compile	gcc.c-torture/compile/cmpdi-1.c	compile/cmpdi-1.c	compile			
-torture-compile	gcc.c-torture/compile/combine-hang.c	compile/combine-hang.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/cpp-1.c	compile/cpp-1.c	compile			
-torture-compile	gcc.c-torture/compile/cpp-2.c	compile/cpp-2.c	compile			
-torture-compile	gcc.c-torture/compile/dll.c	compile/dll.c	compile			
+torture-compile	gcc.c-torture/compile/991214-2.c	reviewed-v1/compile/991214-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991229-1.c	reviewed-v1/compile/991229-1.c	compile			
+torture-compile	gcc.c-torture/compile/991229-2.c	reviewed-v1/compile/991229-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991229-3.c	reviewed-v1/compile/991229-3.c	compile			
+torture-compile	gcc.c-torture/compile/calls.c	reviewed-v1/compile/calls.c	compile			
+torture-compile	gcc.c-torture/compile/cmpdi-1.c	reviewed-v1/compile/cmpdi-1.c	compile			
+torture-compile	gcc.c-torture/compile/combine-hang.c	reviewed-v1/compile/combine-hang.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/cpp-1.c	reviewed-v1/compile/cpp-1.c	compile			
+torture-compile	gcc.c-torture/compile/cpp-2.c	reviewed-v1/compile/cpp-2.c	compile			
 torture-compile	gcc.c-torture/compile/funcptr-1.c	compile/funcptr-1.c	compile			uses-printf
 torture-compile	gcc.c-torture/compile/goto-1.c	compile/goto-1.c	compile			
 torture-compile	gcc.c-torture/compile/init-1.c	compile/init-1.c	compile			

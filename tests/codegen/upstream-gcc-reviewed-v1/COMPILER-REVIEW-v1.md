@@ -1065,3 +1065,26 @@ noopt rejected 991213-1, compiled eight.
 **Excluded/deleted** `991026-2.c`: UNIX fork/stdio/errno execution
 contract, not useful bare-metal compiler coverage. Removed from source,
 manifest and matrix. Remaining tests are compile-only; not executable proofs.
+
+---
+
+## Batch 40
+
+Nine accepted, one platform-specific fixture removed. GCC PDP-6 -O0/KI10
+-O2 and KCC PDP-6 opt/KA10 noopt compiled the nine retained tests.
+
+| Test | Code/utility reviewed |
+|---|---|
+| 991214-2 | histogram/index loops and branches; JRST/AOS/CAML |
+| 991229-1 | recursive parsing and switch control flow; PUSHJ/CAILE |
+| 991229-2 | double-array arithmetic after function call; PUSHJ and stores |
+| 991229-3 | random-value branch and array copy; PUSHJ/JUMPN and loop |
+| calls.c | function pointer calls through integer constants; PUSHJ, compile-only |
+| cmpdi-1.c | 72-bit signed comparisons to constants; TLZ/JUMPN/CAIL |
+| combine-hang.c | double union/addition and optimizer convergence; FADL/DFAD |
+| cpp-1.c | preprocessor token pasting and macro rescan; no target instructions, CPP check |
+| cpp-2.c | empty `#pragma` preprocessing; no target instructions, CPP check |
+
+**Excluded/deleted:** `dll.c` requires Windows `__declspec(dllimport)` /
+`dllexport`; neither KCC nor PDP-10 GCC supports this platform-specific
+construct. Removed from matrix/manifest and original collection.
