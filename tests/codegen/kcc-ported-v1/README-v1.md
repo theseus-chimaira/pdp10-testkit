@@ -52,3 +52,11 @@ passed the normalized regular-expression policy.
 `peephole-return-v1.c` preserves the original negative assertion against
 consecutive `SKIPA 1,[-1]` and `JRST` instructions after unsigned comparison.
 KCC native PDP-6 optimized code generation passed the normalized check.
+
+## DImode wide constant folding
+
+`dimode-wide-fold-v1.c` preserves eight original function-local instruction
+assertions on `l34`, `l70`, `r35` (two checks), `ar35`, `ar70`, `ceq`, and
+`clt`, as well as the global prohibition against runtime `LSHC`/`ASHC`
+shifts. Installed optimized KCC passed native PDP-6, KA10, KI10, KS10
+matrix cells. These are KCC-specific folding expectations.
