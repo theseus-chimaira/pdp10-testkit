@@ -444,3 +444,27 @@ KCC PDP-6 opt/KA10 noopt compiled all ten; GCC PDP-6 -O0 failed on
 The large alloca values in 900313-1 form a compiler stress case but are
 not intended to be executed on a constrained PDP-6. No OS/hardware dependency
 is required for compilation. Full per-cell review remains pending.
+
+---
+
+## Batch 17
+
+Ten generic compiler stress tests, no foreign OS/device requirement. KCC
+PDP-6 opt/KA10 noopt compiled eight and rejected 920415-1, 920428-4;
+GCC PDP-6 -O0/KI10 -O2 compiled all ten.
+
+| Source | Plausible output |
+|---|---|
+| 920409-2 | floating arithmetic and conditional conversion; calls/DMOVE/JUMPLE |
+| 920410-1 | float/int union representation and masking; moves, ANDCMI, calls |
+| 920410-2 | nested infinite loops; JRST/CAIG/ADDI |
+| 920411-2 | dead float comparison/assignment; CAML/branch, optimized POPJ |
+| 920413-1 | double/72-bit union shifting; TLC/TLO, LSHC, branch |
+| 920415-1 | computed goto into nested GNU function; GCC branch/address, KCC rejects |
+| 920428-1 | char pointer cast and bit masking; ASH/ANDI or optimized LDB |
+| 920428-2 | dense libm declarations and complex double expressions; 1400 KCC/1000 GCC -O0/600 optimized KI10 lines, DMOVE/calls |
+| 920428-3 | computed goto dispatch; JRST/POPJ |
+| 920428-4 | variably modified struct member; allocation/shift, KCC rejects |
+
+Representative instruction families are consistent with the C constructs.
+One-time full per-profile review beyond batch one remains outstanding.

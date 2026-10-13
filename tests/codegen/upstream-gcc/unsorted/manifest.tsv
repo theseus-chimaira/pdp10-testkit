@@ -158,16 +158,16 @@ torture-compile	gcc.c-torture/compile/900407-1.c	reviewed-v1/compile/900407-1.c	
 torture-compile	gcc.c-torture/compile/900516-1.c	reviewed-v1/compile/900516-1.c	compile			
 torture-compile	gcc.c-torture/compile/920301-1.c	reviewed-v1/compile/920301-1.c	compile			
 torture-compile	gcc.c-torture/compile/920409-1.c	reviewed-v1/compile/920409-1.c	compile			
-torture-compile	gcc.c-torture/compile/920409-2.c	compile/920409-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920410-1.c	compile/920410-1.c	compile			maybe-fp,uses-printf
-torture-compile	gcc.c-torture/compile/920410-2.c	compile/920410-2.c	compile			
-torture-compile	gcc.c-torture/compile/920411-2.c	compile/920411-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920413-1.c	compile/920413-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920415-1.c	compile/920415-1.c	compile			
-torture-compile	gcc.c-torture/compile/920428-1.c	compile/920428-1.c	compile			
-torture-compile	gcc.c-torture/compile/920428-2.c	compile/920428-2.c	compile			maybe-fp,uses-printf,uses-fprintf,uses-files
-torture-compile	gcc.c-torture/compile/920428-3.c	compile/920428-3.c	compile			
-torture-compile	gcc.c-torture/compile/920428-4.c	compile/920428-4.c	compile			
+torture-compile	gcc.c-torture/compile/920409-2.c	reviewed-v1/compile/920409-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920410-1.c	reviewed-v1/compile/920410-1.c	compile			maybe-fp,uses-printf
+torture-compile	gcc.c-torture/compile/920410-2.c	reviewed-v1/compile/920410-2.c	compile			
+torture-compile	gcc.c-torture/compile/920411-2.c	reviewed-v1/compile/920411-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920413-1.c	reviewed-v1/compile/920413-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920415-1.c	reviewed-v1/compile/920415-1.c	compile			
+torture-compile	gcc.c-torture/compile/920428-1.c	reviewed-v1/compile/920428-1.c	compile			
+torture-compile	gcc.c-torture/compile/920428-2.c	reviewed-v1/compile/920428-2.c	compile			maybe-fp,uses-printf,uses-fprintf,uses-files
+torture-compile	gcc.c-torture/compile/920428-3.c	reviewed-v1/compile/920428-3.c	compile			
+torture-compile	gcc.c-torture/compile/920428-4.c	reviewed-v1/compile/920428-4.c	compile			
 torture-compile	gcc.c-torture/compile/920428-5.c	compile/920428-5.c	compile			
 torture-compile	gcc.c-torture/compile/920428-6.c	compile/920428-6.c	compile			
 torture-compile	gcc.c-torture/compile/920428-7.c	compile/920428-7.c	compile			maybe-fp
