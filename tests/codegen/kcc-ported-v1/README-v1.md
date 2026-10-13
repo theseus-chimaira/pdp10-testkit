@@ -29,3 +29,12 @@ because they assert KCC optimizer shape, not language semantics.
 `signed-zero-compare-v1.c` preserves the five required SKIP instruction
 patterns and the prohibition against SETZ/CAM zero materialization.
 KCC PDP-6 optimized matrix test passed using the installed compiler.
+
+## Small-constant byte pointer adjustment
+
+`adjbp-small-constant-pdp6-v1.c` requires exactly two `IBP` instructions
+for `p + 2` and forbids the `%ADJBPH` helper. The exact instruction count
+is enforced by one multiline regular expression. The distinct
+`adjbp-small-constant-ks10-v1.c` requires native `ADJBP`. Both cases
+passed their respective installed-KCC native optimized matrix cells.
+The old script contained no additional assertions.
