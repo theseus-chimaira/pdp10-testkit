@@ -57,3 +57,16 @@ classification against the supported GCC ABI before treating them as bugs;
 no sources or compilers have been changed to hide the failures.
 
 Tests: `exact-width-layout-stride`, `exact-width-32-semantics`, `gnu-packed-array-decay-bitptr`, `gnu-packed-array-members`, `gnu-packed-bitfield-mixed`, `gnu-packed-bitfield`, `gnu-packed-byvalue`, `gnu-packed-char-layout`, `gnu-packed-union`, `gnu-packed-array-bitoffset`.
+
+## Migration batch 2: packed byte pointers and aggregates
+
+Ten self-contained C sources imported without changing assertions, including
+bit-pointer call arithmetic, increment/decrement, storage/subtraction, packed
+local members, chained assignment and nested/by-value/whole-copy aggregates.
+Former KCC-only shell wrappers retired after preserving their sole compile/run
+assertions. PDP-6 KCC optimized: **10/10 PASS**. PDP-6 GCC -O0:
+**10 compile failures**, attributable to unsupported or incompatible
+KCC-specific packed-type constructs pending individual ABI classification.
+No compiler modifications. Full matrix sweep remains pending.
+
+Sources: `gnu-packed-bitptr-callabi`, `gnu-packed-bitptr-callarith`, `gnu-packed-bitptr-callincdec`, `gnu-packed-bitptr-callstore`, `gnu-packed-bitptr-callsub`, `gnu-packed-bitptr-localmember`, `gnu-packed-chained-assignment`, `gnu-packed-mixed-layout`, `gnu-packed-nested-byvalue`, `gnu-packed-nested-wholecopy`.

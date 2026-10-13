@@ -1,14 +1,4 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-gnu-packed-bitptr-callstore-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
+/* Preserved regression source from gnu-packed-bitptr-callstore.sh. */
 volatile int __test_exit;
 typedef unsigned _KCCtype_char16 u16;
 struct outer {
@@ -50,11 +40,3 @@ int main(void)
     if (p->pre != 025 || p->post != 011) return 7;
     return 0;
 }
-SRC
-cd "$tmp"
-TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpackbitstore t.c
-"$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
-    --step-limit 12000000 --timeout 20 --workdir "$tmp/run" \
-    --name gnu-packed-bitptr-callstore --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/gpackbitstore.s" "$KCC_RT" >/dev/null
-printf '%s\n' 'GNU packed function-boundary logical pointer store regression passed'

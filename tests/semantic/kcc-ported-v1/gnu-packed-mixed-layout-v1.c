@@ -1,14 +1,4 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-gnu-packed-mixed-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
+/* Preserved regression source from gnu-packed-mixed-layout.sh. */
 volatile int __test_exit;
 typedef unsigned _KCCtype_char16 u16;
 typedef unsigned _KCCtype_char18 u18;
@@ -123,11 +113,3 @@ int main(void)
     if (nest[1].end != 055) return 38;
     return 0;
 }
-SRC
-cd "$tmp"
-TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpackedmix t.c
-"$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
-    --step-limit 1000000 --timeout 20 --workdir "$tmp/run" \
-    --name gnu-packed-mixed --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/gpackedmix.s" "$KCC_RT" >/dev/null
-printf '%s\n' 'GNU packed mixed scalar regression passed'

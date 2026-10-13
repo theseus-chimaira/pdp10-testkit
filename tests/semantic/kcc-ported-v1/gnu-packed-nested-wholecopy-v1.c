@@ -1,14 +1,4 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-gnu-packed-nested-wholecopy-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
+/* Preserved regression source from gnu-packed-nested-wholecopy.sh. */
 volatile int __test_exit;
 typedef unsigned _KCCtype_char16 u16;
 struct inner {
@@ -44,11 +34,3 @@ int main(void)
     if (a[0].pre != 3 || a[0].post != 045) return 7;
     return 0;
 }
-SRC
-cd "$tmp"
-TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpacknestcpy t.c
-"$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
-    --step-limit 1000000 --timeout 20 --workdir "$tmp/run" \
-    --name gnu-packed-nested-wholecopy --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/gpacknestcpy.s" "$KCC_RT" >/dev/null
-printf '%s\n' 'GNU packed nested whole-copy regression passed'
