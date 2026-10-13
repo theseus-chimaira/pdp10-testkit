@@ -34,3 +34,11 @@ The character-pointer semantic test passed in all four sampled profiles.
 `anonymous-aggregates-v7.sh` was removed because both referenced C tests
 were already scheduled in the matrix and the wrapper added no independent
 assertion. All other KCC scripts remain until evaluated.
+
+## Migration 3: DImode fullword conversion
+
+`dimode-fullword-conversion-v1.c` preserves the shell script's exact
+72-bit integer to 36-bit signed/unsigned narrowing checks. KCC PDP-6
+optimized and KA10 unoptimized PASS. GCC PDP-6 -O0 and KI10 -O2
+RUN_FAIL: left as discoverable compiler regressions, not corrected.
+The old KCC-only execution shell wrapper has no independent assertions.
