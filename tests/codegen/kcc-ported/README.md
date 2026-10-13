@@ -19,8 +19,8 @@ PDP10_PREFIX=/usr/local ./run-tests.sh list-gcc
 compiler diagnostics; `semantic` cells compile and execute programs with
 `p10run`. Some original scripts require separate `codegen` and `semantic`
 fixtures. The special KCC invocation tests run through
-`tools/kcc_special_checks_v1.py`; instruction-count and register-liveness
-rules run through `tools/kcc_assembly_checks_v1.py`.
+`tools/kcc_special_checks.py`; instruction-count and register-liveness
+rules run through `tools/kcc_assembly_checks.py`.
 
 ## Compiler-specific and shared checks
 

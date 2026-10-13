@@ -977,7 +977,7 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         if cell['compiler'] != 'kcc' or len(special) != 1:
             errors = ['invalid special KCC test profile/directive']
         else:
-            from kcc_special_checks_v1 import run as run_special_kcc
+            from kcc_special_checks import run as run_special_kcc
             errors = run_special_kcc(special[0], cdir, bins['kcc'])
         status = 'policy_fail' if errors else 'pass'
         if errors:
@@ -1037,7 +1037,7 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         if cell['compiler'] == 'kcc':
             check_names = directives(ROOT / src).get('codegen-kcc-check', [])
             if check_names:
-                from kcc_assembly_checks_v1 import failures
+                from kcc_assembly_checks import failures
                 for check_name in check_names:
                     structured_failures.extend(failures(check_name, asm_text,
                                                         machine=cell['machine']))
