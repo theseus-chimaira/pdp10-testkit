@@ -271,3 +271,27 @@ KA10 noopt and GCC PDP-6 -O0/KI10 -O2: GCC compiled all ten, KCC failed
 No unsupported OS or special processor is required. The guarded IA64-only
 assembly in 20010605-3 is inactive on the PDP-10. Per-cell review beyond
 these representative profile comparisons remains outstanding.
+
+---
+
+## Batch 11
+
+All ten generic compiler stress sources retained. GCC PDP-6 -O0/KI10 -O2
+compiled 10/10; KCC PDP-6 opt/KA10 noopt compiled seven, rejecting
+20010903-1, 20010903-2 and 20011023-1 (GNU inline asm/nested function).
+
+| Source | Review observations |
+|---|---|
+| 20010824-1 | recursive control flow and label; JUMPE/SUBI/PUSHJ or optimized SOJA |
+| 20010903-1 | GNU inline assembler tied memory operand and clobbers; GCC address/loop code |
+| 20010903-2 | local nested inline function; GCC call/prologue, KCC parser rejects |
+| 20010911-1 | empty attribute list parser check; no instructions |
+| 20011010-1 | GNU statement expression in loop increment; calls, tests and jumps |
+| 20011023-1 | nested prototyped function and closure; GCC address building and calls |
+| 20011029-1 | builtin setjmp/noreturn handling; conditional and frame saves, compile-only |
+| 20011106-1 | function-pointer comma operator type; data definitions only |
+| 20011106-2 | conditional aggregate-field types; data definitions only |
+| 20011109-1 | packed short arrays, function pointers and aggregate operations; DPB/IBP/LSH and DMOVE |
+
+No foreign OS/hardware required to compile. No code correctness beyond
+representative plausibility claimed.
