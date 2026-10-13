@@ -1,3 +1,17 @@
+# Five more KCC regressions and GCC cross-coverage (v7)
+
+Normalized `dimode-incdec-lvalues`, `sidiv-helper`,
+`exact-width-16-32`, `dimode-div-borrow-noscratch`, and
+`dimode-div-single-sign`. All selected KCC native optimized cells
+passed; the exact-width test also passed all seven base/PDP10-family
+optimized profiles. Borrow SUB/SUBI counts and order, and the exact
+function-local SETZ/XOR counts were retained.
+
+Four of these five sources also passed GCC compilation on four native
+processors under all four optimization levels. Their 64 GCC codegen
+compilation checks are matrix-enabled using KCC-only instruction
+policies. The `exact-width-16-32` fixture remains KCC-only because
+GCC does not compile its KCC-specific integer/character type syntax.
 # GCC cross-compiler compilation coverage (v1)
 
 An exhaustive native GCC compilation audit was performed for all 70

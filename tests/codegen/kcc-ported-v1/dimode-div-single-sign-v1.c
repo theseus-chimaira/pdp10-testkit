@@ -1,0 +1,5 @@
+/* codegen-kcc-policy-only: yes */
+/* KCC compiler-specific instruction assertions. */
+/* codegen-require-regex: "(?ims)^q:\\s*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^%DIDIV[0-9]+L:" "(?ims)^r:\\s*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^\\s*SETZ\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*SETZ\\s+).)*?^%DIDIV[0-9]+L:" "(?ims)^q:\\s*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*XOR\\s+).)*?^\\s*XOR\\s+[^\\n]*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*XOR\\s+).)*?^%DIDIV[0-9]+L:" "(?ims)^r:\\s*\\n(?:(?!^%DIDIV[0-9]+L:|^\\s*XOR\\s+).)*?^%DIDIV[0-9]+L:" */
+long long q(long long a, long long b) { return a / b; }
+long long r(long long a, long long b) { return a % b; }
