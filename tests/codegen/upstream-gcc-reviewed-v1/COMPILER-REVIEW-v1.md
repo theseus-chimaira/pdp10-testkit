@@ -221,3 +221,28 @@ compiled all ten. KCC compiled five; it rejected 20010226-1,
 
 All tests target generic source-language constructs. No CPU-specific runtime,
 filesystem or external OS execution is needed. No compiler fixes attempted.
+
+---
+
+## Batch 9
+
+Nine accepted generic compiler tests, one removed as unusable on PDP-10.
+KCC PDP-6 opt/KA10 noopt and GCC PDP-6 -O0/KI10 -O2 were compiled.
+GCC compiled all candidates; KCC rejected 20010423-1, 20010510-1,
+20010516-1 and 20010518-2.
+
+| Test | Purpose and representative assembly |
+|---|---|
+| 20010408-1 | linked structures and command dispatch; MOVE/JRST/PUSHJ/LDB |
+| 20010421-1 | long-double variable and bounded loop; counter and jumps |
+| 20010423-1 | boolean conversion regression; LDB/ANDI/store, KCC rejects |
+| 20010426-1 | loop with noreturn call and struct fields; stores, branches |
+| 20010503-1 | double argument and dispatch between functions; calls/DMOVE |
+| 20010510-1 | `#ident` parser extension; expected absence of instruction output, KCC rejects |
+| 20010516-1 | GNU assembly memory-constraint handling; address computation and stores, KCC rejects |
+| 20010518-1 | complex GCC reload/flow stress from historical PowerPC bug; generic C operations, LSH/IOR/LDB/IBP |
+| 20010525-1 | memcmp result, return path and branch; PUSHJ/JUMPN |
+
+**Excluded/deleted:** 20010518-2.c (`volatile char chars_1[INT_MAX/2]`)
+requires an unrealizable PDP-10 static object far beyond addressable memory.
+It is not entered in the matrix or kept in the unreviewed source directory.
