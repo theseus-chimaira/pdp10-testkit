@@ -755,3 +755,27 @@ nine. No original OS/runtime is needed to compile these sources.
 
 Review is representative, not exhaustive across all legal matrix profiles.
 Failures remain recorded; no source compiler modifications.
+
+---
+
+## Batch 30
+
+Ten useful compile tests accepted. GCC PDP-6 -O0/KI10 -O2 compiled
+all ten; KCC PDP-6 optimized/KA10 unoptimized compiled nine and rejected
+930927-1 (wide-character literal/typedef). No foreign OS or special CPU.
+
+| Source | Intended coverage and plausible assembly |
+|---|---|
+| 930603-1 | union containing double and pointer, aggregate returns; DMOVE/DMOVEM/PUSHJ |
+| 930607-1 | function-pointer indirect call derived from 72-bit integer; MOVE/PUSHJ |
+| 930611-1 | float/int union condition; JUMPE/JUMPN and return |
+| 930618-1 | many short-circuit function calls and boolean OR; PUSHJ/TDZA/IOR |
+| 930621-1 | buffer arithmetic and control flow; DPB/ANDM/branches |
+| 930623-1 | GNU builtin apply; frame and address manipulation, compiler behavior only |
+| 930702-1 | empty GNU statement expression; constant return |
+| 930926-1 | initialized local from function call; PUSHJ or optimized tail branch |
+| 930927-1 | wide string initializers; data-only output, KCC rejects |
+| 931003-1 | double-array stack allocation and loops; DMOVE/SOJLE/SETZM |
+
+No source or compiler change other than relocating selected test inputs.
+Full per-profile assembly comparison beyond representative cells remains due.
