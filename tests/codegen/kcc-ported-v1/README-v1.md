@@ -60,3 +60,14 @@ assertions on `l34`, `l70`, `r35` (two checks), `ar35`, `ar70`, `ceq`, and
 `clt`, as well as the global prohibition against runtime `LSHC`/`ASHC`
 shifts. Installed optimized KCC passed native PDP-6, KA10, KI10, KS10
 matrix cells. These are KCC-specific folding expectations.
+
+## Small negative byte-pointer offsets
+
+`adjbp-small-negative-{pdp6,ka10,ki10,ks10}-v1.c` each retain
+function-local assertions for all five offsets. PDP-6/KA10/KI10 require
+PDP-6-safe HRRZ addressing and disallow the ADJBP helper in each
+function; KS10 requires native ADJBP in each function. All four KCC
+optimized profiles passed. The original PDP-6 execution test is preserved
+separately as `tests/semantic/kcc-ported-v1/adjbp-small-negative-runtime-v1.c`
+and passed the matching KCC semantic runner. The duplicate source content
+is intentional: code-shape and runtime checks have different profiles.
