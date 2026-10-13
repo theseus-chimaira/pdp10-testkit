@@ -71,3 +71,14 @@ optimized profiles passed. The original PDP-6 execution test is preserved
 separately as `tests/semantic/kcc-ported-v1/adjbp-small-negative-runtime-v1.c`
 and passed the matching KCC semantic runner. The duplicate source content
 is intentional: code-shape and runtime checks have different profiles.
+
+## Late skip/jump folding
+
+`late-skip-jump-v1.c` preserves the required JUMPE and prohibits an
+adjacent same-register SKIPN/JRST pair. The native optimized PDP-6 KCC
+matrix cell passed. The former shell wrapper is retired.
+
+`dimode-div-register-fast.sh` was investigated separately, but remains in
+the original KCC regression directory: the compiled divider functions
+currently spill registers before the `%DIDIV` label, failing the original
+non-spill assertion. Do not weaken or retire that assertion without a fix.
