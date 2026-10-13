@@ -1,3 +1,14 @@
+# Five additional KCC instruction regressions
+
+The C sources and original assertions from `direct-deref-tail`,
+`redundant-shift-mask`, `return-fallthrough`,
+`dimode-compare-fallback-scratch`, and
+`mixed-byte-struct-static-init` are now matrix-registered.
+All eight applicable optimized KCC cells passed. The direct/indirect
+call, redundant mask, and return fallthrough assertions remain explicit.
+`dimode-compare-registers` was also investigated but retained as a
+legacy regression: its existing no-spill assertion fails across four
+KCC CPU profiles.
 # Five additional KCC compile and address-fold regressions
 
 The original sources from `abi-consumed-pair-lifetime-v24`,

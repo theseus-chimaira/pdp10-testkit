@@ -1,14 +1,4 @@
-#!/bin/sh
-set -eu
-: "${TMPDIR:?TMPDIR must be set}"
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=$TMPDIR/kcc-mixed-byte-struct-static-init-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
+/* KCC codegen assertion migrated from legacy shell. */
 typedef signed _KCCtype_char6 s6;
 typedef unsigned _KCCtype_char6 u6;
 typedef signed _KCCtype_char7 s7;
@@ -59,7 +49,3 @@ probe(void)
     if ((unsigned int)m.l != 0777777) return 12;
     return 0;
 }
-SRC
-cd "$tmp"
-TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=mixed-byte-struct t.c
-printf '%s\n' 'mixed byte struct static initializer regression passed'
