@@ -849,3 +849,26 @@ and GCC PDP-6 -O0/KI10 -O2. All compiled for GCC. KCC rejected
 
 No source requires a non-PDP-10 OS or special processor. Representative
 assembly checked; complete per-cell verification remains separate.
+
+---
+
+## Batch 33
+
+Ten useful GCC torture compiler tests accepted. GCC PDP-6 -O0 and KI10
+-O2 compiled all; KCC PDP-6 optimized/KA10 unoptimized rejected 950613-1,
+while nine compiled.
+
+| Source | Plausible target assembly |
+|---|---|
+| 950124-1 | conditional call and return inside loop; PUSHJ/JUMPE/POPJ |
+| 950221-1 | signed short comparison/assignment to struct field; HRRE/HRRM |
+| 950329-1 | nested conditional calls and loops; PUSHJ/JRST/JUMPE |
+| 950512-1 | packed byte writes with arithmetic and modulo; IBP/ANDI/IDIVI |
+| 950530-1 | pointer subtraction and division by two; SUB/ASH/LSH |
+| 950607-1 | JPEG-like aggregate control flow; IDIV and conditional jumps |
+| 950610-1 | VLA parameter declaration; simple prologue, optimized POPJ |
+| 950612-1 | large integer VM interpreter/switch; LSH/LDB/IBP/IOR and JRST |
+| 950613-1 | GNU threaded interpreter with labels and floating; GCC branches and stack, KCC rejects |
+| 950618-1 | recursive GNU extern inline expansion; JRST or call |
+
+All accepted tests compile without requiring an OS/peripheral. Not executed.
