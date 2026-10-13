@@ -206,16 +206,16 @@ torture-compile	gcc.c-torture/compile/920625-1.c	reviewed-v1/compile/920625-1.c	
 torture-compile	gcc.c-torture/compile/920625-2.c	reviewed-v1/compile/920625-2.c	compile			
 torture-compile	gcc.c-torture/compile/920626-1.c	reviewed-v1/compile/920626-1.c	compile			
 torture-compile	gcc.c-torture/compile/920701-1.c	reviewed-v1/compile/920701-1.c	compile			
-torture-compile	gcc.c-torture/compile/920702-1.c	compile/920702-1.c	compile			
-torture-compile	gcc.c-torture/compile/920706-1.c	compile/920706-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920710-2.c	compile/920710-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920711-1.c	compile/920711-1.c	compile			
-torture-compile	gcc.c-torture/compile/920721-1.c	compile/920721-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920723-1.c	compile/920723-1.c	compile			maybe-fp,uses-malloc
-torture-compile	gcc.c-torture/compile/920729-1.c	compile/920729-1.c	compile			
-torture-compile	gcc.c-torture/compile/920806-1.c	compile/920806-1.c	compile			
-torture-compile	gcc.c-torture/compile/920808-1.c	compile/920808-1.c	compile			
-torture-compile	gcc.c-torture/compile/920809-1.c	compile/920809-1.c	compile			
+torture-compile	gcc.c-torture/compile/920702-1.c	reviewed-v1/compile/920702-1.c	compile			
+torture-compile	gcc.c-torture/compile/920706-1.c	reviewed-v1/compile/920706-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920710-2.c	reviewed-v1/compile/920710-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920711-1.c	reviewed-v1/compile/920711-1.c	compile			
+torture-compile	gcc.c-torture/compile/920721-1.c	reviewed-v1/compile/920721-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920723-1.c	reviewed-v1/compile/920723-1.c	compile			maybe-fp,uses-malloc
+torture-compile	gcc.c-torture/compile/920729-1.c	reviewed-v1/compile/920729-1.c	compile			
+torture-compile	gcc.c-torture/compile/920806-1.c	reviewed-v1/compile/920806-1.c	compile			
+torture-compile	gcc.c-torture/compile/920808-1.c	reviewed-v1/compile/920808-1.c	compile			
+torture-compile	gcc.c-torture/compile/920809-1.c	reviewed-v1/compile/920809-1.c	compile			
 torture-compile	gcc.c-torture/compile/920817-1.c	compile/920817-1.c	compile			
 torture-compile	gcc.c-torture/compile/920820-1.c	compile/920820-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/920821-1.c	compile/920821-1.c	compile			

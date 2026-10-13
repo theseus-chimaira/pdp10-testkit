@@ -566,3 +566,26 @@ and compiled the other eight.
 
 No foreign operating system required for compilation; none run. Compiler
 failures and optimization-size anomaly are recorded without fixes.
+
+---
+
+## Batch 22
+
+Ten generic compiler tests; all sampled KCC PDP-6 opt/KA10 noopt and
+GCC PDP-6 -O0/KI10 -O2 cells compiled. No runtime intended.
+
+| Source | Purpose and code plausibility |
+|---|---|
+| 920702-1 | negative shift constant and dead conditional; ASH/TRNE, optimized away |
+| 920706-1 | floating-array temporary and external call; PUSHJ/FIX |
+| 920710-2 | union double/word loops; CAMLE/branch, MOVEM |
+| 920711-1 | comma expression constant fold; SETZ or empty return |
+| 920721-1 | packed short multidimensional index and struct return; LDB/IBP/IOR |
+| 920723-1 | vector arithmetic and floating norm; DMOVE and conditional branches |
+| 920729-1 | volatile load in infinite loop; MOVE/JRST persists under optimization |
+| 920806-1 | short local initialized with constant; dead code removed |
+| 920808-1 | GNU statement expressions in for-loop; PUSHJ/conditional branch |
+| 920809-1 | large memcpy compiler expansion; BLT or call, not executed due out-of-bounds length |
+
+No incompatible OS or peripheral dependency. Invalid-runtime-input cases are
+retained only for compile-only optimizer stress. No compiler changes.
