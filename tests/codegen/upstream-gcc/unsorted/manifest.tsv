@@ -353,7 +353,6 @@ torture-compile	gcc.c-torture/compile/961010-1.c	reviewed-v1/compile/961010-1.c	
 torture-compile	gcc.c-torture/compile/961019-1.c	reviewed-v1/compile/961019-1.c	compile			
 torture-compile	gcc.c-torture/compile/961031-1.c	reviewed-v1/compile/961031-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/961126-1.c	reviewed-v1/compile/961126-1.c	compile			
-torture-compile	gcc.c-torture/compile/961203-1.c	reviewed-v1/compile/961203-1.c	compile			
 torture-compile	gcc.c-torture/compile/970206-1.c	reviewed-v1/compile/970206-1.c	compile			
 torture-compile	gcc.c-torture/compile/970214-1.c	reviewed-v1/compile/970214-1.c	compile			
 torture-compile	gcc.c-torture/compile/980329-1.c	reviewed-v1/compile/980329-1.c	compile			

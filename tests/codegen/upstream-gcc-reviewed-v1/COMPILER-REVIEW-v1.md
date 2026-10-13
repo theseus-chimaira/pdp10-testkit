@@ -968,3 +968,29 @@ KCC rejected `981001-2.c` (GNU weak alias syntax) and `981001-4.c`
 
 These are compiler checks, not runtime proofs; no compiler fixes attempted.
 Full individual matrix-cell comparison remains outstanding.
+
+---
+
+## Batch 36
+
+Nine useful generic tests retained; an impossible static-layout fixture
+removed. GCC PDP-6 -O0/KI10 -O2 compiled all nine retained sources.
+KCC PDP-6 optimized/KA10 unoptimized rejected 970214-1, 980506-2 and
+980511-1; six compiled.
+
+| Source | Plausible target output |
+|---|---|
+| 970206-1 | struct value argument and pointer destination; HRLI/BLT |
+| 970214-1 | wide-character literal initializer; data-only, KCC rejects |
+| 980329-1 | regex-style packed character buffer state machine; IBP/LDB |
+| 980408-1 | large pixel/run-length structure expressions; HLRZ/HRRZ/LSH and loops |
+| 980504-1 | floating geometry and conditional pointer loop; PUSHJ/IBP |
+| 980506-1 | byte-codec lookup tables with indexed byte accesses; HRRE/IBP |
+| 980506-2 | IEEE floating nextafter-like arithmetic; FADR/conditional tests, KCC rejects |
+| 980511-1 | kernel-device integer encoding as ordinary arithmetic; LSH/IOR, KCC rejects |
+| 980701-1 | unsigned byte packing into short; LDB/LSH/IOR |
+
+**Excluded/deleted:** `961203-1.c` allocates `char a[0x32100000]`
+inside a struct, beyond the PDP-10 address space. It gave inconsistent GCC
+-O0/-O2 acceptance and no realistic target-memory coverage. It is removed
+from the source collection, manifest and matrix.
