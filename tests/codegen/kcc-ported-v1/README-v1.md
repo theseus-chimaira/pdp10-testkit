@@ -1,3 +1,15 @@
+# Four verified KCC matrix migrations (v6)
+
+The `indexed-store-forward`, `indirect-call-byteptr`,
+`subbp-byte-size-range`, and `dimode-mul-pair-lifetime` regressions
+are now matrix-backed. Original assembly requirements and bans are
+preserved; the SUBBP case preserves compilation in native, base and
+PDP10-family profiles. The indirect-call test was verified with KCC
+`-n` and optimized base profiles. All selected checks passed.
+
+`dimode-signed-wide-power2` was also investigated but remains in the
+legacy directory: the current KCC output fails the original restriction
+on divider state/stack operations across all four CPUs.
 # Five KCC optimizer regressions: v5
 
 The five shell regressions `rotate-idiom`, `signed-power2-div`,
