@@ -394,3 +394,28 @@ KA10 noopt compiled seven; KCC rejected 20020210-1, 20020303-1 and
 
 No source requires a foreign runtime or unavailable CPU to compile. Further
 full per-cell opcode/size review outstanding for batch 14.
+
+---
+
+## Batch 15
+
+Ten generic C source-level compiler regressions accepted. Sampled KCC
+PDP-6 opt/KA10 noopt: eight compile, 20020312-1 and 20020409-1 reject.
+GCC PDP-6 -O0/KI10 -O2: all compile.
+
+| Test | Plausibility of code-generation features |
+|---|---|
+| 20020309-2 | floating/integer union modes; moves and DMOVE |
+| 20020312-1 | inline bit/flag optimizer expression; LSH and MOVSI, KCC rejects |
+| 20020314-1 | function calls and pointer-bearing request structs; PUSHJ and conditional branch |
+| 20020315-1 | two call comparisons and signed results; PUSHJ, TDZA/SKIPG |
+| 20020318-1 | old-style char argument, inlining; DPB, stack and call |
+| 20020319-1 | array address constant and signed index; ASH, DPB and branches |
+| 20020320-1 | function-pointer table, control-flow jump; LDB/JUMPN |
+| 20020323-1 | pointer/char indexing from generic RTL regression; CAMGE/CAML and stores |
+| 20020330-1 | multi-dimension arithmetic, call and aggregate pointers; address and call |
+| 20020409-1 | INT_MAX overflow constant simplification; optimized ADD/POPJ, KCC rejects |
+
+Historical x86/IA64/PowerPC bug origins do not make the C tests specific to
+those processors. No runtime or external OS dependency exercised. Full
+cross-cell review remains separate.
