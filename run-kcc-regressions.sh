@@ -5,8 +5,8 @@ cd "$(dirname "$0")"
 suite=tests/kcc-regression
 mode=${1:-fast}
 case "$mode" in
-fast) skip=semantic-optimizer-runtime.sh ;;
-semantic) exec sh "$suite/semantic-optimizer-runtime.sh" ;;
+fast) skip= ;;
+semantic) echo "semantic optimizer regression is in TEST_MATRIX.tsv; use ./run-tests.sh --kind semantic" >&2; exit 2 ;;
 all) skip= ;;
 *) echo "usage: $0 [fast|semantic|all]" >&2; exit 2 ;;
 esac
