@@ -38,3 +38,11 @@ is enforced by one multiline regular expression. The distinct
 `adjbp-small-constant-ks10-v1.c` requires native `ADJBP`. Both cases
 passed their respective installed-KCC native optimized matrix cells.
 The old script contained no additional assertions.
+
+## DImode canonical complement
+
+`dimode-complement-canonical-v1.c` checks **exactly four** `SETCA`
+instructions for a pair of signed/unsigned 72-bit complements, rejecting
+alternate XOR/AND masks that lose the duplicated low-word sign-bit
+invariant. All four optimized KCC CPU profiles (PDP-6, KA10, KI10, KS10)
+passed the normalized regular-expression policy.
