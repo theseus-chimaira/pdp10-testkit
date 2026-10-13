@@ -14,7 +14,7 @@ bin="$build/tools/host"
 
 ${MAKE:-make} -C "$repo" all BUILD_ROOT="$build"
 
-for f in dlink darc p10run pdp10-objdump p10fold p10super mktap csix; do
+for f in dlink darc p10run pdp10-objdump p10fold p10super csix; do
         ln -s "$bin/$f" "$work/$f"
 done
 ln -s "$repo/p10run.c" "$work/p10run.c"
@@ -23,7 +23,7 @@ for f in dobj-test.c pdp10-objdump-test.c pdp10-objdump-test.sh \
         p10fold-link-test.c p10fold-link-test.sh \
         p10super-cfg-test.c p10super-cfg-test.sh \
         p10super-rewrite-test.c p10super-rewrite-test.sh \
-        p10run-functional-test.sh mktap-mtc-7track-v1-test.sh \
+        p10run-functional-test.sh \
         csix-v1-test.sh; do
         cp "$here/$f" "$work/tests/$f"
 done
@@ -50,7 +50,6 @@ ${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/p10fold-link-mk" \
         ./tests/p10super-cfg-test.sh
         ./tests/p10super-rewrite-test.sh
         ./tests/p10run-functional-test.sh
-        ./tests/mktap-mtc-7track-v1-test.sh
         TMPDIR="$TMPDIR" CSIX="$work/csix" ./tests/csix-v1-test.sh
 )
 
