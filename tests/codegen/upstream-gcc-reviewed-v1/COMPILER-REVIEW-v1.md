@@ -779,3 +779,26 @@ all ten; KCC PDP-6 optimized/KA10 unoptimized compiled nine and rejected
 
 No source or compiler change other than relocating selected test inputs.
 Full per-profile assembly comparison beyond representative cells remains due.
+
+---
+
+## Batch 31
+
+Ten generic compiler checks accepted. GCC PDP-6 -O0/KI10 -O2 compiled
+all ten; KCC PDP-6 optimized/KA10 unoptimized rejected 931004-1 and
+931013-1, and compiled eight.
+
+| Source | Purpose and plausible output |
+|---|---|
+| 931004-1 | very large repeated macro string initializer; GCC BLT/frame and 500+ assembly lines, KCC rejects |
+| 931013-1 | 72-bit/word shifts in seed calculation; LSH/call, optimized jump, KCC rejects |
+| 931013-2 | dense unsigned-short array permutations; LDB/DPB/IBP/LSH, 500-1000 assembly lines |
+| 931013-3 | aggregate return via pointer cast; stack/address and return |
+| 931018-1 | compound GNU expression and union of double words; moves/optimized return |
+| 931031-1 | bitfield conditional and char local; LDB/DPB/TRNE, dead-result elimination |
+| 931102-1 | nested loops and many conditional branches; JRST/IBP/LDB/CAMLE |
+| 931102-2 | indexed aggregate packed char arithmetic; HRRZ/LSH/LDB |
+| 931203-1 | indexed pointer store via unusual `a++[i]` expression; ADD/SETZM |
+| 940611-1 | goto label in do-while; JRST and elimination of dead code |
+
+No external OS/unsupported CPU is necessary. These are compile-only tests.
