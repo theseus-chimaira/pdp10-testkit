@@ -1112,3 +1112,32 @@ compound-init and computed-label cases `init-1`/`init-2`/`init-3` and
 | structs | broad struct/union call and assignment stress; PUSHJ/DMOVE/stack handling |
 
 No dependency on target OS or unavailable processor. Not run as semantics.
+
+---
+
+## Batch 42 (final two sources)
+
+The remaining two torture-compile fixtures are generic GCC extensions:
+
+| Test | Plausibility and compiler outcome |
+|---|---|
+| widechar-1.c | concatenated wide and narrow string literal initializer, data-only GCC output; KCC rejects |
+| zero-strct-1.c | empty struct passed by value, GCC call/prologue, KCC rejects |
+
+PDP-6 optimized and KA10 unoptimized KCC rejected both; GCC PDP-6 -O0
+and KI10 -O2 compiled both. No target OS or special hardware required.
+
+## Collection reconciliation
+
+Compared with baseline commit `d1657aa`, the original unreviewed
+`torture-compile` directory contained 432 C files. All 423 accepted C
+sources have been moved to `upstream-gcc-reviewed-v1/compile` and are
+individually listed in `TEST_MATRIX.tsv` and the manifest. Nine were
+excluded/deleted: `20010518-2.c`, `920520-1.c`, `920521-1.c`,
+`920821-1.c`, `930111-1.c`, `950919-1.c`, `961203-1.c`,
+`991026-2.c`, and `dll.c`. The unreviewed directory contains no C files.
+
+The files have been inspected under representative compiler, processor and
+optimization profiles. Only batch one has so far completed the all-66-
+profile source/assembly comparison. Do not interpret scheduling of remaining
+profiles as a claim that their output has already been manually verified.

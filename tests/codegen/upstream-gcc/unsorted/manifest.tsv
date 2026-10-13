@@ -420,8 +420,8 @@ torture-compile	gcc.c-torture/compile/labels-2.c	reviewed-v1/compile/labels-2.c	
 torture-compile	gcc.c-torture/compile/labels-3.c	reviewed-v1/compile/labels-3.c	compile			
 torture-compile	gcc.c-torture/compile/packed-1.c	reviewed-v1/compile/packed-1.c	compile			
 torture-compile	gcc.c-torture/compile/structs.c	reviewed-v1/compile/structs.c	compile			
-torture-compile	gcc.c-torture/compile/widechar-1.c	compile/widechar-1.c	compile			
-torture-compile	gcc.c-torture/compile/zero-strct-1.c	compile/zero-strct-1.c	compile			
+torture-compile	gcc.c-torture/compile/widechar-1.c	reviewed-v1/compile/widechar-1.c	compile			
+torture-compile	gcc.c-torture/compile/zero-strct-1.c	reviewed-v1/compile/zero-strct-1.c	compile			
 torture-execute	gcc.c-torture/execute/20000112-1.c	execute/20000112-1.c	semantic-candidate			
 torture-execute	gcc.c-torture/execute/20000113-1.c	execute/20000113-1.c	semantic-candidate			
 torture-execute	gcc.c-torture/execute/20000121-1.c	execute/20000121-1.c	semantic-candidate			
