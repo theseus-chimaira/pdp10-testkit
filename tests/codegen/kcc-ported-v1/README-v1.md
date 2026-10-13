@@ -1,3 +1,16 @@
+# Six further KCC regressions (v8)
+
+Normalized `adjbp-helper-shared-scratch-v1`,
+`dimode-direct-abi-shifts`, `dimode-div-one-scratch`,
+`dimode-div-reuse-bit-temp`, `dimode-div-helper-cost`, and
+`oldstyle-const-arg`. Original instruction counts, register reuse,
+helper-size comparisons and diagnostic restrictions are retained.
+All selected installed-KCC profiles pass.
+
+The `dimode-mod-no-quotient` and `dimode-div-helper-selection`
+wrappers remain because the former fails its register-residency
+assertion and the latter additionally depends on runtime source files
+that are absent from the installed KCC prefix.
 # Five more KCC regressions and GCC cross-coverage (v7)
 
 Normalized `dimode-incdec-lvalues`, `sidiv-helper`,

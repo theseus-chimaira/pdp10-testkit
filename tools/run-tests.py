@@ -958,7 +958,22 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         miss = sorted(required - mnems)
         bad_regex, miss_regex, invalid_regex = regex_policy_failures(
             asm_text, forbid_regex, require_regex)
-        if bad or miss or bad_regex or miss_regex or invalid_regex:
+        structured_failures = []
+        if cell['compiler'] == 'kcc':
+            check_names = directives(ROOT / src).get('codegen-kcc-check', [])
+            if check_names:
+                from kcc_assembly_checks_v1 import failures
+                for check_name in check_names:
+                    structured_failures.extend(failures(check_name, asm_text))
+            diagnostic_patterns = directives(ROOT / src).get(
+                'codegen-kcc-diagnostic-forbid-regex', [])
+            for pattern in diagnostic_patterns:
+                try:
+                    if re.search(pattern, read_text(log_path)):
+                        structured_failures.append('forbidden compiler diagnostic: ' + pattern)
+                except re.error as error:
+                    structured_failures.append('invalid diagnostic regex: ' + str(error))
+        if bad or miss or bad_regex or miss_regex or invalid_regex or structured_failures:
             status = 'policy_fail'
             rpt = cdir / 'policy.report.txt'
             with open(rpt, 'w') as f:
@@ -977,6 +992,9 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
                 if invalid_regex:
                     f.write('invalid_regex=%s\n' %
                             ' | '.join(invalid_regex))
+                if structured_failures:
+                    f.write('structured_check_failures=%s\n' %
+                            ' | '.join(structured_failures))
             report = str(rpt)
         else:
             status = 'pass'
