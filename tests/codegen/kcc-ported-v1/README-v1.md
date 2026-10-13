@@ -1,3 +1,12 @@
+# Six-regression DImode and left-half optimization batch
+
+Six KCC shell regressions were migrated into matrix code-generation checks:
+`left-half-constant-fold`, `reverse-dmovem-fold`,
+`dimode-zero-compare`, `dimode-low-mask-direct`,
+`dimode-negate-inplace`, and `dimode-signed-div-power2`.
+The original test C is preserved, including exact minimum counts for
+SKIPN/SKIPE, MOVN and the signed power-of-two division instructions.
+All 19 selected installed-KCC native optimized CPU cells passed.
 # Six-regression halfword and folding batch
 
 The following KCC-only regression sources were normalized into the standard
