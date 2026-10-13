@@ -1088,3 +1088,27 @@ Nine accepted, one platform-specific fixture removed. GCC PDP-6 -O0/KI10
 **Excluded/deleted:** `dll.c` requires Windows `__declspec(dllimport)` /
 `dllexport`; neither KCC nor PDP-10 GCC supports this platform-specific
 construct. Removed from matrix/manifest and original collection.
+
+---
+
+## Batch 41
+
+Ten portable compile-test sources accepted. GCC PDP-6 -O0/KI10 -O2
+compiled 10/10; KCC PDP-6 opt/KA10 noopt compiled four and rejected GNU
+compound-init and computed-label cases `init-1`/`init-2`/`init-3` and
+`labels-1`/`labels-2`/`labels-3`.
+
+| Source | Useful compiler construct / representative assembly |
+|---|---|
+| funcptr-1 | function-pointer comparison and conditional call; CAMN/PUSHJ |
+| goto-1 | label and structured goto optimization; JRST |
+| init-1 | compound-literal pointer initializer; data-only, KCC rejects |
+| init-2 | designated struct initializer; data only, KCC rejects |
+| init-3 | GNU empty struct/field initializer; data only, KCC rejects |
+| labels-1 | computed-goto and label address difference; MULI/branch, KCC rejects |
+| labels-2 | label addresses in struct initializer; HRLI/BLT and branch, KCC rejects |
+| labels-3 | array of label offsets plus computed goto; IBP/LDB/LSH, KCC rejects |
+| packed-1 | packed pointer field in aggregate; MOVEI/MOVEM |
+| structs | broad struct/union call and assignment stress; PUSHJ/DMOVE/stack handling |
+
+No dependency on target OS or unavailable processor. Not run as semantics.

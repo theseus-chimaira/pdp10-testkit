@@ -410,16 +410,16 @@ torture-compile	gcc.c-torture/compile/cmpdi-1.c	reviewed-v1/compile/cmpdi-1.c	co
 torture-compile	gcc.c-torture/compile/combine-hang.c	reviewed-v1/compile/combine-hang.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/cpp-1.c	reviewed-v1/compile/cpp-1.c	compile			
 torture-compile	gcc.c-torture/compile/cpp-2.c	reviewed-v1/compile/cpp-2.c	compile			
-torture-compile	gcc.c-torture/compile/funcptr-1.c	compile/funcptr-1.c	compile			uses-printf
-torture-compile	gcc.c-torture/compile/goto-1.c	compile/goto-1.c	compile			
-torture-compile	gcc.c-torture/compile/init-1.c	compile/init-1.c	compile			
-torture-compile	gcc.c-torture/compile/init-2.c	compile/init-2.c	compile			
-torture-compile	gcc.c-torture/compile/init-3.c	compile/init-3.c	compile			
-torture-compile	gcc.c-torture/compile/labels-1.c	compile/labels-1.c	compile			
-torture-compile	gcc.c-torture/compile/labels-2.c	compile/labels-2.c	compile			
-torture-compile	gcc.c-torture/compile/labels-3.c	compile/labels-3.c	compile			
-torture-compile	gcc.c-torture/compile/packed-1.c	compile/packed-1.c	compile			
-torture-compile	gcc.c-torture/compile/structs.c	compile/structs.c	compile			
+torture-compile	gcc.c-torture/compile/funcptr-1.c	reviewed-v1/compile/funcptr-1.c	compile			uses-printf
+torture-compile	gcc.c-torture/compile/goto-1.c	reviewed-v1/compile/goto-1.c	compile			
+torture-compile	gcc.c-torture/compile/init-1.c	reviewed-v1/compile/init-1.c	compile			
+torture-compile	gcc.c-torture/compile/init-2.c	reviewed-v1/compile/init-2.c	compile			
+torture-compile	gcc.c-torture/compile/init-3.c	reviewed-v1/compile/init-3.c	compile			
+torture-compile	gcc.c-torture/compile/labels-1.c	reviewed-v1/compile/labels-1.c	compile			
+torture-compile	gcc.c-torture/compile/labels-2.c	reviewed-v1/compile/labels-2.c	compile			
+torture-compile	gcc.c-torture/compile/labels-3.c	reviewed-v1/compile/labels-3.c	compile			
+torture-compile	gcc.c-torture/compile/packed-1.c	reviewed-v1/compile/packed-1.c	compile			
+torture-compile	gcc.c-torture/compile/structs.c	reviewed-v1/compile/structs.c	compile			
 torture-compile	gcc.c-torture/compile/widechar-1.c	compile/widechar-1.c	compile			
 torture-compile	gcc.c-torture/compile/zero-strct-1.c	compile/zero-strct-1.c	compile			
 torture-execute	gcc.c-torture/execute/20000112-1.c	execute/20000112-1.c	semantic-candidate			
