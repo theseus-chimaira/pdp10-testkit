@@ -1,3 +1,16 @@
+# Additional DImode regressions
+
+Five shell regressions were transferred into native matrix codegen checks:
+`dimode-signed-mod-power2`, `dimode-unsigned-div-no-sign-flags`,
+`dimode-wide-literal`, `dimode-addsub-no-scratch`, and
+`dimode-bitwise-registers`. Original required, forbidden, and exact
+instruction-count constraints were retained. Each passed installed KCC
+optimized PDP-6, KA10, KI10, and KS10 profiles (20 passing cells).
+
+Three further candidates remain in the legacy harness because their
+original assembly limits currently fail with the installed KCC:
+`dimode-unsigned-wide-power2`, `dimode-negative-power2` (stack
+PUSH/POP), and `dimode-mul-no-snapshots` (MOVE count on PDP-6/KA10).
 # Six-regression DImode and left-half optimization batch
 
 Six KCC shell regressions were migrated into matrix code-generation checks:
