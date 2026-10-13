@@ -77,3 +77,16 @@ Sources: `gnu-packed-bitptr-callabi`, `gnu-packed-bitptr-callarith`, `gnu-packed
 C assertions. PDP-6 KCC optimized passed both. GCC PDP-6 -O0 gave a
 compile failure for narrow KCC-specific types and a runtime failure for
 layout; neither was fixed. The original two shell wrappers were removed.
+
+## Migration batch 4: pointer/void round trip
+
+`pointer-void-roundtrip-v1.c` preserves KCC's explicit 6/9/18-bit pointer
+casts through `void *`, storage access and pointer subtraction checks.
+Sample PDP-6 optimized KCC PASS, GCC -O0 compile failure because of
+KCC-specific exact-width type declarations. Original script exercised base
+mode in both optimization profiles; these are scheduled in the matrix but
+not yet verified individually. The old wrapper has been removed.
+
+`ka10-double-add-runtime.sh` remains pending: its multi-machine floating
+runtime checks use a special KA10 runtime fragment; do not delete until
+those auxiliary execution prerequisites are reproduced by the matrix.

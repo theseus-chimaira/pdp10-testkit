@@ -1,14 +1,4 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-pointer-void-roundtrip-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
+/* Preserved KCC byte-pointer void round-trip semantics. */
 volatile int __test_exit;
 
 typedef signed _KCCtype_char9 char9;
@@ -71,17 +61,3 @@ main()
     struct rec r;
     return run(&r);
 }
-SRC
-for opt in opt noopt; do
-    case "$opt" in
-    opt) opts= ;;
-    noopt) opts=-n ;;
-    esac
-    cd "$tmp"
-    TERM=dumb "$KCC" -S -v=nostats $opts -x=base -R="ptr-$opt" t.c
-    "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
-        --step-limit 3000000 --timeout 20 --workdir "$tmp/run-$opt" \
-        --name "pointer-void-roundtrip-$opt" --expect __test_exit=0 \
-        "$testroot/semantic-crt0.s" "$tmp/ptr-$opt.s" "$KCC_RT" >/dev/null
-done
-printf '%s\n' 'pointer void round-trip regression passed'
