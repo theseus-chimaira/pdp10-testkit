@@ -370,3 +370,27 @@ No additional ISA-policy failures were reported. Original per-cell artifacts
 are transient in `$TMPDIR/pdp10-torture-allcells-b01-v1`, **not** repository
 results or historical fixtures. This is source-level assembly plausibility
 review, not assembler acceptance or proof of semantic equivalence.
+
+---
+
+## Batch 14
+
+Ten useful generic compiler regressions. Representative KCC PDP-6 opt/
+KA10 noopt compiled seven; KCC rejected 20020210-1, 20020303-1 and
+20020309-1. GCC PDP-6 -O0 and KI10 -O2 compiled all ten.
+
+| Test | Source purpose and plausible emitted code |
+|---|---|
+| 20020110 | nested extern/static declaration scope; simple return |
+| 20020116-1 | loop/callback/noreturn control flow; branches and calls |
+| 20020120-1 | complex aggregate byte/field conversions; LDB/DPB/LSH and FIX |
+| 20020121-1 | bit-field masking and truncation; DPB/ANDI/SETZM |
+| 20020206-1 | conditional byte stores from optimizer ICE; DPB/IBP and branches |
+| 20020210-1 | VLA member in function parameter; stack parameter support; KCC rejects |
+| 20020303-1 | weak symbol in BSS; data-only metadata, KCC rejects |
+| 20020304-1 | large multi-function branch/reorder case; MOVE/PUSHJ/JRST, 200+ optimized assembly lines |
+| 20020304-2 | volatile 72-bit read/compare; IOR/DPB and conditional branch |
+| 20020309-1 | nested GNU function and captured pointer; GCC address/IBP operations; KCC rejects |
+
+No source requires a foreign runtime or unavailable CPU to compile. Further
+full per-cell opcode/size review outstanding for batch 14.

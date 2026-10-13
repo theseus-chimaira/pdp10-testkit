@@ -128,16 +128,16 @@ torture-compile	gcc.c-torture/compile/20020103-1.c	reviewed-v1/compile/20020103-
 torture-compile	gcc.c-torture/compile/20020106-1.c	reviewed-v1/compile/20020106-1.c	compile			
 torture-compile	gcc.c-torture/compile/20020109-1.c	reviewed-v1/compile/20020109-1.c	compile			
 torture-compile	gcc.c-torture/compile/20020109-2.c	reviewed-v1/compile/20020109-2.c	compile			
-torture-compile	gcc.c-torture/compile/20020110.c	compile/20020110.c	compile			
-torture-compile	gcc.c-torture/compile/20020116-1.c	compile/20020116-1.c	compile			
-torture-compile	gcc.c-torture/compile/20020120-1.c	compile/20020120-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/20020121-1.c	compile/20020121-1.c	compile			
-torture-compile	gcc.c-torture/compile/20020206-1.c	compile/20020206-1.c	compile			
-torture-compile	gcc.c-torture/compile/20020210-1.c	compile/20020210-1.c	compile			
-torture-compile	gcc.c-torture/compile/20020303-1.c	compile/20020303-1.c	compile			
-torture-compile	gcc.c-torture/compile/20020304-1.c	compile/20020304-1.c	compile			
-torture-compile	gcc.c-torture/compile/20020304-2.c	compile/20020304-2.c	compile			
-torture-compile	gcc.c-torture/compile/20020309-1.c	compile/20020309-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020110.c	reviewed-v1/compile/20020110.c	compile			
+torture-compile	gcc.c-torture/compile/20020116-1.c	reviewed-v1/compile/20020116-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020120-1.c	reviewed-v1/compile/20020120-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20020121-1.c	reviewed-v1/compile/20020121-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020206-1.c	reviewed-v1/compile/20020206-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020210-1.c	reviewed-v1/compile/20020210-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020303-1.c	reviewed-v1/compile/20020303-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020304-1.c	reviewed-v1/compile/20020304-1.c	compile			
+torture-compile	gcc.c-torture/compile/20020304-2.c	reviewed-v1/compile/20020304-2.c	compile			
+torture-compile	gcc.c-torture/compile/20020309-1.c	reviewed-v1/compile/20020309-1.c	compile			
 torture-compile	gcc.c-torture/compile/20020309-2.c	compile/20020309-2.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/20020312-1.c	compile/20020312-1.c	compile			
 torture-compile	gcc.c-torture/compile/20020314-1.c	compile/20020314-1.c	compile			
