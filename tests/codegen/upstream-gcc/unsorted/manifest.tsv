@@ -372,16 +372,16 @@ torture-compile	gcc.c-torture/compile/981001-1.c	reviewed-v1/compile/981001-1.c	
 torture-compile	gcc.c-torture/compile/981001-2.c	reviewed-v1/compile/981001-2.c	compile			
 torture-compile	gcc.c-torture/compile/981001-3.c	reviewed-v1/compile/981001-3.c	compile			
 torture-compile	gcc.c-torture/compile/981001-4.c	reviewed-v1/compile/981001-4.c	compile			
-torture-compile	gcc.c-torture/compile/981006-1.c	compile/981006-1.c	compile	compile		
-torture-compile	gcc.c-torture/compile/981007-1.c	compile/981007-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/981022-1.c	compile/981022-1.c	compile			
-torture-compile	gcc.c-torture/compile/981107-1.c	compile/981107-1.c	compile			
-torture-compile	gcc.c-torture/compile/981223-1.c	compile/981223-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/990107-1.c	compile/990107-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/990117-1.c	compile/990117-1.c	compile			
-torture-compile	gcc.c-torture/compile/990203-1.c	compile/990203-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/990517-1.c	compile/990517-1.c	compile			
-torture-compile	gcc.c-torture/compile/990519-1.c	compile/990519-1.c	compile			
+torture-compile	gcc.c-torture/compile/981006-1.c	reviewed-v1/compile/981006-1.c	compile	compile		
+torture-compile	gcc.c-torture/compile/981007-1.c	reviewed-v1/compile/981007-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/981022-1.c	reviewed-v1/compile/981022-1.c	compile			
+torture-compile	gcc.c-torture/compile/981107-1.c	reviewed-v1/compile/981107-1.c	compile			
+torture-compile	gcc.c-torture/compile/981223-1.c	reviewed-v1/compile/981223-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/990107-1.c	reviewed-v1/compile/990107-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/990117-1.c	reviewed-v1/compile/990117-1.c	compile			
+torture-compile	gcc.c-torture/compile/990203-1.c	reviewed-v1/compile/990203-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/990517-1.c	reviewed-v1/compile/990517-1.c	compile			
+torture-compile	gcc.c-torture/compile/990519-1.c	reviewed-v1/compile/990519-1.c	compile			
 torture-compile	gcc.c-torture/compile/990523-1.c	compile/990523-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/990527-1.c	compile/990527-1.c	compile			
 torture-compile	gcc.c-torture/compile/990617-1.c	compile/990617-1.c	compile			uses-printf

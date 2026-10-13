@@ -994,3 +994,26 @@ KCC PDP-6 optimized/KA10 unoptimized rejected 970214-1, 980506-2 and
 inside a struct, beyond the PDP-10 address space. It gave inconsistent GCC
 -O0/-O2 acceptance and no realistic target-memory coverage. It is removed
 from the source collection, manifest and matrix.
+
+---
+
+## Batch 37
+
+Ten generic GCC torture tests accepted. GCC PDP-6 -O0/KI10 -O2 compiled
+all; KCC PDP-6 optimized/KA10 unoptimized rejected 981006-1, 981022-1,
+981223-1, 990117-1 and compiled six.
+
+| Source | Useful properties and plausible assembly |
+|---|---|
+| 981006-1 | switch/tablejump optimizer control flow; JRST/JUMPL/CAILE, KCC rejects |
+| 981007-1 | double-based complex structure arithmetic (ordinary C struct); DMOVE/PUSHJ |
+| 981022-1 | GNU omitted-operand conditional lvalue; SETZM, branch, KCC rejects |
+| 981107-1 | pointer-derived multiplication seed; MULI/PUSHJ |
+| 981223-1 | GNU complex float and real-part comparison; JUMPN/JRST, KCC rejects |
+| 990107-1 | IEEE double bit mask via wide integer reinterpretation; AND/CAMN |
+| 990117-1 | GNU builtin constant-p expression; dead optimized code, KCC rejects |
+| 990203-1 | float bit-pattern check against 72-bit mask; AND/branch |
+| 990517-1 | Perl sdbm-like packed char buffers; LDB/IBP/IOR and branches |
+| 990519-1 | bit-field conjunction; LDB/TRNE/TDZA |
+
+No OS service or special CPU needed to compile. Errors retained unchanged.
