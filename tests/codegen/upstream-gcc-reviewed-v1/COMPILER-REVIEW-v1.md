@@ -542,3 +542,27 @@ PDP-10 GCC assembly contains raw inline-asm text `4`, `f`, and `g` as
 instructions. That is not meaningful or valid PDP-10 assembler input, so a
 compile-only pass would give misleading target coverage. Original source
 copies and matrix/manifest entries were all removed. No compiler changes.
+
+---
+
+## Batch 21
+
+Ten generic compiler tests. Representative GCC PDP-6 -O0/KI10 -O2
+compiled all; KCC PDP-6 opt/KA10 noopt rejected 920624-1, 920625-2
+and compiled the other eight.
+
+| Source | Observed plausible code |
+|---|---|
+| 920611-2 | bitwise byte/word codec-style expressions; XOR/IOR/LSH/LDB |
+| 920615-1 | designated initialized stack array; BLT and stack layout |
+| 920617-1 | sqrt result and float-pointer postincrement; PUSHJ/DMOVEM |
+| 920617-2 | old-style argument declaration with float/arrays; prologue/return |
+| 920623-1 | recursion with postdecrement; SUBI, conditional recursion |
+| 920624-1 | switch on loop counter with sparse cases; AOS/CAIN/JRST, KCC rejects |
+| 920625-1 | large opcode enumeration and nested branches/bit operations; ~1731 KCC/~2066 GCC -O0/~2856 GCC KI10 -O2 lines; note unexpected optimization growth for later review |
+| 920625-2 | complex callback/GUI typedef program, source still generic; PUSHJ/MOVEM/branches, KCC rejects |
+| 920626-1 | negative shift count compile-only expression; LSH in output, semantics undefined if executed |
+| 920701-1 | char-pointer difference and address addition; pointer math/IBP |
+
+No foreign operating system required for compilation; none run. Compiler
+failures and optimization-size anomaly are recorded without fixes.
