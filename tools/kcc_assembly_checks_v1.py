@@ -399,3 +399,132 @@ def _legacy_double_store(lines):
 
 
 CHECKS["double-store-forward"] = _legacy_double_store
+
+
+def _legacy_identical(lines):
+    bodies = _functions(lines)
+    errors = []
+    expected = {
+        "add_self": ([r"^\s*lsh\s+1,0?1"], [r"^\s*(?:move|add)\s+"]),
+        "sub_self": ([r"^\s*setz\s+1,"], [r"^\s*(?:move|sub|xor)\s+"]),
+        "xor_self": ([r"^\s*setz\s+1,"], [r"^\s*(?:move|sub|xor)\s+"]),
+        "and_self": ([], [r"^\s*(?:move|and|ior)\s+"]),
+        "or_self": ([], [r"^\s*(?:move|and|ior)\s+"]),
+    }
+    for name, (required, forbidden) in expected.items():
+        for pattern in required:
+            if not _has(bodies.get(name, []), pattern):
+                errors.append(name + " missing " + pattern)
+        for pattern in forbidden:
+            if _has(bodies.get(name, []), pattern):
+                errors.append(name + " retained " + pattern)
+    if sum(bool(re.search(r"^\s*pushj\s+17,side", l, re.I))
+           for l in bodies.get("xor_calls", [])) != 2:
+        errors.append("xor_calls side-effect count != 2")
+    if sum(bool(re.search(r"^\s*move\s+[0-7]+,0\([0-7]+\)", l, re.I))
+           for l in bodies.get("xor_volatile", [])) < 2:
+        errors.append("xor_volatile access count < 2")
+    return errors
+
+
+def _legacy_cheap_pass(lines):
+    bodies = _functions(lines)
+    errors = []
+    for name, req, bad in (
+        ("incp", r"^\s*aos\s+1,", r"^\s*move\s+1,"),
+        ("decp", r"^\s*sos\s+1,", r"^\s*move\s+1,")):
+        if not _has(bodies.get(name, []), req):
+            errors.append(name + " missing " + req)
+        if _has(bodies.get(name, []), bad):
+            errors.append(name + " retained final MOVE")
+    if _has(bodies.get("same_load", []), r"^\s*add\s+[0-9]+,glob"):
+        errors.append("same_load rereads glob")
+    previous = ""
+    for line in bodies.get("copy_store", []):
+        if (_has([previous], r"^\s*move\s+[0-9]+,[0-9]+\s*$")
+                and _has([line], r"^\s*movem\s+")):
+            errors.append("copy_store MOVE temporary followed by MOVEM")
+        previous = line
+    for op in ("DMOVE", "DMOVEM"):
+        # These are required only on KI10/KS10; infer mode from emitted
+        # two-word pair-store instruction usage elsewhere.
+        if _has(lines, r"^\s*(?:DMOVE|DMOVEM)\s+") and not _has(
+                bodies.get("pair_store", []), r"^\s*" + op + r"\s+"):
+            errors.append("pair_store missing " + op)
+    return errors
+
+
+CHECKS.update({
+    "identical-pure-fold-v1": _legacy_identical,
+    "cheap-optimizer-pass": _legacy_cheap_pass,
+})
+
+
+def _assert_patterns(bodies, specs):
+    errors = []
+    for fn, required, forbidden in specs:
+        text = bodies.get(fn, [])
+        for pattern in required:
+            if not _has(text, pattern):
+                errors.append(fn + ": missing " + pattern)
+        for pattern in forbidden:
+            if _has(text, pattern):
+                errors.append(fn + ": forbidden " + pattern)
+    return errors
+
+
+def _legacy_cheap_six(lines):
+    bodies = _functions(lines)
+    specs = [
+        ("addarg", [r"^\s*add\s+1,2"], [r"^\s*move\s+3,2"]),
+        ("andarg", [r"^\s*and\s+1,2"], []),
+        ("addone", [r"^\s*addi\s+1,1"], [r"^\s*movei\s+[0-9]+,1"]),
+        ("bitzero", [r"^\s*trn[en]\s+1,0?777"], [r"^\s*(?:andi|cai)"]),
+        ("bithigh", [r"^\s*tln[en]\s+1,0?777000"], [r"^\s*(?:andi|cai)"]),
+        ("storezero", [r"^\s*setzb\s+1,"], [r"^\s*move\s+1,"]),
+        ("storeones", [r"^\s*setob\s+1,"], [r"^\s*seto\s+1"]),
+        ("complement", [r"^\s*setcm\s+1,0\(1\)"],
+         [r"^\s*move\s+[0-9]+,0\(1\)"]),
+    ]
+    errors = _assert_patterns(bodies, specs)
+    if not (_has(bodies.get("twice", []), r"^\s*add\s+([0-9]+),\1")
+            or _has(bodies.get("twice", []), r"^\s*lsh\s+[0-9]+,1")):
+        errors.append("twice not folded to one-register doubling")
+    return errors
+
+
+def _legacy_cheap_final(lines):
+    bodies = _functions(lines)
+    specs = []
+    for name in ("eqc", "nec", "ltc"):
+        specs.append((name, [r"^\s*cai[a-z]*\s+[0-7]+,7"],
+                      [r"^\s*(?:movei|movni)\s+[0-7]+,7"]))
+    specs += [
+        ("csub", [r"^\s*movn\s+1,1", r"^\s*addi\s+1,7"], [r"^\s*sub\s+"]),
+        ("idx1", [r"^\s*move\s+1,1\([0-7]+\)"], [r"^\s*addi\s+"]),
+        ("idx3", [r"^\s*move\s+1,3\([0-7]+\)"], [r"^\s*addi\s+"]),
+        ("asgn", [r"^\s*movem\s+2,0\(1\)", r"^\s*move\s+1,2"],
+         [r"^\s*move\s+1,3"]),
+        ("asadd", [r"^\s*movem\s+[0-7]+,0\(1\)", r"^\s*move\s+1,[0-7]+"], []),
+        ("dupidx", [r"^\s*lsh\s+1,1"], []),
+        ("cmp_sc", [r"^\s*move\s+2,0?10", r"^\s*lsh\s+2,0?33",
+                    r"^\s*ash\s+2,-0?33"], [r"^\s*trne\s+0?10,0?400"]),
+    ]
+    for name, opcode in (("casadd", "addb"), ("casand", "andb"),
+                         ("casor", "iorb"), ("casxor", "xorb")):
+        specs.append((name, [r"^\s*" + opcode + r"\s+2,0\(1\)",
+                             r"^\s*move\s+1,2"], [r"^\s*move\s+3,2"]))
+    errors = _assert_patterns(bodies, specs)
+    for name in ("dupidx", "dupand", "dupor"):
+        p = (r"^\s*move\s+[0-7]+,0\([0-7]+\)" if name == "dupidx"
+             else r"^\s*move\s+1,0\([0-7]+\)")
+        count = sum(bool(re.search(p, l, re.I)) for l in bodies.get(name, []))
+        if count != 1:
+            errors.append(name + ": indexed load count " + str(count))
+    return errors
+
+
+CHECKS.update({
+    "cheap-optimizer-1-6": _legacy_cheap_six,
+    "cheap-optimizer-final": _legacy_cheap_final,
+})

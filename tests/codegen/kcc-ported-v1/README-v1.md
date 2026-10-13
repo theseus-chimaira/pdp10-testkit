@@ -1,3 +1,14 @@
+# Three optimizer-regression migrations (v12)
+
+`identical-pure-fold-v1`, `cheap-optimizer-pass` and
+`cheap-optimizer-final` now use matrix-backed C inputs with structured
+KCC instruction/count checks. All twelve native KCC optimized cells
+and 48 GCC native compilation cells passed. The latter do not apply
+KCC-specific instruction policies.
+
+`cheap-optimizer-1-6` was investigated but remains a legacy test:
+current KCC emits `SETZB 2,0(1)` followed by `SETM 1,2` in
+`storezero`, contrary to the original requirement `SETZB 1,...`.
 # Ten KCC regression migrations (v11)
 
 Migrated `dimode-addsub-registers`, `dimode-corpus-survey`,
