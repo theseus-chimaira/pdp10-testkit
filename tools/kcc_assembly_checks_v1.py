@@ -174,13 +174,17 @@ def div_helper_selection(lines):
     return errors
 
 
-def direct_assignment_store(lines):
+def direct_assignment_store(lines, machine):
     text = "\n".join(lines)
     stores = (
         re.search(r"(?im)^\s*movem\s+[1-7],gd$", text) and
         re.search(r"(?im)^\s*movem\s+[1-7],gd\+1$", text))
     double = re.search(r"(?im)^\s*dmovem\s+[1-7],gd$", text)
-    return [] if stores or double else ["missing expected two-word direct store"]
+    if machine in ("pdp6", "ka10"):
+        return [] if stores else ["missing MOVEM pair required on " + machine]
+    if machine in ("ki10", "ks10"):
+        return [] if double else ["missing DMOVEM required on " + machine]
+    return ["unsupported processor for direct-store assertion: " + machine]
 
 
 CHECKS = {
@@ -193,9 +197,13 @@ CHECKS = {
 }
 
 
-def failures(name, asm):
+def failures(name, asm, machine=None):
     if name not in CHECKS:
         return ["unknown KCC assembly checker " + name]
+    if name in ("direct-assignment-store", "cheap-optimizer-pass"):
+        if machine is None:
+            return ["processor not supplied for " + name]
+        return CHECKS[name](asm.splitlines(), machine)
     return CHECKS[name](asm.splitlines())
 
 
@@ -427,7 +435,7 @@ def _legacy_identical(lines):
     return errors
 
 
-def _legacy_cheap_pass(lines):
+def _legacy_cheap_pass(lines, machine):
     bodies = _functions(lines)
     errors = []
     for name, req, bad in (
@@ -445,12 +453,10 @@ def _legacy_cheap_pass(lines):
                 and _has([line], r"^\s*movem\s+")):
             errors.append("copy_store MOVE temporary followed by MOVEM")
         previous = line
-    for op in ("DMOVE", "DMOVEM"):
-        # These are required only on KI10/KS10; infer mode from emitted
-        # two-word pair-store instruction usage elsewhere.
-        if _has(lines, r"^\s*(?:DMOVE|DMOVEM)\s+") and not _has(
-                bodies.get("pair_store", []), r"^\s*" + op + r"\s+"):
-            errors.append("pair_store missing " + op)
+    if machine in ("ki10", "ks10"):
+        for op in ("DMOVE", "DMOVEM"):
+            if not _has(bodies.get("pair_store", []), r"^\s*" + op + r"\s+"):
+                errors.append("pair_store missing " + op)
     return errors
 
 
@@ -528,3 +534,65 @@ CHECKS.update({
     "cheap-optimizer-1-6": _legacy_cheap_six,
     "cheap-optimizer-final": _legacy_cheap_final,
 })
+
+
+def _trimmed(lines):
+    return [line.strip() for line in lines]
+
+
+def _check_duplicate_tlz(lines):
+    prev = ""
+    for current in _trimmed(lines):
+        if re.match(r"(?i)^tlz\s+", current) and current == prev:
+            return ["consecutive identical TLZ"]
+        prev = current
+    return []
+
+
+def _check_duplicate_sign_extension(lines):
+    stripped = _trimmed(lines)
+    for at in range(0, len(stripped) - 5):
+        first = stripped[at:at + 3]
+        second = stripped[at + 3:at + 6]
+        if (first == second
+                and re.match(r"(?i)^(TRNE|TLNE)\s+", first[0])
+                and re.match(r"(?i)^TDOA\s+", first[1])
+                and re.match(r"(?i)^ANDI\s+", first[2])):
+            return ["duplicate signed-extension triple"]
+    return []
+
+
+def _check_self_move(lines):
+    for op, args in map(instruction, lines):
+        if op == "MOVE":
+            parts = [p.strip() for p in args.split(",")]
+            if len(parts) == 2 and re.fullmatch("[0-7]+", parts[0]) and parts[0] == parts[1]:
+                return ["self MOVE survived"]
+    return []
+
+
+def _check_zero_immediate(lines):
+    return (["zero immediate arithmetic survived"] if
+            _has(lines, r"^\s*(?:addi|subi|iori|xori)\s+[0-7]+,0(?:\s|$)") else [])
+
+
+CHECKS.update({
+    "cleanup-duplicate-tlz": _check_duplicate_tlz,
+    "cleanup-sign-extension": _check_duplicate_sign_extension,
+    "cleanup-self-move": _check_self_move,
+    "cleanup-zero-immediate": _check_zero_immediate,
+})
+
+
+def _packed_internal_stream(lines):
+    setms = sum(instruction(line)[0] == "SETM" for line in lines)
+    ildbs = sum(instruction(line)[0] == "ILDB" for line in lines)
+    errors = []
+    if setms > 12:
+        errors.append("packed scalar access rebuilt pointers (%d SETM)" % setms)
+    if ildbs < 8:
+        errors.append("streaming ILDB sequence too short (%d)" % ildbs)
+    return errors
+
+
+CHECKS["gnu-packed-internal-stream"] = _packed_internal_stream

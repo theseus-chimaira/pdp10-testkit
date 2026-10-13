@@ -1,15 +1,3 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-kcc_setup_env
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-designated-initializers-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
 volatile int __test_exit;
 
 struct triple {
@@ -88,53 +76,3 @@ int main(void)
     if (achain.u.pair.x != 33 || achain.u.pair.y != 0) return 16;
     return 0;
 }
-SRC
-
-cd "$tmp"
-
-check_bad()
-{
-    name=$1
-    diagnostic=$2
-    src=$3
-    cat > "$tmp/$name.c" <<SRC
-$src
-SRC
-    set +e
-    TERM=dumb "$KCC" -S -v=nostats "$tmp/$name.c" \
-        >"$tmp/$name.out" 2>"$tmp/$name.err"
-    status=$?
-    set -e
-    if test "$status" -eq 0; then
-        echo "$name unexpectedly accepted" >&2
-        exit 1
-    fi
-    if test "$status" -gt 128; then
-        echo "$name terminated KCC by signal" >&2
-        cat "$tmp/$name.err" >&2
-        exit 1
-    fi
-    if ! grep -q "$diagnostic" "$tmp/$name.err"; then
-        echo "$name missing expected diagnostic: $diagnostic" >&2
-        cat "$tmp/$name.err" >&2
-        exit 1
-    fi
-}
-
-check_bad unknown-member 'Unknown struct/union member in initializer' \
-'struct S { int a; }; struct S s = { .missing = 1 };'
-check_bad negative-index 'Array designator index must not be negative' \
-'int a[3] = { [-1] = 1 };'
-check_bad bounds-index 'Array designator index exceeds array bounds' \
-'int a[3] = { [3] = 1 };'
-check_bad nonconstant-index 'Integral constant expected' \
-'int i; int a[3] = { [i] = 1 };'
-check_bad missing-member-equals '= required after designator' \
-'struct S { int a; }; struct S s = { .a 1 };'
-
-TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=designated t.c
-"$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
-    --step-limit 1000000 --timeout 20 --workdir "$tmp/run" \
-    --name designated-initializers --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/designated.s" "$KCC_RT" >/dev/null
-printf '%s\n' 'designated initializer regression passed'

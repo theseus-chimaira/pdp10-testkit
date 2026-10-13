@@ -811,6 +811,31 @@ def remove_selected_cells(outroot, semantic_cells, codegen_cells):
 def compile_to_asm(cell, src, asm_path, log_path, bins):
     if cell['compiler'] == 'kcc':
         source_directives = directives(ROOT / src)
+        preprocess_kind = source_directives.get('codegen-kcc-preprocess', [])
+        if preprocess_kind:
+            kind = preprocess_kind[0]
+            if kind == 'source':
+                source_path = ROOT / src
+            elif kind in ('long-macro', 'long-string'):
+                source_path = asm_path.parent / (safe_name(src) + '-input.c')
+                if kind == 'long-macro':
+                    macro = 'DAIMON_' + 'X' * 4096
+                    source_path.write_text('#define ' + macro + ' 1\n#ifdef ' +
+                                           macro + '\nint long_macro_ok;\n#endif\n')
+                else:
+                    source_path.write_text('char *s = "' + 'a' * 400000 + '";\n')
+            else:
+                raise RuntimeError('unknown preprocessor regression kind: ' + kind)
+            cmd = [str(bins['kcc']), '-E', '-x=' + cell['arch'], str(source_path)]
+            try:
+                with open(asm_path, 'w') as output, open(log_path, 'w') as errors:
+                    result = subprocess.run(cmd, cwd=str(ROOT), stdout=output,
+                                            stderr=errors, timeout=COMPILE_TIMEOUT)
+                if result.returncode < 0 or result.returncode > 128:
+                    return 'signal'
+                return 'pass' if result.returncode == 0 else 'fail'
+            except subprocess.TimeoutExpired:
+                return 'timeout'
         extra_kcc = source_directives.get('codegen-kcc-extra', [])
         stem = str(asm_path)
         if stem.endswith('.s'):
@@ -835,6 +860,8 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
     rc = run_cmd(cmd, ROOT, log_path, timeout=COMPILE_TIMEOUT)
     if rc == 124:
         return 'timeout'
+    if rc < 0 or rc > 128:
+        return 'signal'
     return 'pass' if rc == 0 and asm_path.is_file() else 'fail'
 
 
@@ -878,7 +905,7 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
         status = 'timeout' if compile_status == 'timeout' else 'compile_fail'
         report = str(log_path)
     else:
-        if cell['compiler'] == 'kcc':
+        if cell['compiler'] == 'kcc' and not directives(ROOT / src).get('codegen-kcc-preprocess'):
             normalize_kcc_asm_file(asm_path, log_path)
         asm_text = read_text(asm_path)
         if not label_exists(asm_text, 'main'):
@@ -946,11 +973,37 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         sys.stdout.flush()
     t0 = time.time()
     compile_status = compile_to_asm(cell, src, asm_path, log_path, bins)
-    if compile_status != 'pass':
+    source_directives = directives(ROOT / src)
+    expects_rejection = (cell['compiler'] == 'kcc' and
+                         source_directives.get('codegen-kcc-expect-compile-fail'))
+    if expects_rejection:
+        diagnostics = read_text(log_path)
+        errors = []
+        if compile_status != 'fail':
+            errors.append('source was not rejected (status=' + compile_status + ')')
+        for pattern in source_directives.get('codegen-kcc-diagnostic-require-regex', []):
+            try:
+                if not re.search(pattern, diagnostics):
+                    errors.append('missing diagnostic: ' + pattern)
+            except re.error as error:
+                errors.append('invalid diagnostic regex: ' + str(error))
+        for pattern in ([r'\[Internal error\]'] +
+                        source_directives.get('codegen-kcc-diagnostic-forbid-regex', [])):
+            try:
+                if re.search(pattern, diagnostics):
+                    errors.append('forbidden diagnostic: ' + pattern)
+            except re.error as error:
+                errors.append('invalid diagnostic regex: ' + str(error))
+        report = str(log_path)
+        status = 'policy_fail' if errors else 'pass'
+        if errors:
+            with open(log_path, 'a') as f:
+                f.write('\nnegative compile policy failures: ' + ' | '.join(errors) + '\n')
+    elif compile_status != 'pass':
         status = 'timeout' if compile_status == 'timeout' else 'compile_fail'
         report = str(log_path)
     else:
-        if cell['compiler'] == 'kcc':
+        if cell['compiler'] == 'kcc' and not source_directives.get('codegen-kcc-preprocess'):
             normalize_kcc_asm_file(asm_path, log_path)
         asm_text = read_text(asm_path)
         mnems = asm_mnemonics(asm_text)
@@ -966,7 +1019,8 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
             if check_names:
                 from kcc_assembly_checks_v1 import failures
                 for check_name in check_names:
-                    structured_failures.extend(failures(check_name, asm_text))
+                    structured_failures.extend(failures(check_name, asm_text,
+                                                        machine=cell['machine']))
             diagnostic_patterns = directives(ROOT / src).get(
                 'codegen-kcc-diagnostic-forbid-regex', [])
             for pattern in diagnostic_patterns:

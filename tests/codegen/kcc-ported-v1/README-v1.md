@@ -1,3 +1,39 @@
+# Preprocessor, peephole, language, and packed-pointer migrations (v13–v16)
+
+Seventeen further shell regressions were converted into native test-matrix
+fixtures without discarding their original assertions:
+
+- **Preprocessor:** `pp-undef`, `pp-long-macro`, `pp-pool`. The preprocessor
+  runner verifies macro expansion and dynamically generates the original
+  4096-character macro identifier and 400000-character string-token stress
+  inputs, rather than storing large permanent fixture files.
+- **Peephole cleanup:** `local-idempotent-cleanup-v1` and `-v2`. Seven
+  matrix fixtures include the original common test sources and enforce the
+  duplicate-TLZ, duplicate-sign-extension, zero-immediate, and self-MOVE
+  checks. All four KCC base processors passed.
+- **Language semantics and diagnostics:** `compound-literals`,
+  `designated-initializers`, `flexible-array-members`,
+  `statement-expressions`, and `variadic-macros`. Five PDP-6 KCC runtime
+  tests passed, along with their separate expected-rejection diagnostics;
+  variadic macro stringization is also checked in preprocessor output.
+- **GNU packed pointers:** `gnu-packed-bitptr-local`,
+  `gnu-packed-bitptr-aggregate`, `gnu-packed-bitptr-voidqual`,
+  `gnu-packed-bitptr-casts`, `gnu-packed-bitptr-static`,
+  `gnu-packed-bitptr-stream`, and `gnu-packed-internal-stream`. The matrix
+  covers original runtime programs, rejected logical-pointer escapes,
+  compile-only qualifier/cast tests, static `POINT` instructions, `IBP`/`ILDB`
+  streaming, absence of `ADJBPH`, and the four-CPU `SETM`/`ILDB` count checks.
+
+Expected compilation failures now have explicit matrix policies requiring
+their diagnostic patterns, rejecting compiler internal errors and rejecting
+compiler crashes. Runtime fixtures run under the normal semantic runner.
+
+GCC coverage was enabled only on successful cells: 112 native compilation
+cells for the seven cleanup inputs, 16 for `pp-undef`, and 32 runtime
+semantic cells for `statement-expressions` and `variadic-macros` (160 total).
+All sixteen native GCC profiles failed the `compound-literals` and
+`designated-initializers` runtime programs, while `flexible-array-members`
+failed GCC compilation; those three programs remain KCC-only.
 # Three optimizer-regression migrations (v12)
 
 `identical-pure-fold-v1`, `cheap-optimizer-pass` and
