@@ -731,3 +731,27 @@ checks, not OS tests; GNU nested functions in 930506-2 remain compile-only.
 
 Representative source/assembly inspection only, not a proof for all legal
 profiles. The source trees of GCC, KCC and DAIMOS are untouched.
+
+---
+
+## Batch 29
+
+Ten generic C compiler tests accepted. GCC PDP-6 -O0/KI10 -O2 compiled
+all ten; KCC PDP-6 optimized/KA10 unoptimized rejected 930510-1, compiled
+nine. No original OS/runtime is needed to compile these sources.
+
+| Source | Purpose and plausible assembly |
+|---|---|
+| 930510-1 | static calendar-table and signed day arithmetic; loads, arithmetic and optimized return; KCC rejects |
+| 930513-1 | wide packed bitfield increment/test; LDB/DPB/ASH and conditional tests |
+| 930513-2 | floating comparison loop; PUSHJ, DFAD and conditional jump |
+| 930513-3 | short-array zeroing loop; DPB/IBP/LSH with loop branches |
+| 930523-1 | mixed integer loop and raster-style arithmetic; SUB/LSH/CAMGE and jumps |
+| 930525-1 | incomplete struct followed by definition/initializer; data-only output |
+| 930527-1 | enum designated initializer and constant switch; CAIN or optimized return |
+| 930529-1 | nested pointer and callback-heavy C flow; calls/stores/branches |
+| 930530-1 | repeated small aggregate arguments; compiler-specific argument moves/calls |
+| 930602-1 | short-bounded loop over array fields; CAML, moves, branch and calls |
+
+Review is representative, not exhaustive across all legal matrix profiles.
+Failures remain recorded; no source compiler modifications.
