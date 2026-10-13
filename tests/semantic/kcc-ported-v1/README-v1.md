@@ -42,3 +42,18 @@ assertion. All other KCC scripts remain until evaluated.
 optimized and KA10 unoptimized PASS. GCC PDP-6 -O0 and KI10 -O2
 RUN_FAIL: left as discoverable compiler regressions, not corrected.
 The old KCC-only execution shell wrapper has no independent assertions.
+
+## Migration batch: ten exact-width/packed-layout regressions
+
+Extracted the complete embedded C test sources and preserved the original
+assertions. Their shell wrappers performed only KCC compile/run with
+`__test_exit=0`, and have been retired. Each source is now matrix-registered
+for both compilers and legal CPU/optimization profiles.
+
+PDP-6 native KCC optimized: **10/10 PASS**. PDP-6 native GCC -O0:
+**7 compile failures** on KCC-specific type declarations and **3 runtime
+failures** on packed C layout/aggregate semantics. These GCC outcomes need
+classification against the supported GCC ABI before treating them as bugs;
+no sources or compilers have been changed to hide the failures.
+
+Tests: `exact-width-layout-stride`, `exact-width-32-semantics`, `gnu-packed-array-decay-bitptr`, `gnu-packed-array-members`, `gnu-packed-bitfield-mixed`, `gnu-packed-bitfield`, `gnu-packed-byvalue`, `gnu-packed-char-layout`, `gnu-packed-union`, `gnu-packed-array-bitoffset`.
