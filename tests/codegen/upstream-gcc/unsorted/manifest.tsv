@@ -69,16 +69,16 @@ torture-compile	gcc.c-torture/compile/20010117-2.c	reviewed-v1/compile/20010117-
 torture-compile	gcc.c-torture/compile/20010118-1.c	reviewed-v1/compile/20010118-1.c	compile			
 torture-compile	gcc.c-torture/compile/20010124-1.c	reviewed-v1/compile/20010124-1.c	compile			
 torture-compile	gcc.c-torture/compile/20010202-1.c	reviewed-v1/compile/20010202-1.c	compile			
-torture-compile	gcc.c-torture/compile/20010209-1.c	compile/20010209-1.c	compile			
-torture-compile	gcc.c-torture/compile/20010226-1.c	compile/20010226-1.c	compile			
-torture-compile	gcc.c-torture/compile/20010227-1.c	compile/20010227-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/20010313-1.c	compile/20010313-1.c	compile			
-torture-compile	gcc.c-torture/compile/20010320-1.c	compile/20010320-1.c	compile			
-torture-compile	gcc.c-torture/compile/20010326-1.c	compile/20010326-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/20010327-1.c	compile/20010327-1.c	compile			
-torture-compile	gcc.c-torture/compile/20010328-1.c	compile/20010328-1.c	compile			
-torture-compile	gcc.c-torture/compile/20010329-1.c	compile/20010329-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/20010404-1.c	compile/20010404-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010209-1.c	reviewed-v1/compile/20010209-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010226-1.c	reviewed-v1/compile/20010226-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010227-1.c	reviewed-v1/compile/20010227-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010313-1.c	reviewed-v1/compile/20010313-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010320-1.c	reviewed-v1/compile/20010320-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010326-1.c	reviewed-v1/compile/20010326-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010327-1.c	reviewed-v1/compile/20010327-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010328-1.c	reviewed-v1/compile/20010328-1.c	compile			
+torture-compile	gcc.c-torture/compile/20010329-1.c	reviewed-v1/compile/20010329-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/20010404-1.c	reviewed-v1/compile/20010404-1.c	compile			
 torture-compile	gcc.c-torture/compile/20010408-1.c	compile/20010408-1.c	compile			
 torture-compile	gcc.c-torture/compile/20010421-1.c	compile/20010421-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/20010423-1.c	compile/20010423-1.c	compile			

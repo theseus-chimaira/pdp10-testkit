@@ -197,3 +197,27 @@ all ten; KCC rejected 20010114-2 and 20010124-1 and compiled eight.
 
 Architecture-specific register names, where present in conditional source,
 are disabled by preprocessor on PDP-10. Compile-only, no semantic pass claim.
+
+---
+
+## Batch 8
+
+Sampled KCC PDP-6 opt/KA10 noopt and GCC PDP-6 -O0/KI10 -O2. GCC
+compiled all ten. KCC compiled five; it rejected 20010226-1,
+20010313-1, 20010327-1, 20010328-1 and 20010404-1.
+
+| Test | Source purpose and observed code |
+|---|---|
+| 20010209-1 | floating literal to short integer constant; HRRM store |
+| 20010226-1 | nested GNU function/captured variable and callback; GCC branches/calls, KCC rejects |
+| 20010227-1 | double local variable address/liveness; loads/stores removed under optimization |
+| 20010313-1 | parser-only attribute declarator; correctly emits no code, KCC rejects |
+| 20010320-1 | nested struct/bitfield control flow; move/conditional branches, optimized dead code disappears |
+| 20010326-1 | floating aggregate conditional assignment; move/comparison, optimized dead code disappears |
+| 20010327-1 | external-symbol address constant relocation; GCC PDP-6 emits `.long _txt+68602036223`, appropriate signed offset modulo 36-bit word; assembler acceptance not yet confirmed |
+| 20010328-1 | wide integers and compatibility typedefs; GCC LSH, DMOVEM, stores, KCC rejects |
+| 20010329-1 | conditional union field set; DPB and branch |
+| 20010404-1 | division/modulo constant optimizer regression; GCC IDIV or optimized call/jump, KCC rejects |
+
+All tests target generic source-language constructs. No CPU-specific runtime,
+filesystem or external OS execution is needed. No compiler fixes attempted.
