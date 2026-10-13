@@ -802,3 +802,26 @@ all ten; KCC PDP-6 optimized/KA10 unoptimized rejected 931004-1 and
 | 940611-1 | goto label in do-while; JRST and elimination of dead code |
 
 No external OS/unsupported CPU is necessary. These are compile-only tests.
+
+---
+
+## Batch 32
+
+Ten generic compile tests accepted. Both sampled GCC PDP-6 -O0/KI10 -O2
+profiles compiled all ten; KCC PDP-6 optimized/KA10 unoptimized rejected
+941019-1 (complex long-double GNU extension) and compiled nine.
+
+| Source | Purpose and observed plausible instructions |
+|---|---|
+| 940712-1 | volatile word-load and division by three; MOVE/DIVI |
+| 940718-1 | infinite loop with double math calls; PUSHJ/DMOVE/JRST |
+| 941014-1 | integer shift then packed-character store; MUL/DPB |
+| 941014-2 | dense word/tile-copy arithmetic; LSH/XOR/AND and branches |
+| 941014-3 | nested text and font pointer dispatch; CAIE/IBP and conditional branches |
+| 941014-4 | label-address initializer and branch; SETZ/PUSHJ/POPJ |
+| 941019-1 | GNU complex long double return; GCC DMOVE/DMOVEM, KCC rejects |
+| 941111-1 | two aggregate char fields comparison; LDB/CAMN and calls |
+| 941113-1 | function-pointer call through typedef; PUSHJ/JUMPE |
+| 950122-1 | 18-bit unsigned short multiply and result; HRRZ/MUL and truncation |
+
+No CPU/OS dependencies required for compilation. No compiler corrections.
