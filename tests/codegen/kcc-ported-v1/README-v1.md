@@ -1,3 +1,13 @@
+# Five additional KCC compile and address-fold regressions
+
+The original sources from `abi-consumed-pair-lifetime-v24`,
+`dimode-scalar-arg-pressure`, `dimode-vrallspill-audit`,
+`dimode-push-address-fold`, and `fp-cast-vrnarrow` have been
+migrated to matrix code-generation cases. The floating-point shell
+script becomes two fixtures, each checked in both KCC optimized and
+`-n` profiles. The push-address fixture retains the forbidden
+three-instruction copy-and-push sequence; other cases require successful
+assembly generation. All selected cells passed with the installed KCC.
 # Six additional KCC DImode regressions
 
 The matrix now includes `dimode-mul-ac-operands`,
