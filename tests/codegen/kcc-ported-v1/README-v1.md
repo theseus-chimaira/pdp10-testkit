@@ -13,3 +13,13 @@ The original shells ran KCC optimized on PDP-6. Matching matrix cells
 were verified PASS using the installed compiler. They are deliberately
 KCC-only because the instruction shape is compiler-specific; the C
 semantics themselves are not asserted by these compile-only tests.
+
+## Terminal return and DImode-zero folding
+
+`terminal-return-fold-v1.c` retains all three required PDP-6 return
+instruction patterns (HLRZ, MOVNI, SETZ) and prohibits the redundant
+MOVE into AC1. `dimode-sub-zero-fold-v1.c` prohibits unresolved `%DISUB`
+when subtracting a 72-bit zero on PDP-6, KA10, KI10 or KS10.
+
+All five selected installed-KCC matrix cells passed. They are KCC-only
+because they assert KCC optimizer shape, not language semantics.
