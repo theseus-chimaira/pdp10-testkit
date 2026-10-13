@@ -419,3 +419,28 @@ GCC PDP-6 -O0/KI10 -O2: all compile.
 Historical x86/IA64/PowerPC bug origins do not make the C tests specific to
 those processors. No runtime or external OS dependency exercised. Full
 cross-cell review remains separate.
+
+---
+
+## Batch 16
+
+Ten useful processor-independent compile tests from upstream torture set.
+KCC PDP-6 opt/KA10 noopt compiled all ten; GCC PDP-6 -O0 failed on
+20020617-3, while GCC KI10 -O2 compiled all ten. No errors repaired.
+
+| Test | Plausible emitted code |
+|---|---|
+| 20020617-1 | struct-sized memcpy; BLT or call depending compiler/optimization |
+| 20020617-2 | packed 32-bit array and 8-bit byte copying; ANDI/LSH/ASH and pointer moves |
+| 20020617-3 | builtin memset of struct; GCC -O0 fails, optimized KI10 emits SETZM/BLT |
+| 900116-1 | loop copying packed struct members; LDB and MOVEM |
+| 900216-1 | unsigned short dereference and constant comparison; LDB/LSH/IOR and CAIE |
+| 900313-1 | alloca and many-argument call stress, stack/address adjustments, 400+ lines per compiler |
+| 900407-1 | 36-bit constant truncation/compare; ADDI/CAMN/JRST |
+| 900516-1 | floating conditional simplification; conditional skip/constant return |
+| 920301-1 | GNU computed label values and static arrays; no runtime, trivial function returns |
+| 920409-1 | discarded float/conditional expression; optimized empty return |
+
+The large alloca values in 900313-1 form a compiler stress case but are
+not intended to be executed on a constrained PDP-6. No OS/hardware dependency
+is required for compilation. Full per-cell review remains pending.
