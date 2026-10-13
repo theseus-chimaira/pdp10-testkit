@@ -706,3 +706,28 @@ accepted files.
 **Excluded/deleted:** `930111-1.c` invokes `vfork()` (and `strcmp`) and
 was written as an i386 traditional-compiler test. The bare-metal PDP-10
 compile suite gains little target-relevant coverage from its OS dependency.
+
+---
+
+## Batch 28
+
+Ten source-level compiler checks accepted. GCC PDP-6 -O0/KI10 -O2 compiled
+all ten. KCC PDP-6 optimized/KA10 unoptimized rejected 930326-1,
+930506-1 and 930506-2; seven compiled. These are generic code-generation
+checks, not OS tests; GNU nested functions in 930506-2 remain compile-only.
+
+| Source | Source utility and assembly plausibility |
+|---|---|
+| 930222-1 | double/word aggregate conditional comparison; DMOVE, DMOVEM and branches |
+| 930325-1 | unsigned backward-copy pointer loop; SOJA/JUMPE and memory stores |
+| 930326-1 | struct char member-offset static initializer; data-only; KCC rejects |
+| 930411-1 | manual heap pointer arithmetic and labels; moves, jumps and stores |
+| 930421-1 | nested loops with large local array and double calls; PUSHJ/DMOVE |
+| 930427-2 | conditional struct-field argument selection; JUMPN and calls |
+| 930503-1 | character copying with unsigned counter; IBP/LDB/DPB, not runtime-tested |
+| 930503-2 | char-containing struct passed by value; frame and call or tail jump |
+| 930506-1 | 72-bit unsigned and double conversions; DMOVE/helper calls, KCC rejects |
+| 930506-2 | nested function/trampoline generation; calls/stack setup, KCC rejects |
+
+Representative source/assembly inspection only, not a proof for all legal
+profiles. The source trees of GCC, KCC and DAIMOS are untouched.
