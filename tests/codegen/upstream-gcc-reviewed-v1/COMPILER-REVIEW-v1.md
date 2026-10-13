@@ -147,3 +147,29 @@ sources (20000804-1, 20000827-1, 20000923-1, 20001024-1, 20001109-1,
 No source requires a foreign operating system or hardware-specific processor.
 GNU C extensions intentionally remain compiler compatibility coverage. One-
 time exhaustive per-cell assembly audit remains pending.
+
+---
+
+## Batch 6
+
+Source inspection and KCC PDP-6 optimized/KA10 unoptimized plus GCC PDP-6
+-O0/KI10 -O2 compilation. GCC compiled 10/10. KCC compiled four and rejected
+six (20001116-1, 20001123-1, 20001205-1, 20001221-1, 20001222-1,
+20010102-1). All are generic source-level compiler stress tests: mentions
+of PowerPC, SH and SPARC concern original bug history, not required hardware.
+
+| Test | Purpose and assembly review |
+|---|---|
+| 20001116-1 | constant pointer-expression initializer; data output only, KCC rejects |
+| 20001121-1 | GNU statement expression and switch case lowering; branches and calls |
+| 20001123-1 | builtin variadic argument extraction; GCC conditional/moves, KCC rejects builtins |
+| 20001123-2 | control-flow labels and branch optimization; comparisons, jumps and calls |
+| 20001205-1 | inline assembly/register output constraints; GCC optimized bitwise AND/LSH/IOR, KCC rejects |
+| 20001212-1 | long-double aggregate parameter and arithmetic; moves/calls, optimized empty result |
+| 20001221-1 | complex variable-length char buffers; GCC expands to many moves, jumps, MUL and byte ops; KCC rejects |
+| 20001222-1 | complex floating complement; GCC uses DMOVE on KI10, KCC rejects |
+| 20001226-1 | extremely large branch-shortening stress case; 33k/40k PDP-6 assembly lines and 19k optimized KI10; comparisons and branches dominate |
+| 20010102-1 | obstack-style pointer arithmetic and loop optimization; GCC shifts/stores/branches, KCC rejects |
+
+No source or compiler errors corrected. Compiler output checked for plausible
+instruction families; full per-cell review remains outstanding.
