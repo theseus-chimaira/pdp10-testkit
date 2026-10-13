@@ -23,3 +23,9 @@ when subtracting a 72-bit zero on PDP-6, KA10, KI10 or KS10.
 
 All five selected installed-KCC matrix cells passed. They are KCC-only
 because they assert KCC optimizer shape, not language semantics.
+
+## Signed-zero comparison
+
+`signed-zero-compare-v1.c` preserves the five required SKIP instruction
+patterns and the prohibition against SETZ/CAM zero materialization.
+KCC PDP-6 optimized matrix test passed using the installed compiler.
