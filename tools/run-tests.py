@@ -810,11 +810,13 @@ def remove_selected_cells(outroot, semantic_cells, codegen_cells):
 
 def compile_to_asm(cell, src, asm_path, log_path, bins):
     if cell['compiler'] == 'kcc':
+        source_directives = directives(ROOT / src)
+        extra_kcc = source_directives.get('codegen-kcc-extra', [])
         stem = str(asm_path)
         if stem.endswith('.s'):
             stem = stem[:-2]
         stem = os.path.relpath(stem, ROOT)
-        cmd = [str(bins['kcc']), '-S', '-v=nostats'] + list(cell.get('extra', [])) + [
+        cmd = [str(bins['kcc']), '-S', '-v=nostats'] + list(cell.get('extra', [])) + extra_kcc + [
             '-x=' + cell['arch'],
             '-Isupport/kcc/',
             '-Isupport/common/',
@@ -973,6 +975,19 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
                         structured_failures.append('forbidden compiler diagnostic: ' + pattern)
                 except re.error as error:
                     structured_failures.append('invalid diagnostic regex: ' + str(error))
+            diagnostic_counts = directives(ROOT / src).get(
+                'codegen-kcc-diagnostic-count-regex', [])
+            for item in diagnostic_counts:
+                try:
+                    expected_text, pattern = item.split(':', 1)
+                    expected = int(expected_text)
+                    actual = len(re.findall(pattern, read_text(log_path)))
+                    if actual != expected:
+                        structured_failures.append(
+                            'diagnostic count %d (expected %d): %s' %
+                            (actual, expected, pattern))
+                except (ValueError, re.error) as error:
+                    structured_failures.append('invalid diagnostic count policy: ' + str(error))
         if bad or miss or bad_regex or miss_regex or invalid_regex or structured_failures:
             status = 'policy_fail'
             rpt = cdir / 'policy.report.txt'

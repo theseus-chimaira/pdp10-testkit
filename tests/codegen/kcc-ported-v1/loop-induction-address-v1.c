@@ -1,16 +1,5 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-
-KCC=$PDP10_PREFIX/bin/kcc
-TMP=${TMPDIR:-/tmp}/kcc-loop-induction-address-$$
-trap 'rm -rf "$TMP"' EXIT HUP INT TERM
-mkdir -p "$TMP"
-
-cat > "$TMP/test.c" <<'SRC'
+/* codegen-kcc-check: "loop-induction-address" */
+/* codegen-kcc-policy-only: yes */
 volatile int sink;
 extern void use_word(int);
 
@@ -124,41 +113,3 @@ again:
     }
     return s;
 }
-SRC
-
-body()
-{
-    awk -v fn="$1" '
-        $0 == fn ":" { in_fn = 1; next }
-        in_fn && $0 ~ /^[A-Za-z_][A-Za-z0-9_]*:$/ { exit }
-        in_fn { print }
-    ' "$2"
-}
-
-for cpu in pdp6 ka10 pdp10 ki10; do
-    d="$TMP/$cpu"
-    mkdir "$d"
-    cp "$TMP/test.c" "$d/test.c"
-    (cd "$d" && "$KCC" -x="$cpu" -D__PDP10__ -S test.c >/dev/null)
-    asm="$d/test.s"
-
-    for fn in simple with_continue; do
-        text=$(body "$fn" "$asm")
-        printf '%s\n' "$text" | grep -Eq 'addi[[:space:]]+[0-7]+,1'
-        nbase=$(printf '%s\n' "$text" | grep -Ec 'movei[[:space:]]+[0-7]+,-[0-9]+\(17\)' || true)
-        test "$nbase" -le 1 || {
-            echo "$cpu: $fn still rebuilds local array base" >&2
-            exit 1
-        }
-    done
-
-    for fn in body_write address_taken volatile_array byte_array stride_two labelled branch_calls; do
-        text=$(body "$fn" "$asm")
-        if printf '%s\n' "$text" | grep -Eq 'addi[[:space:]]+[0-7]+,1'; then
-            echo "$cpu: $fn incorrectly strength-reduced" >&2
-            exit 1
-        fi
-    done
-done
-
-echo "loop induction address strength-reduction regression passed"

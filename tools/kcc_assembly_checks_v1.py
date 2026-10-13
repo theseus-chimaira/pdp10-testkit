@@ -197,3 +197,205 @@ def failures(name, asm):
     if name not in CHECKS:
         return ["unknown KCC assembly checker " + name]
     return CHECKS[name](asm.splitlines())
+
+
+def _functions(lines):
+    bodies = {}
+    name = None
+    for line in lines:
+        match = FUNCTION.match(line)
+        if match:
+            name = match.group(1)
+            bodies.setdefault(name, [])
+        elif name is not None:
+            bodies[name].append(line)
+    return bodies
+
+
+def _has(lines, pattern):
+    return re.search(pattern, "\n".join(lines), re.I | re.M) is not None
+
+
+def _legacy_addsub(lines):
+    bodies = _functions(lines)
+    return [] if (sum(bool(line.strip()) for line in bodies.get("addpair", [])) <= 30
+                  and "subpair" in bodies and "sub_store_mem" in bodies) else [
+                      "addpair exceeds 30 nonblank lines or sub functions absent"]
+
+
+def _legacy_corpus(lines):
+    num = 0
+    prev_zero = None
+    instr_count = 0
+    for line in lines:
+        op, args = instruction(line)
+        if op == "MOVE":
+            fields = [a.strip() for a in args.split(",")]
+            if len(fields) == 2 and fields[0] == fields[1]:
+                return ["redundant MOVE AC,AC"]
+        if prev_zero and op in ("SETZ", "SETCA", "MOVEI"):
+            if args.split(",", 1)[0].strip() == prev_zero:
+                return ["clearing instruction immediately overwritten"]
+        prev_zero = args.split(",", 1)[0].strip() if op == "SETZ" else None
+        if re.match(r"^(MOVE|MOVEM|SETZ|ADD|SUB|IMUL|AND|IOR|XOR|LSHC|ASHC|CAM|JUMP)", op):
+            instr_count += 1
+    return [] if instr_count > 40 else ["corpus fewer than 41 selected instructions"]
+
+
+def _legacy_loop(lines):
+    bodies = _functions(lines)
+    errors = []
+    for name in ("simple", "with_continue"):
+        body = bodies.get(name, [])
+        if not _has(body, r"addi\s+[0-7]+,1"):
+            errors.append(name + ": missing pointer increment")
+        bases = sum(bool(re.search(r"movei\s+[0-7]+,-[0-9]+\(17\)", line, re.I)) for line in body)
+        if bases > 1:
+            errors.append(name + ": rebuilt array base")
+    for name in ("body_write", "address_taken", "volatile_array", "byte_array",
+                 "stride_two", "labelled", "branch_calls"):
+        if _has(bodies.get(name, []), r"addi\s+[0-7]+,1"):
+            errors.append(name + ": invalid induction strength reduction")
+    return errors
+
+
+def _legacy_reverse(lines):
+    bodies = _functions(lines)
+    errors = []
+    for name in ("reverse_move", "resolved_reverse"):
+        prev = ""
+        for line in bodies.get(name, []):
+            if (re.search(r"^\s*move\s+2,1\s*$", prev, re.I) and
+                    re.search(r"^\s*move\s+1,2\s*$", line, re.I)):
+                errors.append(name + ": reversed register copies")
+            prev = line
+    if not _has(lines, r"jrst\s+sink\s*$"):
+        errors.append("tail call to sink missing")
+    return errors
+
+
+def _legacy_preserved_blt(lines):
+    bodies = _functions(lines)
+    req = {
+        "keep4": [r"BLT\s*0,13", r"MOVEI\s*0,10", r"HRLI\s*0,"],
+        "keep3": [r"move\s*10,-", r"move\s*11,-", r"move\s*12,-"],
+        "keep4_auto": [r"adjsp\s*17,5", r"MOVEI\s*0,-4\(17\)",
+                       r"HRLI\s*0,10", r"BLT\s*0,-1\(17\)"],
+    }
+    bad = {"keep4": [r"move\s*10,-"], "keep3": [r"BLT\s+"],
+           "keep4_auto": [r"push\s*17,1[0-3]"]}
+    errors = []
+    for name, patterns in req.items():
+        for pattern in patterns:
+            if not _has(bodies.get(name, []), pattern):
+                errors.append(name + ": missing " + pattern)
+    for name, patterns in bad.items():
+        for pattern in patterns:
+            if _has(bodies.get(name, []), pattern):
+                errors.append(name + ": forbidden " + pattern)
+    return errors
+
+
+CHECKS.update({
+    "dimode-addsub-registers": _legacy_addsub,
+    "dimode-corpus-survey": _legacy_corpus,
+    "loop-induction-address": _legacy_loop,
+    "register-overwrite-fold": _legacy_reverse,
+    "preserved-blt": _legacy_preserved_blt,
+})
+
+
+def _legacy_memory_result(lines):
+    text = "\n".join(lines)
+    errors = []
+    for op in ("addb", "andb", "iorb", "xorb"):
+        if not re.search(r"(?im)^\s*" + op + r"\s+[0-9]+,", text):
+            errors.append("missing " + op)
+    for op, target in (("andb", "b"), ("iorb", "c"), ("xorb", "d")):
+        if not re.search(r"(?im)^\s*" + op + r"[^\n]*" + target, text):
+            errors.append(op + " constant fold missing")
+    functions = _functions(lines)
+    if _has(functions.get("f_complex", [])[:8], r"^\s*addb\s+"):
+        errors.append("nonleaf direct ADDB")
+    reg = functions.get("f_reg_call", [])
+    if not _has(reg, r"^\s*addb\s+[0-9]+,0?10(?:\s|$)"):
+        errors.append("AC10 ADDB missing")
+    if _has(reg, r"^\s*addb\s+[0-9]+,0\(0?10\)"):
+        errors.append("indexed ADDB instead of AC10")
+    if re.search(r"(?im)^\s*movem\s+[0-9]+,(?:b|c|d)(?:[^A-Za-z0-9_]|$)", text):
+        errors.append("compound assignment still emits MOVEM")
+    return errors
+
+
+def _legacy_scratch_member(lines):
+    funcs = _functions(lines)
+    errors = []
+    for name in ("member_delta", "pointer_member_delta", "second_pair",
+                 "stack_byte_postinc"):
+        if _has(funcs.get(name, []), r"push\s+17,0*16|move\s+16,"):
+            errors.append(name + " uses AC16 scratch")
+    if not _has(funcs.get("stack_byte_postinc", []), r"ibp"):
+        errors.append("stack byte postincrement missing IBP")
+    for pattern in (r"push\s+17,0*16", r"move\s+16,", r"pushj"):
+        if not _has(funcs.get("indirect_call", []), pattern):
+            errors.append("indirect_call missing " + pattern)
+    for pattern in (r"push\s*17,0*16", r"move\s*16,0\(17\)"):
+        if not _has(funcs.get("unsigned_divide", []), pattern):
+            errors.append("unsigned_divide missing " + pattern)
+    return errors
+
+
+CHECKS.update({
+    "memory-result-fold": _legacy_memory_result,
+    "scratch-member-elision": _legacy_scratch_member,
+})
+
+
+def _legacy_double_store(lines):
+    bodies = _functions(lines)
+    forwarded = bodies.get("forwarded", [])
+    vol = bodies.get("volatile_reload", [])
+    # In KI10 mode the backend uses DMOVEM/DMOVE; otherwise it uses
+    # the scalar pair. Infer the architecture from the emitted store form.
+    ki10 = _has(vol, r"dmovem\s+[1-7],vd")
+    state = 0
+    saved = first = ""
+    found = False
+    for line in forwarded:
+        op, arg = instruction(line)
+        fields = arg.split(",", 1)
+        if len(fields) != 2:
+            if state:
+                state = 0
+            continue
+        dst, src = fields
+        if ki10:
+            if op == "DMOVEM" and src == "-1(17)":
+                saved, state = dst, 1
+            elif state == 1 and op == "DMOVE" and src == saved:
+                found, state = True, 0
+            else:
+                state = 0
+        elif op == "MOVEM" and src == "-1(17)":
+            saved, state = dst, 1
+        elif state == 1 and op == "MOVEM" and src == "0(17)" and dst.isdigit() and saved.isdigit() and int(dst) == int(saved) + 1:
+            state = 2
+        elif state == 2 and op == "MOVE" and src == saved:
+            first, state = dst, 3
+        elif state == 3 and op == "MOVE" and src.isdigit() and saved.isdigit() and first.isdigit() and dst.isdigit() and int(src) == int(saved) + 1 and int(dst) == int(first) + 1:
+            found, state = True, 0
+        else:
+            state = 0
+    errors = [] if found else ["forwarded: pair store-reload forwarding absent"]
+    patterns = ([r"dmovem\s+[1-7],vd", r"movei\s+[1-7],vd",
+                 r"dmove\s+[1-7],0\([1-7]\)"] if ki10 else
+                [r"movem\s+[1-7],vd", r"movem\s+[1-7],vd\+1",
+                 r"movei\s+[1-7],vd", r"move\s+[1-7],0\([1-7]\)",
+                 r"move\s+[1-7],1\([1-7]\)"])
+    for p in patterns:
+        if not _has(vol, p):
+            errors.append("volatile_reload: missing " + p)
+    return errors
+
+
+CHECKS["double-store-forward"] = _legacy_double_store

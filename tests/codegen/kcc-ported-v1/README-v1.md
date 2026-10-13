@@ -1,3 +1,24 @@
+# Ten KCC regression migrations (v11)
+
+Migrated `dimode-addsub-registers`, `dimode-corpus-survey`,
+`loop-induction-address`, `register-overwrite-fold`,
+`memory-result-fold`, `scratch-member-elision`,
+`double-store-forward`, `kcc-null-pointer-static-init-20261005-v1`,
+`kcc-absolute-pointer-store-20261005-v1`, and
+`gnu-function-attributes`. All 28 selected KCC optimized matrix
+cells passed. The first seven use structured assembly checks translated
+from the original shell/AWK assertions. The pointer regressions retain
+KCC GNU99/GAS options and assembly requirements. The GNU attribute
+fixture checks the original one noinline warning, two noreturn warnings,
+and an out-of-line `helper` assembly symbol.
+
+Nine of the ten sources also compiled under all four native GCC CPU
+targets and four optimization levels, adding 144 GCC compilation-only
+cells. The function-attributes source did not compile under GCC and
+remains KCC-only. GCC cells do not inherit KCC-specific assembly or
+diagnostic assertions. The `preserved-blt` wrapper was investigated but
+retained because the installed compiler does not satisfy its original
+instruction-sequence assertions.
 # Five KCC ABI, store, and absolute-value regressions (v10)
 
 Normalized `abi-first-call-lifetime`, `abi-query-liveness`,
