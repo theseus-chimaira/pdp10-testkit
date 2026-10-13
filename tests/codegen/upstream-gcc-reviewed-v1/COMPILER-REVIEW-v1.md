@@ -295,3 +295,27 @@ compiled 10/10; KCC PDP-6 opt/KA10 noopt compiled seven, rejecting
 
 No foreign OS/hardware required to compile. No code correctness beyond
 representative plausibility claimed.
+
+---
+
+## Batch 12
+
+Ten generic compile tests accepted. GCC PDP-6 -O0/KI10 -O2 passed
+all ten; KCC PDP-6 opt/KA10 noopt compiled six, rejecting 20011114-1,
+20011119-1, 20011119-2 and 20011205-1. No changes to compiler code.
+
+| Source | Source-level value and plausible assembly |
+|---|---|
+| 20011114-1 | GCC `__SIZE_TYPE__` external address initializer; data-only relocation, KCC rejects |
+| 20011114-2 | packed bitwise flags/combinations; IORB/LSH/IORM |
+| 20011114-3 | state machine with switch and calls; conditional jumps and PUSHJ |
+| 20011114-4 | variable-length base-128 signed integer encoder; ANDI/branch/shift |
+| 20011119-1 | weak alias + GNU extern inline; code and alias metadata, KCC rejects |
+| 20011119-2 | weak alias/inline interaction; calls, JRST and constant returns; KCC rejects |
+| 20011130-1 | incomplete aggregate pointer declaration; direct external call |
+| 20011130-2 | generic branch/if-conversion stress originally found on IA64; IBP and extensive conditional flow |
+| 20011205-1 | inline-asm operand liveness constraint; address/stores, KCC rejects |
+| 20011217-1 | compound literal in inline expression; value moves, optimized return |
+
+No target-dependent assembly executed; compilations and representative
+instruction inspection only. Additional per-cell review remains necessary.
