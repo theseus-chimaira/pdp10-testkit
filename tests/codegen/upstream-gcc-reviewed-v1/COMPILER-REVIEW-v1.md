@@ -637,3 +637,25 @@ static-initializer/layout and GNU extension cases 920928-1, 920928-4,
 
 Historical processor mentions document original discovery only; all accepted
 sources compile for PDP-10 without peripheral/OS dependence. No fixes.
+
+---
+
+## Batch 25
+
+All ten generic C tests compiled under representative KCC PDP-6 opt/KA10
+noopt and GCC PDP-6 -O0/KI10 -O2 profiles. No external OS dependency.
+
+| Test | Observed assembly plausibility |
+|---|---|
+| 921011-1 | nested loops and skips; SOS/SOJGE/CAMN/JRST |
+| 921011-2 | complex struct and colormap flags; loads/stores, DMOVEM and branches |
+| 921012-1 | GNU statement expression as argument; constant setup, call/tail jump |
+| 921012-2 | struct assignment; HRL/BLT across compiler profiles |
+| 921013-1 | signed short compare in nested conditional; HRRE/JUMPGE, optimized dead code |
+| 921019-1 | two one-bit fields assigned zero; DPB/SETZ |
+| 921021-1 | loop with external calls; PUSHJ/JUMPE/JRST |
+| 921024-1 | 72-bit load and store through pointer arithmetic; DMOVE/TLZ |
+| 921026-1 | 18-bit short array store; DPB/IBP and shifts |
+| 921103-1 | unsigned field arithmetic in loop; branches, setup and call |
+
+No unresolved issue identified beyond lack of exhaustive per-cell proof.
