@@ -1,3 +1,37 @@
+# Five further KCC migrations and obsolete placeholder cleanup (v19)
+
+`dimode-direct-abi-pairs` now retains its direct-AC/stack-snapshot
+instruction checks across PDP-6, KA10, KI10 and KS10.
+`shared-fixed-epilogue-v1` has separate code-generation and runtime
+fixtures on all four CPUs, enforcing one shared fixed-frame epilogue and
+correct return values.
+`ka10-double-add-runtime` retains the floating-point arithmetic runtime
+assertions on KA10/KI10 native, base and PDP10 compiler profiles.
+
+`kl10-section0-codegen` uses a per-cell compiler-invocation check for
+the actual KL10 target, including ADJBP, ADJSP, DFAD and DMOVE instruction
+requirements and the prohibition on the ADJBP helper.
+`local-dse-v1` likewise retains the baseline dead-store instruction
+restriction and runtime execution under all four CPU personalities.
+The special checks live in `tools/kcc_special_checks_v1.py`.
+
+All selected KCC checks passed. The four source-based fixtures registered
+64 GCC native profile cells (PDP-6/KA10/KI10/KS10 multiplied by
+`-O0`, `-O1`, `-O2`, `-Os`), and all passed. GCC cell registration
+is independent of pass/fail results: a failing compiler stays a failing
+cell, not `unsupported`.
+
+The original `terminal-return-chain` and `runtime-helper-fragments`
+scripts were rechecked and remain legacy tests: both currently fail,
+the former on its conservative terminal-copy requirement and the latter
+on the installed assembler's command-line handling. Neither assertion
+has been relaxed.
+
+The text-only future object, linker, and loader specification files
+under `tests/object/base`, `tests/link/base`, and `tests/loader/base`
+were deleted together with their three inert `TEST_MATRIX.tsv` rows.
+The empty directories were removed; no executable test was lost.
+
 # Five compiler-interface and diagnostic migrations (v18)
 
 The legacy wrappers `invalid-subscript-recovery`,

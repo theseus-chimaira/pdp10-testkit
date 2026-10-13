@@ -596,3 +596,44 @@ def _packed_internal_stream(lines):
 
 
 CHECKS["gnu-packed-internal-stream"] = _packed_internal_stream
+
+
+def _direct_abi_pairs(lines):
+    bodies = _functions(lines)
+    errors = []
+    for name in ("add71", "id71", "sub71", "and71", "or71",
+                 "xor71", "mul71"):
+        body = bodies.get(name, [])
+        if _has(body, r"^\s*push\s+17,16|^\s*move\s+16,0\(17\)"):
+            errors.append(name + " unnecessary AC16 spill")
+    if not _has(bodies.get("add71", []), r"DIADD"):
+        errors.append("add71 missing DIADD")
+    for name in ("add71", "id71", "mul71"):
+        if _has(bodies.get(name, []), r"movem.*-1\(17\)"):
+            errors.append(name + " unexpected stack pair snapshot")
+    if _has(bodies.get("add71", []), r"movei.*-.*\(17\)"):
+        errors.append("add71 builds unnecessary stack address")
+    for name in ("twice71", "change71", "call71"):
+        if not _has(bodies.get(name, []), r"movem.*-1\(17\)"):
+            errors.append(name + " missing necessary stack preservation")
+    return errors
+
+
+CHECKS.update({
+    "dimode-direct-abi-pairs": _direct_abi_pairs,
+})
+
+
+def _shared_fixed_epilogue(lines):
+    body = _functions(lines).get("multi_return", [])
+    returns = sum(bool(re.search(r"(?i)^\s*(?:popj\s+17,|jrst\s+0\(6\))\s*$", line))
+                  for line in body)
+    errors = []
+    if returns != 1:
+        errors.append("fixed-frame function requires exactly one epilogue")
+    if not _has(body, r"^\s*jrst\s+%L[0-9]+"):
+        errors.append("early returns lack shared-epilogue branch")
+    return errors
+
+
+CHECKS["shared-fixed-epilogue-v1"] = _shared_fixed_epilogue
