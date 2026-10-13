@@ -63,9 +63,8 @@ Skip known failures as well as already-green cells:
 
 The entry point also supports `list`, `list-kcc`, `list-gcc`, `reset`,
 `clean`, `test`, and `test-parallel`. The latter two are aliases for the
-normal matrix runner, including `-j N`. The `all` alias runs `verify`,
-matching the former Makefile's default target. External DAS compilation
-still uses DAS's own Makefile.
+normal matrix runner, including `-j N`. The `all` alias runs `verify`. External DAS compilation still uses
+DAS's own Makefile.
 
 ## Restart behavior
 

@@ -1,13 +1,3 @@
-#!/bin/sh
-set -eu
-: "${TMPDIR:?TMPDIR must be set}"
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-work="$TMPDIR/kcc-subbp-index-arithmetic-v1-$$"
-trap 'rm -rf "$work"' EXIT HUP INT TERM
-mkdir -p "$work"
-cat > "$work/t.c" <<'SRC'
 volatile int __test_exit;
 typedef signed _KCCtype_char6 c6;
 typedef signed _KCCtype_char7 c7;
@@ -36,19 +26,3 @@ int main(void) {
  if(d6(&a6[3],&a6[17])!=-14) return 8;
  return 0;
 }
-SRC
-for cpu in pdp6 ka10 ki10 ks10; do
- d="$work/$cpu"
- mkdir "$d"
- cp "$work/t.c" "$d/t.c"
- (cd "$d" && TERM=dumb "$KCC" -S -v=nostats -x="$cpu" -R=t t.c >/dev/null)
- if grep -Eq '^[[:space:]]*CAIN[[:space:]]+15,' "$d/t.s"; then
-   echo "$cpu: linear SUBBP position search survived" >&2
-   exit 1
- fi
- "$P10RUN" --machine "$cpu" --mode deposit --exec-mode step \
-   --step-limit 3000000 --timeout 20 --workdir "$work/run-$cpu" \
-   --name "subbp-index-arithmetic-v1-$cpu" --expect __test_exit=0 \
-   "$testroot/semantic-crt0.s" "$d/t.s" "$KCC_RT" >/dev/null
-done
-printf '%s\n' 'SUBBP arithmetic byte-index regression passed'

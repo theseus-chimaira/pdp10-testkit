@@ -200,7 +200,8 @@ CHECKS = {
 def failures(name, asm, machine=None):
     if name not in CHECKS:
         return ["unknown KCC assembly checker " + name]
-    if name in ("direct-assignment-store", "cheap-optimizer-pass"):
+    if name in ("direct-assignment-store", "cheap-optimizer-pass",
+                "sidiv-shared-edge-v1"):
         if machine is None:
             return ["processor not supplied for " + name]
         return CHECKS[name](asm.splitlines(), machine)
@@ -637,3 +638,78 @@ def _shared_fixed_epilogue(lines):
 
 
 CHECKS["shared-fixed-epilogue-v1"] = _shared_fixed_epilogue
+
+
+def _sidiv_pair(lines, names):
+    bodies = _functions(lines)
+    errors = []
+    for name in names:
+        count = sum(bool(re.match(r"^\s*(?:idiv|uidiv)i?\s+", line, re.I))
+                    for line in bodies.get(name, []))
+        if count != 1:
+            errors.append("%s: expected 1 IDIV, got %d" % (name, count))
+    return errors
+
+
+def _sidiv_divmod(lines):
+    return _sidiv_pair(lines, ("q_then_r", "r_then_q", "direct_index",
+                               "uq_then_r", "ur_then_q"))
+
+
+def _sidiv_pair_cse(lines):
+    return _sidiv_pair(lines, ("q_then_r_const", "r_then_q_const",
+                               "idx_qr_const", "idx_rq_const", "idx_rq_var"))
+
+
+def _sidiv_shared(lines, machine):
+    helpers = sum(line.startswith("%SIDH") for line in lines)
+    calls = sum(bool(re.search(r"PUSHJ.*%SIDH", line, re.I)) for line in lines)
+    if machine == "pdp6":
+        errors = []
+        if helpers < 6:
+            errors.append("PDP-6: fewer than six shared signed-IDIV helpers")
+        if calls < 10:
+            errors.append("PDP-6: fewer than ten signed helper call sites")
+        if any(line.startswith("%SIDN") for line in lines):
+            errors.append("PDP-6: obsolete per-site signed-IDIV body")
+        return errors
+    return (["PDP-6 signed-IDIV helper on " + machine]
+            if helpers else [])
+
+
+def _terminal_commutative(lines):
+    bodies = _functions(lines)
+    errors = []
+    ops = (("add_ab", "add"), ("add_ba", "add"),
+           ("and_ba", "and"), ("or_ba", "ior"), ("xor_ba", "xor"),
+           ("mul_ab", "imul"), ("mul_ba", "imul"))
+    for name, op in ops:
+        body = bodies.get(name, [])
+        if not _has(body, r"^\s*" + op + r"\s+1,2(?:\s|$)"):
+            errors.append(name + ": missing direct AC1 " + op)
+        if _has(body, r"^\s*move\s+[3-7],[12](?:\s|$)"):
+            errors.append(name + ": retained commutative temporary")
+    for name in ("sub_ba", "usub_ba"):
+        for pat in (r"^\s*movn\s+1,1(?:\s|$)",
+                    r"^\s*add\s+1,2(?:\s|$)"):
+            if not _has(bodies.get(name, []), pat):
+                errors.append(name + ": missing direct AC1 operation " + pat)
+    return errors
+
+
+def _subbp_index(lines):
+    return (["linear SUBBP position search survived"] if
+            _has(lines, r"^\s*CAIN\s+15,") else [])
+
+
+CHECKS.update({
+    "sidiv-divmod-cse-v2": _sidiv_divmod,
+    "sidiv-idiv-pair-cse-v3": _sidiv_pair_cse,
+    "terminal-commutative-ac1-v1": _terminal_commutative,
+    "subbp-index-arithmetic-v1": _subbp_index,
+})
+
+
+_MACHINE_CHECKS = {"direct-assignment-store", "cheap-optimizer-pass",
+                   "sidiv-shared-edge-v1"}
+CHECKS["sidiv-shared-edge-v1"] = _sidiv_shared
