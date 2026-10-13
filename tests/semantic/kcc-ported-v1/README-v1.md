@@ -70,3 +70,10 @@ KCC-specific packed-type constructs pending individual ABI classification.
 No compiler modifications. Full matrix sweep remains pending.
 
 Sources: `gnu-packed-bitptr-callabi`, `gnu-packed-bitptr-callarith`, `gnu-packed-bitptr-callincdec`, `gnu-packed-bitptr-callstore`, `gnu-packed-bitptr-callsub`, `gnu-packed-bitptr-localmember`, `gnu-packed-chained-assignment`, `gnu-packed-mixed-layout`, `gnu-packed-nested-byvalue`, `gnu-packed-nested-wholecopy`.
+
+## Migration batch 3: narrow conversions and alignment (two sources)
+
+`dimode-narrow-conversion` and `gnu-aligned-layout` retain all embedded
+C assertions. PDP-6 KCC optimized passed both. GCC PDP-6 -O0 gave a
+compile failure for narrow KCC-specific types and a runtime failure for
+layout; neither was fixed. The original two shell wrappers were removed.

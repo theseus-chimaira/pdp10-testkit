@@ -1,14 +1,4 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-gnu-aligned-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
+/* Preserved regression source from gnu-aligned-layout.sh. */
 volatile int __test_exit;
 struct a {
     char a;
@@ -52,13 +42,3 @@ int main(void)
     if (off_e_b() != 4) return 5;
     return 0;
 }
-SRC
-(
- cd "$tmp"
- TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=galign t.c
-)
-"$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
-    --step-limit 1000000 --timeout 20 --workdir "$tmp/run" \
-    --name gnu-aligned-layout --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/galign.s" "$KCC_RT" >/dev/null
-printf '%s\n' 'GNU aligned layout regression passed'
