@@ -872,3 +872,27 @@ while nine compiled.
 | 950618-1 | recursive GNU extern inline expansion; JRST or call |
 
 All accepted tests compile without requiring an OS/peripheral. Not executed.
+
+---
+
+## Batch 34
+
+Ten generic compile fixtures accepted. Sampled GCC PDP-6 -O0/KI10 -O2
+compiled all; KCC PDP-6 opt/KA10 noopt rejected 951116-1 and 951128-1,
+compiled eight.
+
+| Test | Plausible generated code |
+|---|---|
+| 951106-1 | double argument multi-argument call; PUSHJ and stack moves |
+| 951116-1 | nested GNU function capturing wide integer/local; move/ASH, KCC rejects |
+| 951128-1 | incomplete array and narrow-char indexed store; LDB/IBP, KCC rejects |
+| 951220-1 | byte load and boolean bit tests; LDB/TRNE/ANDI |
+| 951222-1 | long-long locals across setjmp and call; DMOVE/DMOVEM, compiler only |
+| 960106-1 | logical bitwise AND constant; TRNN/ANDI and return |
+| 960130-1 | incomplete extern array with `main`; data load and calls |
+| 960201-1 | transparent union declaration; data/type-only, no instructions |
+| 960218-1 | comments inside macro invocation; zero return |
+| 960220-1 | unsigned 72-bit comparison loop; TLC/CAMLE/JRST |
+
+No OS or peripheral is needed for these compile-only checks. Source
+failure remains evidence, not a reason to change compilers.

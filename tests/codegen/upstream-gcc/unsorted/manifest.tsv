@@ -324,26 +324,26 @@ torture-compile	gcc.c-torture/compile/950610-1.c	reviewed-v1/compile/950610-1.c	
 torture-compile	gcc.c-torture/compile/950612-1.c	reviewed-v1/compile/950612-1.c	compile			uses-printf
 torture-compile	gcc.c-torture/compile/950613-1.c	reviewed-v1/compile/950613-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/950618-1.c	reviewed-v1/compile/950618-1.c	compile			
-torture-compile	gcc.c-torture/compile/950719-1.c	compile/950719-1.c	compile			
-torture-compile	gcc.c-torture/compile/950729-1.c	compile/950729-1.c	compile			
-torture-compile	gcc.c-torture/compile/950816-1.c	compile/950816-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/950816-2.c	compile/950816-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/950816-3.c	compile/950816-3.c	compile			
-torture-compile	gcc.c-torture/compile/950910-1.c	compile/950910-1.c	compile			
-torture-compile	gcc.c-torture/compile/950919-1.c	compile/950919-1.c	compile			
-torture-compile	gcc.c-torture/compile/950921-1.c	compile/950921-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/950922-1.c	compile/950922-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/951004-1.c	compile/951004-1.c	compile			
-torture-compile	gcc.c-torture/compile/951106-1.c	compile/951106-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/951116-1.c	compile/951116-1.c	compile			
-torture-compile	gcc.c-torture/compile/951128-1.c	compile/951128-1.c	compile			
-torture-compile	gcc.c-torture/compile/951220-1.c	compile/951220-1.c	compile			
-torture-compile	gcc.c-torture/compile/951222-1.c	compile/951222-1.c	compile			uses-setjmp
-torture-compile	gcc.c-torture/compile/960106-1.c	compile/960106-1.c	compile			
-torture-compile	gcc.c-torture/compile/960130-1.c	compile/960130-1.c	compile			
-torture-compile	gcc.c-torture/compile/960201-1.c	compile/960201-1.c	compile			
-torture-compile	gcc.c-torture/compile/960218-1.c	compile/960218-1.c	compile			
-torture-compile	gcc.c-torture/compile/960220-1.c	compile/960220-1.c	compile			
+torture-compile	gcc.c-torture/compile/950719-1.c	reviewed-v1/compile/950719-1.c	compile			
+torture-compile	gcc.c-torture/compile/950729-1.c	reviewed-v1/compile/950729-1.c	compile			
+torture-compile	gcc.c-torture/compile/950816-1.c	reviewed-v1/compile/950816-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/950816-2.c	reviewed-v1/compile/950816-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/950816-3.c	reviewed-v1/compile/950816-3.c	compile			
+torture-compile	gcc.c-torture/compile/950910-1.c	reviewed-v1/compile/950910-1.c	compile			
+torture-compile	gcc.c-torture/compile/950919-1.c	reviewed-v1/compile/950919-1.c	compile			
+torture-compile	gcc.c-torture/compile/950921-1.c	reviewed-v1/compile/950921-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/950922-1.c	reviewed-v1/compile/950922-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/951004-1.c	reviewed-v1/compile/951004-1.c	compile			
+torture-compile	gcc.c-torture/compile/951106-1.c	reviewed-v1/compile/951106-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/951116-1.c	reviewed-v1/compile/951116-1.c	compile			
+torture-compile	gcc.c-torture/compile/951128-1.c	reviewed-v1/compile/951128-1.c	compile			
+torture-compile	gcc.c-torture/compile/951220-1.c	reviewed-v1/compile/951220-1.c	compile			
+torture-compile	gcc.c-torture/compile/951222-1.c	reviewed-v1/compile/951222-1.c	compile			uses-setjmp
+torture-compile	gcc.c-torture/compile/960106-1.c	reviewed-v1/compile/960106-1.c	compile			
+torture-compile	gcc.c-torture/compile/960130-1.c	reviewed-v1/compile/960130-1.c	compile			
+torture-compile	gcc.c-torture/compile/960201-1.c	reviewed-v1/compile/960201-1.c	compile			
+torture-compile	gcc.c-torture/compile/960218-1.c	reviewed-v1/compile/960218-1.c	compile			
+torture-compile	gcc.c-torture/compile/960220-1.c	reviewed-v1/compile/960220-1.c	compile			
 torture-compile	gcc.c-torture/compile/960221-1.c	compile/960221-1.c	compile			
 torture-compile	gcc.c-torture/compile/960319-1.c	compile/960319-1.c	compile			
 torture-compile	gcc.c-torture/compile/960514-1.c	compile/960514-1.c	compile			
