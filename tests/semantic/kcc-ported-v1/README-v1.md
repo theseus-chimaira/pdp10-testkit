@@ -18,3 +18,19 @@ supported CPU/family/optimization combinations. It uses the standard crt0
 
 No other KCC shell script has been retired. Remaining compiler-internal and
 assembly-shape tests require a separate assessment before migration.
+
+## Migration 2: character pointers and Boolean semantics
+
+`standard-char-pointer-boundary-v1.c` preserves pointer round-trips through
+locals and functions and checks null pointers. The separate `nullinit.c`
+compilation check moved to `tests/codegen/kcc-ported-v1/`.
+
+`bool-semantics-v1.c` preserves original `_Bool` initialization, packed
+fields, conversions, increments, and arithmetic assertions. Focused run:
+KCC PDP-6 optimized and KA10 unoptimized PASS; GCC PDP-6 -O0 and KI10
+-O2 RUN_FAIL (retained as a discovered regression, not repaired).
+
+The character-pointer semantic test passed in all four sampled profiles.
+`anonymous-aggregates-v7.sh` was removed because both referenced C tests
+were already scheduled in the matrix and the wrapper added no independent
+assertion. All other KCC scripts remain until evaluated.

@@ -1,15 +1,4 @@
-#!/bin/sh
-set -eu
-testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
-. "$testroot/kcc-env.sh"
-kcc_setup_env
-root=$PDP10_PREFIX/lib/kcc
-kcc_setup_env
-KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-bool-semantics-$$
-trap 'rm -rf "$tmp"' EXIT HUP INT TERM
-mkdir -p "$tmp"
-cat > "$tmp/t.c" <<'SRC'
+/* Imported unchanged from KCC shell regression: bool-semantics. */
 volatile int __test_exit;
 static _Bool sb5 = 5;
 static _Bool ba[5] = { 0, 2, 0, -3, 1 };
@@ -114,12 +103,3 @@ main(void)
 
     return 0;
 }
-SRC
-
-cd "$tmp"
-TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=bool-semantics t.c
-"$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
-    --step-limit 1000000 --timeout 20 --workdir "$tmp/run" \
-    --name bool-semantics --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/bool-semantics.s" "$KCC_RT" >/dev/null
-printf '%s\n' 'bool semantics regression passed'
