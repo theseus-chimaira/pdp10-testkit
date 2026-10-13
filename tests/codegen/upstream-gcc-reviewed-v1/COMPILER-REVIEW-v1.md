@@ -121,3 +121,29 @@ rejected 20000701-1 (void lvalue expressions), all other tests compiled.
 No tests were executed; tests requiring external runtime calls are compile
 checks only. Correctness and per-cell plausibility remain to be established
 beyond representative reviewed instruction sequences.
+
+---
+
+## Batch 5
+
+Representative profiles: KCC PDP-6 opt/KA10 noopt; GCC PDP-6 -O0/KI10
+-O2. All ten GCC compilations passed. KCC rejects six GNU-language-specific
+sources (20000804-1, 20000827-1, 20000923-1, 20001024-1, 20001109-1,
+20001109-2) and compiles four.
+
+| Test | Compiler coverage and generated-assembly inspection |
+|---|---|
+| 20000804-1 | GNU complex integer and inline assembler operands; GCC emits DMOVE/DMOVEM and arithmetic, KCC rejects |
+| 20000818-1 | aggregate containing long double; KCC/GCC stack and data moves, optimized away when unused |
+| 20000825-1 | unsigned shift/mask and inline semantics; move, calls, literal-mask formation |
+| 20000827-1 | optimization common-subexpression constraints; GCC JFCL/ANDI and conditional branch; KCC rejects |
+| 20000922-1 | constant detection and inline asm operand constraints; GCC generates call or optimized jump |
+| 20000923-1 | variable array and inline asm operand; GCC stack allocation with MUL/shift, KCC rejects |
+| 20001018-1 | incomplete/complete extern array sizes and sizeof; only codegen for empty function |
+| 20001024-1 | GCC size-type macro and memset expression; GCC conditional and stores, KCC rejects |
+| 20001109-1 | alignment of late-defined incomplete struct type; data-only/no instructions; KCC rejects GNU alignof |
+| 20001109-2 | second incomplete-struct alignment form; data-only/no instructions; KCC rejects GNU alignof |
+
+No source requires a foreign operating system or hardware-specific processor.
+GNU C extensions intentionally remain compiler compatibility coverage. One-
+time exhaustive per-cell assembly audit remains pending.
