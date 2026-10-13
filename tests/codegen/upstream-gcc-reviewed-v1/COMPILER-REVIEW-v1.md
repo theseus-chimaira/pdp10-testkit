@@ -542,3 +542,28 @@ PDP-10 GCC assembly contains raw inline-asm text `4`, `f`, and `g` as
 instructions. That is not meaningful or valid PDP-10 assembler input, so a
 compile-only pass would give misleading target coverage. Original source
 copies and matrix/manifest entries were all removed. No compiler changes.
+
+---
+
+## Batch 20
+
+Ten GCC torture compile tests moved from unreviewed collection. Focused
+PDP-6/KI10 KCC/GCC assembly checks were inspected in the temporary batch-20
+results. These results are compile/codegen observations, not runtime proofs.
+
+| Test | Assessment and assembly plausibility |
+|---|---|
+| 920501-6 | Floating store through pointer; KCC FSC, GCC FLTR and MOVEM |
+| 920501-7 | Computed goto and label differences; GCC address computations and branches; KCC rejects GNU labels |
+| 920501-8 | Implicit pointer-to-int conversion; GCC unoptimized moves, optimized empty return; KCC rejects conversion |
+| 920501-9 | Narrow unsigned-to-short conversion; sign extraction HRRE/HRROI |
+| 920502-1 | Indirect computed goto through pointer table; MOVE/JRST |
+| 920502-2 | Unused 64-bit left shift; optimized away to POPJ |
+| 920520-1 | Inline assembly with floating register operands; GCC loads/moves, KCC rejects constraints |
+| 920521-1 | Clobber/operand constraints in inline assembly; GCC compiles, KCC rejects |
+| 920529-1 | Dead unreachable loop after abort; KCC emits more code, GCC optimizes to branch |
+| 920608-1 | Integer and short aliasing arithmetic; moves, indexed byte-pointer ops, stores |
+
+No OS-dependent behavior or processor-specific hardware requirement found;
+KCC failures remain visible in matrix coverage. Other profiles require their
+own one-time assembly plausibility review.
