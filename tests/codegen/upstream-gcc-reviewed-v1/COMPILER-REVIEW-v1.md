@@ -474,15 +474,15 @@ One-time full per-profile review beyond batch one remains outstanding.
 ## Batch 18
 
 Ten useful generic compiler/ABI compile regressions. Representative GCC
-PDP-6 -O0 and KI10 -O2: 10/10 pass. KCC PDP-6 opt and KA10 noopt: 7/10
-pass; 920501-1, 920501-11, 920501-16 rejected.
+PDP-6 -O0 and KI10 -O2: 10/10 pass. KCC PDP-6 opt and KA10 noopt: 8/10
+pass; 920501-11 and 920501-16 rejected.
 
 | Source | Code plausibility |
 |---|---|
 | 920428-5 | bit-field assignment between structs; LDB/DPB |
 | 920428-6 | linked type pointers and compound conditional flow; skips/branches |
 | 920428-7 | loop with repeated indexed calls; AOS/PUSHJ/ADDI |
-| 920501-1 | GNU computed label address; KCC rejection, GCC address setup |
+| 920501-1 | GNU computed label address; KCC and GCC generate address setup |
 | 920501-10 | multiplication by constant 8193; IMULI or LSH/ADD |
 | 920501-11 | nested compound literals and pointer casts; KCC rejects, GCC frame/address ops |
 | 920501-12 | large local arrays and stack offsets; ADD/LSH and stack adjustment |
@@ -492,3 +492,28 @@ pass; 920501-1, 920501-11, 920501-16 rejected.
 
 No OS service or foreign CPU needed for compilation; unresolved compiler
 errors preserved. Full-cell opcode review remains pending.
+
+---
+
+## Batch 19
+
+Ten source-level compiler tests; KCC PDP-6 opt/KA10 noopt compiled seven
+and rejected 920501-22, 920501-23 and 920501-3. GCC PDP-6 -O0 and KI10
+-O2 compiled all ten. Review uses exact source identifiers (not ambiguous
+filename prefixes) after correcting the transient inspection script.
+
+| Source | Expected assembly pattern observed |
+|---|---|
+| 920501-17 | static string and indexed 9-bit character local; LDB/DPB |
+| 920501-18 | floating/integer union loop comparison; CAMGE/CAMLE and JRST |
+| 920501-19 | wide global value set to zero; SETZM or explicit halves |
+| 920501-2 | 2D short arrays and indirect indices; LDB/IBP/LSH, compiler-dependent pointer loops; GCC has 235 lines O0 and 195 lines KI10 O2 |
+| 920501-20 | setjmp and pointer return; BLT/DMOVE and branch, compile-only |
+| 920501-21 | unsigned short struct field and address cast; HRL/ANDI |
+| 920501-22 | empty array initializer extension; address/frame and return, KCC rejects |
+| 920501-23 | mixed narrow and wide integer arithmetic; DMOVE and conditional branches, KCC rejects |
+| 920501-3 | 24+40 bit-fields in long long; GCC DPB, KCC rejects |
+| 920501-4 | large local arrays and branch-loop optimizer stress; MOVE/JRST/ADDI |
+
+No unsupported device or operating system is needed to compile these sources.
+No compiler fixes applied. Full per-cell comparison remains outstanding.
