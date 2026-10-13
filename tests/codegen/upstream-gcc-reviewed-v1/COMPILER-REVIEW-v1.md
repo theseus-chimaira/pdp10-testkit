@@ -612,3 +612,28 @@ KI10 -O2 compiled all candidates; KCC PDP-6 opt/KA10 noopt rejected
 
 **Excluded/deleted:** 920821-1.c contained only `/* empty */` and no
 compiler/assembler construct to inspect. Its source and entries were removed.
+
+---
+
+## Batch 24
+
+Ten generic C compiler/ABI tests accepted. Representative GCC PDP-6 -O0
+and KI10 -O2 compiled 10/10; KCC PDP-6 opt/KA10 noopt rejected the
+static-initializer/layout and GNU extension cases 920928-1, 920928-4,
+920928-5 and 920928-6; six compiled.
+
+| Test | Plausibility observations |
+|---|---|
+| 920902-1 | old-style function parameter narrowing; DPB and return |
+| 920909-1 | 72-bit shift by wide second operand; LSH/LSHC/TLZ/TLO |
+| 920917-1 | inline switch case and static string length; CAIE/CAIN, optimized return |
+| 920928-1 | constant struct-member pointer offset; data-only initializer, KCC rejects |
+| 920928-2 | large short/floating conditional arithmetic; 265–582 GCC assembly lines, HRRE and branching |
+| 920928-3 | nested loop with char pointer writes; conditional/counter instructions |
+| 920928-4 | complex integer typedef and declarations; data-only output, KCC rejects |
+| 920928-5 | empty-struct return/function-pointer ABI case originally discovered on m68k; generic PDP-10 call/prologue, KCC rejects |
+| 920928-6 | second offsetof/pointer initializer with narrow destination; data-only, KCC rejects |
+| 921004-1 | 72-bit load/add and uninitialized pointer stress; DMOVE/ADD/JCRY0 |
+
+Historical processor mentions document original discovery only; all accepted
+sources compile for PDP-10 without peripheral/OS dependence. No fixes.
