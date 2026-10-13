@@ -920,3 +920,26 @@ compiled all nine retained cases; KCC rejected `950922-1.c`.
 
 No compiler repairs. These are representative assembly reviews, not proofs
 across every scheduled matrix profile.
+
+---
+
+## Batch 35
+
+Ten generic codegen torture files accepted. GCC PDP-6 -O0/KI10 -O2
+compiled 10/10, KCC PDP-6 optimized/KA10 unoptimized compiled nine,
+rejecting 960221-1 (GNU aggregate initializer extension).
+
+| Source | Observed plausible lowering |
+|---|---|
+| 960221-1 | zero-initialized nested struct aggregate; GCC SETZM, KCC rejects |
+| 960319-1 | wide shift into local words and branch; LSH/IOR |
+| 960514-1 | array of 72-bit integers with additions; DMOVE/DMOVEM and loops |
+| 960704-1 | struct containing double returned by call; PUSHJ and frame |
+| 960829-1 | five double arguments; argument setup and PUSHJ |
+| 961004-1 | three 72-bit array pointers and right shifts; LSH/DMOVEM, pointer arithmetic |
+| 961010-1 | comparison of double to zero; DMOVE/JUMPE and return |
+| 961019-1 | initialized 9-bit hex lookup table; byte-pointer store loop |
+| 961031-1 | pure function returning double struct; DMOVE and POPJ |
+| 961126-1 | repeated signed negation comparisons; MOVN/CAME/JRST |
+
+All source checks are compile-only. No compiler or OS source touched.

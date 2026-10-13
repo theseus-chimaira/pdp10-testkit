@@ -343,16 +343,16 @@ torture-compile	gcc.c-torture/compile/960130-1.c	reviewed-v1/compile/960130-1.c	
 torture-compile	gcc.c-torture/compile/960201-1.c	reviewed-v1/compile/960201-1.c	compile			
 torture-compile	gcc.c-torture/compile/960218-1.c	reviewed-v1/compile/960218-1.c	compile			
 torture-compile	gcc.c-torture/compile/960220-1.c	reviewed-v1/compile/960220-1.c	compile			
-torture-compile	gcc.c-torture/compile/960221-1.c	compile/960221-1.c	compile			
-torture-compile	gcc.c-torture/compile/960319-1.c	compile/960319-1.c	compile			
-torture-compile	gcc.c-torture/compile/960514-1.c	compile/960514-1.c	compile			
-torture-compile	gcc.c-torture/compile/960704-1.c	compile/960704-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/960829-1.c	compile/960829-1.c	compile			
-torture-compile	gcc.c-torture/compile/961004-1.c	compile/961004-1.c	compile			
-torture-compile	gcc.c-torture/compile/961010-1.c	compile/961010-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/961019-1.c	compile/961019-1.c	compile			
-torture-compile	gcc.c-torture/compile/961031-1.c	compile/961031-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/961126-1.c	compile/961126-1.c	compile			
+torture-compile	gcc.c-torture/compile/960221-1.c	reviewed-v1/compile/960221-1.c	compile			
+torture-compile	gcc.c-torture/compile/960319-1.c	reviewed-v1/compile/960319-1.c	compile			
+torture-compile	gcc.c-torture/compile/960514-1.c	reviewed-v1/compile/960514-1.c	compile			
+torture-compile	gcc.c-torture/compile/960704-1.c	reviewed-v1/compile/960704-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/960829-1.c	reviewed-v1/compile/960829-1.c	compile			
+torture-compile	gcc.c-torture/compile/961004-1.c	reviewed-v1/compile/961004-1.c	compile			
+torture-compile	gcc.c-torture/compile/961010-1.c	reviewed-v1/compile/961010-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/961019-1.c	reviewed-v1/compile/961019-1.c	compile			
+torture-compile	gcc.c-torture/compile/961031-1.c	reviewed-v1/compile/961031-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/961126-1.c	reviewed-v1/compile/961126-1.c	compile			
 torture-compile	gcc.c-torture/compile/961203-1.c	compile/961203-1.c	compile			
 torture-compile	gcc.c-torture/compile/970206-1.c	compile/970206-1.c	compile			
 torture-compile	gcc.c-torture/compile/970214-1.c	compile/970214-1.c	compile			
