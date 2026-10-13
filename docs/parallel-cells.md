@@ -47,13 +47,25 @@ Skip known failures as well as already-green cells:
 ./run-tests.sh -j 32 --skip-failures
 ```
 
-## Makefile shortcut
+## Named test suites
 
 ```sh
-make test JOBS=32
+./run-tests.sh verify
+./run-tests.sh das-fast
+./run-tests.sh das
+./run-tests.sh das-native
+./run-tests.sh gcc-bare-libgcc
+./run-tests.sh pdp10-tools
+./run-tests.sh kcc-regression
+./run-tests.sh kcc-semantic
+./run-tests.sh kcc-all
 ```
 
-`make test-parallel JOBS=32` is an alias for the same command.
+The entry point also supports `list`, `list-kcc`, `list-gcc`, `reset`,
+`clean`, `test`, and `test-parallel`. The latter two are aliases for the
+normal matrix runner, including `-j N`. The `all` alias runs `verify`,
+matching the former Makefile's default target. External DAS compilation
+still uses DAS's own Makefile.
 
 ## Restart behavior
 

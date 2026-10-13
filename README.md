@@ -11,7 +11,8 @@ other hardware beyond the processor do not belong here. DAIMOS-dependent
 regressions belong in `daimos-testkit`; generic host-tool regression tests
 may remain here if they exercise processor-oriented tooling only.
 
-Set `PDP10_PREFIX` to the installed toolchain prefix. Use `make verify` for
-compatibility checks, `make test` for the matrix, `make list` to enumerate
-cells, and `make clean` to remove generated artifacts. The full matrix is
+Set `PDP10_PREFIX` to the installed toolchain prefix. Use
+`./run-tests.sh verify` for compatibility checks, `./run-tests.sh -j 6`
+for the matrix, `./run-tests.sh list` to enumerate cells, and
+`./run-tests.sh clean` to remove generated artifacts. The full matrix is
 `TEST_MATRIX.tsv`; runner usage is described in `docs/parallel-cells.md`.
