@@ -1,7 +1,7 @@
 # Migrated KCC shell regression tests
 
-Sources here are owned by `TEST_MATRIX.tsv` and `run-tests.sh`, not by
-`run-kcc-regressions.sh`. A source is moved only once its assertions are
+Sources here are owned by `TEST_MATRIX.tsv` and `run-tests.sh`, rather
+than the transitional legacy KCC-script dispatcher. A source is moved only once its assertions are
 preserved and the obsolete corresponding shell runner can be retired.
 
 ## Migration 1: semantic-optimizer-runtime

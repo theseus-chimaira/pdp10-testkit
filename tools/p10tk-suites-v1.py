@@ -51,11 +51,15 @@ def main(suite):
         if not (repo / "Makefile").is_file():
             raise SystemExit("invalid PDP10_TOOLS_REPO: " + str(repo))
         run("sh", "tests/pdp10-tools/run.sh", env=dict(ENV, PDP10_TOOLS_REPO=str(repo)))
-    elif suite.startswith("kcc-"):
-        modes = {"kcc-regression": "fast", "kcc-semantic": "semantic", "kcc-all": "all"}
-        if suite not in modes:
-            raise SystemExit("unknown suite " + suite)
-        run("sh", "./run-kcc-regressions.sh", modes[suite])
+    elif suite in ("kcc-regression", "kcc-all"):
+        # Transitional coverage: the remaining legacy scripts have not yet
+        # been migrated into TEST_MATRIX.tsv. Keep invoking each directly.
+        for script in sorted((ROOT / "tests/kcc-regression").glob("*.sh")):
+            if script.name == "kcc-env.sh":
+                continue
+            run("sh", script)
+    elif suite == "kcc-semantic":
+        run("./run-tests.sh", "--kind", "semantic")
     elif suite == "clean":
         for path in ("workdir", "__pycache__", "tools/__pycache__", "tests/das/__pycache__"):
             shutil.rmtree(ROOT / path, ignore_errors=True)
