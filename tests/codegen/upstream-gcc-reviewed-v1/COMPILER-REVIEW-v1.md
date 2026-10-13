@@ -681,3 +681,28 @@ compiled nine, rejected 921203-1; GCC PDP-6 -O0/KI10 -O2 compiled all.
 | 921206-1 | float math and char-map access; DMOVE/DMOVEM, branches |
 
 No executable OS/runtime requirement; all are compile-only. No fixes.
+
+---
+
+## Batch 27
+
+Nine generic compiler tests accepted, one OS-dependent test deleted.
+Representative GCC PDP-6 -O0/KI10 -O2 compiled all ten candidates; KCC
+PDP-6 opt/KA10 noopt rejected 930118-1 and compiled the other eight
+accepted files.
+
+| Test | Source relevance and observed code |
+|---|---|
+| 921227-1 | preprocessor stringification; no substantive runtime code |
+| 930109-1 | 36-bit unsigned shift by narrow signed values; LSH/LDB/MOVN |
+| 930109-2 | constant shift and loop arithmetic; ASH/LSH/ADDM |
+| 930117-1 | function-pointer call through cast address; PUSHJ/frame setup, compile-only |
+| 930118-1 | GNU local label syntax; GCC call sequence, KCC rejects |
+| 930120-1 | large expression/char-pointer compiler stress; LDB/IBP/PUSHJ/branches |
+| 930126-1 | nested declaration/function-pointer program; MOVE/PUSHJ/IORI |
+| 930210-1 | 9-bit character copying in loop; LDB/DPB/IBP |
+| 930217-1 | floating-point bitfields in union; LDB/DPB/conversion call |
+
+**Excluded/deleted:** `930111-1.c` invokes `vfork()` (and `strcmp`) and
+was written as an i386 traditional-compiler test. The bare-metal PDP-10
+compile suite gains little target-relevant coverage from its OS dependency.
