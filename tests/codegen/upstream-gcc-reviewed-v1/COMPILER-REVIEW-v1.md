@@ -246,3 +246,28 @@ GCC compiled all candidates; KCC rejected 20010423-1, 20010510-1,
 **Excluded/deleted:** 20010518-2.c (`volatile char chars_1[INT_MAX/2]`)
 requires an unrealizable PDP-10 static object far beyond addressable memory.
 It is not entered in the matrix or kept in the unreviewed source directory.
+
+---
+
+## Batch 10
+
+Ten source-level GCC torture compile tests. Representative KCC PDP-6 opt/
+KA10 noopt and GCC PDP-6 -O0/KI10 -O2: GCC compiled all ten, KCC failed
+20010605-1 and 20010610-1 (GNU VLA/nested function and bool declarations).
+
+| Test | Purpose and assembly plausibility |
+|---|---|
+| 20010605-1 | VLA-based aggregate and nested function; GCC computes variable frame addresses and calls |
+| 20010605-2 | struct-to-same-type cast through typedef; value moves |
+| 20010605-3 | simple pointer check with disabled IA64-only conditional; MOVE/JUMPE and constant result |
+| 20010610-1 | bool as array size/switch selector; GCC calls/returns; KCC rejects |
+| 20010611-1 | qualified function arguments and type compatibility; constant return |
+| 20010701-1 | postfix attribute declaration parser; no emitted instructions expected |
+| 20010706-1 | unsigned shift/rotate idiom; LSH/IOR |
+| 20010711-1 | 64-bit decrement and compare with call; DMOVE and SUBI |
+| 20010711-2 | 64-bit decrement/equality variation; DMOVE, branch/call |
+| 20010714-1 | attribute placement on declarations; no emitted instructions expected |
+
+No unsupported OS or special processor is required. The guarded IA64-only
+assembly in 20010605-3 is inactive on the PDP-10. Per-cell review beyond
+these representative profile comparisons remains outstanding.
