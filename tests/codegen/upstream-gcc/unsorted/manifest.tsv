@@ -353,26 +353,26 @@ torture-compile	gcc.c-torture/compile/961010-1.c	reviewed-v1/compile/961010-1.c	
 torture-compile	gcc.c-torture/compile/961019-1.c	reviewed-v1/compile/961019-1.c	compile			
 torture-compile	gcc.c-torture/compile/961031-1.c	reviewed-v1/compile/961031-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/961126-1.c	reviewed-v1/compile/961126-1.c	compile			
-torture-compile	gcc.c-torture/compile/961203-1.c	compile/961203-1.c	compile			
-torture-compile	gcc.c-torture/compile/970206-1.c	compile/970206-1.c	compile			
-torture-compile	gcc.c-torture/compile/970214-1.c	compile/970214-1.c	compile			
-torture-compile	gcc.c-torture/compile/980329-1.c	compile/980329-1.c	compile			
-torture-compile	gcc.c-torture/compile/980408-1.c	compile/980408-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/980504-1.c	compile/980504-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/980506-1.c	compile/980506-1.c	compile			
-torture-compile	gcc.c-torture/compile/980506-2.c	compile/980506-2.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/980511-1.c	compile/980511-1.c	compile			
-torture-compile	gcc.c-torture/compile/980701-1.c	compile/980701-1.c	compile			
-torture-compile	gcc.c-torture/compile/980706-1.c	compile/980706-1.c	compile			
-torture-compile	gcc.c-torture/compile/980726-1.c	compile/980726-1.c	compile			
-torture-compile	gcc.c-torture/compile/980729-1.c	compile/980729-1.c	compile			
-torture-compile	gcc.c-torture/compile/980816-1.c	compile/980816-1.c	compile			
-torture-compile	gcc.c-torture/compile/980821-1.c	compile/980821-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/980825-1.c	compile/980825-1.c	compile			
-torture-compile	gcc.c-torture/compile/981001-1.c	compile/981001-1.c	compile			
-torture-compile	gcc.c-torture/compile/981001-2.c	compile/981001-2.c	compile			
-torture-compile	gcc.c-torture/compile/981001-3.c	compile/981001-3.c	compile			
-torture-compile	gcc.c-torture/compile/981001-4.c	compile/981001-4.c	compile			
+torture-compile	gcc.c-torture/compile/961203-1.c	reviewed-v1/compile/961203-1.c	compile			
+torture-compile	gcc.c-torture/compile/970206-1.c	reviewed-v1/compile/970206-1.c	compile			
+torture-compile	gcc.c-torture/compile/970214-1.c	reviewed-v1/compile/970214-1.c	compile			
+torture-compile	gcc.c-torture/compile/980329-1.c	reviewed-v1/compile/980329-1.c	compile			
+torture-compile	gcc.c-torture/compile/980408-1.c	reviewed-v1/compile/980408-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980504-1.c	reviewed-v1/compile/980504-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980506-1.c	reviewed-v1/compile/980506-1.c	compile			
+torture-compile	gcc.c-torture/compile/980506-2.c	reviewed-v1/compile/980506-2.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980511-1.c	reviewed-v1/compile/980511-1.c	compile			
+torture-compile	gcc.c-torture/compile/980701-1.c	reviewed-v1/compile/980701-1.c	compile			
+torture-compile	gcc.c-torture/compile/980706-1.c	reviewed-v1/compile/980706-1.c	compile			
+torture-compile	gcc.c-torture/compile/980726-1.c	reviewed-v1/compile/980726-1.c	compile			
+torture-compile	gcc.c-torture/compile/980729-1.c	reviewed-v1/compile/980729-1.c	compile			
+torture-compile	gcc.c-torture/compile/980816-1.c	reviewed-v1/compile/980816-1.c	compile			
+torture-compile	gcc.c-torture/compile/980821-1.c	reviewed-v1/compile/980821-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/980825-1.c	reviewed-v1/compile/980825-1.c	compile			
+torture-compile	gcc.c-torture/compile/981001-1.c	reviewed-v1/compile/981001-1.c	compile			
+torture-compile	gcc.c-torture/compile/981001-2.c	reviewed-v1/compile/981001-2.c	compile			
+torture-compile	gcc.c-torture/compile/981001-3.c	reviewed-v1/compile/981001-3.c	compile			
+torture-compile	gcc.c-torture/compile/981001-4.c	reviewed-v1/compile/981001-4.c	compile			
 torture-compile	gcc.c-torture/compile/981006-1.c	compile/981006-1.c	compile	compile		
 torture-compile	gcc.c-torture/compile/981007-1.c	compile/981007-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/981022-1.c	compile/981022-1.c	compile			

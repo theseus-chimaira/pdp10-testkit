@@ -943,3 +943,28 @@ rejecting 960221-1 (GNU aggregate initializer extension).
 | 961126-1 | repeated signed negation comparisons; MOVN/CAME/JRST |
 
 All source checks are compile-only. No compiler or OS source touched.
+
+---
+
+## Batch 36
+
+Ten generic compiler tests reviewed in representative KCC PDP-6 optimized,
+KA10 unoptimized, GCC PDP-6 -O0 and KI10 -O2 profiles. GCC compiled all;
+KCC rejected `981001-2.c` (GNU weak alias syntax) and `981001-4.c`
+(GNU conditional shorthand), retaining those failures.
+
+| Test | Generated-code plausibility |
+|---|---|
+| 980706-1 | Four 64-bit arguments and boolean result; DMOVE, PUSHJ, conditional tests |
+| 980726-1 | BCD conversion and packed-byte output; DPB, masking, subtraction |
+| 980729-1 | Regex compilation loop; counter, branches, and stores |
+| 980816-1 | Widget-style field accesses and pointer calculations; IMULI, DMOVEM and moves |
+| 980821-1 | Floating-array conditional iteration; compare, shifts, branches |
+| 980825-1 | Nested option structures and flags; byte loads and branches |
+| 981001-1 | Unsigned 16-bit mask tests; HRRZ, ANDI and comparisons |
+| 981001-2 | GNU alias attribute/function argument expression; GCC ADD and POPJ |
+| 981001-3 | Preprocessor token concatenation in static initializers; data-only output |
+| 981001-4 | GNU omitted-middle conditional operator and memoization; conditional call/store |
+
+These are compiler checks, not runtime proofs; no compiler fixes attempted.
+Full individual matrix-cell comparison remains outstanding.
