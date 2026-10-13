@@ -319,3 +319,28 @@ all ten; KCC PDP-6 opt/KA10 noopt compiled six, rejecting 20011114-1,
 
 No target-dependent assembly executed; compilations and representative
 instruction inspection only. Additional per-cell review remains necessary.
+
+---
+
+## Batch 13
+
+Ten useful generic compiler tests retained, including historical Alpha,
+IA64, MMIX and PowerPC regressions whose C source does not need those CPUs.
+Representative KCC PDP-6 opt/KA10 noopt: nine pass, 20011217-2 fails.
+GCC PDP-6 -O0: nine pass, 20011217-2 fails; GCC KI10 -O2: ten pass.
+
+| Test | Plausibility inspection |
+|---|---|
+| 20011217-2 | compound-literal inline/finite handling; fails KCC and GCC PDP-6 -O0, GCC optimized KI10 uses DMOVE/IOR |
+| 20011218-1 | multiplication/division with indirect calls; IDIV, masks, shifts |
+| 20011219-1 | allocation/index arithmetic for multidimensional double pointers; DMOVEM and address math |
+| 20011219-2 | conditional float/aggregate handling; TLC, DMOVE/DMOVEM, conditional branches |
+| 20011229-1 | function pointers/aggregate color dispatch; PUSHJ, LDB, branch |
+| 20011229-2 | jump threading to exit; SOJN/SOJE and call/jumps |
+| 20020103-1 | conditional/quotient branch optimization; IDIV/DMOVEM |
+| 20020106-1 | wide signed comparison/postincrement; DMOVE and conditional jump |
+| 20020109-1 | multiple branch successors; SKIPN/JUMPE/CAME |
+| 20020109-2 | union byte/short manipulation; LDB/DPB and data address ops |
+
+Compiler failures are evidence, not grounds for patching. Exact code
+correctness and complete architecture/optimization review remain open.
