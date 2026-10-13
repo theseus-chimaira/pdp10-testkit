@@ -88,3 +88,14 @@ non-spill assertion. Do not weaken or retire that assertion without a fix.
 `dimode-address-copy-fold-v1.c` requires DImode addition (`DIADD`) and
 forbids redundant stack-pointer-address materialization through SETM/MOVEI
 on KA10 and KI10. Both installed KCC optimized native matrix cells pass.
+
+## Five-regression instruction-selection batch
+
+The `constant-negation-fold`, `dead-store-fold`, `dimode-constant-shift`,
+`dimode-div-minus-one`, and `dimode-div-negate-inplace` C fixtures were
+extracted unchanged from their KCC shell scripts. All positive/negative
+assembly checks and the original exact-one indexed store count are
+expressed as matrix code-generation directives. Tested with installed KCC:
+PDP-6, PDP-6, KI10, KA10, and PDP-6/KA10/KI10/KS10 respectively; all
+selected native optimized cells PASS. These checks are intentionally
+KCC-specific, not GCC code-shape requirements.
