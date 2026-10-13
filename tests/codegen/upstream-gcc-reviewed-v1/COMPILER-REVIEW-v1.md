@@ -896,3 +896,27 @@ compiled eight.
 
 No OS or peripheral is needed for these compile-only checks. Source
 failure remains evidence, not a reason to change compilers.
+
+---
+
+## Batch 34
+
+Nine portable compile tests accepted; `950919-1.c`, a Motorola 68k
+`#cpu(m68k)` preprocessor-specific test, excluded and removed. Sampled KCC
+PDP-6 optimized/KA10 unoptimized and GCC PDP-6 -O0/KI10 -O2. GCC
+compiled all nine retained cases; KCC rejected `950922-1.c`.
+
+| Test | Assembly plausibility |
+|---|---|
+| 950719-1 | large local character buffer and pointer offsets; HRRZI, MUL and memory moves |
+| 950729-1 | 64-bit integer base conversion to characters; shifts, masking and branches |
+| 950816-1 | float-to-byte conversion; FIX, ANDI, DPB |
+| 950816-2 | conditional float conversion and character store; comparisons, FIX, DPB |
+| 950816-3 | short variable assignment in loop; HRRE/HRRM or constant return |
+| 950910-1 | character scanning/advancing loop; LDB/ILDB/IBP and branches |
+| 950921-1 | union character field handling; DPB/LDB |
+| 950922-1 | large control-flow stress test; GCC branch/memory instructions; KCC source rejected |
+| 951004-1 | short-field aggregate copies; HRRE/HLRZ and stores |
+
+No compiler repairs. These are representative assembly reviews, not proofs
+across every scheduled matrix profile.
