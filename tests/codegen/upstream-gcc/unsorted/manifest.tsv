@@ -392,16 +392,16 @@ torture-compile	gcc.c-torture/compile/990801-2.c	reviewed-v1/compile/990801-2.c	
 torture-compile	gcc.c-torture/compile/990829-1.c	reviewed-v1/compile/990829-1.c	compile			
 torture-compile	gcc.c-torture/compile/990913-1.c	reviewed-v1/compile/990913-1.c	compile			
 torture-compile	gcc.c-torture/compile/990928-1.c	reviewed-v1/compile/990928-1.c	compile			
-torture-compile	gcc.c-torture/compile/991008-1.c	compile/991008-1.c	compile			
-torture-compile	gcc.c-torture/compile/991026-1.c	compile/991026-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/991026-2.c	compile/991026-2.c	compile			uses-printf
-torture-compile	gcc.c-torture/compile/991127-1.c	compile/991127-1.c	compile			
-torture-compile	gcc.c-torture/compile/991202-1.c	compile/991202-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/991208-1.c	compile/991208-1.c	compile			
-torture-compile	gcc.c-torture/compile/991213-1.c	compile/991213-1.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/991213-2.c	compile/991213-2.c	compile			
-torture-compile	gcc.c-torture/compile/991213-3.c	compile/991213-3.c	compile			
-torture-compile	gcc.c-torture/compile/991214-1.c	compile/991214-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991008-1.c	reviewed-v1/compile/991008-1.c	compile			
+torture-compile	gcc.c-torture/compile/991026-1.c	reviewed-v1/compile/991026-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991026-2.c	reviewed-v1/compile/991026-2.c	compile			uses-printf
+torture-compile	gcc.c-torture/compile/991127-1.c	reviewed-v1/compile/991127-1.c	compile			
+torture-compile	gcc.c-torture/compile/991202-1.c	reviewed-v1/compile/991202-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991208-1.c	reviewed-v1/compile/991208-1.c	compile			
+torture-compile	gcc.c-torture/compile/991213-1.c	reviewed-v1/compile/991213-1.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/991213-2.c	reviewed-v1/compile/991213-2.c	compile			
+torture-compile	gcc.c-torture/compile/991213-3.c	reviewed-v1/compile/991213-3.c	compile			
+torture-compile	gcc.c-torture/compile/991214-1.c	reviewed-v1/compile/991214-1.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/991214-2.c	compile/991214-2.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/991229-1.c	compile/991229-1.c	compile			
 torture-compile	gcc.c-torture/compile/991229-2.c	compile/991229-2.c	compile			maybe-fp

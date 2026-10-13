@@ -1041,3 +1041,27 @@ and GCC PDP-6 -O0/KI10 -O2 all compiled 10/10.
 No OS or unsupported CPU is needed for **compilation**. Some sources have
 runtime dependencies or deliberately nonterminating code and must never be
 promoted to semantic tests without redesign.
+
+---
+
+## Batch 39
+
+Nine useful compiler-only tests retained; one UNIX-specific test removed.
+GCC PDP-6 -O0/KI10 -O2 compiled all nine retained; KCC PDP-6 opt/KA10
+noopt rejected 991213-1, compiled eight.
+
+| Test | Expected target assembly |
+|---|---|
+| 991008-1 | code with local `FILE`-like struct and output call; SOS/JUMPGE/PUSHJ, no OS needed for compilation |
+| 991026-1 | union float/double and passing float to function; MOVE/PUSHJ |
+| 991127-1 | formatted byte filling loop from numeric result; MOVEM and calls |
+| 991202-1 | floating approximation library style arithmetic; FMPR/DMOVE/DMOVEM |
+| 991208-1 | pointer subtraction and dead local result; HRRZ/SUBI, optimized POPJ |
+| 991213-1 | GNU complex and statement-expression component; LSH/ASH, KCC rejects |
+| 991213-2 | `time_t` typedef and callback arithmetic; LSH, branch |
+| 991213-3 | indirect computed jump; JRST |
+| 991214-1 | floating-array indexing and multiplication; arithmetic and conditional branch |
+
+**Excluded/deleted** `991026-2.c`: UNIX fork/stdio/errno execution
+contract, not useful bare-metal compiler coverage. Removed from source,
+manifest and matrix. Remaining tests are compile-only; not executable proofs.
