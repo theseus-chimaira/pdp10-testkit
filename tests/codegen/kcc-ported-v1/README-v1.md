@@ -1,3 +1,12 @@
+# Six additional KCC DImode regressions
+
+The matrix now includes `dimode-mul-ac-operands`,
+`dimode-register-pair-fold`, `dimode-wide-identity`,
+`dimode-dead-rhs-scratch`, `dimode-exhaustion`, and
+`dimode-nested-peer-pressure`. Original C fixtures were preserved.
+The first four retain their instruction policies, while the last two
+retain their multi-CPU compile-success requirements. All 19 selected
+native optimized KCC cells passed.
 # Additional DImode regressions
 
 Five shell regressions were transferred into native matrix codegen checks:
