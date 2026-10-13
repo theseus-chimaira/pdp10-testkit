@@ -82,3 +82,9 @@ matrix cell passed. The former shell wrapper is retired.
 the original KCC regression directory: the compiled divider functions
 currently spill registers before the `%DIDIV` label, failing the original
 non-spill assertion. Do not weaken or retire that assertion without a fix.
+
+## DImode address-copy folding
+
+`dimode-address-copy-fold-v1.c` requires DImode addition (`DIADD`) and
+forbids redundant stack-pointer-address materialization through SETM/MOVEI
+on KA10 and KI10. Both installed KCC optimized native matrix cells pass.
