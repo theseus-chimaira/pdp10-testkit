@@ -1,3 +1,13 @@
+# Six-regression halfword and folding batch
+
+The following KCC-only regression sources were normalized into the standard
+code-generation matrix: `duplicate-andi-fold-v1.c`,
+`halfword-memory-fold-v1.c`, `halfword-store-fold-v1.c`,
+`hllz-late-fold-v1.c`, `hrlz-late-fold-v1.c`, and
+`move-negation-fold-v1.c`. Their original C programs and required/forbidden
+assembly patterns are preserved, including the exact two-mask count and
+function-local instructions. All six pass on installed KCC PDP-6 optimized.
+GCC-specific semantic compatibility is not established by these tests.
 # KCC-specific code generation regressions
 
 Sources in this directory replace shell-only assembly-pattern checks.
