@@ -344,3 +344,29 @@ GCC PDP-6 -O0: nine pass, 20011217-2 fails; GCC KI10 -O2: ten pass.
 
 Compiler failures are evidence, not grounds for patching. Exact code
 correctness and complete architecture/optimization review remain open.
+
+### Batch 1 complete legal-profile comparison
+
+The first ten sources were subsequently compiled in **all 66 legal profiles**:
+22 KCC (native/base/pdp10, optimized and unoptimized) and 44 GCC (native,
+base, pdp10; -O0/-O1/-O2/-Os). **440/440 GCC cells passed compilation**.
+For KCC, five sources passed every profile (**110 cells**) and five sources
+failed every profile (**110 cells**); no anomalous CPU-specific status changes.
+
+Instruction/assembly-size comparisons across all successful cells found
+plausible systematic differences:
+
+- Unoptimized GCC retains stack and local-variable setup; optimized code
+  frequently reduces to a return, jump or constant result.
+- On PDP-6, packed-char test 20000120-1 uses IBP/LDB/DPB; native KS10
+  optimized code uses ADJBP for pointer arithmetic and fewer instructions.
+- Floating test 20000127-1 uses FADL/soft conversion paths in the PDP-6
+  assembly while KS10 native optimized code uses DMOVE, DMOVEM and DFAD.
+- KCC's optimized and unoptimized output follows consistent variations in
+  stack setup and conditional branches across the supported CPU families.
+
+The all-cell inventory was inspected for status and opcode/size outliers.
+No additional ISA-policy failures were reported. Original per-cell artifacts
+are transient in `$TMPDIR/pdp10-torture-allcells-b01-v1`, **not** repository
+results or historical fixtures. This is source-level assembly plausibility
+review, not assembler acceptance or proof of semantic equivalence.
