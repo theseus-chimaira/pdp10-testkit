@@ -1,3 +1,46 @@
+# Five compiler-interface and diagnostic migrations (v18)
+
+The legacy wrappers `invalid-subscript-recovery`,
+`gnu-attribute-classification`, `vla-v13`,
+`output-path-dotdot-v8`, and `target-variants` are represented by
+22 matrix fixtures. Installed KCC passed the 22 selected matrix checks.
+The negative fixtures retain explicit rejection and diagnostic checks,
+including the 12 unsupported GNU attributes, invalid subscripting and
+three illegal VLA constructs. The two positive VLA programs run through
+the semantic executor.
+
+The compiler invocation tests use `codegen-kcc-special` and the
+per-cell, parallel-safe implementation in
+`tools/kcc_special_checks_v1.py`. They preserve the original checks for
+`-R=../out/result`, `klx`, ITS CPU variants, and `CIRC` instruction
+selection and rejection outside ITS mode.
+
+## Failed compiler cells remain active
+
+`no_test` means an unassigned test, while `unsupported` is reserved
+for a configuration that cannot support the test. **A compiler
+compilation failure, runtime failure or incorrect acceptance of a negative
+test must be recorded as a failing matrix cell**, not omitted because it
+failed an initial eligibility audit.
+
+Accordingly, 144 native GCC cells previously omitted after compilation
+failures were activated for `gnu-function-attributes`,
+`gnu-packed-copy-stream-codegen`,
+`mixed-byte-struct-static-init`, `narrow-cast-conversion`,
+`subbp-byte-size-range`, `exact-width-16-32`, and the semantic programs
+`compound-literals`, `designated-initializers` and
+`flexible-array-members`. Another 128 GCC cells were enabled for the
+applicable new invalid-subscript, GNU-attribute and VLA fixtures.
+Compiler-specific instruction and diagnostic assertions still apply only
+to the compiler to which they belong. Compiler-neutral negative fixtures
+use `codegen-expect-compile-fail`.
+
+GCC is known to fail the compound-literal and designated-initializer
+runtime checks and the flexible-array-member compilation checks in the
+original 16 native profiles. The VLA scope checks produce mixed GCC
+results, including an incorrect acceptance of a switch entering VLA scope
+on PDP-6 at `-O2`. These remain visible as failures.
+
 # Preprocessor, peephole, language, and packed-pointer migrations (v13–v16)
 
 Seventeen further shell regressions were converted into native test-matrix
@@ -28,12 +71,13 @@ Expected compilation failures now have explicit matrix policies requiring
 their diagnostic patterns, rejecting compiler internal errors and rejecting
 compiler crashes. Runtime fixtures run under the normal semantic runner.
 
-GCC coverage was enabled only on successful cells: 112 native compilation
+The initial GCC coverage enabled only successful cells: 112 native compilation
 cells for the seven cleanup inputs, 16 for `pp-undef`, and 32 runtime
 semantic cells for `statement-expressions` and `variadic-macros` (160 total).
 All sixteen native GCC profiles failed the `compound-literals` and
 `designated-initializers` runtime programs, while `flexible-array-members`
-failed GCC compilation; those three programs remain KCC-only.
+failed GCC compilation. Their GCC cells were subsequently enabled in v18
+to report these regressions directly.
 # Three optimizer-regression migrations (v12)
 
 `identical-pure-fold-v1`, `cheap-optimizer-pass` and
@@ -61,8 +105,9 @@ and an out-of-line `helper` assembly symbol.
 
 Nine of the ten sources also compiled under all four native GCC CPU
 targets and four optimization levels, adding 144 GCC compilation-only
-cells. The function-attributes source did not compile under GCC and
-remains KCC-only. GCC cells do not inherit KCC-specific assembly or
+cells. The function-attributes source did not compile under GCC during
+that audit; its failing GCC cells were enabled in v18. GCC cells do not
+inherit KCC-specific assembly or
 diagnostic assertions. The `preserved-blt` wrapper was investigated but
 retained because the installed compiler does not satisfy its original
 instruction-sequence assertions.
@@ -115,8 +160,8 @@ function-local SETZ/XOR counts were retained.
 Four of these five sources also passed GCC compilation on four native
 processors under all four optimization levels. Their 64 GCC codegen
 compilation checks are matrix-enabled using KCC-only instruction
-policies. The `exact-width-16-32` fixture remains KCC-only because
-GCC does not compile its KCC-specific integer/character type syntax.
+policies. The `exact-width-16-32` fixture did not compile under GCC
+during that audit; its failing GCC cells were enabled in v18.
 # GCC cross-compiler compilation coverage (v1)
 
 An exhaustive native GCC compilation audit was performed for all 70
@@ -131,11 +176,11 @@ apply. GCC coverage currently validates successful assembly generation,
 not equivalence of KCC's instruction-selection policies or runtime
 correctness.
 
-The remaining four fixtures were not enrolled because GCC compilation
-failed: `gnu-packed-copy-stream-codegen`,
+Four fixtures were originally excluded because GCC compilation failed:
+`gnu-packed-copy-stream-codegen`,
 `mixed-byte-struct-static-init`, `narrow-cast-conversion`, and
-`subbp-byte-size-range`. Keep their KCC-only checks and investigate
-compiler extension compatibility separately.
+`subbp-byte-size-range`. Their GCC cells were restored in v18.
+The existing KCC instruction checks remain KCC-specific.
 # Four verified KCC matrix migrations (v6)
 
 The `indexed-store-forward`, `indirect-call-byteptr`,

@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC compiler-specific instruction assertions. */
 /* codegen-require-regex: "POINT 16" */
 /* codegen-forbid-regex: "POINT 32" */

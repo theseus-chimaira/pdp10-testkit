@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC source and original assembly policies. */
 /* codegen-require-regex: "(?im)^\\s*ibp\\s+" */
 /* codegen-forbid-regex: "%ADJBPH" */

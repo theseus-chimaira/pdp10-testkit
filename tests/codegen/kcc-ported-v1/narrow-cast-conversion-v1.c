@@ -1,3 +1,4 @@
+/* codegen-kcc-policy-only: yes */
 /* KCC source and original assembly policies. */
 /* codegen-require-regex: "(?ims)\\A(?:(?!^\\s*trne\\s*1,0*40$).)*^\\s*trne\\s*1,0*40$[^\\n]*\\n(?:(?!^\\s*trne\\s*1,0*40$).)*\\Z" "(?ims)\\A(?:(?!^\\s*trne\\s*1,0*400).)*^\\s*trne\\s*1,0*400[^\\n]*\\n(?:(?!^\\s*trne\\s*1,0*400).)*\\Z" "(?ims)\\A(?:(?!^\\s*andi\\s*1,0*77$).)*^\\s*andi\\s*1,0*77$[^\\n]*\\n(?:(?!^\\s*andi\\s*1,0*77$).)*^\\s*andi\\s*1,0*77$[^\\n]*\\n(?:(?!^\\s*andi\\s*1,0*77$).)*\\Z" "(?ims)\\A(?:(?!^\\s*andi\\s*1,0*777).)*^\\s*andi\\s*1,0*777[^\\n]*\\n(?:(?!^\\s*andi\\s*1,0*777).)*^\\s*andi\\s*1,0*777[^\\n]*\\n(?:(?!^\\s*andi\\s*1,0*777).)*\\Z" */
 typedef signed _KCCtype_char6 s6;

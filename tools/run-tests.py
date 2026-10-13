@@ -972,23 +972,43 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         print('[%06d/%06d] codegen  %-3s %-18s %-5s %s' % (idx, total, cell['compiler'], cell['profile'], cell['machine'], src))
         sys.stdout.flush()
     t0 = time.time()
+    special = directives(ROOT / src).get('codegen-kcc-special', [])
+    if special:
+        if cell['compiler'] != 'kcc' or len(special) != 1:
+            errors = ['invalid special KCC test profile/directive']
+        else:
+            from kcc_special_checks_v1 import run as run_special_kcc
+            errors = run_special_kcc(special[0], cdir, bins['kcc'])
+        status = 'policy_fail' if errors else 'pass'
+        if errors:
+            log_path.write_text('\n'.join(errors) + '\n')
+        elapsed = '%.2f' % (time.time() - t0)
+        write_cell_result(outroot, [src, cell['machine'], cell['compiler'],
+                                    cell['profile'], 'codegen', status,
+                                    elapsed, '', str(log_path)])
+        return status
     compile_status = compile_to_asm(cell, src, asm_path, log_path, bins)
     source_directives = directives(ROOT / src)
-    expects_rejection = (cell['compiler'] == 'kcc' and
-                         source_directives.get('codegen-kcc-expect-compile-fail'))
+    expects_rejection = bool(
+        source_directives.get('codegen-expect-compile-fail') or
+        (cell['compiler'] == 'kcc' and
+         source_directives.get('codegen-kcc-expect-compile-fail')))
     if expects_rejection:
         diagnostics = read_text(log_path)
         errors = []
         if compile_status != 'fail':
             errors.append('source was not rejected (status=' + compile_status + ')')
-        for pattern in source_directives.get('codegen-kcc-diagnostic-require-regex', []):
+        diagnostic_prefix = 'codegen-' + cell['compiler'] + '-diagnostic-'
+        for pattern in source_directives.get(diagnostic_prefix + 'require-regex', []):
             try:
                 if not re.search(pattern, diagnostics):
                     errors.append('missing diagnostic: ' + pattern)
             except re.error as error:
                 errors.append('invalid diagnostic regex: ' + str(error))
-        for pattern in ([r'\[Internal error\]'] +
-                        source_directives.get('codegen-kcc-diagnostic-forbid-regex', [])):
+        internal_error_patterns = ([r'\[Internal error\]']
+                                   if cell['compiler'] == 'kcc' else [])
+        for pattern in (internal_error_patterns +
+                        source_directives.get(diagnostic_prefix + 'forbid-regex', [])):
             try:
                 if re.search(pattern, diagnostics):
                     errors.append('forbidden diagnostic: ' + pattern)
@@ -1027,6 +1047,14 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
                 try:
                     if re.search(pattern, read_text(log_path)):
                         structured_failures.append('forbidden compiler diagnostic: ' + pattern)
+                except re.error as error:
+                    structured_failures.append('invalid diagnostic regex: ' + str(error))
+            diagnostic_required = directives(ROOT / src).get(
+                'codegen-kcc-diagnostic-require-regex', [])
+            for pattern in diagnostic_required:
+                try:
+                    if not re.search(pattern, read_text(log_path)):
+                        structured_failures.append('missing compiler diagnostic: ' + pattern)
                 except re.error as error:
                     structured_failures.append('invalid diagnostic regex: ' + str(error))
             diagnostic_counts = directives(ROOT / src).get(
