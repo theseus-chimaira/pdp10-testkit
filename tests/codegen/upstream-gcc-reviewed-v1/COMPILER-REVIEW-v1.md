@@ -1017,3 +1017,27 @@ all; KCC PDP-6 optimized/KA10 unoptimized rejected 981006-1, 981022-1,
 | 990519-1 | bit-field conjunction; LDB/TRNE/TDZA |
 
 No OS service or special CPU needed to compile. Errors retained unchanged.
+
+---
+
+## Batch 38
+
+Ten useful compiler-only tests. Representative KCC PDP-6 opt/KA10 noopt
+and GCC PDP-6 -O0/KI10 -O2 all compiled 10/10.
+
+| Source | Purpose and plausible assembly |
+|---|---|
+| 990523-1 | floating conversion and packed-byte synthesis; FMPR/IBP/DPB |
+| 990527-1 | XWindow-like aggregate and point array; LSH/DPB/IBP |
+| 990617-1 | pointer constants, `printf` and infinite loop; compile-only, MOVE/PUSHJ/JRST; do not execute |
+| 990625-1 | nested strcpy calls in loop; PUSHJ and conditional branch |
+| 990625-2 | dead integer induction variable/branch; AOS/optimized POPJ |
+| 990801-1 | lexer-like state machine and switch; CAIN/PUSHJ/JRST |
+| 990801-2 | dead loop/char store; JRST/optimized POPJ |
+| 990829-1 | signed 16-bit fields and comparison; LDB/ASH/CAMG |
+| 990913-1 | 9-bit char arithmetic, decimal/BCD conversions; DIVI/LSH/LDB |
+| 990928-1 | incomplete declarations inside inline function; trivial return |
+
+No OS or unsupported CPU is needed for **compilation**. Some sources have
+runtime dependencies or deliberately nonterminating code and must never be
+promoted to semantic tests without redesign.
