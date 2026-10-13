@@ -168,16 +168,16 @@ torture-compile	gcc.c-torture/compile/920428-1.c	reviewed-v1/compile/920428-1.c	
 torture-compile	gcc.c-torture/compile/920428-2.c	reviewed-v1/compile/920428-2.c	compile			maybe-fp,uses-printf,uses-fprintf,uses-files
 torture-compile	gcc.c-torture/compile/920428-3.c	reviewed-v1/compile/920428-3.c	compile			
 torture-compile	gcc.c-torture/compile/920428-4.c	reviewed-v1/compile/920428-4.c	compile			
-torture-compile	gcc.c-torture/compile/920428-5.c	compile/920428-5.c	compile			
-torture-compile	gcc.c-torture/compile/920428-6.c	compile/920428-6.c	compile			
-torture-compile	gcc.c-torture/compile/920428-7.c	compile/920428-7.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920501-1.c	compile/920501-1.c	compile			
-torture-compile	gcc.c-torture/compile/920501-10.c	compile/920501-10.c	compile			
-torture-compile	gcc.c-torture/compile/920501-11.c	compile/920501-11.c	compile			
-torture-compile	gcc.c-torture/compile/920501-12.c	compile/920501-12.c	compile			
-torture-compile	gcc.c-torture/compile/920501-13.c	compile/920501-13.c	compile			
-torture-compile	gcc.c-torture/compile/920501-15.c	compile/920501-15.c	compile			maybe-fp
-torture-compile	gcc.c-torture/compile/920501-16.c	compile/920501-16.c	compile			
+torture-compile	gcc.c-torture/compile/920428-5.c	reviewed-v1/compile/920428-5.c	compile			
+torture-compile	gcc.c-torture/compile/920428-6.c	reviewed-v1/compile/920428-6.c	compile			
+torture-compile	gcc.c-torture/compile/920428-7.c	reviewed-v1/compile/920428-7.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920501-1.c	reviewed-v1/compile/920501-1.c	compile			
+torture-compile	gcc.c-torture/compile/920501-10.c	reviewed-v1/compile/920501-10.c	compile			
+torture-compile	gcc.c-torture/compile/920501-11.c	reviewed-v1/compile/920501-11.c	compile			
+torture-compile	gcc.c-torture/compile/920501-12.c	reviewed-v1/compile/920501-12.c	compile			
+torture-compile	gcc.c-torture/compile/920501-13.c	reviewed-v1/compile/920501-13.c	compile			
+torture-compile	gcc.c-torture/compile/920501-15.c	reviewed-v1/compile/920501-15.c	compile			maybe-fp
+torture-compile	gcc.c-torture/compile/920501-16.c	reviewed-v1/compile/920501-16.c	compile			
 torture-compile	gcc.c-torture/compile/920501-17.c	compile/920501-17.c	compile			
 torture-compile	gcc.c-torture/compile/920501-18.c	compile/920501-18.c	compile			maybe-fp
 torture-compile	gcc.c-torture/compile/920501-19.c	compile/920501-19.c	compile			

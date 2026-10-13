@@ -468,3 +468,27 @@ GCC PDP-6 -O0/KI10 -O2 compiled all ten.
 
 Representative instruction families are consistent with the C constructs.
 One-time full per-profile review beyond batch one remains outstanding.
+
+---
+
+## Batch 18
+
+Ten useful generic compiler/ABI compile regressions. Representative GCC
+PDP-6 -O0 and KI10 -O2: 10/10 pass. KCC PDP-6 opt and KA10 noopt: 7/10
+pass; 920501-1, 920501-11, 920501-16 rejected.
+
+| Source | Code plausibility |
+|---|---|
+| 920428-5 | bit-field assignment between structs; LDB/DPB |
+| 920428-6 | linked type pointers and compound conditional flow; skips/branches |
+| 920428-7 | loop with repeated indexed calls; AOS/PUSHJ/ADDI |
+| 920501-1 | GNU computed label address; KCC rejection, GCC address setup |
+| 920501-10 | multiplication by constant 8193; IMULI or LSH/ADD |
+| 920501-11 | nested compound literals and pointer casts; KCC rejects, GCC frame/address ops |
+| 920501-12 | large local arrays and stack offsets; ADD/LSH and stack adjustment |
+| 920501-13 | struct value argument into inline function; moves/call optimized away |
+| 920501-15 | float comparison and int conversion; DFSB/JUMPG on KI10 |
+| 920501-16 | variably modified struct member; GCC accepts, KCC rejects |
+
+No OS service or foreign CPU needed for compilation; unresolved compiler
+errors preserved. Full-cell opcode review remains pending.
