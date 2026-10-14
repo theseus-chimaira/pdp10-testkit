@@ -4,6 +4,7 @@ Ordered suite commands are intentionally explicit, preserving the former
 Makefile's verification list rather than running unrelated globbed scripts.
 """
 import os
+import csv
 from pathlib import Path
 import shutil
 import subprocess
@@ -16,8 +17,23 @@ Path(TMP).mkdir(parents=True, exist_ok=True)
 ENV = dict(os.environ, TMPDIR=TMP)
 
 VERIFY_PY = """verify-testkit-layout verify-optimization-common-source check-gcc-symbol-length test-stubselect verify-type-semantics verify-wide-int-adapters""".split()
-VERIFY_SH = """int71-header wide-int-modes wide-call-abi wide-varargs-abi wide-data-layout pointer-abi aggregate-return-abi extended-aggregate-abi layout-float-abi symbol-runtime-abi mixed-fixed-exec mixed-call-depth small-aggregate-arg-abi gcc-cross-word-bitfield kcc-gcc-cross-word-bitfield kcc-gcc-aggregate-stack kcc-gcc-nested-union kcc-gcc-varargs-matrix kcc-gcc-layout-edge kcc-gcc-negative-dimode gcc-dimode-divmod kcc-gcc-runtime-helper kcc-gcc-reloc kcc-gcc-direct-abi kcc-gcc-object-symbol kcc-gcc-representation-adapter gcc-scalar-move-order gcc-callee-save-pushpop language-compat language-promotions language-casts language-conversions language-full-range language-direct-widening language-char-enum packed-char packed-bitptr packed-bitptr-arith""".split()
 DAS_FAST = """run-das-fast-tests.sh check-das-phase-ir.sh check-das-phase2-transport.sh check-reloc-negative-addend.sh check-symbol-leading-data.sh check-s6filter.sh run-das-stream-tests.sh check-s6text.sh""".split()
+
+def compatibility_scripts():
+    """Use ordered compat rows of the sole test matrix as the suite registry."""
+    with (ROOT / "TEST_MATRIX.tsv").open(encoding="utf-8") as source:
+        rows = csv.DictReader((line for line in source
+                               if line.strip() and not line.startswith("#")),
+                              delimiter="\t")
+        scripts = [row["test"] for row in rows if row["group"] == "compat"]
+    if not scripts or len(scripts) != len(set(scripts)):
+        raise SystemExit("compat matrix is empty or contains duplicate scripts")
+    for script in scripts:
+        if not script.startswith("tests/compat/test-") or not script.endswith(".sh"):
+            raise SystemExit("invalid compat matrix script: " + script)
+        if not (ROOT / script).is_file():
+            raise SystemExit("missing compat matrix script: " + script)
+    return scripts
 
 def run(*args, env=ENV):
     print("+", " ".join(map(str, args)), flush=True)
@@ -27,8 +43,8 @@ def main(suite):
     if suite == "verify":
         for name in VERIFY_PY:
             run(sys.executable, ROOT / "tools" / (name + ".py"))
-        for name in VERIFY_SH:
-            run("sh", ROOT / "tests/compat" / ("test-" + name + ".sh"))
+        for script in compatibility_scripts():
+            run("sh", ROOT / script)
         run("sh", ROOT / "tests/validation/gcc/byteptr2/test-no-xkl2-byte-extend.sh")
     elif suite in ("das-fast", "das", "das-native"):
         das = Path(os.environ.get("DAS_ROOT", "../das")).resolve()

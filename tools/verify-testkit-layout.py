@@ -18,6 +18,7 @@ OBSOLETE_TOOLS = [
 ]
 
 missing = []
+compat = []
 gcc_runtime_helper_bad = []
 header = None
 with (ROOT / "TEST_MATRIX.tsv").open(encoding="utf-8", errors="replace") as f:
@@ -31,6 +32,8 @@ with (ROOT / "TEST_MATRIX.tsv").open(encoding="utf-8", errors="replace") as f:
             continue
         row = dict(zip(header, r))
         test = row.get("test", "")
+        if row.get("group") == "compat":
+            compat.append(test)
         if not (ROOT / test).is_file():
             missing.append(test)
         if test.startswith("tests/validation/gcc/runtime-helper/libgcc_helper_ownership_"):
@@ -41,10 +44,16 @@ with (ROOT / "TEST_MATRIX.tsv").open(encoding="utf-8", errors="replace") as f:
                     gcc_runtime_helper_bad.append((test, key, value))
 
 old_roots = [d for d in OLD_ROOTS if (ROOT / d).exists()]
+compat_files = {p.relative_to(ROOT).as_posix() for p in (ROOT / "tests/compat").glob("test-*.sh")}
+compat_errors = sorted(set(compat) ^ compat_files)
+compat_duplicates = len(compat) - len(set(compat))
 old_files = [f for f in OLD_FILES if (ROOT / f).exists()]
 old_tools = [f for f in OBSOLETE_TOOLS if (ROOT / "tools" / f).exists()]
 
 print("missing_matrix_files=%d" % len(missing))
+print("compat_matrix_scripts=%d" % len(compat))
+print("compat_registry_mismatches=%d" % len(compat_errors))
+print("compat_registry_duplicates=%d" % compat_duplicates)
 print("old_layout_roots=%s" % (",".join(old_roots) if old_roots else "none"))
 print("old_matrix_files=%s" % (",".join(old_files) if old_files else "none"))
 print("obsolete_tools=%s" % (",".join(old_tools) if old_tools else "none"))
@@ -52,8 +61,10 @@ print("gcc_runtime_helper_kcc_cells=%d" % len(gcc_runtime_helper_bad))
 
 for x in missing[:20]:
     print("missing", x)
+for x in compat_errors[:20]:
+    print("compat-registry-mismatch", x)
 for test, key, value in gcc_runtime_helper_bad[:20]:
     print("gcc-runtime-helper-kcc-cell", test, key, value)
 
-if missing or old_roots or old_files or old_tools or gcc_runtime_helper_bad:
+if missing or compat_errors or compat_duplicates or not compat or old_roots or old_files or old_tools or gcc_runtime_helper_bad:
     sys.exit(1)

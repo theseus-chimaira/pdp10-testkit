@@ -66,6 +66,14 @@ The entry point also supports `list`, `list-kcc`, `list-gcc`, `reset`,
 normal matrix runner, including `-j N`. The `all` alias runs `verify`. External DAS compilation still uses
 DAS's own Makefile.
 
+The ordered `group=compat` rows of `TEST_MATRIX.tsv` select all standalone
+compatibility scripts executed by `verify`. Their machine/compiler columns are
+`no_test` because each script independently selects its compilers, CPU, and
+runtime checks; these are *not* ordinary compiler cells and are not run by the
+parallel cell runner. The layout verifier rejects missing, duplicate, and
+unregistered `tests/compat/test-*.sh` scripts. To add a compatibility test,
+register its script in the matrix, rather than editing the suite dispatcher.
+
 ## Restart behavior
 
 The runner is still restartable.  Every test cell owns its own directory under:
