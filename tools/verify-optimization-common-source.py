@@ -76,7 +76,7 @@ def shared_matrix_sources():
         row = dict(zip(header, parts))
         source = row.get('test', '')
         kcc = any(active(row.get(col, '')) for col in header[3:]
-                  if 'gcc' not in col and 'scc' not in col)
+                  if 'gcc' not in col)
         gcc = any(active(row.get(col, '')) for col in header[3:]
                   if 'gcc' in col)
         if kcc and gcc:
