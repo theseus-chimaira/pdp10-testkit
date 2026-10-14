@@ -11,7 +11,7 @@ classification was followed by a focused KCC PDP-6 compile check.
   nonportable assembler, custom options, target clauses, or external headers.
 - Total: **283** source rows in `COMPILER_MATRIX.tsv`, group
   `codegen-upstream-imported`, stored in
-  `tests/codegen/upstream-gcc-imported/`.
+  `tests/codegen/upstream-gcc/`.
 - Compiler profiles follow the existing KCC/GCC matrix. PDP-6 with the
   PDP-10-only target family remains unsupported. These cells are *scheduled*,
   not certified as passing for every compiler, CPU, or optimization level.

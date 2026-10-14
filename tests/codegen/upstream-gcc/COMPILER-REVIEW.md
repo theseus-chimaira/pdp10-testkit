@@ -1131,7 +1131,7 @@ and KI10 -O2 compiled both. No target OS or special hardware required.
 
 Compared with baseline commit `d1657aa`, the original unreviewed
 `torture-compile` directory contained 432 C files. All 423 accepted C
-sources have been moved to `upstream-gcc-reviewed/compile` and are
+sources have been moved to `upstream-gcc/compile` and are
 individually listed in `COMPILER_MATRIX.tsv` and the manifest. Nine were
 excluded/deleted: `20010518-2.c`, `920520-1.c`, `920521-1.c`,
 `920821-1.c`, `930111-1.c`, `950919-1.c`, `961203-1.c`,
