@@ -1,15 +1,15 @@
 previous_path	classified_path	category	activation	reason
-tests/todo/semantic-upstream-gcc/torture-execute/20000112-1.c	tests/semantic/upstream/generic/20000112-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20000112-1.c	tests/semantic/upstream/generic/20000112-1.c	generic	deferred	Requires string.h/strchr runtime; installed KCC prefix lacks string.h; compile failed, not an executable result
 tests/todo/semantic-upstream-gcc/torture-execute/20000113-1.c	tests/semantic/upstream/generic/20000113-1.c	generic	active	PDP-6 KCC/GCC bitfield execution passed with termination harness; other matrix cells scheduled
-tests/todo/semantic-upstream-gcc/torture-execute/20000121-1.c	tests/semantic/upstream/wide-int/20000121-1.c	wide-int	candidate	double-word arithmetic and representation
+tests/todo/semantic-upstream-gcc/torture-execute/20000121-1.c	tests/semantic/upstream/wide-int/20000121-1.c	wide-int	removed	Execution passed PDP-6 KCC but big(long long) discards all arguments; no assertion of wide call ABI
 tests/todo/semantic-upstream-gcc/torture-execute/20000205-1.c	tests/semantic/upstream/generic/20000205-1.c	generic	active	PDP-6 KCC execution passed using termination harness; other matrix cells pending
 tests/todo/semantic-upstream-gcc/torture-execute/20000217-1.c	tests/semantic/upstream/generic/20000217-1.c	generic	active	PDP-6 KCC execution passed using termination harness; other matrix cells pending
-tests/todo/semantic-upstream-gcc/torture-execute/20000223-1.c	tests/semantic/upstream/wide-int/20000223-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20000224-1.c	tests/semantic/upstream/generic/20000224-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000225-1.c	tests/semantic/upstream/generic/20000225-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000227-1.c	tests/semantic/upstream/generic/20000227-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000313-1.c	tests/semantic/upstream/generic/20000313-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000314-1.c	tests/semantic/upstream/generic/20000314-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20000223-1.c	tests/semantic/upstream/wide-int/20000223-1.c	wide-int	review-extension	KCC PDP-6 rejects GCC __alignof__ extension; no compiler changes during import
+tests/todo/semantic-upstream-gcc/torture-execute/20000224-1.c	tests/semantic/upstream/generic/20000224-1.c	generic	active	PDP-6 KCC runtime PASS; loops and branch assertion; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000225-1.c	tests/semantic/upstream/generic/20000225-1.c	generic	active	PDP-6 KCC runtime PASS; do-while branch assertion; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000227-1.c	tests/semantic/upstream/generic/20000227-1.c	generic	review-width	PDP-6 KCC executes but aborts: literal byte 0xFF versus octal escape 0377 with target character width; investigate width semantics
+tests/todo/semantic-upstream-gcc/torture-execute/20000313-1.c	tests/semantic/upstream/generic/20000313-1.c	generic	active	PDP-6 KCC runtime PASS; unsigned borrow/wrap assertions; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000314-1.c	tests/semantic/upstream/generic/20000314-1.c	generic	active	PDP-6 KCC runtime PASS; dead loop and short-circuit assertion; other matrix cells pending
 tests/todo/semantic-upstream-gcc/torture-execute/20000314-2.c	tests/semantic/upstream/wide-int/20000314-2.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
 tests/todo/semantic-upstream-gcc/torture-execute/20000314-3.c	tests/semantic/upstream/generic/20000314-3.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000402-1.c	tests/semantic/upstream/wide-int/20000402-1.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
