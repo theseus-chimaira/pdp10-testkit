@@ -105,6 +105,9 @@ compiler check, not a full compiler/CPU/optimization sweep.
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
   manifest: zero candidates, zero extensions, zero width reviews, 280 deferred,
   439 active, and 55 removed; **280 classified C sources remain inactive**.
+  The first eight already-deferred tests were retried without activation;
+  see `docs/SEMANTIC-DEFERRED-BATCH-20261014-v1.md`. Their blockers span
+  extensions, source encoding, undefined aliasing, ABI and libc linkage.
   Apply the explicit feature decisions in
   `docs/KCC-EXTENSION-SUPPORT-POLICY-20261014-v1.md` when reviewing extension
   cases. Do not interpret unsupported GNU features as required KCC work.
