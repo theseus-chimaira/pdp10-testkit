@@ -21,9 +21,9 @@ PDP-6 with the PDP-10-only compiler profile remains unsupported.
 
 - `generic/20000227-1.c`: decide the source-file encoding policy for raw
   octet 0xff versus `\\377` before rewriting or removing the test.
-- `generic/20000603-1.c`: the two incompatible struct pointer types cause
-  undefined C aliasing; decide whether this remains a nonportable
-  compiler stress test or is replaced by a defined-behavior variant.
+- `generic/20000603-1.c`: resolved by user policy as `stress-nonportable`;
+  preserve unchanged, separate from mandatory semantic regression outcomes.
+  See `NONPORTABLE-STRESS-POLICY-20261014-v1.md`.
 - `generic/20000622-1.c`: diagnose the KCC PDP-6 argument/pointer-integer
   failure against documented ABI behavior; fix compiler when required.
 - `extensions/20000703-1.c` and `extensions/20000815-1.c`: investigate

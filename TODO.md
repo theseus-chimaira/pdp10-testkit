@@ -103,8 +103,9 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, zero extensions, zero width reviews, 277 deferred,
-  442 active, and 55 removed; **277 classified C sources remain inactive**.
+  manifest: zero candidates, zero extensions, zero width reviews, 276 deferred,
+  442 active, 1 nonportable stress, and 55 removed; **277 classified C sources
+  remain outside mandatory active coverage**.
   First deferred-batch follow-up activated three GCC-PDP-6 validated tests;
   see `docs/SEMANTIC-DEFERRED-BATCH-20261014-v2.md` for the remaining
   policy questions and actual implementation work still required.
