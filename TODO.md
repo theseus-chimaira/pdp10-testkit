@@ -5,6 +5,10 @@ The repository tests bare-metal CPU/toolchain behavior; DAIMOS/OS, peripheral,
 and filesystem regressions belong in their respective testkits. Completed
 imports are not repeated as tasks. Update this file as items are resolved.
 
+Execution infrastructure progress and observed blockers are recorded in
+`docs/TEST-EXECUTION-STATUS-20261014-v1.md`. Compiler bug fixes are explicitly
+deferred; the immediate goal is runnable and correctly classified tests.
+
 ## P0 — compiler defects discovered by the testkit
 
 - [ ] Reproduce, minimize, and fix the KCC internal compiler error in
@@ -95,9 +99,9 @@ not a full compiler/CPU sweep.
   KS10, KCC/GCC and optimization profiles; check 71-bit variants where
   supported. The two newly enabled width regressions were validated on
   PDP-6 only (KCC unoptimized/optimized, GCC `-O0`).
-- [ ] Investigate the four previously observed optimization common-source
-  verifier failures involving unlisted GCC differential-helper files.
-  Update source inventories/checks rather than hiding the discrepancy.
+- [x] Resolve unlisted upstream GCC differential-helper inventory entries.
+  Seven imported sources were classified in `OPTIMIZATION_RESULT_ONLY.tsv`,
+  and the strict common-source verifier now passes (86 entries).
 - [ ] Review differential KCC/GCC ABI coverage, including the documented
   non-symmetric GCC-to-KCC wide-varargs direction; only add the reciprocal
   case if it provides a meaningful additional assertion.

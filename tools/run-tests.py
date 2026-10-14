@@ -926,12 +926,15 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
             status = 'compile_only'
             report = str(asm_path)
         else:
+            upstream_startup = not label_exists(asm_text, '__test_exit')
             cmd = [str(bins['p10run']), '--machine', cell['machine'], '--mode', 'deposit', '--exec-mode', 'step',
                    '--step-limit', os.environ.get('P10_SWEEP_STEP_LIMIT', '100000000'),
                    '--timeout', P10_TIMEOUT,
                    '--workdir', str(rdir), '--name', execution_name(src)]
-            if label_exists(asm_text, '__test_exit'):
-                cmd += ['--expect', '__test_exit=0']
+            # Even imported tests without an explicit status variable must
+            # prove successful termination.  The upstream CRT implements
+            # exit()/abort() and records main's return, never a fake stub.
+            cmd += ['--expect', '__test_exit=0']
             if label_exists(asm_text, 'fail_id'):
                 cmd += ['--expect', 'fail_id=0']
             if label_exists(asm_text, 'semantic_fail_id'):
@@ -944,7 +947,15 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                 # p10run links the canonical GCC libgcc archive automatically.
                 # __main is owned there; do not manufacture a testkit stub.
                 stub_exclude.add('__main')
-            cmd += [str(ROOT / 'support/crt0.s'), str(asm_path)] + test_stubs(asm_text, rdir, exclude=stub_exclude)
+            startup = ('support/crt0-upstream-v1.s' if upstream_startup
+                       else 'support/crt0.s')
+            cmd += [str(ROOT / startup), str(asm_path)]
+            # Keep termination independent of startup selection and do not
+            # redefine exit/abort when a test supplies its own implementation.
+            for symbol in ('exit', 'abort'):
+                if not label_exists(asm_text, symbol):
+                    cmd.append(str(ROOT / ('support/%s-v1.s' % symbol)))
+            cmd += test_stubs(asm_text, rdir, exclude=stub_exclude)
             setup_error = None
             if cell['compiler'] == 'kcc':
                 required = needed_kcc_runtime_symbols(asm_text)

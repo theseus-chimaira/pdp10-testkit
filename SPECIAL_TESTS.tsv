@@ -90,3 +90,9 @@ kcc-dlink-ordered-allsrc-20261010	kcc-host	sh	misc/kcc-host/kcc-dlink-ordered-al
 kcc-native-builddir-20261010	kcc-host	sh	misc/kcc-host/kcc-native-builddir-20261010.sh	host	yes	120
 kcc-native-short-paths-20261010	kcc-host	sh	misc/kcc-host/kcc-native-short-paths-20261010.sh	host	yes	120
 kcc-unix-make-portability-20261010	kcc-host	sh	misc/kcc-host/kcc-unix-make-portability-20261010.sh	host	yes	120
+verify-optimization-common-source	verify	python3	tools/verify-optimization-common-source.py	default	yes	120
+check-gcc-symbol-length	verify	python3	tools/check-gcc-symbol-length.py	default	yes	120
+test-stubselect	verify	python3	tools/test-stubselect.py	default	yes	120
+verify-type-semantics	verify	python3	tools/verify-type-semantics.py	default	yes	120
+verify-wide-int-adapters	verify	python3	tools/verify-wide-int-adapters.py	default	yes	120
+upstream-crt-v1	validation	sh	misc/validation/test-upstream-crt-v1.sh	pdp6	yes	120

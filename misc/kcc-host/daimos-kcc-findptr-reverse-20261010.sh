@@ -1,5 +1,5 @@
 #!/bin/sh
-# Exercise the production KIR pointer lookup and verify stable IDs.
+# Exercise all three production typed KIR lookups and verify stable IDs.
 set -eu
 : "${KCC_REPO:?}" "${TMPDIR:?}"
 work=$(mktemp -d "$TMPDIR/daimos-kcc-findptr-reverse-20261010.XXXXXX")
@@ -10,21 +10,36 @@ cat > "$work/check.c" <<'SOURCE'
 int main(void)
 {
     enum { COUNT = 4096 };
-    static unsigned objects[COUNT];
-    static void *ptrs[COUNT];
-    unsigned INT bounds[2];
+    static TYPE types[COUNT];
+    static NODE nodes[COUNT];
+    static SYMBOL symbols[COUNT];
+    static TYPE *typeptrs[COUNT];
+    static NODE *nodeptrs[COUNT];
+    static SYMBOL *symptrs[COUNT];
+    static TYPE absent_type;
+    static NODE absent_node;
+    static SYMBOL absent_symbol;
     unsigned i;
-    void *missing;
-    for (i = 0; i < COUNT; ++i) ptrs[i] = &objects[i];
-    bounds[0] = (unsigned INT)ptrs[0];
-    bounds[1] = (unsigned INT)ptrs[COUNT - 1];
-    if (findptr(ptrs, 0U, ptrs[0], bounds) != 0U) return 1;
-    for (i = 0; i < COUNT; ++i)
-        if (findptr(ptrs, COUNT, ptrs[i], bounds) != i + 1U) return 2;
-    missing = (void *)((char *)&objects[COUNT / 2] + 1);
-    if (findptr(ptrs, COUNT, missing, bounds) != 0U) return 3;
-    if (findptr(ptrs, COUNT, (void *)0, bounds) != 0U) return 4;
-    puts("PASS: production KIR pointer identity and discovery IDs");
+    for (i = 0; i < COUNT; ++i) {
+        typeptrs[i] = &types[i];
+        nodeptrs[i] = &nodes[i];
+        symptrs[i] = &symbols[i];
+    }
+    if (findtype(typeptrs, 0U, typeptrs[0]) != 0U) return 1;
+    if (findnode(nodeptrs, 0U, nodeptrs[0]) != 0U) return 2;
+    if (findsymbol(symptrs, 0U, symptrs[0]) != 0U) return 3;
+    for (i = 0; i < COUNT; ++i) {
+        if (findtype(typeptrs, COUNT, typeptrs[i]) != i + 1U) return 4;
+        if (findnode(nodeptrs, COUNT, nodeptrs[i]) != i + 1U) return 5;
+        if (findsymbol(symptrs, COUNT, symptrs[i]) != i + 1U) return 6;
+    }
+    if (findtype(typeptrs, COUNT, &absent_type) != 0U) return 7;
+    if (findnode(nodeptrs, COUNT, &absent_node) != 0U) return 8;
+    if (findsymbol(symptrs, COUNT, &absent_symbol) != 0U) return 9;
+    if (findtype(typeptrs, COUNT, NULL) != 0U) return 10;
+    if (findnode(nodeptrs, COUNT, NULL) != 0U) return 11;
+    if (findsymbol(symptrs, COUNT, NULL) != 0U) return 12;
+    puts("PASS: production typed KIR pointer identity and discovery IDs");
     return 0;
 }
 SOURCE

@@ -1,6 +1,6 @@
 previous_path	classified_path	category	activation	reason
 tests/todo/semantic-upstream-gcc/torture-execute/20000112-1.c	tests/semantic/upstream/generic/20000112-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000113-1.c	tests/semantic/upstream/generic/20000113-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20000113-1.c	tests/semantic/upstream/generic/20000113-1.c	generic	active	PDP-6 KCC/GCC bitfield execution passed with termination harness; other matrix cells scheduled
 tests/todo/semantic-upstream-gcc/torture-execute/20000121-1.c	tests/semantic/upstream/wide-int/20000121-1.c	wide-int	candidate	double-word arithmetic and representation
 tests/todo/semantic-upstream-gcc/torture-execute/20000205-1.c	tests/semantic/upstream/generic/20000205-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000217-1.c	tests/semantic/upstream/generic/20000217-1.c	generic	candidate	general C execution test; still requires runtime validation

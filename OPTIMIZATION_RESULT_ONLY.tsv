@@ -3,6 +3,13 @@
 # optimizer hint, opacity primitive, varargs primitive, or compatibility helper
 # has intentionally different lowering between the two compilers.
 # Format: TEST<TAB>CONSTRUCTS<TAB>REASON
+tests/codegen/upstream-gcc/compile/20001123-1.c	__builtin_va_arg	GCC-specific varargs builtin has no equivalent guaranteed KCC lowering
+tests/codegen/upstream-gcc/compile/20011229-1.c	__builtin_memset	GCC builtin memset lowering cannot be compared directly to KCC library calls
+tests/codegen/upstream-gcc/compile/20020617-3.c	__builtin_memset	GCC builtin memset lowering cannot be compared directly to KCC library calls
+tests/codegen/upstream-gcc/compile/990517-1.c	__builtin_memset	GCC builtin memset lowering cannot be compared directly to KCC library calls
+tests/codegen/upstream-gcc/torture-unsorted/BUG25.c	__builtin_ffs	GCC builtin bit-scan lowering differs from KCC compatibility handling
+tests/codegen/upstream-gcc/torture-unsorted/abs.c	__builtin_abs	GCC builtin integer absolute-value lowering differs from KCC compatibility handling
+tests/codegen/upstream-gcc/torture-unsorted/parms.c	__builtin_alloca	GCC builtin stack allocation differs from KCC compatibility handling
 tests/isa/pdp10-insn/ADJSP.c	__builtin_alloca	KCC compatibility macro calls kcc_alloca while GCC uses builtin stack allocation
 tests/isa/pdp10-insn/AOBJ.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
 tests/isa/pdp10-insn/AOJ.c	OPAQUE_REG	KCC no-op compatibility barrier differs from GCC register-opacity barrier
