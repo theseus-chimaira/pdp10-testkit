@@ -22,7 +22,10 @@ DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
 `tests/codegen/`, and `tests/isa/`. Unscheduled upstream imports and
-unregistered negative/host tests are retained under `tests/todo/`; moving
+unregistered host tests are retained under `tests/todo/`; moving
 sources there does not imply they have passed. Supporting source files included
 by registered tests remain next to their owning tests. The dated import batch
 was consolidated into `tests/semantic/imported/` and `tests/todo/imported-host/`.
+
+The retired codegen import collection was reviewed and selectively migrated;
+see `docs/CODEGEN-IMPORT-AUDIT-20261014.md`.
