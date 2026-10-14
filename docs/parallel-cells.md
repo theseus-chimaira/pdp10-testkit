@@ -47,32 +47,33 @@ Skip known failures as well as already-green cells:
 ./run-tests.sh -j 32 --skip-failures
 ```
 
-## Named test suites
+## Specialized test suites
+
+`run-tests.sh` runs only traditional compiler/CPU/optimization cells from
+`COMPILER_MATRIX.tsv`. Standalone compiler ABI, assembler, and tools tests
+live under `misc/` and are dispatched by `run-misc-tests.sh`:
 
 ```sh
-./run-tests.sh verify
-./run-tests.sh das-fast
-./run-tests.sh das
-./run-tests.sh das-native
-./run-tests.sh gcc-bare-libgcc
-./run-tests.sh pdp10-tools
-./run-tests.sh kcc-regression
-./run-tests.sh kcc-semantic
-./run-tests.sh kcc-all
+./run-misc-tests.sh verify
+./run-misc-tests.sh compat
+./run-misc-tests.sh das-fast
+./run-misc-tests.sh das
+./run-misc-tests.sh das-native
+./run-misc-tests.sh gcc-bare-libgcc
+./run-misc-tests.sh pdp10-tools
+./run-misc-tests.sh kcc-regression
+./run-misc-tests.sh kcc-semantic
+./run-misc-tests.sh clean
 ```
 
-The entry point also supports `list`, `list-kcc`, `list-gcc`, `reset`,
-`clean`, `test`, and `test-parallel`. The latter two are aliases for the
-normal matrix runner, including `-j N`. The `all` alias runs `verify`. External DAS compilation still uses
-DAS's own Makefile.
+`SPECIAL_TESTS.tsv` registers individual compatibility tests, standalone
+KCC regressions, and validation tests, together with DAS/tools entries.
+The DAS and tools aggregators retain their original ordered execution and
+build prerequisites; their individual registry entries are informational
+until those suites are fully migrated to per-test execution.
 
-The ordered `group=compat` rows of `TEST_MATRIX.tsv` select all standalone
-compatibility scripts executed by `verify`. Their machine/compiler columns are
-`no_test` because each script independently selects its compilers, CPU, and
-runtime checks; these are *not* ordinary compiler cells and are not run by the
-parallel cell runner. The layout verifier rejects missing, duplicate, and
-unregistered `tests/compat/test-*.sh` scripts. To add a compatibility test,
-register its script in the matrix, rather than editing the suite dispatcher.
+The compiler runner retains `list`, `list-kcc`, `list-gcc`, `reset`, `test`,
+`test-parallel`, parallelism (`-j N`), and restart checkpoints.
 
 ## Restart behavior
 

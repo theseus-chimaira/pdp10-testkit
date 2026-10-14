@@ -1,20 +1,11 @@
 #!/usr/bin/env sh
-# Restartable local PDP-10 C test runner.
+# Restartable compiler/CPU/optimization matrix runner.
 # Only PDP10_PREFIX is required; tools are found below $PDP10_PREFIX/bin.
 set -eu
 cd "$(dirname "$0")"
 . ./tools/pdp10-env.sh
 pdp10_setup_env
 case "${1-}" in
-    verify|all)
-        shift
-        exec python3 tools/p10tk-suites.py verify "$@"
-        ;;
-    das-fast|das|das-native|gcc-bare-libgcc|pdp10-tools|clean|kcc-regression|kcc-semantic|kcc-all)
-        suite=$1
-        shift
-        exec python3 tools/p10tk-suites.py "$suite" "$@"
-        ;;
     list|list-kcc|list-gcc)
         suite=$1
         shift

@@ -12,7 +12,7 @@ GCC sources outside this repository are not touched.
 
 Source: imported upstream GCC torture compile collection already in this
 repository. Move accepted sources here after assessment; no GCC repository
-sources or build files are changed. `TEST_MATRIX.tsv` schedules both KCC and
+sources or build files are changed. `COMPILER_MATRIX.tsv` schedules both KCC and
 GCC over native, base, and legal pdp10 architecture profiles. Compiler
 failures are recorded by the existing runner; no compiler fixes are made.
 
@@ -1132,7 +1132,7 @@ and KI10 -O2 compiled both. No target OS or special hardware required.
 Compared with baseline commit `d1657aa`, the original unreviewed
 `torture-compile` directory contained 432 C files. All 423 accepted C
 sources have been moved to `upstream-gcc-reviewed/compile` and are
-individually listed in `TEST_MATRIX.tsv` and the manifest. Nine were
+individually listed in `COMPILER_MATRIX.tsv` and the manifest. Nine were
 excluded/deleted: `20010518-2.c`, `920520-1.c`, `920521-1.c`,
 `920821-1.c`, `930111-1.c`, `950919-1.c`, `961203-1.c`,
 `991026-2.c`, and `dll.c`. The unreviewed directory contains no C files.

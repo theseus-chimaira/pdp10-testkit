@@ -9,7 +9,7 @@ Host-side KCC source/build checks need KCC_REPO and may also require BMAKE,
 MAKESYSPATH or a host compiler. Bare-metal tests require PDP10_PREFIX and
 TMPDIR. The GCC multidimensional-char test requires PDP10_PREFIX and DAS.
 
-These tests are not yet inserted into the full TEST_MATRIX.tsv: first verify
+These tests are not yet inserted into the full COMPILER_MATRIX.tsv: first verify
 individual runner environment contracts and prevent redundant matrix entries.
 Originals in daimos-testkit are intentionally left untouched at this stage.
 
@@ -25,7 +25,7 @@ No comprehensive suite or regression matrix was executed.
 
 ## Matrix integration v1
 
-Six semantic source wrappers are registered in `TEST_MATRIX.tsv`. Their
+Six semantic source wrappers are registered in `COMPILER_MATRIX.tsv`. Their
 original test functions are compiled unmodified into `matrix-semantic.c`,
 with `main` recording the returned failure code in `fail_id`.
 The multidimensional char wrapper exercises row stride, adjacent columns,

@@ -9,7 +9,7 @@
  * fall back to the multi-instruction software byte-pointer-adjust
  * routine.  This test is selected only on the ks10 native column; the
  * earlier CPUs cannot satisfy the requirement and are marked
- * unsupported in TEST_MATRIX.tsv.
+ * unsupported in COMPILER_MATRIX.tsv.
  *
  * Both kcc -x=ks10 and pdp10-gcc -march=ks10 emit ADJBP here.
  */

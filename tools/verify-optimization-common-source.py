@@ -6,7 +6,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 SEMANTIC_MANIFEST = ROOT / 'OPTIMIZATION_SEMANTIC_ONLY.tsv'
 RESULT_ONLY_MANIFEST = ROOT / 'OPTIMIZATION_RESULT_ONLY.tsv'
-MATRIX = ROOT / 'TEST_MATRIX.tsv'
+MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
 TOKENS = ('__GNUC__', '__COMPILER_KCC__')
 
 # These constructs have intentionally different KCC/GCC compatibility
@@ -67,7 +67,7 @@ def shared_matrix_sources():
             header = raw.split('\t')
             break
     if header is None:
-        print('TEST_MATRIX.tsv has no header')
+        print('COMPILER_MATRIX.tsv has no header')
         sys.exit(1)
     for raw in lines:
         if not raw or raw.startswith('#') or raw.startswith('test\t'):

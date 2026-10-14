@@ -12,9 +12,10 @@ regressions belong in `daimos-testkit`; generic host-tool regression tests
 may remain here if they exercise processor-oriented tooling only.
 
 Set `PDP10_PREFIX` to the installed toolchain prefix. Use
-`./run-tests.sh verify` for compatibility checks, `./run-tests.sh -j 6`
+`./run-misc-tests.sh verify` for specialized compatibility checks, `./run-tests.sh -j 6`
 for the matrix, `./run-tests.sh list` to enumerate cells, and
-`./run-tests.sh clean` to remove generated artifacts. The full matrix is
-`TEST_MATRIX.tsv`; runner usage is described in `docs/parallel-cells.md`.
+`./run-misc-tests.sh clean` to remove generated artifacts. The compiler matrix is
+`COMPILER_MATRIX.tsv`; specialized suites are listed in `SPECIAL_TESTS.tsv` and
+run by `./run-misc-tests.sh`. Runner usage is described in `docs/parallel-cells.md`.
 
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.

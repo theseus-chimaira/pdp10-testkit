@@ -1,6 +1,6 @@
 # Migrated KCC shell regression tests
 
-Sources here are owned by `TEST_MATRIX.tsv` and `run-tests.sh`, rather
+Sources here are owned by `COMPILER_MATRIX.tsv` and `run-tests.sh`, rather
 than the transitional legacy KCC-script dispatcher. A source is moved only once its assertions are
 preserved and the obsolete corresponding shell runner can be retired.
 

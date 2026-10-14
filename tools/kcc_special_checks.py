@@ -107,7 +107,7 @@ def kl10_section0(workdir, kcc):
 def local_dse(workdir, kcc):
     prefix = Path(os.environ.get("PDP10_PREFIX", "/usr/local"))
     source = Path("tests/semantic/kcc-regression/kcc_longlong_promotion_min.c")
-    crt = Path("tests/kcc-regression/semantic-crt0.s")
+    crt = Path("misc/kcc-regression/semantic-crt0.s")
     runner = prefix / "bin/p10run"
     errors = []
     for cpu in ("pdp6", "ka10", "ki10", "ks10"):

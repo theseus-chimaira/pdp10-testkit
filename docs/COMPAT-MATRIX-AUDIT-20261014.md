@@ -1,6 +1,6 @@
 # Compatibility matrix audit (2026-10-14)
 
-Static audit of the 38 ordered `group=compat` scripts in `TEST_MATRIX.tsv`.
+Static audit of the 38 ordered `group=compat` scripts in `COMPILER_MATRIX.tsv`.
 No script has yet been converted to a compiler/CPU/optimization matrix cell.
 `K` = KCC, `G` = GCC; `mixed` means separately compiled caller/callee
 objects. `shape` checks specific generated instructions rather than program

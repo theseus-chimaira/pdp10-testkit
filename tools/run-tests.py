@@ -35,7 +35,7 @@ COMPILE_TIMEOUT = int(os.environ.get('P10_SWEEP_COMPILE_TIMEOUT', '20'))
 CELL_TIMEOUT = int(os.environ.get('P10_SWEEP_CELL_TIMEOUT', '20'))
 P10_TIMEOUT = os.environ.get('P10_SWEEP_TIMEOUT', str(max(1, CELL_TIMEOUT - 2)))
 
-# TEST_MATRIX.tsv is the only suite matrix.  Everything under workdir is a
+# COMPILER_MATRIX.tsv is the compiler cell matrix.  Everything under workdir is a
 # restart checkpoint or a report for the currently selected cells.
 PASS_STATUSES = set(['pass', 'compile_only', 'ok'])
 FAIL_STATUSES = set(['compile_fail', 'run_fail', 'timeout', 'policy_fail', 'setup_fail'])
@@ -87,7 +87,7 @@ def die(msg):
 
 
 def split_rows():
-    with open(ROOT / 'TEST_MATRIX.tsv', 'r', encoding='utf-8', errors='replace') as f:
+    with open(ROOT / 'COMPILER_MATRIX.tsv', 'r', encoding='utf-8', errors='replace') as f:
         reader = csv.DictReader((l for l in f if l.strip() and not l.startswith('#')), delimiter='\t')
         return list(reader)
 
@@ -516,7 +516,7 @@ def parse_args(argv):
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''\
 Selection model:
-  TEST_MATRIX.tsv is the only matrix and the source of truth.
+  COMPILER_MATRIX.tsv is the compiler-cell source of truth.
   --family chooses native, base, pdp10, or all.
   --cpu chooses pdp6, ka10, ki10, or all.
   --opt chooses compiler optimization profile.
@@ -713,7 +713,7 @@ def write_status_file(outroot, line):
     path = cdir / 'status'
     row = dict(zip(STATUS_FIELDS, line))
     with open(path, 'w', encoding='utf-8') as f:
-        f.write('# transient restart checkpoint; TEST_MATRIX.tsv is the only matrix\n')
+        f.write('# transient restart checkpoint; COMPILER_MATRIX.tsv is the only matrix\n')
         for key in STATUS_FIELDS:
             f.write('%s=%s\n' % (key, row.get(key, '')))
 
@@ -1224,7 +1224,7 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
         f.write('kind_filter=%s\n' % args.kind)
         f.write('kind_filter=%s\n' % args.kind)
         f.write('checkpoint_model=per-cell status\n')
-        f.write('matrix=TEST_MATRIX.tsv\n')
+        f.write('matrix=COMPILER_MATRIX.tsv\n')
         f.write('semantic_tests=%d\n' % semantic_test_count)
         f.write('codegen_tests=%d\n' % codegen_test_count)
         f.write('selected_cells=%d\n' % scheduled_total)
@@ -1352,7 +1352,7 @@ def main():
         f.write('kind_filter=%s\n' % args.kind)
         f.write('skip_failures=%s\n' % ('yes' if args.skip_failures else 'no'))
         f.write('jobs=%d\n' % args.jobs)
-        f.write('matrix=TEST_MATRIX.tsv\n')
+        f.write('matrix=COMPILER_MATRIX.tsv\n')
         f.write('checkpoint_model=per-cell status\n')
         f.write('kcc=%s\n' % bins.get('kcc', 'not-selected'))
         f.write('gcc=%s\n' % bins.get('gcc', 'not-selected'))
