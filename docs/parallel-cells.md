@@ -97,3 +97,28 @@ may depend on the old checkout path, environment, or `PATH`.  If the toolchain
 commands cannot be found, every cell can fail immediately with return code 127.
 
 The compatibility wrapper has been removed. Runs should call `run-tests.sh -j N` directly.
+
+## Negative compilation tests
+
+The `tests/negative/` category contains imported invalid-source tests that
+must be rejected by the selected compiler, rather than assembled or run.
+Use `./run-tests.sh --kind negative --compiler kcc` or `--compiler gcc`.
+Both compilers are scheduled on supported CPU/ISA profiles and optimization
+settings. Successful compilation is a regression, as are a compiler ICE,
+process signal, missing diagnostic output, and timeout. Ordinary diagnostic
+failure is a passing result. Each case retains its own restart checkpoint.
+
+The original GCC `dg-error` annotations are preserved but not yet interpreted
+as diagnostic-pattern assertions for KCC: the initial contract is rejection
+without an ICE. A KCC acceptance must be reviewed, not silently classified as
+unsupported; compiler-specific exclusions need an explicit matrix decision.
+
+### Initial KCC PDP-6 check (2026-10-14)
+
+All 37 imported negatives were exercised with unoptimized KCC targeting
+PDP-6 through the restartable runner: 33 rejected as expected, 2 wrongly
+accepted (`920824-1.c`, `voidparam-1.c`), and 2 generated KCC internal
+errors (`init-2.c`: `pushsztype: bad top type 13`; `init-3.c`:
+`vlabindtype_v11: missing metadata`). All four remain failing cells; no
+unsupported marker or compiler workaround was introduced. Full GCC and
+multi-target optimization sweeps are still pending.

@@ -38,8 +38,9 @@ P10_TIMEOUT = os.environ.get('P10_SWEEP_TIMEOUT', str(max(1, CELL_TIMEOUT - 2)))
 # COMPILER_MATRIX.tsv is the compiler cell matrix.  Everything under workdir is a
 # restart checkpoint or a report for the currently selected cells.
 PASS_STATUSES = set(['pass', 'compile_only', 'ok'])
-FAIL_STATUSES = set(['compile_fail', 'run_fail', 'timeout', 'policy_fail', 'setup_fail'])
+FAIL_STATUSES = set(['compiler_ice', 'unexpected_compile_success', 'compile_fail', 'run_fail', 'timeout', 'policy_fail', 'setup_fail'])
 SEMANTIC_MATRIX_STATUSES = set(['semantic', 'run', 'runtime', 'ok', 'pending', 'fail', 'timeout', 'error'])
+NEGATIVE_MATRIX_STATUSES = set(['negative', 'ok', 'pending', 'fail', 'timeout', 'error'])
 CODEGEN_MATRIX_STATUSES = set(['codegen', 'ok', 'pending', 'fail', 'timeout', 'error'])
 INACTIVE_MATRIX_STATUSES = set(['', 'no_test', 'unsupported', 'obsolete'])
 STATUS_FIELDS = ['test', 'machine', 'compiler', 'profile', 'kind', 'status', 'elapsed', 'asm', 'report']
@@ -418,16 +419,19 @@ def find_libgcc1():
     return None
 
 
-def setup_prefix_env():
+def setup_prefix_env(needed_compilers):
     os.environ['PATH'] = str(PDP10_PREFIX / 'bin') + os.pathsep + os.environ.get('PATH', '')
     # Normalize every legacy installed-tool path variable.  They remain in the
     # child environment only for older helper compatibility, never as inputs.
     os.environ['PDP10_PREFIX'] = str(PDP10_PREFIX)
-    os.environ['KCC'] = str(find_one('kcc'))
-    os.environ['PDP10_GCC'] = str(find_one('gcc'))
+    if 'kcc' in needed_compilers:
+        os.environ['KCC'] = str(find_one('kcc'))
+    if 'gcc' in needed_compilers:
+        os.environ['PDP10_GCC'] = str(find_one('gcc'))
     os.environ['PDP10_AS'] = str(PDP10_PREFIX / 'bin' / 'pdp10-dec-none-as')
     os.environ['PDP10_ASM'] = os.environ['PDP10_AS']
-    os.environ['P10RUN'] = str(find_one('p10run'))
+    if needed_compilers:
+        os.environ['P10RUN'] = str(PDP10_PREFIX / 'bin' / 'p10run')
     os.environ['KCC_LIBDIR'] = str(PDP10_PREFIX / 'lib' / 'kcc')
     os.environ['KCC_RT'] = str(PDP10_PREFIX / 'lib' / 'kcc' / 'ks10rt.s')
 
@@ -461,6 +465,8 @@ def test_stubs(asm_text, outdir, exclude=None):
 def matrix_kind(group):
     if group.startswith('semantic') or group.startswith('validation'):
         return 'semantic'
+    if group.startswith('negative'):
+        return 'negative'
     if group.startswith('codegen'):
         return 'codegen'
     return None
@@ -475,6 +481,7 @@ def source_exists(test):
 def known_test_counts(rows):
     semantic = set()
     codegen = set()
+    negative = set()
     for row in rows:
         test = row.get('test', '')
         if not test or not source_exists(test):
@@ -484,7 +491,9 @@ def known_test_counts(rows):
             semantic.add(test)
         elif kind == 'codegen':
             codegen.add(test)
-    return len(semantic), len(codegen)
+        elif kind == 'negative':
+            negative.add(test)
+    return len(semantic), len(codegen), len(negative)
 
 
 FILTER_CHOICES = {
@@ -520,6 +529,7 @@ Selection model:
   --family chooses native, base, pdp10, or all.
   --cpu chooses pdp6, ka10, ki10, or all.
   --opt chooses compiler optimization profile.
+  --kind negative runs rejection tests: ordinary diagnostic failure passes, ICE fails.
   pdp10-family cells are never scheduled on pdp6.
 
 Default output:
@@ -555,7 +565,7 @@ Restart behavior:
                     metavar='LIST',
                     help='optimization profile(s): all,opt,noopt,o0,o1,o2,os or comma list')
     ap.add_argument('--kind', default=os.environ.get('P10_SWEEP_KIND', 'all'),
-                    choices=('all', 'semantic', 'codegen'),
+                    choices=('all', 'semantic', 'codegen', 'negative'),
                     help='test kind to run; default: all')
     ap.add_argument('--skip-failures', action='store_true',
                     help='also skip old failing cells, not only pass/compile_only cells')
@@ -631,6 +641,8 @@ def active_matrix_status(kind, value):
         return value in SEMANTIC_MATRIX_STATUSES
     if kind == 'codegen':
         return value in CODEGEN_MATRIX_STATUSES
+    if kind == 'negative':
+        return value in NEGATIVE_MATRIX_STATUSES
     return False
 
 
@@ -862,7 +874,9 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
         return 'timeout'
     if rc < 0 or rc > 128:
         return 'signal'
-    return 'pass' if rc == 0 and asm_path.is_file() else 'fail'
+    if rc == 0:
+        return 'pass' if asm_path.is_file() else 'no_output'
+    return 'fail'
 
 
 def write_cell_result(outroot, line):
@@ -957,6 +971,41 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                 status = 'pass' if rc == 0 else ('timeout' if rc == 124 else 'run_fail')
     elapsed = '%.2f' % (time.time() - t0)
     line = [src, cell['machine'], cell['compiler'], cell['profile'], 'semantic', status, elapsed, str(asm_path), report]
+    write_cell_result(outroot, line)
+    return status
+
+
+ICE_RE = re.compile(r'(?i)(internal compiler error|internal error|\bICE\b|segmentation fault|compiler (?:crash|abort)|please submit a (?:full )?bug report|assertion .* failed|fatal error: .*compiler)')
+
+
+def run_negative_cell(idx, total, src, cell, outroot, bins, announce=True):
+    """Expected compilation rejection; crashes, signals and timeouts never pass."""
+    cdir = begin_cell_run(outroot, src, cell, 'negative')
+    adir = cdir / 'asm'
+    adir.mkdir(parents=True, exist_ok=True)
+    log_path = cdir / 'cell.log'
+    log_path.write_text('')
+    asm_path = adir / (safe_name(src) + '.s')
+    if announce:
+        print('[%06d/%06d] negative %-3s %-18s %-5s %s' %
+              (idx, total, cell['compiler'], cell['profile'], cell['machine'], src), flush=True)
+    start = time.time()
+    result = compile_to_asm(cell, src, asm_path, log_path, bins)
+    diagnostics = read_text(log_path)
+    if result == 'timeout':
+        status = 'timeout'
+    elif 'EXEC_ERROR ' in diagnostics:
+        status = 'setup_fail'
+    elif result == 'signal' or ICE_RE.search(diagnostics):
+        status = 'compiler_ice'
+    elif result in ('pass', 'no_output'):
+        status = 'unexpected_compile_success'
+    elif result == 'fail':
+        status = 'pass' if diagnostics.partition('\n')[2].strip() else 'policy_fail'
+    else:
+        status = 'compile_fail'
+    line = [src, cell['machine'], cell['compiler'], cell['profile'], 'negative',
+            status, '%.2f' % (time.time() - start), str(asm_path), str(log_path)]
     write_cell_result(outroot, line)
     return status
 
@@ -1108,6 +1157,8 @@ def run_cell_worker(task):
     try:
         if kind == 'semantic':
             status = run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=False)
+        elif kind == 'negative':
+            status = run_negative_cell(idx, total, src, cell, outroot, bins, announce=False)
         else:
             status = run_codegen_cell(idx, total, src, cell, outroot, bins, announce=False)
         return (idx, kind, src, cell.get('compiler', ''), cell.get('profile', ''),
@@ -1126,7 +1177,7 @@ def run_cells_parallel(semantic_run, codegen_run, outroot, bins, libgcc1, jobs):
         tasks.append((idx, total, 'semantic', src, cell, outroot, bins, libgcc1))
     for src, cell in codegen_run:
         idx += 1
-        tasks.append((idx, total, 'codegen', src, cell, outroot, bins, libgcc1))
+        tasks.append((idx, total, cell['kind'], src, cell, outroot, bins, libgcc1))
 
     if jobs < 1:
         jobs = 1
@@ -1145,7 +1196,9 @@ def run_cells_parallel(semantic_run, codegen_run, outroot, bins, libgcc1, jobs):
                 else:
                     failed += 1
             else:
-                status = run_codegen_cell(idx, total, src, cell, outroot, bins)
+                status = (run_negative_cell(idx, total, src, cell, outroot, bins)
+                          if kind == 'negative' else
+                          run_codegen_cell(idx, total, src, cell, outroot, bins))
                 if status == 'pass':
                     passed += 1
                 else:
@@ -1211,7 +1264,7 @@ def failure_count_from_counts(counts):
     return sum(v for k, v in counts.items() if k in FAIL_STATUSES)
 
 
-def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, scheduled_total,
+def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, scheduled_total,
                   selected_by_compiler, account, skipped, ran, new_pass, new_compile_only, new_fail, final_counts,
                   missing_sources, ignored_status):
     final_fail = failure_count_from_counts(final_counts)
@@ -1227,6 +1280,7 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
         f.write('matrix=COMPILER_MATRIX.tsv\n')
         f.write('semantic_tests=%d\n' % semantic_test_count)
         f.write('codegen_tests=%d\n' % codegen_test_count)
+        f.write('negative_tests=%d\n' % negative_test_count)
         f.write('selected_cells=%d\n' % scheduled_total)
         for comp in sorted(selected_by_compiler):
             f.write('selected_%s=%d\n' % (comp, selected_by_compiler[comp]))
@@ -1252,7 +1306,7 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
             f.write('ignored_nonactive_statuses=%s\n' % ','.join('%s:%d' % (k, ignored_status[k]) for k in sorted(ignored_status)))
 
 
-def print_selection(args, outroot, semantic_test_count, codegen_test_count, profiles,
+def print_selection(args, outroot, semantic_test_count, codegen_test_count, negative_test_count, profiles,
                     scheduled_total, selected_by_compiler, account, old_status_counts, missing_sources, ignored_status):
     print('output:         %s' % outroot)
     print('compiler:       %s' % args.compiler)
@@ -1262,6 +1316,7 @@ def print_selection(args, outroot, semantic_test_count, codegen_test_count, prof
     print('kind:           %s' % args.kind)
     print('semantic tests: %d' % semantic_test_count)
     print('codegen tests:  %d' % codegen_test_count)
+    print('negative tests: %d' % negative_test_count)
     print('profiles:       %d' % len(profiles))
     print('test cells:     %d' % scheduled_total)
     if selected_by_compiler:
@@ -1301,8 +1356,6 @@ def main():
     opt_filter = parse_csv_set(args.opt, 'opt', FILTER_CHOICES['opt'])
     validate_filter_combo(family_filter, cpu_filter)
 
-    setup_prefix_env()
-
     rows = split_rows()
     profiles_all = all_profiles()
     profiles = [p for p in profiles_all if profile_selected(p, compiler_filter, family_filter, cpu_filter, opt_filter)]
@@ -1310,7 +1363,9 @@ def main():
     semantic_cells, codegen_cells, missing_sources, ignored_status = build_cells(rows, profiles, kind_filter)
     scheduled_total = len(semantic_cells) + len(codegen_cells)
     selected_by_compiler = selected_counts_by_compiler(semantic_cells, codegen_cells)
-    semantic_test_count, codegen_test_count = known_test_counts(rows)
+    semantic_test_count, codegen_test_count, negative_test_count = known_test_counts(rows)
+    needed_compilers = set(p['compiler'] for _, p in semantic_cells + codegen_cells)
+    setup_prefix_env(needed_compilers)
 
     outroot.mkdir(parents=True, exist_ok=True)
 
@@ -1329,12 +1384,13 @@ def main():
         return 0
 
     if args.list_only:
-        print_selection(args, outroot, semantic_test_count, codegen_test_count, profiles,
+        print_selection(args, outroot, semantic_test_count, codegen_test_count, negative_test_count, profiles,
                         scheduled_total, selected_by_compiler, account, old_status_counts, missing_sources, ignored_status)
         return 0
 
-    needed_compilers = set(p['compiler'] for _, p in semantic_cells + codegen_cells)
-    bins = {'p10run': find_one('p10run')}
+    bins = {}
+    if semantic_cells or any(cell['kind'] != 'negative' for _, cell in codegen_cells):
+        bins['p10run'] = find_one('p10run')
     if 'kcc' in needed_compilers:
         bins['kcc'] = find_one('kcc')
     if 'gcc' in needed_compilers:
@@ -1356,7 +1412,7 @@ def main():
         f.write('checkpoint_model=per-cell status\n')
         f.write('kcc=%s\n' % bins.get('kcc', 'not-selected'))
         f.write('gcc=%s\n' % bins.get('gcc', 'not-selected'))
-        f.write('p10run=%s\n' % bins['p10run'])
+        f.write('p10run=%s\n' % bins.get('p10run', 'not-needed'))
         f.write('compile_timeout=%s\ncell_timeout=%s\np10_timeout=%s\n' %
                 (COMPILE_TIMEOUT, CELL_TIMEOUT, P10_TIMEOUT))
         if 'kcc' in needed_compilers:
@@ -1383,6 +1439,7 @@ def main():
     print('kind filter:       %s' % args.kind)
     print('semantic tests:    %d' % semantic_test_count)
     print('codegen tests:     %d' % codegen_test_count)
+    print('negative tests:    %d' % negative_test_count)
     print('selected cells:    %d' % scheduled_total)
     if selected_by_compiler:
         print('by compiler:       %s' % ' '.join('%s=%d' % (k, selected_by_compiler[k]) for k in sorted(selected_by_compiler)))
@@ -1403,7 +1460,7 @@ def main():
     selected_rows = collect_selected_statuses(outroot, semantic_cells, codegen_cells)
     final_counts = status_counts(selected_rows)
     summary = outroot / 'summary.txt'
-    write_summary(summary, outroot, args, semantic_test_count, codegen_test_count, scheduled_total,
+    write_summary(summary, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, scheduled_total,
                   selected_by_compiler, account, skipped, idx, passed, compile_only, failed, final_counts,
                   missing_sources, ignored_status)
     final_fail = failure_count_from_counts(final_counts)
