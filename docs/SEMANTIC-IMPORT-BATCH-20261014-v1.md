@@ -40,3 +40,16 @@ members. Both arrays have size three; `f[1]`, from `\\377`, holds octal
 not a size mismatch. This is consistent with seven-bit processing of a
 raw source character; the octal escape retains 255. Keep this test in
 `review-width` pending an explicit decision on byte-source semantics.
+
+## Runtime integration and generic TODO (follow-up)
+
+`support/include/string.h` already exists in the testkit, in addition to
+KCC's `self/include/string.h`; no new header is necessary. The semantic
+runner now compiles and links DAIMOS `userland/libc/string.c` when running
+`20000112-1.c` under KCC. `DAIMOS_REPO` can override the default sibling
+checkout; missing source or compilation failure is a setup error. A normal
+PDP-6 KCC runner cell passed. GCC cells are inactive pending validation.
+
+The original source `20000227-1.c`, including its literal `0xff` byte,
+was moved unchanged to `tests/todo/generic/20000227-1.c`; its manifest
+status remains `review-width`.

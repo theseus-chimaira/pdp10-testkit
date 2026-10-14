@@ -957,6 +957,25 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                     cmd.append(str(ROOT / ('support/%s-v1.s' % symbol)))
             cmd += test_stubs(asm_text, rdir, exclude=stub_exclude)
             setup_error = None
+            # This imported test needs the real strchr implementation.
+            # Compile the existing DAIMOS libc source for the same target,
+            # rather than manufacturing a success-only stub.
+            if src == 'tests/semantic/upstream/generic/20000112-1.c':
+                daimos = Path(os.environ.get('DAIMOS_REPO', str(ROOT.parent / 'DAIMOS')))
+                string_source = daimos / 'userland/libc/string.c'
+                string_asm = adir / 'daimos-string-v1.s'
+                if cell['compiler'] != 'kcc':
+                    setup_error = 'DAIMOS string runtime integration requires KCC validation'
+                elif not string_source.is_file():
+                    setup_error = 'missing DAIMOS libc source: %s' % string_source
+                else:
+                    runtime_cmd = [str(bins['kcc']), '-S', '-v=nostats',
+                                   '-x=' + cell['arch'], str(string_source),
+                                   '-o', str(string_asm)]
+                    if run_cmd(runtime_cmd, ROOT, log_path, timeout=COMPILE_TIMEOUT) != 0:
+                        setup_error = 'failed to compile DAIMOS libc string.c'
+                    else:
+                        cmd.append(str(string_asm))
             if cell['compiler'] == 'kcc':
                 required = needed_kcc_runtime_symbols(asm_text)
                 runtime_files = []

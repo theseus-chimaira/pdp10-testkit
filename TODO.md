@@ -28,10 +28,12 @@ compiler check, not a full compiler/CPU/optimization sweep.
   semantics. PDP-6 KCC execution passed for `20000205-1.c` and
   `20000217-1.c`; both are now active, with other matrix cells unverified.
   The next eight manifest candidates have been reviewed in
-  `docs/SEMANTIC-IMPORT-BATCH-20261014-v1.md`; four more are active.
+  `docs/SEMANTIC-IMPORT-BATCH-20261014-v1.md`; five more are now active,
+  including the DAIMOS `strchr` test.
 - [ ] Review the 28 remaining `review-width` cases individually for 36-bit
   `int`/`long`, 36/72-bit integer handling, 7-/9-bit byte conventions,
-  shifts, numeric boundary assumptions, and `sizeof`. Establish the right
+  shifts, numeric boundary assumptions, and `sizeof`. The byte-source case
+  `20000227-1.c` is in `tests/todo/generic/`. Establish the right
   PDP-10 expectation; then run/activate useful tests or delete inapplicable
   tests. Investigate `pdp10/pdp10/990106-2.c`, whose PDP-10 expectation failed
   under PDP-6 KCC. See `docs/SEMANTIC-WIDTH-VALIDATION-20261014-v2.md`.
@@ -40,8 +42,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   complex types). Register only supported, meaningful KCC/GCC combinations;
   remove unsupported tests rather than masking failures. Do not assume GCC
   extensions are portable C99.
-- [ ] Resolve the nine `deferred` sources (seven inline-assembly C tests,
-  `support/920428-1.s`, and the `20000112-1.c` string runtime dependency).
+- [ ] Resolve the eight `deferred` sources (seven inline-assembly C tests
+  and `support/920428-1.s`).
   Move suitable target-specific coverage to ISA/DAS
   test ownership with real assembler/link dependencies; delete inappropriate
   CPU or host-OS cases. The `.s` file requires KL10 and external symbols.
@@ -52,8 +54,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   distinguishes compilation, linking, execution and actual test failure.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: 626 candidates, 74 extensions, 28 width reviews, nine deferred,
-  nine active, and 28 removed; **737 classified C sources remain inactive**.
+  manifest: 626 candidates, 74 extensions, 28 width reviews, eight deferred,
+  ten active, and 28 removed; **736 classified C sources remain inactive**.
 
 ## P1 — registry and runner consolidation
 
