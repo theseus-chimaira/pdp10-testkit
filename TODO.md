@@ -14,6 +14,15 @@ adaptations. Never rewrite expected values simply to make a test pass, or
 activate a test without actual execution. Delete only tests whose intended
 behavior genuinely cannot be tested on the target or that remain vacuous.
 
+**Current classification scope:** decide only whether each retained source
+can be a meaningful matrix test unchanged or with small, obvious PDP-10
+adaptations. Record straightforward compile/execute outcomes, but do not
+investigate non-obvious test bugs, ordinary compiler miscompilations, or
+complex runtime failures in this phase. Defer such cases with their observed
+failure and reason; do not disguise a failure as a pass. Compiler internal
+errors (ICEs) are the sole immediate compiler-debugging exception and take
+priority. Resume deeper debugging after classification is complete.
+
 Execution infrastructure progress and observed blockers are recorded in
 `docs/TEST-EXECUTION-STATUS-20261014-v1.md`. The four KCC P0 parser
 diagnostic regressions were fixed and validated on PDP-6; further compiler
