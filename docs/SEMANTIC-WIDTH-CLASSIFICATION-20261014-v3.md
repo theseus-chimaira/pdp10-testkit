@@ -5,12 +5,12 @@ No compiler sources were modified.
 
 ## Reviewed cases
 
-- `generic/20020216-1.c`: removed. Its preliminary guard requires both
-  `sizeof(short)==2` and `sizeof(int)==4` and an 8-bit unsigned character.
-  On the PDP-10 C target these are not the applicable integer and byte
-  layout assumptions. The source would take the `exit(0)` path before
-  checking the original signed-character XOR regression; retaining it as an
-  executable test would falsely inflate semantic coverage.
+- `generic/20020216-1.c`: **restored** after review. The original layout
+  guard wrongly rejected 9-bit chars even though 18-bit short and 36-bit int
+  retain `sizeof(short)==2` and `sizeof(int)==4`. The PDP-10 branch now
+  retains the original XOR expression and checks an independently derived
+  expected value: 18-bit unsigned-short -1 XOR 36-bit sign-extended -103.
+  Execution still required before activation.
 - `wide-int/20020219-1.c`: a 63-bit left shift is within a 72-bit
   `unsigned long long`; shifting its result right by zero is a meaningful
   regression independent of a 64-bit storage layout. Retained for execution

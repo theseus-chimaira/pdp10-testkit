@@ -5,6 +5,15 @@ The repository tests bare-metal CPU/toolchain behavior; DAIMOS/OS, peripheral,
 and filesystem regressions belong in their respective testkits. Completed
 imports are not repeated as tasks. Update this file as items are resolved.
 
+**Mandatory classification rule:** preserve and minimally adapt upstream tests
+to PDP-10 byte/integer widths whenever the original regression still applies.
+For each change, derive and document the target expectation independently;
+retain the asserted operation and failure path. Do not delete a test solely
+because it assumes 8/16/32/64-bit storage; prefer justified 9/18/36/72-bit
+adaptations. Never rewrite expected values simply to make a test pass, or
+activate a test without actual execution. Delete only tests whose intended
+behavior genuinely cannot be tested on the target or that remain vacuous.
+
 Execution infrastructure progress and observed blockers are recorded in
 `docs/TEST-EXECUTION-STATUS-20261014-v1.md`. The four KCC P0 parser
 diagnostic regressions were fixed and validated on PDP-6; further compiler
@@ -47,7 +56,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   activated, two removed, and 14 deferred or under review. The latest
   eight batches are in `docs/SEMANTIC-IMPORT-BATCHES-20261014-v10.md`:
   48 activated, one removed, 15 retained for review.
-- [ ] Review the 55 remaining `review-width` cases individually for 36-bit
+- [ ] Review the 56 remaining `review-width` cases individually for 36-bit
   `int`/`long`, 36/72-bit integer handling, 7-/9-bit byte conventions,
   shifts, numeric boundary assumptions, and `sizeof`. The byte-source case
   `20000227-1.c` and the oversized-shift case `20000403-1.c` are in
@@ -85,8 +94,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, 129 extensions, 55 width reviews, 111 deferred,
-  423 active, and 56 removed; **295 classified C sources remain inactive**.
+  manifest: zero candidates, 129 extensions, 56 width reviews, 111 deferred,
+  423 active, and 55 removed; **296 classified C sources remain inactive**.
 
 The next eight batches are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v11.md`: 42 activated, three
