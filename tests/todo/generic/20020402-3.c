@@ -77,5 +77,5 @@ int main(void)
 
   ret = blockvector_for_pc_sect(0x500, &s);
 
-  return 0;
+  return ret != &bv;
 }
