@@ -19,3 +19,10 @@ for the matrix, `./run-tests.sh list` to enumerate cells, and
 run by `./run-misc-tests.sh`. Runner usage is described in `docs/parallel-cells.md`.
 
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
+
+Active matrix-registered compiler sources are organized under `tests/semantic/`,
+`tests/codegen/`, and `tests/isa/`. Unscheduled upstream imports and
+unregistered negative/host tests are retained under `tests/todo/`; moving
+sources there does not imply they have passed. Supporting source files included
+by registered tests remain next to their owning tests. The dated import batch
+was consolidated into `tests/semantic/imported/` and `tests/todo/imported-host/`.

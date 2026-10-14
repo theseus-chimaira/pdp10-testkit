@@ -5,6 +5,6 @@
 tests/semantic/base/base_arg_char_short_matrix.c	native char/short argument semantics intentionally differ
 tests/semantic/base/base_ret_char_short_matrix.c	native char/short return semantics intentionally differ
 tests/semantic/base/base_struct_return_1w_2w.c	native mixed aggregate value semantics intentionally differ
-tests/semantic/upstream-gcc/torture-execute/conversion.c	upstream GCC torture test omits unsupported long-long cases under KCC
-tests/semantic/upstream-gcc/torture-execute/pdp10/conversion.c	upstream PDP-10 GCC torture variant omits unsupported long-long cases under KCC
-tests/semantic/upstream-gcc/torture-execute/va-arg-21.c	upstream GCC attribute spelling compatibility only
+tests/todo/semantic-upstream-gcc/torture-execute/conversion.c	upstream GCC torture test omits unsupported long-long cases under KCC
+tests/todo/semantic-upstream-gcc/torture-execute/pdp10/conversion.c	upstream PDP-10 GCC torture variant omits unsupported long-long cases under KCC
+tests/todo/semantic-upstream-gcc/torture-execute/va-arg-21.c	upstream GCC attribute spelling compatibility only

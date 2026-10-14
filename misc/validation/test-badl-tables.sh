@@ -6,7 +6,7 @@ ROOT=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd -P)
 PDP10_PREFIX=${PDP10_PREFIX:?set PDP10_PREFIX to the rebuilt toolchain prefix}
 GCC=$PDP10_PREFIX/bin/pdp10-dec-none-gcc
 P10RUN=$PDP10_PREFIX/bin/p10run
-SRC=$ROOT/tests/validation/gcc/bare-runtime/badl-tables.c
+SRC=$ROOT/tests/semantic/validation-gcc/bare-runtime/badl-tables.c
 CRT0=$ROOT/support/crt0.s
 TMPBASE=${TMPDIR:-$ROOT/workdir}
 TMP=$TMPBASE/gcc-badl-tables-$$

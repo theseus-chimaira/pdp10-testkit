@@ -7,7 +7,7 @@ root=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd -P)
 pdp10_setup_env
 : "${TMPDIR:?TMPDIR must be set}"
 
-src=$root/tests/validation/gcc/byteptr2/no-xkl2-byte-extend.c
+src=$root/tests/semantic/validation-gcc/byteptr2/no-xkl2-byte-extend.c
 work=$TMPDIR/pdp10-testkit-no-xkl2-byte-extend-$$
 trap 'rm -rf "$work"' EXIT HUP INT TERM
 mkdir -p "$work"
