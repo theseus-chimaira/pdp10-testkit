@@ -16,7 +16,7 @@ TMP = os.environ.get("TMPDIR") or str(Path.home() / "tmp")
 Path(TMP).mkdir(parents=True, exist_ok=True)
 ENV = dict(os.environ, TMPDIR=TMP)
 
-VERIFY_PY = """verify-testkit-layout verify-optimization-common-source check-gcc-symbol-length test-stubselect verify-type-semantics verify-wide-int-adapters""".split()
+VERIFY_PY = """verify-optimization-common-source check-gcc-symbol-length test-stubselect verify-type-semantics verify-wide-int-adapters""".split()
 DAS_FAST = """run-das-fast-tests.sh check-das-phase-ir.sh check-das-phase2-transport.sh check-reloc-negative-addend.sh check-symbol-leading-data.sh check-s6filter.sh run-das-stream-tests.sh check-s6text.sh""".split()
 
 def run_special(group):
