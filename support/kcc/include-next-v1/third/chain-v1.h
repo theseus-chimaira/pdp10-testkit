@@ -1,0 +1,4 @@
+#ifndef KCC_INCLUDE_NEXT_THIRD_V1_H
+#define KCC_INCLUDE_NEXT_THIRD_V1_H
+#define CHAIN_THIRD_V1 33
+#endif

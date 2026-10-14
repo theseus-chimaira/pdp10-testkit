@@ -96,12 +96,14 @@ The next eight batches are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v12.md`: 37 activated, one
   vacuous test removed, and 26 retained for review.
 
-- [ ] Finish KCC target header integration: install target-facing headers
-  under `$PDP10_PREFIX/lib/kcc/include`; fix the KCC preprocessor error
-  on GCC-only `#include_next` in `self/include/stdarg.h`; validate actual
-  varargs ABI and libc linkage before reactivating blocked tests. See
-  `docs/KCC-HEADER-INTEGRATION-20261014-v1.md`. The matrix runner now
-  accepts `KCC_INCLUDE_DIR` as an explicit source-tree override.
+- [ ] Finish KCC target header integration: host KCC now implements
+  `#include_next` and its install target packages headers under
+  `$PDP10_PREFIX/lib/kcc/include` when installed with that PREFIX.
+  The testkit honors `KCC_INCLUDE_DIR`, including for preprocessing tests.
+  **Still open:** deploy the updated compiler/headers to the operational
+  prefix, validate the actual varargs ABI and libc linkage, and re-run
+  deferred semantic tests before activation. See
+  `docs/KCC-INCLUDE-NEXT-IMPLEMENTATION-20261014-v2.md`.
 
 ## P1 — registry and runner consolidation
 

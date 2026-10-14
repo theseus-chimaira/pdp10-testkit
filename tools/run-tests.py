@@ -836,6 +836,7 @@ def remove_selected_cells(outroot, semantic_cells, codegen_cells):
 def compile_to_asm(cell, src, asm_path, log_path, bins):
     if cell['compiler'] == 'kcc':
         source_directives = directives(ROOT / src)
+        extra_kcc = source_directives.get('codegen-kcc-extra', [])
         preprocess_kind = source_directives.get('codegen-kcc-preprocess', [])
         if preprocess_kind:
             kind = preprocess_kind[0]
@@ -851,7 +852,13 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
                     source_path.write_text('char *s = "' + 'a' * 400000 + '";\n')
             else:
                 raise RuntimeError('unknown preprocessor regression kind: ' + kind)
-            cmd = [str(bins['kcc']), '-E', '-x=' + cell['arch'], str(source_path)]
+            target_include = kcc_include_dir()
+            cmd = [str(bins['kcc']), '-E'] + list(cell.get('extra', [])) + extra_kcc + [
+                '-x=' + cell['arch'],
+                '-Isupport/kcc/',
+                '-Isupport/common/',
+                '-Isupport/include/',
+            ] + (['-I' + str(target_include)] if target_include else []) + [str(source_path)]
             try:
                 with open(asm_path, 'w') as output, open(log_path, 'w') as errors:
                     result = subprocess.run(cmd, cwd=str(ROOT), stdout=output,
@@ -861,7 +868,6 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
                 return 'pass' if result.returncode == 0 else 'fail'
             except subprocess.TimeoutExpired:
                 return 'timeout'
-        extra_kcc = source_directives.get('codegen-kcc-extra', [])
         stem = str(asm_path)
         if stem.endswith('.s'):
             stem = stem[:-2]
