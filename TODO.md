@@ -188,6 +188,9 @@ The next eight batches are documented in
   classifying it as a compiler problem or removing it. A direct PDP-6/GCC
   retest of `generic/string-opt-13.c` with installed `strcpy`/`strlen`
   assembler sources passes; see `docs/P10-FREESTANDING-LIBC-20261014-v3.md`.
+  This is a link-integration rule, not an assembly-only implementation rule:
+  shared libc functions may be written in C or assembly; select assembly
+  only when measured code-size/RAM or execution-speed benefits justify it.
   KCC and GCC now stage identical `libp10c-v2.a` archives and pass the
   PDP-6 memory/string and explicit 6/7/8/9/18/36-bit byte-pointer tests.
   Deploy to the operational prefix, verify archive extraction with the

@@ -15,7 +15,7 @@ extensions from the shared assembler libc and from test-harness linkage.
 | GNU complex (`_Complex`, `__complex__`) | **Unsupported** | No complex support planned |
 | Zero-length arrays | **Under consideration** | Separate from standard flexible array members |
 | Integer-to-union cast | **Unsupported** | GNU extension |
-| String/memory `__builtin_*` calls | **Shared assembler libc is preferred** | Ordinary functions exist; direct built-in name lowering may still be absent; avoid duplicated implementations |
+| String/memory `__builtin_*` calls | **Shared libc preferred, C or assembly** | Ordinary functions exist; choose assembly only with measured size/speed benefit. Direct built-in name lowering may still be absent; avoid duplication |
 | `__builtin_constant_p` | **Undecided** | Evaluate usefulness separately |
 | `__builtin_types_compatible_p` | **Undecided** | Compiler-only predicate |
 | `__builtin_prefetch` | **Unsupported** | No PDP-6 cache-prefetch objective |

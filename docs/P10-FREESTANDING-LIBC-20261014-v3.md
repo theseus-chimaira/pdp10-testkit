@@ -7,7 +7,11 @@ minimal assembly-only `p10run` link leaves an ordinary string/memory symbol
 unresolved. First link the installed shared assembler libc implementation,
 rerun and then distinguish remaining test, compiler and libc defects.
 
-Do not add dummy C implementations or duplicate assembler libc routines.
+Do not add dummy implementations or duplicate existing libc functionality.
+Real libc functions may be written in readable, portable C or PDP-10 assembly.
+Prefer assembly only when measurements demonstrate smaller code/RAM use or
+better execution speed; correctness and PDP-6 compatibility take precedence.
+Avoid replacing a working C implementation without a measured benefit.
 Hosted services (`malloc`, `printf`, etc.) require their own implementation
 and ABI verification; do not treat them as automatically available from the
 freestanding archive.
