@@ -45,81 +45,81 @@ tests/todo/semantic-upstream-gcc/torture-execute/20000715-2.c	tests/semantic/ups
 tests/todo/semantic-upstream-gcc/torture-execute/20000717-1.c	tests/semantic/upstream/generic/20000717-1.c	generic	active	PDP-6 KCC semantic execution PASS with termination assertions; other profiles not yet verified
 tests/todo/semantic-upstream-gcc/torture-execute/20000717-2.c	tests/semantic/upstream/wide-int/20000717-2.c	wide-int	active	PDP-6 KCC semantic execution PASS with termination assertions; other profiles not yet verified
 tests/todo/semantic-upstream-gcc/torture-execute/20000717-3.c	tests/semantic/upstream/generic/20000717-3.c	generic	active	PDP-6 KCC semantic execution PASS with termination assertions; other profiles not yet verified
-tests/todo/semantic-upstream-gcc/torture-execute/20000717-4.c	tests/semantic/upstream/generic/20000717-4.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000717-5.c	tests/semantic/upstream/generic/20000717-5.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000722-1.c	tests/semantic/upstream/generic/20000722-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000726-1.c	tests/semantic/upstream/generic/20000726-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000731-1.c	tests/semantic/upstream/generic/20000731-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000731-2.c	tests/semantic/upstream/generic/20000731-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000801-1.c	tests/semantic/upstream/generic/20000801-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000801-2.c	tests/semantic/upstream/generic/20000801-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000801-3.c	tests/semantic/upstream/generic/20000801-3.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000801-4.c	tests/semantic/upstream/generic/20000801-4.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000808-1.c	tests/semantic/upstream/generic/20000808-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20000717-4.c	tests/semantic/upstream/generic/20000717-4.c	generic	removed	Executed but no runtime assertion/observable outcome; vacuous semantic regression
+tests/todo/semantic-upstream-gcc/torture-execute/20000717-5.c	tests/semantic/upstream/generic/20000717-5.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000722-1.c	tests/semantic/upstream/generic/20000722-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000726-1.c	tests/semantic/upstream/generic/20000726-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000731-1.c	tests/semantic/upstream/generic/20000731-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000731-2.c	tests/semantic/upstream/generic/20000731-2.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000801-1.c	tests/semantic/upstream/generic/20000801-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000801-2.c	tests/semantic/upstream/generic/20000801-2.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000801-3.c	tests/todo/generic/20000801-3.c	generic	review-extension	GNU empty struct extension rejected by KCC
+tests/todo/semantic-upstream-gcc/torture-execute/20000801-4.c	tests/semantic/upstream/generic/20000801-4.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000808-1.c	tests/semantic/upstream/generic/20000808-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20000815-1.c	tests/semantic/upstream/extensions/20000815-1.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20000818-1.c	tests/semantic/upstream/generic/20000818-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000819-1.c	tests/semantic/upstream/generic/20000819-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000822-1.c	tests/semantic/upstream/generic/20000822-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000910-1.c	tests/semantic/upstream/generic/20000910-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000910-2.c	tests/semantic/upstream/generic/20000910-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000914-1.c	tests/semantic/upstream/generic/20000914-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000917-1.c	tests/semantic/upstream/generic/20000917-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001009-1.c	tests/semantic/upstream/generic/20001009-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20000818-1.c	tests/semantic/upstream/generic/20000818-1.c	generic	removed	Executed but no runtime assertion/observable outcome; vacuous semantic regression
+tests/todo/semantic-upstream-gcc/torture-execute/20000819-1.c	tests/semantic/upstream/generic/20000819-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20000822-1.c	tests/todo/generic/20000822-1.c	generic	review-extension	GNU nested functions/trampolines not accepted by KCC
+tests/todo/semantic-upstream-gcc/torture-execute/20000910-1.c	tests/todo/generic/20000910-1.c	generic	deferred	Missing stdlib.h in current KCC test include search
+tests/todo/semantic-upstream-gcc/torture-execute/20000910-2.c	tests/todo/generic/20000910-2.c	generic	deferred	Missing stdlib.h/string.h in current KCC test include search; strchr runtime requires linking
+tests/todo/semantic-upstream-gcc/torture-execute/20000914-1.c	tests/todo/generic/20000914-1.c	generic	deferred	KCC syntax diagnostic in external malloc declaration; compile fails
+tests/todo/semantic-upstream-gcc/torture-execute/20000917-1.c	tests/semantic/upstream/generic/20000917-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001009-1.c	tests/todo/generic/20001009-1.c	generic	review-width	PDP-6 KCC execution aborts in target-specific signed-char comparison
 tests/todo/semantic-upstream-gcc/torture-execute/20001009-2.c	tests/semantic/upstream/inline-asm/20001009-2.c	inline-asm	deferred	inline assembler requires target ISA review
-tests/todo/semantic-upstream-gcc/torture-execute/20001011-1.c	tests/semantic/upstream/generic/20001011-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001013-1.c	tests/semantic/upstream/generic/20001013-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001017-1.c	tests/semantic/upstream/generic/20001017-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001017-2.c	tests/semantic/upstream/generic/20001017-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001024-1.c	tests/semantic/upstream/generic/20001024-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20001011-1.c	tests/todo/generic/20001011-1.c	generic	deferred	Link fails: unresolved strcmp from DAIMOS libc
+tests/todo/semantic-upstream-gcc/torture-execute/20001013-1.c	tests/semantic/upstream/generic/20001013-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001017-1.c	tests/semantic/upstream/generic/20001017-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001017-2.c	tests/semantic/upstream/generic/20001017-2.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001024-1.c	tests/semantic/upstream/generic/20001024-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20001026-1.c	tests/semantic/upstream/extensions/20001026-1.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20001027-1.c	tests/semantic/upstream/generic/20001027-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001031-1.c	tests/semantic/upstream/wide-int/20001031-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20001101.c	tests/semantic/upstream/generic/20001101.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001108-1.c	tests/semantic/upstream/wide-int/20001108-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20001111-1.c	tests/semantic/upstream/generic/20001111-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001112-1.c	tests/semantic/upstream/wide-int/20001112-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20001121-1.c	tests/semantic/upstream/generic/20001121-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001124-1.c	tests/semantic/upstream/wide-int/20001124-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20001130-1.c	tests/semantic/upstream/generic/20001130-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001130-2.c	tests/semantic/upstream/generic/20001130-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001203-1.c	tests/semantic/upstream/generic/20001203-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20001203-2.c	tests/semantic/upstream/wide-int/20001203-2.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20001221-1.c	tests/semantic/upstream/wide-int/20001221-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20001228-1.c	tests/semantic/upstream/generic/20001228-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20001027-1.c	tests/semantic/upstream/generic/20001027-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001031-1.c	tests/semantic/upstream/wide-int/20001031-1.c	wide-int	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001101.c	tests/semantic/upstream/generic/20001101.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001108-1.c	tests/semantic/upstream/wide-int/20001108-1.c	wide-int	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001111-1.c	tests/semantic/upstream/generic/20001111-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001112-1.c	tests/semantic/upstream/wide-int/20001112-1.c	wide-int	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001121-1.c	tests/semantic/upstream/generic/20001121-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001124-1.c	tests/semantic/upstream/wide-int/20001124-1.c	wide-int	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001130-1.c	tests/semantic/upstream/generic/20001130-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001130-2.c	tests/semantic/upstream/generic/20001130-2.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001203-1.c	tests/semantic/upstream/generic/20001203-1.c	generic	removed	Executed but no runtime assertion/observable outcome; vacuous semantic regression
+tests/todo/semantic-upstream-gcc/torture-execute/20001203-2.c	tests/todo/generic/20001203-2.c	wide-int	deferred	KCC type/parameter diagnostic on large nested aggregate source
+tests/todo/semantic-upstream-gcc/torture-execute/20001221-1.c	tests/semantic/upstream/wide-int/20001221-1.c	wide-int	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20001228-1.c	tests/semantic/upstream/generic/20001228-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20001229-1.c	tests/semantic/upstream/inline-asm/20001229-1.c	inline-asm	deferred	inline assembler requires target ISA review
-tests/todo/semantic-upstream-gcc/torture-execute/20010106-1.c	tests/semantic/upstream/generic/20010106-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010114-1.c	tests/semantic/upstream/generic/20010114-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010116-1.c	tests/semantic/upstream/generic/20010116-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010118-1.c	tests/semantic/upstream/generic/20010118-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20010106-1.c	tests/semantic/upstream/generic/20010106-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010114-1.c	tests/semantic/upstream/generic/20010114-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010116-1.c	tests/semantic/upstream/generic/20010116-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010118-1.c	tests/semantic/upstream/generic/20010118-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010119-1.c	tests/semantic/upstream/extensions/20010119-1.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/20010122-1.c	tests/semantic/upstream/extensions/20010122-1.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20010123-1.c	tests/semantic/upstream/generic/20010123-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010124-1.c	tests/semantic/upstream/generic/20010124-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010129-1.c	tests/semantic/upstream/generic/20010129-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010206-1.c	tests/semantic/upstream/generic/20010206-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010209-1.c	tests/semantic/upstream/generic/20010209-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010221-1.c	tests/semantic/upstream/generic/20010221-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010222-1.c	tests/semantic/upstream/generic/20010222-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010224-1.c	tests/semantic/upstream/generic/20010224-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010325-1.c	tests/semantic/upstream/generic/20010325-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010329-1.c	tests/semantic/upstream/generic/20010329-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010403-1.c	tests/semantic/upstream/generic/20010403-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010409-1.c	tests/semantic/upstream/generic/20010409-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010422-1.c	tests/semantic/upstream/generic/20010422-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010518-1.c	tests/semantic/upstream/generic/20010518-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20010123-1.c	tests/semantic/upstream/generic/20010123-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010124-1.c	tests/todo/generic/20010124-1.c	generic	deferred	KCC rejects source with __SIZE_TYPE__ and GNU pointer arithmetic in memcpy checks
+tests/todo/semantic-upstream-gcc/torture-execute/20010129-1.c	tests/semantic/upstream/generic/20010129-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010206-1.c	tests/semantic/upstream/generic/20010206-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010209-1.c	tests/todo/generic/20010209-1.c	generic	review-extension	GNU nested function with VLA argument not compiled by KCC
+tests/todo/semantic-upstream-gcc/torture-execute/20010221-1.c	tests/semantic/upstream/generic/20010221-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010222-1.c	tests/semantic/upstream/generic/20010222-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010224-1.c	tests/semantic/upstream/generic/20010224-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010325-1.c	tests/todo/generic/20010325-1.c	generic	review-width	Wide string literal concatenation rejected by KCC parser
+tests/todo/semantic-upstream-gcc/torture-execute/20010329-1.c	tests/todo/generic/20010329-1.c	generic	deferred	Missing limits.h in test compiler include search
+tests/todo/semantic-upstream-gcc/torture-execute/20010403-1.c	tests/semantic/upstream/generic/20010403-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010409-1.c	tests/todo/generic/20010409-1.c	generic	deferred	KCC rejects __SIZE_TYPE__ typedef; missing strlen runtime
+tests/todo/semantic-upstream-gcc/torture-execute/20010422-1.c	tests/semantic/upstream/generic/20010422-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010518-1.c	tests/semantic/upstream/generic/20010518-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010518-2.c	tests/semantic/upstream/extensions/20010518-2.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20010520-1.c	tests/semantic/upstream/generic/20010520-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010604-1.c	tests/semantic/upstream/generic/20010604-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010605-1.c	tests/semantic/upstream/generic/20010605-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20010520-1.c	tests/semantic/upstream/generic/20010520-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010604-1.c	tests/todo/generic/20010604-1.c	generic	deferred	Missing stdbool.h in test include search
+tests/todo/semantic-upstream-gcc/torture-execute/20010605-1.c	tests/todo/generic/20010605-1.c	generic	review-extension	GNU block-scope static inline function rejected by KCC
 tests/todo/semantic-upstream-gcc/torture-execute/20010605-2.c	tests/semantic/upstream/extensions/20010605-2.c	extensions	review-extension	complex/GNU extension requirements
-tests/todo/semantic-upstream-gcc/torture-execute/20010711-1.c	tests/semantic/upstream/generic/20010711-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010717-1.c	tests/semantic/upstream/generic/20010717-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010723-1.c	tests/semantic/upstream/generic/20010723-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20010711-1.c	tests/semantic/upstream/generic/20010711-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010717-1.c	tests/semantic/upstream/generic/20010717-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010723-1.c	tests/semantic/upstream/generic/20010723-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010724-1.c	tests/semantic/upstream/host-os/20010724-1.c	host-os	removed	requires Unix OS or privileged PDP-10 monitor/hardware interfaces
 tests/todo/semantic-upstream-gcc/torture-execute/20010904-1.c	tests/semantic/upstream/extensions/20010904-1.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/20010904-2.c	tests/semantic/upstream/extensions/20010904-2.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20010910-1.c	tests/semantic/upstream/generic/20010910-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010915-1.c	tests/semantic/upstream/generic/20010915-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20010910-1.c	tests/semantic/upstream/generic/20010910-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20010915-1.c	tests/todo/generic/20010915-1.c	generic	deferred	Link fails: unresolved strcmp from DAIMOS libc
 tests/todo/semantic-upstream-gcc/torture-execute/20010924-1.c	tests/semantic/upstream/generic/20010924-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20010925-1.c	tests/semantic/upstream/generic/20010925-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20011008-3.c	tests/semantic/upstream/generic/20011008-3.c	generic	candidate	general C execution test; still requires runtime validation

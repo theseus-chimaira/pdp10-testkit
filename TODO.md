@@ -20,7 +20,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 
-- [ ] Review the 594 remaining `candidate` sources in `tests/semantic/upstream/` for
+- [ ] Review the 530 remaining `candidate` sources in `tests/semantic/upstream/` for
   PDP-10 integer/byte widths, supported C dialect, ABI, runtime requirements,
   duplicate coverage, and genuinely asserted results. Run useful candidates
   at least once before entering them in `COMPILER_MATRIX.tsv`; delete
@@ -36,7 +36,10 @@ compiler check, not a full compiler/CPU/optimization sweep.
   documented in `docs/SEMANTIC-IMPORT-BATCH-20261014-v4.md`; six more
   active and two deferred. The fifth eight-test batch is documented in
   `docs/SEMANTIC-IMPORT-BATCH-20261014-v5.md`; all eight are active.
-- [ ] Review the 29 remaining `review-width` cases individually for 36-bit
+  Eight further batches (64 sources) are documented in
+  `docs/SEMANTIC-IMPORT-BATCHES-20261014-v6.md`: 45 activated, three
+  vacuous cases removed, and 16 retained for review.
+- [ ] Review the 31 remaining `review-width` cases individually for 36-bit
   `int`/`long`, 36/72-bit integer handling, 7-/9-bit byte conventions,
   shifts, numeric boundary assumptions, and `sizeof`. The byte-source case
   `20000227-1.c` and the oversized-shift case `20000403-1.c` are in
@@ -44,16 +47,17 @@ compiler check, not a full compiler/CPU/optimization sweep.
   PDP-10 expectation; then run/activate useful tests or delete inapplicable
   tests. Investigate `pdp10/pdp10/990106-2.c`, whose PDP-10 expectation failed
   under PDP-6 KCC. See `docs/SEMANTIC-WIDTH-VALIDATION-20261014-v2.md`.
-- [ ] Review the 74 `review-extension` sources by feature (builtins,
+- [ ] Review the 78 `review-extension` sources by feature (builtins,
   attributes, packing/alignment, local labels, setjmp, prefetch, stdio,
   complex types). Register only supported, meaningful KCC/GCC combinations;
   remove unsupported tests rather than masking failures. Do not assume GCC
   extensions are portable C99.
-- [ ] Resolve the twelve `deferred` sources (seven inline-assembly C tests,
+- [ ] Resolve the 22 `deferred` sources (seven inline-assembly C tests,
   `support/920428-1.s`, void-return case `20000314-3.c`, and varargs
   `20000519-1.c` with a KCC `include_next` preprocessor ICE, plus
   `20000603-1.c` (incompatible pointer aliasing) and `20000622-1.c`
-  (runtime failure)).
+  (runtime failure)). Additional compiler/runtime blockers are listed
+  in `docs/SEMANTIC-IMPORT-BATCHES-20261014-v6.md`.
   Move suitable target-specific coverage to ISA/DAS
   test ownership with real assembler/link dependencies; delete inappropriate
   CPU or host-OS cases. The `.s` file requires KL10 and external symbols.
@@ -64,8 +68,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   distinguishes compilation, linking, execution and actual test failure.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: 594 candidates, 74 extensions, 29 width reviews, twelve deferred,
-  thirty-six active, and 29 removed; **709 classified C sources remain inactive**.
+  manifest: 530 candidates, 78 extensions, 31 width reviews, 22 deferred,
+  81 active, and 32 removed; **661 classified C sources remain inactive**.
 
 ## P1 — registry and runner consolidation
 
