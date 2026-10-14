@@ -1,3 +1,6 @@
+#include <limits.h>
+
+/* Preserve the sign-boundary test on targets with non-octet C bytes. */
 extern unsigned long aa[], bb[];
 
 int seqgt (unsigned long a, unsigned short win, unsigned long b);
@@ -25,5 +28,5 @@ seqgt2 (unsigned long a, unsigned short win, unsigned long b)
   return l > 0;
 }
 
-unsigned long aa[] = { (1UL << (sizeof (long) * 8 - 1)) - 0xfff };
-unsigned long bb[] = { (1UL << (sizeof (long) * 8 - 1)) - 0xfff };
+unsigned long aa[] = { (1UL << (sizeof (long) * CHAR_BIT - 1)) - 0xfff };
+unsigned long bb[] = { (1UL << (sizeof (long) * CHAR_BIT - 1)) - 0xfff };

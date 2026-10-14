@@ -22,9 +22,12 @@ No compiler sources were modified.
 - `generic/20000227-1.c`: the existing diagnosis establishes that a raw
   0xff source byte and an octal escape are interpreted differently. The
   source encoding question is unresolved; do not normalize the source byte.
-- `generic/20000403-1.c`: its `(sizeof(long)*8-1)` shift assumes eight-bit
-  C bytes. The original expression is not a portable PDP-10 boundary
-  calculation. Retain until a semantics-preserving test variant is decided.
+- `generic/20000403-1.c`: minimally adapted the two boundary expressions
+  from `sizeof(long)*8-1` to `sizeof(long)*CHAR_BIT-1` using `<limits.h>`.
+  This preserves the signed-long boundary on 9-bit-byte PDP-10 targets.
+  The current installed KCC prefix cannot locate `<limits.h>`; compilation
+  is therefore blocked by target-header installation, not a demonstrated
+  failure of the new arithmetic expression. Keep inactive until validated.
 
 ## Execution blocker
 

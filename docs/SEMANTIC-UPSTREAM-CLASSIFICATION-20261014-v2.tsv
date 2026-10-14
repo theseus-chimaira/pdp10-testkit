@@ -13,7 +13,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/20000314-1.c	tests/semantic/ups
 tests/todo/semantic-upstream-gcc/torture-execute/20000314-2.c	tests/semantic/upstream/wide-int/20000314-2.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
 tests/todo/semantic-upstream-gcc/torture-execute/20000314-3.c	tests/todo/generic/20000314-3.c	generic	deferred	KCC PDP-6 rejects C99 void-valued return expression in void function; compiler-language compatibility pending
 tests/todo/semantic-upstream-gcc/torture-execute/20000402-1.c	tests/semantic/upstream/wide-int/20000402-1.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
-tests/todo/semantic-upstream-gcc/torture-execute/20000403-1.c	tests/todo/generic/20000403-1.c	generic	review-width	PDP-6 KCC run passes but sizeof(long)*8 shift exceeds PDP-10 long width; undefined shift, not reliable semantic coverage
+tests/todo/semantic-upstream-gcc/torture-execute/20000403-1.c	tests/todo/generic/20000403-1.c	generic	review-width	Adapted sizeof(long)*8 boundary to CHAR_BIT; KCC compilation blocked by missing installed limits.h; execution required before activation
 tests/todo/semantic-upstream-gcc/torture-execute/20000412-1.c	tests/semantic/upstream/generic/20000412-1.c	generic	active	PDP-6 KCC execution PASS with abort/exit contract; other matrix cells pending
 tests/todo/semantic-upstream-gcc/torture-execute/20000412-2.c	tests/semantic/upstream/generic/20000412-2.c	generic	active	PDP-6 KCC execution PASS with abort/exit contract; other matrix cells pending
 tests/todo/semantic-upstream-gcc/torture-execute/20000412-3.c	tests/semantic/upstream/generic/20000412-3.c	generic	active	PDP-6 KCC execution PASS with abort/exit contract; other matrix cells pending
