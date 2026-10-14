@@ -20,12 +20,13 @@ compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 
-- [ ] Review the 637 `candidate` sources in `tests/semantic/upstream/` for
+- [ ] Review the 635 remaining `candidate` sources in `tests/semantic/upstream/` for
   PDP-10 integer/byte widths, supported C dialect, ABI, runtime requirements,
   duplicate coverage, and genuinely asserted results. Run useful candidates
   at least once before entering them in `COMPILER_MATRIX.tsv`; delete
   unsuitable or vacuous tests. Do not silently convert tests into unrelated
-  semantics.
+  semantics. PDP-6 KCC execution passed for `20000205-1.c` and
+  `20000217-1.c`; both are now active, with other matrix cells unverified.
 - [ ] Review the 27 remaining `review-width` cases individually for 36-bit
   `int`/`long`, 36/72-bit integer handling, 7-/9-bit byte conventions,
   shifts, numeric boundary assumptions, and `sizeof`. Establish the right
@@ -48,8 +49,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   distinguishes compilation, linking, execution and actual test failure.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: 637 candidates, 73 extensions, 27 width reviews, eight deferred,
-  two active, and 27 removed; **744 classified C sources remain inactive**.
+  manifest: 635 candidates, 73 extensions, 27 width reviews, eight deferred,
+  four active, and 27 removed; **742 classified C sources remain inactive**.
 
 ## P1 — registry and runner consolidation
 
