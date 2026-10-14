@@ -460,6 +460,32 @@ def find_kcc_rt(name):
     return None
 
 
+def find_kcc_freestanding(name):
+    """Locate installed OS-independent PDP-6 libc assembly fragments."""
+    override = os.environ.get('KCC_FREESTANDING_DIR')
+    directory = (Path(override).expanduser() if override else
+                 PDP10_PREFIX / 'lib/kcc/freestanding')
+    path = directory / name
+    return path if path.is_file() else None
+
+
+def find_gcc_freestanding(name):
+    """Locate GCC's OS-independent PDP-6 C library fragments."""
+    override = os.environ.get('GCC_FREESTANDING_DIR')
+    directory = (Path(override).expanduser() if override else
+                 PDP10_PREFIX / 'lib/gcc-lib/pdp10-dec-none/3.2/freestanding')
+    path = directory / name
+    return path if path.is_file() else None
+
+
+def gcc_target_include_dir():
+    """Use the compiler's installed target libc declarations, when present."""
+    override = os.environ.get('GCC_INCLUDE_DIR')
+    path = (Path(override).expanduser() if override else
+            PDP10_PREFIX / 'pdp10-dec-none/include')
+    return path if path.is_dir() else None
+
+
 def asm_defines_symbol_text(asm_text, name):
     return re.search(r'(?m)^\s*' + re.escape(name) + r':', asm_text) is not None
 
@@ -883,10 +909,12 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
             src,
         ]
     elif cell['compiler'] == 'gcc':
+        target_include = gcc_target_include_dir()
         cmd = [str(bins['gcc']), '-S', cell['opt'], '-march=' + cell['arch'],
                '-I' + str(ROOT / 'support/gcc'),
                '-I' + str(ROOT / 'support/common'),
-               '-I' + str(ROOT / 'support/include'),
+               '-I' + str(ROOT / 'support/include')] + (
+               ['-I' + str(target_include)] if target_include else []) + [
                str(ROOT / src), '-o', str(asm_path)]
     else:
         raise RuntimeError('unsupported compiler family: %s' % cell['compiler'])
@@ -976,27 +1004,53 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
             for symbol in ('exit', 'abort'):
                 if not label_exists(asm_text, symbol):
                     cmd.append(str(ROOT / ('support/%s-v1.s' % symbol)))
-            cmd += test_stubs(asm_text, rdir, exclude=stub_exclude)
             setup_error = None
-            # This imported test needs the real strchr implementation.
-            # Compile the existing DAIMOS libc source for the same target,
-            # rather than manufacturing a success-only stub.
-            if src == 'tests/semantic/upstream/generic/20000112-1.c':
-                daimos = Path(os.environ.get('DAIMOS_REPO', str(ROOT.parent / 'DAIMOS')))
-                string_source = daimos / 'userland/libc/string.c'
-                string_asm = adir / 'daimos-string-v1.s'
-                if cell['compiler'] != 'kcc':
-                    setup_error = 'DAIMOS string runtime integration requires KCC validation'
-                elif not string_source.is_file():
-                    setup_error = 'missing DAIMOS libc source: %s' % string_source
-                else:
-                    runtime_cmd = [str(bins['kcc']), '-S', '-v=nostats',
-                                   '-x=' + cell['arch'], str(string_source),
-                                   '-o', str(string_asm)]
-                    if run_cmd(runtime_cmd, ROOT, log_path, timeout=COMPILE_TIMEOUT) != 0:
-                        setup_error = 'failed to compile DAIMOS libc string.c'
-                    else:
-                        cmd.append(str(string_asm))
+            # Freestanding library implementations belong to KCC's target
+            # runtime, not DAIMOS's OS-dependent libc. Select only fragments
+            # referenced by the test; never manufacture passing stub bodies.
+            string_symbols = ('strcpy', 'strncpy', 'strcat',
+                              'strncat', 'strchr', 'strrchr', 'strtok',
+                              'strcspn')
+            if cell['compiler'] in ('kcc', 'gcc'):
+                externals = set(re.findall(
+                    r'(?mi)^\s*(?:pushj\s+\d+\s*,\s*|\.extern\s+)'
+                    r'([A-Za-z_][A-Za-z_0-9]*)\b', asm_text))
+                needed_string = [name for name in string_symbols
+                                 if name in externals and not label_exists(asm_text, name)]
+                fragments = []
+                if needed_string:
+                    fragments.append('kcc-libc-string-v1.s')
+                    stub_exclude.update(needed_string)
+                for hot_name in ('memcmp', 'strlen', 'strcmp', 'strncmp'):
+                    if hot_name in externals and not label_exists(asm_text, hot_name):
+                        fragment_version = 'v2' if hot_name == 'memcmp' else 'v1'
+                        fragments.append('kcc-libc-%s-%s.s' % (hot_name, fragment_version))
+                        stub_exclude.add(hot_name)
+                if 'memset' in externals and not label_exists(asm_text, 'memset'):
+                    fragments.append('kcc-libc-memset-v1.s')
+                    stub_exclude.add('memset')
+                if any(symbol in externals and not label_exists(asm_text, symbol)
+                       for symbol in ('p10bcopy_v2', 'p10bfill_v2', 'p10bcmp_v2')):
+                    fragments.append('p10bytes-v2.s')
+                if 'memmove' in externals and not label_exists(asm_text, 'memmove'):
+                    fragments.append('kcc-libc-memmove-v1.s')
+                    # The forward overlap-safe path jumps to memcpy.
+                    fragments.append('kcc-libc-memcpy-v1.s')
+                    stub_exclude.update(('memmove', 'memcpy'))
+                elif 'memcpy' in externals and not label_exists(asm_text, 'memcpy'):
+                    fragments.append('kcc-libc-memcpy-v1.s')
+                    stub_exclude.add('memcpy')
+                for fragment in fragments:
+                    path = (find_kcc_freestanding(fragment) if cell['compiler'] == 'kcc'
+                            else find_gcc_freestanding(fragment))
+                    if path is None:
+                        setup_error = 'missing %s freestanding libc fragment: %s' % (
+                            cell['compiler'], fragment)
+                        break
+                    cmd.append(str(path))
+                with open(log_path, 'a') as log:
+                    log.write('kcc_freestanding=%s\n' % ','.join(fragments))
+            cmd += test_stubs(asm_text, rdir, exclude=stub_exclude)
             if cell['compiler'] == 'kcc':
                 required = needed_kcc_runtime_symbols(asm_text)
                 runtime_files = []

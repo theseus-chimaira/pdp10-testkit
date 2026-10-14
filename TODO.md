@@ -108,6 +108,19 @@ The next eight batches are documented in
   execution. See `docs/KCC-HEADER-SEMANTIC-RETEST-20261014-v3.md` and
   `docs/KCC-INCLUDE-NEXT-IMPLEMENTATION-20261014-v2.md`.
 
+- [ ] Benchmark the BLT cutoff (currently four complete words) using
+  calibrated PDP-6 timings and compare against short MOVE/MOVEM/byte paths.
+  Verified aligned BLT copy/fill in `docs/P10-FREESTANDING-BLT-20261014-v3.md`;
+  production archive extraction and other CPU profiles remain open.
+
+- [ ] Complete production validation of the shared freestanding PDP-10 libc.
+  KCC and GCC now stage identical `libp10c-v2.a` archives and pass the
+  PDP-6 memory/string and explicit 6/7/8/9/18/36-bit byte-pointer tests.
+  Deploy to the operational prefix, verify archive extraction with the
+  production linker, benchmark whole-word paths against byte loops, and
+  investigate remaining hosted I/O/allocation/varargs dependencies. See
+  `docs/P10-FREESTANDING-LIBC-20261014-v2.md`.
+
 ## P1 — registry and runner consolidation
 
 - [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.
