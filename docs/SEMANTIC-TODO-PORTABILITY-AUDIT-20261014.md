@@ -1,3 +1,5 @@
+> Historical audit: superseded by `SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.md`; the deleted files were restored and classified.
+
 # Semantic upstream todo portability review (2026-10-14)
 
 Reviewed the 773 C sources in `tests/todo/semantic-upstream-gcc/torture-execute/` for explicit inline assembler, host-OS headers and kernel interfaces. These are unregistered upstream execution tests; no compiler-matrix entries were added.

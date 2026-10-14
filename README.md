@@ -29,3 +29,8 @@ was consolidated into `tests/semantic/imported/` and `misc/kcc-host/`.
 
 The retired codegen import collection was reviewed and selectively migrated;
 see `docs/CODEGEN-IMPORT-AUDIT-20261014.md`.
+
+Upstream GCC execution tests are now individually classified beneath
+`tests/semantic/upstream/`. Their per-file activation state and rationale are
+recorded in `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv`.
+They are not automatically active compiler-matrix entries.
