@@ -6,24 +6,17 @@ and filesystem regressions belong in their respective testkits. Completed
 imports are not repeated as tasks. Update this file as items are resolved.
 
 Execution infrastructure progress and observed blockers are recorded in
-`docs/TEST-EXECUTION-STATUS-20261014-v1.md`. Compiler bug fixes are explicitly
-deferred; the immediate goal is runnable and correctly classified tests.
+`docs/TEST-EXECUTION-STATUS-20261014-v1.md`. The four KCC P0 parser
+diagnostic regressions were fixed and validated on PDP-6; further compiler
+and test coverage continues below.
 
-## P0 — compiler defects discovered by the testkit
+## P0 — completed parser diagnostics
 
-- [ ] Reproduce, minimize, and fix the KCC internal compiler error in
-  `tests/negative/upstream-gcc/gcc-dg-noncompile/init-2.c`
-  (`pushsztype: bad top type 13`). Keep the regression and rerun it.
-- [ ] Reproduce, minimize, and fix the KCC internal compiler error in
-  `tests/negative/upstream-gcc/gcc-dg-noncompile/init-3.c`
-  (`vlabindtype_v11: missing metadata`). Keep the regression and rerun it.
-- [ ] Investigate the unexpected KCC compilation success for invalid sources
-  `920824-1.c` and `voidparam-1.c` in that negative suite; establish whether
-  the language dialect permits them before changing either test or compiler.
-
-The compiler fixes themselves belong in KCC; all regression tests belong
-here. These observations came from the native PDP-6 KCC no-optimization pilot,
-not a full compiler/CPU sweep.
+The two KCC ICEs (`init-2.c`, `init-3.c`) and two incorrectly accepted
+invalid declarations (`920824-1.c`, `voidparam-1.c`) are fixed in KCC.
+`misc/validation/test-kcc-p0-diagnostics-v1.sh` checks all four preserved
+upstream negatives plus legal control declarations. This is a PDP-6 host
+compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 

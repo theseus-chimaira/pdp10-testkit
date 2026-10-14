@@ -1,4 +1,5 @@
 id	group	runner	path	profile	enabled	timeout
+kcc-p0-diagnostics-v1	validation	sh	misc/validation/test-kcc-p0-diagnostics-v1.sh	default	yes	120
 int71-header	compat	sh	misc/compat/test-int71-header.sh	default	yes	120
 wide-int-modes	compat	sh	misc/compat/test-wide-int-modes.sh	default	yes	120
 wide-call-abi	compat	sh	misc/compat/test-wide-call-abi.sh	default	yes	120
