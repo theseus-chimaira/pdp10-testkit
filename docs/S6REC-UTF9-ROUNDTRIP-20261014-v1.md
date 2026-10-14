@@ -17,3 +17,16 @@ hard-link aliases are rejected.
 Test with `misc/compat/test-s6rec-utf9-v1.py UTF9-S6REC S6REC-UTF9
 UTF9-FILE`. This host interchange is not a change to DAIMOS's on-disk
 filesystem format or native text ABI.
+
+## Extended validation
+
+The reverse converter regression now checks the complete 64-character
+direct SIXBIT range (ASCII 040–0137), record lengths 0–31 to exercise all
+padding positions, deterministic mixed-repertoire data, and rejection of
+noncanonical word containers, invalid record types, truncated records and
+nonzero padding. The strict inverse remains byte-exact for representable
+LF-terminated text.
+
+Host tool integration: from `pdp10-tools`, run `make check-utf9`; override
+`TESTKIT=...` if the testkit checkout is not at `../pdp10-testkit`.
+The target executes all three file-level UTF-9 conversion regressions.
