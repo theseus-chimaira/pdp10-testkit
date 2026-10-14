@@ -23,3 +23,20 @@ not claimed to pass. The failing and unsupported cases remain available for
 target-specific classification and investigation, except the vacuous test,
 which is removed as an executable semantic case. No compiler defects were
 corrected or hidden during this batch.
+
+## Follow-up: existing string runtime and exact width result
+
+KCC provides `self/include/string.h`; DAIMOS already implements `strchr`
+in `userland/libc/string.c`. The local test prefix lacks the installed
+header and `libc.a`. Compiling the unmodified `20000112-1.c` against the
+existing KCC header and linking DAIMOS's unmodified `string.c` assembly
+with the bare-metal startup **passes on PDP-6**. Automatic runner integration
+is still required before activating that source in the matrix.
+
+For `20000227-1.c`, a temporary diagnostic copy recorded the actual array
+members. Both arrays have size three; `f[1]`, from `\\377`, holds octal
+`377` (255), while `g[1]`, from a raw `0xff` source byte, holds octal
+`177` (127). The failure is specifically the `f[1] != g[1]` comparison,
+not a size mismatch. This is consistent with seven-bit processing of a
+raw source character; the octal escape retains 255. Keep this test in
+`review-width` pending an explicit decision on byte-source semantics.
