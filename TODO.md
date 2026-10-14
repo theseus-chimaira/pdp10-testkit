@@ -183,6 +183,11 @@ The next eight batches are documented in
   production archive extraction and other CPU profiles remain open.
 
 - [ ] Complete production validation of the shared freestanding PDP-10 libc.
+  Deferred-test rule: when a test has an unresolved ordinary libc routine,
+  integrate the installed assembler libc into the test link and rerun before
+  classifying it as a compiler problem or removing it. A direct PDP-6/GCC
+  retest of `generic/string-opt-13.c` with installed `strcpy`/`strlen`
+  assembler sources passes; see `docs/P10-FREESTANDING-LIBC-20261014-v3.md`.
   KCC and GCC now stage identical `libp10c-v2.a` archives and pass the
   PDP-6 memory/string and explicit 6/7/8/9/18/36-bit byte-pointer tests.
   Deploy to the operational prefix, verify archive extraction with the
