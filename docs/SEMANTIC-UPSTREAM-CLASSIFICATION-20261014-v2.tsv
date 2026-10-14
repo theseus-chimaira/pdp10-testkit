@@ -511,8 +511,8 @@ tests/todo/semantic-upstream-gcc/torture-execute/builtin-prefetch-5.c	tests/sema
 tests/todo/semantic-upstream-gcc/torture-execute/builtin-prefetch-6.c	tests/semantic/upstream/extensions/builtin-prefetch-6.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/builtin-types-compatible-p.c	tests/semantic/upstream/extensions/builtin-types-compatible-p.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/cbrt.c	tests/semantic/upstream/extensions/cbrt.c	extensions	review-extension	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
-tests/todo/semantic-upstream-gcc/torture-execute/cmpdi-1.c	tests/semantic/upstream/wide-int/cmpdi-1.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
-tests/todo/semantic-upstream-gcc/torture-execute/cmpsi-1.c	tests/semantic/upstream/generic/cmpsi-1.c	generic	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/cmpdi-1.c	tests/semantic/upstream/wide-int/cmpdi-1.c	wide-int	deferred	Existing PDP-10 71/72-bit long-long comparison data; PDP-6 KCC and GCC -O0 run fail; defer
+tests/todo/semantic-upstream-gcc/torture-execute/cmpsi-1.c	tests/semantic/upstream/generic/cmpsi-1.c	generic	active	Unsigned sign-boundary expressed using type-relative masks, valid on 36-bit PDP-10; KCC and GCC -O0 PDP-6 pass unchanged
 tests/todo/semantic-upstream-gcc/torture-execute/comp-goto-1.c	tests/todo/generic/comp-goto-1.c	wide-int	review-extension	"""comp-goto-1.c"", line 3: Can't open include file, last tried ""/usr/local/lib/kcc/include/stdlib.h"""
 tests/todo/semantic-upstream-gcc/torture-execute/comp-goto-2.c	tests/semantic/upstream/extensions/comp-goto-2.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/complex-1.c	tests/semantic/upstream/extensions/complex-1.c	extensions	review-extension	complex/GNU extension requirements
@@ -521,11 +521,11 @@ tests/todo/semantic-upstream-gcc/torture-execute/complex-3.c	tests/semantic/upst
 tests/todo/semantic-upstream-gcc/torture-execute/complex-4.c	tests/semantic/upstream/extensions/complex-4.c	extensions	review-extension	complex/GNU extension requirements
 tests/todo/semantic-upstream-gcc/torture-execute/complex-5.c	tests/semantic/upstream/extensions/complex-5.c	extensions	review-extension	complex/GNU extension requirements
 tests/todo/semantic-upstream-gcc/torture-execute/compndlit-1.c	tests/todo/generic/compndlit-1.c	generic	review-extension	"""compndlit-1.c"", line 11: Undefined identifier: ""b"""
-tests/todo/semantic-upstream-gcc/torture-execute/conversion.c	tests/semantic/upstream/wide-int/conversion.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
-tests/todo/semantic-upstream-gcc/torture-execute/cvt-1.c	tests/todo/generic/cvt-1.c	generic	review-width	"""cvt-1.c"", line 17: [Note] Call to undeclared function ""abort"""
+tests/todo/semantic-upstream-gcc/torture-execute/conversion.c	tests/semantic/upstream/wide-int/conversion.c	wide-int	deferred	Word-size-generic integer/floating conversions; KCC run fails and GCC link lacks __fixunssfsi; defer
+tests/todo/semantic-upstream-gcc/torture-execute/cvt-1.c	tests/todo/generic/cvt-1.c	generic	deferred	Double-to-long conversions valid at PDP-10 width; KCC PDP-6 fails and GCC -O0 passes; defer
 tests/todo/semantic-upstream-gcc/torture-execute/dbra-1.c	tests/semantic/upstream/generic/dbra-1.c	generic	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/divconst-1.c	tests/semantic/upstream/generic/divconst-1.c	generic	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/divconst-2.c	tests/todo/generic/divconst-2.c	generic	review-width	"""divconst-2.c"", line 22: [Note] Parameter ""denom"" not used"
+tests/todo/semantic-upstream-gcc/torture-execute/divconst-2.c	tests/todo/generic/divconst-2.c	generic	deferred	Fixed negative 32-bit divisor remains representable as 36-bit long; KCC fails and GCC -O0 passes; defer
 tests/todo/semantic-upstream-gcc/torture-execute/divconst-3.c	tests/semantic/upstream/wide-int/divconst-3.c	wide-int	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/divmod-1.c	tests/semantic/upstream/generic/divmod-1.c	generic	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/eeprof-1.c	tests/semantic/upstream/extensions/eeprof-1.c	extensions	review-extension	compiler extension semantics
@@ -576,7 +576,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/loop-6.c	tests/semantic/upstrea
 tests/todo/semantic-upstream-gcc/torture-execute/loop-7.c	tests/semantic/upstream/generic/loop-7.c	generic	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/loop-8.c	tests/semantic/upstream/generic/loop-8.c	generic	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/loop-9.c	tests/semantic/upstream/generic/loop-9.c	generic	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/lshrdi-1.c	tests/semantic/upstream/wide-int/lshrdi-1.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/lshrdi-1.c	tests/semantic/upstream/wide-int/lshrdi-1.c	wide-int	active	Preexisting PDP-10 71/72-bit logical right-shift vectors; PDP-6 KCC and GCC -O0 pass unchanged
 tests/todo/semantic-upstream-gcc/torture-execute/memcpy-1.c	tests/todo/generic/memcpy-1.c	generic	deferred	"""memcpy-1.c"", line 3: Can't open include file, last tried ""/usr/local/lib/kcc/include/string.h"""
 tests/todo/semantic-upstream-gcc/torture-execute/memcpy-2.c	tests/todo/generic/memcpy-2.c	wide-int	deferred	"""memcpy-2.c"", line 10: Can't open include file, last tried ""/usr/local/lib/kcc/include/string.h"""
 tests/todo/semantic-upstream-gcc/torture-execute/memcpy-bi.c	tests/semantic/upstream/extensions/memcpy-bi.c	extensions	review-extension	compiler extension semantics
@@ -585,7 +585,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/mod-1.c	tests/semantic/upstream
 tests/todo/semantic-upstream-gcc/torture-execute/nest-stdar-1.c	tests/todo/generic/nest-stdar-1.c	varargs	review-extension	"""nest-stdar-1.c"", line 3: Can't open include file, last tried ""/usr/local/lib/kcc/include/stdarg.h"""
 tests/todo/semantic-upstream-gcc/torture-execute/nestfunc-1.c	tests/todo/generic/nestfunc-1.c	generic	review-extension	"""nestfunc-1.c"", line 16: Expected token (semicolon) not found"
 tests/todo/semantic-upstream-gcc/torture-execute/nestfunc-2.c	tests/todo/generic/nestfunc-2.c	generic	review-extension	"""nestfunc-2.c"", line 14: Expected token (semicolon) not found"
-tests/todo/semantic-upstream-gcc/torture-execute/nestfunc-3.c	tests/semantic/upstream/generic/nestfunc-3.c	generic	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/nestfunc-3.c	tests/semantic/upstream/generic/nestfunc-3.c	generic	review-extension	GNU nested functions and trampoline feature, not just width; KCC compile rejection and GCC execution not confirmed; review extension support
 tests/todo/semantic-upstream-gcc/torture-execute/nestfunc-4.c	tests/semantic/upstream/generic/nestfunc-4.c	generic	active	PDP-6 KCC semantic execution PASS; further compiler/CPU profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/old.tort.c	tests/semantic/upstream/extensions/old.tort.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/packed-1.c	tests/semantic/upstream/extensions/packed-1.c	extensions	review-extension	compiler extension semantics
@@ -628,7 +628,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/pdp10/920501-5.c	tests/semantic
 tests/todo/semantic-upstream-gcc/torture-execute/pdp10/920625-1.c	tests/semantic/upstream/pdp10/pdp10/920625-1.c	pdp10	active	PDP-6 KCC staged compiler and installed headers: compiled, linked and executed with successful assertion/termination; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/pdp10/920721-4.c	tests/todo/generic/pdp10/920721-4.c	pdp10	review-extension	"""920721-4.c"", line 3: Undefined identifier: ""__label__""; ""920721-4.c"", line 3: [Note] Discarding expression without side effects"
 tests/todo/semantic-upstream-gcc/torture-execute/pdp10/920909-1.c	tests/todo/generic/pdp10/920909-1.c	pdp10	deferred	dlink: RH18 relocation overflow; dlink: link failed
-tests/todo/semantic-upstream-gcc/torture-execute/pdp10/930106-1.c	tests/todo/generic/pdp10/930106-1.c	pdp10	review-width	FAIL: __test_exit: got 000000000001 expected 000000000000; see report: /home/theseus/tmp/semantic-64-v6/29-930106-1/run/930106-1.report.txt
+tests/todo/semantic-upstream-gcc/torture-execute/pdp10/930106-1.c	tests/todo/generic/pdp10/930106-1.c	pdp10	deferred	Large automatic array and double return calculation; KCC run fails and GCC -O0 passes; defer
 tests/todo/semantic-upstream-gcc/torture-execute/pdp10/930111-1.c	tests/todo/generic/pdp10/930111-1.c	pdp10	deferred	"""930111-1.c"", line 3: [Note] Call to undeclared function ""wwrite""; ""930111-1.c"", line 4: [Note] Call to undeclared function ""abort"""
 tests/todo/semantic-upstream-gcc/torture-execute/pdp10/930123-1.c	tests/semantic/upstream/pdp10/pdp10/930123-1.c	pdp10	active	PDP-6 KCC PASS with asserted behavior; other profiles not verified
 tests/todo/semantic-upstream-gcc/torture-execute/pdp10/930513-1.c	tests/todo/generic/pdp10/930513-1.c	pdp10	deferred	"""930513-1.c"", line 4: Can't open include file, last tried ""/usr/local/lib/kcc/include/stdio.h""; ""930513-1.c"", line 14: Undefined identifier: ""sprintf"""

@@ -65,7 +65,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   activated, two removed, and 14 deferred or under review. The latest
   eight batches are in `docs/SEMANTIC-IMPORT-BATCHES-20261014-v10.md`:
   48 activated, one removed, 15 retained for review.
-- [ ] Review the 16 remaining `review-width` cases individually for 36-bit
+- [ ] Review the 8 remaining `review-width` cases individually for 36-bit
   `int`/`long`, 36/72-bit integer handling, 7-/9-bit byte conventions,
   shifts, numeric boundary assumptions, and `sizeof`. The byte-source case
   `20000227-1.c` and the oversized-shift case `20000403-1.c` are in
@@ -103,8 +103,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, 129 extensions, 16 width reviews, 144 deferred,
-  430 active, and 55 removed; **289 classified C sources remain inactive**.
+  manifest: zero candidates, 130 extensions, 8 width reviews, 149 deferred,
+  432 active, and 55 removed; **287 classified C sources remain inactive**.
   Eight width cases were dispositioned in
   `docs/SEMANTIC-WIDTH-BATCH-20261014-v4.md`; two were activated and six
   deferred for later work under the classification-only policy.
@@ -116,6 +116,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   one activated and seven deferred.
   The fifth eight are in `docs/SEMANTIC-WIDTH-BATCH-20261014-v8.md`:
   one activated and seven deferred.
+  The sixth eight are in `docs/SEMANTIC-WIDTH-BATCH-20261014-v9.md`:
+  two activated, five deferred, one reclassified for extension review.
 
 The next eight batches are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v11.md`: 42 activated, three
