@@ -713,3 +713,49 @@ CHECKS.update({
 _MACHINE_CHECKS = {"direct-assignment-store", "cheap-optimizer-pass",
                    "sidiv-shared-edge"}
 CHECKS["sidiv-shared-edge"] = _sidiv_shared
+
+
+def _wide_power2(lines, name):
+    """Opcode and count checks transcribed from the legacy KCC wrappers."""
+    asm = "\n".join(lines)
+    errors = []
+    def contains(pattern):
+        return re.search(pattern, asm, re.I | re.M) is not None
+    if name == "dimode-compare-registers":
+        if contains(r"^\s*PUSH\s+17,[234567](?:\s|$)"):
+            errors.append("comparison spilled an operand pair")
+        if sum(instruction(line)[0] == "JUMPN" for line in lines) < 4:
+            errors.append("fewer than four JUMPN instructions")
+        if sum(instruction(line)[0] in ("CAML", "CAMLE") for line in lines) < 4:
+            errors.append("fewer than four CAML/CAMLE instructions")
+        return errors
+    if name == "dimode-mul-no-snapshots":
+        moves = sum(instruction(line)[0] == "MOVE" for line in lines)
+        return [] if moves <= 10 else ["more than ten MOVE instructions: %d" % moves]
+    if contains(r"%DI(?:DIV|[VQMR])|^\s*(?:PUSH|POP)\s+17,[0-9]+$"):
+        errors.append("general divider or stack pair operation survived")
+    instructions = {
+        "dimode-negative-power2": ("ASHC", (1, 42, 43, 44, 106)),
+        "dimode-signed-wide-power2": ("ASHC", (43, 44, 106)),
+        "dimode-unsigned-wide-power2": ("LSHC", (43, 44, 106)),
+    }
+    op, shifts = instructions[name]
+    for shift in shifts:
+        if not contains(r"^\s*" + op + r"\s+[^,]+,-" + str(shift) + r"$"):
+            errors.append("missing %s shift -%s" % (op, shift))
+    if name == "dimode-negative-power2":
+        if sum(instruction(line)[0] == "MOVN" for line in lines) < 5:
+            errors.append("fewer than five MOVN negations")
+    else:
+        if name == "dimode-unsigned-wide-power2" and not contains(r"^\s*SETZ\s+[^,]+,$"):
+            errors.append("missing SETZ")
+        for value in ("1", "377777777777"):
+            if not contains(r"^\s*AND\s+[^,]+,\[" + value + r"\]$"):
+                errors.append("missing AND constant " + value)
+    return errors
+
+
+for _name in ("dimode-compare-registers", "dimode-mul-no-snapshots",
+              "dimode-negative-power2", "dimode-signed-wide-power2",
+              "dimode-unsigned-wide-power2"):
+    CHECKS[_name] = (lambda lines, name=_name: _wide_power2(lines, name))

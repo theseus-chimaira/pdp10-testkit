@@ -16,3 +16,5 @@ Set `PDP10_PREFIX` to the installed toolchain prefix. Use
 for the matrix, `./run-tests.sh list` to enumerate cells, and
 `./run-tests.sh clean` to remove generated artifacts. The full matrix is
 `TEST_MATRIX.tsv`; runner usage is described in `docs/parallel-cells.md`.
+
+DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.

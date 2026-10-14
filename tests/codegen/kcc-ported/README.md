@@ -65,3 +65,20 @@ text files or fictional `TEST_MATRIX.tsv` entries for planned loader, linker
 or object-format features. Remove legacy wrappers only after validation,
 including applicable runtime tests, and update matrix and documentation
 in the same commit. The historical migration log is available in Git.
+
+## DImode code-generation migrations (October 2026)
+
+Five KCC regression scripts were migrated as paired-compiler codegen
+fixtures: `dimode-compare-registers`, `dimode-mul-no-snapshots`,
+`dimode-negative-power2`, `dimode-signed-wide-power2`, and
+`dimode-unsigned-wide-power2`. Their C sources are preserved; the
+stateful instruction checks are in `tools/kcc_assembly_checks.py`.
+
+The legacy shell scripts matched some opcodes case-sensitively even though
+KCC emits both upper- and lowercase mnemonics. The migrated checkers handle
+case consistently. Against the installed KCC this reveals **18 policy
+failures and 2 passes** over four native CPUs, rather than five misleading
+legacy-script successes. These are genuine failing matrix cells, not
+unsupported configurations. The five programs compile on all 16 GCC
+native optimization/CPU profiles, adding 80 compilation cells. GCC is not
+subject to the KCC-specific instruction policy.
