@@ -103,8 +103,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, 90 extensions, zero width reviews, 197 deferred,
-  432 active, and 55 removed; **287 classified C sources remain inactive**.
+  manifest: zero candidates, 82 extensions, zero width reviews, 203 deferred,
+  434 active, and 55 removed; **285 classified C sources remain inactive**.
   Eight width cases were dispositioned in
   `docs/SEMANTIC-WIDTH-BATCH-20261014-v4.md`; two were activated and six
   deferred for later work under the classification-only policy.
@@ -129,6 +129,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   eight classified, all deferred; the `CHAR_BIT=9` shift-test pass is vacuous.
   The fourth extension bundle is in `docs/SEMANTIC-EXTENSION-BATCH-20261014-v4.md`:
   eight classified, all deferred; GNU labels/nested functions and built-ins.
+  The sixth extension bundle is in `docs/SEMANTIC-EXTENSION-BATCH-20261014-v6.md`:
+  two activated and six deferred; KCC/GCC PDP-6 execution checked.
   The fifth extension bundle is in `docs/SEMANTIC-EXTENSION-BATCH-20261014-v5.md`:
   eight classified, all deferred; packed attributes pass without assertions.
 
