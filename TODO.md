@@ -105,6 +105,9 @@ compiler check, not a full compiler/CPU/optimization sweep.
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
   manifest: zero candidates, 58 extensions, zero width reviews, 227 deferred,
   434 active, and 55 removed; **285 classified C sources remain inactive**.
+  Apply the explicit feature decisions in
+  `docs/KCC-EXTENSION-SUPPORT-POLICY-20261014-v1.md` when reviewing extension
+  cases. Do not interpret unsupported GNU features as required KCC work.
   Eight width cases were dispositioned in
   `docs/SEMANTIC-WIDTH-BATCH-20261014-v4.md`; two were activated and six
   deferred for later work under the classification-only policy.
