@@ -202,15 +202,15 @@ tests/todo/semantic-upstream-gcc/torture-execute/920411-1.c	tests/todo/generic/9
 tests/todo/semantic-upstream-gcc/torture-execute/920415-1.c	tests/semantic/upstream/extensions/920415-1.c	extensions	deferred	GNU __label__ and computed goto: KCC compile rejection, GCC -O0 PDP-6 passes; defer GCC-only extension
 tests/todo/semantic-upstream-gcc/torture-execute/920428-1.c	tests/semantic/upstream/generic/920428-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920428-1.s	tests/semantic/upstream/support/920428-1.s	support	deferred	KL10 assembly auxiliary with external dependencies; requires separate assembler harness, not semantic C test
-tests/todo/semantic-upstream-gcc/torture-execute/920428-2.c	tests/semantic/upstream/extensions/920428-2.c	extensions	review-extension	compiler extension semantics
+tests/todo/semantic-upstream-gcc/torture-execute/920428-2.c	tests/semantic/upstream/extensions/920428-2.c	extensions	deferred	GNU local-label and nested-function cross-scope goto: KCC compile rejection, GCC -O0 PDP-6 pass; defer
 tests/todo/semantic-upstream-gcc/torture-execute/920429-1.c	tests/semantic/upstream/generic/920429-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920501-1.c	tests/semantic/upstream/generic/920501-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920501-2.c	tests/todo/generic/920501-2.c	wide-int	deferred	Link unresolved __kcc_umoddi3 in long-long unsigned modulo
-tests/todo/semantic-upstream-gcc/torture-execute/920501-3.c	tests/todo/generic/920501-3.c	generic	review-extension	KCC rejects computed-label pointer arithmetic
+tests/todo/semantic-upstream-gcc/torture-execute/920501-3.c	tests/todo/generic/920501-3.c	generic	deferred	GNU label-address arithmetic and computed goto: KCC compile rejection, GCC -O0 PDP-6 pass; defer
 tests/todo/semantic-upstream-gcc/torture-execute/920501-4.c	tests/semantic/upstream/generic/920501-4.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920501-5.c	tests/semantic/upstream/generic/920501-5.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920501-6.c	tests/todo/generic/920501-6.c	wide-int	deferred	Missing stdio.h and stdio runtime
-tests/todo/semantic-upstream-gcc/torture-execute/920501-7.c	tests/semantic/upstream/extensions/920501-7.c	extensions	review-extension	compiler extension semantics
+tests/todo/semantic-upstream-gcc/torture-execute/920501-7.c	tests/semantic/upstream/extensions/920501-7.c	extensions	deferred	GNU local label, nested function, deep recursion: KCC compile rejection, GCC -O0 PDP-6 pass; defer
 tests/todo/semantic-upstream-gcc/torture-execute/920501-8.c	tests/todo/generic/920501-8.c	varargs	deferred	Missing stdio.h and stdarg.h
 tests/todo/semantic-upstream-gcc/torture-execute/920501-9.c	tests/semantic/upstream/wide-int/920501-9.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
 tests/todo/semantic-upstream-gcc/torture-execute/920506-1.c	tests/semantic/upstream/generic/920506-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
@@ -218,7 +218,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/920520-1.c	tests/semantic/upstr
 tests/todo/semantic-upstream-gcc/torture-execute/920603-1.c	tests/todo/generic/920603-1.c	generic	deferred	PDP-10 signed-char to unsigned-short conversion expectation already present; KCC and GCC runtime failures; defer
 tests/todo/semantic-upstream-gcc/torture-execute/920604-1.c	tests/semantic/upstream/wide-int/920604-1.c	wide-int	removed	No observed assertion in executed configuration
 tests/todo/semantic-upstream-gcc/torture-execute/920612-1.c	tests/semantic/upstream/generic/920612-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/920612-2.c	tests/todo/generic/920612-2.c	generic	review-extension	GNU nested function rejected
+tests/todo/semantic-upstream-gcc/torture-execute/920612-2.c	tests/todo/generic/920612-2.c	generic	deferred	GNU nested function captures local variable: KCC compile rejection, GCC -O0 PDP-6 pass; defer
 tests/todo/semantic-upstream-gcc/torture-execute/920618-1.c	tests/semantic/upstream/generic/920618-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920625-1.c	tests/semantic/upstream/varargs/920625-1.c	varargs	active	PDP-6 KCC staged compiler and installed headers: compiled, linked and executed with successful assertion/termination; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920710-1.c	tests/todo/generic/920710-1.c	generic	deferred	Double and float rounding/conversion checks; GCC -O0 passes and KCC runtime fails; defer non-ICE investigation
@@ -226,21 +226,21 @@ tests/todo/semantic-upstream-gcc/torture-execute/920711-1.c	tests/semantic/upstr
 tests/todo/semantic-upstream-gcc/torture-execute/920721-1.c	tests/semantic/upstream/generic/920721-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920721-2.c	tests/semantic/upstream/generic/920721-2.c	generic	removed	No observed assertion in executed configuration
 tests/todo/semantic-upstream-gcc/torture-execute/920721-3.c	tests/semantic/upstream/generic/920721-3.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/920721-4.c	tests/semantic/upstream/extensions/920721-4.c	extensions	review-extension	compiler extension semantics
+tests/todo/semantic-upstream-gcc/torture-execute/920721-4.c	tests/semantic/upstream/extensions/920721-4.c	extensions	deferred	GNU nested function returning local-label address and computed goto: KCC compile rejection, GCC -O0 PDP-6 pass; defer
 tests/todo/semantic-upstream-gcc/torture-execute/920726-1.c	tests/todo/generic/920726-1.c	varargs	deferred	Missing stdio.h and stdarg.h
-tests/todo/semantic-upstream-gcc/torture-execute/920728-1.c	tests/todo/generic/920728-1.c	generic	review-extension	Zero-sized array GNU extension rejected
+tests/todo/semantic-upstream-gcc/torture-execute/920728-1.c	tests/todo/generic/920728-1.c	generic	deferred	GNU zero-length array and 32-bit byte extraction expectations: KCC compile rejection, GCC -O0 PDP-6 pass; defer width/extension-sensitive case
 tests/todo/semantic-upstream-gcc/torture-execute/920730-1.c	tests/semantic/upstream/generic/920730-1.c	generic	active	PDP-6 KCC staged compiler and installed headers: compiled, linked and executed with successful assertion/termination; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920731-1.c	tests/semantic/upstream/generic/920731-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920810-1.c	tests/todo/generic/920810-1.c	generic	deferred	Missing stdio.h and related library headers
 tests/todo/semantic-upstream-gcc/torture-execute/920812-1.c	tests/semantic/upstream/generic/920812-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/920829-1.c	tests/todo/generic/920829-1.c	wide-int	review-extension	KCC rejects long-long constant initializer expression
+tests/todo/semantic-upstream-gcc/torture-execute/920829-1.c	tests/todo/generic/920829-1.c	wide-int	deferred	Wide-integer constant initializer multiplication: KCC compile rejection, GCC -O0 PDP-6 pass; defer KCC parsing/constant-expression support
 tests/todo/semantic-upstream-gcc/torture-execute/920908-1.c	tests/semantic/upstream/varargs/920908-1.c	varargs	active	PDP-6 KCC staged compiler and installed headers: compiled, linked and executed with successful assertion/termination; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/920908-2.c	tests/todo/generic/920908-2.c	generic	deferred	PDP-10-specific nine-bit char conversion from 24-bit bitfield; KCC and GCC runtime fail; defer
 tests/todo/semantic-upstream-gcc/torture-execute/920909-1.c	tests/todo/generic/920909-1.c	generic	deferred	Dlink RH18 relocation overflow
 tests/todo/semantic-upstream-gcc/torture-execute/920922-1.c	tests/semantic/upstream/generic/920922-1.c	generic	active	Fixed 32-bit mask exercises legal shift/pointer arithmetic within 36-bit long; PDP-6 KCC and GCC -O0 pass unmodified
 tests/todo/semantic-upstream-gcc/torture-execute/920929-1.c	tests/semantic/upstream/generic/920929-1.c	generic	removed	No observed assertion in executed configuration
 tests/todo/semantic-upstream-gcc/torture-execute/921006-1.c	tests/todo/generic/921006-1.c	generic	deferred	Unresolved strcmp
-tests/todo/semantic-upstream-gcc/torture-execute/921007-1.c	tests/semantic/upstream/extensions/921007-1.c	extensions	review-extension	compiler extension semantics
+tests/todo/semantic-upstream-gcc/torture-execute/921007-1.c	tests/semantic/upstream/extensions/921007-1.c	extensions	deferred	__builtin_strcmp and 9-bit char byte ordering: KCC unresolved builtin symbol, GCC -O0 PDP-6 runtime fails; defer
 tests/todo/semantic-upstream-gcc/torture-execute/921013-1.c	tests/semantic/upstream/generic/921013-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/921016-1.c	tests/semantic/upstream/generic/921016-1.c	generic	active	PDP-6 KCC run PASS with meaningful assertion; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/921017-1.c	tests/todo/generic/921017-1.c	generic	review-extension	KCC parser rejects nested function with VLA
