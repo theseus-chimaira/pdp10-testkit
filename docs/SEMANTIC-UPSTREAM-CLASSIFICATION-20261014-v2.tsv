@@ -342,17 +342,17 @@ tests/todo/semantic-upstream-gcc/torture-execute/941202-1.c	tests/todo/generic/9
 tests/todo/semantic-upstream-gcc/torture-execute/950221-1.c	tests/todo/generic/950221-1.c	generic	deferred	unresolved strcpy from libc
 tests/todo/semantic-upstream-gcc/torture-execute/950322-1.c	tests/semantic/upstream/generic/950322-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/950426-1.c	tests/todo/generic/950426-1.c	generic	deferred	unresolved strlen from libc
-tests/todo/semantic-upstream-gcc/torture-execute/950426-2.c	tests/semantic/upstream/generic/950426-2.c	generic	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/950426-2.c	tests/semantic/upstream/generic/950426-2.c	generic	deferred	Signed negative right shift meaningful on PDP-10; PDP-6 KCC runtime fails, GCC -O0 passes; defer non-ICE issue
 tests/todo/semantic-upstream-gcc/torture-execute/950503-1.c	tests/semantic/upstream/wide-int/950503-1.c	wide-int	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
-tests/todo/semantic-upstream-gcc/torture-execute/950511-1.c	tests/todo/generic/950511-1.c	wide-int	review-width	PDP-6 runtime abort in width-sensitive integer test
+tests/todo/semantic-upstream-gcc/torture-execute/950511-1.c	tests/todo/generic/950511-1.c	wide-int	deferred	Unsigned 72-bit square of -3 yields 9; KCC runtime fails and GCC -O0 passes; defer
 tests/todo/semantic-upstream-gcc/torture-execute/950512-1.c	tests/semantic/upstream/wide-int/950512-1.c	wide-int	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
-tests/todo/semantic-upstream-gcc/torture-execute/950605-1.c	tests/todo/generic/950605-1.c	generic	review-width	PDP-6 runtime abort; inspect arithmetic and target assumptions
+tests/todo/semantic-upstream-gcc/torture-execute/950605-1.c	tests/todo/generic/950605-1.c	generic	deferred	Existing PDP-10 nine-bit unsigned-char expectation; KCC/GCC runtime failures; defer
 tests/todo/semantic-upstream-gcc/torture-execute/950607-1.c	tests/semantic/upstream/generic/950607-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
-tests/todo/semantic-upstream-gcc/torture-execute/950607-2.c	tests/todo/generic/950607-2.c	wide-int	review-width	PDP-6 runtime abort; inspect byte/word width assumptions
+tests/todo/semantic-upstream-gcc/torture-execute/950607-2.c	tests/todo/generic/950607-2.c	wide-int	deferred	Wide signed cross-product calculation meaningful as written; KCC runtime fails, GCC -O0 passes; defer
 tests/todo/semantic-upstream-gcc/torture-execute/950612-1.c	tests/semantic/upstream/wide-int/950612-1.c	wide-int	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/950621-1.c	tests/semantic/upstream/generic/950621-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/950628-1.c	tests/semantic/upstream/generic/950628-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
-tests/todo/semantic-upstream-gcc/torture-execute/950704-1.c	tests/semantic/upstream/wide-int/950704-1.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/950704-1.c	tests/semantic/upstream/wide-int/950704-1.c	wide-int	deferred	Already includes PDP-10 71/72-bit MSB variants; KCC/GCC runtime failures; defer
 tests/todo/semantic-upstream-gcc/torture-execute/950706-1.c	tests/semantic/upstream/generic/950706-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/950710-1.c	tests/semantic/upstream/generic/950710-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/950714-1.c	tests/semantic/upstream/generic/950714-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
@@ -363,7 +363,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/950929-1.c	tests/semantic/upstr
 tests/todo/semantic-upstream-gcc/torture-execute/951003-1.c	tests/semantic/upstream/generic/951003-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/951115-1.c	tests/semantic/upstream/generic/951115-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/951204-1.c	tests/semantic/upstream/generic/951204-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
-tests/todo/semantic-upstream-gcc/torture-execute/960116-1.c	tests/semantic/upstream/generic/960116-1.c	generic	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/960116-1.c	tests/semantic/upstream/generic/960116-1.c	generic	active	Pointer low-bit test valid with 36-bit target pointer; KCC and GCC -O0 PDP-6 execution pass unchanged
 tests/todo/semantic-upstream-gcc/torture-execute/960117-1.c	tests/semantic/upstream/extensions/960117-1.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/960209-1.c	tests/semantic/upstream/generic/960209-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/960215-1.c	tests/semantic/upstream/generic/960215-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
@@ -373,10 +373,10 @@ tests/todo/semantic-upstream-gcc/torture-execute/960301-1.c	tests/semantic/upstr
 tests/todo/semantic-upstream-gcc/torture-execute/960302-1.c	tests/semantic/upstream/generic/960302-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/960311-1.c	tests/semantic/upstream/generic/960311-1.c	generic	active	PDP-6 KCC staged compiler and installed headers: compiled, linked and executed with successful assertion/termination; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/960311-2.c	tests/semantic/upstream/generic/960311-2.c	generic	active	PDP-6 KCC staged compiler and installed headers: compiled, linked and executed with successful assertion/termination; other profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/960311-3.c	tests/semantic/upstream/generic/960311-3.c	generic	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/960311-3.c	tests/semantic/upstream/generic/960311-3.c	generic	active	Fixed 32-bit bit patterns within 36-bit unsigned long; made stdio.h conditional on DEBUG; PDP-6 KCC and GCC -O0 pass
 tests/todo/semantic-upstream-gcc/torture-execute/960312-1.c	tests/semantic/upstream/inline-asm/960312-1.c	inline-asm	deferred	inline assembler requires target ISA review
 tests/todo/semantic-upstream-gcc/torture-execute/960317-1.c	tests/semantic/upstream/generic/960317-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
-tests/todo/semantic-upstream-gcc/torture-execute/960321-1.c	tests/todo/generic/960321-1.c	generic	review-width	PDP-6 runtime abort; check target width and signed arithmetic
+tests/todo/semantic-upstream-gcc/torture-execute/960321-1.c	tests/todo/generic/960321-1.c	generic	deferred	Long-index offset arithmetic meaningful on PDP-10; KCC runtime fails, GCC -O0 passes; defer
 tests/todo/semantic-upstream-gcc/torture-execute/960326-1.c	tests/semantic/upstream/generic/960326-1.c	generic	active	PDP-6 KCC execution PASS; asserted condition or exit status; other profiles pending
 tests/todo/semantic-upstream-gcc/torture-execute/960327-1.c	tests/todo/generic/960327-1.c	generic	deferred	missing stdio.h
 tests/todo/semantic-upstream-gcc/torture-execute/960402-1.c	tests/semantic/upstream/wide-int/960402-1.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
