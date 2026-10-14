@@ -62,12 +62,18 @@ live under `misc/` and are dispatched by `run-misc-tests.sh`:
 ./run-misc-tests.sh gcc-bare-libgcc
 ./run-misc-tests.sh pdp10-tools
 ./run-misc-tests.sh kcc-regression
+./run-misc-tests.sh kcc-host
 ./run-misc-tests.sh kcc-semantic
 ./run-misc-tests.sh clean
 ```
 
 `SPECIAL_TESTS.tsv` registers individual compatibility tests, standalone
-KCC regressions, and validation tests, together with DAS/tools entries.
+KCC regressions, 17 host-side KCC source/build regressions, and validation
+tests, together with DAS/tools entries. The `kcc-host` suite runs scripts
+under `misc/kcc-host/`; set `KCC_REPO` to the KCC source checkout (defaults
+used by some scripts to `$HOME/git/kcc`). Individual scripts may also need
+`BMAKE`, `MAKESYSPATH`, or a host C compiler. These are not CPU/ISA/optimization
+matrix cells.
 The DAS and tools aggregators retain their original ordered execution and
 build prerequisites; their individual registry entries are informational
 until those suites are fully migrated to per-test execution.

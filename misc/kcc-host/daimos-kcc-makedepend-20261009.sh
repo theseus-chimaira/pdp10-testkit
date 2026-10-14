@@ -2,7 +2,7 @@
 # Test the host makedepend graph without changing tracked source timestamps.
 set -eu
 : "${TMPDIR:=$HOME/tmp}"
-root=$(CDPATH= cd -- "$(dirname "$0")/../../../kcc" && pwd)
+root=$(CDPATH= cd -- "${KCC_REPO:-$HOME/git/kcc}" && pwd)
 make -C "$root" depend
 f="$root/build/depend.mk"
 test -s "$f"

@@ -25,7 +25,7 @@ Active matrix-registered compiler sources are organized under `tests/semantic/`,
 unregistered host tests are retained under `tests/todo/`; moving
 sources there does not imply they have passed. Supporting source files included
 by registered tests remain next to their owning tests. The dated import batch
-was consolidated into `tests/semantic/imported/` and `tests/todo/imported-host/`.
+was consolidated into `tests/semantic/imported/` and `misc/kcc-host/`.
 
 The retired codegen import collection was reviewed and selectively migrated;
 see `docs/CODEGEN-IMPORT-AUDIT-20261014.md`.

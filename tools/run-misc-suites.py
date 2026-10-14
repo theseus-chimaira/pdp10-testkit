@@ -65,6 +65,9 @@ def main(suite):
         run_special("kcc-regression")
     elif suite == "compat":
         run_special("compat")
+    elif suite == "kcc-host":
+        # These scripts inspect/build the host KCC source tree, not CPU cells.
+        run_special("kcc-host")
     elif suite == "kcc-semantic":
         run("./run-tests.sh", "--kind", "semantic")
     elif suite == "clean":
