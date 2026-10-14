@@ -121,6 +121,27 @@ The next eight batches are documented in
   investigate remaining hosted I/O/allocation/varargs dependencies. See
   `docs/P10-FREESTANDING-LIBC-20261014-v2.md`.
 
+## P1 — immediately after semantic classifications: libc ASM optimization verification
+
+- [ ] As soon as the 111 deferred, 129 extension-review, and 56 width-review
+  classifications are resolved, prioritize the DAIMOS libc assembly candidates
+  recorded in `DAIMOS/TODO.MD`; do not interrupt classification work.
+- [ ] Evaluate `qsort` first. Establish a correctness baseline with generic
+  comparator and varying element sizes; compare current C and prospective
+  assembly implementations for PDP-6 execution steps/time, executable words,
+  and worst-case auxiliary RAM/stack. Prefer bounded-memory algorithms over
+  straight translation. Store regression/benchmark programs in this testkit;
+  implement production changes in DAIMOS, not in the testkit.
+- [ ] Next benchmark `strcpy`, `strncpy`, `strcat`, `strncat`, `strchr`, and
+  `strrchr`, including empty/short/long strings, alignment, byte-pointer
+  boundaries, and length limits. Adopt assembly only with measured benefit
+  and passing KCC/GCC-compatible semantic tests.
+- [ ] Retain `strcspn`, `strtok`, `atoi`, `abs`, `calloc`, `brk`, `sbrk`,
+  `stat`, `time`, `exit`, and heap allocation in C unless profiling shows a
+  worthwhile improvement. Keep existing freestanding libc tests passing,
+  including `memcpy`, `memmove`, `memset`, `memcmp`, `strlen`, `strcmp`, and
+  `strncmp`. Do not modify compilers during semantic classification.
+
 ## P1 — registry and runner consolidation
 
 - [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.
