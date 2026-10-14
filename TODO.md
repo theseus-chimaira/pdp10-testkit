@@ -175,6 +175,17 @@ The next eight batches are documented in
   worthwhile improvement. Keep existing freestanding libc tests passing,
   including `memcpy`, `memmove`, `memset`, `memcmp`, `strlen`, `strcmp`, and
   `strncmp`. Do not modify compilers during semantic classification.
+- [ ] **After GCC/shared-libc completion:** evaluate assembler-backed
+  "poor man's built-ins" for KCC and GCC. Factor suitable optimized libc
+  routines into one authoritative assembler body with a callable wrapper and
+  optional small inline fragments; explicitly specify register inputs,
+  clobbers, labels, alignment, byte-pointer semantics, and ABI constraints.
+  Prefer the shared callable libc implementation by default. Only inline
+  zero-work eliminations or small, known-size operations where measurements
+  show lower RAM/code footprint or execution cost, without duplicating
+  algorithms in either compiler. Benchmark against calls on PDP-6 and test
+  both compilers. This is post-classification work, not a prerequisite for
+  activating imported extension tests.
 
 ## P1 — registry and runner consolidation
 
