@@ -715,6 +715,99 @@ _MACHINE_CHECKS = {"direct-assignment-store", "cheap-optimizer-pass",
 CHECKS["sidiv-shared-edge"] = _sidiv_shared
 
 
+def _di_register_divider(lines, names, remainder_only=False):
+    """Keep the original helper-loop and pre-loop register residency checks."""
+    errors = []
+    text = "\n".join(lines)
+    for name in names:
+        match = re.search(r"(?im)^" + re.escape(name) +
+                          r":\s*$([\s\S]*?)(?=^%DIDIV[0-9]+L:|^[A-Za-z_][A-Za-z0-9_]*:|\Z)",
+                          text, re.M)
+        if not match or not re.search(r"(?m)^%DIDIV[0-9]+L:",
+                                      text[match.end():match.end()+100]):
+            # Find loop within this function without assuming a fixed offset.
+            start = re.search(r"(?m)^" + re.escape(name) + r":", text)
+            end = re.search(r"(?m)^%DIDIV[0-9]+L:", text[start.end():]) if start else None
+            if not start or not end:
+                errors.append(name + ": missing register-divider loop")
+                continue
+            segment = text[start.end():start.end()+end.start()]
+        else:
+            segment = match.group(1)
+        if re.search(r"(?im)^\s*(?:PUSH|POP)\s+", segment):
+            errors.append(name + ": stack operation before register divider")
+    if "pressure" in names and not re.search(r"(?m)^pressure:", text):
+        errors.append("high-register-pressure function missing")
+    if remainder_only:
+        current = ""
+        in_loop = False
+        for line in lines:
+            label = re.match(r"^(sr|ur):", line)
+            if label:
+                current = label.group(1)
+            if re.match(r"^%DIDIV[0-9]+L:", line):
+                in_loop = True
+            elif re.match(r"^%DIDIV[0-9]+NS:", line):
+                in_loop = False
+                current = ""
+            if in_loop and current in ("sr", "ur") and re.match(r"^\s*IORI\s+", line):
+                errors.append(current + ": discarded quotient state updated")
+    return errors
+
+
+def _adjbp_helper(lines):
+    text = "\n".join(lines)
+    errors = []
+    def has(pattern, textpart=text):
+        return bool(re.search(pattern, textpart, re.I | re.M))
+    body = _functions(lines)
+    if len(re.findall(r"(?im)pushj\s+17,%ADJBPH", text)) != 1:
+        errors.append("expected one call to ADJBPH")
+    if has(r"%ADJBPH", "\n".join(body.get("subone", []))):
+        errors.append("subone still calls ADJBPH")
+    if not has(r"hrrz\s+16,0\(17\)", "\n".join(body.get("subone", []))):
+        errors.append("subone missing HRRZ")
+    if not has(r"\bibp\b"):
+        errors.append("no IBP")
+    cast = "\n".join(body.get("castaddone", []))
+    if not has(r"\bibp\s+0?1\b", cast) or has(r"\bmove\s+0?1,0?[2-7]\b", cast):
+        errors.append("castaddone does not keep direct IBP in AC1")
+    for pattern in (r"exch\s+1,16",):
+        if has(pattern):errors.append("forbidden EXCH 1,16")
+    for pattern in (r"MOVEM\s+0?[0-7]+,-0?1\(17\)",
+                    r"MOVEM\s+0?[0-7]+,0\(17\)",
+                    r"MOVE\s+0?1,0\(17\)",
+                    r"MOVE\s+0?16,-0?1\(17\)",
+                    r"(?m)^%ADJBPH:\s*\n\s*jumpe\s+0?1,"):
+        if not has(pattern):errors.append("missing ADJBP marshalling: " + pattern)
+    for pattern in (r"(?m)^%ADJBPH:", r"(?m)^%ADJX"):
+        if len(re.findall(pattern, text)) != 1:
+            errors.append("helper emission count wrong: " + pattern)
+    return errors
+
+
+CHECKS.update({
+    "dimode-div-register-fast": lambda lines: _di_register_divider(
+        lines, ("sq", "sr", "uq", "ur")),
+    "dimode-mod-no-quotient": lambda lines: _di_register_divider(
+        lines, ("sr", "ur"), remainder_only=True),
+    "adjbp-helper": _adjbp_helper,
+})
+
+
+_divider_fast_check = CHECKS["dimode-div-register-fast"]
+
+
+def _divider_fast_with_pressure(lines):
+    errors = _divider_fast_check(lines)
+    if not re.search(r"(?m)^pressure:", "\n".join(lines)):
+        errors.append("high-pressure divider case did not compile")
+    return errors
+
+
+CHECKS["dimode-div-register-fast"] = _divider_fast_with_pressure
+
+
 def _wide_power2(lines, name):
     """Opcode and count checks transcribed from the legacy KCC wrappers."""
     asm = "\n".join(lines)

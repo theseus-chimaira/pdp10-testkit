@@ -60,6 +60,23 @@ meet its applicable correctness and execution expectations.
 
 ## Maintenance
 
+## Five additional KCC migrations (October 2026)
+
+`dimode-div-register-fast`, `dimode-mod-no-quotient`,
+`adjbp-helper`, `preserved-blt`, and `cheap-optimizer-1-6` now
+use matrix C fixtures and stateful assembly checks. The previous shell
+scripts have been removed after preserving the substantive assertions.
+
+The divider checks detect stack operations regardless of assembler mnemonic
+case. This exposes KCC instruction-policy failures that the original
+case-sensitive shell assertions missed. `preserved-blt` and
+`cheap-optimizer-1-6` likewise remain failing regressions; the test
+expectations were not relaxed. `adjbp-helper` passes on PDP-6.
+All five sources are enabled for 16 native GCC compilation profiles,
+including the 16 expected compilation failures for the KCC-specific
+ADJBP type syntax. A compiler failure remains a failed matrix cell,
+never an unsupported cell.
+
 All new tests belong in `pdp10-testkit`; do not introduce inert test-spec
 text files or fictional `TEST_MATRIX.tsv` entries for planned loader, linker
 or object-format features. Remove legacy wrappers only after validation,
