@@ -20,7 +20,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 
-- [ ] Review the 18 remaining `candidate` sources in `tests/semantic/upstream/` for
+- [x] Initial review of all `candidate` sources in `tests/semantic/upstream/` completed. Reviewed for
   PDP-10 integer/byte widths, supported C dialect, ABI, runtime requirements,
   duplicate coverage, and genuinely asserted results. Run useful candidates
   at least once before entering them in `COMPILER_MATRIX.tsv`; delete
@@ -55,12 +55,12 @@ compiler check, not a full compiler/CPU/optimization sweep.
   PDP-10 expectation; then run/activate useful tests or delete inapplicable
   tests. Investigate `pdp10/pdp10/990106-2.c`, whose PDP-10 expectation failed
   under PDP-6 KCC. See `docs/SEMANTIC-WIDTH-VALIDATION-20261014-v2.md`.
-- [ ] Review the 128 `review-extension` sources by feature (builtins,
+- [ ] Review the 129 `review-extension` sources by feature (builtins,
   attributes, packing/alignment, local labels, setjmp, prefetch, stdio,
   complex types). Register only supported, meaningful KCC/GCC combinations;
   remove unsupported tests rather than masking failures. Do not assume GCC
   extensions are portable C99.
-- [ ] Resolve the 139 `deferred` sources (seven inline-assembly C tests,
+- [ ] Resolve the 155 `deferred` sources (seven inline-assembly C tests,
   `support/920428-1.s`, void-return case `20000314-3.c`, and varargs
   `20000519-1.c` with a KCC `include_next` preprocessor ICE, plus
   `20000603-1.c` (incompatible pointer aliasing) and `20000622-1.c`
@@ -80,10 +80,13 @@ compiler check, not a full compiler/CPU/optimization sweep.
   The following 64 candidates are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v12.md`: 15 activated,
   two vacuous tests removed, and 47 retained for review.
+  The final 18 candidates are documented in
+  `docs/SEMANTIC-IMPORT-FINAL-20261014-v13.md`: one activated,
+  17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: 18 candidates, 128 extensions, 56 width reviews, 139 deferred,
-  378 active, and 55 removed; **341 classified C sources remain inactive**.
+  manifest: zero candidates, 129 extensions, 56 width reviews, 155 deferred,
+  379 active, and 55 removed; **340 classified C sources remain inactive**.
 
 The next eight batches are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v11.md`: 42 activated, three
