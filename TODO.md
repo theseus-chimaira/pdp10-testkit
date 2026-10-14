@@ -20,7 +20,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 
-- [ ] Review the 610 remaining `candidate` sources in `tests/semantic/upstream/` for
+- [ ] Review the 602 remaining `candidate` sources in `tests/semantic/upstream/` for
   PDP-10 integer/byte widths, supported C dialect, ABI, runtime requirements,
   duplicate coverage, and genuinely asserted results. Run useful candidates
   at least once before entering them in `COMPILER_MATRIX.tsv`; delete
@@ -32,7 +32,9 @@ compiler check, not a full compiler/CPU/optimization sweep.
   including the DAIMOS `strchr` test. The subsequent batch of eight is recorded
   in `docs/SEMANTIC-IMPORT-BATCH-20261014-v2.md`; six more are active.
   The third batch of eight is in `docs/SEMANTIC-IMPORT-BATCH-20261014-v3.md`;
-  six more active, one deferred, and one removed.
+  six more active, one deferred, and one removed. The fourth batch is
+  documented in `docs/SEMANTIC-IMPORT-BATCH-20261014-v4.md`; six more
+  active and two deferred.
 - [ ] Review the 29 remaining `review-width` cases individually for 36-bit
   `int`/`long`, 36/72-bit integer handling, 7-/9-bit byte conventions,
   shifts, numeric boundary assumptions, and `sizeof`. The byte-source case
@@ -46,9 +48,11 @@ compiler check, not a full compiler/CPU/optimization sweep.
   complex types). Register only supported, meaningful KCC/GCC combinations;
   remove unsupported tests rather than masking failures. Do not assume GCC
   extensions are portable C99.
-- [ ] Resolve the ten `deferred` sources (seven inline-assembly C tests,
+- [ ] Resolve the twelve `deferred` sources (seven inline-assembly C tests,
   `support/920428-1.s`, void-return case `20000314-3.c`, and varargs
-  `20000519-1.c` with a KCC `include_next` preprocessor ICE).
+  `20000519-1.c` with a KCC `include_next` preprocessor ICE, plus
+  `20000603-1.c` (incompatible pointer aliasing) and `20000622-1.c`
+  (runtime failure)).
   Move suitable target-specific coverage to ISA/DAS
   test ownership with real assembler/link dependencies; delete inappropriate
   CPU or host-OS cases. The `.s` file requires KL10 and external symbols.
@@ -59,8 +63,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   distinguishes compilation, linking, execution and actual test failure.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: 610 candidates, 74 extensions, 29 width reviews, ten deferred,
-  twenty-two active, and 29 removed; **723 classified C sources remain inactive**.
+  manifest: 602 candidates, 74 extensions, 29 width reviews, twelve deferred,
+  twenty-eight active, and 29 removed; **717 classified C sources remain inactive**.
 
 ## P1 — registry and runner consolidation
 

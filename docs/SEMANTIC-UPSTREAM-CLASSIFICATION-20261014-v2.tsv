@@ -28,15 +28,15 @@ tests/todo/semantic-upstream-gcc/torture-execute/20000519-1.c	tests/todo/generic
 tests/todo/semantic-upstream-gcc/torture-execute/20000519-2.c	tests/semantic/upstream/generic/20000519-2.c	generic	active	PDP-6 KCC bare-metal execution PASS; abort/exit assertions checked; other cells pending
 tests/todo/semantic-upstream-gcc/torture-execute/20000523-1.c	tests/semantic/upstream/wide-int/20000523-1.c	wide-int	removed	sizeof(long long) < 64 returns before assertions on PDP-10; vacuous test despite passing when linked with KCC dimode division runtime
 tests/todo/semantic-upstream-gcc/torture-execute/20000528-1.c	tests/semantic/upstream/generic/20000528-1.c	generic	active	PDP-6 KCC bare-metal execution PASS; abort/exit assertions checked; other cells pending
-tests/todo/semantic-upstream-gcc/torture-execute/20000603-1.c	tests/semantic/upstream/generic/20000603-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000605-1.c	tests/semantic/upstream/generic/20000605-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000605-2.c	tests/semantic/upstream/generic/20000605-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000605-3.c	tests/semantic/upstream/generic/20000605-3.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000622-1.c	tests/semantic/upstream/generic/20000622-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20000603-1.c	tests/todo/generic/20000603-1.c	generic	deferred	PDP-6 KCC run passes but incompatible struct-pointer aliasing is undefined C behavior; review portability
+tests/todo/semantic-upstream-gcc/torture-execute/20000605-1.c	tests/semantic/upstream/generic/20000605-1.c	generic	active	PDP-6 KCC bare-metal execution PASS with asserted conditions; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000605-2.c	tests/semantic/upstream/generic/20000605-2.c	generic	active	PDP-6 KCC bare-metal execution PASS with asserted conditions; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000605-3.c	tests/semantic/upstream/generic/20000605-3.c	generic	active	PDP-6 KCC bare-metal execution PASS with asserted conditions; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000622-1.c	tests/todo/generic/20000622-1.c	generic	deferred	PDP-6 KCC compiles but aborts at runtime in argument/pointer-integer ABI assertion; investigate later without compiler changes
 tests/todo/semantic-upstream-gcc/torture-execute/20000703-1.c	tests/semantic/upstream/extensions/20000703-1.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20000706-1.c	tests/semantic/upstream/generic/20000706-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000706-2.c	tests/semantic/upstream/generic/20000706-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000706-3.c	tests/semantic/upstream/generic/20000706-3.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20000706-1.c	tests/semantic/upstream/generic/20000706-1.c	generic	active	PDP-6 KCC bare-metal execution PASS with asserted conditions; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000706-2.c	tests/semantic/upstream/generic/20000706-2.c	generic	active	PDP-6 KCC bare-metal execution PASS with asserted conditions; other matrix cells pending
+tests/todo/semantic-upstream-gcc/torture-execute/20000706-3.c	tests/semantic/upstream/generic/20000706-3.c	generic	active	PDP-6 KCC bare-metal execution PASS with asserted conditions; other matrix cells pending
 tests/todo/semantic-upstream-gcc/torture-execute/20000706-4.c	tests/semantic/upstream/generic/20000706-4.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000706-5.c	tests/semantic/upstream/generic/20000706-5.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000707-1.c	tests/semantic/upstream/generic/20000707-1.c	generic	candidate	general C execution test; still requires runtime validation
