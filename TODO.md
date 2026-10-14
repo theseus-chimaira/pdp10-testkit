@@ -96,6 +96,13 @@ The next eight batches are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v12.md`: 37 activated, one
   vacuous test removed, and 26 retained for review.
 
+- [ ] Finish KCC target header integration: install target-facing headers
+  under `$PDP10_PREFIX/lib/kcc/include`; fix the KCC preprocessor error
+  on GCC-only `#include_next` in `self/include/stdarg.h`; validate actual
+  varargs ABI and libc linkage before reactivating blocked tests. See
+  `docs/KCC-HEADER-INTEGRATION-20261014-v1.md`. The matrix runner now
+  accepts `KCC_INCLUDE_DIR` as an explicit source-tree override.
+
 ## P1 — registry and runner consolidation
 
 - [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.

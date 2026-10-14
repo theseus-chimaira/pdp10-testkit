@@ -27,6 +27,19 @@ def required_prefix():
 
 
 PDP10_PREFIX = required_prefix()
+
+
+def kcc_include_dir():
+    """Locate KCC target headers without assuming a sibling source checkout.
+
+    An explicit path supports development trees. Installed toolchains should
+    package the same headers under PDP10_PREFIX/lib/kcc/include.
+    """
+    override = os.environ.get('KCC_INCLUDE_DIR')
+    path = Path(override).expanduser() if override else PDP10_PREFIX / 'lib/kcc/include'
+    return path if path.is_dir() else None
+
+
 DEFAULT_OUTROOT = ROOT / 'workdir' / 'full-sweep-current'
 MACHINES = ('pdp6', 'ka10', 'ki10', 'ks10')
 GCC_OPTS = (('o0', '-O0'), ('o1', '-O1'), ('o2', '-O2'), ('os', '-Os'))
@@ -853,11 +866,13 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
         if stem.endswith('.s'):
             stem = stem[:-2]
         stem = os.path.relpath(stem, ROOT)
+        target_include = kcc_include_dir()
         cmd = [str(bins['kcc']), '-S', '-v=nostats'] + list(cell.get('extra', [])) + extra_kcc + [
             '-x=' + cell['arch'],
             '-Isupport/kcc/',
             '-Isupport/common/',
             '-Isupport/include/',
+        ] + (['-I' + str(target_include)] if target_include else []) + [
             '-R=' + stem,
             src,
         ]
