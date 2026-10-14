@@ -10,6 +10,13 @@ Padding bits at the end are zero; no implicit Unicode BOM or terminator
 is added. Conversion streams through its input with bounded RAM usage.
 The count allows distinguishing trailing padding from real text data.
 
+**DAIMOS native filesystem text is SIXBIT/S6REC**, with record framing and
+character count owned by S6REC. Neither the packed `.u9p` container nor
+the in-memory nine-bit C `char` representation changes this. UTF-9 is an
+optional Unicode interchange/runtime encoding; conversion between UTF-9
+and native SIXBIT/S6REC requires a separately specified repertoire and
+unrepresentable-character policy. See `pdp10-doc/KERNEL/WORD-IO.MD`.
+
 The tool rejects invalid UTF-8 and incomplete sequences, guards against
 direct or hard-linked input/output aliasing, and removes an output file
 when conversion fails. It requires a seekable output to patch the nonet
