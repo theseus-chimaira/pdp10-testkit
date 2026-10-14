@@ -120,79 +120,79 @@ tests/todo/semantic-upstream-gcc/torture-execute/20010904-1.c	tests/semantic/ups
 tests/todo/semantic-upstream-gcc/torture-execute/20010904-2.c	tests/semantic/upstream/extensions/20010904-2.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/20010910-1.c	tests/semantic/upstream/generic/20010910-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010915-1.c	tests/todo/generic/20010915-1.c	generic	deferred	Link fails: unresolved strcmp from DAIMOS libc
-tests/todo/semantic-upstream-gcc/torture-execute/20010924-1.c	tests/semantic/upstream/generic/20010924-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20010925-1.c	tests/semantic/upstream/generic/20010925-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011008-3.c	tests/semantic/upstream/generic/20011008-3.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011019-1.c	tests/semantic/upstream/generic/20011019-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20010924-1.c	tests/todo/generic/20010924-1.c	generic	deferred	KCC rejects flexible array initializer
+tests/todo/semantic-upstream-gcc/torture-execute/20010925-1.c	tests/todo/generic/20010925-1.c	generic	deferred	unresolved memcpy symbol
+tests/todo/semantic-upstream-gcc/torture-execute/20011008-3.c	tests/todo/generic/20011008-3.c	generic	review-width	runtime abort; integer/byte width semantics need review
+tests/todo/semantic-upstream-gcc/torture-execute/20011019-1.c	tests/semantic/upstream/generic/20011019-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20011024-1.c	tests/semantic/upstream/extensions/20011024-1.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20011109-1.c	tests/semantic/upstream/generic/20011109-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011109-2.c	tests/semantic/upstream/generic/20011109-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011113-1.c	tests/semantic/upstream/generic/20011113-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011114-1.c	tests/semantic/upstream/generic/20011114-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011115-1.c	tests/semantic/upstream/generic/20011115-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20011109-1.c	tests/semantic/upstream/generic/20011109-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20011109-2.c	tests/semantic/upstream/generic/20011109-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20011113-1.c	tests/todo/generic/20011113-1.c	generic	review-extension	KCC rejects __SIZE_TYPE__-dependent source
+tests/todo/semantic-upstream-gcc/torture-execute/20011114-1.c	tests/semantic/upstream/generic/20011114-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20011115-1.c	tests/semantic/upstream/generic/20011115-1.c	generic	removed	No effective assertion or observable expected result
 tests/todo/semantic-upstream-gcc/torture-execute/20011121-1.c	tests/semantic/upstream/extensions/20011121-1.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/20011126-1.c	tests/semantic/upstream/wide-int/20011126-1.c	wide-int	active	PDP-6 runtime pass: KCC optimized/unoptimized and GCC O0
-tests/todo/semantic-upstream-gcc/torture-execute/20011126-2.c	tests/semantic/upstream/generic/20011126-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011128-1.c	tests/semantic/upstream/generic/20011128-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011217-1.c	tests/semantic/upstream/generic/20011217-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011219-1.c	tests/semantic/upstream/generic/20011219-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20011223-1.c	tests/semantic/upstream/generic/20011223-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020103-1.c	tests/semantic/upstream/generic/20020103-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20011126-2.c	tests/semantic/upstream/generic/20011126-2.c	generic	removed	No effective assertion or observable expected result
+tests/todo/semantic-upstream-gcc/torture-execute/20011128-1.c	tests/semantic/upstream/generic/20011128-1.c	generic	removed	No effective assertion or observable expected result
+tests/todo/semantic-upstream-gcc/torture-execute/20011217-1.c	tests/semantic/upstream/generic/20011217-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20011219-1.c	tests/semantic/upstream/generic/20011219-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20011223-1.c	tests/semantic/upstream/generic/20011223-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020103-1.c	tests/semantic/upstream/generic/20020103-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20020107-1.c	tests/semantic/upstream/inline-asm/20020107-1.c	inline-asm	deferred	inline assembler requires target ISA review
 tests/todo/semantic-upstream-gcc/torture-execute/20020108-1.c	tests/semantic/upstream/extensions/20020108-1.c	extensions	review-extension	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
-tests/todo/semantic-upstream-gcc/torture-execute/20020118-1.c	tests/semantic/upstream/generic/20020118-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020127-1.c	tests/semantic/upstream/generic/20020127-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020129-1.c	tests/semantic/upstream/generic/20020129-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020201-1.c	tests/semantic/upstream/wide-int/20020201-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20020206-1.c	tests/semantic/upstream/generic/20020206-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020206-2.c	tests/semantic/upstream/generic/20020206-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020213-1.c	tests/semantic/upstream/generic/20020213-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020215-1.c	tests/semantic/upstream/generic/20020215-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20020118-1.c	tests/semantic/upstream/generic/20020118-1.c	generic	removed	No effective assertion or observable expected result
+tests/todo/semantic-upstream-gcc/torture-execute/20020127-1.c	tests/semantic/upstream/generic/20020127-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020129-1.c	tests/semantic/upstream/generic/20020129-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020201-1.c	tests/semantic/upstream/wide-int/20020201-1.c	wide-int	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020206-1.c	tests/semantic/upstream/generic/20020206-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020206-2.c	tests/semantic/upstream/generic/20020206-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020213-1.c	tests/semantic/upstream/generic/20020213-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020215-1.c	tests/semantic/upstream/generic/20020215-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20020216-1.c	tests/semantic/upstream/generic/20020216-1.c	generic	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
 tests/todo/semantic-upstream-gcc/torture-execute/20020219-1.c	tests/semantic/upstream/wide-int/20020219-1.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
-tests/todo/semantic-upstream-gcc/torture-execute/20020225-1.c	tests/semantic/upstream/generic/20020225-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020225-2.c	tests/semantic/upstream/generic/20020225-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020226-1.c	tests/semantic/upstream/wide-int/20020226-1.c	wide-int	candidate	double-word arithmetic and representation
+tests/todo/semantic-upstream-gcc/torture-execute/20020225-1.c	tests/semantic/upstream/generic/20020225-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020225-2.c	tests/semantic/upstream/generic/20020225-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020226-1.c	tests/todo/generic/20020226-1.c	wide-int	deferred	missing limits.h
 tests/todo/semantic-upstream-gcc/torture-execute/20020227-1.c	tests/semantic/upstream/extensions/20020227-1.c	extensions	review-extension	complex/GNU extension requirements
-tests/todo/semantic-upstream-gcc/torture-execute/20020307-1.c	tests/semantic/upstream/generic/20020307-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020314-1.c	tests/semantic/upstream/generic/20020314-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020320-1.c	tests/semantic/upstream/generic/20020320-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020321-1.c	tests/semantic/upstream/generic/20020321-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020402-1.c	tests/semantic/upstream/generic/20020402-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020402-2.c	tests/semantic/upstream/generic/20020402-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020402-3.c	tests/semantic/upstream/wide-int/20020402-3.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20020404-1.c	tests/semantic/upstream/wide-int/20020404-1.c	wide-int	candidate	double-word arithmetic and representation
-tests/todo/semantic-upstream-gcc/torture-execute/20020406-1.c	tests/semantic/upstream/generic/20020406-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20020307-1.c	tests/semantic/upstream/generic/20020307-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020314-1.c	tests/todo/generic/20020314-1.c	generic	deferred	unresolved alloca symbol
+tests/todo/semantic-upstream-gcc/torture-execute/20020320-1.c	tests/semantic/upstream/generic/20020320-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020321-1.c	tests/semantic/upstream/generic/20020321-1.c	generic	removed	No effective assertion or observable expected result
+tests/todo/semantic-upstream-gcc/torture-execute/20020402-1.c	tests/semantic/upstream/generic/20020402-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020402-2.c	tests/semantic/upstream/generic/20020402-2.c	generic	removed	No effective assertion or observable expected result
+tests/todo/semantic-upstream-gcc/torture-execute/20020402-3.c	tests/todo/generic/20020402-3.c	wide-int	review-width	runtime abort in wide integer/ABI case
+tests/todo/semantic-upstream-gcc/torture-execute/20020404-1.c	tests/semantic/upstream/wide-int/20020404-1.c	wide-int	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020406-1.c	tests/todo/generic/20020406-1.c	generic	review-extension	KCC declaration/parser error
 tests/todo/semantic-upstream-gcc/torture-execute/20020411-1.c	tests/semantic/upstream/extensions/20020411-1.c	extensions	review-extension	complex/GNU extension requirements
-tests/todo/semantic-upstream-gcc/torture-execute/20020412-1.c	tests/semantic/upstream/varargs/20020412-1.c	varargs	candidate	varargs and ABI semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20020413-1.c	tests/semantic/upstream/generic/20020413-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020613-1.c	tests/semantic/upstream/generic/20020613-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020613-2.c	tests/semantic/upstream/generic/20020613-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020613-3.c	tests/semantic/upstream/generic/20020613-3.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020617-1.c	tests/semantic/upstream/generic/20020617-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020813-1.c	tests/semantic/upstream/generic/20020813-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020813-2.c	tests/semantic/upstream/generic/20020813-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020813-3.c	tests/semantic/upstream/generic/20020813-3.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020813-4.c	tests/semantic/upstream/generic/20020813-4.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020814-1.c	tests/semantic/upstream/generic/20020814-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020814-2.c	tests/semantic/upstream/generic/20020814-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020821-1.c	tests/semantic/upstream/generic/20020821-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020823-1.c	tests/semantic/upstream/generic/20020823-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020826-1.c	tests/semantic/upstream/generic/20020826-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020827-1.c	tests/semantic/upstream/generic/20020827-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020828-1.c	tests/semantic/upstream/generic/20020828-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020828-2.c	tests/semantic/upstream/generic/20020828-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020828-3.c	tests/semantic/upstream/generic/20020828-3.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020830-1.c	tests/semantic/upstream/generic/20020830-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020903-1.c	tests/semantic/upstream/generic/20020903-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20020907-1.c	tests/semantic/upstream/generic/20020907-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20021022-1.c	tests/semantic/upstream/generic/20021022-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20021022-2.c	tests/semantic/upstream/generic/20021022-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20021101-1.c	tests/semantic/upstream/generic/20021101-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20021127-1.c	tests/semantic/upstream/generic/20021127-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20021127-2.c	tests/semantic/upstream/generic/20021127-2.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20030120-1.c	tests/semantic/upstream/generic/20030120-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20030202-1.c	tests/semantic/upstream/generic/20030202-1.c	generic	candidate	general C execution test; still requires runtime validation
+tests/todo/semantic-upstream-gcc/torture-execute/20020412-1.c	tests/todo/generic/20020412-1.c	varargs	review-extension	missing stdarg.h; varargs support unresolved
+tests/todo/semantic-upstream-gcc/torture-execute/20020413-1.c	tests/semantic/upstream/generic/20020413-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020613-1.c	tests/semantic/upstream/generic/20020613-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020613-2.c	tests/semantic/upstream/generic/20020613-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020613-3.c	tests/semantic/upstream/generic/20020613-3.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020617-1.c	tests/semantic/upstream/generic/20020617-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020813-1.c	tests/semantic/upstream/generic/20020813-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020813-2.c	tests/semantic/upstream/generic/20020813-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020813-3.c	tests/semantic/upstream/generic/20020813-3.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020813-4.c	tests/semantic/upstream/generic/20020813-4.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020814-1.c	tests/semantic/upstream/generic/20020814-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020814-2.c	tests/semantic/upstream/generic/20020814-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020821-1.c	tests/semantic/upstream/generic/20020821-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020823-1.c	tests/semantic/upstream/generic/20020823-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020826-1.c	tests/semantic/upstream/generic/20020826-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020827-1.c	tests/semantic/upstream/generic/20020827-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020828-1.c	tests/todo/generic/20020828-1.c	generic	deferred	unresolved memset symbol
+tests/todo/semantic-upstream-gcc/torture-execute/20020828-2.c	tests/todo/generic/20020828-2.c	generic	deferred	unresolved memset symbol
+tests/todo/semantic-upstream-gcc/torture-execute/20020828-3.c	tests/todo/generic/20020828-3.c	generic	deferred	unresolved memcpy symbol
+tests/todo/semantic-upstream-gcc/torture-execute/20020830-1.c	tests/todo/generic/20020830-1.c	generic	deferred	unresolved memset symbol
+tests/todo/semantic-upstream-gcc/torture-execute/20020903-1.c	tests/semantic/upstream/generic/20020903-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20020907-1.c	tests/semantic/upstream/generic/20020907-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20021022-1.c	tests/semantic/upstream/generic/20021022-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20021022-2.c	tests/todo/generic/20021022-2.c	generic	deferred	KCC rejects pointer arithmetic expression
+tests/todo/semantic-upstream-gcc/torture-execute/20021101-1.c	tests/semantic/upstream/generic/20021101-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20021127-1.c	tests/semantic/upstream/generic/20021127-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20021127-2.c	tests/semantic/upstream/generic/20021127-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20030120-1.c	tests/semantic/upstream/generic/20030120-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
+tests/todo/semantic-upstream-gcc/torture-execute/20030202-1.c	tests/semantic/upstream/generic/20030202-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/900409-1.c	tests/semantic/upstream/generic/900409-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/920202-1.c	tests/semantic/upstream/generic/920202-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/920302-1.c	tests/semantic/upstream/generic/920302-1.c	generic	candidate	general C execution test; still requires runtime validation
