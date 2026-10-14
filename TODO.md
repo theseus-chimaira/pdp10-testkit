@@ -60,7 +60,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   complex types). Register only supported, meaningful KCC/GCC combinations;
   remove unsupported tests rather than masking failures. Do not assume GCC
   extensions are portable C99.
-- [ ] Resolve the 155 `deferred` sources (seven inline-assembly C tests,
+- [ ] Resolve the 111 `deferred` sources (seven inline-assembly C tests,
   `support/920428-1.s`, void-return case `20000314-3.c`, and varargs
   `20000519-1.c` with a KCC `include_next` preprocessor ICE, plus
   `20000603-1.c` (incompatible pointer aliasing) and `20000622-1.c`
@@ -85,8 +85,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, 129 extensions, 56 width reviews, 155 deferred,
-  379 active, and 55 removed; **340 classified C sources remain inactive**.
+  manifest: zero candidates, 129 extensions, 56 width reviews, 111 deferred,
+  423 active, and 55 removed; **296 classified C sources remain inactive**.
 
 The next eight batches are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v11.md`: 42 activated, three
@@ -102,7 +102,10 @@ The next eight batches are documented in
   The testkit honors `KCC_INCLUDE_DIR`, including for preprocessing tests.
   **Still open:** deploy the updated compiler/headers to the operational
   prefix, validate the actual varargs ABI and libc linkage, and re-run
-  deferred semantic tests before activation. See
+  remaining deferred semantic tests before activation. A staged KCC
+  compiler/header retest has activated 44 cases; 27 header-dependent
+  sources still fail compilation and 25 others still fail linking or
+  execution. See `docs/KCC-HEADER-SEMANTIC-RETEST-20261014-v3.md` and
   `docs/KCC-INCLUDE-NEXT-IMPLEMENTATION-20261014-v2.md`.
 
 ## P1 — registry and runner consolidation
