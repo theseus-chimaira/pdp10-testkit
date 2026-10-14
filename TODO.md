@@ -103,8 +103,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, 34 extensions, zero width reviews, 249 deferred,
-  436 active, and 55 removed; **283 classified C sources remain inactive**.
+  manifest: zero candidates, 26 extensions, zero width reviews, 256 deferred,
+  437 active, and 55 removed; **282 classified C sources remain inactive**.
   Apply the explicit feature decisions in
   `docs/KCC-EXTENSION-SUPPORT-POLICY-20261014-v1.md` when reviewing extension
   cases. Do not interpret unsupported GNU features as required KCC work.
@@ -148,6 +148,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   one activated, seven deferred; PDP-10 copies and policy decisions recorded.
   The twelfth extension bundle is in `docs/SEMANTIC-EXTENSION-BATCH-20261014-v12.md`:
   eight classified, all deferred under KCC extension and libc-linkage policy.
+  The thirteenth extension bundle is in `docs/SEMANTIC-EXTENSION-BATCH-20261014-v13.md`:
+  one activated, seven deferred; pointer arithmetic passes and libc linking remains separate.
 
 The next eight batches are documented in
   `docs/SEMANTIC-IMPORT-BATCHES-20261014-v11.md`: 42 activated, three
