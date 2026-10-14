@@ -1,3 +1,5 @@
+> Suitability review and 23 subsequent deletions: `SEMANTIC-UPSTREAM-SUITABILITY-20261014-v1.md`. The v2 TSV manifest now marks removed sources.
+
 # Upstream semantic classification v2 — 2026-10-14
 
 This supersedes the deletion-only portability pass in
