@@ -97,7 +97,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/20010123-1.c	tests/semantic/ups
 tests/todo/semantic-upstream-gcc/torture-execute/20010124-1.c	tests/todo/generic/20010124-1.c	generic	deferred	KCC rejects source with __SIZE_TYPE__ and GNU pointer arithmetic in memcpy checks
 tests/todo/semantic-upstream-gcc/torture-execute/20010129-1.c	tests/semantic/upstream/generic/20010129-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010206-1.c	tests/semantic/upstream/generic/20010206-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
-tests/todo/semantic-upstream-gcc/torture-execute/20010209-1.c	tests/todo/generic/20010209-1.c	generic	review-extension	GNU nested function with VLA argument not compiled by KCC
+tests/todo/semantic-upstream-gcc/torture-execute/20010209-1.c	tests/todo/generic/20010209-1.c	generic	deferred	GNU nested function with variable-length array parameter: KCC compile rejection, GCC -O0 PDP-6 pass; defer unsupported KCC extension
 tests/todo/semantic-upstream-gcc/torture-execute/20010221-1.c	tests/semantic/upstream/generic/20010221-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010222-1.c	tests/semantic/upstream/generic/20010222-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010224-1.c	tests/semantic/upstream/generic/20010224-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
@@ -107,27 +107,27 @@ tests/todo/semantic-upstream-gcc/torture-execute/20010403-1.c	tests/semantic/ups
 tests/todo/semantic-upstream-gcc/torture-execute/20010409-1.c	tests/todo/generic/20010409-1.c	generic	deferred	KCC rejects __SIZE_TYPE__ typedef; missing strlen runtime
 tests/todo/semantic-upstream-gcc/torture-execute/20010422-1.c	tests/semantic/upstream/generic/20010422-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010518-1.c	tests/semantic/upstream/generic/20010518-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
-tests/todo/semantic-upstream-gcc/torture-execute/20010518-2.c	tests/semantic/upstream/extensions/20010518-2.c	extensions	review-extension	compiler extension semantics
+tests/todo/semantic-upstream-gcc/torture-execute/20010518-2.c	tests/semantic/upstream/extensions/20010518-2.c	extensions	deferred	GNU packed attribute, compound literals, and memcpy; both KCC/GCC bare-metal links lack memcpy despite shared assembler libc availability; defer linkage validation
 tests/todo/semantic-upstream-gcc/torture-execute/20010520-1.c	tests/semantic/upstream/generic/20010520-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010604-1.c	tests/todo/generic/20010604-1.c	generic	deferred	Missing stdbool.h in test include search
-tests/todo/semantic-upstream-gcc/torture-execute/20010605-1.c	tests/todo/generic/20010605-1.c	generic	review-extension	GNU block-scope static inline function rejected by KCC
-tests/todo/semantic-upstream-gcc/torture-execute/20010605-2.c	tests/semantic/upstream/extensions/20010605-2.c	extensions	review-extension	complex/GNU extension requirements
+tests/todo/semantic-upstream-gcc/torture-execute/20010605-1.c	tests/todo/generic/20010605-1.c	generic	deferred	GNU block-scope static inline function: KCC compile rejection, GCC -O0 PDP-6 pass; defer
+tests/todo/semantic-upstream-gcc/torture-execute/20010605-2.c	tests/semantic/upstream/extensions/20010605-2.c	extensions	deferred	GNU __complex__, __real__, __imag__ argument passing: KCC compile rejection, GCC -O0 PDP-6 pass; defer GCC-only extension
 tests/todo/semantic-upstream-gcc/torture-execute/20010711-1.c	tests/semantic/upstream/generic/20010711-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010717-1.c	tests/semantic/upstream/generic/20010717-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010723-1.c	tests/semantic/upstream/generic/20010723-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010724-1.c	tests/semantic/upstream/host-os/20010724-1.c	host-os	removed	requires Unix OS or privileged PDP-10 monitor/hardware interfaces
-tests/todo/semantic-upstream-gcc/torture-execute/20010904-1.c	tests/semantic/upstream/extensions/20010904-1.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20010904-2.c	tests/semantic/upstream/extensions/20010904-2.c	extensions	review-extension	compiler extension semantics
+tests/todo/semantic-upstream-gcc/torture-execute/20010904-1.c	tests/semantic/upstream/extensions/20010904-1.c	extensions	deferred	GNU aligned(32) attribute; PDP-10 preprocessor disables sole runtime assertion; KCC compile rejection and GCC run fail; defer, do not activate vacuous test
+tests/todo/semantic-upstream-gcc/torture-execute/20010904-2.c	tests/semantic/upstream/extensions/20010904-2.c	extensions	deferred	GNU aligned(32) attribute; PDP-10 preprocessor disables sole runtime assertion; KCC compile rejection and GCC run fail; defer, do not activate vacuous test
 tests/todo/semantic-upstream-gcc/torture-execute/20010910-1.c	tests/semantic/upstream/generic/20010910-1.c	generic	active	PDP-6 KCC execution PASS with bare-metal assertions; other cells unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20010915-1.c	tests/todo/generic/20010915-1.c	generic	deferred	Link fails: unresolved strcmp from DAIMOS libc
 tests/todo/semantic-upstream-gcc/torture-execute/20010924-1.c	tests/todo/generic/20010924-1.c	generic	deferred	KCC rejects flexible array initializer
 tests/todo/semantic-upstream-gcc/torture-execute/20010925-1.c	tests/todo/generic/20010925-1.c	generic	deferred	unresolved memcpy symbol
 tests/todo/semantic-upstream-gcc/torture-execute/20011008-3.c	tests/todo/generic/20011008-3.c	generic	deferred	Large stack/data-layout runtime case with previous abort; requires nontrivial investigation
 tests/todo/semantic-upstream-gcc/torture-execute/20011019-1.c	tests/semantic/upstream/generic/20011019-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/20011024-1.c	tests/semantic/upstream/extensions/20011024-1.c	extensions	review-extension	compiler extension semantics
+tests/todo/semantic-upstream-gcc/torture-execute/20011024-1.c	tests/semantic/upstream/extensions/20011024-1.c	extensions	deferred	GNU pure-function attribute plus memcpy/strlen/strcmp: KCC compile rejection; GCC link lacks memcpy in test harness though assembler libc exists; defer
 tests/todo/semantic-upstream-gcc/torture-execute/20011109-1.c	tests/semantic/upstream/generic/20011109-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20011109-2.c	tests/semantic/upstream/generic/20011109-2.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
-tests/todo/semantic-upstream-gcc/torture-execute/20011113-1.c	tests/todo/generic/20011113-1.c	generic	review-extension	KCC rejects __SIZE_TYPE__-dependent source
+tests/todo/semantic-upstream-gcc/torture-execute/20011113-1.c	tests/todo/generic/20011113-1.c	generic	deferred	GNU restrict plus __SIZE_TYPE__, aggregate parameter passing and memcpy: KCC compile rejection; GCC bare-metal link lacks memcpy; defer
 tests/todo/semantic-upstream-gcc/torture-execute/20011114-1.c	tests/semantic/upstream/generic/20011114-1.c	generic	active	PDP-6 KCC PASS with observable assertions; other profiles unverified
 tests/todo/semantic-upstream-gcc/torture-execute/20011115-1.c	tests/semantic/upstream/generic/20011115-1.c	generic	removed	No effective assertion or observable expected result
 tests/todo/semantic-upstream-gcc/torture-execute/20011121-1.c	tests/semantic/upstream/extensions/20011121-1.c	extensions	review-extension	compiler extension semantics
