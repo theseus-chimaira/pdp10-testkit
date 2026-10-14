@@ -103,11 +103,11 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, zero extensions, zero width reviews, 280 deferred,
-  439 active, and 55 removed; **280 classified C sources remain inactive**.
-  The first eight already-deferred tests were retried without activation;
-  see `docs/SEMANTIC-DEFERRED-BATCH-20261014-v1.md`. Their blockers span
-  extensions, source encoding, undefined aliasing, ABI and libc linkage.
+  manifest: zero candidates, zero extensions, zero width reviews, 277 deferred,
+  442 active, and 55 removed; **277 classified C sources remain inactive**.
+  First deferred-batch follow-up activated three GCC-PDP-6 validated tests;
+  see `docs/SEMANTIC-DEFERRED-BATCH-20261014-v2.md` for the remaining
+  policy questions and actual implementation work still required.
   Apply the explicit feature decisions in
   `docs/KCC-EXTENSION-SUPPORT-POLICY-20261014-v1.md` when reviewing extension
   cases. Do not interpret unsupported GNU features as required KCC work.
