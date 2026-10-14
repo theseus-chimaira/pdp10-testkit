@@ -10,9 +10,9 @@ tests/todo/semantic-upstream-gcc/torture-execute/20000225-1.c	tests/semantic/ups
 tests/todo/semantic-upstream-gcc/torture-execute/20000227-1.c	tests/semantic/upstream/generic/20000227-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000313-1.c	tests/semantic/upstream/generic/20000313-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000314-1.c	tests/semantic/upstream/generic/20000314-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000314-2.c	tests/semantic/upstream/wide-int/20000314-2.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/20000314-2.c	tests/semantic/upstream/wide-int/20000314-2.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
 tests/todo/semantic-upstream-gcc/torture-execute/20000314-3.c	tests/semantic/upstream/generic/20000314-3.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/20000402-1.c	tests/semantic/upstream/wide-int/20000402-1.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/20000402-1.c	tests/semantic/upstream/wide-int/20000402-1.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
 tests/todo/semantic-upstream-gcc/torture-execute/20000403-1.c	tests/semantic/upstream/generic/20000403-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000412-1.c	tests/semantic/upstream/generic/20000412-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20000412-2.c	tests/semantic/upstream/generic/20000412-2.c	generic	candidate	general C execution test; still requires runtime validation
@@ -131,7 +131,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/20011113-1.c	tests/semantic/ups
 tests/todo/semantic-upstream-gcc/torture-execute/20011114-1.c	tests/semantic/upstream/generic/20011114-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20011115-1.c	tests/semantic/upstream/generic/20011115-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20011121-1.c	tests/semantic/upstream/extensions/20011121-1.c	extensions	review-extension	compiler extension semantics
-tests/todo/semantic-upstream-gcc/torture-execute/20011126-1.c	tests/semantic/upstream/wide-int/20011126-1.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/20011126-1.c	tests/semantic/upstream/wide-int/20011126-1.c	wide-int	active	PDP-6 runtime pass: KCC optimized/unoptimized and GCC O0
 tests/todo/semantic-upstream-gcc/torture-execute/20011126-2.c	tests/semantic/upstream/generic/20011126-2.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20011128-1.c	tests/semantic/upstream/generic/20011128-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/20011217-1.c	tests/semantic/upstream/generic/20011217-1.c	generic	candidate	general C execution test; still requires runtime validation
@@ -212,7 +212,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/920501-5.c	tests/semantic/upstr
 tests/todo/semantic-upstream-gcc/torture-execute/920501-6.c	tests/semantic/upstream/wide-int/920501-6.c	wide-int	candidate	double-word arithmetic and representation
 tests/todo/semantic-upstream-gcc/torture-execute/920501-7.c	tests/semantic/upstream/extensions/920501-7.c	extensions	review-extension	compiler extension semantics
 tests/todo/semantic-upstream-gcc/torture-execute/920501-8.c	tests/semantic/upstream/varargs/920501-8.c	varargs	candidate	varargs and ABI semantics
-tests/todo/semantic-upstream-gcc/torture-execute/920501-9.c	tests/semantic/upstream/wide-int/920501-9.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/920501-9.c	tests/semantic/upstream/wide-int/920501-9.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
 tests/todo/semantic-upstream-gcc/torture-execute/920506-1.c	tests/semantic/upstream/generic/920506-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/920520-1.c	tests/semantic/upstream/generic/920520-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/920603-1.c	tests/semantic/upstream/generic/920603-1.c	generic	candidate	general C execution test; still requires runtime validation
@@ -222,7 +222,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/920612-2.c	tests/semantic/upstr
 tests/todo/semantic-upstream-gcc/torture-execute/920618-1.c	tests/semantic/upstream/generic/920618-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/920625-1.c	tests/semantic/upstream/varargs/920625-1.c	varargs	candidate	varargs and ABI semantics
 tests/todo/semantic-upstream-gcc/torture-execute/920710-1.c	tests/semantic/upstream/generic/920710-1.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/920711-1.c	tests/semantic/upstream/generic/920711-1.c	generic	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/920711-1.c	tests/semantic/upstream/generic/920711-1.c	generic	active	PDP-6 runtime pass: KCC optimized/unoptimized and GCC O0
 tests/todo/semantic-upstream-gcc/torture-execute/920721-1.c	tests/semantic/upstream/generic/920721-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/920721-2.c	tests/semantic/upstream/generic/920721-2.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/920721-3.c	tests/semantic/upstream/generic/920721-3.c	generic	candidate	general C execution test; still requires runtime validation
@@ -554,7 +554,7 @@ tests/todo/semantic-upstream-gcc/torture-execute/ieee/rbug.c	tests/semantic/upst
 tests/todo/semantic-upstream-gcc/torture-execute/index-1.c	tests/semantic/upstream/generic/index-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/inst-check.c	tests/semantic/upstream/varargs/inst-check.c	varargs	candidate	varargs and ABI semantics
 tests/todo/semantic-upstream-gcc/torture-execute/int-compare.c	tests/semantic/upstream/generic/int-compare.c	generic	candidate	general C execution test; still requires runtime validation
-tests/todo/semantic-upstream-gcc/torture-execute/longlong.c	tests/semantic/upstream/wide-int/longlong.c	wide-int	review-width	32-bit/8-bit layout constants or word-size-dependent shifts; inspect for 36-bit correctness before registration
+tests/todo/semantic-upstream-gcc/torture-execute/longlong.c	tests/semantic/upstream/wide-int/longlong.c	wide-int	removed	fixed 64-bit/32-bit-halves assumption or vacuous width-gated test
 tests/todo/semantic-upstream-gcc/torture-execute/loop-1.c	tests/semantic/upstream/generic/loop-1.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/loop-10.c	tests/semantic/upstream/generic/loop-10.c	generic	candidate	general C execution test; still requires runtime validation
 tests/todo/semantic-upstream-gcc/torture-execute/loop-11.c	tests/semantic/upstream/generic/loop-11.c	generic	candidate	general C execution test; still requires runtime validation
