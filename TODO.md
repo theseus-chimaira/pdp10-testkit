@@ -20,7 +20,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 
-- [ ] Review the 602 remaining `candidate` sources in `tests/semantic/upstream/` for
+- [ ] Review the 594 remaining `candidate` sources in `tests/semantic/upstream/` for
   PDP-10 integer/byte widths, supported C dialect, ABI, runtime requirements,
   duplicate coverage, and genuinely asserted results. Run useful candidates
   at least once before entering them in `COMPILER_MATRIX.tsv`; delete
@@ -34,7 +34,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   The third batch of eight is in `docs/SEMANTIC-IMPORT-BATCH-20261014-v3.md`;
   six more active, one deferred, and one removed. The fourth batch is
   documented in `docs/SEMANTIC-IMPORT-BATCH-20261014-v4.md`; six more
-  active and two deferred.
+  active and two deferred. The fifth eight-test batch is documented in
+  `docs/SEMANTIC-IMPORT-BATCH-20261014-v5.md`; all eight are active.
 - [ ] Review the 29 remaining `review-width` cases individually for 36-bit
   `int`/`long`, 36/72-bit integer handling, 7-/9-bit byte conventions,
   shifts, numeric boundary assumptions, and `sizeof`. The byte-source case
@@ -63,8 +64,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   distinguishes compilation, linking, execution and actual test failure.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: 602 candidates, 74 extensions, 29 width reviews, twelve deferred,
-  twenty-eight active, and 29 removed; **717 classified C sources remain inactive**.
+  manifest: 594 candidates, 74 extensions, 29 width reviews, twelve deferred,
+  thirty-six active, and 29 removed; **709 classified C sources remain inactive**.
 
 ## P1 — registry and runner consolidation
 
