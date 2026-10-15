@@ -450,6 +450,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch100 v16: 100 doubleword LSHC/ROTC guests with independent 72-bit output validation, cumulative 2100.
 - [ ] Establish correct PDP-6 ASHC two-sign-bit doubleword shift reference semantics; exploratory generic 72-bit expectation failed. Do not mark doubleword shift gate verified yet.
 - [x] Record and regression-check real AAP guest provenance: source SHA/revision, executable, machine configuration, complete guest word image and trace (`aap-profile-provenance-v1.py`).
+- [x] Add read-only APR_CLASS_V1 exception/PI state diagnostic and fail-closed final-snapshot classifier (pdp6 266ee75), with five real guest baseline checks and ten parser cases. Does not establish fault/PI timing coverage.
 - [ ] Beyond the 1500-case milestone, achieve genuinely broad functional/timing coverage against the DAIMOS kernel inventory. Remaining gaps include signed/division arithmetic, doubleword operations, left-half logical tests, exceptional I/O/interrupt events, pointer word crossing, deterministic guest completion and dynamic kernel frequency profiles.
 - [x] Batch100 v19: verify 100 nonoverflow PDP-6 IMUL guests, with independently calculated product, output and tick intervals. Cumulative 2400 passing real guests; overflow remains open.
 - [x] Batch100 v20: 100 positive IDIV guests checking both independent quotient and remainder values, cumulative 2500 passing real guest cases.

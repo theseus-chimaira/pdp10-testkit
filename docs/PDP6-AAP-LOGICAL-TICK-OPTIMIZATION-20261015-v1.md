@@ -613,3 +613,18 @@ provenance and verifies that changing the configuration, guest image or
 trace changes its hash. The profile-provenance acceptance criterion is
 resolved for individually captured guests. This is not yet a dynamic
 linked DAIMOS-kernel instruction-frequency profile.
+
+## APR exception/PI state snapshot and fail-closed checks (2026-10-15)
+
+The emulator's `aprclass` diagnostic (pdp6 `266ee75`) reports APR
+nonexistent-memory, illegal-operation and pushdown overflow latches,
+plus PI active/request/cycle state, from the simulator command thread.
+`test-aap-execution-class-v1.py` checks the snapshot for five actual
+normal/arithmetic-exception guests; no memory or PI latches are active
+at their final HALT. `tools/aap-execution-class-v1.py` rejects missing
+or malformed diagnostics and snapshots with any exception or PI latch
+asserted, with ten parser scenarios. A clear **final** snapshot does
+not prove an interrupt or memory fault did not occur earlier and get
+serviced or cleared. The fault and I/O/interrupt gate criteria therefore
+remain incomplete until event-level timing and real exceptional guest
+paths are verified.
