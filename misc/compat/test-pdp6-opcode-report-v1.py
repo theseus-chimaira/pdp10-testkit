@@ -10,12 +10,15 @@ def main(reporter):
     with tempfile.TemporaryDirectory() as d:
         sample = pathlib.Path(d) / 'sample.out'
         sample.write_text('''__P10RUN_OPCODE_PROFILE__
-OPCOUNT[0]-OPCOUNT[127]: same as above
+OPCOUNT[0]: 00000000000000000000
+OPCOUNT[1]-OPCOUNT[127]: same as above
 OPCOUNT[128]: 00000000000000000010
-OPCOUNT[129]-OPCOUNT[170]: same as above
+OPCOUNT[129]: 00000000000000000000
+OPCOUNT[130]-OPCOUNT[170]: same as above
 OPCOUNT[171]: 00000000000000000020
 OPCOUNT[172]: 00000000000000000030
-OPCOUNT[173]-OPCOUNT[511]: same as above
+OPCOUNT[173]: 00000000000000000000
+OPCOUNT[174]-OPCOUNT[511]: same as above
 ''')
         result = subprocess.run([sys.executable, reporter, str(sample)],
                                 capture_output=True, text=True, check=True)
