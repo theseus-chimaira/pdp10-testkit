@@ -578,3 +578,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify exact AAP AOJA opcode-344 increment and unconditional-branch timing across seven boundary inputs.
 - [ ] Continue exact-form TLC, IDIVI, SETOM and remaining DAIMOS assembler instruction tests without DAIMOS boot.
+
+- [x] Verify five real standalone TLC opcode-641 immediate left-half XOR cases and timing intervals.
+- [ ] Continue IDIVI, SETOM and remaining unverified exact instruction forms without DAIMOS boot.

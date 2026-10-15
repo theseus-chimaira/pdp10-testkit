@@ -50,6 +50,7 @@ GENERATED_EVIDENCE = {
     'test-aap-hrli-v1.py': {'hrli'},
     'test-aap-sojg-v1.py': {'sojg'},
     'test-aap-aoja-v1.py': {'aoja'},
+    'test-aap-tlc-v1.py': {'tlc'},
 }
 FAMILY_ALIASES = {
     'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',

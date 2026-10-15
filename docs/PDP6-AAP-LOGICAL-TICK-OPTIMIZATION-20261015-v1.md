@@ -995,3 +995,12 @@ zero, small positive values, all ones, negative two, and the sign
 boundary. Opcode encoding was confirmed against the PDP-6 `as6.c`
 assembler table. This credits AOJA only, not neighboring AOJ variants.
 No DAIMOS boot-dependent testing ran while TSFS root is broken.
+
+## Full-assembler exact instruction-form coverage: TLC (2026-10-15)
+
+Five standalone real AAP `TLC` (octal opcode 641) guests verify XOR of
+the immediate operand into the accumulator's left 18 bits, preservation
+of the right half and source memory, HALT completion, and complete
+positive logical timing intervals. The opcode was cross-checked against
+the PDP-6 `as6.c` assembler table. Evidence credits TLC only, not the
+whole TL instruction family. No DAIMOS boot-dependent tests ran.
