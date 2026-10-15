@@ -512,3 +512,15 @@ independent full-word readback, instruction path and logical-tick
 interval validation. With ASHC left (v17) and LSHC/ROTC (v16), the
 doubleword shift criterion is now met for representative normal and
 signed-boundary executions. Cumulative verified guests: 2300.
+
+## Batch100 v19: nonoverflow integer multiplication (2026-10-15)
+
+`aap-batch100-v19` checks 100 positive IMUL guests using ten
+multiplicand-size groups and ten multipliers per group. All predicted
+products fit within 35 bits, avoiding undocumented or insufficiently
+understood overflow representation. Guest memory results, PC/opcodes,
+logical-tick ordering and complete timing intervals all passed.
+Operand-dependent tick totals were observed. Cumulative verified
+real-emulator cases: 2400. The overflow/sign boundary and integer
+division/remainder cases remain open; this batch alone does not satisfy
+the mandatory arithmetic coverage criterion.
