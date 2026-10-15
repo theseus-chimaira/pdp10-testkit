@@ -8,7 +8,7 @@ block-transfer	verified	yes	misc/compat/test-aap-batch100-v10.py	Forward overlap
 halfword	verified	yes	misc/compat/test-aap-batch100-v11.py	Transfer and memory destination variants
 byte-in-word	verified	yes	misc/compat/test-aap-batch100-v7.py	LDC DPC LDCI DPCI varying widths and positions
 byte-pointer-increment	verified	yes	misc/compat/test-aap-batch100-v8.py	IBP width/position variations
-byte-word-crossing	incomplete	yes	-	Byte pointer crossing into adjacent words not verified
+byte-word-crossing	verified	yes	misc/compat/test-aap-batch100-v14.py	100 LDCI/DPCI crossing guests with pointer and data readback
 multiply-divide-boundaries	incomplete	yes	-	IMUL overflow semantics unresolved; division and remainder boundary tests needed
 doubleword-shifts	incomplete	yes	-	ASHC LSHC ROTC signed boundaries untested
 logical-left-half	incomplete	yes	-	TLNE predicate discrepancy unresolved; TLZ TLO families missing

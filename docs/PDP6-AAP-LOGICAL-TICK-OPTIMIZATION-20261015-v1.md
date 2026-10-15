@@ -460,3 +460,13 @@ equivalent guest results and identical per-interval tick vectors for
 the traced repetitions. All passed under the HALT handshake. These
 results establish practical reproducibility for the measured cases,
 not asynchronous device/PI timing or full linked-DAIMOS behavior.
+
+## Batch100 v14: byte-pointer word crossing (2026-10-15)
+
+One hundred real emulator LDCI/DPCI guests exercise byte-pointer
+preincrement at the end of a memory word, crossing into the next
+address for field sizes 3, 6, 9, 12 and 18 bits. Both destination
+results and the updated byte-pointer word are independently checked
+after deterministic HALT acknowledgement. All 100 passed, making
+1900 verified real guest variations. General faults and overflowed
+address translation remain uncovered.
