@@ -37,7 +37,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `TRNE` | 117 | no |
 | `CAILE` | 115 | yes |
 | `JUMPL` | 105 | no |
-| `LDB` | 103 | no |
+| `LDB` | 103 | yes |
 | `CAMN` | 94 | yes |
 | `TRNN` | 87 | no |
 | `CAIL` | 68 | yes |
@@ -76,7 +76,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `SOJ` | 10 | no |
 | `CONSO` | 10 | no |
 | `HRLM` | 8 | no |
-| `DPB` | 8 | no |
+| `DPB` | 8 | yes |
 | `SKIPGE` | 7 | no |
 | `JUMPG` | 7 | no |
 | `IDPB` | 6 | no |
@@ -108,7 +108,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 
 | Class | Unmatched source occurrences | Highest contributors |
 |---|---:|---|
-| byte | 130 | ldb:103, ildb:12, dpb:8, idpb:6, ibp:1 |
+| byte | 19 | ildb:12, idpb:6, ibp:1 |
 | block | 0 | - |
 | call-stack | 1546 | pushj:1062, popj:484 |
 | doubleword | 2 | div:2 |
@@ -121,7 +121,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 
 1. Calls and returns (`PUSHJ` 1062, `POPJ` 484) have now gained 100 verified call-depth/return-value guest cases in batch100 v4. Additional stack boundaries, parameter passing and interrupt interactions remain untested.
 2. Conditional compares (`CAI`/`CAM`) occur frequently. Batch100 v3 newly supplies ten variants each for ten predicate forms, but this is not a comprehensive boundary test of all combinations.
-3. `BLT` now has 100 validated nonoverlapping 1–10-word transfer cases, including continuation milestones. Byte instructions (130 source references) and I/O/interrupt paths (223) require separate real-guest investigations.
+3. `BLT` now has 100 validated nonoverlapping 1–10-word transfer cases, including continuation milestones. LDB/DPB now have 100 byte-width/position cases; ILDB, IDPB, IBP and I/O/interrupt paths (223 static references) require separate real-guest investigations.
 4. Logical test/modify instructions (421 unmatched source occurrences) and memory destination forms warrant additional fixtures.
 5. Static counts include all kernel assembly sources, not just whichever modules are linked into a specific boot image. They cannot establish runtime hotness. Compare against a specific linked image and measured opcode histogram before weighting optimization decisions.
 

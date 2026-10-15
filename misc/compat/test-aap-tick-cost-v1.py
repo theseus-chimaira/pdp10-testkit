@@ -86,6 +86,27 @@ AAP_TIMING_V1 ET0A tick=650 pc=001001 inst=254
                 pass
             else:
                 raise AssertionError('invalid BLT continuation accepted')
+        # Byte microcycles also repeat ET0A under a single IT0.
+        trace.write_text('AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000\n'
+                         'AAP_TIMING_V1 ET0A tick=200 pc=001000 inst=135\n'
+                         'AAP_TIMING_V1 ET0A tick=300 pc=001000 inst=135\n'
+                         'AAP_TIMING_V1 IT0 tick=600 pc=001001 inst=135\n'
+                         'AAP_TIMING_V1 ET0A tick=700 pc=001001 inst=254\n')
+        byte = module.intervals(trace)
+        assert len(byte) == 1 and byte[0]['opcode_octal'] == '135'
+        assert byte[0]['byte_continuation_milestones'] == 1
+        for wrong in ('pc=001002 inst=135', 'pc=001000 inst=137'):
+            trace.write_text('AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000\n'
+                             'AAP_TIMING_V1 ET0A tick=200 pc=001000 inst=135\n'
+                             'AAP_TIMING_V1 ET0A tick=300 ' + wrong + '\n'
+                             'AAP_TIMING_V1 IT0 tick=600 pc=001001 inst=135\n'
+                             'AAP_TIMING_V1 ET0A tick=700 pc=001001 inst=254\n')
+            try:
+                module.intervals(trace)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError('invalid byte continuation accepted')
         trace.write_text('AAP_TIMING_V1 IT0 tick=2 pc=001000 inst=000\n')
         try:
             module.intervals(trace)

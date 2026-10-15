@@ -49,6 +49,10 @@ def verified_family_names():
         result.update(('pushj', 'popj'))
     if any(x.startswith('len') for x in result):
         result.add('blt')
+    if any(x.startswith('ldc') for x in result):
+        result.update(('ldc', 'ldb'))
+    if any(x.startswith('dpc') for x in result):
+        result.update(('dpc', 'dpb'))
     return result
 
 

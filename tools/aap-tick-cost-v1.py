@@ -55,14 +55,14 @@ def intervals(path):
                     break
             if not nested or nested[-1] == '256':
                 raise ValueError('XCT target milestone missing or unfinished')
-        elif opcode == '251':
-            # PDP-6 BLT repeats ET0A for each additional transferred
-            # word, with the same PC and opcode but no intervening IT0.
-            # All repetitions belong to one outer BLT interval.
+        elif opcode in ('251', '133', '134', '135', '136', '137'):
+            # BLT and PDP-6 byte instructions can repeat ET0A while
+            # continuing an instruction, without an intervening IT0.
+            # Require identical PC/opcode and keep one outer interval.
             while idx < len(events) and events[idx][0] == 'ET0A':
                 child = events[idx]
-                if child[2] != event[2] or child[3] != '251':
-                    raise ValueError('invalid BLT continuation milestone')
+                if child[2] != event[2] or child[3] != opcode:
+                    raise ValueError('invalid continuation milestone')
                 repeats += 1
                 idx += 1
         elif idx < len(events) and events[idx][0] == 'ET0A':
@@ -76,7 +76,9 @@ def intervals(path):
         raise ValueError('nonprogressing instruction starts')
     return [{'pc': a[1], 'opcode_octal': a[2],
              'nested_opcodes_octal': a[3],
-             'blt_continuation_milestones': a[4],
+             'blt_continuation_milestones': a[4] if a[2] == '251' else 0,
+             'byte_continuation_milestones': a[4] if a[2] in
+                 ('133', '134', '135', '136', '137') else 0,
              'ticks': b[0] - a[0]} for a, b in zip(starts, starts[1:])]
 
 

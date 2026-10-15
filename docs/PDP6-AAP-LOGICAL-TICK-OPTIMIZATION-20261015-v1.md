@@ -349,3 +349,15 @@ these to one outer BLT interval and records the number of continuation
 milestones. Invalid continuation PC/opcode combinations are rejected.
 100 real guest cases passed, bringing cumulative coverage to 1000.
 Overlapping BLT, faulted transfers and concurrent I/O remain untested.
+
+## 100-case batch 6: PDP-6 byte operations (2026-10-15)
+
+`aap-batch100-v6` validates 50 LDC (byte load) and 50 DPC (byte deposit)
+real guest cases, using 3, 6, 9, 12 and 18-bit pointers, ten offset/data
+variations each. All expected 36-bit results, opcode/PC traces and
+complete tick intervals passed. The AAP model repeats ET0A during byte
+execution without another IT0: strict same-PC/same-opcode continuation
+accounting is now recorded separately from BLT repetitions. Byte
+continuation malformed-event regressions are included in extractor tests.
+These correspond to the assembler's LDB and DPB forms in DAIMOS, but
+preincrement ILDB/IDPB and IBP remain untested. Total: 1100 guests.
