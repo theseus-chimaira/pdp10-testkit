@@ -99,5 +99,7 @@ verify-wide-int-adapters	verify	python3	tools/verify-wide-int-adapters.py	defaul
 upstream-crt-v1	validation	sh	misc/validation/test-upstream-crt-v1.sh	pdp6	yes	120
 utf9-pdp6-runtime-v1	compat	sh	misc/compat/test-utf9-pdp6-runtime-v1.sh	pdp6	yes	120
 apr-pulse-clock-v1	compat	sh	misc/compat/test-apr-pulse-clock-v1.sh	host	yes	120
+apr-device-layout-v1	compat	sh	misc/compat/test-aap-apr-device-layout-v1.sh	host	yes	120
+aap-guest-timing-v1	compat	sh	misc/compat/test-aap-guest-timing-v1.sh	host	yes	120
 p10byte-widths-v2	compat	sh	misc/compat/test-p10byte-widths-v2.sh	default	yes	120
 p10byte-blt-v3	compat	sh	misc/compat/test-p10byte-blt-v3.sh	default	yes	120

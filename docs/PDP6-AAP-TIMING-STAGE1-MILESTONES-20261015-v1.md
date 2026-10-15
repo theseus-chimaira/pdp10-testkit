@@ -23,3 +23,33 @@ this stage. Existing provisional memory acknowledgment delays are
 unchanged. The next task is to correlate these events with F-67
 maintenance-manual flowcharts and construct an executing guest scenario
 that validates transition ordering. No CPU-time weights are published.
+
+## Guest-execution validation and APR layout fix (2026-10-15)
+
+Initial headless testing with a 256K-word `moby` module caused a
+use-after-free diagnostic in `showmem` and shutdown. AddressSanitizer
+helped establish that the actual fault was structural: adding
+`Apr.pulse_time_v1` *before* `Apr.dev` had moved the embedded `Device`
+eight bytes from the start of the APR allocation. Existing registry and
+callback paths cast `Device *` directly to `Apr *`, relying on an
+offset-zero `dev` member. This corrupted memory-bus pointers and could
+affect arbitrary instruction execution. The fix restores `Device dev`
+as the first member and keeps the logical clock immediately afterward.
+
+The testkit now checks this invariant using C99 `offsetof(Apr, dev) == 0`
+and executes a real guest using the headless AAP emulator and a 256K-word
+memory module. The guest deposits `254200000000` at PDP-6 address `001000`
+(`JRST 4`, a halt), powers on, and starts at `001000`. Two diagnostic
+events were observed in the initial run:
+
+```
+AAP_TIMING_V1 IT0 tick=601 pc=001000 inst=000
+AAP_TIMING_V1 ET0A tick=1302 pc=001000 inst=254
+```
+
+The test validates the presence, syntax and monotonicity of these
+milestones, not the exact tick values. The values are uncalibrated and
+cannot yet be treated as a PDP-6 instruction duration. No full
+instruction-end marker has been established, and the DEC physical timing
+unit remains to be verified. The emulator was exercised with
+AddressSanitizer after the fix.
