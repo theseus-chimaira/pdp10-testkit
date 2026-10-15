@@ -600,3 +600,16 @@ Both 100-case normal and signed IDIV timing batches v20/v21 passed
 again unchanged. Together with the IMUL nonoverflow and positive/negative
 overflow tests, this resolves the representative arithmetic boundary
 criterion. It does not establish all memory-fault or PI timing paths.
+
+## Real-guest timing provenance binding (2026-10-15)
+
+`tools/aap-profile-provenance-v1.py` records source git commit, source
+tree manifest hash, compiled AAP executable hash, exact memory/device
+configuration hash, canonical deposited guest word-image hash and exact
+trace hash. Dirty emulator source trees are rejected.
+`test-aap-profile-provenance-v1.py` executes a real AAP guest with
+verified result and HALTED acknowledgement, then checks the generated
+provenance and verifies that changing the configuration, guest image or
+trace changes its hash. The profile-provenance acceptance criterion is
+resolved for individually captured guests. This is not yet a dynamic
+linked DAIMOS-kernel instruction-frequency profile.

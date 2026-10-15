@@ -11,9 +11,9 @@ spec.loader.exec_module(module)
 matched = module.verified_family_names()
 for opcode in ('move', 'movei', 'movem', 'jrst', 'pushj', 'popj',
                'blt', 'ldb', 'dpb', 'ildb', 'idpb', 'ibp',
-               'caie', 'cain', 'came', 'camn', 'trne', 'trnn'):
+               'caie', 'cain', 'came', 'camn', 'trne', 'trnn', 'tlne'):
     assert opcode in matched, ('unmapped registered guest evidence', opcode)
-for opcode in ('cono', 'coni', 'div', 'tlne'):
+for opcode in ('cono', 'coni', 'div'):
     assert opcode not in matched, ('unverified guest evidence claimed', opcode)
 counts, _ = module.source_counts()
 assert counts['pushj'] > 0 and counts['blt'] > 0
