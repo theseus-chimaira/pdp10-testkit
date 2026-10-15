@@ -1,6 +1,6 @@
 # PDP-10 testkit — outstanding work
 
-Status: 2026-10-14. This is the central checklist for **open** testkit work.
+Status: 2026-10-15. This is the central checklist for **open** testkit work.
 The repository tests bare-metal CPU/toolchain behavior; DAIMOS/OS, peripheral,
 and filesystem regressions belong in their respective testkits. Completed
 imports are not repeated as tasks. Update this file as items are resolved.
@@ -285,7 +285,66 @@ The next eight batches are documented in
   unsupported profile versus real failure, link failure versus test failure)
   and ensure test outcome summaries are reproducible.
 
+## P1 — PDP-6 AAP logical-tick optimization coverage (next chat)
+
+**Decision:** optimize against `pdp6-aap` logical pulse-delay ticks, not
+unverified historical microseconds. Physical-time calibration is optional
+research, **not** a prerequisite. Keep SIMH exact opcode dispatch counts
+independently; never apply invented hardware timing weights.
+
+**Completed and pushed through `5396c8f`:** the AAP logical clock and
+optional `IT0`/`ET0A` traces; APR device-layout regression fix; live guest
+tests for `MOVEI`, `ADDI`, halting `JRST`, direct/indirect `JRST` and
+`XCT` executing `MOVEI`; strict instruction-start-to-next-start interval
+extraction; nested `XCT` opcode attribution; JSON profiles and matched
+workload/model tick-cost comparison. Relevant details:
+`docs/PDP6-AAP-LOGICAL-TICK-OPTIMIZATION-20261015-v1.md` and
+`docs/PDP6-AAP-TIMING-STAGE1-MILESTONES-20261015-v1.md`.
+
+- [ ] Validate conditional branches (taken and not taken), including `AOBJN`,
+  `AOBJP`, `JUMP`/`SKIP`, and loop termination. Assert PCs, opcodes,
+  guest result, and monotonic complete tick intervals.
+- [ ] Validate indexed and multilevel indirect addressing, including
+  accumulator versus fast/core-memory references and variable memory
+  configuration; compare code paths without assuming fixed memory timing.
+- [ ] Validate repeated loops, variable trip counts, and branch-heavy
+  control flow; ensure the final instruction and startup/stop overhead do
+  not contaminate complete-interval comparisons.
+- [ ] Expand `XCT` coverage: nested `XCT`, `XCT` of branches and memory
+  operations, unusual/failing targets and interrupts. Preserve the
+  single outer interval and nested opcode chain; reject ambiguous events.
+- [ ] Audit exceptional execution: interrupts, PI cycles, indirect/index
+  faults, I/O and overlapping or aborted instructions. Add explicit
+  exclusions and tests rather than silently assigning bogus tick costs.
+- [ ] Build broader PDP-6 opcode fixtures, prioritizing frequent instructions
+  in observed SIMH profiles (e.g. `AOBJN`, `JRST`, `ADDI`, `ADDM`), then
+  arithmetic, logic, shifts, memory transfers, stack, and control flow.
+  Record operand/addressing dependence; do not claim one constant cost per
+  opcode when the model varies.
+- [ ] Verify instrumentation transparency and reproducibility: same guest
+  result with tracing on/off, repeated identical tick intervals, no
+  unbounded instrumentation RAM use, counter overflow/reset behavior.
+- [ ] Expand the versioned cost schema with provenance, emulator revision,
+  complete memory configuration, workload correctness evidence and measured
+  coverage. Only compare equivalent passing workloads and matched models;
+  reject incomplete or incompatible cost summaries.
+- [ ] Integrate AAP tick-cost profiles and matched baseline/candidate
+  comparisons with testkit matrix reporting alongside SIMH instruction
+  counts, code size and RAM measurements. Retain per-test regressions and
+  do not hide them in a single aggregate. Do not use unvalidated weights.
+- [ ] After validation, update finished technical documentation in
+  `pdp10-doc` and reconcile the Stage 1/calibration notes (which describe
+  older physical-time goals) with this revised logical-tick decision.
+
+**Resume point:** inspect `tools/aap-tick-cost-v1.py`,
+`tools/compare-aap-tick-cost-v1.py`,
+`misc/compat/test-aap-control-flow-v1.sh`, and
+`misc/compat/test-aap-guest-timing-v1.sh`; implement conditional branch
+and loop guest tests first. Maintain C99 for new C tests. Commit/push with
+Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
+
 ## P2 — documentation and repository hygiene
+
 
 - [ ] Update `README.md` and older audit documents that still describe active
   upstream semantic sources as living in `tests/todo/`. The classified but
