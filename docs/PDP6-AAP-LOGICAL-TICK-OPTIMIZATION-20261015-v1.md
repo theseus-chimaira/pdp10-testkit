@@ -127,3 +127,18 @@ These five cases produce 2, 3, 2, 2, and 3 complete intervals. No timing
 constants are inferred for opcode families or memory configurations.
 Accumulator/fast-memory variation, alternative memory configurations,
 and error/interrupt cases are still outstanding.
+
+## Accumulator versus core and capacity variation (2026-10-15)
+
+`aap-memory-paths-v1` executes the same four MOVE addressing workloads
+with `cmem161C` 16K-word or `moby` 256K-word core, both with attached
+`fmem162`. Eight cases independently verify a stored 36-bit guest result,
+strict execution milestone ordering and complete IT0 intervals. For the
+observed emulator revision/configuration, AC-reference MOVE and direct
+core MOVE each measure 1701 logical ticks; indexed MOVE takes 2251,
+and two-level indirect MOVE 2701. These values are identical between
+the two core capacities tested. This demonstrates repeatable relative
+model costs only; it does not measure physical PDP-6 timing or cover
+fast-memory attachment changes and other memory organizations. The AC
+fixture addresses accumulator 2 through the instruction effective address,
+and does not independently time a changed or detached fast-memory module.
