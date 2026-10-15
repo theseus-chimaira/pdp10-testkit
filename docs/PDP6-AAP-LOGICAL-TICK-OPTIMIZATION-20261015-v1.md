@@ -544,3 +544,14 @@ quotient*divisor+remainder identity, and both output AC words. All 100
 passed strict PC/opcode and logical-tick interval checks. Cumulative
 real guest total: 2600. Divide faults and IMUL overflow semantics remain
 outstanding and the mandatory arithmetic gate remains incomplete.
+
+## Batch100 v22: large positive IMUL product overflow (2026-10-15)
+
+One hundred AAP guests exercise positive IMUL operands whose product
+exceeds 35 bits. The expected accumulator is the lower 35 product
+payload bits with a clear sign position, rather than the lower 36 bits
+of the mathematical product. All 100 passed independent result, opcode
+sequence and interval checks; cumulative 2700 cases. This explains the
+previous positive product discrepancy; negative signed and faulted
+arithmetic remain unvalidated, so the mandatory arithmetic gate stays
+open.

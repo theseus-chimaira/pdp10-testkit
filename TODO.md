@@ -453,7 +453,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch100 v19: verify 100 nonoverflow PDP-6 IMUL guests, with independently calculated product, output and tick intervals. Cumulative 2400 passing real guests; overflow remains open.
 - [x] Batch100 v20: 100 positive IDIV guests checking both independent quotient and remainder values, cumulative 2500 passing real guest cases.
 - [x] Batch100 v21: 100 signed IDIV quotient/remainder cases covering all dividend/divisor sign combinations with independent signed validation; 2600 cumulative guests.
-- [ ] Investigate overflow and PDP-6 AAP IMUL overflow/sign-boundary behavior: the
+- [x] Batch100 v22: 100 large-positive IMUL products exceeding 35 bits, independently checking 35-bit magnitude truncation and positive sign. Total 2700 passing real guests.
+- [ ] Investigate negative IMUL overflow/sign-boundary behavior and divide faults: the
   large-operand guest outputs differed from ordinary 36-bit modulo
   multiplication and a preliminary sign-preserving model. Neither the
   expected behavior nor any emulator defect is established yet; retain
