@@ -732,3 +732,22 @@ The remaining fault location must be isolated among root selection,
 D6FS mount, and `/SYSTEM/INIT` lookup; any KINIT instrumentation must
 preserve the actual mount/lookup semantics and be tested before claiming
 successful post-boot kernel timing coverage.
+
+## Linked KINIT root failure memory snapshot (2026-10-15)
+
+A fresh isolated-media bounded boot reproduced `D6FS LOADED`, `?RT`, and
+HALT at octal PC `071470`. Examining addresses obtained from the linked
+`kinit.map` at the stop found `d6fs_active_reader` (023316) nonzero,
+`kinit_boot_handoff` (112634-112635) populated, and
+`vfs_namespace_root` (023366) zero. DAIMOS `vfs.h` defines zero as
+`VFS_NODE_NONE`. This establishes that the failure ends with no mounted
+namespace root, despite a populated root handoff and D6FS reader. It
+does not yet isolate which validation step or rollback prevented the
+mount from succeeding. No kernel change is justified by these facts
+alone.
+
+`check-pdp6-root-snapshot-v1.py` reads the actual symbol addresses from
+the linked map, requires a fatal ?RT/HALT and a complete unambiguous
+memory snapshot, and fails closed on missing addresses, absent reader,
+invalid handoff or a mounted namespace. Its regression covers these
+negative cases. KCORE/MRES runtime coverage stays incomplete.

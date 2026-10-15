@@ -520,3 +520,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Validate original versus disposable D6FS root disk byte-for-byte (four matching member hashes) and record same selected DIRTY superblock; distinguish permissible DIRTY boot state from an established root-mount failure cause.
 - [ ] Establish whether fresh-profile `?RT` arises during root selection, D6FS mount or `/SYSTEM/INIT` stat; compare truly identical media revisions with prior successful boot before implementing a kernel fix.
+
+- [x] Capture `?RT` KINIT memory state from linked-map addresses: valid root handoff, nonzero active D6FS reader, but `vfs_namespace_root=VFS_NODE_NONE`. Add fail-closed linked-root snapshot regression.
+- [ ] Trace the D6FS boot mount failure/rollback to a specific return site, then fix the underlying defect and verify `INIT V1` using isolated fresh media.
