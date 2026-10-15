@@ -549,3 +549,9 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Reproduce AAP paper-tape mount and launch of DAIMOS stage-one bootstrap (limited RUNNING/readback smoke; no boot or kernel coverage claim).
 - [ ] Bridge AAP and DAIMOS boot-media/controller requirements and trace genuine KCORE/MRES execution with verified loaded module bounds.
+
+## AAP coverage dependency: TSFS root regression (2026-10-15)
+
+- [ ] HOLD real DAIMOS boot-dependent KCORE/MRES profiling while TSFS root is broken. Do not run DAIMOS boot, root-mount, stage-one-to-kernel, or MRES-load integration tests until a separate kernel worker confirms the root regression is fixed and the exact tested build is identified.
+- [ ] Meanwhile continue only standalone AAP CPU execution/timing, event classification, and synthetic paper-tape I/O probes that do not rely on DAIMOS boot, root filesystem, or live kernel startup.
+- [ ] After TSFS is independently repaired, verify boot/media provenance before resuming linked-kernel runtime profile collection; existing image/HALT evidence is not a live KCORE/MRES profile.

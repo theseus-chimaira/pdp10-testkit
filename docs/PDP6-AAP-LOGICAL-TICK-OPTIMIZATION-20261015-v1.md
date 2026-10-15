@@ -882,3 +882,15 @@ SIMH configuration, and the short guest session was then stopped.
 `test-aap-daimos-stage1-v1.sh` reproduces the limited mount/launch smoke
 when supplied an explicit `DAIMOS_STAGE1_PT` path. Do not treat it as a
 kernel timing or successful boot test.
+
+## Runtime profiling blocked by TSFS root (2026-10-15)
+
+The user reports that the TSFS root is currently broken. All DAIMOS
+boot-dependent AAP profiling, stage-one-to-kernel tests, and live KCORE/MRES
+profiling are therefore paused. Only isolated synthetic guest tests, device
+microprobes that require no filesystem or kernel boot, and static/provenance
+tooling may proceed. Neither the staged tape mount/launch smoke nor the
+linked-image single-HALT experiment establishes successful DAIMOS boot.
+Resume boot-dependent measurements only after the parallel kernel worker
+confirms the TSFS regression fixed and supplies the exact build identity.
+The linked-kernel mandatory coverage criterion remains INCOMPLETE.
