@@ -524,3 +524,13 @@ Operand-dependent tick totals were observed. Cumulative verified
 real-emulator cases: 2400. The overflow/sign boundary and integer
 division/remainder cases remain open; this batch alone does not satisfy
 the mandatory arithmetic coverage criterion.
+
+## Batch100 v20: normal integer divide and remainder (2026-10-15)
+
+`aap-batch100-v20` validates 100 positive, nonzero-divisor IDIV guests.
+Ten divisor families and ten quotient/remainder combinations each are
+calculated independently; both resulting accumulator words are read
+back, with strict PC/opcode and full logical-tick interval verification.
+All 100 passed. Different operands produce different modeled tick totals.
+Cumulative 2500 real guest cases. Signed, overflow and division error
+boundaries still prevent closing the arithmetic coverage criterion.

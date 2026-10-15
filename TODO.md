@@ -451,7 +451,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [ ] Establish correct PDP-6 ASHC two-sign-bit doubleword shift reference semantics; exploratory generic 72-bit expectation failed. Do not mark doubleword shift gate verified yet.
 - [ ] Beyond the 1500-case milestone, achieve genuinely broad functional/timing coverage against the DAIMOS kernel inventory. Remaining gaps include signed/division arithmetic, doubleword operations, left-half logical tests, exceptional I/O/interrupt events, pointer word crossing, deterministic guest completion and dynamic kernel frequency profiles.
 - [x] Batch100 v19: verify 100 nonoverflow PDP-6 IMUL guests, with independently calculated product, output and tick intervals. Cumulative 2400 passing real guests; overflow remains open.
-- [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the
+- [x] Batch100 v20: 100 positive IDIV guests checking both independent quotient and remainder values, cumulative 2500 passing real guest cases.
+- [ ] Investigate signed division, overflow and PDP-6 AAP IMUL overflow/sign-boundary behavior: the
   large-operand guest outputs differed from ordinary 36-bit modulo
   multiplication and a preliminary sign-preserving model. Neither the
   expected behavior nor any emulator defect is established yet; retain
