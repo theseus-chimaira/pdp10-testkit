@@ -768,3 +768,20 @@ The linked-map-aware `check-pdp6-root-snapshot-v1.py` now additionally
 rejects nonempty VFS mount table slots and its regression includes that
 negative case. The precise upstream D6FS validation or rollback site
 remains unresolved. No kernel behavior has been altered.
+
+## Event-level exception/PI tracing staged (2026-10-15)
+
+The PDP-6 AAP emulator now supports the opt-in environment variable
+`PDP6_AAP_CLASS_TRACE_V1=1`. On non-existent-memory, illegal-operation,
+pushdown-overflow, and PI-cycle state setting, APR emits
+`AAP_CLASS_EVENT_V1 type=... tick=... pc=...` to standard error. The
+captured tick is a logical relative-pulse scheduler timestamp, not wall
+clock time. No trace is emitted by default, preserving normal guest logs.
+`tools/aap-class-events-v1.py` rejects reported exceptional or PI events
+and malformed records. Its regression runs an actual normal guest with
+event tracing enabled and rejects representative synthetic event records.
+The **fault-exclusions** and **interrupt-io-exclusions** gates deliberately
+remain INCOMPLETE: real guest-triggered events and their exact coverage
+boundaries have not yet been validated, and device I/O cycles beyond PI
+entry still require classification. This complements rather than replaces
+`aprclass`, which only examines final processor latches.
