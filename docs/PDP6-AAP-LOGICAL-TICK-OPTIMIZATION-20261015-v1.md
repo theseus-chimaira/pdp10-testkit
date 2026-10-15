@@ -1062,3 +1062,12 @@ source memory, and completing a positive logical timing interval for
 opcode 661. This provides evidence for TLO only, not other TL forms.
 The test does not require DAIMOS boot. Parallel kernel/testkit changes
 were not modified.
+
+## Full-assembler exact instruction-form coverage: CAMGE (2026-10-16)
+
+`test-aap-camge-v1.py` verifies signed greater-than-or-equal compare
+and skip for PDP-6 opcode 315 across positive, zero, negative, equal and
+36-bit signed extrema. It independently checks accumulator and memory
+preservation, skip-vs-executed marker, actual PC trajectory, and complete
+positive AAP logical timing intervals. Encoding was checked against
+`pdp6/tools/as6.c`. This credits CAMGE only, not all CAM forms.

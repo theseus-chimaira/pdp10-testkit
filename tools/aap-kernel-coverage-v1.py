@@ -55,6 +55,7 @@ GENERATED_EVIDENCE = {
     'test-aap-setom-v1.py': {'setom'},
     'test-aap-tlz-v1.py': {'tlz'},
     'test-aap-tlo-v1.py': {'tlo'},
+    'test-aap-camge-v1.py': {'camge'},
 }
 FAMILY_ALIASES = {
     'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',

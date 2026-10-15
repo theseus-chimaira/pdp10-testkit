@@ -595,3 +595,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify standalone TLO opcode-661 exact-form semantics and timing with five boundary masks.
 - [ ] Continue CAMGE/CAMG exact-form timing and branch tests; separately advance resumed linked-image boot profiling.
+
+- [x] Verify exact CAMGE opcode-315 signed skip semantics across positive, negative, equality and full 36-bit sign-boundary cases, plus timing intervals.
+- [ ] Continue CAMG/HRROI/SETZB exact-form tests alongside live KCORE/MRES kernel-entry investigation.
