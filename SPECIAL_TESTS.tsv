@@ -108,3 +108,4 @@ p10byte-widths-v2	compat	sh	misc/compat/test-p10byte-widths-v2.sh	default	yes	12
 p10byte-blt-v3	compat	sh	misc/compat/test-p10byte-blt-v3.sh	default	yes	120
 aap-branches-v2	compat	sh	misc/compat/test-aap-branches-v2.sh	host	yes	120
 aap-branches-v3	compat	sh	misc/compat/test-aap-branches-v3.sh	host	yes	120
+aap-addressing-v1	compat	sh	misc/compat/test-aap-addressing-v1.sh	host	yes	120

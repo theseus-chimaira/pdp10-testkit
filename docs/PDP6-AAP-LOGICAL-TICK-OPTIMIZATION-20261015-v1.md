@@ -113,3 +113,17 @@ together, including the right half on an untaken branch. The earlier v2
 suite remains registered as historical independent coverage. The full
 JUMP/SKIP predicate space, AOBJ edge conditions, and indirect-address
 variants remain open.
+
+## Indexed and multilevel indirect guest accesses (2026-10-15)
+
+The registered `aap-addressing-v1` suite runs five guest programs using
+direct, indexed, single-level indirect, multilevel indirect, and indexed
+indirect memory addressing. The fixtures distinguish pointer words from
+data words using different contents, and store the loaded value to guest
+location 1020. The console memory readback independently validates the
+expected 36-bit result. Strict trace parsing checks instruction PCs,
+opcodes, monotonic milestones, and complete IT0-to-next-IT0 intervals.
+These five cases produce 2, 3, 2, 2, and 3 complete intervals. No timing
+constants are inferred for opcode families or memory configurations.
+Accumulator/fast-memory variation, alternative memory configurations,
+and error/interrupt cases are still outstanding.

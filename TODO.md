@@ -307,9 +307,13 @@ workload/model tick-cost comparison. Relevant details:
   opcodes and monotonic complete tick intervals. See
   `misc/compat/test-aap-branches-v2.sh`. Broader branch predicates,
   negative skip paths and independent guest-state checks remain open.
-- [ ] Validate indexed and multilevel indirect addressing, including
-  accumulator versus fast/core-memory references and variable memory
-  configuration; compare code paths without assuming fixed memory timing.
+- [x] Validate initial direct, indexed, single-level indirect, multilevel
+  indirect and indexed-indirect core-memory accesses using real AAP guest
+  tests, final memory results and complete tick intervals. See
+  `misc/compat/test-aap-addressing-v1.sh`.
+- [ ] Extend addressing fixtures to accumulator/fast-memory references and
+  variable memory configurations; compare code paths without assuming
+  fixed memory timing.
 - [x] Extend `SKIPE` and `AOBJP` fixtures to both outcomes, and validate
   AOBJN loops with one, two, and four increments. The v3 suite checks
   final 36-bit guest memory results independently of timing traces.
