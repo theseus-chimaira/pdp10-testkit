@@ -147,3 +147,12 @@ Batch100 v11 covers HLLM, HRLM, HLRM, HRRM and six corresponding zero/one-fill f
 ## AOJ/SOJ and AOS/SOS evidence
 
 Batch100 v13 adds unconditional arithmetic jump forms and memory-modifying skip forms. Both outcomes and signed zero crossing were checked.
+
+## Formal functional/timing acceptance gate
+
+`docs/PDP6-AAP-BROAD-COVERAGE-GATE-20261015-v1.tsv` enumerates 19
+mandatory dimensions. `python3 tools/check-aap-broad-coverage-v1.py`
+reports their status; `--require-broad` fails until all are supported
+by verified evidence or explicit justified exclusions. Initially only
+9/19 are resolved. The static mnemonic proxy alone cannot satisfy this
+gate.
