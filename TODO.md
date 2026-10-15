@@ -387,6 +387,10 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   taken JUMPN, SKIPE, ADDM memory modification, LSH shifts and PUSH stack
   behavior. See `misc/compat/test-aap-batch50-v3.py`. The first three
   batches total 150 passing guest cases.
+- [x] Add fourth 50-case batch: SUBI, ANDI, IORI, ASH and POP,
+  ten real guest variations each. All 50 passed; cumulative four batches
+  now cover 200 validated guest cases. See
+  `misc/compat/test-aap-batch50-v4.py`.
 - [ ] Add further independently specified 50-case batches, prioritizing
   new paths and observed DAIMOS workload frequency over redundant operand
   values. Keep per-case failures visible. Do not conflate parser-only

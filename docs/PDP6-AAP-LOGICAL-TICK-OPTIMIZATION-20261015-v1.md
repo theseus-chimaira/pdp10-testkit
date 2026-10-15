@@ -233,3 +233,14 @@ IT0 intervals. ADDM checks its memory destination; PUSH checks a value
 pushed to the stack and subsequently loaded back. The three registered
 50-case batches now cover 150 verified guest variations, not 150 distinct
 opcodes. Measurements remain AAP-model logical ticks only.
+
+## Fifty-case guest batch 4: arithmetic, logic, shift, stack (2026-10-15)
+
+`aap-batch50-v4` validates ten independently calculated operand variants
+for each of SUBI, ANDI, IORI, ASH and POP. All 50 real AAP guest programs
+passed 36-bit guest result verification, executed-PC and opcode checks,
+strictly monotonic timing events and complete positive IT0 intervals.
+The POP fixtures check the destination written from the stack. Four
+registered 50-case batches now comprise 200 verified guest variations.
+No assertion about physical PDP-6 microsecond timings follows from these
+modeled AAP logical-tick intervals.
