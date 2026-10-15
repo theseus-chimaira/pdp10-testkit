@@ -301,12 +301,18 @@ workload/model tick-cost comparison. Relevant details:
 `docs/PDP6-AAP-LOGICAL-TICK-OPTIMIZATION-20261015-v1.md` and
 `docs/PDP6-AAP-TIMING-STAGE1-MILESTONES-20261015-v1.md`.
 
-- [ ] Validate conditional branches (taken and not taken), including `AOBJN`,
-  `AOBJP`, `JUMP`/`SKIP`, and loop termination. Assert PCs, opcodes,
-  guest result, and monotonic complete tick intervals.
+- [x] Validate initial conditional branches and loop termination: real AAP guest
+  cases cover taken `JUMPE`, untaken `JUMPN`, taken `SKIPE`, repeated
+  `AOBJN` with termination, and taken `AOBJP`. Assert executed PCs,
+  opcodes and monotonic complete tick intervals. See
+  `misc/compat/test-aap-branches-v2.sh`. Broader branch predicates,
+  negative skip paths and independent guest-state checks remain open.
 - [ ] Validate indexed and multilevel indirect addressing, including
   accumulator versus fast/core-memory references and variable memory
   configuration; compare code paths without assuming fixed memory timing.
+- [ ] Extend branch fixtures to both outcomes of `SKIP`, `AOBJN`, and
+  `AOBJP`, include remaining JUMP/SKIP predicates, and validate guest
+  memory/AC state independently of instruction-PC traces.
 - [ ] Validate repeated loops, variable trip counts, and branch-heavy
   control flow; ensure the final instruction and startup/stop overhead do
   not contaminate complete-interval comparisons.
@@ -339,8 +345,8 @@ workload/model tick-cost comparison. Relevant details:
 **Resume point:** inspect `tools/aap-tick-cost-v1.py`,
 `tools/compare-aap-tick-cost-v1.py`,
 `misc/compat/test-aap-control-flow-v1.sh`, and
-`misc/compat/test-aap-guest-timing-v1.sh`; implement conditional branch
-and loop guest tests first. Maintain C99 for new C tests. Commit/push with
+`misc/compat/test-aap-guest-timing-v1.sh`; extend conditional branch fixtures and
+loop guest tests, including independent guest-state checks. Maintain C99 for new C tests. Commit/push with
 Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## P2 — documentation and repository hygiene

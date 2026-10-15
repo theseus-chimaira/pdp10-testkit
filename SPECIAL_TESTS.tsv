@@ -106,3 +106,4 @@ aap-tick-comparison-v1	compat	python3	misc/compat/test-aap-tick-comparison-v1.py
 aap-control-flow-v1	compat	sh	misc/compat/test-aap-control-flow-v1.sh	host	yes	120
 p10byte-widths-v2	compat	sh	misc/compat/test-p10byte-widths-v2.sh	default	yes	120
 p10byte-blt-v3	compat	sh	misc/compat/test-p10byte-blt-v3.sh	default	yes	120
+aap-branches-v2	compat	sh	misc/compat/test-aap-branches-v2.sh	host	yes	120
