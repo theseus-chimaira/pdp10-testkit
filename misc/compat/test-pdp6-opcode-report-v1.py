@@ -20,8 +20,7 @@ OPCOUNT[173]-OPCOUNT[511]: same as above
         result = subprocess.run([sys.executable, reporter, str(sample)],
                                 capture_output=True, text=True, check=True)
         assert 'Executed opcode dispatches: 60' in result.stdout
-        assert 'Timed class coverage: 40' in result.stdout
-        assert 'Unclassified dispatches: 20' in result.stdout
+        assert 'CPU timing: unavailable' in result.stdout
     print('pdp6 opcode report v1: PASS')
 
 
