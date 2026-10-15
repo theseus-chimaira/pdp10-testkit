@@ -285,3 +285,19 @@ ASH arithmetic left of negative values. All pass 36-bit output,
 PC/opcode and complete logical-tick interval validation. Several
 shift/rotate tests show costs increasing with shift count. Cumulative
 450 real guests in nine batches.
+
+## Fifty-case guest batch 10 and 500-case milestone (2026-10-15)
+
+`aap-batch50-v10` validates ten guest variations each of XCT MOVEI,
+nested XCT MOVEI, XCT core-memory MOVE, XCT of a taken JRST, and AOBJN
+loops with 11 through 20 iterations. All 50 passed independent memory
+results, expected instruction PCs, nested opcode chains, and complete
+positive IT0 intervals. Long AOBJN trips produce different cumulative
+modeled logical-tick totals.
+
+Across ten registered real-guest timing batches (v1-v10), all 500
+variations pass with the configured PDP-6 AAP emulator. These cases do
+not cover every PDP-6 opcode, exceptional interrupts, or all memory maps,
+and they are not historical physical timing measurements. The next phase
+should audit real workloads, validate instrumentation transparency and
+reproducibility, and integrate equivalent baseline/candidate comparisons.

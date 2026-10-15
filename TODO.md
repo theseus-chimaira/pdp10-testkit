@@ -406,10 +406,15 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Ninth 50-case batch: LSH right, ASH signed right, ROT left,
   ROT right and ASH signed left. 450 guest cases cumulative; all
   50 passed (`misc/compat/test-aap-batch50-v9.py`).
-- [ ] Add further independently specified 50-case batches, prioritizing
-  new paths and observed DAIMOS workload frequency over redundant operand
-  values. Keep per-case failures visible. Do not conflate parser-only
-  malformed traces with real guest execution tests.
+- [x] Tenth 50-case batch: XCT MOVEI, nested XCT, XCT memory MOVE,
+  XCT taken JRST, and AOBJN loop counts 11-20; all 50 passed.
+  Ten 50-case batches now total 500 validated AAP guest variations.
+  See `misc/compat/test-aap-batch50-v10.py`.
+- [x] Reach the requested 500 independently checked real-guest cases in
+  ten reproducible batches. Further expansion should follow a coverage audit
+  of actual DAIMOS workloads, not redundant variations.
+- [ ] Audit the tested opcode/path inventory against actual DAIMOS workload
+  histograms; identify high-frequency gaps and prioritize targeted fixtures.
 - [ ] Extend to 100-case batches only when generation and aggregation
   preserve full correctness, reproducibility and failure attribution.
 - [ ] Prepare a baseline/candidate harness for hundreds of existing
