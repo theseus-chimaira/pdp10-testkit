@@ -268,3 +268,11 @@ PC-path, 36-bit result and timing interval checks. Cumulative 300 cases.
 SKIPN on nonzero, SKIPL on negative, SKIPGE on zero and an untaken
 SKIPG on zero. All 50 passed expected PC paths, register-derived
 output values, and complete logical-tick intervals. Total: 350 cases.
+
+## Fifty-case guest batch 8 (2026-10-15)
+
+`aap-batch50-v8` validates ten memory-write cases for each of ADDM,
+SUBM, ANDM, IORM, and XORM, using separate source and destination values.
+The expected 36-bit destination value is calculated independently and
+read back directly through the emulator console. All 50 passed the result,
+PC/opcode and trace-interval checks; total 400 cases in eight batches.

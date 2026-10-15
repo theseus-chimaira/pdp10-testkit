@@ -400,6 +400,9 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Seventh 50-case batch: SKIPE, SKIPN, SKIPL, SKIPGE and SKIPG
   predicates, 350 real cases cumulative. All 50 passed; see
   `misc/compat/test-aap-batch50-v7.py`.
+- [x] Eighth 50-case batch: ADDM, SUBM, ANDM, IORM and XORM
+  writeback to memory, 400 real cases cumulative. All passed; see
+  `misc/compat/test-aap-batch50-v8.py`.
 - [ ] Add further independently specified 50-case batches, prioritizing
   new paths and observed DAIMOS workload frequency over redundant operand
   values. Keep per-case failures visible. Do not conflate parser-only
