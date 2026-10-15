@@ -156,3 +156,12 @@ reports their status; `--require-broad` fails until all are supported
 by verified evidence or explicit justified exclusions. Initially only
 9/19 are resolved. The static mnemonic proxy alone cannot satisfy this
 gate.
+
+## Reproducible batch runner update
+
+All 1800 counted real guest cases now use a simulator-thread HALT
+acknowledgement instead of a fixed host wait, with identical observed
+complete logical-tick vectors before and after migration. A 20-workload
+trace-on/off sample additionally verified guest result equivalence and
+tick reproducibility. The broad-coverage gate still requires provenance,
+linked image hot-path measurements and explicit exceptional-path work.

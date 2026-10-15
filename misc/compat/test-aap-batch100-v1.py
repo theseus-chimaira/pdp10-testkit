@@ -61,24 +61,11 @@ def guest(family, number):
 
 def run_case(emulator, work, family, number, cost):
     words, pcs, opcodes, expected, nested, output_address = guest(family, number)
-    lines = ['power on'] + ['deposit %o %012o' % (a, w) for a, w in sorted(words.items())]
-    lines.append('start 1000')
-    proc = subprocess.Popen([str(emulator)], cwd=work, stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            text=True, env=dict(os.environ, PDP6_AAP_TIMING_TRACE_V1='1'))
-    try:
-        proc.stdin.write('\n'.join(lines) + '\n')
-        proc.stdin.flush()
-        time.sleep(0.3)
-        proc.stdin.write('examine %o\nquit\n' % output_address)
-        proc.stdin.flush()
-        out, trace = proc.communicate(timeout=8)
-    except BaseException:
-        proc.kill()
-        proc.communicate()
-        raise
-    if proc.returncode:
-        raise AssertionError('%s-%02d: emulator exit %s' % (family, number, proc.returncode))
+    import sys
+    sys.path.insert(0, str(ROOT / 'tools'))
+    from aap_guest_console_v1 import run_guest as completed_guest
+    out, trace, states = completed_guest(emulator, work, words, [output_address], timeout=8)
+    assert states[-1] == 'HALTED', (family, number, states)
     values = re.findall(r'%06o: ([0-7]{12})$' % output_address, out, re.MULTILINE)
     assert values == ['%012o' % expected], (family, number, 'result', values, expected)
     matches = [EVENT.fullmatch(line) for line in trace.splitlines()]

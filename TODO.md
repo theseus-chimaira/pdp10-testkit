@@ -452,8 +452,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   expected behavior nor any emulator defect is established yet; retain
   this as a high-priority arithmetic investigation before counting its
   boundary variants as verified timing tests.
-- [ ] Replace guest `sleep` completion heuristics with a verified stopping
-  handshake before relying on bulk baseline/candidate timing comparisons.
+- [x] Replace fixed sleep completion in all 23 registered Python AAP timing batches with a simulator-thread `cpustatus`/HALTED handshake (PDP-6 emulator `ac0e7a0`). Revalidate all 1800 cases and compare old/new interval vectors; all identical.
+- [ ] Migrate older shell guest fixtures to the deterministic completion handshake where practical.
 - [x] Add 20-case, 60-execution AAP trace-on/off guest-result and identical repeat-tick instrumentation regression (`test-aap-instrumentation-v1.py`).
 - [ ] Add provenance and broader trace transparency checks before extending measurements to real DAIMOS workloads.
 

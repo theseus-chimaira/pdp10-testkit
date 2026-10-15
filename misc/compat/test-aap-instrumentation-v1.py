@@ -10,9 +10,11 @@ from pathlib import Path
 import re
 import subprocess
 import tempfile
-import time
 
 ROOT = Path(__file__).resolve().parents[2]
+import sys
+sys.path.insert(0, str(ROOT / "tools"))
+from aap_guest_console_v1 import run_guest as completed_guest
 AAP = Path(os.environ.get('PDP6_AAP_ROOT', str(ROOT.parent / 'pdp6')))
 
 
@@ -24,28 +26,13 @@ def load(name, path):
 
 
 def run(emulator, work, words, result_address, trace_enabled):
-    commands = ['power on'] + ['deposit %o %012o' % item for item in sorted(words.items())]
-    commands.append('start 1000')
-    env = dict(os.environ)
-    env['PDP6_AAP_TIMING_TRACE_V1'] = '1' if trace_enabled else '0'
-    proc = subprocess.Popen([str(emulator)], cwd=work, stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                            text=True, env=env)
-    try:
-        proc.stdin.write('\n'.join(commands) + '\n')
-        proc.stdin.flush()
-        time.sleep(0.3)
-        proc.stdin.write('examine %o\nquit\n' % result_address)
-        proc.stdin.flush()
-        output, trace = proc.communicate(timeout=8)
-    except BaseException:
-        proc.kill()
-        proc.communicate()
-        raise
-    assert proc.returncode == 0
+    stdout, trace, states = completed_guest(emulator, work, words,
+                                            [result_address], trace_enabled,
+                                            timeout=8)
+    assert states[-1] == 'HALTED'
     values = re.findall(r'%06o: ([0-7]{12})$' % result_address,
-                        output, re.MULTILINE)
-    assert len(values) == 1, (result_address, output)
+                        stdout, re.MULTILINE)
+    assert len(values) == 1, (result_address, stdout)
     return values[0], trace
 
 

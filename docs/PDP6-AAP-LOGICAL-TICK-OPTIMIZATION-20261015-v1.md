@@ -443,3 +443,20 @@ traced executions had identical instruction-by-instruction positive
 logical-tick intervals. This validates sampled trace semantic
 transparency/repeatability but not bounded trace-memory usage, interrupt
 semantics, deterministic guest completion or full emulator provenance.
+
+## Deterministic guest-stop and transparency verification (2026-10-15)
+
+The PDP-6 AAP console command `cpustatus` (emulator revision
+`ac0e7a0`) responds from the simulator thread with `APR_STATUS_V1`
+`START_PENDING`, `RUNNING` or `HALTED`. The reusable
+`tools/aap_guest_console_v1.py` helper waits for HALTED before reading
+guest memory, replacing host sleeps in all 23 registered Python timing
+batches. Re-running all 1800 guest cases passed and produced identical
+per-instruction complete-tick vectors to the earlier fixed-wait runs.
+
+`test-aap-instrumentation-v1.py` independently executed 20 guest
+workloads (60 runs: traced twice and untraced once per case), checking
+equivalent guest results and identical per-interval tick vectors for
+the traced repetitions. All passed under the HALT handshake. These
+results establish practical reproducibility for the measured cases,
+not asynchronous device/PI timing or full linked-DAIMOS behavior.
