@@ -371,6 +371,25 @@ workload/model tick-cost comparison. Relevant details:
 `misc/compat/test-aap-guest-timing-v1.sh`; extend branch predicates and indexed/indirect guest addressing tests. Maintain C99 for new C tests. Commit/push with
 Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
+## P1 — automated AAP timing batches (50 cases per batch)
+
+- [x] Establish a deterministic 50-case real-emulator batch runner, building
+  AAP once per batch and checking independently calculated 36-bit guest
+  results, executed PCs/opcodes, strict tick intervals and termination.
+  `misc/compat/test-aap-batch50-v1.py` covers ten input values in each
+  of five families: direct, indexed, indirect, multilevel indirect, and
+  arithmetic. All 50 passed on PDP-6 AAP; only this model/configuration
+  is covered. Each variation is one case, not a distinct opcode family.
+- [ ] Add successive independently specified 50-case batches, prioritizing
+  new paths and observed DAIMOS workload frequency over redundant operand
+  values. Keep per-case failures visible. Do not conflate parser-only
+  malformed traces with real guest execution tests.
+- [ ] Extend to 100-case batches only when generation and aggregation
+  preserve full correctness, reproducibility and failure attribution.
+- [ ] Prepare a baseline/candidate harness for hundreds of existing
+  testkit workloads after timing instrumentation is sufficiently validated;
+  do not compare incomplete or non-equivalent executions.
+
 ## P2 — documentation and repository hygiene
 
 

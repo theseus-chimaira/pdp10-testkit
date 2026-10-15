@@ -193,3 +193,19 @@ All ten must fail with `ValueError`; passing means rejection, not timing
 measurement. The extractor now requires strictly increasing ticks between
 consecutive milestones. These tests do not establish behavior for real
 interrupts, PI cycles, memory faults, I/O or aborted guest execution.
+
+## Reproducible fifty-case guest batches (2026-10-15)
+
+`aap-batch50-v1` builds AAP once and executes 50 isolated PDP-6 guest
+programs: ten operand values each for direct, indexed, single-level
+indirect, multilevel indirect, and MOVEI/ADDI arithmetic. The expected
+36-bit guest result is computed from the fixture operation, independently
+of the simulator output. Every case validates its memory readback,
+IT0/ET0A sequence, executed PCs/opcodes, and complete positive tick
+intervals. All 50 passed with the attached `fmem162` and `moby` core.
+The five workload-specific total complete-interval costs were 3402, 5353,
+3902, 4402, and 5053 AAP logical ticks respectively, constant across
+these small input-value ranges. They are not universal opcode timings;
+each total includes other guest instructions and excludes the final halt.
+The next batches should prioritize distinct execution paths rather than
+simply increasing the number of values per instruction.
