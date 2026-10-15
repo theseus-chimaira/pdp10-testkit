@@ -15,7 +15,8 @@ import time
 STATUS = re.compile(rb'APR_STATUS_V1 (START_PENDING|RUNNING|HALTED)\r?\n')
 
 
-def run_guest(emulator, work, words, readbacks, trace_enabled=True, timeout=8):
+def run_guest(emulator, work, words, readbacks, trace_enabled=True, timeout=8,
+              extra_commands=""):
     commands = ['power on']
     commands.extend('deposit %o %012o' % (a, w) for a, w in sorted(words.items()))
     commands.append('start 1000')
@@ -64,7 +65,7 @@ def run_guest(emulator, work, words, readbacks, trace_enabled=True, timeout=8):
             remaining = deadline - time.monotonic()
             if remaining <= 0:
                 raise TimeoutError('AAP HALT reached after total deadline')
-            stdout_tail, _ = proc.communicate((requests + 'quit\n').encode('ascii'),
+            stdout_tail, _ = proc.communicate((requests + extra_commands + 'quit\n').encode('ascii'),
                                                timeout=remaining)
             transcript += stdout_tail
             if proc.returncode != 0:

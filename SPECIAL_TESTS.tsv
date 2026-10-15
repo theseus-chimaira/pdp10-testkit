@@ -152,3 +152,4 @@ aap-batch100-v21	compat	python3	misc/compat/test-aap-batch100-v21.py	host	yes	12
 aap-batch100-v22	compat	python3	misc/compat/test-aap-batch100-v22.py	host	yes	120
 aap-batch100-v23	compat	python3	misc/compat/test-aap-batch100-v23.py	host	yes	120
 aap-batch100-v24	compat	python3	misc/compat/test-aap-batch100-v24.py	host	yes	120
+aap-aprflags-v1	compat	python3	misc/compat/test-aap-aprflags-v1.py	host	yes	120

@@ -456,6 +456,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch100 v22: 100 large-positive IMUL products exceeding 35 bits, independently checking 35-bit magnitude truncation and positive sign. Total 2700 passing real guests.
 - [x] Batch100 v23: 100 signed negative nonoverflow IMUL results checked, 2800 cumulative.
 - [x] Batch100 v24: 100 negative overflow IMUL results independently modeled as negated low 35 product-magnitude bits, total 2900 guests.
+- [x] Add read-only synchronous APR_FLAGS_V1 emulator diagnostic (pdp6 `7fc1727`) and real guest regression verifying OV=0 for normal division, OV=1 for division by zero.
+- [ ] Validate quotient overflow independently; the initial minimum-negative / minus-one signed-boundary probe did not set OV, and cannot be treated as a validated architectural overflow fixture.
 - [ ] Validate divide-by-zero and quotient overflow exception semantics before closing arithmetic gate: the
   large-operand guest outputs differed from ordinary 36-bit modulo
   multiplication and a preliminary sign-preserving model. Neither the

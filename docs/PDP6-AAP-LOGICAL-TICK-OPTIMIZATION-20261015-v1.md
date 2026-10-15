@@ -574,3 +574,14 @@ rather than direct reduction of the signed 36-bit mathematical product.
 All 100 passed result, PC/opcode and complete logical-tick checks.
 Cumulative total 2900 cases. Exceptional division and overflow flags
 are not yet validated and the arithmetic gate remains incomplete.
+
+## APR arithmetic flag diagnostic and divide-error validation (2026-10-15)
+
+The AAP `pdp6` emulator now offers `aprflags`, a read-only simulator-thread
+APR snapshot reporting `APR_FLAGS_V1 OV`, `CRY0`, `CRY1`, `PCCHG`
+(`pdp6` commit `7fc1727`). The testkit console runner allows optional
+commands after verified HALT. `test-aap-aprflags-v1.py` independently
+checks `OV=0` after ordinary positive division and `OV=1` after division
+by zero. A signed-boundary probe (-2^35 / -1) currently reports OV=0;
+no quotient-overflow architectural conclusion is drawn from this alone.
+The arithmetic and exception coverage acceptance gates remain open.
