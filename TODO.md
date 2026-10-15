@@ -441,6 +441,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [ ] Implement one more independent 100-case batch, prioritizing byte
   pointers, BLT, halfword families, doubleword arithmetic, stack/calls,
   control flow, addressing variation, and fault/instrumentation boundaries.
+- [ ] Beyond the 1500-case milestone, achieve genuinely broad functional/timing coverage against the DAIMOS kernel inventory. Remaining gaps include signed/division arithmetic, doubleword operations, left-half logical tests, exceptional I/O/interrupt events, pointer word crossing, deterministic guest completion and dynamic kernel frequency profiles.
 - [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the
   large-operand guest outputs differed from ordinary 36-bit modulo
   multiplication and a preliminary sign-preserving model. Neither the

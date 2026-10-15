@@ -391,3 +391,19 @@ result, PC and opcode sequence and timing interval checks. An exploratory
 TLNE fixture gave a different skip outcome than the independent model;
 left-half tests were deliberately excluded from this counted batch and
 require investigation. Cumulative real guest count: 1400.
+
+## 100-case batch 10: overlapping BLT and 1500-case milestone (2026-10-15)
+
+`aap-batch100-v10` verifies forward copying for lengths one through ten
+and destination offsets -5 through +4 relative to the source. An
+independent in-order memory-state model predicts every affected word,
+including corruption/propagation when the destination overlaps ahead
+of the source. All 100 real guests passed source/destination readback,
+BLT continuation-milestone accounting, PC/opcode lists and positive
+complete logical-tick intervals. Cumulative verified guests: 1500.
+
+This is a raw case-count milestone, not comprehensive architecture
+coverage. Kernel source analysis still identifies gaps in division,
+doubleword operations, logical tests, I/O/interrupt cycles and memory
+exceptions. A static kernel instruction count must not be confused with
+measured dynamic instruction frequency or a linked-image opcode profile.

@@ -131,3 +131,15 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 - Repeatable trace-on/off comparisons and deterministic completion; no reliance on timing assertions alone.
 - Mark unmeasurable exceptions explicitly; do not claim full interrupt/I/O timing coverage.
 - Match baseline/candidate execution, emulator revision and memory maps before comparing logical ticks.
+
+## Milestone status (2026-10-15)
+
+Fifteen hundred independently checked real AAP guest variations have
+passed. The additional kernel-targeted suites cover CAI/CAM predicates,
+PUSHJ/POPJ calls, BLT including overlapping forward copies, LDC/DPC,
+LDCI/DPCI, IBP and selected right-half logical test forms. This matrix
+is **not** yet a passing broad-functional-coverage gate: runtime opcode
+frequencies, C-generated kernel instruction paths, all linked MRES,
+interrupt/device behavior and unsupported boundary conditions remain
+outstanding. The follow-up should expand based on measured linked
+kernel paths and explicitly classify timing-unmeasurable exceptions.
