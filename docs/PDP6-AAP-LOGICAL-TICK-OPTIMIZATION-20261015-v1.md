@@ -564,3 +564,13 @@ negative results are represented as 36-bit two's-complement words. All
 100 passed result and positive complete-interval checks, bringing the
 total to 2800 guests. The product overflow and divide fault branches
 remain outside this acceptance result.
+
+## Batch100 v24: negative IMUL overflow magnitude (2026-10-15)
+
+One hundred real AAP guests validate negative products whose magnitude
+exceeds 35 bits. The independent predicted AC word is the negative of
+the low 35 magnitude bits, represented in 36-bit two's complement,
+rather than direct reduction of the signed 36-bit mathematical product.
+All 100 passed result, PC/opcode and complete logical-tick checks.
+Cumulative total 2900 cases. Exceptional division and overflow flags
+are not yet validated and the arithmetic gate remains incomplete.
