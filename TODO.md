@@ -585,3 +585,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Verify nine real standalone AAP IDIVI opcode-231 signed immediate division cases, checking quotient, remainder, source memory and timing.
 - [ ] Verify IDIVI divide-by-zero and signed-overflow behavior separately before claiming boundary-complete IDIVI coverage.
 - [ ] Continue exact SETOM and other unverified DAIMOS assembler forms without booting DAIMOS.
+
+- [x] Verify exact SETOM opcode-476 with five standalone AAP memory-set-ones, accumulator-preservation and timing cases.
+- [ ] Continue exact-form AAP tests prioritized by remaining DAIMOS source counts; retain TSFS boot-dependent test hold.

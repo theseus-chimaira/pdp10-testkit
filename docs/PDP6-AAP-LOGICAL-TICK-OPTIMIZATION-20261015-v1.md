@@ -1016,3 +1016,13 @@ and requires a positive complete timing interval for opcode 231. The
 encoding was confirmed against PDP-6 `as6.c`. These nine cases are not
 a proof of divide-by-zero/overflow behavior for IDIVI, nor of all IDIV
 forms. No DAIMOS boot-dependent test was executed.
+
+## Full-assembler exact instruction-form coverage: SETOM (2026-10-15)
+
+Five real standalone AAP SETOM (octal opcode 476) guests verify setting
+the destination memory word to 36 all-one bits, preservation of the
+specified accumulator, HALT completion and a complete timing interval.
+Initial accumulator values include zero, one, all-ones, sign bit and a
+mixed pattern. Encoding was checked against PDP-6 `as6.c`. Only the
+exact SETOM form receives evidence, not all SETO variants. The DAIMOS
+TSFS-root block remains in force; no boot-dependent tests ran.
