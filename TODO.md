@@ -338,6 +338,10 @@ workload/model tick-cost comparison. Relevant details:
   `misc/compat/test-aap-xct-v2.sh`.
 - [ ] Extend `XCT` to unusual/failing targets, interrupt boundaries and
   exceptional execution without assigning ambiguous interval costs.
+- [x] Add the first 10-case synthetic exceptional-trace batch: reject
+  missing, orphaned, ambiguous, nonprogressing, and malformed AAP
+  milestones. This validates the extractor, not real guest exceptions;
+  see `misc/compat/test-aap-exception-traces-v1.py`.
 - [ ] Audit exceptional execution: interrupts, PI cycles, indirect/index
   faults, I/O and overlapping or aborted instructions. Add explicit
   exclusions and tests rather than silently assigning bogus tick costs.

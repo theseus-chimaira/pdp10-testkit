@@ -24,8 +24,8 @@ def intervals(path):
         events.append((name, int(tick), pc, opcode))
     if not events:
         raise ValueError('missing timing events')
-    if any(a[1] > b[1] for a, b in zip(events, events[1:])):
-        raise ValueError('nonmonotonic logical time')
+    if any(a[1] >= b[1] for a, b in zip(events, events[1:])):
+        raise ValueError('nonprogressing logical time')
     starts = []
     idx = 0
     while idx < len(events):
@@ -61,6 +61,8 @@ def intervals(path):
         raise ValueError('missing IT0')
     if events[-1][0] != 'ET0A':
         raise ValueError('unsupported interleaved milestone sequence')
+    if any(a[0] >= b[0] for a, b in zip(starts, starts[1:])):
+        raise ValueError('nonprogressing instruction starts')
     return [{'pc': a[1], 'opcode_octal': a[2],
              'nested_opcodes_octal': a[3],
              'ticks': b[0] - a[0]} for a, b in zip(starts, starts[1:])]

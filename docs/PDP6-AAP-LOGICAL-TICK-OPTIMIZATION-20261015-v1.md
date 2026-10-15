@@ -182,3 +182,14 @@ The tick-extractor unit tests additionally reject unfinished nested
 `XCT` and inconsistent nested instruction PCs. Interrupts, exceptions,
 and aborted targets still require separate validation before using
 these intervals for general timing comparisons.
+
+## Exceptional trace validation batch 1 (2026-10-15)
+
+The registered `aap-exception-traces-v1` regression supplies ten
+deliberately malformed synthetic traces: absent events, orphan ET0A,
+unpaired IT0, double IT0, execution-PC mismatch, equal logical ticks,
+decreasing ticks, extra ET0A, unfinished nested XCT, and an unknown event.
+All ten must fail with `ValueError`; passing means rejection, not timing
+measurement. The extractor now requires strictly increasing ticks between
+consecutive milestones. These tests do not establish behavior for real
+interrupts, PI cycles, memory faults, I/O or aborted guest execution.
