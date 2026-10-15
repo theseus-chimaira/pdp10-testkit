@@ -222,3 +222,14 @@ clock and strict positive IT0 intervals. The terminating halt is excluded
 from complete timing totals. This makes 100 real-guest passing variations
 across the first two 50-case batches, not 100 independent opcode types.
 Interrupts and fault handling remain outstanding.
+
+## Fifty-case guest batch 3: branches, memory, shifts, stack (2026-10-15)
+
+`aap-batch50-v3` adds ten operand variations each for taken JUMPN,
+SKIPE of a zero word, ADDM, LSH, and PUSH, totaling 50 real AAP guests.
+All passed independently specified guest-result readback, executed PC
+and opcode sequences, strictly monotonic milestones, and complete positive
+IT0 intervals. ADDM checks its memory destination; PUSH checks a value
+pushed to the stack and subsequently loaded back. The three registered
+50-case batches now cover 150 verified guest variations, not 150 distinct
+opcodes. Measurements remain AAP-model logical ticks only.

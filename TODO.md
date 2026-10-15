@@ -383,6 +383,10 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Add second 50-case batch covering taken JUMPE, untaken JUMPN,
   AOBJN with 1-10 iterations, XCT of MOVEI and nested XCT of MOVEI.
   All 50 real emulator guests passed; see `misc/compat/test-aap-batch50-v2.py`.
+- [x] Add third 50-case batch with ten passing guest variations each for
+  taken JUMPN, SKIPE, ADDM memory modification, LSH shifts and PUSH stack
+  behavior. See `misc/compat/test-aap-batch50-v3.py`. The first three
+  batches total 150 passing guest cases.
 - [ ] Add further independently specified 50-case batches, prioritizing
   new paths and observed DAIMOS workload frequency over redundant operand
   values. Keep per-case failures visible. Do not conflate parser-only
