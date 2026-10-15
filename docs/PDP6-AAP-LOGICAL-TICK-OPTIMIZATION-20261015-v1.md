@@ -585,3 +585,18 @@ checks `OV=0` after ordinary positive division and `OV=1` after division
 by zero. A signed-boundary probe (-2^35 / -1) currently reports OV=0;
 no quotient-overflow architectural conclusion is drawn from this alone.
 The arithmetic and exception coverage acceptance gates remain open.
+
+## Signed quotient overflow correction (2026-10-15)
+
+The PDP-6 AAP IDIV path failed to set overflow for the unique signed
+36-bit quotient overflow case: -2^35 / -1. At negative IDIV entry DST0,
+AR and MB still contain the original dividend and divisor. The emulator
+now sends this unrepresentable quotient through the existing DST13
+divide-overflow pulse (`pdp6` commit `97a15ac`), rather than entering
+quotient-generation with an unrepresentable result. The read-only APR
+flag regression verifies normal division OV=0, divide-by-zero OV=1,
+-2^35 / -1 OV=1, and the adjacent valid negative boundary OV=0.
+Both 100-case normal and signed IDIV timing batches v20/v21 passed
+again unchanged. Together with the IMUL nonoverflow and positive/negative
+overflow tests, this resolves the representative arithmetic boundary
+criterion. It does not establish all memory-fault or PI timing paths.

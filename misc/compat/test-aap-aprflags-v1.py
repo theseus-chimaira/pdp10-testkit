@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Verify normal/divide-zero overflow flags; probe signed divide boundary.
+"""Regress normal and exceptional signed IDIV overflow flags.
 
-The signed boundary is exploratory; this fixture does not establish the
-architectural quotient-overflow response or validate its flag semantics.
+The signed minimum divided by -1 overflows a signed 36-bit quotient.
+Its neighboring valid quotient and divide-by-zero exercise both sides
+of the processor overflow flag decision.
 """
 import importlib.util
 import os
@@ -50,13 +51,15 @@ def main():
                                        'connectmem fmem 0 apr -1\nconnectmem mem0 0 apr 0\n')
         for name, dividend, divisor in [('normal', 120, 7),
                                          ('zero-divisor', 120, 0),
-                                         ('signed-boundary-probe', -(1 << 35), -1)]:
+                                         ('quotient-overflow', -(1 << 35), -1),
+                                         ('near-boundary', -(1 << 35) + 1, -1),
+                                         ('positive-limit', (1 << 35)-1, 1)]:
             out, trace, states = run_guest(emulator, work, guest(dividend, divisor),
                                            [0o1020, 0o1021], extra_commands='aprflags\n')
             flags = re.findall(r'APR_FLAGS_V1 OV=([01]) CRY0=([01]) CRY1=([01]) PCCHG=([01])', out)
             assert len(flags) == 1, (name, out)
-            if name in ('normal', 'zero-divisor'):
-                assert flags[0][0] == ('1' if name == 'zero-divisor' else '0'), (name, flags)
+            expected_ov = '1' if name in ('zero-divisor', 'quotient-overflow') else '0'
+            assert flags[0][0] == expected_ov, (name, flags, expected_ov)
             print('%s: OV=%s CRY0=%s CRY1=%s PCCHG=%s' % ((name,) + flags[0]), flush=True)
             assert states[-1] == 'HALTED'
 

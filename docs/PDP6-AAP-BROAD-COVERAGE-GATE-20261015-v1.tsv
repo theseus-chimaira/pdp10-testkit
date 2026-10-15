@@ -9,7 +9,7 @@ halfword	verified	yes	misc/compat/test-aap-batch100-v11.py	Transfer and memory d
 byte-in-word	verified	yes	misc/compat/test-aap-batch100-v7.py	LDC DPC LDCI DPCI varying widths and positions
 byte-pointer-increment	verified	yes	misc/compat/test-aap-batch100-v8.py	IBP width/position variations
 byte-word-crossing	verified	yes	misc/compat/test-aap-batch100-v14.py	100 LDCI/DPCI crossing guests with pointer and data readback
-multiply-divide-boundaries	incomplete	yes	-	IMUL overflow semantics unresolved; division and remainder boundary tests needed
+multiply-divide-boundaries	verified	yes	misc/compat/test-aap-aprflags-v1.py	IMUL positive and negative boundary batches v19/v22/v23/v24, signed and unsigned IDIV v20/v21, divide-zero and signed quotient overflow flags
 doubleword-shifts	verified	yes	misc/compat/test-aap-batch100-v18.py	ASHC positive and negative shifts with sign boundaries; LSHC ROTC verified in batch100 v16 and ASHC left in v17
 logical-left-half	verified	yes	misc/compat/test-aap-batch100-v15.py	100 corrected left-half TL test/modify guest cases with both skip outcomes
 fault-exclusions	incomplete	yes	-	Real memory faults or aborted instructions not classified
