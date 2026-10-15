@@ -645,3 +645,32 @@ hotpath coverage gate remains incomplete until such evidence exists.
 
 The bounded probe intentionally used disposable copies of disk/tape media;
 no generated production disk images were modified in this experiment.
+
+## Correctly started, bounded DAIMOS linked-kernel boot profile (2026-10-15)
+
+Previous bounded SIMH probes replaced `go 020` with `step N` without
+setting the start PC. They therefore ran from SIMH's default PC and
+reported three-opcode bootstrap-only profiles. `deposit PC 020` before
+`step N` fixes this *test fixture*, not a DAIMOS or SIMH defect. A separate
+experiment used a flat disposable media directory and erroneously
+collided `disk/dsk0.dsk` with `drum/dsk0.dsk`; copied media must retain
+the original subdirectory structure.
+
+With the original boot configuration, a correctly set PC, a bounded
+`step 4000000` and disposable copies of each media file in its own
+relative directory, SIMH displayed `DAIMON V0.5`, `MACH PDP6`, `CTY OK`,
+and `BSET LOADED` before the step budget ended. A complete 512-counter
+`examine OPCOUNT[0-511]` histogram reported **8,346,188 opcode
+ dispatches across 112 distinct opcodes**. Its exact log remains in the
+local `$TMPDIR/aap-linked-profile-v2/boot-profile-v3.log` experiment;
+never treat temporary files as permanent evidence. The instrumented
+run used the installed SIMH PDP-6 build; its counted dispatches are not
+AAP logical ticks or calibrated microseconds.
+
+`tools/check-pdp6-kernel-boot-profile-v1.py` authenticates the linked
+kernel/module boot milestone plus bounded stop and complete 512 counter
+array. It intentionally reports **boot-stage coverage**, not full KCORE
+and MRES runtime hotpath coverage, and is tested against missing
+milestones and incomplete counters. The broad hotpath gate stays open
+until representative running-system workloads and linked-map address
+attribution have been captured and verified.

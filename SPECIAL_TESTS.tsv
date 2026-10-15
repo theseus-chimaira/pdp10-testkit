@@ -157,3 +157,4 @@ aap-profile-provenance-v1	compat	python3	misc/compat/test-aap-profile-provenance
 aap-execution-class-v1	compat	python3	misc/compat/test-aap-execution-class-v1.py	host	yes	120
 aap-execution-class-parser-v1	compat	python3	misc/compat/test-aap-execution-class-parser-v1.py	host	yes	120
 pdp6-linked-profile-v1	compat	python3	misc/compat/test-pdp6-linked-profile-v1.py	host	yes	120
+pdp6-kernel-boot-profile-v1	compat	python3	misc/compat/test-pdp6-kernel-boot-profile-v1.py	host	yes	120
