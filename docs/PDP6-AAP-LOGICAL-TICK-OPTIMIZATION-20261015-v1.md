@@ -254,3 +254,10 @@ verified as a negative 36-bit value; the initial test expectation was
 incorrect and corrected before accepting the batch. IMULI showed
 operand-dependent modeled logical ticks across the ten inputs.
 Five 50-case batches now total 250 passing real guests.
+
+## Fifty-case guest batch 6 (2026-10-15)
+
+`aap-batch50-v6` validates 50 signed conditional branch guests: ten
+variations each of JUMPL on negative AC, JUMPGE on zero, JUMPG on
+positive, JUMPLE on zero, and untaken JUMPE on nonzero AC. All passed
+PC-path, 36-bit result and timing interval checks. Cumulative 300 cases.

@@ -394,6 +394,9 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Fifth 50-case batch: XORI, MOVNI, IMULI, SUBM and MOVSI.
   All 50 passed, bringing the verified total to 250.
   See `misc/compat/test-aap-batch50-v5.py`.
+- [x] Sixth 50-case batch: JUMPL negative, JUMPGE zero, JUMPG positive,
+  JUMPLE zero, and untaken JUMPE. All passed: 300 total real guest cases.
+  See `misc/compat/test-aap-batch50-v6.py`.
 - [ ] Add further independently specified 50-case batches, prioritizing
   new paths and observed DAIMOS workload frequency over redundant operand
   values. Keep per-case failures visible. Do not conflate parser-only
