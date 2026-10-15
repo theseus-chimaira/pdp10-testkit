@@ -550,11 +550,11 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Reproduce AAP paper-tape mount and launch of DAIMOS stage-one bootstrap (limited RUNNING/readback smoke; no boot or kernel coverage claim).
 - [ ] Bridge AAP and DAIMOS boot-media/controller requirements and trace genuine KCORE/MRES execution with verified loaded module bounds.
 
-## AAP coverage dependency: TSFS root regression (2026-10-15)
+## AAP coverage dependency: boot testing resumed (2026-10-15)
 
-- [ ] HOLD real DAIMOS boot-dependent KCORE/MRES profiling while TSFS root is broken. Do not run DAIMOS boot, root-mount, stage-one-to-kernel, or MRES-load integration tests until a separate kernel worker confirms the root regression is fixed and the exact tested build is identified.
-- [ ] Meanwhile continue only standalone AAP CPU execution/timing, event classification, and synthetic paper-tape I/O probes that do not rely on DAIMOS boot, root filesystem, or live kernel startup.
-- [ ] After TSFS is independently repaired, verify boot/media provenance before resuming linked-kernel runtime profile collection; existing image/HALT evidence is not a live KCORE/MRES profile.
+- [x] Lift the earlier TSFS-root boot-test hold at user direction on 2026-10-15. This is authorization to test, not evidence of a successful root mount or fixed TSFS implementation.
+- [x] Resume bootstrap integration smoke testing using the available built DAIMOS stage1-dsk.pt; AAP tape mount/launch smoke passed, but full boot remains unverified.
+- [ ] Verify successful kernel entry, root mount and build/image provenance before treating linked-KCORE/MRES runtime trace as actual kernel execution; existing image/HALT evidence is not a live KCORE/MRES profile.
 
 - [x] Require strictly increasing AAP logical timing milestones in event classifier, rejecting missing, malformed, tied or reversed traces; verify with standalone AAP normal, NXM and IOT guests while TSFS boot is blocked.
 
@@ -562,7 +562,7 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Expand AAP static coverage inventory from kernel-only to all maintained DAIMOS assembler under system/ and userland/; count generated build output separately and report unclassified tokens, without claiming runtime coverage.
 - [x] Verify genuine standalone PDP-6 PUSHJ pushdown overflow and clean stack-pointer control, with emitted PDLOV event and APR latch checks.
-- [ ] Classify remaining unknown assembler tokens and expand real AAP opcode/mode fixtures across all DAIMOS source; retain boot-dependent KCORE/MRES criterion as blocked by TSFS.
+- [ ] Classify remaining unknown assembler tokens and expand real AAP opcode/mode fixtures across all DAIMOS source; resume boot-linked KCORE/MRES profiling when an actual kernel-entry trace is captured.
 
 - [x] Classify 1,035 formerly unrecognized mnemonic-like references: 951 conventional instruction forms plus 84 UUO/HALT special-form references; zero unknown tokens remain in maintained assembler snapshot.
 - [ ] Add exact opcode/form fixtures for the newly enumerated DAIMOS instructions; do not equate a family-level match with verified encoding or execution modes.
@@ -587,7 +587,7 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] Continue exact SETOM and other unverified DAIMOS assembler forms without booting DAIMOS.
 
 - [x] Verify exact SETOM opcode-476 with five standalone AAP memory-set-ones, accumulator-preservation and timing cases.
-- [ ] Continue exact-form AAP tests prioritized by remaining DAIMOS source counts; retain TSFS boot-dependent test hold.
+- [ ] Continue exact-form AAP tests prioritized by remaining DAIMOS source counts; verify kernel entry/root mount before claiming a successful boot.
 
 - [x] Correct AAP exact-form fixture registry discovery: standalone registered tests now count, with a regression to prevent missing-script evidence.
 - [x] Verify five real standalone TLZ opcode-621 left-half bit-clear semantics and timing cases.

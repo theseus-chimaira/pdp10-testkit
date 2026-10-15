@@ -1042,3 +1042,13 @@ the right half and unchanged source memory, and produce complete timing
 intervals. No DAIMOS boot test was run. As the DAIMOS source tree can
 change in parallel, source counts must be recomputed against the current
 snapshot and must never be treated as stable runtime statistics.
+
+## Boot integration resumed (2026-10-15)
+
+At user direction, the earlier TSFS-root integration-test hold is lifted.
+With the current DAIMOS build tree's `stage1-dsk.pt` paper-tape image,
+`test-aap-daimos-stage1-v1.sh` passed its tape mount/launch smoke check.
+This test explicitly does **not** establish successful kernel entry,
+TSFS root mounting, loaded MRES modules or representative dynamic opcode
+frequency. Kernel working tree had concurrent uncommitted changes and was
+not modified. The mandatory KCORE/MRES hotpath gate is still incomplete.
