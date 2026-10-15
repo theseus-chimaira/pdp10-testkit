@@ -572,3 +572,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify five real standalone AAP HRLI opcode-505 cases with independent expected 18-bit halves, source-memory preservation and timing intervals.
 - [ ] Add targeted exact-form AAP tests for SOJG, AOJA, TLC, IDIVI, SETOM and remaining DAIMOS mnemonics.
+
+- [x] Verify seven standalone exact SOJG opcode-367 decrement/branch/timing cases with signed boundary inputs; confirm encoding against PDP-6 assembler table.
+- [ ] Continue AOJA, TLC, IDIVI, SETOM and other exact forms without DAIMOS boot.

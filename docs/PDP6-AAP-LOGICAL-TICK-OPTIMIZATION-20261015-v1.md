@@ -974,3 +974,14 @@ the 18-bit immediate operand, retention of its original right half,
 unchanged source memory and complete positive logical timing intervals.
 Credit applies to HRLI only, not other halfword forms. No DAIMOS boot or
 TSFS root was used. Mandatory broad coverage remains 16/19.
+
+## Full-assembler exact instruction-form coverage: SOJG (2026-10-15)
+
+Seven standalone real AAP `SOJG` (octal opcode 367) cases now verify
+the accumulator's 36-bit decrement, signed greater-than-zero branch
+decision, destination marker, completed HALT, and positive timing
+interval. Initial accumulator values include zero, positive integers,
+all-ones, negative two and the 36-bit sign boundary. The opcode was
+verified against the PDP-6 assembler's `as6.c` instruction table rather
+than inferred from neighboring SOJ forms. This evidence credits SOJG
+only, not the SOJ family as a whole. No DAIMOS boot-dependent tests ran.
