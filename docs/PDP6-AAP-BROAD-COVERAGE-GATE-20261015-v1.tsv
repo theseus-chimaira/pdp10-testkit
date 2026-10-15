@@ -11,7 +11,7 @@ byte-pointer-increment	verified	yes	misc/compat/test-aap-batch100-v8.py	IBP widt
 byte-word-crossing	verified	yes	misc/compat/test-aap-batch100-v14.py	100 LDCI/DPCI crossing guests with pointer and data readback
 multiply-divide-boundaries	incomplete	yes	-	IMUL overflow semantics unresolved; division and remainder boundary tests needed
 doubleword-shifts	incomplete	yes	-	ASHC LSHC ROTC signed boundaries untested
-logical-left-half	incomplete	yes	-	TLNE predicate discrepancy unresolved; TLZ TLO families missing
+logical-left-half	verified	yes	misc/compat/test-aap-batch100-v15.py	100 corrected left-half TL test/modify guest cases with both skip outcomes
 fault-exclusions	incomplete	yes	-	Real memory faults or aborted instructions not classified
 interrupt-io-exclusions	incomplete	yes	-	PI/device instruction cycles not tested or explicitly excluded
 instrumentation-repeatability	verified	yes	misc/compat/test-aap-instrumentation-v1.py	Twenty guest configurations checked with tracing off and twice on; identical guest results and repeatable tick intervals

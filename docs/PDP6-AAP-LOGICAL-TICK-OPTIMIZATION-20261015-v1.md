@@ -470,3 +470,12 @@ results and the updated byte-pointer word are independently checked
 after deterministic HALT acknowledgement. All 100 passed, making
 1900 verified real guest variations. General faults and overflowed
 address translation remain uncovered.
+
+## Batch100 v15: left-half test/modify instruction semantics (2026-10-15)
+
+The earlier apparent TLNE discrepancy was a fixture opcode encoding
+error, not established as an emulator bug: 612/616 were used instead of
+TLNE/TLNN 603/607. `aap-batch100-v15` validates ten TL* test/modify
+forms, ten source patterns each, including alternating skip outcomes,
+complete logical tick intervals and resulting 36-bit AC values. All 100
+passed using deterministic HALT acknowledgement; cumulative 2000 guests.

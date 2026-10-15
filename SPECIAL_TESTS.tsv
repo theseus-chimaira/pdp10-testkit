@@ -142,3 +142,4 @@ aap-broad-coverage-gate-v1	compat	python3	misc/compat/test-aap-broad-coverage-ga
 aap-instrumentation-v1	compat	python3	misc/compat/test-aap-instrumentation-v1.py	host	yes	120
 aap-instrumentation-v1	compat	python3	misc/compat/test-aap-instrumentation-v1.py	host	yes	120
 aap-batch100-v14	compat	python3	misc/compat/test-aap-batch100-v14.py	host	yes	120
+aap-batch100-v15	compat	python3	misc/compat/test-aap-batch100-v15.py	host	yes	120

@@ -437,7 +437,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch 100 v7: 100 pre-increment LDCI/DPCI cases (ILDB/IDPB), all pointer updates and byte results checked. 1200 cumulative guests.
 - [x] Batch 100 v8: 100 standalone IBP pointer-increment cases with width 1-18 and position variation. 1300 cumulative real guests.
 - [x] Batch 100 v9: ten right-half test/modify forms (TRNE/TRNN/TRNA/TRZE/TRZN/TRZA/TRCE/TRCN/TROE/TRON), two skip outcomes, independent AC result. 1400 cumulative.
-- [ ] Investigate left-half TLNE predicate discrepancy found with a nontrivial operand; do not classify it as passing before reconciling reference and emulator behavior.
+- [x] Resolve apparent TLNE discrepancy: exploratory fixture had incorrect 612/616 opcodes; correct TLNE/TLNN encoding and verify 100 TL* cases in batch100 v15.
 - [ ] Implement one more independent 100-case batch, prioritizing byte
   pointers, BLT, halfword families, doubleword arithmetic, stack/calls,
   control flow, addressing variation, and fault/instrumentation boundaries.
@@ -446,6 +446,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch 100 v13: unconditional AOJ/SOJ and AOS/SOS memory-update variants across signed boundary values, 100/100 passing; 1800 cumulative.
 - [x] Introduce explicit 19-criterion broad functional/timing coverage acceptance matrix, with a fail-closed `--require-broad` gate. Initially 9/19 resolved; passing raw case counts or high source occurrence coverage does NOT satisfy it. See `docs/PDP6-AAP-BROAD-COVERAGE-GATE-20261015-v1.tsv` and `tools/check-aap-broad-coverage-v1.py`.
 - [x] Batch100 v14: 100 verified preincrement byte-pointer word-crossing cases (LDCI/DPCI), cumulative 1900 guests.
+- [x] Batch100 v15: 100 verified TL* left-half logical test/modify guest cases, cumulative 2000.
 - [ ] Beyond the 1500-case milestone, achieve genuinely broad functional/timing coverage against the DAIMOS kernel inventory. Remaining gaps include signed/division arithmetic, doubleword operations, left-half logical tests, exceptional I/O/interrupt events, pointer word crossing, deterministic guest completion and dynamic kernel frequency profiles.
 - [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the
   large-operand guest outputs differed from ordinary 36-bit modulo
