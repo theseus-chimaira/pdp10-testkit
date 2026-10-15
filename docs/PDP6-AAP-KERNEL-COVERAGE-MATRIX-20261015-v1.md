@@ -2,7 +2,7 @@
 
 **Scope:** static mnemonic occurrences in 74 `DAIMOS/system/kernel/**/*.s` assembly files; this includes files that may not be linked into a given image and excludes C-generated instructions. Do not interpret it as dynamic instruction frequency, model timing accuracy, or percentage of executed paths.
 
-**Coverage proxy:** 16065 / 16675 (96.3% static-only). This is source-occurrence-weighted existence of a tested opcode, not comprehensive functional coverage.
+**Coverage proxy:** 16184 / 16675 (97.1% static-only). Source occurrence proxy only: passing one path per opcode does not validate all timing conditions.
 
 | Mnemonic | Static source occurrences | At least one mapped real AAP timing fixture |
 |---|---:|---|
@@ -45,8 +45,8 @@
 | `CAIGE` | 62 | yes |
 | `TLZ` | 58 | no |
 | `AND` | 56 | yes |
-| `AOS` | 55 | no |
-| `AOJ` | 50 | no |
+| `AOS` | 55 | yes |
+| `AOJ` | 50 | yes |
 | `TLNE` | 50 | no |
 | `CONI` | 49 | no |
 | `SKIPE` | 48 | yes |
@@ -73,7 +73,7 @@
 | `JUMPGE` | 13 | yes |
 | `XOR` | 13 | yes |
 | `ILDB` | 12 | yes |
-| `SOJ` | 10 | no |
+| `SOJ` | 10 | yes |
 | `CONSO` | 10 | no |
 | `HRLM` | 8 | yes |
 | `DPB` | 8 | yes |
@@ -86,7 +86,7 @@
 | `ANDM` | 5 | yes |
 | `HLLZ` | 5 | yes |
 | `CONSZ` | 4 | no |
-| `SOS` | 4 | no |
+| `SOS` | 4 | yes |
 | `XORI` | 4 | yes |
 | `ANDCA` | 4 | no |
 | `TDNN` | 4 | no |
@@ -113,7 +113,7 @@
 | call-stack | 0 | - |
 | doubleword | 2 | div:2 |
 | halfword | 5 | hrrzs:5 |
-| conditionals | 162 | aos:55, aoj:50, camge:28, camg:15, soj:10, sos:4 |
+| conditionals | 43 | camge:28, camg:15 |
 | logical-tests | 217 | tlz:58, tlne:50, tlo:48, tlnn:27, tdne:16, tro:6, tdnn:4, andca:4, trz:3, andcm:1 |
 | interrupts-io | 223 | cono:121, coni:49, datao:19, datai:15, conso:10, consz:4, blko:3, blki:2 |
 
@@ -143,3 +143,7 @@ Keep compiled C instruction profiles and exact linked-image inventory separate u
 ## Post-milestone halfword-write evidence
 
 Batch100 v11 covers HLLM, HRLM, HLRM, HRRM and six corresponding zero/one-fill forms with independent memory readback; remaining halfword self-update forms require separate coverage.
+
+## AOJ/SOJ and AOS/SOS evidence
+
+Batch100 v13 adds unconditional arithmetic jump forms and memory-modifying skip forms. Both outcomes and signed zero crossing were checked.

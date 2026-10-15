@@ -425,3 +425,11 @@ case checks branch destinations, updated accumulator memory readback
 and complete logical-tick intervals. 100/100 passed, bringing the
 cumulative total to 1700. This does not yet validate unconditional
 AOJ/SOJ or memory-destination AOS/SOS variants.
+
+## Post-milestone 100-case batch 13: AOJ/SOJ, AOS/SOS (2026-10-15)
+
+`aap-batch100-v13` checks unconditional AOJ/SOJ increment/decrement
+and AOS/SOS memory update/conditional skip variants across negative,
+zero and positive boundaries. All 100 passed independently predicted
+36-bit result and memory readback, exact executed PC/opcode paths and
+complete logical-tick intervals. Total 1800 verified guest cases.
