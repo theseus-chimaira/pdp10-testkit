@@ -431,7 +431,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   values; 100/100 real guests passed. Total 700/1500.
 - [x] Batch 100 v3: CAIE, CAIN, CAIL, CAILE, CAIGE, CAIG, CAME, CAMN, CAML, CAMLE: 100 validated real guests. 800 total.
 - [x] Add a versioned static DAIMOS kernel opcode representativeness matrix; compare mnemonic source counts against the validated AAP batch family labels and document limitations.
-- [ ] Implement seven more independent 100-case batches, prioritizing byte
+- [x] Batch 100 v4: 100 real PUSHJ/POPJ call-return cases spanning depths 1-10, with ten values at each depth. 900 cumulative verified guests.
+- [ ] Implement six more independent 100-case batches, prioritizing byte
   pointers, BLT, halfword families, doubleword arithmetic, stack/calls,
   control flow, addressing variation, and fault/instrumentation boundaries.
 - [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the

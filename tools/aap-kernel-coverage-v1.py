@@ -44,6 +44,9 @@ def verified_family_names():
             if isinstance(node, ast.For) and isinstance(node.target, ast.Name) and node.target.id == 'family':
                 if isinstance(node.iter, (ast.Tuple, ast.List)):
                     result.update(x.value.lower() for x in node.iter.elts if isinstance(x, ast.Constant) and isinstance(x.value, str))
+    # Explicit semantic mapping for generated call-depth families.
+    if any(x.startswith('depth') for x in result):
+        result.update(('pushj', 'popj'))
     return result
 
 

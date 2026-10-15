@@ -2,9 +2,9 @@
 
 Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout had unrelated uncommitted edits; this audit does not modify DAIMOS.
 
-**Interpretation:** source mnemonic occurrences in 74 assembly files only. Neither dynamic instruction counts nor timing weights nor coverage of C-generated instructions. An exact batch family label is a conservative evidence indicator; different labels or earlier shell fixtures may cover the opcode without appearing as a match.
+**Interpretation:** source mnemonic occurrences in 74 assembly files only. Neither dynamic instruction counts nor timing weights nor coverage of C-generated instructions. An exact batch family label (or the explicit PUSHJ/POPJ call-depth mapping) is a conservative evidence indicator; different labels or earlier shell fixtures may cover the opcode without appearing as a match.
 
-| Kernel mnemonic | Static occurrences | Exact AAP batch family label |
+| Kernel mnemonic | Static occurrences | Exact or explicitly mapped AAP batch coverage |
 |---|---:|---|
 | `MOVE` | 3231 | yes |
 | `JRST` | 2442 | no |
@@ -119,7 +119,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 
 ## Interpretation and priority
 
-1. Calls and returns (`PUSHJ` 1062, `POPJ` 484) are the most important unrepresented kernel execution paths; add nested call stacks, stack-depth boundaries and actual return readback.
+1. Calls and returns (`PUSHJ` 1062, `POPJ` 484) have now gained 100 verified call-depth/return-value guest cases in batch100 v4. Additional stack boundaries, parameter passing and interrupt interactions remain untested.
 2. Conditional compares (`CAI`/`CAM`) occur frequently. Batch100 v3 newly supplies ten variants each for ten predicate forms, but this is not a comprehensive boundary test of all combinations.
 3. `BLT` (127 static references), byte instructions (130), and I/O/interrupt paths (223) require separate real-guest investigations.
 4. Logical test/modify instructions (421 unmatched source occurrences) and memory destination forms warrant additional fixtures.

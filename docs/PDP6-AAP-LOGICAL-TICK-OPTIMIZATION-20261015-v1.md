@@ -327,3 +327,14 @@ initial fixture confused HRR with HLR opcode encodings; the mapping
 was fixed before the full successful run. The cumulative verified
 real-emulator count is 700/1500. Byte pointer, block-transfer,
 interrupt and multiply-overflow work remains open.
+
+## 100-case batch 4: kernel call/return chains (2026-10-15)
+
+`aap-batch100-v4` exercises PUSHJ/POPJ nested call depths one through
+ten and ten independent values at each depth. All 100 passed 36-bit
+result verification, exact call and return PC sequences, opcode lists
+and complete tick-interval checks. Measured modeled totals grow with
+depth; the depth-ten cases yielded 66803 logical ticks excluding the
+terminal HALT. Total verified across batches: 900 real guests. This
+addresses the largest missing *static* DAIMOS kernel source opcode
+family; runtime instruction-frequency calibration remains outstanding.
