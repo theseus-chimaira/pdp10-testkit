@@ -426,7 +426,10 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch 100 v1: 100 real guest cases, ten full-word operand boundaries
   for each of MOVE, MOVN, MOVM, SETZ, SETO, ADD, SUB, XOR, AND, IOR.
   All passed; 600 total confirmed across all batches.
-- [ ] Implement nine more independent 100-case batches, prioritizing byte
+- [x] Batch 100 v2: ten halfword forms (HLL, HRL, HLR, HRR,
+  HLLZ, HRLZ, HLRZ, HRRZ, HLLO, HRRO) against ten 36-bit boundary
+  values; 100/100 real guests passed. Total 700/1500.
+- [ ] Implement eight more independent 100-case batches, prioritizing byte
   pointers, BLT, halfword families, doubleword arithmetic, stack/calls,
   control flow, addressing variation, and fault/instrumentation boundaries.
 - [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the

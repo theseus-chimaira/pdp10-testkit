@@ -316,3 +316,14 @@ validated batch pending a dedicated investigation. This is not proof of
 an emulator error. Completion currently uses a timed console readback,
 which should be replaced with a deterministic handshake before relying
 on large-scale baseline/candidate comparisons.
+
+## 100-case batch 2: halfword transfers (2026-10-15)
+
+`aap-batch100-v2` checks HLL, HRL, HLR, HRR, HLLZ, HRLZ, HLRZ,
+HRRZ, HLLO and HRRO against ten 36-bit boundary source/destination
+patterns. All 100 guests passed independently calculated 36-bit results,
+executed PC/opcodes and positive complete logical-tick intervals. The
+initial fixture confused HRR with HLR opcode encodings; the mapping
+was fixed before the full successful run. The cumulative verified
+real-emulator count is 700/1500. Byte pointer, block-transfer,
+interrupt and multiply-overflow work remains open.
