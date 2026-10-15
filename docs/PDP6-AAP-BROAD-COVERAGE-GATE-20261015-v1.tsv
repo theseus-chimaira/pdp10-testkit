@@ -14,7 +14,7 @@ doubleword-shifts	incomplete	yes	-	ASHC LSHC ROTC signed boundaries untested
 logical-left-half	incomplete	yes	-	TLNE predicate discrepancy unresolved; TLZ TLO families missing
 fault-exclusions	incomplete	yes	-	Real memory faults or aborted instructions not classified
 interrupt-io-exclusions	incomplete	yes	-	PI/device instruction cycles not tested or explicitly excluded
-instrumentation-repeatability	incomplete	yes	-	Trace-on/off semantics and repeated logical tick totals not yet verified
+instrumentation-repeatability	verified	yes	misc/compat/test-aap-instrumentation-v1.py	Twenty guest configurations checked with tracing off and twice on; identical guest results and repeatable tick intervals
 deterministic-completion	incomplete	yes	-	Guest harnesses currently wait by fixed time instead of a stop acknowledgement
 profile-provenance	incomplete	yes	-	Model revision linked image memory configuration correctness evidence needed
 linked-kernel-hotpaths	incomplete	yes	-	Only static 74-file source counts; no linked-image measured dynamic opcode profile

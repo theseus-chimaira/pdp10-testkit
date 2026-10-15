@@ -454,8 +454,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   boundary variants as verified timing tests.
 - [ ] Replace guest `sleep` completion heuristics with a verified stopping
   handshake before relying on bulk baseline/candidate timing comparisons.
-- [ ] Run trace-on/off semantic equivalence, reproducibility and provenance
-  checks before extending measurements to real DAIMOS workloads.
+- [x] Add 20-case, 60-execution AAP trace-on/off guest-result and identical repeat-tick instrumentation regression (`test-aap-instrumentation-v1.py`).
+- [ ] Add provenance and broader trace transparency checks before extending measurements to real DAIMOS workloads.
 
 ## P2 — documentation and repository hygiene
 

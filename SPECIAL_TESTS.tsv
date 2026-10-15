@@ -139,3 +139,4 @@ aap-batch100-v11	compat	python3	misc/compat/test-aap-batch100-v11.py	host	yes	12
 aap-batch100-v12	compat	python3	misc/compat/test-aap-batch100-v12.py	host	yes	120
 aap-batch100-v13	compat	python3	misc/compat/test-aap-batch100-v13.py	host	yes	120
 aap-broad-coverage-gate-v1	compat	python3	misc/compat/test-aap-broad-coverage-gate-v1.py	host	yes	120
+aap-instrumentation-v1	compat	python3	misc/compat/test-aap-instrumentation-v1.py	host	yes	120

@@ -433,3 +433,13 @@ and AOS/SOS memory update/conditional skip variants across negative,
 zero and positive boundaries. All 100 passed independently predicted
 36-bit result and memory readback, exact executed PC/opcode paths and
 complete logical-tick intervals. Total 1800 verified guest cases.
+
+## Trace instrumentation repeatability verification (2026-10-15)
+
+`test-aap-instrumentation-v1.py` runs 20 real AAP guest configurations
+with trace disabled and twice with it enabled: 60 emulator executions.
+Each configuration produced identical 36-bit memory results, and both
+traced executions had identical instruction-by-instruction positive
+logical-tick intervals. This validates sampled trace semantic
+transparency/repeatability but not bounded trace-memory usage, interrupt
+semantics, deterministic guest completion or full emulator provenance.
