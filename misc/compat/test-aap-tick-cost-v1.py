@@ -62,6 +62,30 @@ AAP_TIMING_V1 ET0A tick=650 pc=001001 inst=254
                 pass
             else:
                 raise AssertionError('invalid nested XCT trace accepted')
+        # BLT uses one outer IT0 interval with repeated ET0A
+        # milestones for additional transferred words.
+        trace.write_text('AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000\n'
+                         'AAP_TIMING_V1 ET0A tick=200 pc=001000 inst=251\n'
+                         'AAP_TIMING_V1 ET0A tick=300 pc=001000 inst=251\n'
+                         'AAP_TIMING_V1 ET0A tick=400 pc=001000 inst=251\n'
+                         'AAP_TIMING_V1 IT0 tick=600 pc=001001 inst=251\n'
+                         'AAP_TIMING_V1 ET0A tick=700 pc=001001 inst=254\n')
+        blt = module.intervals(trace)
+        assert len(blt) == 1 and blt[0]['opcode_octal'] == '251'
+        assert blt[0]['ticks'] == 500
+        assert blt[0]['blt_continuation_milestones'] == 2
+        for wrong in ('pc=001002 inst=251', 'pc=001000 inst=200'):
+            trace.write_text('AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000\n'
+                             'AAP_TIMING_V1 ET0A tick=200 pc=001000 inst=251\n'
+                             'AAP_TIMING_V1 ET0A tick=300 ' + wrong + '\n'
+                             'AAP_TIMING_V1 IT0 tick=600 pc=001001 inst=251\n'
+                             'AAP_TIMING_V1 ET0A tick=700 pc=001001 inst=254\n')
+            try:
+                module.intervals(trace)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError('invalid BLT continuation accepted')
         trace.write_text('AAP_TIMING_V1 IT0 tick=2 pc=001000 inst=000\n')
         try:
             module.intervals(trace)

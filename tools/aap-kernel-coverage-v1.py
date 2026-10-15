@@ -47,6 +47,8 @@ def verified_family_names():
     # Explicit semantic mapping for generated call-depth families.
     if any(x.startswith('depth') for x in result):
         result.update(('pushj', 'popj'))
+    if any(x.startswith('len') for x in result):
+        result.add('blt')
     return result
 
 

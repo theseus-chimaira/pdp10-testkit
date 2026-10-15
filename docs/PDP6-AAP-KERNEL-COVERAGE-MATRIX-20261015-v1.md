@@ -30,7 +30,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `SKIPN` | 136 | no |
 | `IOR` | 131 | yes |
 | `CAML` | 129 | yes |
-| `BLT` | 127 | no |
+| `BLT` | 127 | yes |
 | `CAIN` | 125 | yes |
 | `CONO` | 121 | no |
 | `SUBI` | 118 | yes |
@@ -109,7 +109,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | Class | Unmatched source occurrences | Highest contributors |
 |---|---:|---|
 | byte | 130 | ldb:103, ildb:12, dpb:8, idpb:6, ibp:1 |
-| block | 127 | blt:127 |
+| block | 0 | - |
 | call-stack | 1546 | pushj:1062, popj:484 |
 | doubleword | 2 | div:2 |
 | halfword | 36 | hrrm:22, hrlm:8, hrrzs:5, hllm:1 |
@@ -121,7 +121,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 
 1. Calls and returns (`PUSHJ` 1062, `POPJ` 484) have now gained 100 verified call-depth/return-value guest cases in batch100 v4. Additional stack boundaries, parameter passing and interrupt interactions remain untested.
 2. Conditional compares (`CAI`/`CAM`) occur frequently. Batch100 v3 newly supplies ten variants each for ten predicate forms, but this is not a comprehensive boundary test of all combinations.
-3. `BLT` (127 static references), byte instructions (130), and I/O/interrupt paths (223) require separate real-guest investigations.
+3. `BLT` now has 100 validated nonoverlapping 1–10-word transfer cases, including continuation milestones. Byte instructions (130 source references) and I/O/interrupt paths (223) require separate real-guest investigations.
 4. Logical test/modify instructions (421 unmatched source occurrences) and memory destination forms warrant additional fixtures.
 5. Static counts include all kernel assembly sources, not just whichever modules are linked into a specific boot image. They cannot establish runtime hotness. Compare against a specific linked image and measured opcode histogram before weighting optimization decisions.
 

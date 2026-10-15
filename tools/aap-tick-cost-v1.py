@@ -40,6 +40,7 @@ def intervals(path):
             raise ValueError('PC mismatch between IT0 and ET0A')
         opcode = execute[3]
         nested = []
+        repeats = 0
         idx += 1
         if opcode == '256':
             # AAP emits an additional ET0A for the instruction executed by
@@ -54,9 +55,19 @@ def intervals(path):
                     break
             if not nested or nested[-1] == '256':
                 raise ValueError('XCT target milestone missing or unfinished')
+        elif opcode == '251':
+            # PDP-6 BLT repeats ET0A for each additional transferred
+            # word, with the same PC and opcode but no intervening IT0.
+            # All repetitions belong to one outer BLT interval.
+            while idx < len(events) and events[idx][0] == 'ET0A':
+                child = events[idx]
+                if child[2] != event[2] or child[3] != '251':
+                    raise ValueError('invalid BLT continuation milestone')
+                repeats += 1
+                idx += 1
         elif idx < len(events) and events[idx][0] == 'ET0A':
             raise ValueError('unexpected additional execution milestone')
-        starts.append((event[1], event[2], opcode, nested))
+        starts.append((event[1], event[2], opcode, nested, repeats))
     if not starts:
         raise ValueError('missing IT0')
     if events[-1][0] != 'ET0A':
@@ -65,6 +76,7 @@ def intervals(path):
         raise ValueError('nonprogressing instruction starts')
     return [{'pc': a[1], 'opcode_octal': a[2],
              'nested_opcodes_octal': a[3],
+             'blt_continuation_milestones': a[4],
              'ticks': b[0] - a[0]} for a, b in zip(starts, starts[1:])]
 
 

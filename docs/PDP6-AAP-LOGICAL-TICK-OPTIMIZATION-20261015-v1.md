@@ -338,3 +338,14 @@ depth; the depth-ten cases yielded 66803 logical ticks excluding the
 terminal HALT. Total verified across batches: 900 real guests. This
 addresses the largest missing *static* DAIMOS kernel source opcode
 family; runtime instruction-frequency calibration remains outstanding.
+
+## 100-case batch 5: BLT timing continuation semantics (2026-10-15)
+
+`aap-batch100-v5` adds 100 BLT cases, lengths one through ten, ten data
+patterns per length. All destination words are checked independently.
+AAP emits repeated ET0A milestones at the same PC and opcode 251 during
+BLT transfers, without new IT0 boundaries. The extractor now attributes
+these to one outer BLT interval and records the number of continuation
+milestones. Invalid continuation PC/opcode combinations are rejected.
+100 real guest cases passed, bringing cumulative coverage to 1000.
+Overlapping BLT, faulted transfers and concurrent I/O remain untested.
