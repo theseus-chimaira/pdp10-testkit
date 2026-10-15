@@ -712,3 +712,23 @@ missing/mismatched boot, ?RT, HALT, and final PC records, and correctly
 identify the actual `?RT` stop at `071470`. The full linked-kernel
 hotpath gate remains incomplete pending a reproducible successful root
 mount, init/login and representative KCORE/MRES workload measurement.
+
+## Root-media integrity investigation after ?RT (2026-10-15)
+
+The original generated four-member disk images and the copies used by
+the failed bounded profile have matching SHA-256 hashes per disk member.
+`d6fsck -n 4` reports the same selected `DIRTY` superblock 706,
+sequence 2, on both original and copied images. Importantly,
+`d6fs_super_boot.c` accepts the defined `D6FS_STATE_DIRTY` value, so
+this checker result alone does **not** explain why KINIT printed `?RT`.
+The prior interactive SIMH boot log reached `INIT V1`, but it was recorded
+on a different occasion; do not assume its media contents were identical.
+
+`tools/check-pdp6-root-media-v1.py` independently verifies all expected
+member image hashes and optionally records each read-only `d6fsck` result.
+Its regression rejects divergent or missing members and invalid counts.
+No original DAIMOS disk image has been changed for this investigation.
+The remaining fault location must be isolated among root selection,
+D6FS mount, and `/SYSTEM/INIT` lookup; any KINIT instrumentation must
+preserve the actual mount/lookup semantics and be tested before claiming
+successful post-boot kernel timing coverage.

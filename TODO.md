@@ -517,3 +517,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Attribute fresh-media HALT at PC 071470 to fatal DAIMOS `?RT` (root mounting or regular `/SYSTEM/INIT` check) using the exact `kinit_boot.c` diagnostic; add a fail-closed root failure classifier and regression.
 - [ ] Isolate which copied disk root image or boot selection differs from the previously successful interactive boot; obtain successful reproducible `INIT V1` on fresh media before claiming full linked hotpath coverage.
+
+- [x] Validate original versus disposable D6FS root disk byte-for-byte (four matching member hashes) and record same selected DIRTY superblock; distinguish permissible DIRTY boot state from an established root-mount failure cause.
+- [ ] Establish whether fresh-profile `?RT` arises during root selection, D6FS mount or `/SYSTEM/INIT` stat; compare truly identical media revisions with prior successful boot before implementing a kernel fix.
