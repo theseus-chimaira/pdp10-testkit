@@ -310,9 +310,11 @@ workload/model tick-cost comparison. Relevant details:
 - [ ] Validate indexed and multilevel indirect addressing, including
   accumulator versus fast/core-memory references and variable memory
   configuration; compare code paths without assuming fixed memory timing.
-- [ ] Extend branch fixtures to both outcomes of `SKIP`, `AOBJN`, and
-  `AOBJP`, include remaining JUMP/SKIP predicates, and validate guest
-  memory/AC state independently of instruction-PC traces.
+- [x] Extend `SKIPE` and `AOBJP` fixtures to both outcomes, and validate
+  AOBJN loops with one, two, and four increments. The v3 suite checks
+  final 36-bit guest memory results independently of timing traces.
+- [ ] Cover remaining JUMP/SKIP predicates and additional AOBJN/AOBJP
+  boundaries, including overflow and deliberately incorrect guest states.
 - [ ] Validate repeated loops, variable trip counts, and branch-heavy
   control flow; ensure the final instruction and startup/stop overhead do
   not contaminate complete-interval comparisons.
@@ -345,8 +347,7 @@ workload/model tick-cost comparison. Relevant details:
 **Resume point:** inspect `tools/aap-tick-cost-v1.py`,
 `tools/compare-aap-tick-cost-v1.py`,
 `misc/compat/test-aap-control-flow-v1.sh`, and
-`misc/compat/test-aap-guest-timing-v1.sh`; extend conditional branch fixtures and
-loop guest tests, including independent guest-state checks. Maintain C99 for new C tests. Commit/push with
+`misc/compat/test-aap-guest-timing-v1.sh`; extend branch predicates and indexed/indirect guest addressing tests. Maintain C99 for new C tests. Commit/push with
 Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## P2 — documentation and repository hygiene

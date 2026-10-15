@@ -97,3 +97,19 @@ respectively. The last halt is excluded, as before. These cases validate
 control-flow decisions through observed PCs, not independent readback of
 final accumulator/memory state. Opposite skip/AOBJ outcomes, wider loop
 counts, and exceptional flows remain to be exercised.
+
+## Independent branch guest-state verification (2026-10-15, v3)
+
+`aap-branches-v3` extends the earlier branch tests with `SKIPE` not taken,
+`AOBJP` not taken, and `AOBJN` starting with left-half -1 and -4.
+The tested AOBJN loop executes respectively one, two, and four increments.
+Each program stores its final accumulator or chosen branch result in
+location 1020 and uses the emulator console's memory examination after
+the guest halt. The suite checks that result against a separately specified
+36-bit octal expectation as well as executed PCs, opcodes, and strict
+complete logical-tick intervals. Nine guests yield 33 intervals overall;
+terminating halts are unmeasured. Both halves of AOBJ accumulators increment
+together, including the right half on an untaken branch. The earlier v2
+suite remains registered as historical independent coverage. The full
+JUMP/SKIP predicate space, AOBJ edge conditions, and indirect-address
+variants remain open.
