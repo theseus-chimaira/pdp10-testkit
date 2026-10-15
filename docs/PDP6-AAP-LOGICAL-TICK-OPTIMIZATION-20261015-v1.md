@@ -1071,3 +1071,13 @@ and skip for PDP-6 opcode 315 across positive, zero, negative, equal and
 preservation, skip-vs-executed marker, actual PC trajectory, and complete
 positive AAP logical timing intervals. Encoding was checked against
 `pdp6/tools/as6.c`. This credits CAMGE only, not all CAM forms.
+
+## Full-assembler exact instruction-form coverage: CAMG (2026-10-16)
+
+Thirteen real AAP CAMG cases (octal opcode 317, verified against the
+PDP-6 assembler's opcode table) test signed strict-greater skip semantics,
+including equality (no skip), positive/negative operands, zero and the
+36-bit signed extrema. Independent checks cover the skip marker,
+accumulator and memory preservation, PC path and complete positive
+logical timing intervals. Evidence is credited only to CAMG; CAMGE has
+its own separate opcode-315 regression. No kernel tree edits were made.

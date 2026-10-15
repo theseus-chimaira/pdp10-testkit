@@ -179,3 +179,4 @@ aap-tlz-v1	compat	python3	misc/compat/test-aap-tlz-v1.py	host	yes	120
 aap-exact-form-registry-v1	compat	python3	misc/compat/test-aap-exact-form-registry-v1.py	host	yes	120
 aap-tlo-v1	compat	python3	misc/compat/test-aap-tlo-v1.py	host	yes	120
 aap-camge-v1	compat	python3	misc/compat/test-aap-camge-v1.py	host	yes	120
+aap-camg-v1	compat	python3	misc/compat/test-aap-camg-v1.py	host	yes	120
