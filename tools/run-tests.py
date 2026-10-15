@@ -980,6 +980,10 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                    '--step-limit', os.environ.get('P10_SWEEP_STEP_LIMIT', '100000000'),
                    '--timeout', P10_TIMEOUT,
                    '--workdir', str(rdir), '--name', execution_name(src)]
+            perf_profile = (os.environ.get('P10_SWEEP_PROFILE', '0') == '1'
+                            and cell['machine'] == 'pdp6')
+            if perf_profile:
+                cmd.append('--opcode-profile')
             # Even imported tests without an explicit status variable must
             # prove successful termination.  The upstream CRT implements
             # exit()/abort() and records main's return, never a fake stub.
@@ -1074,6 +1078,20 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                              done_report_path=report_path)
                 report = str(report_path if report_path.is_file() else log_path)
                 status = 'pass' if rc == 0 else ('timeout' if rc == 124 else 'run_fail')
+                if status == 'pass' and perf_profile:
+                    # Profiling is post-correctness; reject missing/incomplete
+                    # counters instead of silently reporting zero instructions.
+                    simh_output = rdir / (execution_name(src) + '.out')
+                    metrics = rdir / 'opcode-profile-v1.json'
+                    profile_cmd = [sys.executable, str(ROOT / 'tools/report-pdp6-opcodes-v1.py'),
+                                   str(simh_output), '--json', str(metrics)]
+                    weight_file = os.environ.get('P10_PDP6_COST_WEIGHTS')
+                    if weight_file:
+                        profile_cmd.extend(['--weights', weight_file])
+                    profile_rc = run_cmd(profile_cmd, ROOT, log_path, timeout=CELL_TIMEOUT)
+                    if profile_rc != 0 or not metrics.is_file():
+                        status = 'setup_fail'
+                        report = str(log_path)
     elapsed = '%.2f' % (time.time() - t0)
     line = [src, cell['machine'], cell['compiler'], cell['profile'], 'semantic', status, elapsed, str(asm_path), report]
     write_cell_result(outroot, line)

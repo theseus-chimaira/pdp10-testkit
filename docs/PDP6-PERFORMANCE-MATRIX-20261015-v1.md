@@ -36,3 +36,34 @@ runtime or silently compared against different machine models.
 
 Simulator dispatch counts include CRT and test harness instructions,
 not only the codec. Compare identical workloads and simulator builds.
+
+## General semantic matrix
+
+Set `P10_SWEEP_PROFILE=1` when running `run-tests.sh` to profile **all
+successfully executed PDP-6 semantic cells**, not just the UTF-9 special
+test. The runner passes `--opcode-profile` to `p10run`, validates the
+complete 512-counter histogram, and saves `opcode-profile-v1.json` within
+the cell's `run` directory. If a successful execution lacks a readable
+histogram, the cell is reported as `setup_fail` rather than as a valid
+performance result. Non-PDP-6 machines retain their normal behavior.
+
+Example using a new output directory (the restart runner skips already
+passing cells in an existing directory):
+
+```sh
+P10_SWEEP_PROFILE=1 ./run-tests.sh --compiler gcc --family base \
+  --cpu pdp6 --opt noopt --kind semantic \
+  --out-dir workdir/pdp6-profile-v1
+```
+
+Use `P10_PDP6_COST_WEIGHTS` to supply a separately validated optional
+opcode-cost table. Correctness is always established before profiling.
+Profile regression comparisons require identical test inputs, compiler
+settings and simulator configuration. The numerical dispatch count alone
+does not establish PDP-6 wall-clock performance.
+
+Validation: the real general-matrix `gcc-base-noopt` / PDP-6 cell for
+`tests/semantic/regression/int_ops_more.c` passed with profiling enabled
+and produced a complete JSON profile containing 4,090,986 dispatched
+instructions. A compile-only semantic cell remains compile-only and
+does not generate a spurious execution profile.
