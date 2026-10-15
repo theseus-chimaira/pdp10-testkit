@@ -537,3 +537,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Execute an actual privileged APR CONI guest on AAP, confirm the following IT0 trace contains opcode 700, and verify the CPU-only classifier rejects it.
 - [ ] Test genuine PI entry, relocation ILLOP and PDLOV events with bounded deterministic guests before closing the remaining event gates.
+
+- [x] Add conservative AAP instruction-PC attribution against a linked symbol map, refusing absent and malformed timing traces.
+- [ ] Obtain a provenance-matched KCORE/MRES live instruction-PC trace with verified text/module bounds before resolving linked-kernel-hotpaths.

@@ -163,3 +163,4 @@ pdp6-boot-failure-v1	compat	python3	misc/compat/test-pdp6-boot-failure-v1.py	hos
 pdp6-root-media-v1	compat	python3	misc/compat/test-pdp6-root-media-v1.py	host	yes	120
 pdp6-root-snapshot-v1	compat	python3	misc/compat/test-pdp6-root-snapshot-v1.py	host	yes	120
 aap-class-events-v1	compat	python3	misc/compat/test-aap-class-events-v1.py	host	yes	120
+aap-linked-pc-profile-v1	compat	python3	misc/compat/test-aap-linked-pc-profile-v1.py	host	yes	120

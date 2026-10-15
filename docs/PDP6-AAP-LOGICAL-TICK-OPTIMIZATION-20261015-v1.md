@@ -825,3 +825,16 @@ This validates one genuine IOT instruction exclusion and the earlier real
 NXM exclusion, but does not establish real PI entry, relocation-protection
 ILLOP, PDLOV, or complete abort/interrupt timing classification. Broad
 gate remains 16/19.
+
+## Linked-map PC attribution scaffold (2026-10-15)
+
+`tools/aap-linked-pc-profile-v1.py` accepts a linked symbol map and a real
+AAP timing log, counts instruction-start PC observations, and attributes
+each to the closest preceding symbol. It is intentionally a **candidate**
+profile: symbol maps include data and have gaps, and this method does not
+prove the traced executable matches the supplied map or that MRES modules
+were loaded and executed. The tool fails closed on malformed/missing PC
+records. `misc/compat/test-aap-linked-pc-profile-v1.py` exercises valid
+attribution and malformed/bootstrap-only rejection. Full linked KCORE/MRES
+hotpath coverage remains INCOMPLETE until a real, provenance-matched guest
+trace crosses verified KCORE and MRES text intervals.
