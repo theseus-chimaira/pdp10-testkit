@@ -101,5 +101,7 @@ utf9-pdp6-runtime-v1	compat	sh	misc/compat/test-utf9-pdp6-runtime-v1.sh	pdp6	yes
 apr-pulse-clock-v1	compat	sh	misc/compat/test-apr-pulse-clock-v1.sh	host	yes	120
 apr-device-layout-v1	compat	sh	misc/compat/test-aap-apr-device-layout-v1.sh	host	yes	120
 aap-guest-timing-v1	compat	sh	misc/compat/test-aap-guest-timing-v1.sh	host	yes	120
+aap-tick-cost-v1	compat	python3	misc/compat/test-aap-tick-cost-v1.py	host	yes	120
+aap-tick-comparison-v1	compat	python3	misc/compat/test-aap-tick-comparison-v1.py	host	yes	120
 p10byte-widths-v2	compat	sh	misc/compat/test-p10byte-widths-v2.sh	default	yes	120
 p10byte-blt-v3	compat	sh	misc/compat/test-p10byte-blt-v3.sh	default	yes	120

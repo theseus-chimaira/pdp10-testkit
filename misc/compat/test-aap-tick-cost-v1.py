@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+"""Unit tests for strict AAP instruction-start timing intervals."""
+import importlib.util
+import pathlib
+import sys
+import tempfile
+
+
+def main(reporter):
+    spec = importlib.util.spec_from_file_location('aap_tick_cost', reporter)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    with tempfile.TemporaryDirectory() as directory:
+        trace = pathlib.Path(directory) / 'trace.txt'
+        trace.write_text('''AAP_TIMING_V1 IT0 tick=601 pc=001000 inst=000
+AAP_TIMING_V1 ET0A tick=1302 pc=001000 inst=201
+AAP_TIMING_V1 IT0 tick=2002 pc=001001 inst=201
+AAP_TIMING_V1 ET0A tick=3103 pc=001001 inst=271
+AAP_TIMING_V1 IT0 tick=3953 pc=001002 inst=271
+AAP_TIMING_V1 ET0A tick=4654 pc=001002 inst=254
+''')
+        measured = module.intervals(trace)
+        assert [(x['opcode_octal'], x['ticks']) for x in measured] == [
+            ('201', 1401), ('271', 1951)]
+        assert len(measured) == 2  # halt has no next instruction boundary
+        trace.write_text('AAP_TIMING_V1 IT0 tick=2 pc=001000 inst=000\n')
+        try:
+            module.intervals(trace)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError('unpaired trace accepted')
+    print('AAP tick interval calculation v1: PASS')
+
+
+if __name__ == '__main__':
+    reporter = (pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else
+                pathlib.Path(__file__).resolve().parents[2] / 'tools/aap-tick-cost-v1.py')
+    main(reporter.resolve())

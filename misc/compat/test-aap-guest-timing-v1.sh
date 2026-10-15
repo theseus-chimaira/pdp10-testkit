@@ -76,3 +76,23 @@ assert ticks == sorted(ticks), 'nonmonotonic logical clock'
 assert all(a < b for a, b in zip(ticks, ticks[1:])), 'nonprogressing instruction clock'
 print('AAP PDP-6 MOVEI/ADDI/JRST guest sequence v1: PASS')
 PY
+model_revision=$(git -C "$aap" rev-parse HEAD)
+python3 "$root/tools/aap-tick-cost-v1.py" "$work/sequence-timing.log" \
+    --workload-id 'movei-addi-jrst-halt-v1' \
+    --model-id "${model_revision}-fmem162-moby256k-v1" \
+    --json "$work/sequence-cost-v1.json" > "$work/cost-report.log"
+python3 - "$work/sequence-cost-v1.json" <<'PY'
+import json
+import pathlib
+import sys
+profile = json.loads(pathlib.Path(sys.argv[1]).read_text())
+assert profile['unit'] == 'AAP logical pulse-delay ticks'
+assert profile['complete_intervals'] == 2
+assert [entry['opcode_octal'] for entry in profile['intervals']] == ['201', '271']
+assert all(entry['ticks'] > 0 for entry in profile['intervals'])
+assert profile['terminal_instruction_unmeasured']
+assert profile['total_complete_ticks'] == sum(item['ticks'] for item in profile['intervals'])
+assert profile['workload_id'] == 'movei-addi-jrst-halt-v1'
+assert profile['model_id']
+print('AAP logical tick cost from guest execution v1: PASS')
+PY
