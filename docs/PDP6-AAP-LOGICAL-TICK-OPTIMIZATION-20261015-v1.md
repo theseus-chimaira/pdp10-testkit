@@ -372,3 +372,12 @@ strict event, PC/opcode and complete timing interval checks. The total
 is 1200 verified guests. Byte pointer word crossing and standalone IBP
 remain to be covered; these tests do not establish general exception
 or interrupt timing.
+
+## 100-case batch 8: standalone IBP byte-pointer increment (2026-10-15)
+
+`aap-batch100-v8` validates 100 standalone IBP pointer increments, ten
+field sizes and ten initial positions each. Both the resulting in-memory
+byte-pointer word and its copy into the guest result slot are checked.
+All 100 pass the expected PC/opcodes and strict timing interval checks.
+The cumulative total is 1300 verified AAP guest cases. Pointer carry
+across word boundaries remains unvalidated.

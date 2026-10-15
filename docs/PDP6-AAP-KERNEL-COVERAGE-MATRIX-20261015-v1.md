@@ -97,7 +97,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `SKIPG` | 2 | no |
 | `DIV` | 2 | no |
 | `AOBJN` | 1 | no |
-| `IBP` | 1 | no |
+| `IBP` | 1 | yes |
 | `ASH` | 1 | yes |
 | `ANDCM` | 1 | no |
 | `ROT` | 1 | no |
@@ -108,7 +108,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 
 | Class | Unmatched source occurrences | Highest contributors |
 |---|---:|---|
-| byte | 1 | ibp:1 |
+| byte | 0 | - |
 | block | 0 | - |
 | call-stack | 1546 | pushj:1062, popj:484 |
 | doubleword | 2 | div:2 |
@@ -121,7 +121,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 
 1. Calls and returns (`PUSHJ` 1062, `POPJ` 484) have now gained 100 verified call-depth/return-value guest cases in batch100 v4. Additional stack boundaries, parameter passing and interrupt interactions remain untested.
 2. Conditional compares (`CAI`/`CAM`) occur frequently. Batch100 v3 newly supplies ten variants each for ten predicate forms, but this is not a comprehensive boundary test of all combinations.
-3. `BLT` now has 100 validated nonoverlapping 1–10-word transfer cases, including continuation milestones. LDB/DPB now have 100 byte-width/position cases; ILDB/IDPB now have 100 tested pre-increment pointer cases; IBP, word-crossing and I/O/interrupt paths (223 static references) require separate real-guest investigations.
+3. `BLT` now has 100 validated nonoverlapping 1–10-word transfer cases, including continuation milestones. LDB/DPB now have 100 byte-width/position cases; ILDB/IDPB now have 100 tested pre-increment pointer cases; Standalone IBP now has 100 verified pointer-update cases; word-crossing and I/O/interrupt paths (223 static references) remain separate investigations.
 4. Logical test/modify instructions (421 unmatched source occurrences) and memory destination forms warrant additional fixtures.
 5. Static counts include all kernel assembly sources, not just whichever modules are linked into a specific boot image. They cannot establish runtime hotness. Compare against a specific linked image and measured opcode histogram before weighting optimization decisions.
 
