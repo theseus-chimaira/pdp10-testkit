@@ -177,3 +177,4 @@ aap-idivi-v1	compat	python3	misc/compat/test-aap-idivi-v1.py	host	yes	120
 aap-setom-v1	compat	python3	misc/compat/test-aap-setom-v1.py	host	yes	120
 aap-tlz-v1	compat	python3	misc/compat/test-aap-tlz-v1.py	host	yes	120
 aap-exact-form-registry-v1	compat	python3	misc/compat/test-aap-exact-form-registry-v1.py	host	yes	120
+aap-tlo-v1	compat	python3	misc/compat/test-aap-tlo-v1.py	host	yes	120

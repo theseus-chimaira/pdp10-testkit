@@ -1052,3 +1052,13 @@ This test explicitly does **not** establish successful kernel entry,
 TSFS root mounting, loaded MRES modules or representative dynamic opcode
 frequency. Kernel working tree had concurrent uncommitted changes and was
 not modified. The mandatory KCORE/MRES hotpath gate is still incomplete.
+
+## Full-assembler exact instruction-form coverage: TLO (2026-10-16)
+
+Five standalone real AAP TLO guests (octal opcode 661, checked against
+PDP-6 `as6.c`) verify setting the selected immediate-mask bits in the
+accumulator's left 18-bit half, preserving its right half and the
+source memory, and completing a positive logical timing interval for
+opcode 661. This provides evidence for TLO only, not other TL forms.
+The test does not require DAIMOS boot. Parallel kernel/testkit changes
+were not modified.

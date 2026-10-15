@@ -592,3 +592,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Correct AAP exact-form fixture registry discovery: standalone registered tests now count, with a regression to prevent missing-script evidence.
 - [x] Verify five real standalone TLZ opcode-621 left-half bit-clear semantics and timing cases.
 - [ ] Continue the current all-assembler frequency ranking with TLO, CAMGE and subsequent exact forms; boot-dependent testing remains suspended.
+
+- [x] Verify standalone TLO opcode-661 exact-form semantics and timing with five boundary masks.
+- [ ] Continue CAMGE/CAMG exact-form timing and branch tests; separately advance resumed linked-image boot profiling.
