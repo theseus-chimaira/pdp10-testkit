@@ -628,3 +628,20 @@ not prove an interrupt or memory fault did not occur earlier and get
 serviced or cleared. The fault and I/O/interrupt gate criteria therefore
 remain incomplete until event-level timing and real exceptional guest
 paths are verified.
+
+## Bounded SIMH DAIMOS boot opcode histogram probe (2026-10-15)
+
+The installed SIMH PDP-6 exposes all 512 dispatched opcode counters via
+`examine OPCOUNT[0-511]` (not `show cpu opcount`). A bounded `step 120000`
+using a disposable-media copy of DAIMOS's generated boot configuration
+returned a complete counter array, but only three distinct opcodes were
+active. This is *not* proof of KCORE/MRES execution. The checked-in
+`tools/check-pdp6-linked-profile-v1.py` refuses such inadequate profiles,
+and the parser regression confirms that an incomplete or three-opcode
+bootstrap log cannot satisfy the gate. Counter diversity alone also is
+not sufficient: execution addresses must be correlated with actual linked
+KCORE/MRES maps and a verified boot milestone. The genuine linked-kernel
+hotpath coverage gate remains incomplete until such evidence exists.
+
+The bounded probe intentionally used disposable copies of disk/tape media;
+no generated production disk images were modified in this experiment.

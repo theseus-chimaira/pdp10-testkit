@@ -505,3 +505,6 @@ matrix or special-suite test, or is explicitly marked deferred with a reason;
 all active tests meaningfully assert their intended behavior; invalid tests
 are rejected without compiler crashes; supported execution profiles have
 recorded results; and registry entries agree with actual runner dispatch.
+
+- [x] Determine the SIMH PDP-6 opcode register query (`examine OPCOUNT[0-511]`), run bounded disposable-media DAIMOS boot probe, and reject its three-opcode bootstrap-only profile using a fail-closed validator.
+- [ ] Achieve genuine linked DAIMOS KCORE/MRES execution evidence: complete boot to authenticated kernel milestone, bound execution PC to linked maps, gather reproducible opcode counters and associate with boot/build revisions; bootstrap counters alone are inadequate.
