@@ -53,6 +53,7 @@ GENERATED_EVIDENCE = {
     'test-aap-tlc-v1.py': {'tlc'},
     'test-aap-idivi-v1.py': {'idivi'},
     'test-aap-setom-v1.py': {'setom'},
+    'test-aap-tlz-v1.py': {'tlz'},
 }
 FAMILY_ALIASES = {
     'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',
@@ -91,6 +92,11 @@ def verified_family_names():
                 result.update(x.value.lower() for x in node.iter.elts
                               if isinstance(x, ast.Constant) and isinstance(x.value, str))
         result.update(GENERATED_EVIDENCE.get(path.name, set()))
+    # Exact-form tests are separate standalone guest scripts, not batch*.py.
+    # Only credit forms whose test file is explicitly registered.
+    for filename, families in GENERATED_EVIDENCE.items():
+        if 'misc/compat/' + filename in registered:
+            result.update(families)
     result.update(FAMILY_ALIASES[name] for name in tuple(result)
                   if name in FAMILY_ALIASES)
     # These are executed as real top-level guest instructions in the

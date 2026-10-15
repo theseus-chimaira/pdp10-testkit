@@ -1026,3 +1026,19 @@ Initial accumulator values include zero, one, all-ones, sign bit and a
 mixed pattern. Encoding was checked against PDP-6 `as6.c`. Only the
 exact SETOM form receives evidence, not all SETO variants. The DAIMOS
 TSFS-root block remains in force; no boot-dependent tests ran.
+
+## Exact-form evidence discovery and TLZ (2026-10-15)
+
+The source inventory's evidence discovery previously iterated only
+`test-aap-batch*.py`; standalone exact-form tests were registered but
+not credited despite being present in `GENERATED_EVIDENCE`. The reader
+now includes registered exact-form scripts by their explicit filename
+mapping, without treating adjacent opcodes as tested. A regression checks
+that every registered standalone exact-form mapping contributes evidence.
+
+Five real AAP TLZ guests (octal opcode 621, verified against the PDP-6
+assembler) clear selected bits in the accumulator's left half, preserve
+the right half and unchanged source memory, and produce complete timing
+intervals. No DAIMOS boot test was run. As the DAIMOS source tree can
+change in parallel, source counts must be recomputed against the current
+snapshot and must never be treated as stable runtime statistics.
