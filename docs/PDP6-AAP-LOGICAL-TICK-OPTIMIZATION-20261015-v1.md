@@ -918,3 +918,24 @@ This closes a previously unvalidated interleaving case; it does not imply
 that all exception/PI event sources have been instrumented. Standalone
 real normal, NXM and IOT guest regressions pass. DAIMOS boot-dependent
 measurements remain suspended while TSFS root is broken; gate is 16/19.
+
+## All-maintained-DAIMOS-assembler coverage inventory (2026-10-15)
+
+Scope expanded beyond kernel-only assembly to every `*.s`/`*.S` under
+`system/` and `userland/`. `build/` is counted separately because it includes
+generated compiler/assembler output and duplicate snapshots; it must not
+inflate maintained-source coverage. `aap-daimos-asm-coverage-v1.py` reports
+known mnemonic references, AAP fixture-label matches, and unknown leading
+tokens requiring macro/instruction classification. Current source snapshot:
+82 system assembler files (17,463 recognized mnemonic references; 17,004
+with some fixture label); 46 userland assembler files (3,662 references;
+3,597 label matches); 396 generated build assembler files separately.
+These counts **do not** prove semantic or timing coverage of individual
+opcodes, modes, branches, or binaries. Only actual AAP guests may qualify
+runtime coverage. The current 16/19 gate remains unchanged, and DAIMOS
+boot-dependent testing remains blocked by the TSFS root regression.
+
+A standalone real AAP PUSHJ experiment also generated PDLOV at logical
+tick 4502, with `PDLOV=1` in the APR snapshot, for stack pointer
+`777777000010`; a zero pointer produced no PDLOV. This positive/control
+pair is now part of the standalone pulse-classification regression.

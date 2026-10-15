@@ -100,4 +100,26 @@ with tempfile.TemporaryDirectory(prefix='aap-class-events-v1.',
         assert 'device-I/O' in str(exc)
     else:
         raise AssertionError('real privileged IOT execution accepted')
-print('AAP pulse classification v1: PASS (normal, real NXM and IOT, grammar)')
+    # Actual PDP-6 PUSHJ stack-pointer overflow. Verify a control case too.
+    for name, pointer, expected in (
+        ('stack-overflow', 0o777777000010, True),
+        ('stack-control', 0, False),
+    ):
+        words = {0o1000:0o200740001010, 0o1001:0o260740001003,
+                 0o1002:0o254200000000, 0o1003:0o254200000000,
+                 0o1010:pointer}
+        out, trace, states = run_guest(work/'pdp6_n', work, words, [],
+                         timeout=8, extra_commands='aprclass\n')
+        assert states[-1] == 'HALTED', name
+        assert ('AAP_CLASS_EVENT_V1 type=PDLOV ' in trace) == expected, name
+        assert ('PDLOV=1' in out) == expected, name
+        if expected:
+            try:
+                module.inspect(trace)
+            except ValueError as exc:
+                assert 'PDLOV' in str(exc), (name, str(exc))
+            else:
+                raise AssertionError('real stack overflow was accepted')
+        else:
+            assert module.inspect(trace)
+print('AAP pulse classification v1: PASS (normal, real NXM/IOT/PDLOV, grammar)')

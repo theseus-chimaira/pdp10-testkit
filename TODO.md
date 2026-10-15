@@ -559,3 +559,7 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Require strictly increasing AAP logical timing milestones in event classifier, rejecting missing, malformed, tied or reversed traces; verify with standalone AAP normal, NXM and IOT guests while TSFS boot is blocked.
 
 - [x] Validate cross-stream chronological ordering of AAP exception/PI pulse events and timing milestones, with standalone regression cases for inverted event order.
+
+- [x] Expand AAP static coverage inventory from kernel-only to all maintained DAIMOS assembler under system/ and userland/; count generated build output separately and report unclassified tokens, without claiming runtime coverage.
+- [x] Verify genuine standalone PDP-6 PUSHJ pushdown overflow and clean stack-pointer control, with emitted PDLOV event and APR latch checks.
+- [ ] Classify remaining unknown assembler tokens and expand real AAP opcode/mode fixtures across all DAIMOS source; retain boot-dependent KCORE/MRES criterion as blocked by TSFS.
