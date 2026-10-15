@@ -380,7 +380,10 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   of five families: direct, indexed, indirect, multilevel indirect, and
   arithmetic. All 50 passed on PDP-6 AAP; only this model/configuration
   is covered. Each variation is one case, not a distinct opcode family.
-- [ ] Add successive independently specified 50-case batches, prioritizing
+- [x] Add second 50-case batch covering taken JUMPE, untaken JUMPN,
+  AOBJN with 1-10 iterations, XCT of MOVEI and nested XCT of MOVEI.
+  All 50 real emulator guests passed; see `misc/compat/test-aap-batch50-v2.py`.
+- [ ] Add further independently specified 50-case batches, prioritizing
   new paths and observed DAIMOS workload frequency over redundant operand
   values. Keep per-case failures visible. Do not conflate parser-only
   malformed traces with real guest execution tests.

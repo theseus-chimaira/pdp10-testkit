@@ -209,3 +209,16 @@ these small input-value ranges. They are not universal opcode timings;
 each total includes other guest instructions and excludes the final halt.
 The next batches should prioritize distinct execution paths rather than
 simply increasing the number of values per instruction.
+
+## Fifty-case guest batch 2: branches, loops and XCT (2026-10-15)
+
+`aap-batch50-v2` runs ten independently checked operand variations in
+each of five groups: taken JUMPE, untaken JUMPN, AOBJN loop counts one
+through ten, XCT of MOVEI, and nested XCT of MOVEI. All 50 cases passed
+with the AAP model using attached fast memory and 256K core. For each
+case, the runner verifies the 36-bit result independently, executed PCs,
+outer instruction opcodes, the XCT nested opcode chain, monotonic trace
+clock and strict positive IT0 intervals. The terminating halt is excluded
+from complete timing totals. This makes 100 real-guest passing variations
+across the first two 50-case batches, not 100 independent opcode types.
+Interrupts and fault handling remain outstanding.
