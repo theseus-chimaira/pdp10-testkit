@@ -894,3 +894,16 @@ linked-image single-HALT experiment establishes successful DAIMOS boot.
 Resume boot-dependent measurements only after the parallel kernel worker
 confirms the TSFS regression fixed and supplies the exact build identity.
 The linked-kernel mandatory coverage criterion remains INCOMPLETE.
+
+## Fail-closed AAP trace ordering (2026-10-15)
+
+The independent event classifier now requires at least one AAP timing
+milestone, checks that every `IT0` and `ET0A` record has valid syntax,
+and rejects non-increasing logical tick timestamps. It still rejects
+instrumented exceptional/PI pulses and privileged IOT instruction starts.
+Tests cover empty, malformed, repeated-tick, reversed-tick and genuine
+AAP normal/NXM/IOT traces. This prevents those bad records from being
+mistaken for clean CPU-only evidence, but cannot establish the absence
+of uninstrumented events or prove complete trace capture. The TSFS root
+regression still blocks all DAIMOS boot-dependent profiling; the broad
+coverage gate remains 16/19.

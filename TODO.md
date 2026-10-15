@@ -555,3 +555,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] HOLD real DAIMOS boot-dependent KCORE/MRES profiling while TSFS root is broken. Do not run DAIMOS boot, root-mount, stage-one-to-kernel, or MRES-load integration tests until a separate kernel worker confirms the root regression is fixed and the exact tested build is identified.
 - [ ] Meanwhile continue only standalone AAP CPU execution/timing, event classification, and synthetic paper-tape I/O probes that do not rely on DAIMOS boot, root filesystem, or live kernel startup.
 - [ ] After TSFS is independently repaired, verify boot/media provenance before resuming linked-kernel runtime profile collection; existing image/HALT evidence is not a live KCORE/MRES profile.
+
+- [x] Require strictly increasing AAP logical timing milestones in event classifier, rejecting missing, malformed, tied or reversed traces; verify with standalone AAP normal, NXM and IOT guests while TSFS boot is blocked.

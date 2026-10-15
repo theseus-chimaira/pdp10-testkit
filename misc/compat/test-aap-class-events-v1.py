@@ -13,7 +13,7 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 for event in ('NXM','ILLOP','PDLOV','PI_CYCLE'):
     try:
-        module.inspect('AAP_CLASS_EVENT_V1 type=%s tick=100 pc=001000\n' % event)
+        module.inspect('AAP_TIMING_V1 IT0 tick=1 pc=001000 inst=201\nAAP_CLASS_EVENT_V1 type=%s tick=100 pc=001000\n' % event)
     except ValueError:
         pass
     else:
@@ -25,6 +25,16 @@ except ValueError:
 else:
     raise AssertionError('unknown event accepted')
 assert module.inspect('AAP_TIMING_V1 IT0 tick=1 pc=001000 inst=254\n')
+for bad in ('',
+    'AAP_TIMING_V1 IT0 tick=10 pc=001000 inst=201\nAAP_TIMING_V1 ET0A tick=9 pc=001000 inst=201\n',
+    'AAP_TIMING_V1 IT0 tick=10 pc=001000 inst=201\nAAP_TIMING_V1 ET0A tick=10 pc=001000 inst=201\n',
+    'AAP_TIMING_V1 ET0A tick=NAN pc=001000 inst=201\n'):
+    try:
+        module.inspect(bad)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('invalid AAP timing record accepted')
 for op in ('700', '710', '777'):
     try:
         module.inspect('AAP_TIMING_V1 IT0 tick=1 pc=001000 inst='+op+'\n')

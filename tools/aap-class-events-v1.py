@@ -10,13 +10,26 @@ from pathlib import Path
 
 IOT_START = re.compile(r'AAP_TIMING_V1 IT0 tick=(\d+) pc=([0-7]{6}) inst=([0-7]{3})')
 
+TIMING = re.compile(r'AAP_TIMING_V1 (IT0|ET0A) tick=(\d+) pc=([0-7]{6}) inst=([0-7]{3})')
+
 EVENT = re.compile(r'AAP_CLASS_EVENT_V1 type=(NXM|ILLOP|PDLOV|PI_CYCLE) tick=(\d+) pc=([0-7]{6})')
 
 
 def inspect(text):
     events = []
     io_instructions = []
+    previous_tick = None
+    saw_timing = False
     for line in text.splitlines():
+        if line.startswith('AAP_TIMING_V1 '):
+            milestone = TIMING.fullmatch(line)
+            if milestone is None:
+                raise ValueError('malformed timing milestone: ' + line)
+            tick = int(milestone.group(2))
+            if previous_tick is not None and tick <= previous_tick:
+                raise ValueError('non-increasing AAP logical ticks')
+            previous_tick = tick
+            saw_timing = True
         if line.startswith('AAP_TIMING_V1 IT0 '):
             instruction = IOT_START.fullmatch(line)
             if instruction is None:
@@ -29,6 +42,8 @@ def inspect(text):
         if not item:
             raise ValueError('malformed classification event: ' + line)
         events.append(item.groups())
+    if not saw_timing:
+        raise ValueError('no AAP timing milestones; cannot classify absent events')
     if events:
         raise ValueError('exceptional/PI events observed: ' + ','.join(x[0] for x in events))
     if io_instructions:
