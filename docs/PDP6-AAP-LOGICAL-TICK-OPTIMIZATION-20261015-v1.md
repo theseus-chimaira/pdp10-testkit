@@ -301,3 +301,18 @@ not cover every PDP-6 opcode, exceptional interrupts, or all memory maps,
 and they are not historical physical timing measurements. The next phase
 should audit real workloads, validate instrumentation transparency and
 reproducibility, and integrate equivalent baseline/candidate comparisons.
+
+## 1500-case target, first 100-case expansion batch (2026-10-15)
+
+A new 1500-real-guest target is organized into ten additional batches
+of 100 cases beyond the previous 500. `aap-batch100-v1` verifies ten
+full-word boundary operands for each of MOVE, MOVN, MOVM, SETZ, SETO,
+ADD, SUB, XOR, AND and IOR: 100 real AAP guest cases all passed
+independently calculated 36-bit output checks, instruction PC/opcode
+checks and strict positive timing interval extraction. Total: 600
+passing guests. The attempted large-operand IMUL family exposed a
+nontrivial PDP-6 multiply semantics question; it was excluded from this
+validated batch pending a dedicated investigation. This is not proof of
+an emulator error. Completion currently uses a timed console readback,
+which should be replaced with a deterministic handshake before relying
+on large-scale baseline/candidate comparisons.
