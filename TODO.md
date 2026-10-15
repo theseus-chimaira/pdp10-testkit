@@ -532,3 +532,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Exercise real AAP NXM event with an out-of-range read on 16K `cmem161C` core and reject it through the event classifier; verify ordinary 256K reads did not trigger NXM.
 - [ ] Extend real AAP positive event coverage to ILLOP, PDLOV, and PI entry; reject/categorize device I/O and aborted timing traces.
+
+- [x] Exclude IOT opcode starts (0700–0777) from ordinary CPU timing using AAP instruction-start milestones; retain mandatory PI/device-I/O coverage as incomplete pending real device and PI event tests.

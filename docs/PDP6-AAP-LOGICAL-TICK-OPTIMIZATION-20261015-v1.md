@@ -798,3 +798,17 @@ NXM and the fail-closed event classifier rejects the trace. This
 qualifies event instrumentation at one actual out-of-range access only.
 Other exceptional event sources, interrupts and I/O remain unqualified;
 all three mandatory coverage gaps remain INCOMPLETE.
+
+## Conservative AAP IOT exclusion (2026-10-15)
+
+The event classifier now reads real-time `AAP_TIMING_V1 IT0` opcode
+milestones and rejects any IOT opcode 0700–0777 in addition to recorded
+NXM/ILLOP/PDLOV/PI-cycle events. This is an exclusion rule, not an I/O
+duration estimator; the input must be a complete timing/event trace for
+any absence claim. Synthetic regression cases verify rejection for
+0700, 0710 and 0777; the normal AAP guest and actual 16K NXM regression
+still pass. A genuine PI entry and device-interrupt path are not yet
+validated, so the interrupt/device-I/O mandatory gate remains incomplete.
+The AAP emulator's `mc_illeg_address` originates in failed relocation
+permission testing (`relocate`), not from arbitrary UUO opcodes; earlier
+UUO tests timed out and are not counted as verified ILLOP coverage.

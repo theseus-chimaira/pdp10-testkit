@@ -25,6 +25,13 @@ except ValueError:
 else:
     raise AssertionError('unknown event accepted')
 assert module.inspect('AAP_TIMING_V1 IT0 tick=1 pc=001000 inst=254\n')
+for op in ('700', '710', '777'):
+    try:
+        module.inspect('AAP_TIMING_V1 IT0 tick=1 pc=001000 inst='+op+'\n')
+    except ValueError as exc:
+        assert 'device-I/O' in str(exc)
+    else:
+        raise AssertionError('IOT opcode accepted: '+op)
 sys.path.insert(0, str(ROOT/'tools'))
 from aap_guest_console_v1 import run_guest
 EMULATOR = ROOT.parent/'pdp6'/'emu'
