@@ -479,3 +479,14 @@ TLNE/TLNN 603/607. `aap-batch100-v15` validates ten TL* test/modify
 forms, ten source patterns each, including alternating skip outcomes,
 complete logical tick intervals and resulting 36-bit AC values. All 100
 passed using deterministic HALT acknowledgement; cumulative 2000 guests.
+
+## Batch100 v16: doubleword logical shift and rotate (2026-10-15)
+
+`aap-batch100-v16` checks 100 real AAP guests with ten full-word
+operand patterns for each of six LSHC and four ROTC positive shift counts.
+Both 36-bit words of the result are read back and independently checked
+against unsigned 72-bit shifts and rotations. All 100 passed exact PC/
+opcode sequences and complete timing intervals; cumulative 2100 guests.
+An exploratory ASHC test failed a generic 72-bit shift expectation,
+which does not properly capture PDP-6 signed doubleword representation.
+ASHC is excluded from validated count and remains an open gate item.
