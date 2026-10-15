@@ -53,3 +53,32 @@ cannot yet be treated as a PDP-6 instruction duration. No full
 instruction-end marker has been established, and the DEC physical timing
 unit remains to be verified. The emulator was exercised with
 AddressSanitizer after the fix.
+
+## Three-instruction sequence validation (2026-10-15)
+
+The guest test now configures both the PDP-6 fast-memory module and 256K
+core memory. Fast memory is essential for accumulator-access operations;
+the deliberately minimal earlier halt-only configuration was insufficient
+for executing ordinary arithmetic programs.
+
+An additional guest executes `MOVEI 1,1` (octal 201), `ADDI 1,1` (271),
+and `JRST 4` (254). The simulator emitted the following strictly ordered
+milestones in one observed run:
+
+```
+AAP_TIMING_V1 IT0 tick=601 pc=001000 inst=000
+AAP_TIMING_V1 ET0A tick=1302 pc=001000 inst=201
+AAP_TIMING_V1 IT0 tick=2002 pc=001001 inst=201
+AAP_TIMING_V1 ET0A tick=3103 pc=001001 inst=271
+AAP_TIMING_V1 IT0 tick=3953 pc=001002 inst=271
+AAP_TIMING_V1 ET0A tick=4654 pc=001002 inst=254
+```
+
+This validates one `IT0`/`ET0A` pair per instruction *for this particular
+straight-line guest*, including PC and opcode progression, not for the
+whole PDP-6 instruction set. Regression checks use event order, monotonic
+time, opcode and PC; they intentionally do not assert fixed tick deltas.
+The sequence also passed under AddressSanitizer with the correct memory
+configuration. Interrupts, XCT, indirect indexing, memory contention,
+timing calibration, and a generally correct end-of-instruction boundary
+remain open research items.
