@@ -674,3 +674,22 @@ and MRES runtime hotpath coverage, and is tested against missing
 milestones and incomplete counters. The broad hotpath gate stays open
 until representative running-system workloads and linked-map address
 attribution have been captured and verified.
+
+## Fresh-media boot profile stop-condition audit (2026-10-15)
+
+A 12-million-step run reusing a previously exercised disposable media
+snapshot regressed to the bootstrap loop. Regenerating all media from the
+production build tree restored `DAIMON V0.5` and `BSET LOADED`, and SIMH
+reported 10,812,075 opcode dispatches. **This run terminated with a HALT
+instruction at PC 071470**, not by consuming the step budget and not by
+reaching `INIT V1`. It is NOT accepted by the bounded boot-stage validator
+and must not be used as evidence of sustained MRES/KCORE runtime coverage.
+The stop reason requires further kernel/loader investigation.
+
+`tools/pdp6-fresh-media-profile-v1.py` now constructs versioned isolated
+media copies retaining disk/drum subdirectories, refuses to reuse outputs,
+sets the bootstrap PC explicitly to 020, disables optional GUI/network
+listeners, and records hashes of all media copies in a manifest. The
+regression covers media filename collisions, forbidden in-tree copies,
+repeat-run refusal, and the explicit PC setup. No production media were
+modified for this work.

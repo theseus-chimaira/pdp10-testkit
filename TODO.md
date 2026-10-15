@@ -511,3 +511,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Diagnose invalid SIMH `step N` profile start (missing `deposit PC 020`), preserve distinct copied disk/drum media directories, and obtain a bounded DAIMON-to-BSET boot-stage opcode profile (8,346,188 dispatches, 112 active opcode values). Add a fail-closed boot-stage classifier.
 - [ ] Capture representative post-boot DAIMOS linked KCORE/MRES workloads with module execution/address provenance, supported stage milestones, and source/binary/configuration fingerprints before marking full hotpath coverage.
+
+- [x] Add reproducible fresh-media setup for bounded SIMH kernel profiling, preserving disk/drum paths and hashes and rejecting reused snapshots; regression in `test-pdp6-fresh-media-profile-v1.py`.
+- [ ] Investigate DAIMOS bounded full-boot HALT at PC `071470` after `BSET LOADED` (fresh 12M-step run); do not promote that run to full hotpath coverage.

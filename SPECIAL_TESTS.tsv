@@ -158,3 +158,4 @@ aap-execution-class-v1	compat	python3	misc/compat/test-aap-execution-class-v1.py
 aap-execution-class-parser-v1	compat	python3	misc/compat/test-aap-execution-class-parser-v1.py	host	yes	120
 pdp6-linked-profile-v1	compat	python3	misc/compat/test-pdp6-linked-profile-v1.py	host	yes	120
 pdp6-kernel-boot-profile-v1	compat	python3	misc/compat/test-pdp6-kernel-boot-profile-v1.py	host	yes	120
+pdp6-fresh-media-profile-v1	compat	python3	misc/compat/test-pdp6-fresh-media-profile-v1.py	host	yes	120
