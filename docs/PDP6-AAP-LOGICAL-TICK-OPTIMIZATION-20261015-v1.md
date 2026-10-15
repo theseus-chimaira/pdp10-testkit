@@ -1081,3 +1081,12 @@ including equality (no skip), positive/negative operands, zero and the
 accumulator and memory preservation, PC path and complete positive
 logical timing intervals. Evidence is credited only to CAMG; CAMGE has
 its own separate opcode-315 regression. No kernel tree edits were made.
+
+## Full-assembler exact instruction-form coverage: HRROI (2026-10-16)
+
+Five real PDP-6 AAP `HRROI` (octal opcode 561) guests check that the
+accumulator receives ones in its left 18-bit half and the 18-bit
+immediate operand in its right half. They verify source-memory
+preservation, HALT completion, and a complete logical timing interval.
+The opcode was confirmed against `pdp6/tools/as6.c`. Evidence credits
+HRROI only, not related halfword forms.

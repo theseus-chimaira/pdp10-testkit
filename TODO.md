@@ -601,3 +601,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify exact CAMG opcode-317 signed strict-greater comparison and skip behavior in thirteen real AAP boundary cases; compare equality vs CAMGE semantics.
 - [ ] Continue HRROI and SETZB exact opcode evidence, alongside resumed live KCORE/MRES kernel profiling.
+
+- [x] Verify standalone HRROI opcode-561 immediate right-half/left-ones semantics and timing across five cases.
+- [ ] Continue SETZB and remaining exact-form AAP tests; progress kernel-entry runtime profiling independently.
