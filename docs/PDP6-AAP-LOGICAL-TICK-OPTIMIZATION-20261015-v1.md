@@ -693,3 +693,22 @@ listeners, and records hashes of all media copies in a manifest. The
 regression covers media filename collisions, forbidden in-tree copies,
 repeat-run refusal, and the explicit PC setup. No production media were
 modified for this work.
+
+## Actual cause of bounded 12-million-step boot HALT (2026-10-15)
+
+The final diagnostics of the fresh-media run, initially reported only
+as `HALT instruction` at PC `071470`, include **`?RT` immediately before
+HALT**. DAIMOS `system/kernel/boot/kinit_boot.c` defines `?RT` as a
+fatal root-mount or regular `/SYSTEM/INIT` validation failure. The test
+selected disk root (`deposit SW 1`) and mounted separately copied disk
+and drum media. This result is now identified as a root-filesystem boot
+failure, not an unexplained instruction-timing failure or evidence of
+normal post-boot execution. The earlier successfully interactive boot
+log demonstrates the broader system can progress beyond that point,
+but this investigation does not yet establish why the copied image fails.
+
+`check-pdp6-boot-failure-v1.py` and its regression fail closed for
+missing/mismatched boot, ?RT, HALT, and final PC records, and correctly
+identify the actual `?RT` stop at `071470`. The full linked-kernel
+hotpath gate remains incomplete pending a reproducible successful root
+mount, init/login and representative KCORE/MRES workload measurement.
