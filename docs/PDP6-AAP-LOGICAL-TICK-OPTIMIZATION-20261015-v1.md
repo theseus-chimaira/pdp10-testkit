@@ -812,3 +812,16 @@ validated, so the interrupt/device-I/O mandatory gate remains incomplete.
 The AAP emulator's `mc_illeg_address` originates in failed relocation
 permission testing (`relocate`), not from arbitrary UUO opcodes; earlier
 UUO tests timed out and are not counted as verified ILLOP coverage.
+
+## Real AAP privileged IOT exclusion (2026-10-15)
+
+A real privileged APR CONI guest (`0700240000000` at PC 001000,
+followed by HALT) executed on the PDP-6 AAP emulator and reached HALT.
+The IT0 milestone at the following fetch reported `inst=700` and was
+rejected by `aap-class-events-v1.py` as a device-I/O opcode. The emulator
+reports its instruction opcode at a later IT0 event in this case;
+the check is an exclusion, not per-instruction IOT cycle attribution.
+This validates one genuine IOT instruction exclusion and the earlier real
+NXM exclusion, but does not establish real PI entry, relocation-protection
+ILLOP, PDLOV, or complete abort/interrupt timing classification. Broad
+gate remains 16/19.

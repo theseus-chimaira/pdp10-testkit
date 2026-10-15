@@ -66,4 +66,19 @@ with tempfile.TemporaryDirectory(prefix='aap-class-events-v1.',
         assert 'NXM' in str(exc)
     else:
         raise AssertionError('real non-existent memory read was accepted')
-print('AAP pulse classification v1: PASS (normal guest, real NXM, and event grammar)')
+    # Genuine APR CONI executes and retires; the IT0 report contains
+    # the preceding opcode when fetch advances to the next instruction.
+    (work/'init.ini').write_text('mkdev apr apr166\nmkdev ptr ptr760\n'
+      'mkdev fmem fmem162 0\nmkdev mem0 moby mem_0\n'
+      'connectmem fmem 0 apr -1\nconnectmem mem0 0 apr 0\n')
+    out, trace, states = run_guest(work/'pdp6_n', work,
+       {0o1000:0o700240000000, 0o1001:0o254200000000}, [], timeout=8)
+    assert states[-1]=='HALTED'
+    assert 'inst=700' in trace, trace[-800:]
+    try:
+        module.inspect(trace)
+    except ValueError as exc:
+        assert 'device-I/O' in str(exc)
+    else:
+        raise AssertionError('real privileged IOT execution accepted')
+print('AAP pulse classification v1: PASS (normal, real NXM and IOT, grammar)')

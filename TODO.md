@@ -534,3 +534,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] Extend real AAP positive event coverage to ILLOP, PDLOV, and PI entry; reject/categorize device I/O and aborted timing traces.
 
 - [x] Exclude IOT opcode starts (0700–0777) from ordinary CPU timing using AAP instruction-start milestones; retain mandatory PI/device-I/O coverage as incomplete pending real device and PI event tests.
+
+- [x] Execute an actual privileged APR CONI guest on AAP, confirm the following IT0 trace contains opcode 700, and verify the CPU-only classifier rejects it.
+- [ ] Test genuine PI entry, relocation ILLOP and PDLOV events with bounded deterministic guests before closing the remaining event gates.
