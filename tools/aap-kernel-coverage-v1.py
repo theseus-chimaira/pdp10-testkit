@@ -36,29 +36,63 @@ GROUPS = {
 }
 
 
+# Generator-expression family lists are not literal AST tuples. Map their
+# registered, executed test programs to the exact architectural instruction
+# families they validate, rather than guessing from generated labels.
+GENERATED_EVIDENCE = {
+    'test-aap-batch100-v4.py': {'pushj', 'popj'},
+    'test-aap-batch100-v5.py': {'blt'},
+    'test-aap-batch100-v6.py': {'ldb', 'dpb'},
+    'test-aap-batch100-v7.py': {'ildb', 'idpb'},
+    'test-aap-batch100-v8.py': {'ibp'},
+    'test-aap-batch100-v10.py': {'blt'},
+}
+FAMILY_ALIASES = {
+    'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',
+    'jumpn_taken': 'jumpn', 'jumpn_fall': 'jumpn',
+    'aobjn_loop': 'aobjn', 'aobjn_long': 'aobjn',
+    'skipe_taken': 'skipe', 'skipe_zero': 'skipe',
+    'skipn_nonzero': 'skipn', 'skipl_negative': 'skipl',
+    'skipge_zero': 'skipge', 'skipg_zero': 'skipg',
+    'jumpl_negative': 'jumpl', 'jumpge_zero': 'jumpge',
+    'jumpg_positive': 'jumpg', 'jumple_zero': 'jumple',
+    'xct_move': 'xct', 'xct_nested': 'xct',
+    'xct_memory': 'xct', 'xct_jrst': 'xct',
+    'xct_movei': 'xct',
+    'direct': 'move', 'indexed': 'move',
+    'indirect': 'move', 'nested': 'move',
+    'arithmetic': 'addi',
+}
+
+
 def verified_family_names():
     result = set()
+    registered = set()
+    for line in (ROOT / 'SPECIAL_TESTS.tsv').read_text().splitlines():
+        fields = line.split('\t')
+        if len(fields) >= 4:
+            registered.add(fields[3])
     for path in sorted((ROOT / 'misc/compat').glob('test-aap-batch*.py')):
+        if path.relative_to(ROOT).as_posix() not in registered:
+            continue
         tree = ast.parse(path.read_text())
         for node in ast.walk(tree):
-            if isinstance(node, ast.For) and isinstance(node.target, ast.Name) and node.target.id == 'family':
-                if isinstance(node.iter, (ast.Tuple, ast.List)):
-                    result.update(x.value.lower() for x in node.iter.elts if isinstance(x, ast.Constant) and isinstance(x.value, str))
-    # Explicit semantic mapping for generated call-depth families.
-    if any(x.startswith('depth') for x in result):
-        result.update(('pushj', 'popj'))
-    if any(x.startswith('len') for x in result):
-        result.add('blt')
-    if any(x.startswith('ldc') for x in result):
-        result.update(('ldc', 'ldb'))
-    if any(x.startswith('dpc') for x in result):
-        result.update(('dpc', 'dpb'))
-    if any(x.startswith('ldci') for x in result):
-        result.update(('ldci', 'ildb'))
-    if any(x.startswith('dpci') for x in result):
-        result.update(('dpci', 'idpb'))
-    if any(x.startswith('ibp') for x in result):
-        result.add('ibp')
+            if (isinstance(node, ast.For) and
+                    isinstance(node.target, ast.Name) and
+                    node.target.id == 'family' and
+                    isinstance(node.iter, (ast.Tuple, ast.List))):
+                result.update(x.value.lower() for x in node.iter.elts
+                              if isinstance(x, ast.Constant) and isinstance(x.value, str))
+        result.update(GENERATED_EVIDENCE.get(path.name, set()))
+    result.update(FAMILY_ALIASES[name] for name in tuple(result)
+                  if name in FAMILY_ALIASES)
+    # These are executed as real top-level guest instructions in the
+    # registered suites, but do not appear as a generated family label.
+    if ('misc/compat/test-aap-control-flow-v1.sh' in registered and
+            'misc/compat/test-aap-xct-v2.sh' in registered):
+        result.add('jrst')
+    if 'misc/compat/test-aap-batch100-v1.py' in registered:
+        result.update(('movei', 'movem'))
     return result
 
 
@@ -88,7 +122,11 @@ def main():
     print('Static PDP-6 kernel assembly source inventory (not runtime frequency)')
     print('assembly files:', len(list((DAIMOS / 'system/kernel').rglob('*.s'))))
     print('AAP batch family labels:', len(tested))
-    print('source mnemonic references:', sum(counts.values()))
+    total = sum(counts.values())
+    matched = sum(n for op, n in counts.items() if op in tested)
+    print('source mnemonic references:', total)
+    print('references with at least one mapped fixture:', matched, '/', total,
+          '(%.1f%% static-only)' % (100.0 * matched / total if total else 0))
     print('MNEMONIC\tSOURCE_LINES\tBATCH_LABEL_MATCH')
     for mnemonic, count in counts.most_common():
         print('%s\t%d\t%s' % (mnemonic.upper(), count, 'yes' if mnemonic in tested else 'no'))
@@ -97,8 +135,8 @@ def main():
         uncovered = [(m, counts[m]) for m in names if counts[m] and m not in tested]
         print('%s\t%d\t%s' % (group, sum(n for _, n in uncovered),
                                ', '.join('%s:%d' % x for x in sorted(uncovered, key=lambda x: -x[1])) or '-'))
-    print('\nIMPORTANT: Exact family-label match is a LOWER BOUND; specialized')
-    print('case labels such as xct_memory, aobjn_loop are not inferred.')
+    print('\nIMPORTANT: This is a static source-reference proxy only;')
+    print('a matching fixture does not validate all instruction paths.')
 
 
 if __name__ == '__main__':

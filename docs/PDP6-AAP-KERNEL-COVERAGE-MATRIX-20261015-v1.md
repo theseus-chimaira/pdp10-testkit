@@ -1,45 +1,45 @@
-# PDP-6 AAP timing coverage vs DAIMOS kernel — static matrix v1
+# AAP timing vs DAIMOS kernel static coverage — v1
 
-Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout had unrelated uncommitted edits; this audit does not modify DAIMOS.
+**Scope:** static mnemonic occurrences in 74 `DAIMOS/system/kernel/**/*.s` assembly files; this includes files that may not be linked into a given image and excludes C-generated instructions. Do not interpret it as dynamic instruction frequency, model timing accuracy, or percentage of executed paths.
 
-**Interpretation:** source mnemonic occurrences in 74 assembly files only. Neither dynamic instruction counts nor timing weights nor coverage of C-generated instructions. An exact batch family label (or the explicit PUSHJ/POPJ call-depth mapping) is a conservative evidence indicator; different labels or earlier shell fixtures may cover the opcode without appearing as a match.
+**Coverage proxy:** 16034 / 16675 (96.2% static-only). This is a source-occurrence-weighted *existence of a tested opcode* metric, not comprehensive functional coverage. Generated fixture labels are mapped explicitly only for known registered passing batch suites.
 
-| Kernel mnemonic | Static occurrences | Exact or explicitly mapped AAP batch coverage |
+| Mnemonic | Static source occurrences | At least one mapped real AAP timing fixture |
 |---|---:|---|
 | `MOVE` | 3231 | yes |
-| `JRST` | 2442 | no |
-| `MOVEI` | 1146 | no |
-| `PUSHJ` | 1062 | no |
-| `MOVEM` | 699 | no |
-| `JUMPE` | 604 | no |
+| `JRST` | 2442 | yes |
+| `MOVEI` | 1146 | yes |
+| `PUSHJ` | 1062 | yes |
+| `MOVEM` | 699 | yes |
+| `JUMPE` | 604 | yes |
 | `PUSH` | 489 | yes |
-| `POPJ` | 484 | no |
+| `POPJ` | 484 | yes |
 | `ADD` | 423 | yes |
-| `JUMPN` | 409 | no |
+| `JUMPN` | 409 | yes |
 | `LSH` | 408 | yes |
 | `SETZ` | 347 | yes |
 | `SUB` | 319 | yes |
 | `ANDI` | 315 | yes |
 | `POP` | 314 | yes |
-| `ADDI` | 297 | no |
+| `ADDI` | 297 | yes |
 | `HRRZ` | 265 | yes |
 | `HLRZ` | 223 | yes |
 | `CAIE` | 197 | yes |
 | `SETO` | 144 | yes |
 | `CAME` | 142 | yes |
-| `SKIPN` | 136 | no |
+| `SKIPN` | 136 | yes |
 | `IOR` | 131 | yes |
 | `CAML` | 129 | yes |
 | `BLT` | 127 | yes |
 | `CAIN` | 125 | yes |
 | `CONO` | 121 | no |
 | `SUBI` | 118 | yes |
-| `TRNE` | 117 | no |
+| `TRNE` | 117 | yes |
 | `CAILE` | 115 | yes |
-| `JUMPL` | 105 | no |
+| `JUMPL` | 105 | yes |
 | `LDB` | 103 | yes |
 | `CAMN` | 94 | yes |
-| `TRNN` | 87 | no |
+| `TRNN` | 87 | yes |
 | `CAIL` | 68 | yes |
 | `CAMLE` | 63 | yes |
 | `CAIGE` | 62 | yes |
@@ -49,7 +49,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `AOJ` | 50 | no |
 | `TLNE` | 50 | no |
 | `CONI` | 49 | no |
-| `SKIPE` | 48 | no |
+| `SKIPE` | 48 | yes |
 | `TLO` | 48 | no |
 | `IMULI` | 44 | yes |
 | `HRL` | 40 | yes |
@@ -62,7 +62,7 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `HRRM` | 22 | no |
 | `MOVSI` | 21 | yes |
 | `DATAO` | 19 | no |
-| `JUMPLE` | 18 | no |
+| `JUMPLE` | 18 | yes |
 | `IORM` | 17 | yes |
 | `MOVN` | 16 | yes |
 | `TDNE` | 16 | no |
@@ -70,19 +70,19 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `CAMG` | 15 | no |
 | `ADDM` | 15 | yes |
 | `CAIG` | 14 | yes |
-| `JUMPGE` | 13 | no |
+| `JUMPGE` | 13 | yes |
 | `XOR` | 13 | yes |
 | `ILDB` | 12 | yes |
 | `SOJ` | 10 | no |
 | `CONSO` | 10 | no |
 | `HRLM` | 8 | no |
 | `DPB` | 8 | yes |
-| `SKIPGE` | 7 | no |
-| `JUMPG` | 7 | no |
+| `SKIPGE` | 7 | yes |
+| `JUMPG` | 7 | yes |
 | `IDPB` | 6 | yes |
 | `TRO` | 6 | no |
 | `HRRZS` | 5 | no |
-| `XCT` | 5 | no |
+| `XCT` | 5 | yes |
 | `ANDM` | 5 | yes |
 | `HLLZ` | 5 | yes |
 | `CONSZ` | 4 | no |
@@ -94,52 +94,48 @@ Generated from `python3 tools/aap-kernel-coverage-v1.py`. The DAIMOS checkout ha
 | `XORM` | 3 | yes |
 | `TRZ` | 3 | no |
 | `BLKI` | 2 | no |
-| `SKIPG` | 2 | no |
+| `SKIPG` | 2 | yes |
 | `DIV` | 2 | no |
-| `AOBJN` | 1 | no |
+| `AOBJN` | 1 | yes |
 | `IBP` | 1 | yes |
 | `ASH` | 1 | yes |
 | `ANDCM` | 1 | no |
 | `ROT` | 1 | no |
 | `HLLM` | 1 | no |
-| `SKIPL` | 1 | no |
+| `SKIPL` | 1 | yes |
 
-## Unrepresented classes (conservative exact-label match)
+## Remaining static mnemonic gaps
 
-| Class | Unmatched source occurrences | Highest contributors |
+| Class | Unmatched occurrences | Main unrepresented mnemonics |
 |---|---:|---|
 | byte | 0 | - |
 | block | 0 | - |
-| call-stack | 1546 | pushj:1062, popj:484 |
+| call-stack | 0 | - |
 | doubleword | 2 | div:2 |
 | halfword | 36 | hrrm:22, hrlm:8, hrrzs:5, hllm:1 |
 | conditionals | 162 | aos:55, aoj:50, camge:28, camg:15, soj:10, sos:4 |
-| logical-tests | 421 | trne:117, trnn:87, tlz:58, tlne:50, tlo:48, tlnn:27, tdne:16, tro:6, tdnn:4, andca:4, trz:3, andcm:1 |
+| logical-tests | 217 | tlz:58, tlne:50, tlo:48, tlnn:27, tdne:16, tro:6, tdnn:4, andca:4, trz:3, andcm:1 |
 | interrupts-io | 223 | cono:121, coni:49, datao:19, datai:15, conso:10, consz:4, blko:3, blki:2 |
 
-## Interpretation and priority
+## DAIMOS-specific priorities
 
-1. Calls and returns (`PUSHJ` 1062, `POPJ` 484) have now gained 100 verified call-depth/return-value guest cases in batch100 v4. Additional stack boundaries, parameter passing and interrupt interactions remain untested.
-2. Conditional compares (`CAI`/`CAM`) occur frequently. Batch100 v3 newly supplies ten variants each for ten predicate forms, but this is not a comprehensive boundary test of all combinations.
-3. `BLT` now has 100 validated nonoverlapping 1–10-word transfer cases, including continuation milestones. LDB/DPB now have 100 byte-width/position cases; ILDB/IDPB now have 100 tested pre-increment pointer cases; Standalone IBP now has 100 verified pointer-update cases; word-crossing and I/O/interrupt paths (223 static references) remain separate investigations.
-4. Logical test/modify instructions (421 unmatched source occurrences) and memory destination forms warrant additional fixtures.
-5. Static counts include all kernel assembly sources, not just whichever modules are linked into a specific boot image. They cannot establish runtime hotness. Compare against a specific linked image and measured opcode histogram before weighting optimization decisions.
+1. **Exception/PI/device I/O:** `CONO`, `CONI`, `DATAI`, `DATAO`, and related operations have no trustworthy timing characterization and need device-specific fixtures. Do not infer costs from opcode counts.
+2. **Logic and control:** `TLNE`, `TLNN`, `TLZ`, `TLO`, `AOS`, `AOJ`, `SOS`, `SOJ`, and remaining `CAM` predicates warrant independent normal-path and boundary verification.
+3. **Halfword stores:** `HRRM`, `HRLM`, `HLLM` and related modifying forms need direct memory-readback cases.
+4. **Arithmetic:** `DIV` and overflow/carry boundaries are not adequately covered; the earlier IMUL boundary discrepancy remains unresolved.
+5. **Memory and pointers:** `BLT` forward overlap is covered, but byte-pointer word-crossing, faulty/unmapped memory and memory contention are not.
 
-## Acceptance criteria for broad coverage
+## Why broad timing coverage is not yet certified
 
-- Guest result and control-flow validation for high-frequency kernel families across addressing modes and boundary values.
-- Repeatable trace-on/off comparisons and deterministic completion; no reliance on timing assertions alone.
-- Mark unmeasurable exceptions explicitly; do not claim full interrupt/I/O timing coverage.
-- Match baseline/candidate execution, emulator revision and memory maps before comparing logical ticks.
+- The source proxy cannot measure instruction execution counts or hot paths in the **linked** DAIMOS KCORE/MRES images.
+- A family match does not imply its addressing, operand, interrupt and exception variants are validated.
+- The current timing runners use short fixed waits before console readback; deterministic guest-stop detection and trace-on/off reproducibility checks remain open.
+- The emulator logical ticks are not historical PDP-6 microsecond timings.
 
-## Milestone status (2026-10-15)
+## Reproduction
 
-Fifteen hundred independently checked real AAP guest variations have
-passed. The additional kernel-targeted suites cover CAI/CAM predicates,
-PUSHJ/POPJ calls, BLT including overlapping forward copies, LDC/DPC,
-LDCI/DPCI, IBP and selected right-half logical test forms. This matrix
-is **not** yet a passing broad-functional-coverage gate: runtime opcode
-frequencies, C-generated kernel instruction paths, all linked MRES,
-interrupt/device behavior and unsupported boundary conditions remain
-outstanding. The follow-up should expand based on measured linked
-kernel paths and explicitly classify timing-unmeasurable exceptions.
+`python3 tools/aap-kernel-coverage-v1.py /home/theseus/git/DAIMOS`
+
+`python3 misc/compat/test-aap-kernel-coverage-v1.py`
+
+Keep compiled C instruction profiles and exact linked-image inventory separate until obtained from actual instrumented runs.

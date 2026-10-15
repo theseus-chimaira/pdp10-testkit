@@ -413,8 +413,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Reach the requested 500 independently checked real-guest cases in
   ten reproducible batches. Further expansion should follow a coverage audit
   of actual DAIMOS workloads, not redundant variations.
-- [ ] Audit the tested opcode/path inventory against actual DAIMOS workload
-  histograms; identify high-frequency gaps and prioritize targeted fixtures.
+- [x] Audit the static DAIMOS PDP-6 kernel assembly mnemonic inventory against registered, verified AAP timing fixtures, including generated family mappings. The resulting source occurrence proxy is 16034/16675 (96.2%), *not* runtime or path coverage; see `docs/PDP6-AAP-KERNEL-COVERAGE-MATRIX-20261015-v1.md`.
+- [ ] Audit against actual linked DAIMOS kernel workload opcode histograms (and C-generated code), identify high-frequency gaps and prioritize new fixtures.
 - [ ] Extend to 100-case batches only when generation and aggregation
   preserve full correctness, reproducibility and failure attribution.
 - [ ] Prepare a baseline/candidate harness for hundreds of existing
