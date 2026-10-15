@@ -523,3 +523,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Capture `?RT` KINIT memory state from linked-map addresses: valid root handoff, nonzero active D6FS reader, but `vfs_namespace_root=VFS_NODE_NONE`. Add fail-closed linked-root snapshot regression.
 - [ ] Trace the D6FS boot mount failure/rollback to a specific return site, then fix the underlying defect and verify `INIT V1` using isolated fresh media.
+
+- [x] Confirm all four linked `vfs_mount_root` slots remain zero at `?RT` and extend the linked-map snapshot regression to detect contradictory mounted state.
+- [ ] Verify SIMH execution-breakpoint behavior independently before inferring that `vfs_mount` was never reached; isolate the failing D6FS pre-mount validation/rollback site.

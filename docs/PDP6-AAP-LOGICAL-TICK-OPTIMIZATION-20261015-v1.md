@@ -751,3 +751,20 @@ the linked map, requires a fatal ?RT/HALT and a complete unambiguous
 memory snapshot, and fails closed on missing addresses, absent reader,
 invalid handoff or a mounted namespace. Its regression covers these
 negative cases. KCORE/MRES runtime coverage stays incomplete.
+
+## KINIT mount-table failure snapshot (2026-10-15)
+
+A second clean-copy SIMH boot reproduced `?RT` at PC `071470`.
+Using symbols from that linked `kinit.map`, the four
+`vfs_mount_root` entries (023312–023315) all read zero. The
+`vfs_namespace_root` (023366) is zero; `d6fs_active_reader` (023316)
+is nonzero and the root handoff is populated. This shows no VFS root
+mount remains *at the fatal stop*, not whether one existed earlier.
+A provisional SIMH breakpoint at `vfs_mount` (005466) did not fire,
+but breakpoint delivery/coverage has not been independently validated;
+therefore do **not** conclude the function was never called.
+
+The linked-map-aware `check-pdp6-root-snapshot-v1.py` now additionally
+rejects nonempty VFS mount table slots and its regression includes that
+negative case. The precise upstream D6FS validation or rollback site
+remains unresolved. No kernel behavior has been altered.
