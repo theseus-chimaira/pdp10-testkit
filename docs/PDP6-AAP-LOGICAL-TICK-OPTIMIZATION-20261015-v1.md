@@ -169,3 +169,16 @@ configurations with no fast-memory module. All eight passed independent
 interval extraction. In the observed model all four measured MOVE intervals
 match the attached-fast-memory fixtures. Other memory errors and exceptional
 executions remain unvalidated.
+
+## Nested XCT and control-flow execution (2026-10-15)
+
+`aap-xct-v2` executes three real guest fixtures: nested `XCT` of
+`MOVEI`, `XCT` of a core-memory `MOVE`, and `XCT` of taken `JRST`.
+Each has two complete intervals and an independently checked final
+guest memory word. The extractor associates `256,201`, `200`, or `254`
+with the outer `XCT` interval as appropriate; it does not fabricate
+extra top-level execution intervals for nested target instructions.
+The tick-extractor unit tests additionally reject unfinished nested
+`XCT` and inconsistent nested instruction PCs. Interrupts, exceptions,
+and aborted targets still require separate validation before using
+these intervals for general timing comparisons.

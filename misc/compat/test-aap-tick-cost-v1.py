@@ -44,6 +44,24 @@ AAP_TIMING_V1 ET0A tick=650 pc=001001 inst=254
             pass
         else:
             raise AssertionError('unfinished XCT accepted')
+        # A nested XCT must be attributed to one outer instruction,
+        # and an unfinished or mismatched nesting chain must be rejected.
+        trace.write_text('AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000\nAAP_TIMING_V1 ET0A tick=200 pc=001000 inst=256\nAAP_TIMING_V1 ET0A tick=300 pc=001000 inst=256\nAAP_TIMING_V1 ET0A tick=400 pc=001000 inst=201\nAAP_TIMING_V1 IT0 tick=700 pc=001001 inst=201\nAAP_TIMING_V1 ET0A tick=800 pc=001001 inst=254\n')
+        nested = module.intervals(trace)
+        assert len(nested) == 1
+        assert nested[0]['nested_opcodes_octal'] == ['256', '201']
+        assert nested[0]['ticks'] == 600
+        for invalid in (
+            'AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000\nAAP_TIMING_V1 ET0A tick=200 pc=001000 inst=256\nAAP_TIMING_V1 ET0A tick=300 pc=001000 inst=256\n',
+            'AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000\nAAP_TIMING_V1 ET0A tick=200 pc=001000 inst=256\nAAP_TIMING_V1 ET0A tick=300 pc=001002 inst=201\n',
+        ):
+            trace.write_text(invalid)
+            try:
+                module.intervals(trace)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError('invalid nested XCT trace accepted')
         trace.write_text('AAP_TIMING_V1 IT0 tick=2 pc=001000 inst=000\n')
         try:
             module.intervals(trace)

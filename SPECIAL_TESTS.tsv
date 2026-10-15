@@ -112,3 +112,4 @@ aap-addressing-v1	compat	sh	misc/compat/test-aap-addressing-v1.sh	host	yes	120
 aap-memory-paths-v1	compat	sh	misc/compat/test-aap-memory-paths-v1.sh	host	yes	120
 aap-memory-map-v1	compat	sh	misc/compat/test-aap-memory-map-v1.sh	host	yes	120
 aap-memory-no-fast-v1	compat	sh	misc/compat/test-aap-memory-no-fast-v1.sh	host	yes	120
+aap-xct-v2	compat	sh	misc/compat/test-aap-xct-v2.sh	host	yes	120

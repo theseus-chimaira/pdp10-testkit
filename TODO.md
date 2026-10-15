@@ -331,9 +331,13 @@ workload/model tick-cost comparison. Relevant details:
 - [ ] Validate repeated loops, variable trip counts, and branch-heavy
   control flow; ensure the final instruction and startup/stop overhead do
   not contaminate complete-interval comparisons.
-- [ ] Expand `XCT` coverage: nested `XCT`, `XCT` of branches and memory
-  operations, unusual/failing targets and interrupts. Preserve the
-  single outer interval and nested opcode chain; reject ambiguous events.
+- [x] Validate real nested `XCT`, `XCT` of `MOVE`, and `XCT` of a taken
+  `JRST` with single-outer-interval attribution, nested opcode chains,
+  correct PCs and independent guest memory results. Reject unfinished
+  and PC-mismatched nesting in extractor unit tests. See
+  `misc/compat/test-aap-xct-v2.sh`.
+- [ ] Extend `XCT` to unusual/failing targets, interrupt boundaries and
+  exceptional execution without assigning ambiguous interval costs.
 - [ ] Audit exceptional execution: interrupts, PI cycles, indirect/index
   faults, I/O and overlapping or aborted instructions. Add explicit
   exclusions and tests rather than silently assigning bogus tick costs.
