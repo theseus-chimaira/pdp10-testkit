@@ -155,3 +155,17 @@ An experimental configuration omitting the `fmem162` attachment caused an
 AAP emulator segmentation fault before successful guest validation. It is
 explicitly excluded from the enabled suite, not counted as a pass; it
 requires debugging in the PDP-6 emulator before timing use.
+
+## No-fast-memory regression resolved (2026-10-15)
+
+The segmentation fault noted above was traced to `pdp6/emu/mem.c`,
+`wakemem()`: the fast-memory select path dereferenced an absent module.
+PDP-6 emulator commit `44f3dc1` guards the optional device and routes
+nonresponding fast-memory selections through the existing core-memory path.
+The registered `aap-memory-no-fast-v1` regression executes four guest
+addressing modes for each of the `cmem161C` 16K and `moby` 256K core
+configurations with no fast-memory module. All eight passed independent
+36-bit guest-result verification, opcode/PC tracing, and complete tick
+interval extraction. In the observed model all four measured MOVE intervals
+match the attached-fast-memory fixtures. Other memory errors and exceptional
+executions remain unvalidated.

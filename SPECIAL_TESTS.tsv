@@ -111,3 +111,4 @@ aap-branches-v3	compat	sh	misc/compat/test-aap-branches-v3.sh	host	yes	120
 aap-addressing-v1	compat	sh	misc/compat/test-aap-addressing-v1.sh	host	yes	120
 aap-memory-paths-v1	compat	sh	misc/compat/test-aap-memory-paths-v1.sh	host	yes	120
 aap-memory-map-v1	compat	sh	misc/compat/test-aap-memory-map-v1.sh	host	yes	120
+aap-memory-no-fast-v1	compat	sh	misc/compat/test-aap-memory-no-fast-v1.sh	host	yes	120

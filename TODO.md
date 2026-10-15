@@ -318,11 +318,11 @@ workload/model tick-cost comparison. Relevant details:
 - [x] Add core-bank mapping checks with two separate 16K modules, including
   a guest load from address 040010 in bank 1 and an independent result check;
   see `misc/compat/test-aap-memory-map-v1.sh`.
-- [ ] Investigate AAP emulator segmentation fault observed when fast memory
-  is not attached. This is an emulator/configuration failure, not a valid
-  cost profile; fix the underlying bug before enabling no-fast-memory tests.
-- [ ] Expand fast-memory variations beyond the working attached configuration;
-  do not infer universal physical-memory timing.
+- [x] Correct absent-fast-memory dispatch in the AAP emulator (`pdp6`
+  `44f3dc1`), and validate eight no-fast-memory guest cases with 16K and
+  256K core. The regression is `misc/compat/test-aap-memory-no-fast-v1.sh`.
+- [ ] Expand memory path tests to altered fast-memory attachment or mapping
+  and exceptional/unmapped memory behavior; do not infer universal physical timing.
 - [x] Extend `SKIPE` and `AOBJP` fixtures to both outcomes, and validate
   AOBJN loops with one, two, and four increments. The v3 suite checks
   final 36-bit guest memory results independently of timing traces.
