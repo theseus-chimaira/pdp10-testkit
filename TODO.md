@@ -604,3 +604,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify standalone HRROI opcode-561 immediate right-half/left-ones semantics and timing across five cases.
 - [ ] Continue SETZB and remaining exact-form AAP tests; progress kernel-entry runtime profiling independently.
+
+- [x] Verify exact SETZB opcode-403 both-destination zero semantics (AC and memory) and complete timing across five standalone AAP guest cases.
+- [ ] Continue exact-form TDNE, ANDCMI, TLOA and other source-frequency gaps; resume live KCORE/MRES boot profiling separately.

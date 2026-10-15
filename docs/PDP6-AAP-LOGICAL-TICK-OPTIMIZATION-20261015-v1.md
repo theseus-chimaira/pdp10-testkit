@@ -1090,3 +1090,13 @@ immediate operand in its right half. They verify source-memory
 preservation, HALT completion, and a complete logical timing interval.
 The opcode was confirmed against `pdp6/tools/as6.c`. Evidence credits
 HRROI only, not related halfword forms.
+
+## Full-assembler exact instruction-form coverage: SETZB (2026-10-16)
+
+Five real AAP SETZB guests (octal opcode 403, checked against the PDP-6
+assembler opcode table) test clearing both the destination memory word
+and the specified accumulator, for zero, one, all-ones, sign-bit and a
+mixed initial value. Stored accumulator output and memory readback are
+both checked; each case also requires a complete timing interval for
+opcode 403. Evidence credits SETZB only. The unrelated DAIMOS tree and
+parallel filesystem testkit work were not modified.
