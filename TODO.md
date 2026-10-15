@@ -581,3 +581,7 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify five real standalone TLC opcode-641 immediate left-half XOR cases and timing intervals.
 - [ ] Continue IDIVI, SETOM and remaining unverified exact instruction forms without DAIMOS boot.
+
+- [x] Verify nine real standalone AAP IDIVI opcode-231 signed immediate division cases, checking quotient, remainder, source memory and timing.
+- [ ] Verify IDIVI divide-by-zero and signed-overflow behavior separately before claiming boundary-complete IDIVI coverage.
+- [ ] Continue exact SETOM and other unverified DAIMOS assembler forms without booting DAIMOS.

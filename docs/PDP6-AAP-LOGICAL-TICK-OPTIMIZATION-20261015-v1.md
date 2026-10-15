@@ -1004,3 +1004,15 @@ of the right half and source memory, HALT completion, and complete
 positive logical timing intervals. The opcode was cross-checked against
 the PDP-6 `as6.c` assembler table. Evidence credits TLC only, not the
 whole TL instruction family. No DAIMOS boot-dependent tests ran.
+
+## Full-assembler exact instruction-form coverage: IDIVI (2026-10-15)
+
+Nine real standalone AAP `IDIVI` (octal opcode 231) programs verify
+immediate signed integer division with zero/positive/negative dividends
+and positive divisors. For each case the test independently computes a
+truncated-toward-zero quotient in AC2 and signed remainder in AC3,
+checks their stored memory images, checks preservation of source memory,
+and requires a positive complete timing interval for opcode 231. The
+encoding was confirmed against PDP-6 `as6.c`. These nine cases are not
+a proof of divide-by-zero/overflow behavior for IDIVI, nor of all IDIV
+forms. No DAIMOS boot-dependent test was executed.

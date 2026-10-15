@@ -51,6 +51,7 @@ GENERATED_EVIDENCE = {
     'test-aap-sojg-v1.py': {'sojg'},
     'test-aap-aoja-v1.py': {'aoja'},
     'test-aap-tlc-v1.py': {'tlc'},
+    'test-aap-idivi-v1.py': {'idivi'},
 }
 FAMILY_ALIASES = {
     'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',
