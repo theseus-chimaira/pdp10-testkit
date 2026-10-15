@@ -29,3 +29,15 @@ source with the minimal `p10run` harness. Both runs PASS. This remains a
 library codec, not a host file conversion tool or a KCC source-encoding
 change. Keep ASCII-only compiler syntax policy intact pending separate
 design work.
+
+## Target-side boundary regression (2026-10-15)
+
+`tests/semantic/utf9-codec-pdp6-v2.c` exercises UTF-9 scalar boundaries,
+the UTF-16 surrogate gap, maximum Unicode code point, malformed UTF-8
+and UTF-9 sequences, and atomic output on insufficient buffer capacity.
+It uses only freestanding C99 and no hosted library functions.
+
+Both KCC PDP-6 and GCC PDP-6 `-O0` compiled the production codec and this
+test as separate assembly sources and executed them through `p10run` with
+`__test_exit=0`: **PASS for both compilers**. The test is additive to the
+earlier target smoke test and does not change SIXBIT/S6REC storage policy.
