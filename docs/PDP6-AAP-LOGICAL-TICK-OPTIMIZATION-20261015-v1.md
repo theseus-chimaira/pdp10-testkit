@@ -534,3 +534,13 @@ back, with strict PC/opcode and full logical-tick interval verification.
 All 100 passed. Different operands produce different modeled tick totals.
 Cumulative 2500 real guest cases. Signed, overflow and division error
 boundaries still prevent closing the arithmetic coverage criterion.
+
+## Batch100 v21: signed integer division (2026-10-15)
+
+`aap-batch100-v21` adds 100 signed IDIV guest cases across positive and
+negative dividend/divisor combinations, including negative remainders.
+The independent model checks truncation toward zero, the remainder sign,
+quotient*divisor+remainder identity, and both output AC words. All 100
+passed strict PC/opcode and logical-tick interval checks. Cumulative
+real guest total: 2600. Divide faults and IMUL overflow semantics remain
+outstanding and the mandatory arithmetic gate remains incomplete.
