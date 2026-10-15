@@ -1100,3 +1100,12 @@ mixed initial value. Stored accumulator output and memory readback are
 both checked; each case also requires a complete timing interval for
 opcode 403. Evidence credits SETZB only. The unrelated DAIMOS tree and
 parallel filesystem testkit work were not modified.
+
+## Full-assembler exact instruction-form coverage: TDNE (2026-10-16)
+
+Nine real AAP TDNE cases (octal opcode 612, verified against PDP-6
+`as6.c`) test direct AND-test conditional skipping for zero and
+nonzero AC/memory intersections. The following instruction is skipped
+when the intersection is zero. The regression verifies the marker and
+actual PC path, unchanged source and accumulator, and a positive
+completed logical timing interval. Only TDNE receives evidence.
