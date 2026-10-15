@@ -785,3 +785,16 @@ remain INCOMPLETE: real guest-triggered events and their exact coverage
 boundaries have not yet been validated, and device I/O cycles beyond PI
 entry still require classification. This complements rather than replaces
 `aprclass`, which only examines final processor latches.
+
+## Real guest NXM event qualification (2026-10-15)
+
+A real PDP-6 AAP guest executing `MOVE` from octal `0777777` with a
+`cmem161C` 16K core unit generated
+`AAP_CLASS_EVENT_V1 type=NXM tick=101301 pc=001000`, and subsequently
+HALTed. The same read on a 256K `moby` memory unit did not generate
+NXM; reading a valid address on 16K core did not generate NXM either.
+`test-aap-class-events-v1.py` now asserts that a real 16K guest produces
+NXM and the fail-closed event classifier rejects the trace. This
+qualifies event instrumentation at one actual out-of-range access only.
+Other exceptional event sources, interrupts and I/O remain unqualified;
+all three mandatory coverage gaps remain INCOMPLETE.

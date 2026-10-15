@@ -529,3 +529,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Add opt-in pulse-level AAP traces for NXM, ILLOP, PDLOV and PI-cycle entry; verify normal guest execution and fail-closed event parser (emulator 07e9ed3).
 - [ ] Trigger and verify each fault/PI event using actual PDP-6 guests, classify device-I/O and aborted cycles at event time, and only then reconsider the broad AAP coverage gates.
+
+- [x] Exercise real AAP NXM event with an out-of-range read on 16K `cmem161C` core and reject it through the event classifier; verify ordinary 256K reads did not trigger NXM.
+- [ ] Extend real AAP positive event coverage to ILLOP, PDLOV, and PI entry; reject/categorize device I/O and aborted timing traces.
