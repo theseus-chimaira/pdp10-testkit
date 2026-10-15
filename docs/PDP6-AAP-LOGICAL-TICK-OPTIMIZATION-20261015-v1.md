@@ -501,3 +501,14 @@ high/low readback, exact PC/opcodes and complete tick intervals. The
 earlier failed generic 72-bit arithmetic expectation was invalid.
 ASHC right shifts and sign-preserving boundaries remain open. Total
 validated guests: 2200.
+
+## Batch100 v18: arithmetic doubleword right shifts (2026-10-15)
+
+`aap-batch100-v18` validates 100 PDP-6 ASHC right shifts, using
+negative 18-bit shift counts, ten boundary-pattern pairs and ten shift
+magnitudes including 18 positions. An independent 70-data-bit signed
+model preserves the sign in both 36-bit result words. All cases passed
+independent full-word readback, instruction path and logical-tick
+interval validation. With ASHC left (v17) and LSHC/ROTC (v16), the
+doubleword shift criterion is now met for representative normal and
+signed-boundary executions. Cumulative verified guests: 2300.

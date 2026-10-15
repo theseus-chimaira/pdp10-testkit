@@ -145,3 +145,4 @@ aap-batch100-v14	compat	python3	misc/compat/test-aap-batch100-v14.py	host	yes	12
 aap-batch100-v15	compat	python3	misc/compat/test-aap-batch100-v15.py	host	yes	120
 aap-batch100-v16	compat	python3	misc/compat/test-aap-batch100-v16.py	host	yes	120
 aap-batch100-v17	compat	python3	misc/compat/test-aap-batch100-v17.py	host	yes	120
+aap-batch100-v18	compat	python3	misc/compat/test-aap-batch100-v18.py	host	yes	120
