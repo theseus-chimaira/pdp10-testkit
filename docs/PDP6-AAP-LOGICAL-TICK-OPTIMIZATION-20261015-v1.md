@@ -1109,3 +1109,11 @@ nonzero AC/memory intersections. The following instruction is skipped
 when the intersection is zero. The regression verifies the marker and
 actual PC path, unchanged source and accumulator, and a positive
 completed logical timing interval. Only TDNE receives evidence.
+
+## Exact instruction-form evidence: ANDCMI (2026-10-16)
+
+Five real AAP ANDCMI (octal opcode 421) cases verify the accumulator
+result `AC AND (NOT 18-bit immediate)` across zero, all-one, sign and
+mixed masks, with unchanged source memory and complete positive timing
+intervals. Encoding was verified against `pdp6/tools/as6.c`. This
+credits only ANDCMI, not the other complemented-AND variants.

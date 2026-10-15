@@ -183,3 +183,4 @@ aap-camg-v1	compat	python3	misc/compat/test-aap-camg-v1.py	host	yes	120
 aap-hrroi-v1	compat	python3	misc/compat/test-aap-hrroi-v1.py	host	yes	120
 aap-setzb-v1	compat	python3	misc/compat/test-aap-setzb-v1.py	host	yes	120
 aap-tdne-v1	compat	python3	misc/compat/test-aap-tdne-v1.py	host	yes	120
+aap-andcmi-v1	compat	python3	misc/compat/test-aap-andcmi-v1.py	host	yes	120

@@ -610,3 +610,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Add standalone TDNE opcode-612 tests covering both zero and nonzero AC-and-memory cases, skip PC trajectory, accumulator/memory preservation and timing.
 - [ ] Continue ANDCMI and TLOA exact-form tests; separately address remaining 16/19 mandatory exception, PI/IOT and linked kernel profiling gaps.
+
+- [x] Verify exact ANDCMI opcode-421 complemented-immediate-mask semantics and timing in five standalone AAP guests.
+- [ ] Continue TLOA exact-form tests and remaining mandatory fault, PI/IOT, and live KCORE/MRES profiling work.

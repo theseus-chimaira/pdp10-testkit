@@ -60,6 +60,7 @@ GENERATED_EVIDENCE = {
     'test-aap-hrroi-v1.py': {'hrroi'},
     'test-aap-setzb-v1.py': {'setzb'},
     'test-aap-tdne-v1.py': {'tdne'},
+    'test-aap-andcmi-v1.py': {'andcmi'},
 }
 FAMILY_ALIASES = {
     'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',
