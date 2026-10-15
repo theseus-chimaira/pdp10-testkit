@@ -838,3 +838,17 @@ records. `misc/compat/test-aap-linked-pc-profile-v1.py` exercises valid
 attribution and malformed/bootstrap-only rejection. Full linked KCORE/MRES
 hotpath coverage remains INCOMPLETE until a real, provenance-matched guest
 trace crosses verified KCORE and MRES text intervals.
+
+## Linked-image deposit overlap check (2026-10-15)
+
+An existing isolated `kcore.dxr` was converted into SIMH deposit records
+using `dxrconvert --simh -b 0`. The candidate-only tool
+`aap-linked-image-verify-v1.py` hashes and validates the deposit image,
+rejects duplicate addresses, and requires at least one AAP instruction
+fetch above low core at an address represented in that image. The test
+rejects a bootstrap-only trace. **This is only an overlap test**: the
+same numerical PC can appear in an unrelated program, so it cannot
+prove the image was loaded or an MRES was entered. A complete image
+load ledger, verified module text bounds, and real guest execution are
+still required. Do not raise the kernel hotpath coverage gate on this
+basis.

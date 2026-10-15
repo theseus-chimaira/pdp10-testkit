@@ -540,3 +540,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Add conservative AAP instruction-PC attribution against a linked symbol map, refusing absent and malformed timing traces.
 - [ ] Obtain a provenance-matched KCORE/MRES live instruction-PC trace with verified text/module bounds before resolving linked-kernel-hotpaths.
+
+- [x] Add fail-closed linked-image deposit PC-overlap candidate check with duplicate-address and bootstrap-only rejection.
+- [ ] Demonstrate AAP loading of the *same hashed* DXR image and MRES text ranges before accepting kernel hotpath measurements.
