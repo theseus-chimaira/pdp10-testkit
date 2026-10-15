@@ -27,20 +27,42 @@ def intervals(path):
     if any(a[1] > b[1] for a, b in zip(events, events[1:])):
         raise ValueError('nonmonotonic logical time')
     starts = []
-    for idx, event in enumerate(events):
+    idx = 0
+    while idx < len(events):
+        event = events[idx]
         if event[0] != 'IT0':
-            continue
-        if idx + 1 >= len(events) or events[idx + 1][0] != 'ET0A':
+            raise ValueError('ET0A without an instruction start')
+        idx += 1
+        if idx >= len(events) or events[idx][0] != 'ET0A':
             raise ValueError('unpaired instruction-start milestone')
-        execute = events[idx + 1]
+        execute = events[idx]
         if event[2] != execute[2]:
             raise ValueError('PC mismatch between IT0 and ET0A')
-        starts.append((event[1], event[2], execute[3]))
+        opcode = execute[3]
+        nested = []
+        idx += 1
+        if opcode == '256':
+            # AAP emits an additional ET0A for the instruction executed by
+            # XCT, without another IT0. A second XCT can nest further.
+            while idx < len(events) and events[idx][0] == 'ET0A':
+                child = events[idx]
+                if child[2] != event[2]:
+                    raise ValueError('XCT nested execution PC mismatch')
+                nested.append(child[3])
+                idx += 1
+                if child[3] != '256':
+                    break
+            if not nested or nested[-1] == '256':
+                raise ValueError('XCT target milestone missing or unfinished')
+        elif idx < len(events) and events[idx][0] == 'ET0A':
+            raise ValueError('unexpected additional execution milestone')
+        starts.append((event[1], event[2], opcode, nested))
     if not starts:
         raise ValueError('missing IT0')
-    if events[-1][0] != 'ET0A' or len(events) != 2 * len(starts):
+    if events[-1][0] != 'ET0A':
         raise ValueError('unsupported interleaved milestone sequence')
     return [{'pc': a[1], 'opcode_octal': a[2],
+             'nested_opcodes_octal': a[3],
              'ticks': b[0] - a[0]} for a, b in zip(starts, starts[1:])]
 
 

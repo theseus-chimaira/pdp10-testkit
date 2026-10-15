@@ -1,6 +1,6 @@
 #!/bin/sh
 # Real guest control-flow fixtures for AAP logical instruction boundaries.
-# XCT deliberately does not fit the single-IT0/single-ET0A cost model.
+# XCT is accounted for as one outer IT0 interval with nested opcodes.
 set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 : "${TMPDIR:=$HOME/tmp}"
@@ -74,11 +74,10 @@ events = re.findall(r'^AAP_TIMING_V1 (IT0|ET0A) tick=\d+ pc=([0-7]{6}) inst=([0-
                     path.read_text(), re.MULTILINE)
 assert [event[0] for event in events] == ['IT0', 'ET0A', 'ET0A', 'IT0', 'ET0A']
 assert [event[2] for event in events] == ['000', '256', '201', '201', '254']
-try:
-    module.intervals(path)
-except ValueError:
-    pass
-else:
-    raise AssertionError('XCT nested execution was incorrectly accepted')
+cost = module.intervals(path)
+assert len(cost) == 1, cost
+assert cost[0]['opcode_octal'] == '256'
+assert cost[0]['nested_opcodes_octal'] == ['201']
+assert cost[0]['ticks'] > 0
 print('AAP direct/indirect JRST and XCT guest boundaries v1: PASS')
 PY

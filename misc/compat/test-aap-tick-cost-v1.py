@@ -23,6 +23,27 @@ AAP_TIMING_V1 ET0A tick=4654 pc=001002 inst=254
         assert [(x['opcode_octal'], x['ticks']) for x in measured] == [
             ('201', 1401), ('271', 1951)]
         assert len(measured) == 2  # halt has no next instruction boundary
+        trace.write_text('''AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000
+AAP_TIMING_V1 ET0A tick=200 pc=001000 inst=256
+AAP_TIMING_V1 ET0A tick=300 pc=001000 inst=201
+AAP_TIMING_V1 IT0 tick=500 pc=001001 inst=201
+AAP_TIMING_V1 ET0A tick=650 pc=001001 inst=254
+''')
+        measured = module.intervals(trace)
+        assert measured[0]['opcode_octal'] == '256'
+        assert measured[0]['nested_opcodes_octal'] == ['201']
+        assert measured[0]['ticks'] == 400
+        trace.write_text('''AAP_TIMING_V1 IT0 tick=100 pc=001000 inst=000
+AAP_TIMING_V1 ET0A tick=200 pc=001000 inst=256
+AAP_TIMING_V1 IT0 tick=500 pc=001001 inst=256
+AAP_TIMING_V1 ET0A tick=650 pc=001001 inst=254
+''')
+        try:
+            module.intervals(trace)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError('unfinished XCT accepted')
         trace.write_text('AAP_TIMING_V1 IT0 tick=2 pc=001000 inst=000\n')
         try:
             module.intervals(trace)
