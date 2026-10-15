@@ -869,3 +869,16 @@ real-AAP regression uses a standalone identical HALT word at that address.
 The external full-image experiment is reproducible from the described
 artifact but cannot be treated as a portable fixture in testkit.
 Coverage remains 16/19.
+
+## DAIMOS tape-bootstrap compatibility probe (2026-10-15)
+
+An isolated AAP configuration mounted the existing DAIMOS
+`stage1-dsk.pt` on its Type-760 paper-tape reader, deposited the eight
+SIMH-configured bootstrap words at octal 020–027 and launched PC 020.
+The emulator acknowledged RUNNING and the bootstrap word readback matched.
+This **does not** establish that the tape was consumed or that KCORE was
+entered: the controller setup and storage models differ from the original
+SIMH configuration, and the short guest session was then stopped.
+`test-aap-daimos-stage1-v1.sh` reproduces the limited mount/launch smoke
+when supplied an explicit `DAIMOS_STAGE1_PT` path. Do not treat it as a
+kernel timing or successful boot test.
