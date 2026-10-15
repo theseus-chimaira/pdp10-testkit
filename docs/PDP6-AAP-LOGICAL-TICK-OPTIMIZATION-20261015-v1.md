@@ -381,3 +381,13 @@ byte-pointer word and its copy into the guest result slot are checked.
 All 100 pass the expected PC/opcodes and strict timing interval checks.
 The cumulative total is 1300 verified AAP guest cases. Pointer carry
 across word boundaries remains unvalidated.
+
+## 100-case batch 9: right-half logical test/modify (2026-10-15)
+
+`aap-batch100-v9` exercises ten PDP-6 right-half logical test/modify
+forms (TRNE, TRNN, TRNA, TRZE, TRZN, TRZA, TRCE, TRCN, TROE, TRON),
+ten operands each with both skip outcomes. All 100 passed 36-bit AC
+result, PC and opcode sequence and timing interval checks. An exploratory
+TLNE fixture gave a different skip outcome than the independent model;
+left-half tests were deliberately excluded from this counted batch and
+require investigation. Cumulative real guest count: 1400.
