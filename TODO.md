@@ -569,3 +569,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Add five real standalone AAP SETZM opcode-402 cases, checking destination memory, accumulator preservation and complete timing intervals; register exact-form coverage only.
 - [ ] Continue missing exact DAIMOS assembler opcode/mode fixtures (HRLI, SOJG, AOJA, TLC, IDIVI, SETOM and others), excluding boot-dependent tests.
+
+- [x] Verify five real standalone AAP HRLI opcode-505 cases with independent expected 18-bit halves, source-memory preservation and timing intervals.
+- [ ] Add targeted exact-form AAP tests for SOJG, AOJA, TLC, IDIVI, SETOM and remaining DAIMOS mnemonics.

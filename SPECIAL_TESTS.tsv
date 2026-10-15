@@ -169,3 +169,4 @@ aap-linked-load-v1	compat	python3	misc/compat/test-aap-linked-load-v1.py	host	ye
 aap-daimos-stage1-v1	compat	sh	misc/compat/test-aap-daimos-stage1-v1.sh	host	manual	120
 aap-all-asm-coverage-v1	compat	python3	misc/compat/test-aap-daimos-asm-coverage-v1.py	host	yes	120
 aap-setzm-v1	compat	python3	misc/compat/test-aap-setzm-v1.py	host	yes	120
+aap-hrli-v1	compat	python3	misc/compat/test-aap-hrli-v1.py	host	yes	120

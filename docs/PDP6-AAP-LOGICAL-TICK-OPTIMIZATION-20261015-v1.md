@@ -965,3 +965,12 @@ initial memory values include zero, one, all-ones, the 36-bit sign bit
 and a mixed bit pattern. `aap-kernel-coverage-v1.py` only credits the
 exact `setzm` form (not the whole SETZ opcode family). No DAIMOS boot
 or TSFS image is required. The mandatory broad gate is still 16/19.
+
+## Full-assembler exact instruction-form coverage: HRLI (2026-10-15)
+
+`test-aap-hrli-v1.py` now checks five real AAP HRLI (octal opcode 505)
+executions. It verifies replacement of the accumulator left half with
+the 18-bit immediate operand, retention of its original right half,
+unchanged source memory and complete positive logical timing intervals.
+Credit applies to HRLI only, not other halfword forms. No DAIMOS boot or
+TSFS root was used. Mandatory broad coverage remains 16/19.
