@@ -403,6 +403,9 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Eighth 50-case batch: ADDM, SUBM, ANDM, IORM and XORM
   writeback to memory, 400 real cases cumulative. All passed; see
   `misc/compat/test-aap-batch50-v8.py`.
+- [x] Ninth 50-case batch: LSH right, ASH signed right, ROT left,
+  ROT right and ASH signed left. 450 guest cases cumulative; all
+  50 passed (`misc/compat/test-aap-batch50-v9.py`).
 - [ ] Add further independently specified 50-case batches, prioritizing
   new paths and observed DAIMOS workload frequency over redundant operand
   values. Keep per-case failures visible. Do not conflate parser-only

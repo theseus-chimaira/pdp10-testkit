@@ -276,3 +276,12 @@ SUBM, ANDM, IORM, and XORM, using separate source and destination values.
 The expected 36-bit destination value is calculated independently and
 read back directly through the emulator console. All 50 passed the result,
 PC/opcode and trace-interval checks; total 400 cases in eight batches.
+
+## Fifty-case guest batch 9 (2026-10-15)
+
+`aap-batch50-v9` adds 50 tested shifts and rotates: LSH right,
+ASH arithmetic right of negative values, ROT left, ROT right, and
+ASH arithmetic left of negative values. All pass 36-bit output,
+PC/opcode and complete logical-tick interval validation. Several
+shift/rotate tests show costs increasing with shift count. Cumulative
+450 real guests in nine batches.
