@@ -442,6 +442,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   pointers, BLT, halfword families, doubleword arithmetic, stack/calls,
   control flow, addressing variation, and fault/instrumentation boundaries.
 - [x] Batch 100 v11: ten halfword-memory destination forms, 100/100 real emulator cases with independent 36-bit memory readback. 1600 cumulative.
+- [x] Batch 100 v12: 100 AOJ/SOJ conditional-jump cases crossing signed zero boundaries, both outcomes. 1700 cumulative guests.
 - [ ] Beyond the 1500-case milestone, achieve genuinely broad functional/timing coverage against the DAIMOS kernel inventory. Remaining gaps include signed/division arithmetic, doubleword operations, left-half logical tests, exceptional I/O/interrupt events, pointer word crossing, deterministic guest completion and dynamic kernel frequency profiles.
 - [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the
   large-operand guest outputs differed from ordinary 36-bit modulo

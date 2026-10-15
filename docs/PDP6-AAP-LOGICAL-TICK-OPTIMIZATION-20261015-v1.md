@@ -416,3 +416,12 @@ patterns. All 100 passed checks of the resulting memory word, exact
 PC/opcode sequence and complete modeled timing intervals. Total 1600
 passing guest variations. Other halfword forms and interrupt-bound
 memory writes remain outside this validation.
+
+## Post-milestone 100-case batch 12: AOJ/SOJ conditional branches (2026-10-15)
+
+`aap-batch100-v12` verifies ten AOJ/SOJ predicate forms, ten signed
+values per form spanning negative, zero and positive results. Every
+case checks branch destinations, updated accumulator memory readback
+and complete logical-tick intervals. 100/100 passed, bringing the
+cumulative total to 1700. This does not yet validate unconditional
+AOJ/SOJ or memory-destination AOS/SOS variants.
