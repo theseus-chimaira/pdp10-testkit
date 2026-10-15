@@ -58,3 +58,26 @@ per-opcode constants**.
 and model-matched tick-cost comparison are integrated. Branch, XCT and
 indirect-flow validation, comprehensive opcode calibration, and matrix-wide
 weighted optimization are not yet completed.
+
+## Control-flow validation (2026-10-15)
+
+The registered `aap-control-flow-v1` host test compiles the actual headless
+AAP emulator and runs three deterministic short PDP-6 guest programs:
+
+- A direct `JRST 1002` skips address 1001, executes `MOVEI 1,1` at 1002,
+  then halts at 1003. The three observed IT0/ET0A milestone pairs have
+  PCs 1000, 1002 and 1003.
+- An indirect `JRST @1010` takes its destination from word 1010 containing
+  1002 and follows the same PC sequence. This validates this indirect
+  addressing case, not every indexed/indirect combination.
+- `XCT 1010`, where 1010 holds `MOVEI 1,1`, emits **two ET0A events** for
+  one IT0 at PC 1000: first opcode 256 (XCT), then 201 (MOVEI). The next
+  IT0 is at PC 1001 and the terminating JRST follows.
+
+Consequently, the strict IT0/ET0A interval extractor **must reject XCT
+traces** until the cost model explicitly represents nested instruction
+execution and attributes the combined interval safely. The regression
+test confirms this rejection. Direct and indirect JRST traces remain
+measurable with the current straight-line pairing rules, but wider
+control-flow coverage and machine-time calibration remain open. No
+unvalidated opcode-weight table has been generated.
