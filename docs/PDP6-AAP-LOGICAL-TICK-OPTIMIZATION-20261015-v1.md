@@ -261,3 +261,10 @@ Five 50-case batches now total 250 passing real guests.
 variations each of JUMPL on negative AC, JUMPGE on zero, JUMPG on
 positive, JUMPLE on zero, and untaken JUMPE on nonzero AC. All passed
 PC-path, 36-bit result and timing interval checks. Cumulative 300 cases.
+
+## Fifty-case guest batch 7 (2026-10-15)
+
+`aap-batch50-v7` validates ten guest cases each for SKIPE on zero,
+SKIPN on nonzero, SKIPL on negative, SKIPGE on zero and an untaken
+SKIPG on zero. All 50 passed expected PC paths, register-derived
+output values, and complete logical-tick intervals. Total: 350 cases.
