@@ -118,3 +118,4 @@ aap-batch50-v1	compat	python3	misc/compat/test-aap-batch50-v1.py	host	yes	120
 aap-batch50-v2	compat	python3	misc/compat/test-aap-batch50-v2.py	host	yes	120
 aap-batch50-v3	compat	python3	misc/compat/test-aap-batch50-v3.py	host	yes	120
 aap-batch50-v4	compat	python3	misc/compat/test-aap-batch50-v4.py	host	yes	120
+aap-batch50-v5	compat	python3	misc/compat/test-aap-batch50-v5.py	host	yes	120

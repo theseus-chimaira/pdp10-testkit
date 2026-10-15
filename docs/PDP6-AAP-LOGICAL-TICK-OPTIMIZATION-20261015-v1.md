@@ -244,3 +244,13 @@ The POP fixtures check the destination written from the stack. Four
 registered 50-case batches now comprise 200 verified guest variations.
 No assertion about physical PDP-6 microsecond timings follows from these
 modeled AAP logical-tick intervals.
+
+## Fifty-case guest batch 5 (2026-10-15)
+
+`aap-batch50-v5` validates ten real guest variations each of XORI,
+MOVNI, IMULI, SUBM and MOVSI, independently checking output and trace.
+All 50 passed. SUBM's expected memory result is AC minus memory,
+verified as a negative 36-bit value; the initial test expectation was
+incorrect and corrected before accepting the batch. IMULI showed
+operand-dependent modeled logical ticks across the ten inputs.
+Five 50-case batches now total 250 passing real guests.
