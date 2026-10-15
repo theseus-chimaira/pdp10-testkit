@@ -97,5 +97,6 @@ test-stubselect	verify	python3	tools/test-stubselect.py	default	yes	120
 verify-type-semantics	verify	python3	tools/verify-type-semantics.py	default	yes	120
 verify-wide-int-adapters	verify	python3	tools/verify-wide-int-adapters.py	default	yes	120
 upstream-crt-v1	validation	sh	misc/validation/test-upstream-crt-v1.sh	pdp6	yes	120
+utf9-pdp6-runtime-v1	compat	sh	misc/compat/test-utf9-pdp6-runtime-v1.sh	pdp6	yes	120
 p10byte-widths-v2	compat	sh	misc/compat/test-p10byte-widths-v2.sh	default	yes	120
 p10byte-blt-v3	compat	sh	misc/compat/test-p10byte-blt-v3.sh	default	yes	120
