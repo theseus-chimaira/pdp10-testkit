@@ -490,3 +490,14 @@ opcode sequences and complete timing intervals; cumulative 2100 guests.
 An exploratory ASHC test failed a generic 72-bit shift expectation,
 which does not properly capture PDP-6 signed doubleword representation.
 ASHC is excluded from validated count and remains an open gate item.
+
+## Batch100 v17: arithmetic doubleword left shifts (2026-10-15)
+
+`aap-batch100-v17` models ASHC as two 35-bit data fields with a separate
+sign bit in each 36-bit accumulator word, not a contiguous 72-bit
+unsigned field. One hundred real AAP guests (ten positive shift counts
+including 18, ten signed boundary patterns each) passed independent
+high/low readback, exact PC/opcodes and complete tick intervals. The
+earlier failed generic 72-bit arithmetic expectation was invalid.
+ASHC right shifts and sign-preserving boundaries remain open. Total
+validated guests: 2200.
