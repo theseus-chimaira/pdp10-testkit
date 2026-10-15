@@ -434,7 +434,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch 100 v4: 100 real PUSHJ/POPJ call-return cases spanning depths 1-10, with ten values at each depth. 900 cumulative verified guests.
 - [x] Batch 100 v5: 100 BLT guest cases (1-10 words, ten data patterns), every destination word checked, including repeated ET0A accounting. 1000 cumulative verified guests.
 - [x] Batch 100 v6: 100 PDP-6 LDC/DPC byte load/deposit cases across 3/6/9/12/18-bit sizes, ten pointer positions/data variants each; strict byte ET0A continuation accounting. 1100 cumulative verified guests.
-- [ ] Implement four more independent 100-case batches, prioritizing byte
+- [x] Batch 100 v7: 100 pre-increment LDCI/DPCI cases (ILDB/IDPB), all pointer updates and byte results checked. 1200 cumulative guests.
+- [ ] Implement three more independent 100-case batches, prioritizing byte
   pointers, BLT, halfword families, doubleword arithmetic, stack/calls,
   control flow, addressing variation, and fault/instrumentation boundaries.
 - [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the

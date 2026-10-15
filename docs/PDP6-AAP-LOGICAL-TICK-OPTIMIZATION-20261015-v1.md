@@ -361,3 +361,14 @@ accounting is now recorded separately from BLT repetitions. Byte
 continuation malformed-event regressions are included in extractor tests.
 These correspond to the assembler's LDB and DPB forms in DAIMOS, but
 preincrement ILDB/IDPB and IBP remain untested. Total: 1100 guests.
+
+## 100-case batch 7: pre-increment byte pointer operations (2026-10-15)
+
+`aap-batch100-v7` validates 50 LDCI/ILDB and 50 DPCI/IDPB real guest
+cases, widths 3, 6, 9, 12 and 18 bits and ten offsets/data patterns
+each. The full 36-bit resulting data value and the independently
+predicted updated byte pointer are both read back. All cases passed
+strict event, PC/opcode and complete timing interval checks. The total
+is 1200 verified guests. Byte pointer word crossing and standalone IBP
+remain to be covered; these tests do not establish general exception
+or interrupt timing.

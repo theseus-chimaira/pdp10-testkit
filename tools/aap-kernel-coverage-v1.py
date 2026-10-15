@@ -53,6 +53,10 @@ def verified_family_names():
         result.update(('ldc', 'ldb'))
     if any(x.startswith('dpc') for x in result):
         result.update(('dpc', 'dpb'))
+    if any(x.startswith('ldci') for x in result):
+        result.update(('ldci', 'ildb'))
+    if any(x.startswith('dpci') for x in result):
+        result.update(('dpci', 'idpb'))
     return result
 
 
