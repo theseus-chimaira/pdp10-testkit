@@ -454,6 +454,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch100 v20: 100 positive IDIV guests checking both independent quotient and remainder values, cumulative 2500 passing real guest cases.
 - [x] Batch100 v21: 100 signed IDIV quotient/remainder cases covering all dividend/divisor sign combinations with independent signed validation; 2600 cumulative guests.
 - [x] Batch100 v22: 100 large-positive IMUL products exceeding 35 bits, independently checking 35-bit magnitude truncation and positive sign. Total 2700 passing real guests.
+- [x] Batch100 v23: 100 signed negative nonoverflow IMUL results checked, 2800 cumulative.
 - [ ] Investigate negative IMUL overflow/sign-boundary behavior and divide faults: the
   large-operand guest outputs differed from ordinary 36-bit modulo
   multiplication and a preliminary sign-preserving model. Neither the

@@ -555,3 +555,12 @@ sequence and interval checks; cumulative 2700 cases. This explains the
 previous positive product discrepancy; negative signed and faulted
 arithmetic remain unvalidated, so the mandatory arithmetic gate stays
 open.
+
+## Batch100 v23: negative nonoverflow IMUL (2026-10-15)
+
+One hundred real AAP guests validate products of negative multiplicands
+and positive multipliers whose product fits signed 36-bit range. Expected
+negative results are represented as 36-bit two's-complement words. All
+100 passed result and positive complete-interval checks, bringing the
+total to 2800 guests. The product overflow and divide fault branches
+remain outside this acceptance result.
