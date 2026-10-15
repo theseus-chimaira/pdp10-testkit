@@ -165,3 +165,4 @@ pdp6-root-snapshot-v1	compat	python3	misc/compat/test-pdp6-root-snapshot-v1.py	h
 aap-class-events-v1	compat	python3	misc/compat/test-aap-class-events-v1.py	host	yes	120
 aap-linked-pc-profile-v1	compat	python3	misc/compat/test-aap-linked-pc-profile-v1.py	host	yes	120
 aap-linked-image-verify-v1	compat	python3	misc/compat/test-aap-linked-image-verify-v1.py	host	yes	120
+aap-linked-load-v1	compat	python3	misc/compat/test-aap-linked-load-v1.py	host	yes	120

@@ -543,3 +543,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Add fail-closed linked-image deposit PC-overlap candidate check with duplicate-address and bootstrap-only rejection.
 - [ ] Demonstrate AAP loading of the *same hashed* DXR image and MRES text ranges before accepting kernel hotpath measurements.
+
+- [x] Load all 9,635 words of an isolated linked KCORE image in AAP; verify real HALT instruction fetch, memory readback, and instruction-start PC at octal 013436 (not kernel hotpath coverage).
+- [ ] Trace ordinary boot into multiple linked KCORE text routines and loaded MRES, with genuine image/module provenance and event exclusions.

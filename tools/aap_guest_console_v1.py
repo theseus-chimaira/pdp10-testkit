@@ -16,10 +16,10 @@ STATUS = re.compile(rb'APR_STATUS_V1 (START_PENDING|RUNNING|HALTED)\r?\n')
 
 
 def run_guest(emulator, work, words, readbacks, trace_enabled=True, timeout=8,
-              extra_commands=""):
+              extra_commands="", start_address=0o1000):
     commands = ['power on']
     commands.extend('deposit %o %012o' % (a, w) for a, w in sorted(words.items()))
-    commands.append('start 1000')
+    commands.append('start %o' % start_address)
     env = dict(os.environ)
     env['PDP6_AAP_TIMING_TRACE_V1'] = '1' if trace_enabled else '0'
     deadline = time.monotonic() + timeout

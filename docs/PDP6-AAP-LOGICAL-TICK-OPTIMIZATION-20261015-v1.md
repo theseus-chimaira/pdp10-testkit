@@ -852,3 +852,20 @@ prove the image was loaded or an MRES was entered. A complete image
 load ledger, verified module text bounds, and real guest execution are
 still required. Do not raise the kernel hotpath coverage gate on this
 basis.
+
+## Real AAP linked KCORE image fetch (2026-10-15)
+
+The isolated build artifact `d6codec-v077-fresh-kernel-20261015/kcore.dxr`
+was converted with `dxrconvert --simh -b 0` into 9,635 deposit words;
+the converter's final `go 000000` directive was removed before loading
+into AAP. AAP loaded those words and started at octal `013436`, a linked
+HALT instruction. It returned HALTED with readback
+`013436: 254200000000` and an actual timing milestone at `pc=013436`.
+The final APR status was clear. This demonstrates a genuine linked-image
+instruction fetch, but **not** DAIMOS boot, dynamic KCORE hotpaths, or
+MRES loading/execution: exactly one linked instruction was executed.
+The guest helper now supports an optional nondefault `start_address`; its
+real-AAP regression uses a standalone identical HALT word at that address.
+The external full-image experiment is reproducible from the described
+artifact but cannot be treated as a portable fixture in testkit.
+Coverage remains 16/19.
