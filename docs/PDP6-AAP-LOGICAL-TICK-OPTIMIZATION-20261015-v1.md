@@ -142,3 +142,16 @@ model costs only; it does not measure physical PDP-6 timing or cover
 fast-memory attachment changes and other memory organizations. The AC
 fixture addresses accumulator 2 through the instruction effective address,
 and does not independently time a changed or detached fast-memory module.
+
+## Split 16K core mapping and absent fast memory (2026-10-15)
+
+`aap-memory-map-v1` adds a third configuration containing two separately
+attached `cmem161C` modules at core banks 0 and 1. An additional guest
+reads word 040010 from bank 1 and stores 000000000654 in word 1020;
+console readback, instruction trace, and strict tick intervals all pass.
+All 13 enabled guest combinations pass. The mapped direct MOVE interval
+was 1701 modeled ticks in this run, equal to the other direct accesses.
+An experimental configuration omitting the `fmem162` attachment caused an
+AAP emulator segmentation fault before successful guest validation. It is
+explicitly excluded from the enabled suite, not counted as a pass; it
+requires debugging in the PDP-6 emulator before timing use.

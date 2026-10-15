@@ -315,9 +315,14 @@ workload/model tick-cost comparison. Relevant details:
   MOVE guests with 16K `cmem161C` and 256K `moby` core plus the same
   fast-memory configuration. Eight guests pass result and timing checks;
   see `misc/compat/test-aap-memory-paths-v1.sh`.
-- [ ] Expand fast-memory and core-memory configurations beyond the two
-  tested capacities, including configurations changing fast-memory availability
-  and address mapping; do not infer universal physical-memory timing.
+- [x] Add core-bank mapping checks with two separate 16K modules, including
+  a guest load from address 040010 in bank 1 and an independent result check;
+  see `misc/compat/test-aap-memory-map-v1.sh`.
+- [ ] Investigate AAP emulator segmentation fault observed when fast memory
+  is not attached. This is an emulator/configuration failure, not a valid
+  cost profile; fix the underlying bug before enabling no-fast-memory tests.
+- [ ] Expand fast-memory variations beyond the working attached configuration;
+  do not infer universal physical-memory timing.
 - [x] Extend `SKIPE` and `AOBJP` fixtures to both outcomes, and validate
   AOBJN loops with one, two, and four increments. The v3 suite checks
   final 36-bit guest memory results independently of timing traces.
