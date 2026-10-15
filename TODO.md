@@ -557,3 +557,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] After TSFS is independently repaired, verify boot/media provenance before resuming linked-kernel runtime profile collection; existing image/HALT evidence is not a live KCORE/MRES profile.
 
 - [x] Require strictly increasing AAP logical timing milestones in event classifier, rejecting missing, malformed, tied or reversed traces; verify with standalone AAP normal, NXM and IOT guests while TSFS boot is blocked.
+
+- [x] Validate cross-stream chronological ordering of AAP exception/PI pulse events and timing milestones, with standalone regression cases for inverted event order.

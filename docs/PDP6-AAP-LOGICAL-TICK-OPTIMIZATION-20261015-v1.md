@@ -907,3 +907,14 @@ mistaken for clean CPU-only evidence, but cannot establish the absence
 of uninstrumented events or prove complete trace capture. The TSFS root
 regression still blocks all DAIMOS boot-dependent profiling; the broad
 coverage gate remains 16/19.
+
+## Interleaved exceptional event ordering (2026-10-15)
+
+The independent AAP trace classifier now also validates chronology across
+`AAP_TIMING_V1` milestones and `AAP_CLASS_EVENT_V1` fault/PI reports. A
+reported event timestamp earlier than a preceding timing milestone, or a
+following timing milestone earlier than an event, fails classification.
+This closes a previously unvalidated interleaving case; it does not imply
+that all exception/PI event sources have been instrumented. Standalone
+real normal, NXM and IOT guest regressions pass. DAIMOS boot-dependent
+measurements remain suspended while TSFS root is broken; gate is 16/19.

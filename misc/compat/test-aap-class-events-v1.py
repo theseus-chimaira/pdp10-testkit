@@ -25,6 +25,15 @@ except ValueError:
 else:
     raise AssertionError('unknown event accepted')
 assert module.inspect('AAP_TIMING_V1 IT0 tick=1 pc=001000 inst=254\n')
+for bad in (
+    'AAP_TIMING_V1 IT0 tick=20 pc=001000 inst=201\nAAP_CLASS_EVENT_V1 type=NXM tick=19 pc=001000\n',
+    'AAP_TIMING_V1 IT0 tick=20 pc=001000 inst=201\nAAP_CLASS_EVENT_V1 type=PI_CYCLE tick=21 pc=001000\nAAP_TIMING_V1 ET0A tick=20 pc=001000 inst=201\n'):
+    try:
+        module.inspect(bad)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError('out-of-order event accepted')
 for bad in ('',
     'AAP_TIMING_V1 IT0 tick=10 pc=001000 inst=201\nAAP_TIMING_V1 ET0A tick=9 pc=001000 inst=201\n',
     'AAP_TIMING_V1 IT0 tick=10 pc=001000 inst=201\nAAP_TIMING_V1 ET0A tick=10 pc=001000 inst=201\n',

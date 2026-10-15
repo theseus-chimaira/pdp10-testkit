@@ -26,8 +26,10 @@ def inspect(text):
             if milestone is None:
                 raise ValueError('malformed timing milestone: ' + line)
             tick = int(milestone.group(2))
-            if previous_tick is not None and tick <= previous_tick:
-                raise ValueError('non-increasing AAP logical ticks')
+            if previous_tick is not None and tick < previous_tick:
+                raise ValueError('reversed AAP logical ticks')
+            if previous_tick is not None and tick == previous_tick:
+                raise ValueError('repeated AAP logical ticks')
             previous_tick = tick
             saw_timing = True
         if line.startswith('AAP_TIMING_V1 IT0 '):
@@ -41,6 +43,10 @@ def inspect(text):
         item = EVENT.fullmatch(line)
         if not item:
             raise ValueError('malformed classification event: ' + line)
+        event_tick = int(item.group(2))
+        if previous_tick is not None and event_tick < previous_tick:
+            raise ValueError('exceptional event timestamp precedes earlier timing milestone')
+        previous_tick = event_tick
         events.append(item.groups())
     if not saw_timing:
         raise ValueError('no AAP timing milestones; cannot classify absent events')
