@@ -46,6 +46,7 @@ GENERATED_EVIDENCE = {
     'test-aap-batch100-v7.py': {'ildb', 'idpb'},
     'test-aap-batch100-v8.py': {'ibp'},
     'test-aap-batch100-v10.py': {'blt'},
+    'test-aap-setzm-v1.py': {'setzm'},
 }
 FAMILY_ALIASES = {
     'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',

@@ -954,3 +954,14 @@ coverage: e.g. a fixture for one instruction variant cannot qualify
 another variant or all addressing modes. Generated `build/` assembler
 remains separated from the 128-file maintained-source denominator.
 DAIMOS boot-dependent tests remain suspended pending TSFS root repair.
+
+## Full-assembler exact instruction-form coverage: SETZM (2026-10-15)
+
+The new standalone `test-aap-setzm-v1.py` runs five real PDP-6 AAP
+`SETZM` (opcode 402 octal) programs. Each checks the zeroed memory
+operand, preservation of the specified accumulator, HALT completion,
+and presence of a complete AAP timing interval for opcode 402. Five
+initial memory values include zero, one, all-ones, the 36-bit sign bit
+and a mixed bit pattern. `aap-kernel-coverage-v1.py` only credits the
+exact `setzm` form (not the whole SETZ opcode family). No DAIMOS boot
+or TSFS image is required. The mandatory broad gate is still 16/19.
