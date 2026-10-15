@@ -171,3 +171,4 @@ aap-all-asm-coverage-v1	compat	python3	misc/compat/test-aap-daimos-asm-coverage-
 aap-setzm-v1	compat	python3	misc/compat/test-aap-setzm-v1.py	host	yes	120
 aap-hrli-v1	compat	python3	misc/compat/test-aap-hrli-v1.py	host	yes	120
 aap-sojg-v1	compat	python3	misc/compat/test-aap-sojg-v1.py	host	yes	120
+aap-aoja-v1	compat	python3	misc/compat/test-aap-aoja-v1.py	host	yes	120

@@ -49,6 +49,7 @@ GENERATED_EVIDENCE = {
     'test-aap-setzm-v1.py': {'setzm'},
     'test-aap-hrli-v1.py': {'hrli'},
     'test-aap-sojg-v1.py': {'sojg'},
+    'test-aap-aoja-v1.py': {'aoja'},
 }
 FAMILY_ALIASES = {
     'jumpe_taken': 'jumpe', 'jumpe_nonzero': 'jumpe',

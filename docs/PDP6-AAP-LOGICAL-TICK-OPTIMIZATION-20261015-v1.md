@@ -985,3 +985,13 @@ all-ones, negative two and the 36-bit sign boundary. The opcode was
 verified against the PDP-6 assembler's `as6.c` instruction table rather
 than inferred from neighboring SOJ forms. This evidence credits SOJG
 only, not the SOJ family as a whole. No DAIMOS boot-dependent tests ran.
+
+## Full-assembler exact instruction-form coverage: AOJA (2026-10-15)
+
+Seven standalone real AAP `AOJA` (octal opcode 344) guests verify
+36-bit accumulator increment, unconditional branch, branch marker,
+HALT completion, and complete logical timing intervals. Inputs include
+zero, small positive values, all ones, negative two, and the sign
+boundary. Opcode encoding was confirmed against the PDP-6 `as6.c`
+assembler table. This credits AOJA only, not neighboring AOJ variants.
+No DAIMOS boot-dependent testing ran while TSFS root is broken.

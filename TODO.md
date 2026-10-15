@@ -575,3 +575,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify seven standalone exact SOJG opcode-367 decrement/branch/timing cases with signed boundary inputs; confirm encoding against PDP-6 assembler table.
 - [ ] Continue AOJA, TLC, IDIVI, SETOM and other exact forms without DAIMOS boot.
+
+- [x] Verify exact AAP AOJA opcode-344 increment and unconditional-branch timing across seven boundary inputs.
+- [ ] Continue exact-form TLC, IDIVI, SETOM and remaining DAIMOS assembler instruction tests without DAIMOS boot.
