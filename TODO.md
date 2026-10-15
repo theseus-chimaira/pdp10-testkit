@@ -429,7 +429,9 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Batch 100 v2: ten halfword forms (HLL, HRL, HLR, HRR,
   HLLZ, HRLZ, HLRZ, HRRZ, HLLO, HRRO) against ten 36-bit boundary
   values; 100/100 real guests passed. Total 700/1500.
-- [ ] Implement eight more independent 100-case batches, prioritizing byte
+- [x] Batch 100 v3: CAIE, CAIN, CAIL, CAILE, CAIGE, CAIG, CAME, CAMN, CAML, CAMLE: 100 validated real guests. 800 total.
+- [x] Add a versioned static DAIMOS kernel opcode representativeness matrix; compare mnemonic source counts against the validated AAP batch family labels and document limitations.
+- [ ] Implement seven more independent 100-case batches, prioritizing byte
   pointers, BLT, halfword families, doubleword arithmetic, stack/calls,
   control flow, addressing variation, and fault/instrumentation boundaries.
 - [ ] Investigate PDP-6 AAP IMUL overflow/sign-boundary behavior: the
