@@ -49,3 +49,19 @@ the current C emulator's pulse queue.
 No production emulator changes were made during this audit. Keep further
 experiments and their tests in `pdp10-testkit`; only update finished
 production documentation in `pdp10-doc` after calibration is validated.
+
+## Follow-up: logical delay accounting (2026-10-15)
+
+The AAP emulator now accumulates the dequeued pulse's **relative delay**
+in `Apr.pulse_time_v1`, using a bounded C99 helper in
+`emu/apr_pulse_clock_v1.h`. Because each queue entry's `t` is defined as
+the time difference from the preceding pulse, summing dispatched head
+delays produces a monotonic *logical* pulse timestamp; a zero-delay event
+shares the previous timestamp. This does not change dispatch ordering,
+force host sleeps, or establish physical units. A focused testkit C99
+test checks addition, zero delay, invalid negative delay, and overflow.
+
+The remaining Stage 1 gates are **not** passed: the physical unit of `t`
+and historically valid instruction boundaries have not been established.
+The fixed memory acknowledgment delays remain provisional. No weighted
+PDP-6 CPU-time model is authorized by this implementation alone.
