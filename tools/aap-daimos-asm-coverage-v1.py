@@ -16,12 +16,26 @@ KERNEL = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(KERNEL)
 LABEL = re.compile(r'^(?:[a-z_.$%][\w.$%]*|[0-9]+):\s*', re.I)
 TOKEN = re.compile(r'^([a-z][a-z0-9]*)\b',re.I)
-KNOWN = KERNEL.BASE | {name for group in KERNEL.GROUPS.values() for name in group}
+# PDP-10 instruction forms that occur in maintained DAIMOS source but were
+# absent from the earlier kernel-focused hand-built inventory. Listing an
+# opcode here does NOT establish AAP functional or timing test coverage.
+ADDITIONAL_OPCODES = set('''setzm hrli sojg aoja tlc setom idivi hrroi setzb andcmi
+    tloa aoje sojn tdza hrri sojl setm divi trna soje muli soja andcam
+    addb skipa setcm iorb movns ori andb sosle hrlzm hlre hrloi aojl
+    hrlzi hrlzs movms sojle hlrzm andcai hrrzm exch sojge setzi aojn
+    sosn setob'''.split())
+# UUO is a generic unimplemented-operation mnemonic and HALT is a privileged
+# halt pseudoinstruction; keep them visible separately pending syntax audit.
+SPECIAL_FORMS = {'uuo', 'halt'}
+KNOWN = (KERNEL.BASE |
+         {name for group in KERNEL.GROUPS.values() for name in group} |
+         ADDITIONAL_OPCODES)
 
 
 def inventory(root):
     results = defaultdict(Counter)
     unknown = Counter()
+    special = Counter()
     files = Counter()
     for section in ('system','userland','build'):
         base = root/section
@@ -43,16 +57,18 @@ def inventory(root):
                 word = found.group(1).lower()
                 if word in KNOWN:
                     results[section][word] += 1
+                elif word in SPECIAL_FORMS and section != 'build':
+                    special[word] += 1
                 elif section != 'build':
                     unknown[word] += 1
-    return files,results,unknown
+    return files,results,unknown,special
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('repository',type=Path,nargs='?',default=ROOT.parent/'DAIMOS')
     args = p.parse_args()
-    files,counts,unknown = inventory(args.repository)
+    files,counts,unknown,special = inventory(args.repository)
     verified = KERNEL.verified_family_names()
     print('DAIMOS static assembler inventory (not executable coverage)')
     for section in ('system','userland','build'):
@@ -60,6 +76,12 @@ def main():
         hits = sum(n for word,n in found.items() if word in verified)
         print('%s: files=%d known-references=%d fixture-label-matched=%d' %
               (section, files[section],sum(found.values()),hits))
+    unresolved = sum(unknown.values())
+    recognized = sum(counts[section].total() for section in ('system','userland'))
+    print('special opcode/pseudoinstruction references: %d (%s)' % (sum(special.values()), ', '.join('%s:%d' % item for item in sorted(special.items()))))
+    print('maintained-source unclassified tokens: %d across %d names' % (unresolved, len(unknown)))
+    print('all identified source instruction/special-form candidates: %d' % (recognized + unresolved + sum(special.values())))
+    print('WARNING: fixture-label matches are mnemonic proxies, NOT tested opcode/mode coverage')
     print('Maintained source mnemonic counts / fixture-label matches:')
     combined = counts['system']+counts['userland']
     for mnemonic,n in combined.most_common():

@@ -939,3 +939,18 @@ A standalone real AAP PUSHJ experiment also generated PDLOV at logical
 tick 4502, with `PDLOV=1` in the APR snapshot, for stack pointer
 `777777000010`; a zero pointer produced no PDLOV. This positive/control
 pair is now part of the standalone pulse-classification regression.
+
+## Broad assembler mnemonic classification (2026-10-15)
+
+The previous first-pass inventory omitted 1,035 mnemonic-like references.
+These have been split into 951 references to 48 explicit PDP-10
+instruction forms and 84 special-form references (`UUO` 72, `HALT` 12).
+The reporter now identifies 22,076 conventional opcode references
+across maintained `system/` and `userland/`, of which 20,664 match some
+registered AAP fixture family label. The 84 special forms are listed
+separately, and zero leading instruction tokens remain unclassified in
+this source snapshot. This does NOT demonstrate functional/mode/timing
+coverage: e.g. a fixture for one instruction variant cannot qualify
+another variant or all addressing modes. Generated `build/` assembler
+remains separated from the 128-file maintained-source denominator.
+DAIMOS boot-dependent tests remain suspended pending TSFS root repair.
