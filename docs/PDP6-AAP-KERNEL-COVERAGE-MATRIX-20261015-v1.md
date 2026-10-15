@@ -2,7 +2,7 @@
 
 **Scope:** static mnemonic occurrences in 74 `DAIMOS/system/kernel/**/*.s` assembly files; this includes files that may not be linked into a given image and excludes C-generated instructions. Do not interpret it as dynamic instruction frequency, model timing accuracy, or percentage of executed paths.
 
-**Coverage proxy:** 16034 / 16675 (96.2% static-only). This is a source-occurrence-weighted *existence of a tested opcode* metric, not comprehensive functional coverage. Generated fixture labels are mapped explicitly only for known registered passing batch suites.
+**Coverage proxy:** 16065 / 16675 (96.3% static-only). This is source-occurrence-weighted existence of a tested opcode, not comprehensive functional coverage.
 
 | Mnemonic | Static source occurrences | At least one mapped real AAP timing fixture |
 |---|---:|---|
@@ -59,7 +59,7 @@
 | `TLNN` | 27 | no |
 | `MOVNI` | 25 | yes |
 | `HRLZ` | 23 | yes |
-| `HRRM` | 22 | no |
+| `HRRM` | 22 | yes |
 | `MOVSI` | 21 | yes |
 | `DATAO` | 19 | no |
 | `JUMPLE` | 18 | yes |
@@ -75,7 +75,7 @@
 | `ILDB` | 12 | yes |
 | `SOJ` | 10 | no |
 | `CONSO` | 10 | no |
-| `HRLM` | 8 | no |
+| `HRLM` | 8 | yes |
 | `DPB` | 8 | yes |
 | `SKIPGE` | 7 | yes |
 | `JUMPG` | 7 | yes |
@@ -101,7 +101,7 @@
 | `ASH` | 1 | yes |
 | `ANDCM` | 1 | no |
 | `ROT` | 1 | no |
-| `HLLM` | 1 | no |
+| `HLLM` | 1 | yes |
 | `SKIPL` | 1 | yes |
 
 ## Remaining static mnemonic gaps
@@ -112,7 +112,7 @@
 | block | 0 | - |
 | call-stack | 0 | - |
 | doubleword | 2 | div:2 |
-| halfword | 36 | hrrm:22, hrlm:8, hrrzs:5, hllm:1 |
+| halfword | 5 | hrrzs:5 |
 | conditionals | 162 | aos:55, aoj:50, camge:28, camg:15, soj:10, sos:4 |
 | logical-tests | 217 | tlz:58, tlne:50, tlo:48, tlnn:27, tdne:16, tro:6, tdnn:4, andca:4, trz:3, andcm:1 |
 | interrupts-io | 223 | cono:121, coni:49, datao:19, datai:15, conso:10, consz:4, blko:3, blki:2 |
@@ -139,3 +139,7 @@
 `python3 misc/compat/test-aap-kernel-coverage-v1.py`
 
 Keep compiled C instruction profiles and exact linked-image inventory separate until obtained from actual instrumented runs.
+
+## Post-milestone halfword-write evidence
+
+Batch100 v11 covers HLLM, HRLM, HLRM, HRRM and six corresponding zero/one-fill forms with independent memory readback; remaining halfword self-update forms require separate coverage.

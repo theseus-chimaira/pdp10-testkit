@@ -135,3 +135,4 @@ aap-batch100-v8	compat	python3	misc/compat/test-aap-batch100-v8.py	host	yes	120
 aap-batch100-v9	compat	python3	misc/compat/test-aap-batch100-v9.py	host	yes	120
 aap-batch100-v10	compat	python3	misc/compat/test-aap-batch100-v10.py	host	yes	120
 aap-kernel-coverage-v1	compat	python3	misc/compat/test-aap-kernel-coverage-v1.py	host	yes	120
+aap-batch100-v11	compat	python3	misc/compat/test-aap-batch100-v11.py	host	yes	120

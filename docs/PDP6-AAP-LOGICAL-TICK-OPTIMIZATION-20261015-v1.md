@@ -407,3 +407,12 @@ coverage. Kernel source analysis still identifies gaps in division,
 doubleword operations, logical tests, I/O/interrupt cycles and memory
 exceptions. A static kernel instruction count must not be confused with
 measured dynamic instruction frequency or a linked-image opcode profile.
+
+## Post-milestone 100-case batch 11: halfword memory writes (2026-10-15)
+
+`aap-batch100-v11` validates HLLM, HRLM, HLRM, HRRM, HLLZM, HRLZM,
+HLRZM, HRRZM, HLLOM and HRROM against ten independent 36-bit source
+patterns. All 100 passed checks of the resulting memory word, exact
+PC/opcode sequence and complete modeled timing intervals. Total 1600
+passing guest variations. Other halfword forms and interrupt-bound
+memory writes remain outside this validation.
