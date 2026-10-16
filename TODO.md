@@ -629,3 +629,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Fix the AAP stage-one test's premature console EOF by keeping a FIFO open for bounded execution: genuine PTR bytes are consumed and stage-one PCs are reached.
 - [ ] Investigate repeat loop at octal 000460–000465 after stage-one entry; actual KCORE/MRES image identity/entry remains unverified.
+
+- [ ] AAP linked-kernel-hotpaths: the PDP-6 AAP emulator `emu/cmd.c` has no DSK270 controller implementation (`mkdev` has APR, PTR, DCT/DECtape and others, but not DSK). Disk `stage1-dsk.pt` loops waiting for DSK270/DCT readiness at PCs 000460–000465. For real KCORE/MRES execution, select a stage-one image for an actually implemented controller and matching image, or implement and verify DSK270 properly; do not treat this test's large instruction count as kernel work.

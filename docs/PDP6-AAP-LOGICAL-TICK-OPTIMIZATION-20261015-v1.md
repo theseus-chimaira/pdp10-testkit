@@ -1218,3 +1218,17 @@ Linked KCORE/MRES execution is still unverified; low-address PC overlap
 with a symbol map is insufficient provenance, and the repeated stage-one
 loop requires separate investigation. The test now asserts stage-one
 progress rather than an incorrect low-core-only expectation.
+
+### Stage-one DSK270 wait-loop root cause (2026-10-16)
+
+Source inspection established that the disk stage-one loader calls
+`read_dsk_sector`, whose `CONO 0200` / `DATAO 0270` sequence relies on
+DSK270/DCT disk hardware. It polls `CONI 0270` and `CONI 0200` for
+completion. The PDP-6 AAP emulator's `emu/cmd.c` device table does **not**
+provide a DSK270 implementation (its DECtape support is different).
+Consequently the very large PC `000460`–`000465` sample count reflects
+waiting for unsupported disk hardware, not evidence of KCORE/MRES
+execution. The standalone stage-one trace test explicitly reports this
+limitation and still rejects unexpected regions. Next use a properly
+supported stage-one/controller/media combination or implement DSK270
+hardware faithfully. The mandatory gate remains 18/19.

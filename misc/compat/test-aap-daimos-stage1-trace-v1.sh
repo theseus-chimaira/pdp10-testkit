@@ -39,5 +39,7 @@ python3 - "$w/guest.err" <<'PY'
 import sys,re,collections
 s=open(sys.argv[1]).read();c=collections.Counter(int(x,8) for x in re.findall(r'AAP_TIMING_V1 IT0 tick=\d+ pc=([0-7]{6})',s));print('AAP stage1 bounded trace: samples',sum(c.values()),'distinct',len(c),'top',[(oct(p),n) for p,n in c.most_common(14)],'minmax',tuple(map(oct,(min(c),max(c)))) if c else None,'exceptions',len(re.findall('AAP_CLASS_EVENT',s)))
 assert c and any(pc >= 0o400 for pc in c), 'stage-one handoff never observed'
-print('STAGE-ONE ADVANCED; KCORE/MRES BOOT UNVERIFIED (trace PCs are not linked image proof)')
+assert all(pc < 0o1000 for pc in c), 'new instruction region observed; independently verify before interpreting'
+assert all(c.get(pc,0) > 0 for pc in (0o460,0o461,0o463,0o464,0o465)), 'expected unsupported disk-controller poll loop changed'
+print('STAGE-ONE ADVANCED; KCORE/MRES BOOT UNVERIFIED (DSK270 is not supported by this AAP emulator)')
 PY
