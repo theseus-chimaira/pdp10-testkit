@@ -643,3 +643,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Replace fixed initial PTR Stage-1-to-payload1 delay with observed AAP IT0 at PC 000060 (`test-aap-ptr-handoff-v1.py`); fail closed if the entry is not seen.
 - [ ] Diagnose incomplete PTR payload1 with instrumented byte count and transfer-state readback; Stage-1 entry is now confirmed before media switch, but `stage_ptr` has not advanced.
+
+- [ ] AAP Type 760 PTR handoff diagnosis: DevSpace2 `/proc/<pid>/fdinfo` measurement confirms only 5 of 56825 bytes from first payload were consumed in 15 seconds after verified stage-one entry. Examine busy/flag and `DATAI` re-arm after the initial word; no KINIT entry proven.

@@ -1295,3 +1295,16 @@ The bounded test confirms entry and mounts payload1, but `stage_ptr`
 (octal 000275) remains zero throughout the first-payload completion
 window. It therefore refuses to mount payload2 and retains the final
 `linked-kernel-hotpaths` criterion as incomplete (18/19).
+
+### First-payload byte-consumption measurement (2026-10-16, DevSpace2)
+
+The state-aware PTR handoff diagnostic now inspects the live emulator's
+mounted `ptr-boot1-v1.pt` file position via read-only Linux/Termux
+`/proc/<pid>/fdinfo` metadata. After verified Stage-1 PC `000060`
+entry and payload mount, the reader consumed **5 bytes out of 56825**
+within the fifteen-second transfer window, while Stage-1's `stage_ptr`
+completion word remained zero. This proves that the first payload is
+stalled after its first five-byte encoded word rather than merely slow
+throughout a multi-kilobyte transfer. Next inspect the Type 760
+`DATAI` busy/flag handshake and read-rearm sequencing. No AAP linked
+KCORE/MRES dynamic profile has been demonstrated; gate remains 18/19.

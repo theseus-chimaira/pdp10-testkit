@@ -58,6 +58,24 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
         assert ready, 'AAP trace did not confirm Stage-1 entry; refuse tape swap'
         print('Stage-1 entry observed at PC 000060')
         send('unmount ptr');send('mount ptr %s'%(MEDIA/'ptr-boot1-v1.pt'))
+        # Linux/Termux exposes the real mounted reader's consumed byte
+        # count in /proc/PID/fdinfo. This is read-only instrumentation.
+        def reader_offset():
+            fdroot=Path('/proc')/str(proc.pid)/'fd'
+            try:
+                for fd in fdroot.iterdir():
+                    try:
+                        target=os.readlink(fd)
+                        if target.endswith('ptr-boot1-v1.pt'):
+                            info=(fdroot.parent/'fdinfo'/fd.name).read_text()
+                            match=re.search(r'^pos:\s*(\d+)', info, re.M)
+                            return int(match.group(1)) if match else None
+                    except (OSError, ValueError):
+                        continue
+            except (OSError, PermissionError):
+                pass
+            return None
+        maximum_offset=0
         deadline=time.monotonic()+15
         first_complete=False
         checks=0
@@ -69,8 +87,12 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
                 if values and int(values[-1],8):
                     first_complete=True;break
             except TimeoutError:pass
+            offset=reader_offset()
+            if offset is not None:
+                maximum_offset=max(maximum_offset,offset)
             checks+=1
             time.sleep(0.1)
+        print('PTR payload1 consumed bytes (maximum observed): %d / %d' % (maximum_offset, (MEDIA/'ptr-boot1-v1.pt').stat().st_size))
         if first_complete:
             send('unmount ptr');send('mount ptr %s'%(MEDIA/'ptr-boot2-v1.pt'))
             print('PTR first counted payload completed; switched to tape 2 on stage_ptr state')
