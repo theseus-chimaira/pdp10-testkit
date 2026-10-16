@@ -1335,3 +1335,20 @@ reader byte; the data source has not yet been localized. The diagnostic
 prints post-HALT register readbacks for future comparison. Build a small
 standalone byte-transfer/AC-shift regression before altering Stage-1 or
 PDP-6 AAP implementation. Coverage is unchanged at 18/19.
+
+### First counted PTR payload decoded correctly without RIM trailer (2026-10-16)
+
+An instrumented *temporary copy* of the AAP Type-760 implementation
+confirmed that the old Stage-1 paper tape's extra octal `0252` trailer
+was delivered as the **first** byte of the following counted payload.
+The next four payload bytes were `000 000 000 054`, yielding corrupt
+AC3/AC2 `500000000054` and `bad_tape`; the fifth payload byte `144`
+was read but not delivered before HALT. Removing only the terminal
+`0252` from a versioned Stage-1 media variant (`stage1-ptr-no-trailer-v2.pt`)
+keeps Stage-1 entry intact and permits all **56,825** bytes of payload1
+to transfer; the post-transfer stage pointer at `000275` is nonzero
+(`000000135202`) and the CPU remains RUNNING in its next-byte wait loop.
+A separate real-AAP synthetic reconstruction test confirms the same five
+bytes are correctly assembled by `LSH`/`IOR` as `000000026144`.
+The old trailer-bearing Stage-1 tape is retained for regression comparison;
+next establish state-aware tape-2 switching and linked KINIT entry.

@@ -18,6 +18,11 @@ mkdir -p "$out"
 for mode in ptr dtc; do
   "$das_bin" -F -K -O "$out/stage1-$mode-v1.dxr" "$root/DAIMOS/system/stand/pdp6/$mode/stage1.s"
   "$converter" --pdp6-readin -b 060 "$out/stage1-$mode-v1.dxr" "$out/stage1-$mode-v1.pt"
+  if [ "$mode" = ptr ]; then
+    # RIM terminal byte 0252 is not part of the executable image. On AAP
+    # it becomes a stale first byte of the following counted payload.
+    cp "$out/stage1-ptr-v1.pt" "$out/stage1-ptr-no-trailer-v2.pt"
+  fi
   printf '\252' >> "$out/stage1-$mode-v1.pt"
 done
 cwords=$(($(wc -l < "$image") - 3))
@@ -29,7 +34,7 @@ test "$first" -gt 0 && test "$second" -gt 0
 "$words2pt" -t ptr -p "$out/ptr-boot1-v1.words" -o "$out/ptr-boot1-v1.pt"
 "$words2pt" -t ptr -p "$out/ptr-boot2-v1.words" -o "$out/ptr-boot2-v1.pt"
 "$mkdt" -t dtc -p "$image" -o "$out/dtc0-simh-v1.tap"
-for f in stage1-ptr-v1.pt stage1-dtc-v1.pt ptr-boot1-v1.pt ptr-boot2-v1.pt dtc0-simh-v1.tap; do test -s "$out/$f"; done
+for f in stage1-ptr-v1.pt stage1-ptr-no-trailer-v2.pt stage1-dtc-v1.pt ptr-boot1-v1.pt ptr-boot2-v1.pt dtc0-simh-v1.tap; do test -s "$out/$f"; done
 printf 'AAP dual Stage-1 media prepared: %s\n' "$out"
 printf 'Paper tape: Stage-1 + payload tapes 1 and 2 (operator must swap)\n'
 printf 'DECtape: Stage-1 PTR read-in + SIMH-format halfword image only; AAP raw Type-555 image is NOT generated\n'
@@ -46,3 +51,11 @@ for offset in range(0, len(data), 4):
     assert int.from_bytes(data[offset:offset+4], 'little') < (1 << 18), ('invalid 18-bit halfword',offset)
 print('DECtape format: SIMH 32-bit halfwords; AAP Type-555 raw-line conversion required')
 PY_CHECK
+
+python3 - "$out/stage1-ptr-v1.pt" "$out/stage1-ptr-no-trailer-v2.pt" <<'PY_VERIFY'
+from pathlib import Path
+import sys
+original,corrected=map(lambda v:Path(v).read_bytes(),sys.argv[1:])
+assert original==corrected+bytes([0o252])
+print('PTR read-in variants: reference trailer 0252, corrected version excludes it')
+PY_VERIFY
