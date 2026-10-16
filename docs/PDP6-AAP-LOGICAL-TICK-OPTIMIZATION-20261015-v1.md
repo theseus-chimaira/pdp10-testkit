@@ -1203,3 +1203,18 @@ at PC `000021`/`000022` for the entire capture. The genuine tape transfer
 and stage-one handoff are therefore still unverified. Investigate the
 reader status flag/read-in loop sequencing and device state, rather than
 increasing a bootstrap loop's instruction count and calling it KCORE.
+
+### Paper-tape handoff resolved: console EOF was stopping AAP (2026-10-16)
+
+The previous bounded test redirected the console from an ordinary file.
+Its EOF caused the emulator to quit shortly after starting, before
+Type 760 PTR data was delivered. Keeping the console FIFO open during
+the bounded trace permits authentic paper-tape transfer and advances
+execution out of the RIM loader: observed PCs include `000060`–`000070`,
+`000424`–`000437`, and a repeated `000460`–`000465` loop (hundreds of
+thousands of instruction-start samples). The earlier "PTR stuck" diagnosis
+was a harness lifetime error, **not demonstrated to be an emulator bug**.
+Linked KCORE/MRES execution is still unverified; low-address PC overlap
+with a symbol map is insufficient provenance, and the repeated stage-one
+loop requires separate investigation. The test now asserts stage-one
+progress rather than an incorrect low-core-only expectation.

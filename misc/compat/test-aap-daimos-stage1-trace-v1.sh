@@ -28,10 +28,16 @@ ptrmotor ptr on
 start 20
 BOOT
 (cd "$root/pdp6/emu" && cc -O2 -o "$w/pdp6_n" main_net.c emu.c apr.c mem.c tty.c pt.c dc.c dt.c pclk.c netmem.c netcons.c cmd.c util.c threading.c rtc.c ../tools/pdp6common.c -lpthread -lm)
-(cd "$w" && PDP6_AAP_TIMING_TRACE_V1=1 PDP6_AAP_CLASS_TRACE_V1=1 timeout 2 ./pdp6_n < bootstrap.txt > guest.log 2> guest.err) || test "$?" -eq 124
+(
+ cd "$w"
+ rm -f console.fifo; mkfifo console.fifo
+ (cat bootstrap.txt; sleep 4) > console.fifo &
+ PDP6_AAP_TIMING_TRACE_V1=1 PDP6_AAP_CLASS_TRACE_V1=1 timeout 3 ./pdp6_n < console.fifo > guest.log 2> guest.err || test "$?" -eq 124
+ wait || :
+)
 python3 - "$w/guest.err" <<'PY'
 import sys,re,collections
 s=open(sys.argv[1]).read();c=collections.Counter(int(x,8) for x in re.findall(r'AAP_TIMING_V1 IT0 tick=\d+ pc=([0-7]{6})',s));print('AAP stage1 bounded trace: samples',sum(c.values()),'distinct',len(c),'top',[(oct(p),n) for p,n in c.most_common(14)],'minmax',tuple(map(oct,(min(c),max(c)))) if c else None,'exceptions',len(re.findall('AAP_CLASS_EVENT',s)))
-assert c and all(0o20 <= x <= 0o22 for x in c), 'execution left verified low-core loop; inspect before claiming anything'
-print('BOOT UNVERIFIED: no linked KCORE/MRES execution observed')
+assert c and any(pc >= 0o400 for pc in c), 'stage-one handoff never observed'
+print('STAGE-ONE ADVANCED; KCORE/MRES BOOT UNVERIFIED (trace PCs are not linked image proof)')
 PY

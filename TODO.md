@@ -626,3 +626,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] AAP 19/19 linked-kernel-hotpaths: bounded real stage-one paper-tape trace remains in low-core PTR polling PC 000020–000022, even after >900 instruction starts; investigate tape bootstrap transfer/completion and kernel image entry before claiming KCORE/MRES dynamic execution.
 
 - [ ] Debug the actual PDP-6 Type 760 paper-tape state machine/read-in: explicit `ptrmotor ptr on` and divisor 1 still leave AAP stage-one at PC 000021–000022. Confirm real reader flag transitions and bytes consumed before claiming linked-kernel execution.
+
+- [x] Fix the AAP stage-one test's premature console EOF by keeping a FIFO open for bounded execution: genuine PTR bytes are consumed and stage-one PCs are reached.
+- [ ] Investigate repeat loop at octal 000460–000465 after stage-one entry; actual KCORE/MRES image identity/entry remains unverified.
