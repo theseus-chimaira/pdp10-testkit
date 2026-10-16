@@ -190,3 +190,4 @@ aap-daimos-stage1-trace-v1	compat	sh	misc/compat/test-aap-daimos-stage1-trace-v1
 aap-alt-stage1-media-v1	compat	sh	misc/compat/test-aap-alt-stage1-media-v1.sh	host	yes	120
 aap-ptr-handoff-v1	compat	python3	misc/compat/test-aap-ptr-handoff-v1.py	host	yes	120
 aap-ptr-assemble-v1	compat	python3	misc/compat/test-aap-ptr-assemble-v1.py	host	yes	120
+simh-ptr-tsfs-boot-v1	compat	sh	misc/compat/test-simh-ptr-tsfs-boot-v1.sh	host	yes	400

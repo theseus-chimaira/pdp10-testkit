@@ -1386,3 +1386,23 @@ A proposed PTR handoff stack-pointer fix was deliberately **discarded**
 after examining `common/decompressor.inc`: AC12 advances on decompressed
 output and reaches the image end, so `MOVE 17,12` is correct. The DAIMOS
 checkout has not been modified for that rejected hypothesis.
+
+### SIMH paper-tape + TSFS boot comparison (2026-10-16)
+
+An isolated `ROOT=tape BOOT=ptr` build produced counted paper-tape
+payloads and a populated 591872-byte TSFS root member (also mounted as
+`dtc0.tap`). The production DSH image was `036021` against a `036000`
+limit (15 decimal words over), so the comparison build used the
+**previously documented phase-one** `DSH_IMAGE_LIMIT=037000` override.
+This is not an optimization or a permanent correction of DSH size.
+
+The 75-second SIMH PDP-6 run with the generated configuration (SW 2)
+observed `TAPE2`, `DAIMON V0.5`, `DTC OK`, `DTFS LOADED`, `INIT V1`,
+and `LOGIN:`. The command was stopped by the host timeout after these
+milestones; no SIMH CPU HALT is claimed. This is concrete same-boot-method
+baseline evidence for the AAP paper-tape startup work, not yet proof of
+interactive login or a verified root mount transaction. A versioned
+`test-simh-ptr-tsfs-boot-v1.sh` reproduces the isolated build and run.
+AAP's real linked KINIT/KCORE/MRES startup counts remain genuine, but
+PI/PDLOV exception handling still prevents closing the ordinary-hotpath
+attribution criterion, so the gate stays at 18/19.
