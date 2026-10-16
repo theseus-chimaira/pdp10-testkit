@@ -23,6 +23,9 @@ CASES = (
     (0o254540001001, False),
     (0o254140001001, False),
     (0o254120001001, False),
+    (0o254040001001, False),  # JRST 1: direct mode-change bit
+    (0o254100001001, False),  # JRST 2: flags-restoring form
+    (0o254040001002, False),  # direct transfer to HALT address
 )
 with tempfile.TemporaryDirectory(prefix='aap-illegal-relocation-probe-v1.',
      dir=os.environ.get('TMPDIR', str(Path.home() / 'tmp'))) as folder:

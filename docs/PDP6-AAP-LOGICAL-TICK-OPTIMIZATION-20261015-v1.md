@@ -1128,3 +1128,18 @@ relocation failure, or aborted-instruction timing coverage. The diagnostic
 must never be registered as verified `fault-exclusions`. The next work
 is to derive a proper user-mode entry and protection-register setup from
 the APR microcode, then require genuine `AAP_CLASS_EVENT_V1 type=ILLOP`.
+
+### User-mode fault microcode investigation (2026-10-16)
+
+The emulator's `et1` sets `ex_mode_sync` if a JRST executes with IR
+bit `H12`; `mr_clr` promotes this to `ex_user`. Its memory relocation
+check rejects references when `(MA >> 10) & 0377` exceeds `pr`, provided
+relocation is not inhibited. User mode by itself is not proof of an
+illegal address; test setup must also establish the intended memory
+protection-register value, and a genuine ILLOP pulse is required.
+Direct `JRST 1` (`254040001001`), `JRST 2` (`254100001001`), and a
+mode-change candidate targeting the next HALT (`254040001002`) did not
+reach expected HALT in diagnostic runs. Their timeouts are not considered
+valid ILLOP evidence. Investigation should next instrument controlled
+APR user-mode and protection-state transitions before attempting to
+promote the gate, without modifying kernel code or marking it passed.
