@@ -12,7 +12,7 @@ byte-word-crossing	verified	yes	misc/compat/test-aap-batch100-v14.py	100 LDCI/DP
 multiply-divide-boundaries	verified	yes	misc/compat/test-aap-aprflags-v1.py	IMUL positive and negative boundary batches v19/v22/v23/v24, signed and unsigned IDIV v20/v21, divide-zero and signed quotient overflow flags
 doubleword-shifts	verified	yes	misc/compat/test-aap-batch100-v18.py	ASHC positive and negative shifts with sign boundaries; LSHC ROTC verified in batch100 v16 and ASHC left in v17
 logical-left-half	verified	yes	misc/compat/test-aap-batch100-v15.py	100 corrected left-half TL test/modify guest cases with both skip outcomes
-fault-exclusions	incomplete	yes	-	Real memory faults or aborted instructions not classified
+fault-exclusions	verified	yes	misc/compat/test-aap-real-illop-v1.py	Real protected user-address ILLOP verified alongside NXM and PDLOV; class events fail closed in interval extractor and classifier
 interrupt-io-exclusions	incomplete	yes	-	PI/device instruction cycles not tested or explicitly excluded
 instrumentation-repeatability	verified	yes	misc/compat/test-aap-instrumentation-v1.py	Twenty guest configurations checked with tracing off and twice on; identical guest results and repeatable tick intervals
 deterministic-completion	verified	yes	tools/aap_guest_console_v1.py	All 1800 Python batch cases now wait for simulator-thread HALTED acknowledgement

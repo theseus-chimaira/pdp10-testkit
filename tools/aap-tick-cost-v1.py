@@ -15,6 +15,10 @@ EVENT = re.compile(r'^AAP_TIMING_V1 (IT0|ET0A) tick=(\d+) pc=([0-7]{6}) inst=([0
 def intervals(path):
     events = []
     for line in Path(path).read_text().splitlines():
+        # Refuse to attribute ordinary instruction costs across an
+        # exception/PI boundary: pulses can abort or restart execution.
+        if line.startswith('AAP_CLASS_EVENT_V1 '):
+            raise ValueError('exception/PI event invalidates ordinary timing intervals: ' + line)
         if not line.startswith('AAP_TIMING_V1 '):
             continue
         match = EVENT.fullmatch(line)

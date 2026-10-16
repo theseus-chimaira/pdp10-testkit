@@ -1143,3 +1143,17 @@ reach expected HALT in diagnostic runs. Their timeouts are not considered
 valid ILLOP evidence. Investigation should next instrument controlled
 APR user-mode and protection-state transitions before attempting to
 promote the gate, without modifying kernel code or marking it passed.
+
+## Genuine user-protection ILLOP and fail-closed timing (2026-10-16)
+
+`test-aap-real-illop-v1.py` executes a genuine protected reference:
+`JRST 1,001001` (octal `254040001001`) enters user mode, and the next
+instruction `MOVE 1,010000` faults with `AAP_CLASS_EVENT_V1 type=ILLOP`
+at PC `001001` while PR remains zero. The ordinary `JRST 0` control
+produces no ILLOP. Unlike earlier diagnostics, the guest is sampled
+with a bounded trace capture; the protected guest is not expected to
+HALT after an illegal-address event. Both the event classifier and
+`aap-tick-cost-v1.py` now fail closed on the real fault trace. Existing
+real NXM and PDLOV tests pass, as do the normal tick-cost regressions.
+The fault-exclusion mandatory criterion is therefore verified. This
+is not evidence of a successful kernel boot or priority-interrupt test.
