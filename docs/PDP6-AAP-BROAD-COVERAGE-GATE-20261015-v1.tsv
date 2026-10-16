@@ -17,4 +17,4 @@ interrupt-io-exclusions	verified	yes	misc/compat/test-aap-real-pi-v1.py	Real pri
 instrumentation-repeatability	verified	yes	misc/compat/test-aap-instrumentation-v1.py	Twenty guest configurations checked with tracing off and twice on; identical guest results and repeatable tick intervals
 deterministic-completion	verified	yes	tools/aap_guest_console_v1.py	All 1800 Python batch cases now wait for simulator-thread HALTED acknowledgement
 profile-provenance	verified	yes	misc/compat/test-aap-profile-provenance-v1.py	Real AAP guest run fingerprints clean source revision executable configuration deposited memory image and trace; tampering regression checks
-linked-kernel-hotpaths	incomplete	yes	-	Only static 74-file source counts; no linked-image measured dynamic opcode profile
+linked-kernel-hotpaths	incomplete	yes	misc/compat/test-aap-ptr-handoff-v1.py	Real linked KCORE/MRES startup opcode counts now measured, but PI/PDLOV events prevent ordinary-tick hotpath attribution and complete boot is not proven

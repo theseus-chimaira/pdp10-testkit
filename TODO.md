@@ -653,3 +653,7 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Identify actual PTR count corruption: extra octal 0252 RIM trailer supplied a stale first byte. Preserve reference tape; generate `stage1-ptr-no-trailer-v2.pt`, which reaches Stage-1 and transfers all 56,825 first-payload bytes with a nonzero `stage_ptr`.
 - [x] Verify five-byte LSH/IOR assembly independently with real AAP synthetic test (`test-aap-ptr-assemble-v1.py`).
 - [ ] Capture first-payload `stage_ptr` transition reliably during the streaming run, mount payload2 only on real completion, and check second transfer and KINIT entry. Preliminary end-of-run readback shows `000275=000000135202` but online polling missed it.
+
+- [x] Verify real AAP Stage-1 -> both PTR KINIT payloads -> decoder -> linked KINIT entry at `054074`, with exact linked-image instruction readbacks; profile actual early KCORE/MRES instruction-starts and ET0A opcodes (`aap-linked-runtime-profile-v2.py`).
+- [ ] Close `linked-kernel-hotpaths` only after handling the observed real PI_CYCLE/PDLOV boundaries and obtaining representative, valid logical-tick hotpaths; startup opcode-frequency counts alone are insufficient. Full DAIMOS root boot is also unverified.
+- [ ] Investigate final AAP boot HALT and PDLOV at `777777` and MRES `023774`, without assuming the Stage-1 AC17 pointer is erroneous (D6LZ36 actually advances AC12).

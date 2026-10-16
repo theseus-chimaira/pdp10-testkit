@@ -1352,3 +1352,37 @@ A separate real-AAP synthetic reconstruction test confirms the same five
 bytes are correctly assembled by `LSH`/`IOR` as `000000026144`.
 The old trailer-bearing Stage-1 tape is retained for regression comparison;
 next establish state-aware tape-2 switching and linked KINIT entry.
+
+## Real linked KINIT/KCORE/MRES startup execution on AAP (2026-10-16)
+
+The corrected `stage1-ptr-no-trailer-v2.pt` delivers both counted payloads
+through the actual PDP-6 Type 760 device. The standalone AAP trace proves
+Stage-1 tape-2 entry at PC `000123`, decompression handoff at `000252`,
+and the **linked KINIT entry** at `054074` from the image's DAIMON header.
+The linked `kinit.words` image matches in-memory instruction words at
+`054074`, `022674`, and `022675`; these are actual memory readbacks, not
+merely coincident trace addresses. KINIT executes `kcore_load`, `mres_init`,
+`mres_install`, and `module_run_minits` before low-core KCORE and dynamically
+installed MRES instructions execute.
+
+`tools/aap-linked-runtime-profile-v2.py` independently parses actual
+AAP IT0/ET0A records, using ET0A for opcode decoding, the matching
+`kinit.map` KCORE boundary and the linked-image readback checks. One
+representative run reports 84,087 KINIT/other starts, 640 KCORE starts
+(214 distinct PCs), and 96 installed MRES starts (23 PCs); the counts
+vary with timing and interrupts. A versioned JSON report is produced at
+`$TMPDIR/aap-linked-runtime-profile-v2.json`. This is **real startup
+instruction-frequency evidence**, not simulated/static source coverage.
+
+The observed run also records six `PI_CYCLE` and two `PDLOV` events,
+and the CPU eventually HALTs. The analyzer therefore marks ordinary
+logical-tick cost attribution **invalid**, and the mandatory
+`linked-kernel-hotpaths` criterion remains `incomplete` (18/19). The next
+step is fault/PI-aware interval exclusion and representative linked kernel
+hotpaths after a verified complete boot. Neither a full root mount nor
+steady-state scheduler operation has been established here.
+
+A proposed PTR handoff stack-pointer fix was deliberately **discarded**
+after examining `common/decompressor.inc`: AC12 advances on decompressed
+output and reaches the image end, so `MOVE 17,12` is correct. The DAIMOS
+checkout has not been modified for that rejected hypothesis.

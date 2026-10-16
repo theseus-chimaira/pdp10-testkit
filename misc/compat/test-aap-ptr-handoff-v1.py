@@ -48,7 +48,7 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
     (w/'init.ini').write_text('mkdev apr apr166\nmkdev ptr ptr760 1\nmkdev fmem fmem162 0\nmkdev mem0 moby mem_0\nconnectio ptr apr\nconnectmem fmem 0 apr -1\nconnectmem mem0 0 apr 0\nmount ptr %s\n'% Path(os.environ.get('AAP_PTR_STAGE1_TAPE',str(MEDIA/'stage1-ptr-no-trailer-v2.pt'))))
     commands=['power on','deposit 20 710600000060','deposit 21 710740000010','deposit 22 254000000021','deposit 23 710440000026','deposit 24 710740000010','deposit 25 254000000024','deposit 26 000000000000','deposit 27 254000000021','ptrmotor ptr on','start 20']
     trace_file = (w/'stage1-aap-v1.trace').open('w+b')
-    env=dict(os.environ,PDP6_AAP_TIMING_TRACE_V1='1')
+    env=dict(os.environ,PDP6_AAP_TIMING_TRACE_V1='1',PDP6_AAP_CLASS_TRACE_V1='1')
     with subprocess.Popen([str(emulator)],cwd=w,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=trace_file,env=env,bufsize=0) as proc:
         def send(line):
             proc.stdin.write((line+'\n').encode());proc.stdin.flush()
@@ -84,56 +84,108 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
             except (OSError, PermissionError):
                 pass
             return None
-        maximum_offset=0
-        deadline=time.monotonic()+32
-        first_complete=False
-        checks=0
-        while time.monotonic()<deadline:
-            send('examine 275')
-            try:
-                output=read_until(proc,WORD,0.8)
-                values=WORD.findall(output)
-                if values and int(values[-1],8):
-                    first_complete=True;break
-            except TimeoutError:pass
-            offset=reader_offset()
-            if offset is not None:
-                maximum_offset=max(maximum_offset,offset)
-            checks+=1
-            time.sleep(0.1)
-        print('PTR payload1 consumed bytes (maximum observed): %d / %d' % (maximum_offset, (MEDIA/'ptr-boot1-v1.pt').stat().st_size))
+        def wait_trace_pc(pc, seconds):
+            # Follow only newly appended execution records; the trace can
+            # contain millions of events while decoding the KINIT payload.
+            token=('pc=%06o ' % pc).encode('ascii')
+            deadline=time.monotonic()+seconds
+            cursor=0
+            tail=b''
+            path=w/'stage1-aap-v1.trace'
+            while time.monotonic()<deadline:
+                with path.open('rb') as reader:
+                    reader.seek(cursor)
+                    chunk=reader.read()
+                cursor+=len(chunk)
+                if token in tail+chunk:
+                    return True
+                tail=(tail+chunk)[-64:]
+                time.sleep(0.075)
+            return False
+
+        # Relocated Stage-1 PC 000117 writes the nonzero stage_ptr, then
+        # PC 000123 invokes read_word for tape 2 after resetting the PTR.
+        first_complete=wait_trace_pc(0o123,55)
+        maximum_offset=reader_offset()
+        print('PTR payload1 consumed bytes (last observed): %s / %d' %
+              (str(maximum_offset) if maximum_offset is not None else 'unavailable',
+               (MEDIA/'ptr-boot1-v1.pt').stat().st_size))
         if first_complete:
-            send('unmount ptr');send('mount ptr %s'%(MEDIA/'ptr-boot2-v1.pt'))
-            print('PTR first counted payload completed; switched to tape 2 on stage_ptr state')
-            second_deadline=time.monotonic()+24
-            while time.monotonic()<second_deadline:
-                trace=(w/'stage1-aap-v1.trace').read_text(errors='replace')
-                # Stage1 handoff is relocated octal 0172 + 0060 = 0252.
-                if 'pc=000252 ' in trace:
-                    print('PTR second payload Stage-1 handoff reached PC 000252')
-                    break
-                time.sleep(0.1)
+            send('unmount ptr')
+            send('mount ptr %s' % (MEDIA/'ptr-boot2-v1.pt'))
+            print('PTR first payload completed; Stage-1 PC 000123 observed; mounted tape 2')
+            if wait_trace_pc(0o252,60):
+                print('PTR second payload Stage-1 handoff reached PC 000252')
+                header=(ROOT.parent/'DAIMOS/build/system/boot/pdp6/kinit.d6lz.words').read_text().splitlines()[1]
+                kinit_entry=0o30000+(int(header,8)&0o777777)
+                if wait_trace_pc(kinit_entry,45):
+                    print('LINKED KINIT ENTRY OBSERVED at PC %06o' % kinit_entry)
+                    time.sleep(1.5)
+                else:
+                    print('KINIT entry PC %06o NOT OBSERVED after decoder handoff' % kinit_entry)
             else:
                 print('PTR second payload handoff NOT OBSERVED in bounded interval')
         else:
-            print('PTR first payload INCOMPLETE within bounded interval; tape 2 deliberately not mounted; polls=%d'%checks)
+            print('PTR first payload completion NOT OBSERVED; tape 2 not mounted')
         from collections import Counter
         pcs=Counter(re.findall(r'AAP_TIMING_V1 IT0 tick=\d+ pc=([0-7]{6})', (w/'stage1-aap-v1.trace').read_text(errors='replace')))
         print('AAP top executed PCs:',pcs.most_common(15))
         print('Device trace:',re.findall(r'PTR_(?:RAW|DATAI)_V1[^\n]*',(w/'stage1-aap-v1.trace').read_text(errors='replace'))[-25:])
         events=re.findall(r'AAP_TIMING_V1 IT0 tick=\d+ pc=([0-7]{6}) inst=([0-7]{3})',(w/'stage1-aap-v1.trace').read_text(errors='replace'))
         print('Final PCs:',events[-22:])
+        classes=re.findall(r'AAP_CLASS_EVENT_V1 type=([A-Z_]+) ',(w/'stage1-aap-v1.trace').read_text(errors='replace'))
+        print('AAP CLASS EVENTS:',Counter(classes))
+        print('AAP EXCEPTION EVENT DETAILS:',re.findall(r'AAP_CLASS_EVENT_V1 type=(?:NXM|ILLOP|PDLOV|PI_CYCLE) tick=[0-9]+ pc=[0-7]{6}',(w/'stage1-aap-v1.trace').read_text(errors='replace'))[:24])
+        print('KINIT ENTRY TIMING:',re.findall(r'AAP_TIMING_V1 IT0 tick=([0-9]+) pc=054074', (w/'stage1-aap-v1.trace').read_text(errors='replace'))[:2])
+        try:
+            entry_at=next(i for i,event in enumerate(events) if event[0]=='054074')
+        except StopIteration:
+            print('KINIT post-entry trace: no entry')
+        else:
+            from collections import Counter
+            post=events[entry_at:]
+            hits=Counter(pc for pc,opcode in post)
+            print('KINIT post-entry samples:',len(post),'distinct PCs:',len(hits))
+            print('KINIT first PCs:',post[:35])
+            print('KINIT hot PCs:',hits.most_common(20))
+            low={pc:n for pc,n in hits.items() if 0o1000<=int(pc,8)<0o30000}
+            print('POST-ENTRY LOWCORE KCORE CANDIDATES:',sum(low.values()),len(low),sorted(low.items(),key=lambda x:-x[1])[:15])
+            for label,address in [('mres_init','053244'),('module_run_minits','053731'),('mres_install','053254'),('kinit_halt','070422')]:
+                print('KINIT SYMBOL HIT',label,address,hits[address])
+            print('Last after KINIT:',post[-25:])
         send('cpustatus')
         try:
             status=read_until(proc,re.compile(rb'APR_STATUS_V1 (?:HALTED|RUNNING|START_PENDING)'),1)
             print('CPU status:',re.findall(rb'APR_STATUS_V1 [A-Z_]+',status)[-1:])
         except TimeoutError: print('CPU status: unresponsive')
-        for address in ('2','3','5','100','274','275','276'):
+        for address in ('2','3','5','100','274','275','276','22674','22675','23771','24000','54074'):
             send('examine '+address)
         send('quit')
         try:
             output,_=proc.communicate(timeout=2)
-            print('Post-halt readbacks:',re.findall(rb'[0-7]{6}: [0-7]{12}', output)[-10:])
+            readbacks=re.findall(rb'([0-7]{6}): ([0-7]{12})',output)
+            print('Post-halt readbacks:',readbacks[-13:])
+            values={int(a,8):int(v,8) for a,v in readbacks}
+            linked=(ROOT.parent/'DAIMOS/build/system/boot/pdp6/kinit.words').read_text().splitlines()
+            for address,source in ((0o54074,0o54074),(0o22674,0o30030+(0o22674-0o60)),(0o22675,0o30030+(0o22675-0o60))):
+                expected=int(linked[2+source-0o30000],8)
+                observed=values.get(address)
+                print('IMAGE PROVENANCE %06o expected=%012o observed=%s match=%s'%(address,expected,('%012o'%observed if observed is not None else 'MISSING'),observed==expected))
+            for address in (0o23771,0o24000):
+                print('MRES RUNTIME WORD %06o = %s'%(address,('%012o'%values[address]) if address in values else 'MISSING'))
+            import importlib.util
+            spec=importlib.util.spec_from_file_location('linked_profile',ROOT/'tools/aap-linked-runtime-profile-v2.py')
+            linked_profile=importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(linked_profile)
+            report=linked_profile.profile(w/'stage1-aap-v1.trace',
+                    ROOT.parent/'DAIMOS/build/system/boot/pdp6/kinit.words',
+                    ROOT.parent/'DAIMOS/build/system/boot/pdp6/kinit.map',values)
+            import json
+            report_file=Path(os.environ.get('TMPDIR',str(Path.home()/'tmp')))/'aap-linked-runtime-profile-v2.json'
+            report_file.write_text(json.dumps(report,indent=2)+'\n')
+            print('LINKED PROFILE VERIFIED:',report['region_starts'],'events:',report['exception_events'])
+            print('LINKED PROFILE REPORT:',report_file)
+
         except subprocess.TimeoutExpired:proc.kill();proc.communicate()
 trace_file.close()
-print('KINIT/KCORE/MRES execution NOT VERIFIED')
+print('Complete DAIMOS boot and exception-free linked timing NOT VERIFIED')
