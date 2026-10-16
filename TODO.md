@@ -613,3 +613,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [x] Verify exact ANDCMI opcode-421 complemented-immediate-mask semantics and timing in five standalone AAP guests.
 - [ ] Continue TLOA exact-form tests and remaining mandatory fault, PI/IOT, and live KCORE/MRES profiling work.
+
+- [ ] Genuine ILLOP remains unverified: standalone JRST transition diagnostic runs did not generate an ILLOP event (normal controls halt; other candidate encodings do not halt). Determine the architecturally correct user-mode transition and protection-register setup before claiming fault-exclusions; do not interpret timeouts as valid faults.

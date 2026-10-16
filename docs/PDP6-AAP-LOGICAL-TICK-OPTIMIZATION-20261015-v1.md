@@ -1117,3 +1117,14 @@ result `AC AND (NOT 18-bit immediate)` across zero, all-one, sign and
 mixed masks, with unchanged source memory and complete positive timing
 intervals. Encoding was verified against `pdp6/tools/as6.c`. This
 credits only ANDCMI, not the other complemented-AND variants.
+
+## ILLOP diagnostic probe (2026-10-16)
+
+The standalone relocation probe executes JRST-encoding candidates followed
+by a memory reference at octal 010000 and a HALT. The two ordinary control
+encodings halted without ILLOP; four candidates did not reach the HALT.
+These results **do not establish** correct user-mode entry, a protected
+relocation failure, or aborted-instruction timing coverage. The diagnostic
+must never be registered as verified `fault-exclusions`. The next work
+is to derive a proper user-mode entry and protection-register setup from
+the APR microcode, then require genuine `AAP_CLASS_EVENT_V1 type=ILLOP`.
