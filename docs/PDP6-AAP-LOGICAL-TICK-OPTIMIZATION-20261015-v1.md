@@ -1283,3 +1283,15 @@ The initial Stage-1-to-payload1 media change still uses a short delay;
 its readiness must also become observable before concluding whether the
 incomplete first transfer is an emulator timing, media framing, or handoff
 problem. No KINIT, KCORE, or MRES execution is asserted; gate remains 18/19.
+
+### Event-driven paper-tape Stage-1 handoff (2026-10-16)
+
+The initial Stage-1-to-first-payload transition now waits for a **real**
+`AAP_TIMING_V1 IT0 ... pc=000060` instruction-start record before
+unmounting the first tape. This is an actual entry into DAIMOS Stage-1,
+not a timer-based guess. A proposed low-core `SETOM` readback was not
+observed reliably and was discarded rather than treated as evidence.
+The bounded test confirms entry and mounts payload1, but `stage_ptr`
+(octal 000275) remains zero throughout the first-payload completion
+window. It therefore refuses to mount payload2 and retains the final
+`linked-kernel-hotpaths` criterion as incomplete (18/19).

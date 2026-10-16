@@ -38,19 +38,25 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
     subprocess.run([os.environ.get('CC','cc'),'-O2','-o',str(emulator),*SOURCES,'-lpthread','-lm'],cwd=ROOT.parent/'pdp6/emu',check=True)
     (w/'init.ini').write_text('mkdev apr apr166\nmkdev ptr ptr760 1\nmkdev fmem fmem162 0\nmkdev mem0 moby mem_0\nconnectio ptr apr\nconnectmem fmem 0 apr -1\nconnectmem mem0 0 apr 0\nmount ptr %s\n'% (MEDIA/'stage1-ptr-v1.pt'))
     commands=['power on','deposit 20 710600000060','deposit 21 710740000010','deposit 22 254000000021','deposit 23 710440000026','deposit 24 710740000010','deposit 25 254000000024','deposit 26 000000000000','deposit 27 254000000021','ptrmotor ptr on','start 20']
-    with subprocess.Popen([str(emulator)],cwd=w,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,bufsize=0) as proc:
+    trace_file = (w/'stage1-aap-v1.trace').open('w+b')
+    env=dict(os.environ,PDP6_AAP_TIMING_TRACE_V1='1')
+    with subprocess.Popen([str(emulator)],cwd=w,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=trace_file,env=env,bufsize=0) as proc:
         def send(line):
             proc.stdin.write((line+'\n').encode());proc.stdin.flush()
         for command in commands:send(command)
-        # Reader Stage-1 loads its code via the authentic RIM bootstrap.
-        # Give it time to reach the waiting loop before replacing media.
-        deadline=time.monotonic()+3
+        # Advance only after a genuine AAP instruction-start at the
+        # Stage-1 entry, not a wall-clock delay or an unverified marker.
+        deadline=time.monotonic()+8
+        ready=False
         while time.monotonic()<deadline:
-            send('examine 275')
-            try:
-                read_until(proc,WORD,0.4)
-            except TimeoutError: pass
-            time.sleep(0.08)
+            trace_file.flush()
+            text=(w/'stage1-aap-v1.trace').read_text(errors='replace')
+            if 'AAP_TIMING_V1 IT0 ' in text and 'pc=000060 ' in text:
+                ready=True
+                break
+            time.sleep(0.05)
+        assert ready, 'AAP trace did not confirm Stage-1 entry; refuse tape swap'
+        print('Stage-1 entry observed at PC 000060')
         send('unmount ptr');send('mount ptr %s'%(MEDIA/'ptr-boot1-v1.pt'))
         deadline=time.monotonic()+15
         first_complete=False
@@ -73,4 +79,5 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
         send('quit')
         try:proc.communicate(timeout=2)
         except subprocess.TimeoutExpired:proc.kill();proc.communicate()
+trace_file.close()
 print('KINIT/KCORE/MRES execution NOT VERIFIED')
