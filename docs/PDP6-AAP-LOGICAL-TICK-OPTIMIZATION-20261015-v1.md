@@ -1253,3 +1253,18 @@ payload. Neither path is KINIT/KCORE/MRES execution proof. In
 particular, the AAP Type-555 transport's raw mounted-media layout must
 be checked against DAIMOS `mkdt` output rather than assumed identical.
 The gate remains 18/19 pending actual linked executable provenance.
+
+### DECtape media format compatibility diagnosis (2026-10-16)
+
+Inspection of the DAIMOS `daimos-tools/mkdt.c` writer confirms that its
+`-t dtc` image consists of **little-endian 32-bit containers holding
+18-bit halfwords**, paired for each 36-bit payload word. In contrast,
+`pdp6/emu/dt.c`'s Type-555 transport advances through a raw stream of
+individual mark/data-line cells (`dxread` and `dtcycle`). These are
+physically different on-disk representations. A SIMH `.tap` image must
+not be mounted as if it were already an AAP raw Type-555 tape. The
+media-preparation test now names the output `dtc0-simh-v1.tap` and
+checks that all halfword containers fit 18 bits; producing a compatible
+raw-line tape with correct block marks/checksums remains separate work.
+The full paper-tape payload transfer and entry into KINIT likewise
+remain unverified; the mandatory gate is still 18/19.

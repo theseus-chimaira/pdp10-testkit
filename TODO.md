@@ -635,3 +635,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Build alternative AAP Stage-1 PTR and DECtape media without touching the DAIMOS checkout (`test-aap-alt-stage1-media-v1.sh`); produce PTR Stage-1, two counted KINIT payload tapes, DTC Stage-1 and DTC payload.
 - [ ] For PTR: automate reliable Stage-1->payload1->payload2 media change with verified completion and KINIT entry; currently PTR wait-loop progresses only partially when swapping payload.
 - [ ] For DECtape: validate DAIMOS DTC stream format and physical Type-136/551/555 transfer against the AAP model. Stage-1 executes but polls DTC data status; no KINIT entry observed.
+
+- [ ] Implement and validate a proper SIMH-halfword-to-AAP-Type-555 raw DECtape encoder including mark track, block geometry and checksums. `mkdt` outputs 32-bit little-endian 18-bit halfwords, not the per-line transport data consumed by AAP; do not mount it directly.
+- [ ] Complete the alternative paper-tape 3-media bootstrap with state-aware swaps and independently verified KINIT/KCORE/MRES entry and timing profile.

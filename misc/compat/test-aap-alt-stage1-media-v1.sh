@@ -28,9 +28,21 @@ test "$first" -gt 0 && test "$second" -gt 0
 { printf '%012o\n' "$second"; tail -n +4 "$image" | tail -n "$second"; } > "$out/ptr-boot2-v1.words"
 "$words2pt" -t ptr -p "$out/ptr-boot1-v1.words" -o "$out/ptr-boot1-v1.pt"
 "$words2pt" -t ptr -p "$out/ptr-boot2-v1.words" -o "$out/ptr-boot2-v1.pt"
-"$mkdt" -t dtc -p "$image" -o "$out/dtc0-v1.tap"
-for f in stage1-ptr-v1.pt stage1-dtc-v1.pt ptr-boot1-v1.pt ptr-boot2-v1.pt dtc0-v1.tap; do test -s "$out/$f"; done
+"$mkdt" -t dtc -p "$image" -o "$out/dtc0-simh-v1.tap"
+for f in stage1-ptr-v1.pt stage1-dtc-v1.pt ptr-boot1-v1.pt ptr-boot2-v1.pt dtc0-simh-v1.tap; do test -s "$out/$f"; done
 printf 'AAP dual Stage-1 media prepared: %s\n' "$out"
 printf 'Paper tape: Stage-1 + payload tapes 1 and 2 (operator must swap)\n'
-printf 'DECtape: Stage-1 PTR read-in + Type-136/551/555 stream (format compatibility not yet verified)\n'
+printf 'DECtape: Stage-1 PTR read-in + SIMH-format halfword image only; AAP raw Type-555 image is NOT generated\n'
 printf 'No KINIT/KCORE/MRES runtime execution has been claimed.\n'
+# AAP Type-555 expects a raw per-line mark/data stream, NOT the SIMH
+# 32-bit-container, 18-bit-halfword stream. Never name the latter as if
+# it were directly mountable AAP media.
+python3 - "$out/dtc0-simh-v1.tap" <<'PY_CHECK'
+import pathlib, sys
+p=pathlib.Path(sys.argv[1]); data=p.read_bytes()
+assert data and len(data)%4 == 0, 'expected SIMH 32-bit halfword containers'
+# Both halfwords are serialized as 32-bit little-endian containers.
+for offset in range(0, len(data), 4):
+    assert int.from_bytes(data[offset:offset+4], 'little') < (1 << 18), ('invalid 18-bit halfword',offset)
+print('DECtape format: SIMH 32-bit halfwords; AAP Type-555 raw-line conversion required')
+PY_CHECK
