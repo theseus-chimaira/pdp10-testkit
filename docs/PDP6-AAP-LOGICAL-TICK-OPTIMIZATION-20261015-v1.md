@@ -1321,3 +1321,17 @@ an indefinitely stalled reader. Investigate accumulator state and the
 8-bit/Type-760 `DATAI` byte assembly. `test-aap-ptr-handoff-v1.py` now
 reports terminal PCs, CPU state, and actual file consumption. The
 linked-kernel gate stays 18/19.
+
+### PTR first count confirmed corrupt by AAP accumulator readback (2026-10-16)
+
+The live halted guest can be examined by queueing the console `examine`
+commands and parsing the final `communicate()` output. After the first
+five tape bytes the expected counted word is octal `000000026144`, but
+AC2 and AC3 actually contain `500000000054`, and AC5 reads
+`000000000054`. The signed `CAIGE 02,4` consequently branches to
+`bad_tape` as designed. Thus the definitive blocker is bad first-word
+assembly or data transfer, **not** the processor waiting for a later
+reader byte; the data source has not yet been localized. The diagnostic
+prints post-HALT register readbacks for future comparison. Build a small
+standalone byte-transfer/AC-shift regression before altering Stage-1 or
+PDP-6 AAP implementation. Coverage is unchanged at 18/19.

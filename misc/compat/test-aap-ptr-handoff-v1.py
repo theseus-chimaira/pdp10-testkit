@@ -108,8 +108,12 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
             status=read_until(proc,re.compile(rb'APR_STATUS_V1 (?:HALTED|RUNNING|START_PENDING)'),1)
             print('CPU status:',re.findall(rb'APR_STATUS_V1 [A-Z_]+',status)[-1:])
         except TimeoutError: print('CPU status: unresponsive')
+        for address in ('2','3','5','100'):
+            send('examine '+address)
         send('quit')
-        try:proc.communicate(timeout=2)
+        try:
+            output,_=proc.communicate(timeout=2)
+            print('Post-halt readbacks:',re.findall(rb'[0-7]{6}: [0-7]{12}', output)[-10:])
         except subprocess.TimeoutExpired:proc.kill();proc.communicate()
 trace_file.close()
 print('KINIT/KCORE/MRES execution NOT VERIFIED')

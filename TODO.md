@@ -647,3 +647,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] AAP Type 760 PTR handoff diagnosis: DevSpace2 `/proc/<pid>/fdinfo` measurement confirms only 5 of 56825 bytes from first payload were consumed in 15 seconds after verified stage-one entry. Examine busy/flag and `DATAI` re-arm after the initial word; no KINIT entry proven.
 
 - [ ] AAP PTR first-word failure: real trace ends at 000071 (read_word return), 000072 (MOVE 02,03), 000073 (CAIGE 02,4), 000272 (bad_tape HALT). Only 5 bytes consumed. Compare decoded count 026144 with AAP accumulator/byte shifting; do not treat as a reader-ready timeout.
+
+- [ ] Investigate corrupt first PTR counted word: post-HALT `examine` confirms expected `000000026144` versus AC2/AC3 `500000000054`, AC5 `000000000054`. The signed CAIGE correctly rejects negative/corrupt AC2. Isolate DATAI byte transfer, AC write/read, or shift/IOR semantics using a minimal standalone AAP instruction test before changing emulator or loader.
