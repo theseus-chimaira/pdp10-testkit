@@ -645,3 +645,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] Diagnose incomplete PTR payload1 with instrumented byte count and transfer-state readback; Stage-1 entry is now confirmed before media switch, but `stage_ptr` has not advanced.
 
 - [ ] AAP Type 760 PTR handoff diagnosis: DevSpace2 `/proc/<pid>/fdinfo` measurement confirms only 5 of 56825 bytes from first payload were consumed in 15 seconds after verified stage-one entry. Examine busy/flag and `DATAI` re-arm after the initial word; no KINIT entry proven.
+
+- [ ] AAP PTR first-word failure: real trace ends at 000071 (read_word return), 000072 (MOVE 02,03), 000073 (CAIGE 02,4), 000272 (bad_tape HALT). Only 5 bytes consumed. Compare decoded count 026144 with AAP accumulator/byte shifting; do not treat as a reader-ready timeout.

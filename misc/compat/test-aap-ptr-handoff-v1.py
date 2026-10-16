@@ -98,6 +98,16 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
             print('PTR first counted payload completed; switched to tape 2 on stage_ptr state')
         else:
             print('PTR first payload INCOMPLETE within bounded interval; tape 2 deliberately not mounted; polls=%d'%checks)
+        from collections import Counter
+        pcs=Counter(re.findall(r'AAP_TIMING_V1 IT0 tick=\d+ pc=([0-7]{6})', (w/'stage1-aap-v1.trace').read_text(errors='replace')))
+        print('AAP top executed PCs:',pcs.most_common(15))
+        events=re.findall(r'AAP_TIMING_V1 IT0 tick=\d+ pc=([0-7]{6}) inst=([0-7]{3})',(w/'stage1-aap-v1.trace').read_text(errors='replace'))
+        print('Final PCs:',events[-22:])
+        send('cpustatus')
+        try:
+            status=read_until(proc,re.compile(rb'APR_STATUS_V1 (?:HALTED|RUNNING|START_PENDING)'),1)
+            print('CPU status:',re.findall(rb'APR_STATUS_V1 [A-Z_]+',status)[-1:])
+        except TimeoutError: print('CPU status: unresponsive')
         send('quit')
         try:proc.communicate(timeout=2)
         except subprocess.TimeoutExpired:proc.kill();proc.communicate()

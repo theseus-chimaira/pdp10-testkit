@@ -1308,3 +1308,16 @@ stalled after its first five-byte encoded word rather than merely slow
 throughout a multi-kilobyte transfer. Next inspect the Type 760
 `DATAI` busy/flag handshake and read-rearm sequencing. No AAP linked
 KCORE/MRES dynamic profile has been demonstrated; gate remains 18/19.
+
+### PTR first-word rejection localized (2026-10-16)
+
+A genuine AAP trace with 5 of 56825 first-payload bytes consumed shows
+Stage-1 returns from `read_word` to octal `000071`, executes the first
+count `MOVE 02,03` at `000072`, tests `CAIGE 02,4` at `000073`, and
+branches to `bad_tape` at `000272`, where the CPU HALTs. The payload's
+first five raw bytes encode an intended count of octal `026144`.
+The problem is therefore the **first counted word being rejected**, not
+an indefinitely stalled reader. Investigate accumulator state and the
+8-bit/Type-760 `DATAI` byte assembly. `test-aap-ptr-handoff-v1.py` now
+reports terminal PCs, CPU state, and actual file consumption. The
+linked-kernel gate stays 18/19.
