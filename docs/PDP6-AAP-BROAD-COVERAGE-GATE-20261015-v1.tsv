@@ -13,7 +13,7 @@ multiply-divide-boundaries	verified	yes	misc/compat/test-aap-aprflags-v1.py	IMUL
 doubleword-shifts	verified	yes	misc/compat/test-aap-batch100-v18.py	ASHC positive and negative shifts with sign boundaries; LSHC ROTC verified in batch100 v16 and ASHC left in v17
 logical-left-half	verified	yes	misc/compat/test-aap-batch100-v15.py	100 corrected left-half TL test/modify guest cases with both skip outcomes
 fault-exclusions	verified	yes	misc/compat/test-aap-real-illop-v1.py	Real protected user-address ILLOP verified alongside NXM and PDLOV; class events fail closed in interval extractor and classifier
-interrupt-io-exclusions	incomplete	yes	-	PI/device instruction cycles not tested or explicitly excluded
+interrupt-io-exclusions	verified	yes	misc/compat/test-aap-real-pi-v1.py	Real priority-interrupt PI_CYCLE with request/no-request control; genuine PI CONO and APR CONI I/O timing excluded fail closed
 instrumentation-repeatability	verified	yes	misc/compat/test-aap-instrumentation-v1.py	Twenty guest configurations checked with tracing off and twice on; identical guest results and repeatable tick intervals
 deterministic-completion	verified	yes	tools/aap_guest_console_v1.py	All 1800 Python batch cases now wait for simulator-thread HALTED acknowledgement
 profile-provenance	verified	yes	misc/compat/test-aap-profile-provenance-v1.py	Real AAP guest run fingerprints clean source revision executable configuration deposited memory image and trace; tampering regression checks

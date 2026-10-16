@@ -619,3 +619,6 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] Resolve the protected user-mode ILLOP guest: JRST 1/JRST 2 direct-entry candidates have not halted; inspect the `et1` -> `mr_clr` mode latch and `ex_set` PR/RLR initialization before accepting a real fault pulse and aborted interval.
 
 - [x] Reproduce actual PDP-6 user-protection ILLOP at PC 001001 with JRST 1 mode transition, verify fault-free control and reject exceptional traces in both event classifier and timing extractor. Fault-exclusions gate promoted after real NXM/PDLOV regressions.
+
+- [x] Verify real AAP PI_CYCLE entry using correctly encoded `CONO PI` (`700600` high half), PI enabled/no-request control and genuine channel requests; reject PI and device-I/O instruction traces in ordinary timing. Interrupt/I/O exclusion gate verified.
+- [ ] Separately exercise hardware device-asserted priority interrupts (as opposed to the verified software-posted channel request) for fuller per-device behavior, without conflating this extra coverage with the mandatory timing exclusion gate.

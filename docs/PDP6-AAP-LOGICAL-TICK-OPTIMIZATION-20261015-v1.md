@@ -1157,3 +1157,21 @@ HALT after an illegal-address event. Both the event classifier and
 real NXM and PDLOV tests pass, as do the normal tick-cost regressions.
 The fault-exclusion mandatory criterion is therefore verified. This
 is not evidence of a successful kernel boot or priority-interrupt test.
+
+## Real priority-interrupt entry and timing exclusion (2026-10-16)
+
+`test-aap-real-pi-v1.py` exercises the real PDP-6 AAP priority-interrupt
+logic. A `CONO PI` instruction uses high halfword octal `700600`, which
+the APR decodes as bus device 1 (programmer device code 0004). The
+previous `704200` attempts addressed the wrong device, explaining why
+they left `PI_ACTIVE=0`. With PI enabled by `000200`, an additional
+`CONO PI,004100` or `004300` causes an actual
+`AAP_CLASS_EVENT_V1 type=PI_CYCLE` pulse. `CONO PI,004200`
+provides a no-request control without PI entry. The standalone regression
+verifies the genuine pulse event and that both the event classifier and
+instruction-tick extractor reject PI-affected traces; the no-request
+control also verifies that I/O opcode execution is excluded from ordinary
+CPU timing. This closes the mandatory interrupt/I/O exclusion criterion.
+Hardware peripheral-generated interrupts remain a separate desirable
+integration coverage task; the mandatory gate here checks safe timing
+exclusion at real PI entry, not every possible device interrupt source.
