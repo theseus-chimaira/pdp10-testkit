@@ -624,3 +624,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [ ] Separately exercise hardware device-asserted priority interrupts (as opposed to the verified software-posted channel request) for fuller per-device behavior, without conflating this extra coverage with the mandatory timing exclusion gate.
 
 - [ ] AAP 19/19 linked-kernel-hotpaths: bounded real stage-one paper-tape trace remains in low-core PTR polling PC 000020–000022, even after >900 instruction starts; investigate tape bootstrap transfer/completion and kernel image entry before claiming KCORE/MRES dynamic execution.
+
+- [ ] Debug the actual PDP-6 Type 760 paper-tape state machine/read-in: explicit `ptrmotor ptr on` and divisor 1 still leave AAP stage-one at PC 000021–000022. Confirm real reader flag transitions and bytes consumed before claiming linked-kernel execution.

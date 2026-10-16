@@ -1191,3 +1191,15 @@ for manual investigation; it cannot promote `linked-kernel-hotpaths`.
 The next blocker is making the physical/simulator paper-tape bootstrap
 finish and demonstrating linked image load/entry, before applying the
 existing symbol-attribution profiler with actual KCORE/MRES boundaries.
+
+### Type 760 PTR readiness investigation (2026-10-16)
+
+The PDP-6 emulator's `ptrcycle()` explicitly requires the reader motor
+and busy latch before reading bytes. Its `mkdev ptr ptr760 1` service
+divisor is supported by the emulator README and source, and its console
+supports `ptrmotor ptr on`. The bounded stage-one trace now explicitly
+selects both settings. Despite this, execution continues polling solely
+at PC `000021`/`000022` for the entire capture. The genuine tape transfer
+and stage-one handoff are therefore still unverified. Investigate the
+reader status flag/read-in loop sequencing and device state, rather than
+increasing a bootstrap loop's instruction count and calling it KCORE.

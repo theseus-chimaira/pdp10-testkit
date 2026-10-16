@@ -6,7 +6,7 @@ w="$TMPDIR/aap-daimos-stage1-trace-v1"
 root=$(CDPATH= cd -- "$(dirname "$0")/../../.." && pwd)
 cat > "$w/init.ini" <<INI
 mkdev apr apr166
-mkdev ptr ptr760
+mkdev ptr ptr760 1
 mkdev fmem fmem162 0
 mkdev mem0 moby mem_0
 connectio ptr apr
@@ -24,6 +24,7 @@ deposit 24 710740000010
 deposit 25 254000000024
 deposit 26 000000000000
 deposit 27 254000000021
+ptrmotor ptr on
 start 20
 BOOT
 (cd "$root/pdp6/emu" && cc -O2 -o "$w/pdp6_n" main_net.c emu.c apr.c mem.c tty.c pt.c dc.c dt.c pclk.c netmem.c netcons.c cmd.c util.c threading.c rtc.c ../tools/pdp6common.c -lpthread -lm)
