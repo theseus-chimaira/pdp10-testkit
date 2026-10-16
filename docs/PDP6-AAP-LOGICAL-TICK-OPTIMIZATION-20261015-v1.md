@@ -1175,3 +1175,19 @@ CPU timing. This closes the mandatory interrupt/I/O exclusion criterion.
 Hardware peripheral-generated interrupts remain a separate desirable
 integration coverage task; the mandatory gate here checks safe timing
 exclusion at real PI entry, not every possible device interrupt source.
+
+## Linked KCORE/MRES evidence blocker: bounded stage-one runtime (2026-10-16)
+
+The standalone `test-aap-daimos-stage1-trace-v1.sh` builds the actual
+PDP-6 AAP emulator, mounts the built DAIMOS `stage1-dsk.pt` on its PTR,
+starts the real low-core paper-tape read-in bootstrap, and captures AAP
+instruction-start events for a bounded two-second execution interval
+rather than terminating immediately with the earlier smoke-test `quit`.
+More than 900 instruction-start samples occurred, but all were confined
+to PC `000020`, `000021`, and `000022`; the loop did not demonstrate
+transition into the stage-one loader or linked KCORE/MRES. The test
+reports `BOOT UNVERIFIED` and specifically rejects unexpected PC changes
+for manual investigation; it cannot promote `linked-kernel-hotpaths`.
+The next blocker is making the physical/simulator paper-tape bootstrap
+finish and demonstrating linked image load/entry, before applying the
+existing symbol-attribution profiler with actual KCORE/MRES boundaries.

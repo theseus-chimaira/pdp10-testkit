@@ -186,3 +186,4 @@ aap-tdne-v1	compat	python3	misc/compat/test-aap-tdne-v1.py	host	yes	120
 aap-andcmi-v1	compat	python3	misc/compat/test-aap-andcmi-v1.py	host	yes	120
 aap-real-illop-v1	compat	python3	misc/compat/test-aap-real-illop-v1.py	host	yes	120
 aap-real-pi-v1	compat	python3	misc/compat/test-aap-real-pi-v1.py	host	yes	120
+aap-daimos-stage1-trace-v1	compat	sh	misc/compat/test-aap-daimos-stage1-trace-v1.sh	host	yes	120
