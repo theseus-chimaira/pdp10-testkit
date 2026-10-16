@@ -1268,3 +1268,18 @@ checks that all halfword containers fit 18 bits; producing a compatible
 raw-line tape with correct block marks/checksums remains separate work.
 The full paper-tape payload transfer and entry into KINIT likewise
 remain unverified; the mandatory gate is still 18/19.
+
+### PTR counted-payload state probe (2026-10-16)
+
+The versioned standalone `test-aap-ptr-handoff-v1.py` uses the same real
+AAP executable and authentic boot media. The DAIMOS PTR Stage-1 assembler
+map identifies `stage_ptr` at relative octal `0215`, deposited at `000275`
+when the loader begins at `000060`. That word is written only after the
+entire first counted compressed payload has been read. The probe examines
+it through the emulator console, and will mount tape 2 only after a
+nonzero value is observed. Under a bounded fifteen-second first-payload
+window, no completion was seen and tape 2 was deliberately not mounted.
+The initial Stage-1-to-payload1 media change still uses a short delay;
+its readiness must also become observable before concluding whether the
+incomplete first transfer is an emulator timing, media framing, or handoff
+problem. No KINIT, KCORE, or MRES execution is asserted; gate remains 18/19.

@@ -638,3 +638,5 @@ recorded results; and registry entries agree with actual runner dispatch.
 
 - [ ] Implement and validate a proper SIMH-halfword-to-AAP-Type-555 raw DECtape encoder including mark track, block geometry and checksums. `mkdt` outputs 32-bit little-endian 18-bit halfwords, not the per-line transport data consumed by AAP; do not mount it directly.
 - [ ] Complete the alternative paper-tape 3-media bootstrap with state-aware swaps and independently verified KINIT/KCORE/MRES entry and timing profile.
+
+- [ ] AAP PTR alternative boot: `test-aap-ptr-handoff-v1.py` polls the relocated `stage_ptr` (000275) and refuses a second payload mount until the first counted payload really completes. The bounded initial run leaves `stage_ptr=0`; replace the initial fixed Stage-1-to-payload1 delay with an observed Stage-1 entry/wait condition, then verify transfer throughput and KINIT entry.
