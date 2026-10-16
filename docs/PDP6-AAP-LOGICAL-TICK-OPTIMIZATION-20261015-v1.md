@@ -1232,3 +1232,24 @@ execution. The standalone stage-one trace test explicitly reports this
 limitation and still rejects unexpected regions. Next use a properly
 supported stage-one/controller/media combination or implement DSK270
 hardware faithfully. The mandatory gate remains 18/19.
+
+### Dual AAP alternative Stage-1 media preparation (2026-10-16)
+
+`test-aap-alt-stage1-media-v1.sh` assembles **both** the DAIMOS PTR and
+DTC stage-one loaders in an isolated versioned temporary directory,
+converts them to genuine PDP-6 RIM read-in tapes, and constructs the two
+counted PTR payload tapes and DTC stream from the existing KINIT
+compressed-word image. No DAIMOS source/build files are rewritten.
+The Type 760 reader is natively implemented by AAP; DECtape support
+consists of a Type 136 data control, Type 551 tape control and Type 555
+transports. AAP also implements APR, TTY626, PTP761, PCLK730, graphics
+and optional host-memory/console devices; DSK270 and Type 516 magnetic
+tape hardware are **not** included in its normal device table.
+A bounded Stage-1 PTR run reached its first payload byte-read loop,
+while a runtime payload swap produced a small amount of additional
+instruction-path progress. The DTC Stage-1 read-in similarly executes,
+but its transfer loop has not been shown to accept the generated DTC
+payload. Neither path is KINIT/KCORE/MRES execution proof. In
+particular, the AAP Type-555 transport's raw mounted-media layout must
+be checked against DAIMOS `mkdt` output rather than assumed identical.
+The gate remains 18/19 pending actual linked executable provenance.
