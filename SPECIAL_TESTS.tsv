@@ -1,4 +1,5 @@
 id	group	runner	path	profile	enabled	timeout
+deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
 test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

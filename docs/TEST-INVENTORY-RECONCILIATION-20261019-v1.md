@@ -93,3 +93,12 @@ execution outcomes; do not delete either without an ownership/profile audit.
 
 No full CPU/optimization matrix execution or compiler problem remediation
 was performed as part of this inventory snapshot.
+
+## Same-day libc/header retest update
+
+The later `DEFERRED-LIBC-HEADER-RETEST-20261019-v1.md` describes verified
+KCC/GCC PDP-6 execution, five further source activations, and the separation
+of real missing functions from header/linkage problems. The *current* registries
+after that batch have 1,985 matrix sources, 195 special registrations (including
+one manually invoked diagnostic), and 448 active / 270 deferred upstream
+sources. The earlier figures above remain the recorded pre-retest snapshot.

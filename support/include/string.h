@@ -1,10 +1,10 @@
 #ifndef PDP10_TESTSUITE_STRING_H
 #define PDP10_TESTSUITE_STRING_H
 
-#ifndef _SIZE_T
-#define _SIZE_T
-typedef unsigned int size_t;
-#endif
+/* Both KCC and GCC provide a target-specific size_t in stddef.h.
+ * Do not redeclare it here: installed KCC stddef.h defines size_t as
+ * a macro, so a second typedef would expand to invalid C syntax. */
+#include <stddef.h>
 
 void *memcpy(void *, const void *, size_t);
 void *memmove(void *, const void *, size_t);

@@ -102,12 +102,14 @@ compiler check, not a full compiler/CPU/optimization sweep.
   extensions are portable C99. The classification sweep completed in
   `docs/SEMANTIC-EXTENSION-BATCH-20261014-v16.md`; remaining *execution*
   requirements are inventoried in the deferred-disposition v1 table.
-- [ ] Resolve the 276 classified `deferred` sources (seven inline-assembly C tests,
-  `support/920428-1.s`, void-return case `20000314-3.c`, and varargs
-  `20000519-1.c` with a KCC `include_next` preprocessor ICE, plus
-  `20000603-1.c` (incompatible pointer aliasing) and `20000622-1.c`
-  (runtime failure)). Additional compiler/runtime blockers are listed
-  in `docs/SEMANTIC-IMPORT-BATCHES-20261014-v6.md`.
+- [ ] Resolve the 270 currently `deferred` sources (seven inline-assembly C
+  tests, KL10-specific `support/920428-1.s`, varargs/header/runtime
+  dependencies, GNU extension feature decisions, width-sensitive cases and
+  independently observed compiler failures). Earlier deferred
+  `20000314-3.c` and `20000519-1.c` were already activated; incompatible
+  pointer-aliasing `20000603-1.c` is tracked separately as nonportable stress.
+  The full current source-by-source worklist is in
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261019-v1.tsv`.
   Move suitable target-specific coverage to ISA/DAS
   test ownership with real assembler/link dependencies; delete inappropriate
   CPU or host-OS cases. The `.s` file requires KL10 and external symbols.
@@ -127,9 +129,10 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, zero extensions, zero width reviews, 276 deferred,
-  442 active, 1 nonportable stress, and 55 removed; **277 classified C sources
-  remain outside mandatory active coverage**.
+  manifest: zero candidates, zero extensions, zero width reviews, 270 deferred,
+  448 active, 1 nonportable stress, and 55 removed; **271 classified sources
+  remain outside mandatory active coverage** after the first libc/header
+  execution batch on 2026-10-19.
   First deferred-batch follow-up activated three GCC-PDP-6 validated tests;
   see `docs/SEMANTIC-DEFERRED-BATCH-20261014-v2.md` for the remaining
   policy questions and actual implementation work still required.
@@ -515,12 +518,12 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 1,979 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 194 unique entries; source/script paths present, but not every
+- `COMPILER_MATRIX.tsv`: 1,985 source rows; verified source paths present.
+- `SPECIAL_TESTS.tsv`: 195 unique entries (one manual probe); paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 442 active, 276 deferred, 55 removed and one nonportable
-  stress source (all 276 deferred now have explicit blocker dispositions).
+- Upstream manifest: 448 active, 270 deferred, 55 removed and one nonportable
+  stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
 
