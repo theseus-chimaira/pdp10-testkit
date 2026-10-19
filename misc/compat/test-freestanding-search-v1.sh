@@ -23,12 +23,7 @@ done
 for compiler in kcc gcc; do
     case "$compiler" in
         kcc) profiles='opt noopt' ;;
-        gcc) profiles='O0'
-             # The extended sweep is an explicit investigation mode until
-             # the GCC PDP-6 -O1 ADDRESSOF ICE is fixed and validated.
-             if [ "${P10_SEARCH_SWEEP_GCC:-0}" = 1 ]; then
-                 profiles='O0 O1 O2 Os'
-             fi ;;
+        gcc) profiles='O0 O1 O2 Os' ;;
     esac
     for profile in $profiles; do
         out="$work/search-$compiler-$profile.s"

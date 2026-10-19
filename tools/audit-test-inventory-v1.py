@@ -25,6 +25,8 @@ REQUIRED_ACTIVATIONS = frozenset(("active", "deferred", "removed",
 # executed by an owning registered script/source; they must not be scheduled
 # as independent main programs.  Keep this map strict so new orphans fail.
 SUPPORT_SOURCE_OWNERS = {
+    "tests/semantic/freestanding-search-benchmark-v1.c":
+        "tools/benchmark-freestanding-search-v1.py",
     "tests/semantic/validation-gcc/gcc-addressof-pdp6-ice-v1.c":
         "misc/validation/test-gcc-addressof-pdp6-ice-v1.sh",
     "tests/semantic/freestanding-search-v1.c":
