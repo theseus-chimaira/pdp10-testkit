@@ -1,6 +1,6 @@
 # PDP-10 testkit — outstanding work
 
-Status: 2026-10-15. This is the central checklist for **open** testkit work.
+Status: 2026-10-19. This is the central checklist for **open** testkit work.
 The repository tests bare-metal CPU/toolchain behavior; DAIMOS/OS, peripheral,
 and filesystem regressions belong in their respective testkits. Completed
 imports are not repeated as tasks. Update this file as items are resolved.
@@ -38,6 +38,28 @@ compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 
+- [x] Reconcile the physical and registered test inventory: 1,979 unique
+  matrix C sources, 194 unique special registrations, 13 explicitly owned
+  companion sources, zero unowned `tests/` C/assembly sources, zero missing
+  registered files. Remove duplicate AAP instrumentation registration and
+  register the existing GCC multidimensional-char test script. Introduce
+  fail-closed `tools/audit-test-inventory-v1.py`.
+- [x] Assign a primary actionable blocker/disposition and retain source hash
+  plus prior evidence for **all 276 deferred upstream tests**. See
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261019-v1.tsv` and the fail-closed
+  verifier; this is classification for subsequent work, **not** activation,
+  independent target validation, or successful compiler execution.
+- [ ] Review the 48 pairs of identical deferred test content, including
+  the two deferred sources identical to already active copies; consolidate
+  test ownership only when the target profiles and intended assertions agree.
+- [ ] Verify deferred blockers with current target headers, libc, varargs,
+  and supported GCC-only execution. Progress class by class; do not assign
+  compiler defects to missing runtime prerequisites. Use the versioned
+  disposition manifest for each follow-up.
+- [ ] Reproduce historical KCC `fatal vrwiden reg already wide` from
+  `tests/todo/generic/930622-2.c` as a potential P0 compiler ICE, and fix
+  any confirmed ICE before ordinary compiler debugging.
+
 - [x] Initial review of all `candidate` sources in `tests/semantic/upstream/` completed. Reviewed for
   PDP-10 integer/byte widths, supported C dialect, ABI, runtime requirements,
   duplicate coverage, and genuinely asserted results. Run useful candidates
@@ -73,12 +95,14 @@ compiler check, not a full compiler/CPU/optimization sweep.
   PDP-10 expectation; then run/activate useful tests or delete inapplicable
   tests. Investigate `pdp10/pdp10/990106-2.c`, whose PDP-10 expectation failed
   under PDP-6 KCC. See `docs/SEMANTIC-WIDTH-VALIDATION-20261014-v2.md`.
-- [ ] Review the 129 `review-extension` sources by feature (builtins,
+- [x] Review the 129 `review-extension` sources by feature (builtins,
   attributes, packing/alignment, local labels, setjmp, prefetch, stdio,
   complex types). Register only supported, meaningful KCC/GCC combinations;
   remove unsupported tests rather than masking failures. Do not assume GCC
-  extensions are portable C99.
-- [ ] Resolve the 111 `deferred` sources (seven inline-assembly C tests,
+  extensions are portable C99. The classification sweep completed in
+  `docs/SEMANTIC-EXTENSION-BATCH-20261014-v16.md`; remaining *execution*
+  requirements are inventoried in the deferred-disposition v1 table.
+- [ ] Resolve the 276 classified `deferred` sources (seven inline-assembly C tests,
   `support/920428-1.s`, void-return case `20000314-3.c`, and varargs
   `20000519-1.c` with a KCC `include_next` preprocessor ICE, plus
   `20000603-1.c` (incompatible pointer aliasing) and `20000622-1.c`
@@ -87,7 +111,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   Move suitable target-specific coverage to ISA/DAS
   test ownership with real assembler/link dependencies; delete inappropriate
   CPU or host-OS cases. The `.s` file requires KL10 and external symbols.
-- [ ] Make existing GCC torture `abort()`/`exit()` assertions executable by a
+- [x] Make existing GCC torture `abort()`/`exit()` assertions executable by a
   correctly designed bare-metal test harness, rather than treating missing
   `__test_exit` as a compiler/runtime failure. Preserve assertion semantics;
   avoid a generic stub that turns failure into success. Confirm the runner
@@ -491,12 +515,12 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 1,534 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 91 entries; source/script paths present, but not every
+- `COMPILER_MATRIX.tsv`: 1,979 source rows; verified source paths present.
+- `SPECIAL_TESTS.tsv`: 194 unique entries; source/script paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- `tests/semantic/upstream/`: 746 C sources plus one assembly support file;
-  two C sources enabled; the remainder need review or harness integration.
+- Upstream manifest: 442 active, 276 deferred, 55 removed and one nonportable
+  stress source (all 276 deferred now have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
 

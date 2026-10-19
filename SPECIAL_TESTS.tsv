@@ -1,4 +1,7 @@
 id	group	runner	path	profile	enabled	timeout
+test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
+deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
+pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120
 kcc-p0-diagnostics-v1	validation	sh	misc/validation/test-kcc-p0-diagnostics-v1.sh	default	yes	120
 int71-header	compat	sh	misc/compat/test-int71-header.sh	default	yes	120
 wide-int-modes	compat	sh	misc/compat/test-wide-int-modes.sh	default	yes	120
@@ -139,7 +142,6 @@ aap-batch100-v11	compat	python3	misc/compat/test-aap-batch100-v11.py	host	yes	12
 aap-batch100-v12	compat	python3	misc/compat/test-aap-batch100-v12.py	host	yes	120
 aap-batch100-v13	compat	python3	misc/compat/test-aap-batch100-v13.py	host	yes	120
 aap-broad-coverage-gate-v1	compat	python3	misc/compat/test-aap-broad-coverage-gate-v1.py	host	yes	120
-aap-instrumentation-v1	compat	python3	misc/compat/test-aap-instrumentation-v1.py	host	yes	120
 aap-instrumentation-v1	compat	python3	misc/compat/test-aap-instrumentation-v1.py	host	yes	120
 aap-batch100-v14	compat	python3	misc/compat/test-aap-batch100-v14.py	host	yes	120
 aap-batch100-v15	compat	python3	misc/compat/test-aap-batch100-v15.py	host	yes	120
