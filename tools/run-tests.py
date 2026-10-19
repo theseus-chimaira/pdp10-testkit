@@ -1030,6 +1030,13 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                         fragment_version = 'v2' if hot_name == 'memcmp' else 'v1'
                         fragments.append('kcc-libc-%s-%s.s' % (hot_name, fragment_version))
                         stub_exclude.add(hot_name)
+                # Each search routine owns a separate archive member: a
+                # strstr-only program must not pull strspn/strpbrk into RAM.
+                for search_name in ('strstr', 'strpbrk', 'strspn'):
+                    if (search_name in externals and
+                            not label_exists(asm_text, search_name)):
+                        fragments.append('kcc-libc-%s-v1.s' % search_name)
+                        stub_exclude.add(search_name)
                 if 'memset' in externals and not label_exists(asm_text, 'memset'):
                     fragments.append('kcc-libc-memset-v1.s')
                     stub_exclude.add('memset')

@@ -1,4 +1,7 @@
 id	group	runner	path	profile	enabled	timeout
+gcc-addressof-pdp6-ice-v1	validation	sh	misc/validation/test-gcc-addressof-pdp6-ice-v1.sh	pdp6	manual	120
+gcc-9bit-data-section-v1	validation	sh	misc/validation/test-gcc-9bit-data-section-v1.sh	pdp6	yes	120
+freestanding-search-v1	compat	sh	misc/compat/test-freestanding-search-v1.sh	pdp6	yes	120
 deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
 test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120

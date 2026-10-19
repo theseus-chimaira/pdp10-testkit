@@ -1,6 +1,24 @@
 # PDP-10 testkit — outstanding work
 
 Status: 2026-10-19. This is the central checklist for **open** testkit work.
+
+## Freestanding search dependency update (2026-10-19)
+
+- [x] Implement `strstr`, `strpbrk`, and `strspn` as separately loadable,
+  stack-free PDP-6 assembler library members. Test on SIMH PDP-6 under
+  KCC optimized and unoptimized and GCC `-O0`, with 9-bit and word-crossing
+  cases. See `docs/FREESTANDING-SEARCH-ASSEMBLER-20261019-v1.md`.
+- [x] Correct the GCC initialized 9-bit data section flush defect and
+  validate with a dedicated PDP-6 regression at `-O0/-O1/-O2/-Os`.
+- [ ] Fix the separate reproducible GCC `-O1` `put_addressof_into_stack`
+  internal compiler error for PDP-10 9-bit local variables; the manually
+  registered `gcc-addressof-pdp6-ice-v1` test currently fails.
+- [ ] Run full GCC search semantics at optimization levels above `-O0`
+  *after* the ICE is fixed; establish actual instruction-tick timing against
+  the C reference before claiming a runtime speedup.
+- [ ] Review the still-deferred GNU `string-opt-1`, `string-opt-2`, and
+  `string-opt-11` for builtin lowering and optimizer correctness separately
+  from the now-available libc API routines.
 The repository tests bare-metal CPU/toolchain behavior; DAIMOS/OS, peripheral,
 and filesystem regressions belong in their respective testkits. Completed
 imports are not repeated as tasks. Update this file as items are resolved.
