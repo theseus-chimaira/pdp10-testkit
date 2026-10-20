@@ -55,7 +55,7 @@ bad_version(void)
     if (!fp) return 0;
     if (kpcode_write_header(fp, &h) != 0) return 0;
     if (fseek(fp, KPCODE_MAGIC_BYTES + 4, SEEK_SET) != 0) return 0;
-    fputc(2, fp);                 /* low byte of 36-bit version word */
+    fputc(KPCODE_VERSION + 1, fp); /* reject future version, not the current v2 */
     rewind(fp);
     rc = kpcode_read_header(fp, &got);
     fclose(fp);
@@ -164,6 +164,36 @@ structured_records(void)
     return ok;
 }
 
+/* KPCODE2 must transport the entire 36-bit target float word, not
+ * the binary32 bits of the host's 24-bit-significand float type.
+ * Verify that the low target bits survive through the stream.
+ */
+static int
+exact_target_float_roundtrip(void)
+{
+    FILE *fp = tmpfile();
+    PCODE in, out;
+    INT words[32];
+    unsigned int kind = 0, n = 0;
+    int ok;
+    if (!fp) return 0;
+    memset(&in, 0, sizeof(in));
+    memset(&out, 0, sizeof(out));
+    in.Ptype = PTA_FCONST;
+    in.Pop = P_MOVE;
+    in.Preg = 1;
+    in.Pfloatword = (INT)0234400000002ULL; /* exactly 2^27 + 4 */
+    ok = kpcode_write_pcode(fp, &in, 0) == 0;
+    rewind(fp);
+    ok = ok && kpcode_read_record(fp, &kind, words, 32, &n) == 0;
+    ok = ok && kind == KPCODE_REC_PCODE && n == KPCODE_PCODE_WORDS;
+    ok = ok && kpcode_decode_pcode(words, n, &out, NULL) == 0;
+    ok = ok && out.Ptype == PTA_FCONST;
+    ok = ok && out.Pfloatword == in.Pfloatword;
+    fclose(fp);
+    return ok;
+}
+
 int
 main(void)
 {
@@ -178,6 +208,7 @@ main(void)
     if (!record_roundtrip()) return 4;
     if (!truncated_record()) return 5;
     if (!structured_records()) return 6;
+    if (!exact_target_float_roundtrip()) return 8;
     puts("kcc-kpcode-format: PASS");
     return 0;
 }

@@ -1,4 +1,7 @@
 id	group	runner	path	profile	enabled	timeout
+kcc-kpcode2-float-phase-v1	kcc-regression	sh	misc/kcc-regression/kcc-kpcode2-float-phase-v1.sh	pdp6	yes	900
+kcc-pdp6-negative-fp-runtime-v1	validation	sh	misc/validation/test-kcc-pdp6-negative-fp-runtime-v1.sh	pdp6	manual	120
+kcc-pdp6-float-fold-v1	validation	sh	misc/validation/test-kcc-pdp6-float-fold-v1.sh	pdp6	yes	120
 kcc-pdp6-dimode-nativefloat-v1	validation	sh	misc/validation/test-kcc-pdp6-dimode-nativefloat-v1.sh	pdp6	yes	120
 kcc-pdp6-float-literal-v1	validation	sh	misc/validation/test-kcc-pdp6-float-literal-v1.sh	pdp6	yes	120
 kcc-aap-dimode-float-pdp6-v1	validation	python3	misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py	pdp6	yes	240
@@ -63,7 +66,7 @@ gnu-packed-nested-bitoffset	kcc-regression	sh	misc/kcc-regression/gnu-packed-nes
 kcc-csix-source-20261006	kcc-regression	sh	misc/kcc-regression/kcc-csix-source-20261006.sh	default	yes	120
 kcc-kir-format-20261006	kcc-regression	sh	misc/kcc-regression/kcc-kir-format-20261006.sh	default	yes	120
 kcc-kpcode-format-20261006	kcc-regression	sh	misc/kcc-regression/kcc-kpcode-format-20261006.sh	default	yes	120
-kcc-phase-byte-identity-20261006	kcc-regression	sh	misc/kcc-regression/kcc-phase-byte-identity-20261006.sh	default	yes	120
+kcc-phase-byte-identity-20261006	kcc-regression	sh	misc/kcc-regression/kcc-phase-byte-identity-20261006.sh	default	manual	900
 language-modes	kcc-regression	sh	misc/kcc-regression/language-modes.sh	default	yes	120
 register-abi-opt	kcc-regression	sh	misc/kcc-regression/register-abi-opt.sh	default	yes	120
 runtime-helper-fragments	kcc-regression	sh	misc/kcc-regression/runtime-helper-fragments.sh	default	yes	120

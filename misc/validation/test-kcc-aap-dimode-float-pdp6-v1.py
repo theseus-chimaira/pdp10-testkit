@@ -62,6 +62,7 @@ def build_guest(work, mode, case):
         "boundary": "tests/semantic/kcc-dimode-float-pdp6-v1.c",
         "nativefloat": "tests/semantic/kcc-pdp6-dimode-nativefloat-v1.c",
         "literal": "tests/semantic/kcc-pdp6-float-literal-v1.c",
+        "floatfold": "tests/semantic/kcc-pdp6-float-fold-v1.c",
     }
     source = ROOT / sources[case]
     library = (PDP10_PREFIX / "lib/kcc/freestanding/"
@@ -86,6 +87,9 @@ def build_guest(work, mode, case):
         run += ["--expect", "native_float_case_v1=025"]
     elif case == "literal":
         run += ["--expect", "literal_case_v1=011"]
+    elif case == "floatfold":
+        run += ["--expect", "kff_case_v1=024",
+                "--expect", "kff_cmp_v1=1"]
     command(run + [
              ROOT / "support/crt0-upstream-v1.s", output, library,
              ROOT / "support/exit-v1.s", ROOT / "support/abort-v1.s"])
@@ -215,7 +219,8 @@ def main():
                                      dir=TMPDIR) as temp:
         work = Path(temp)
         emulator = build_emulator(work)
-        for case in ("upstream", "boundary", "nativefloat", "literal"):
+        for case in ("upstream", "boundary", "nativefloat", "literal",
+                     "floatfold"):
             for mode in ("opt", "noopt"):
                 words, entry, status = build_guest(work, mode, case)
                 print("AAP %s/%s: %d linked image words" %

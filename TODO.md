@@ -90,9 +90,23 @@ compiler check, not a full compiler/CPU/optimization sweep.
   SIMH and AAP. Fix the separate host-IEEE-float literal precision loss
   and verify nine target single-float literal words under both profiles.
   See `docs/KCC-PDP6-NATIVE-FLOAT-CORRECTIONS-20261020-v1.md`.
-- [ ] Audit other KCC compile-time `TS_FLOAT` arithmetic and cast folding
-  in `cceval.c`: some still use host IEEE binary32 (24 significant bits)
-  instead of 27-bit target precision. Their correctness is not yet proven.
+- [x] Audit and repair hosted KCC compile-time `TS_FLOAT` arithmetic and
+  cast folding. Preserve the target's 27-bit precision through the exact
+  KPCODE2 stream, verify 20 static cases and both optimization modes on
+  SIMH/AAP PDP-6, and prevent unsafe floating reassociation. See
+  `docs/KCC-PDP6-TARGET-FLOAT-FOLDING-20261020-v1.md`.
+- [ ] Reconcile native negative-halfway PDP-6 FADR/FSBR results:
+  installed SIMH returns `0544000000001`, independent AAP returns
+  `0543400000000`. The manual test
+  `kcc-pdp6-negative-fp-runtime-v1` must not be treated as passing
+  until the hardware behavior is established and the simulator corrected.
+- [ ] Diagnose the strict four-phase KCC output mismatch in `cccse.c`
+  even at `-n`. The full `kcc-phase-byte-identity-20261006` regression
+  remains manual and failing; optimized `bindopt` explains only the
+  separately observed optimized difference. The focused
+  `kcc-kpcode2-float-phase-v1` regression verifies that the full phase
+  pipeline preserves exact float words and executes the linked guest,
+  without claiming source-wide byte identity.
 
 ## P1 — complete upstream semantic test integration
 
@@ -578,7 +592,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## Current baseline (not a completion claim)
 
 - `COMPILER_MATRIX.tsv`: 1,986 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 205 unique entries (including manual probes); paths present, but not every
+- `SPECIAL_TESTS.tsv`: 208 unique entries (including manual probes); paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable

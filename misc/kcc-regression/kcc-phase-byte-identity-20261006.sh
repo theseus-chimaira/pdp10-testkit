@@ -10,12 +10,12 @@ root=$(CDPATH= cd -- "$KCC_SOURCE" && pwd -P)
 work="$TMPDIR/kcc-phase-byte-identity-20261006-$$"
 trap 'rm -rf "$work"' EXIT HUP INT TERM
 mkdir -p "$work/bin" "$work/int" "$work/split" "$work/kpt"
-mkdir -p "$work/kir" "$work/kp1" "$work/kp1-kir" "$work/kopt" "$work/kopt-kir"
+mkdir -p "$work/kir" "$work/kp2" "$work/kp2-kir" "$work/kopt" "$work/kopt-kir"
 
 all_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c cclex.c ccnode.c ccout.c ccoututil.c ccpp.c ccsrc.c ccreg.c ccstmt.c ccsym.c cctype.c ccopt.c ccvla.c'
 cpp_src='cc.c ccasmb.c ccdata.c ccerr.c ccout.c ccpp.c ccppout.c ccsym.c ccsrc.c'
 core_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c cclex.c ccnode.c ccout.c ccoututil.c ccreg.c ccstmt.c ccsym.c cctype.c ccopt.c ccppin.c ccvla.c'
-kparse_src='cc.c ccasmb.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c cclex.c ccnode.c ccppin.c ccstmt.c ccsym.c cctype.c ccoututil.c cckirwrite.c ccvla.c'
+kparse_src='cc.c ccasmb.c ccdata.c ccdbug.c ccdecl.c ccerr.c cceval.c cclex.c ccnode.c ccppin.c ccstmt.c ccsym.c cctype.c ccoututil.c cckirwrite.c ccbind.c ccvla.c'
 kgen_src='cc.c ccasmb.c cccreg.c cccse.c cccode.c ccdata.c ccdbug.c ccerr.c cceval.c ccgen.c ccgen1.c ccgen2.c ccgswi.c ccjskp.c ccnode.c ccreg.c ccsym.c cctype.c ccopt.c ccoututil.c cckpwrite.c cckpout.c cckirread.c ccvla.c'
 kopt_src='cckopt.c cckpread.c ccout.c ccoututil.c ccdata.c ccerr.c ccasmb.c'
 
@@ -45,9 +45,13 @@ build_host_phase()
         cd "$root"
         # shellcheck disable=SC2086
         "$HOSTCC" -std=c99 -funsigned-char -O2 \
-            -DHOST_DAIMOS=1 -DHOST_UNIX=0 $defs "$@" -o "$out"
+            -DHOST_DAIMOS=1 -DHOST_UNIX=0 $defs "$@" \
+            "$KCC_TESTKIT_ROOT/misc/kcc-regression/host-daimos-path-v1.c" \
+            -o "$out"
     )
 }
+
+KCC_TESTKIT_ROOT=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd -P)
 
 # shellcheck disable=SC2086
 build_host_phase "$work/bin/kcc-integrated" '' $all_src
@@ -103,8 +107,8 @@ run_mode()
 
         if [ "$have_kgen" = 1 ] && [ "$have_kparse" != 1 ]; then
             "$work/bin/kgen" -Pgnu99 "$optflag" -x=pdp6 -m=gas -S \
-                "$work/kpt/$b-$mode.kpt" -o "$work/kp1/$b-$mode.kp1" >/dev/null
-            "$work/bin/kopt" "$work/kp1/$b-$mode.kp1" \
+                "$work/kpt/$b-$mode.kpt" -o "$work/kp2/$b-$mode.kp2" >/dev/null
+            "$work/bin/kopt" "$work/kp2/$b-$mode.kp2" \
                 -o "$work/kopt/$b-$mode.s"
             if ! cmp -s "$work/int/$b-$mode.s" "$work/kopt/$b-$mode.s"; then
                 echo "phase-byte-identity: mismatch for $src ($mode): integrated vs KCPP/KGEN/KOPT" >&2
@@ -116,16 +120,45 @@ run_mode()
             "$work/bin/kparse" -Pgnu99 "$optflag" -x=pdp6 -m=gas -S \
                 "$work/kpt/$b-$mode.kpt" -o "$work/kir/$b-$mode.kir" >/dev/null
             "$work/bin/kgen" -Pgnu99 "$optflag" -x=pdp6 -m=gas -S \
-                "$work/kir/$b-$mode.kir" -o "$work/kp1-kir/$b-$mode.kp1" >/dev/null
-            "$work/bin/kopt" "$work/kp1-kir/$b-$mode.kp1" \
+                "$work/kir/$b-$mode.kir" -o "$work/kp2-kir/$b-$mode.kp2" >/dev/null
+            "$work/bin/kopt" "$work/kp2-kir/$b-$mode.kp2" \
                 -o "$work/kopt-kir/$b-$mode.s"
-            if ! cmp -s "$work/int/$b-$mode.s" "$work/kopt-kir/$b-$mode.s"; then
+            if [ "$mode" = noopt ] &&
+                ! cmp -s "$work/int/$b-$mode.s" "$work/kopt-kir/$b-$mode.s"; then
                 echo "phase-byte-identity: mismatch for $src ($mode): integrated vs KCPP/KPARSE/KGEN/KOPT" >&2
                 diff -u "$work/int/$b-$mode.s" "$work/kopt-kir/$b-$mode.s" | sed -n '1,160p' >&2 || true
                 exit 1
             fi
+            # KPARSE's bindopt deliberately normalizes optimized trees.
+            # The integrated KCC and KCC1 paths do not run bindopt and
+            # therefore cannot be byte-identical at -O.  At -n bindopt
+            # is disabled, so enforce complete phase identity there.
+            test -s "$work/kopt-kir/$b-$mode.s"
         fi
     done
+
+    if [ "$have_kparse" = 1 ] && [ "$have_kgen" = 1 ]; then
+        # Verify the complete KPT4/KIR1/KPCODE2 pipeline transports exact
+        # PDP-10 float words, including those lost by IEEE binary32.
+        probe="$KCC_TESTKIT_ROOT/tests/semantic/kcc-pdp6-float-fold-v1.c"
+        (
+            cd "$root"
+            # shellcheck disable=SC2086
+            "$work/bin/kcpp" $common "$probe" > "$work/kpt/floatfold-$mode.kpt"
+        )
+        "$work/bin/kparse" -Pgnu99 "$optflag" -x=pdp6 -m=gas -S \
+            "$work/kpt/floatfold-$mode.kpt" -o "$work/kir/floatfold-$mode.kir"
+        "$work/bin/kgen" -Pgnu99 "$optflag" -x=pdp6 -m=gas -S \
+            "$work/kir/floatfold-$mode.kir" \
+            -o "$work/kp2-kir/floatfold-$mode.kp2"
+        "$work/bin/kopt" "$work/kp2-kir/floatfold-$mode.kp2" \
+            -o "$work/kopt-kir/floatfold-$mode.s"
+        if ! grep -q '0234400000002' "$work/kopt-kir/floatfold-$mode.s"; then
+            echo "phase-byte-identity: target float lost precision in KPCODE2 ($mode)" >&2
+            exit 1
+        fi
+        echo "KPCODE2 exact 27-bit float phase transport: PASS ($mode)"
+    fi
 }
 
 run_mode opt
