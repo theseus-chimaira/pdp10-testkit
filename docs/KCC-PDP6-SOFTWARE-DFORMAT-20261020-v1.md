@@ -51,13 +51,42 @@ The matrix enables `pdp6` for both KCC optimization modes and
 explicitly inactive (`no_test`)**, not assumed to pass or declared
 unsupported. This is target-limited activation, not all-CPU validation.
 
+## Independent AAP PDP-6 execution (2026-10-20)
+
+The current AAP emulator (`pdp6/emu`, source revision `ac603e8`) was
+rebuilt without patches to its source or reintroducing deleted diagnostic
+commands. The normal toolchain assembled and linked complete guest images
+and SIMH validated them before AAP loaded them. The AAP acceptance routine
+then synchronously deposited the guest, initialized the `__test_exit`
+word to octal `777`, and verified that value *before* starting execution.
+The successful guest path's `exit(0)` changes the same word to zero.
+Polling synchronous AAP memory examinations establishes this transition
+without fixed-delay success assumptions, synthetic opcode execution, or
+simulated HALT status.
+
+| AAP guest | Linked words | Outcome |
+| --- | ---: | --- |
+| Unmodified `930622-2.c`, KCC optimized | 221 | PASS |
+| Unmodified `930622-2.c`, KCC `-n` | 235 | PASS |
+| 17 integer + 10 fractional cases, KCC optimized | 624 | PASS |
+| 17 integer + 10 fractional cases, KCC `-n` | 818 | PASS |
+| Negative control: replace guest entry instruction with HALT | 221 | Correctly rejected |
+
+The negative-control image never writes the success word, so the exit
+sentinel remains nonzero. This establishes that loading a guest, observing
+an initially cleared variable, or HALT alone cannot pass the test. The
+registered executable regression is
+`misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py`.
+
+These results verify the integer-only software D-format guest on two
+PDP-6 emulators, not timing equivalence or the distinct PDP-6 native
+floating-point instruction implementation.
+
 ## Further work
 
-AAP independently reproducing the full guest execution remains open. The
-older AAP test helper depended on a diagnostic `cpustatus` command removed
-from the emulator. A subsequent linked-image replay attempt reached neither
-the expected successful guest HALT trace nor a usable completion signal;
-it was **not** counted as a pass. A reliable completion oracle is required.
+The first AAP attempt waited for a diagnostic timing trace removed from
+the emulator, so it produced no useful result. The sentinel-transition
+oracle above supersedes that attempt and passes all four real guests.
 Native PDP-6 floating-point conversions and later
 PDP-10 hardware-specific floating modes also require separate formats,
 code generation, and regression evidence. The accepted software D-format

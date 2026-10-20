@@ -75,9 +75,13 @@ compiler check, not a full compiler/CPU/optimization sweep.
   pass under KCC optimized and `-n`. The installed KCC and GCC archive
   members are byte-identical. See
   `docs/KCC-PDP6-SOFTWARE-DFORMAT-20261020-v1.md`.
-- [ ] Validate this software conversion independently on the AAP PDP-6
-  emulator using a complete guest-execution oracle. AAP `cpustatus` was
-  removed; old status-dependent test helpers cannot establish acceptance.
+- [x] Validate the PDP-6 software conversion independently on AAP using
+  the complete linked original and 27-case boundary guests, each with both
+  KCC optimization modes. The oracle verifies a nonzero `__test_exit`
+  sentinel before execution and its change to zero via `exit(0)`; an
+  immediate-HALT negative control cannot pass. No removed `cpustatus` or
+  timing instrumentation was restored. See
+  `misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py`.
 - [ ] Independently determine native PDP-6 floating-point, KA10 and later
   PDP-10 D-format conversion semantics before enabling these CPU profiles.
 
@@ -565,7 +569,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## Current baseline (not a completion claim)
 
 - `COMPILER_MATRIX.tsv`: 1,986 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 202 unique entries (including manual probes); paths present, but not every
+- `SPECIAL_TESTS.tsv`: 203 unique entries (including manual probes); paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable

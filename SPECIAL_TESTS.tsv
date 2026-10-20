@@ -1,4 +1,5 @@
 id	group	runner	path	profile	enabled	timeout
+kcc-aap-dimode-float-pdp6-v1	validation	python3	misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py	pdp6	yes	240
 kcc-71bit-floatcast-v1	validation	sh	misc/validation/test-kcc-71bit-floatcast-v1.sh	pdp6	yes	120
 kcc-dimode-float-pdp6-v1	validation	sh	misc/validation/test-kcc-dimode-float-pdp6-v1.sh	pdp6	yes	120
 kcc-dimode-storage-v1	validation	sh	misc/validation/test-kcc-dimode-storage-v1.sh	pdp6	yes	120
