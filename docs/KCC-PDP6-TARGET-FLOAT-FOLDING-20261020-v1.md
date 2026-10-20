@@ -55,13 +55,19 @@ bits would otherwise be vulnerable to host IEEE float narrowing.
   in both optimized and unoptimized modes. This validates real phase
   transport rather than only a synthetic record roundtrip.
 
-The older full compiler-unit byte-identity sweep remains a **manual
-investigation**. Optimized KPARSE runs its additional parser-side
-`bindopt` pass, so the integrated compiler need not produce identical
-register choices at `-O`. A real no-optimization output mismatch begins
-in `cccse.c` and remains unexplained. The strict regression
-`misc/kcc-regression/kcc-phase-byte-identity-20261006.sh` is retained
-as manual, not declared passing.
+The complete 27-unit phase byte-identity sweep now **passes** in its
+applicable profiles. DAIMOS KGEN had a 64-entry peephole ring while
+DAIMOS integrated KCC/KCC1 used 256; once the code generator had
+produced 64 pseudo-instructions, the allocator consulted different
+recent-instruction histories and selected different ACs. Unifying the
+DAIMOS rings at 64 entries in `ccparm.h` eliminated the `-n`
+differences, including the original `cccse.c` reproducer, and saved
+192 PCODE slots in backends formerly configured for 256. The enabled
+`misc/kcc-regression/kcc-phase-byte-identity-20261006.sh` verifies
+strict integrated/KCC1 identity in both modes and strict KIR1/KGEN
+identity at `-n`. Optimized KPARSE deliberately runs an extra
+`bindopt` pass, so optimized KIR1 output is *not* required to be
+byte-identical; KPCODE2 end-to-end float execution passes separately.
 
 ## Independently reproducible SIMH/AAP discrepancy
 

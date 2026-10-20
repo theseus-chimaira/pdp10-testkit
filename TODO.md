@@ -100,13 +100,15 @@ compiler check, not a full compiler/CPU/optimization sweep.
   `0543400000000`. The manual test
   `kcc-pdp6-negative-fp-runtime-v1` must not be treated as passing
   until the hardware behavior is established and the simulator corrected.
-- [ ] Diagnose the strict four-phase KCC output mismatch in `cccse.c`
-  even at `-n`. The full `kcc-phase-byte-identity-20261006` regression
-  remains manual and failing; optimized `bindopt` explains only the
-  separately observed optimized difference. The focused
-  `kcc-kpcode2-float-phase-v1` regression verifies that the full phase
-  pipeline preserves exact float words and executes the linked guest,
-  without claiming source-wide byte identity.
+- [x] Fix the strict four-phase KCC output mismatch in `cccse.c`
+  at `-n`: DAIMOS KGEN previously had 64 PCODE peephole slots while
+  DAIMOS KCC1/integrated KCC had 256, changing register selection at
+  the first flush. Consistent 64-entry DAIMOS rings now produce
+  byte-identical `-n` output over all 27 compiler translation units;
+  `kcc-phase-byte-identity-20261006` is an enabled regression.
+  Optimized KPARSE's extra `bindopt` means optimized KIR1 output
+  need not be byte-identical; optimized KCC/KCC1 identity and the
+  KPCODE2 executable float suite both pass.
 
 ## P1 — complete upstream semantic test integration
 
