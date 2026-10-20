@@ -42,3 +42,32 @@ decision with the drawing. Only a demonstrated discrepancy justifies an
 emulator change.
 
 This document records a *partial hardware comparison*, not a resolution.
+
+## 2026-10-20 update: original NRT drawing located
+
+The missing primary-source drawing has now been located and visually
+inspected. Tom Knight's PDP-6 archive links the complete Type 166 schematic
+print set at:
+
+`https://inwap.com/pdp10/pdp6/pdp6-schematics.ps`
+
+In the **80-page** converted scan, **PDF page 12** is the original DEC
+`FD-D-166-0-EMNF` sheet, titled *Exponent Calculate, Multiply and
+Normalize Return Subroutines*. The upper right and lower right of this
+sheet contain the **NORMALIZE RETURN** flow, including NRT0.5,
+NRT0 through NRT6, and the right/left shift wiring notes.
+
+An extracted copy is versioned in this repository as
+`refs/hardware/dec166-emnf-normalize-return-v1.pdf`.
+
+Initial visual alignment identifies SC+1 and right shift at NRT0,
+SC COM at NRT1, SC+1 and left shift at NRT2, SC COM under the NRT3
+condition, and AR+1 at NRT5. These agree at the *operation-label*
+level with `pdp6/emu/apr.c`; they are not yet a bit-by-bit proof for
+the failing operation. In particular, compare the NRT1 decision,
+NRT3 complement condition and NRT5 increment path before drawing
+conclusions about AAP correctness.
+
+The earlier statement that the drawing was unavailable is superseded by
+this update. Preserve the unchanged failing diagnostic until the
+register-level comparison is complete.
