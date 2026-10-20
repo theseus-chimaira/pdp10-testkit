@@ -54,3 +54,13 @@ case 9 (octal test index `011`), while the independent DEC case-9
 hardware guest and earlier negative-halfway regression passed.
 Full 24-case hardware characterization and later PDP-10 processor
 verification remain separate work.
+
+## Installed simulator verification
+
+After rebuilding with Git identity `828459c`, the corrected SIMH PDP-6
+binary was installed under `$PDP10_PREFIX/bin/pdp6`. The previous binary
+was preserved as `$PDP10_PREFIX/bin/pdp6-pre-emnf-20261021-v1`.
+The installed binary and committed build have identical SHA-256 hashes.
+The hardware case-9 and negative FP runtime suites were rerun using the
+installed simulator with `SIMH_PDP6` unset: both optimization modes
+passed, as did the testkit inventory audit.
