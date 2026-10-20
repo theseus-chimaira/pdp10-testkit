@@ -69,17 +69,59 @@ identity at `-n`. Optimized KPARSE deliberately runs an extra
 `bindopt` pass, so optimized KIR1 output is *not* required to be
 byte-identical; KPCODE2 end-to-end float execution passes separately.
 
-## Independently reproducible SIMH/AAP discrepancy
+## PDP-6 negative halfway rounding: SIMH repair and independent AAP
 
-For native PDP-6 negative halfway FADR/FSBR, the AAP model returns
-`0543400000000`, while installed SIMH PDP-6 returns `0544000000001`.
-The old compiler rounding heuristic yielded `0543377777777`; it was
-corrected against the independent AAP result. This does *not* repair the
-SIMH runtime disagreement, which remains a manual, genuinely failing
-regression at
-`misc/validation/test-kcc-pdp6-negative-fp-runtime-v1.sh`.
+The original SIMH PDP-6 returned `0544000000001` for the operation
+`-134217728.0F + -1.0F`. AAP returned `0543400000000`. Historical
+Stanford SAIL `10TO6.TED` (1973, *Floating Point Instructions* point 5)
+explicitly specifies that PDP-6 negative *exact halfway* rounded
+arithmetic moves toward zero, unlike later PDP-10 processors:
+https://www.saildart.org/10TO6.TED%5BH%2CDOC%5D
 
-Reconcile PDP-6 hardware rounding against primary hardware documentation
-before promoting this runtime test or claiming negative-FP execution
-equivalence. Later PDP-10 floating modes and edge underflow/overflow
-cases remain explicitly outside the verified scope.
+SIMH's PDP-6 path previously added an entire `FPRBIT1` at this exact
+negative halfway boundary. The traced sign-extended two's-complement
+fraction was `1677777777700000000000` (octal), whose discarded field
+equaled `FPRBIT2`. Adding the full unit crossed a normalization boundary
+and produced a result on the wrong side of the halfway tie. The PDP-6
+path now adds the *half-unit* `FPRBIT2` only for negative exact ties;
+all other cases retain the previous rounding logic, including the
+distinct later-PDP-10 path. The original two-case regression now passes,
+and the corrected SIMH passes 24 boundary cases in both KCC modes.
+Eight negative halfway cases independently pass AAP in both modes.
+
+## Separate AAP hardware-fidelity question: exact result at exponent edge
+
+**AAP has not been modified and is not declared incorrect.** In the full
+24-case expanded experiment, cases 1–8 passed on AAP. Case 9 was the
+first discrepancy:
+
+| Expression | Mathematically exact normalized word | AAP observed word |
+| --- | --- | --- |
+| `-134217728.0F + 1.0F` | `0544000000001` | `0544000000003` |
+
+Direct AAP memory inspection confirmed operand words
+`0543400000000` and `0201400000000`, case index `011` (octal),
+and output word `0544000000003`; this was not inferred from a timeout.
+The SIMH candidate produces the mathematically expected `0544000000001`.
+
+The **same primary source**, `10TO6.TED` point 6, warns that the PDP-6
+can lose bits in floating add/subtract/multiply when significant information
+resides only in the low word before normalization. The PDP-6 arithmetic
+is not guaranteed to agree with a correctly rounded mathematical result.
+We have not established whether that specific hardware condition occurs
+in case 9, nor verified the precise result from an original 166 CPU
+logic drawing or physical PDP-6. AAP implements the actual PDP-6
+normalization/rounding microsequences (`emu/apr.c`: `fat*`, `nrt*`,
+including `NR_ROUND`, `AR_EQ_FP_HALF` and `SC_COM`). These are
+evidence worth preserving, **not grounds for a speculative AAP patch**.
+
+The testkit separately records the full 24-case AAP run as the **manual
+known-disagreement** test `misc/validation/test-aap-pdp6-rounded-fp-v2.py`.
+It deliberately fails against the mathematical oracle on AAP case 9;
+the normal AAP acceptance suite includes only the eight independently
+cross-verified negative-halfway cases. Do not label AAP faulty or write
+an AAP correction without a pulse-level comparison to primary DEC
+166 CPU drawings and verified physical behavior.
+
+Later PDP-10 floating modes, AAP's exact-result edge, and broader
+underflow/overflow cases remain outside the validated scope.

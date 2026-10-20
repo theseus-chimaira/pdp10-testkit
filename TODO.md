@@ -95,11 +95,18 @@ compiler check, not a full compiler/CPU/optimization sweep.
   KPCODE2 stream, verify 20 static cases and both optimization modes on
   SIMH/AAP PDP-6, and prevent unsafe floating reassociation. See
   `docs/KCC-PDP6-TARGET-FLOAT-FOLDING-20261020-v1.md`.
-- [ ] Reconcile native negative-halfway PDP-6 FADR/FSBR results:
-  installed SIMH returns `0544000000001`, independent AAP returns
-  `0543400000000`. The manual test
-  `kcc-pdp6-negative-fp-runtime-v1` must not be treated as passing
-  until the hardware behavior is established and the simulator corrected.
+- [x] Repair SIMH PDP-6 native negative-halfway FADR/FSBR rounding.
+  The PDP-6-only fix is grounded in Stanford SAIL `10TO6.TED` and
+  verified on SIMH and AAP with eight negative-halfway cases, with
+  24 theoretical boundary cases also passing corrected SIMH. The
+  original `kcc-pdp6-negative-fp-runtime-v1` is now enabled.
+- [ ] Establish the original PDP-6 hardware behavior for
+  `-134217728.0F + 1.0F` at the exponent edge. AAP emits
+  `0544000000003`; SIMH emits the mathematically expected
+  `0544000000001`. **Do not assume AAP is wrong**: `10TO6.TED`
+  explicitly documents low-word information loss in some PDP-6
+  normalization cases. The complete 24-case AAP run remains manual
+  and fails on case 9 until checked against DEC 166 circuitry.
 - [x] Fix the strict four-phase KCC output mismatch in `cccse.c`
   at `-n`: DAIMOS KGEN previously had 64 PCODE peephole slots while
   DAIMOS KCC1/integrated KCC had 256, changing register selection at
@@ -594,7 +601,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## Current baseline (not a completion claim)
 
 - `COMPILER_MATRIX.tsv`: 1,986 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 208 unique entries (including manual probes); paths present, but not every
+- `SPECIAL_TESTS.tsv`: 210 unique entries (including manual probes); paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable

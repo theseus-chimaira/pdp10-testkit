@@ -63,6 +63,8 @@ def build_guest(work, mode, case):
         "nativefloat": "tests/semantic/kcc-pdp6-dimode-nativefloat-v1.c",
         "literal": "tests/semantic/kcc-pdp6-float-literal-v1.c",
         "floatfold": "tests/semantic/kcc-pdp6-float-fold-v1.c",
+        "negativehalfway": "tests/semantic/kcc-pdp6-negative-halfway-aap-v3.c",
+        "roundedfp": "tests/semantic/kcc-pdp6-rounded-fp-boundaries-v2.c",
     }
     source = ROOT / sources[case]
     library = (PDP10_PREFIX / "lib/kcc/freestanding/"
@@ -90,6 +92,10 @@ def build_guest(work, mode, case):
     elif case == "floatfold":
         run += ["--expect", "kff_case_v1=024",
                 "--expect", "kff_cmp_v1=1"]
+    elif case == "negativehalfway":
+        run += ["--expect", "pdp6_negative_half_index_v3=010"]
+    elif case == "roundedfp":
+        run += ["--expect", "pdp6_fp_case_index_v2=030"]
     command(run + [
              ROOT / "support/crt0-upstream-v1.s", output, library,
              ROOT / "support/exit-v1.s", ROOT / "support/abort-v1.s"])
@@ -219,8 +225,13 @@ def main():
                                      dir=TMPDIR) as temp:
         work = Path(temp)
         emulator = build_emulator(work)
-        for case in ("upstream", "boundary", "nativefloat", "literal",
-                     "floatfold"):
+        # The full 24-case AAP run is a separately registered manual
+        # hardware-fidelity investigation: its case 9 differs from the
+        # mathematical oracle. Never weaken the normal AAP acceptance.
+        cases = (("roundedfp",) if os.environ.get("PDP6_AAP_FULL_ROUNDED_V2")
+                 else ("upstream", "boundary", "nativefloat", "literal",
+                       "floatfold", "negativehalfway"))
+        for case in cases:
             for mode in ("opt", "noopt"):
                 words, entry, status = build_guest(work, mode, case)
                 print("AAP %s/%s: %d linked image words" %
