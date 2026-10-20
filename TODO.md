@@ -107,6 +107,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   explicitly documents low-word information loss in some PDP-6
   normalization cases. The complete 24-case AAP run remains manual
   and fails on case 9 until checked against DEC 166 circuitry.
+  Investigation plan: `docs/PDP6-FP-NEXT-STEPS-20261020-v1.md`.
 - [x] Fix the strict four-phase KCC output mismatch in `cccse.c`
   at `-n`: DAIMOS KGEN previously had 64 PCODE peephole slots while
   DAIMOS KCC1/integrated KCC had 256, changing register selection at
