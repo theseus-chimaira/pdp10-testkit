@@ -18,6 +18,7 @@ from pathlib import Path
 import pty
 import re
 import select
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -130,7 +131,13 @@ def run_aap(emulator, work, words, start, status, should_succeed, timeout):
     try:
         with (guest_dir / "console.log").open("wb") as console, \
              (guest_dir / "stderr.log").open("wb") as errors:
-            process = subprocess.Popen([str(emulator)], cwd=guest_dir,
+            trace_path = None
+            args = [str(emulator)]
+            if (os.environ.get("PDP6_AAP_TRACE_ROUNDED_V1") == "1" and
+                    "roundedfp" in str(work) and should_succeed):
+                trace_path = guest_dir / "pulse-register-trace-v1.log"
+                args += ["-t", "-d", str(trace_path)]
+            process = subprocess.Popen(args, cwd=guest_dir,
                                        stdin=subprocess.PIPE, stdout=slave,
                                        stderr=errors, bufsize=0)
             os.close(slave)
@@ -195,6 +202,11 @@ def run_aap(emulator, work, words, start, status, should_succeed, timeout):
                     observations += 1
                     if len(evidence) > 100000:
                         del evidence[:-1500]
+                if trace_path is not None:
+                    output = TMPDIR / ("p10tk-aap-rounded-trace-" +
+                                       work.name + "-v1.log")
+                    shutil.copyfile(trace_path, output)
+                    print("AAP pulse trace: %s" % output, flush=True)
                 if found != should_succeed:
                     raise RuntimeError("AAP execution oracle mismatch: "
                                        "expected success=%s, found=%s" %
