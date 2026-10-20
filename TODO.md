@@ -1,5 +1,22 @@
 # PDP-10 testkit — outstanding work
 
+## PDP-6 Type 166 floating-point hardware fidelity (2026-10-20)
+
+- [x] Recover original DEC `FD-D-166-0-EMNF` normalization drawing and
+  archive the relevant sheet in `refs/hardware`.
+- [x] Reconstruct the disputed case-9 NRT shifts independently and compare
+  the eleven state checkpoints with the original AAP pulse trace.
+- [x] Verify the case-9 FAT alignment/register entry independently against
+  the DEC floating-add and shift-datapath drawings.
+- [ ] Add a separate hardware-accurate case-9 guest oracle; retain the
+  existing 24-case mathematical diagnostic without changing its outputs.
+- [ ] Investigate and, if indicated, correct **SIMH PDP-6 only** for the
+  extra NRT5/NRT5A normalization pass, followed by both KCC modes,
+  both emulators, and the native-float/D-format/KPCODE2 inventory suites.
+- [ ] Characterize KA10/KI10/KS10/KL10 floating-point semantics separately.
+
+See `docs/PDP6-FP-NRT-HARDWARE-RESULT-20261020-v1.md`.
+
 Status: 2026-10-20. This is the central checklist for **open** testkit work.
 
 ## Freestanding search dependency update (2026-10-19)

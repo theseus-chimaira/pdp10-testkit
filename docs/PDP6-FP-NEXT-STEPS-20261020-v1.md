@@ -1,5 +1,13 @@
 # PDP-6 native floating-point: next steps (2026-10-20, v1)
 
+**Investigation update:** The DEC EMNF drawing was obtained, and the
+NRT computation for case 9 was independently reconstructed and matched
+to AAP at all eleven checkpoints. See
+`docs/PDP6-FP-NRT-HARDWARE-RESULT-20261020-v1.md`. The original plan
+below is retained as a historical baseline; its missing-drawing premise
+no longer applies. The case-9 FAT entry and NRT transition verification
+now pass. The isolated SIMH PDP-6 fidelity investigation remains open.
+
 ## Verified baseline
 
 - SIMH PDP-6 negative exact-halfway FADR/FSBR rounding is repaired in
