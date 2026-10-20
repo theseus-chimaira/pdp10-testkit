@@ -136,6 +136,14 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
         classes=re.findall(r'AAP_CLASS_EVENT_V1 type=([A-Z_]+) ',(w/'stage1-aap-v1.trace').read_text(errors='replace'))
         print('AAP CLASS EVENTS:',Counter(classes))
         print('AAP EXCEPTION EVENT DETAILS:',re.findall(r'AAP_CLASS_EVENT_V1 type=(?:NXM|ILLOP|PDLOV|PI_CYCLE) tick=[0-9]+ pc=[0-7]{6}',(w/'stage1-aap-v1.trace').read_text(errors='replace'))[:24])
+        from collections import deque
+        before=deque(maxlen=15)
+        with (w/'stage1-aap-v1.trace').open(errors='replace') as lines:
+            for line in lines:
+                if line.startswith('AAP_CLASS_EVENT_V1 type=PDLOV '):
+                    print('PDLOV INSTRUCTION CONTEXT:',line.strip(),list(before))
+                if line.startswith('AAP_TIMING_V1 '):
+                    before.append(line.strip())
         print('KINIT ENTRY TIMING:',re.findall(r'AAP_TIMING_V1 IT0 tick=([0-9]+) pc=054074', (w/'stage1-aap-v1.trace').read_text(errors='replace'))[:2])
         try:
             entry_at=next(i for i,event in enumerate(events) if event[0]=='054074')
@@ -158,13 +166,15 @@ with tempfile.TemporaryDirectory(prefix='aap-ptr-handoff-v1.',dir=os.environ.get
             status=read_until(proc,re.compile(rb'APR_STATUS_V1 (?:HALTED|RUNNING|START_PENDING)'),1)
             print('CPU status:',re.findall(rb'APR_STATUS_V1 [A-Z_]+',status)[-1:])
         except TimeoutError: print('CPU status: unresponsive')
-        for address in ('2','3','5','100','274','275','276','22674','22675','23771','24000','54074'):
+        for address in ('2','3','5','17','100','274','275','276','22674','22675','23771','24000','54074'):
             send('examine '+address)
+        send('xexamine apr.pc')
         send('quit')
         try:
             output,_=proc.communicate(timeout=2)
             readbacks=re.findall(rb'([0-7]{6}): ([0-7]{12})',output)
-            print('Post-halt readbacks:',readbacks[-13:])
+            print('Post-halt readbacks:',readbacks[-14:])
+            print('Post-halt console tail:',output[-360:])
             values={int(a,8):int(v,8) for a,v in readbacks}
             linked=(ROOT.parent/'DAIMOS/build/system/boot/pdp6/kinit.words').read_text().splitlines()
             for address,source in ((0o54074,0o54074),(0o22674,0o30030+(0o22674-0o60)),(0o22675,0o30030+(0o22675-0o60))):
