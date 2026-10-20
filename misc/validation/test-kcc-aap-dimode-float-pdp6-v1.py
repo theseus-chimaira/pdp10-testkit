@@ -65,6 +65,7 @@ def build_guest(work, mode, case):
         "literal": "tests/semantic/kcc-pdp6-float-literal-v1.c",
         "floatfold": "tests/semantic/kcc-pdp6-float-fold-v1.c",
         "negativehalfway": "tests/semantic/kcc-pdp6-negative-halfway-aap-v3.c",
+        "hardwarecase9": "tests/semantic/kcc-pdp6-fp-hardware-case9-v1.c",
         "roundedfp": "tests/semantic/kcc-pdp6-rounded-fp-boundaries-v2.c",
     }
     source = ROOT / sources[case]
@@ -95,6 +96,8 @@ def build_guest(work, mode, case):
                 "--expect", "kff_cmp_v1=1"]
     elif case == "negativehalfway":
         run += ["--expect", "pdp6_negative_half_index_v3=010"]
+    elif case == "hardwarecase9":
+        run += ["--expect", "pdp6_fp_hardware_case_v1=1"]
     elif case == "roundedfp":
         run += ["--expect", "pdp6_fp_case_index_v2=030"]
     command(run + [
@@ -241,8 +244,10 @@ def main():
         # hardware-fidelity investigation: its case 9 differs from the
         # mathematical oracle. Never weaken the normal AAP acceptance.
         cases = (("roundedfp",) if os.environ.get("PDP6_AAP_FULL_ROUNDED_V2")
+                 else ("hardwarecase9",) if
+                 os.environ.get("PDP6_AAP_HARDWARE_CASE9_ONLY_V1")
                  else ("upstream", "boundary", "nativefloat", "literal",
-                       "floatfold", "negativehalfway"))
+                       "floatfold", "negativehalfway", "hardwarecase9"))
         for case in cases:
             for mode in ("opt", "noopt"):
                 words, entry, status = build_guest(work, mode, case)

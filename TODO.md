@@ -8,11 +8,15 @@
   the eleven state checkpoints with the original AAP pulse trace.
 - [x] Verify the case-9 FAT alignment/register entry independently against
   the DEC floating-add and shift-datapath drawings.
-- [ ] Add a separate hardware-accurate case-9 guest oracle; retain the
-  existing 24-case mathematical diagnostic without changing its outputs.
-- [ ] Investigate and, if indicated, correct **SIMH PDP-6 only** for the
-  extra NRT5/NRT5A normalization pass, followed by both KCC modes,
-  both emulators, and the native-float/D-format/KPCODE2 inventory suites.
+- [x] Add a separate hardware-accurate case-9 guest oracle (AAP and SIMH,
+  both KCC modes). Retain the unchanged, manual 24-case mathematical
+  diagnostic, which now disagrees with the DEC hardware result at case 9.
+- [x] Correct the isolated SIMH PDP-6 36-bit AR/MQ FAT/NRT path
+  (SIMH commit `828459c`). Validate native-float/D-format, KPCODE2,
+  negative-halfway, hardware case 9, independent AAP, and test inventory
+  under both KCC modes as applicable.
+- [ ] Characterize all 24 arithmetic boundaries against DEC hardware,
+  recording any additional differences from the mathematical oracle.
 - [ ] Characterize KA10/KI10/KS10/KL10 floating-point semantics separately.
 
 See `docs/PDP6-FP-NRT-HARDWARE-RESULT-20261020-v1.md`.

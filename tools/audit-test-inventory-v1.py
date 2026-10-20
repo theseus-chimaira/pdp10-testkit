@@ -25,6 +25,8 @@ REQUIRED_ACTIVATIONS = frozenset(("active", "deferred", "removed",
 # executed by an owning registered script/source; they must not be scheduled
 # as independent main programs.  Keep this map strict so new orphans fail.
 SUPPORT_SOURCE_OWNERS = {
+    "tests/semantic/kcc-pdp6-fp-hardware-case9-v1.c":
+        "misc/validation/test-kcc-pdp6-fp-hardware-case9-v1.sh",
     "tests/semantic/kcc-pdp6-negative-halfway-aap-v3.c":
         "misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py",
     "tests/semantic/kcc-pdp6-rounded-fp-boundaries-v2.c":
