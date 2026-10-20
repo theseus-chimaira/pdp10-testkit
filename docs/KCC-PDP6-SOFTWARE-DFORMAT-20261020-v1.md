@@ -70,6 +70,10 @@ simulated HALT status.
 | Unmodified `930622-2.c`, KCC `-n` | 235 | PASS |
 | 17 integer + 10 fractional cases, KCC optimized | 624 | PASS |
 | 17 integer + 10 fractional cases, KCC `-n` | 818 | PASS |
+| 21 signed DImode/native 36-bit float cases, KCC optimized | 899 | PASS |
+| 21 signed DImode/native 36-bit float cases, KCC `-n` | 1001 | PASS |
+| Nine 36-bit float literal patterns, KCC optimized | 170 | PASS |
+| Nine 36-bit float literal patterns, KCC `-n` | 222 | PASS |
 | Negative control: replace guest entry instruction with HALT | 221 | Correctly rejected |
 
 The negative-control image never writes the success word, so the exit
@@ -78,19 +82,21 @@ an initially cleared variable, or HALT alone cannot pass the test. The
 registered executable regression is
 `misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py`.
 
-These results verify the integer-only software D-format guest on two
-PDP-6 emulators, not timing equivalence or the distinct PDP-6 native
-floating-point instruction implementation.
+These results verify both the integer-only software D-format guest and
+the separate signed DImode/native-single conversion path on two PDP-6
+emulators. The native float path uses the hardware-compatible 36-bit
+single representation, while the D-format helper itself does not execute
+native floating-point instructions. They do not prove later PDP-10 CPU
+semantics or timing equivalence.
 
 ## Further work
 
 The first AAP attempt waited for a diagnostic timing trace removed from
 the emulator, so it produced no useful result. The sentinel-transition
-oracle above supersedes that attempt and passes all four real guests.
-Native PDP-6 floating-point conversions and later
-PDP-10 hardware-specific floating modes also require separate formats,
-code generation, and regression evidence. The accepted software D-format
-implementation must not be silently reused for those modes.
+oracle above supersedes that attempt and passes all eight real guests.
+Later PDP-10 hardware-specific floating modes require separate profiles,
+code generation, and regression evidence. The accepted PDP-6 software
+D-format and native-single paths must not be silently reused for them.
 
 Historical failure analysis is preserved in
 `docs/KCC-71BIT-FLOAT-CONVERSION-INVESTIGATION-20261019-v1.md`.

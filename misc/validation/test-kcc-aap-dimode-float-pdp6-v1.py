@@ -57,13 +57,18 @@ def build_emulator(work):
 
 
 def build_guest(work, mode, case):
-    source = ROOT / ("tests/semantic/upstream/wide-int/930622-2.c"
-                     if case == "upstream" else
-                     "tests/semantic/kcc-dimode-float-pdp6-v1.c")
+    sources = {
+        "upstream": "tests/semantic/upstream/wide-int/930622-2.c",
+        "boundary": "tests/semantic/kcc-dimode-float-pdp6-v1.c",
+        "nativefloat": "tests/semantic/kcc-pdp6-dimode-nativefloat-v1.c",
+        "literal": "tests/semantic/kcc-pdp6-float-literal-v1.c",
+    }
+    source = ROOT / sources[case]
     library = (PDP10_PREFIX / "lib/kcc/freestanding/"
                "kcc-libc-dimode-float-pdp6-v1.s")
     output = work / ("%s-%s.s" % (case, mode))
-    cc = [PDP10_PREFIX / "bin/kcc", "-S", "-v=nostats", "-x=pdp6"]
+    cc = [os.environ.get("KCC_BIN") or (PDP10_PREFIX / "bin/kcc"),
+          "-S", "-v=nostats", "-x=pdp6"]
     if mode == "noopt":
         cc.append("-n")
     command(cc + ["-o", output, source])
@@ -77,6 +82,10 @@ def build_guest(work, mode, case):
     if case == "boundary":
         run += ["--expect", "df_case_index_v1=021",
                 "--expect", "df_fraction_case_index_v1=012"]
+    elif case == "nativefloat":
+        run += ["--expect", "native_float_case_v1=025"]
+    elif case == "literal":
+        run += ["--expect", "literal_case_v1=011"]
     command(run + [
              ROOT / "support/crt0-upstream-v1.s", output, library,
              ROOT / "support/exit-v1.s", ROOT / "support/abort-v1.s"])
@@ -206,7 +215,7 @@ def main():
                                      dir=TMPDIR) as temp:
         work = Path(temp)
         emulator = build_emulator(work)
-        for case in ("upstream", "boundary"):
+        for case in ("upstream", "boundary", "nativefloat", "literal"):
             for mode in ("opt", "noopt"):
                 words, entry, status = build_guest(work, mode, case)
                 print("AAP %s/%s: %d linked image words" %
@@ -218,7 +227,7 @@ def main():
                     negative[entry] = HALT
                     run_aap(emulator, work / "negative-control", negative,
                             entry, status, False, 1.5)
-        print("PASS independent AAP PDP-6 software D-format guest v1")
+        print("PASS independent AAP PDP-6 D-format/native-float guests v1")
 
 
 if __name__ == "__main__":

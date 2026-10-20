@@ -84,6 +84,15 @@ compiler check, not a full compiler/CPU/optimization sweep.
   `misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py`.
 - [ ] Independently determine native PDP-6 floating-point, KA10 and later
   PDP-10 D-format conversion semantics before enabling these CPU profiles.
+- [x] Fix signed DImode/36-bit float conversion on PDP-6, including
+  correct round-to-nearest-even narrowing (not scalar FLTR of high36),
+  and verify 21 independent floating bit patterns with both KCC modes on
+  SIMH and AAP. Fix the separate host-IEEE-float literal precision loss
+  and verify nine target single-float literal words under both profiles.
+  See `docs/KCC-PDP6-NATIVE-FLOAT-CORRECTIONS-20261020-v1.md`.
+- [ ] Audit other KCC compile-time `TS_FLOAT` arithmetic and cast folding
+  in `cceval.c`: some still use host IEEE binary32 (24 significant bits)
+  instead of 27-bit target precision. Their correctness is not yet proven.
 
 ## P1 — complete upstream semantic test integration
 
@@ -569,7 +578,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## Current baseline (not a completion claim)
 
 - `COMPILER_MATRIX.tsv`: 1,986 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 203 unique entries (including manual probes); paths present, but not every
+- `SPECIAL_TESTS.tsv`: 205 unique entries (including manual probes); paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable
