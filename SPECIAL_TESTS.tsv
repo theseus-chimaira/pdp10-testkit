@@ -1,4 +1,7 @@
 id	group	runner	path	profile	enabled	timeout
+kcc-71bit-floatcast-v1	validation	sh	misc/validation/test-kcc-71bit-floatcast-v1.sh	pdp6	yes	120
+kcc-dimode-float-pdp6-v1	validation	sh	misc/validation/test-kcc-dimode-float-pdp6-v1.sh	pdp6	yes	120
+kcc-dimode-storage-v1	validation	sh	misc/validation/test-kcc-dimode-storage-v1.sh	pdp6	yes	120
 freestanding-search-benchmark-v1	validation	python3	tools/benchmark-freestanding-search-v1.py	host	manual	900
 gcc-addressof-pdp6-ice-v1	validation	sh	misc/validation/test-gcc-addressof-pdp6-ice-v1.sh	pdp6	yes	120
 gcc-9bit-data-section-v1	validation	sh	misc/validation/test-gcc-9bit-data-section-v1.sh	pdp6	yes	120

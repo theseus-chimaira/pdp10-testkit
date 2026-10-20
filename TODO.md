@@ -1,6 +1,6 @@
 # PDP-10 testkit — outstanding work
 
-Status: 2026-10-19. This is the central checklist for **open** testkit work.
+Status: 2026-10-20. This is the central checklist for **open** testkit work.
 
 ## Freestanding search dependency update (2026-10-19)
 
@@ -58,6 +58,29 @@ invalid declarations (`920824-1.c`, `voidparam-1.c`) are fixed in KCC.
 upstream negatives plus legal control declarations. This is a PDP-6 host
 compiler check, not a full compiler/CPU/optimization sweep.
 
+## Current compiler priority: signed 71-bit / D-format casts
+
+- [x] Reproduce and eliminate KCC `vrwiden: reg already wide` on the unchanged
+  `930622-2.c` under both KCC PDP-6 optimization modes. The original
+  upstream test is now an active **PDP-6-native-only** matrix regression,
+  with independently passing GCC PDP-6 `-O0/-O1/-O2/-Os` executions.
+- [x] Fix and independently validate signed 71-bit automatic-load sign
+  normalization and PDP-6 D-format double negation. Both tests pass
+  optimized/unoptimized on PDP-6; the two tests are registered in
+  `kcc-dimode-storage-v1`.
+- [x] Implement a bounded-RAM signed 71-bit/software D-format conversion
+  using **PDP-6 integer instructions only**, with nearest/even rounding
+  and truncation toward zero, without scalar-widening a DImode pair.
+  Original upstream execution and the separate 17-case bit-pattern test
+  pass under KCC optimized and `-n`. The installed KCC and GCC archive
+  members are byte-identical. See
+  `docs/KCC-PDP6-SOFTWARE-DFORMAT-20261020-v1.md`.
+- [ ] Validate this software conversion independently on the AAP PDP-6
+  emulator using a complete guest-execution oracle. AAP `cpustatus` was
+  removed; old status-dependent test helpers cannot establish acceptance.
+- [ ] Independently determine native PDP-6 floating-point, KA10 and later
+  PDP-10 D-format conversion semantics before enabling these CPU profiles.
+
 ## P1 — complete upstream semantic test integration
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
@@ -78,9 +101,9 @@ compiler check, not a full compiler/CPU/optimization sweep.
   and supported GCC-only execution. Progress class by class; do not assign
   compiler defects to missing runtime prerequisites. Use the versioned
   disposition manifest for each follow-up.
-- [ ] Reproduce historical KCC `fatal vrwiden reg already wide` from
-  `tests/todo/generic/930622-2.c` as a potential P0 compiler ICE, and fix
-  any confirmed ICE before ordinary compiler debugging.
+- [x] Complete KCC P0 `vrwiden` ICE for the original upstream
+  `tests/semantic/upstream/wide-int/930622-2.c` without altering its source
+  or accepting any other processor's unverified floating-point behavior.
 
 - [x] Initial review of all `candidate` sources in `tests/semantic/upstream/` completed. Reviewed for
   PDP-10 integer/byte widths, supported C dialect, ABI, runtime requirements,
@@ -124,7 +147,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   extensions are portable C99. The classification sweep completed in
   `docs/SEMANTIC-EXTENSION-BATCH-20261014-v16.md`; remaining *execution*
   requirements are inventoried in the deferred-disposition v1 table.
-- [ ] Resolve the 270 currently `deferred` sources (seven inline-assembly C
+- [ ] Resolve the 269 currently `deferred` sources (seven inline-assembly C
   tests, KL10-specific `support/920428-1.s`, varargs/header/runtime
   dependencies, GNU extension feature decisions, width-sensitive cases and
   independently observed compiler failures). Earlier deferred
@@ -151,10 +174,11 @@ compiler check, not a full compiler/CPU/optimization sweep.
   17 deferred or under extension review.
 - [ ] Keep `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` and
   `COMPILER_MATRIX.tsv` synchronized with each per-test decision. Current
-  manifest: zero candidates, zero extensions, zero width reviews, 270 deferred,
-  448 active, 1 nonportable stress, and 55 removed; **271 classified sources
-  remain outside mandatory active coverage** after the first libc/header
-  execution batch on 2026-10-19.
+  manifest: zero candidates, zero extensions, zero width reviews, 269 deferred,
+  449 active, 1 nonportable stress, and 55 removed; **270 classified sources
+  remain outside mandatory active coverage**. The current new activation is
+  PDP-6-native-only; KA10/KI10/KS10 and alternative floating formats have
+  no test coverage from it.
   First deferred-batch follow-up activated three GCC-PDP-6 validated tests;
   see `docs/SEMANTIC-DEFERRED-BATCH-20261014-v2.md` for the remaining
   policy questions and actual implementation work still required.
@@ -540,11 +564,11 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 1,985 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 199 unique entries (including manual probes); paths present, but not every
+- `COMPILER_MATRIX.tsv`: 1,986 source rows; verified source paths present.
+- `SPECIAL_TESTS.tsv`: 202 unique entries (including manual probes); paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 448 active, 270 deferred, 55 removed and one nonportable
+- Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).

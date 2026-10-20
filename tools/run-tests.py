@@ -1037,6 +1037,16 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                             not label_exists(asm_text, search_name)):
                         fragments.append('kcc-libc-%s-v1.s' % search_name)
                         stub_exclude.add(search_name)
+                # This is a software *PDP-10 D-format ABI* conversion built
+                # from PDP-6 integer instructions, not PDP-6 native FP.
+                # The later processors' FP backends require separate
+                # validation; do not silently assign them this profile.
+                if (cell['machine'] == 'pdp6' and
+                        any(name in externals and
+                            not label_exists(asm_text, name)
+                            for name in ('__kcc_floatdidf', '__kcc_fixdfdi'))):
+                    fragments.append('kcc-libc-dimode-float-pdp6-v1.s')
+                    stub_exclude.update(('__kcc_floatdidf', '__kcc_fixdfdi'))
                 if 'memset' in externals and not label_exists(asm_text, 'memset'):
                     fragments.append('kcc-libc-memset-v1.s')
                     stub_exclude.add('memset')
