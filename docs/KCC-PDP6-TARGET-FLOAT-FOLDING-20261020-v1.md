@@ -1,5 +1,14 @@
 # KCC target-precision single-float constant folding (2026-10-20, v1)
 
+**PDP-6 runtime hardware update (2026-10-21):** Original DEC FDAS/EMNF
+drawings establish `0544000000003` as the Type 166 result for case 9.
+AAP agrees, and the corrected SIMH PDP-6 path (`828459c`) passes the
+separate hardware oracle in both KCC modes. The original 24-case
+*mathematical* diagnostic remains unchanged and manual: its former
+24/24 SIMH pass was on the pre-hardware-correction implementation.
+Current status: `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`.
+The compiler constant-folding work below is a separate completed stage.
+
 ## Correctness problem
 
 The hosted KCC evaluator had used IEEE binary32 (`float`, 24 significant
@@ -78,22 +87,24 @@ explicitly specifies that PDP-6 negative *exact halfway* rounded
 arithmetic moves toward zero, unlike later PDP-10 processors:
 https://www.saildart.org/10TO6.TED%5BH%2CDOC%5D
 
-SIMH's PDP-6 path previously added an entire `FPRBIT1` at this exact
+The original SIMH PDP-6 path added an entire `FPRBIT1` at this exact
 negative halfway boundary. The traced sign-extended two's-complement
 fraction was `1677777777700000000000` (octal), whose discarded field
 equaled `FPRBIT2`. Adding the full unit crossed a normalization boundary
-and produced a result on the wrong side of the halfway tie. The PDP-6
-path now adds the *half-unit* `FPRBIT2` only for negative exact ties;
-all other cases retain the previous rounding logic, including the
-distinct later-PDP-10 path. The original two-case regression now passes,
-and the corrected SIMH passes 24 boundary cases in both KCC modes.
-Eight negative halfway cases independently pass AAP in both modes.
+and produced a result on the wrong side of the halfway tie. The first
+PDP-6-only repair (`2e6612e`) added the *half-unit* `FPRBIT2` for
+negative exact ties, leaving the later-PDP-10 path separate. That
+intermediate SIMH revision passed the original two-case regression and
+all 24 mathematical boundary cases in both modes. The subsequent
+physical AR/MQ normalization (`828459c`) superseded its PDP-6 arithmetic
+implementation; negative-halfway regressions still pass in both modes.
+Eight negative-halfway cases independently pass AAP in both modes.
 
-## Separate AAP hardware-fidelity question: exact result at exponent edge
+## Historical AAP hardware-fidelity question (case 9 now resolved)
 
-**AAP has not been modified and is not declared incorrect.** In the full
-24-case expanded experiment, cases 1–8 passed on AAP. Case 9 was the
-first discrepancy:
+**AAP has not been modified for case 9.** In the original 24-case
+mathematical experiment, cases 1–8 passed on AAP. Case 9 was the first
+discrepancy:
 
 | Expression | Mathematically exact normalized word | AAP observed word |
 | --- | --- | --- |
@@ -102,26 +113,27 @@ first discrepancy:
 Direct AAP memory inspection confirmed operand words
 `0543400000000` and `0201400000000`, case index `011` (octal),
 and output word `0544000000003`; this was not inferred from a timeout.
-The SIMH candidate produces the mathematically expected `0544000000001`.
+The **pre-hardware-correction** SIMH candidate produced the mathematically
+expected `0544000000001`.
 
 The **same primary source**, `10TO6.TED` point 6, warns that the PDP-6
 can lose bits in floating add/subtract/multiply when significant information
 resides only in the low word before normalization. The PDP-6 arithmetic
 is not guaranteed to agree with a correctly rounded mathematical result.
-We have not established whether that specific hardware condition occurs
-in case 9, nor verified the precise result from an original 166 CPU
-logic drawing or physical PDP-6. AAP implements the actual PDP-6
+Subsequent independent FDAS/EMNF reconstruction established the Type 166
+case-9 result at the original DEC drawing level, matching the AAP pulse
+trace. No run on a physical PDP-6 is claimed. AAP implements the PDP-6
 normalization/rounding microsequences (`emu/apr.c`: `fat*`, `nrt*`,
 including `NR_ROUND`, `AR_EQ_FP_HALF` and `SC_COM`). These are
-evidence worth preserving, **not grounds for a speculative AAP patch**.
+evidence worth preserving, **not grounds for an AAP patch**.
 
 The testkit separately records the full 24-case AAP run as the **manual
 known-disagreement** test `misc/validation/test-aap-pdp6-rounded-fp-v2.py`.
 It deliberately fails against the mathematical oracle on AAP case 9;
-the normal AAP acceptance suite includes only the eight independently
-cross-verified negative-halfway cases. Do not label AAP faulty or write
-an AAP correction without a pulse-level comparison to primary DEC
-166 CPU drawings and verified physical behavior.
+the normal AAP acceptance suite now includes both the eight independently
+cross-verified negative-halfway cases and the separate hardware case-9
+guest. Both pass under optimized and unoptimized KCC. Do not replace
+the remaining mathematical oracle with unverified hardware expectations.
 
-Later PDP-10 floating modes, AAP's exact-result edge, and broader
-underflow/overflow cases remain outside the validated scope.
+Later PDP-10 floating modes, the other 23 mathematical boundary cases,
+and broader underflow/overflow cases remain outside the validated scope.

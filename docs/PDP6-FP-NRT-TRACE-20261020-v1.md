@@ -1,5 +1,12 @@
 # PDP-6 Type 166 AAP normalization trace, v1
 
+**Captured evidence (2026-10-20); case-9 diagnosis completed 2026-10-21.**
+The independent DEC FDAS/EMNF calculation subsequently matched the FAT
+entry and all eleven NRT checkpoints recorded below. Corrected SIMH
+and AAP now pass the separate hardware case-9 regression. The original
+manual 24-case mathematical diagnostic remains deliberately unchanged.
+See `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`.
+
 ## Reproduction
 
 Run the manual 24-case diagnostic with the original AAP emulator, now
@@ -36,12 +43,13 @@ stores the known discrepant value, includes:
 | NRT3 | `777000000003` | `400000000000` | `544` |
 | NRT4 / NRT6 | `544000000003` | `400000000000` | `544` |
 
-The trace proves that `...003` is derived by the second-pass left shift
-of an AR value already incremented by NRT5. The original DEC EMNF drawing
-also shows an NRT5A normalization-feedback path. This **does not** yet prove
-whether the branch conditions and source bit transfers are hardware-exact.
+The trace shows `...003` derived by the second-pass left shift of an AR
+value already incremented by NRT5. The original DEC EMNF drawing also
+shows an NRT5A normalization-feedback path. This trace **alone** did not
+prove the branch conditions and source bit transfers; the subsequent
+independent DEC FDAS/EMNF reconstruction supplied that case-9 check.
 
-## Next questions
+## Original next questions (subsequently resolved for case 9)
 
 1. Verify the NRT5A return condition and the second-pass NRT1/NRT2
    decisions against the right-hand side of `FD-D-166-0-EMNF`.

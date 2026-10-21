@@ -1,5 +1,12 @@
 # PDP-6 FP: 166 CPU drawing cross-check (2026-10-20, v1)
 
+**Historical trace map, superseded for case 9 on 2026-10-21.** The
+original FDAS/EMNF drawings and independent register reconstruction now
+establish `0544000000003` as the DEC Type 166 result for the disputed
+case; corrected SIMH and AAP both pass the hardware-specific regression.
+The original research questions below are preserved for provenance, not
+as outstanding tasks. See `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`.
+
 ## Scope and evidence status
 
 This is a trace map, not a finding that AAP is incorrect.  The mathematical

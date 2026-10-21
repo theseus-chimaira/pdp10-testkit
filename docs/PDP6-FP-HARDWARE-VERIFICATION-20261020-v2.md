@@ -1,6 +1,14 @@
 # PDP-6 FP original-drawing verification: evidence update v2
 
-## Result
+**Historical intermediate report (2026-10-20), superseded for case 9.**
+The missing EMNF circuit drawing was subsequently obtained, its FAT/NRT
+behavior was reconstructed and matched to AAP, and SIMH's PDP-6 path was
+corrected in `828459c`. The present hardware case-9 oracle passes on
+both emulators in both KCC modes. The following "unresolved" assessment
+describes the earlier incomplete evidence, **not the current status**.
+See `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`.
+
+## Result at time of initial investigation
 
 **Unresolved.** The accessible DEC original floating add/subtract flowchart
 confirms the FAT control-flow family; it does **not** provide enough evidence
@@ -19,7 +27,7 @@ The scanned floating-add sheet does not show the gates controlling the
 NRT left-shift loop or rounding increment.  Treat matching state names and
 high-level arrows as **partial corroboration**, not gate-level proof.
 
-## Exact still-unverified signals
+## Signals unverified at the time of this report
 
 * 6-27's condition equivalent to `AR_EQ_FP_HALF` and `AR9_EQ_AR0` at NRT1.
 * 6-27's condition equivalent to `NR_ROUND` at NRT3/NRT5.
@@ -31,7 +39,7 @@ high-level arrows as **partial corroboration**, not gate-level proof.
 The last two low-bit values of the result must be derived from *these*
 conditions, not from a mathematically rounded PDP-10 model alone.
 
-## Preservation and next action
+## Original preservation and next action (historical)
 
 Leave `pdp6/emu/apr.c`, SIMH and the existing 24-case expected values
 unchanged. The full AAP diagnostic remains manual, while the independent

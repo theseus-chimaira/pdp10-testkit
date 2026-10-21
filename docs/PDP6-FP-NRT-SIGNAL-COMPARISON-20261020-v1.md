@@ -1,5 +1,13 @@
 # PDP-6 Type 166 NORMALIZE RETURN: drawing-to-AAP audit (v1)
 
+**Historical control-path audit, superseded for case 9 on 2026-10-21.**
+The subsequent independent FDAS/EMNF model reproduces the FAT entry and
+eleven NRT states seen in the AAP pulse trace. Both AAP and corrected
+SIMH pass the dedicated hardware case-9 test. Remaining uncertainty
+concerns the other 23 cases and later PDP-10 CPUs, not this case-9
+control-flow comparison. See
+`docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`.
+
 ## Evidence
 
 Primary DEC drawing `FD-D-166-0-EMNF`, page 12 of the 80-page schematic
@@ -28,7 +36,7 @@ This is a visual control-flow comparison, **not** bit-level verification.
 The DEC drawing's identifier is `FD-D-166-0-EMNF`; `6-27` is the
 cross-reference in AAP's annotated source.
 
-## Decisive experiment
+## Original proposed decisive experiment (subsequently completed for case 9)
 
 Trace the unchanged AAP's failing operation
 `-134217728.0F + 1.0F`, recording pulse name and AR, MQ, MB, SC,
@@ -39,6 +47,10 @@ AR/MQ/MB/SC tracing; this should be tried before adding instrumentation.
 Its default tracing is off. The normal testkit acceptance paths must not
 enable large traces by default.
 
-The AAP result `0544000000003` and mathematical/SIMH result
-`0544000000001` remain unresolved. Neither emulator nor the 24-case
-manual diagnostic is changed by this audit.
+At the time of this control-path audit, the AAP result
+`0544000000003` and the mathematical/older-SIMH result
+`0544000000001` were still unresolved. Neither emulator nor the 24-case
+manual diagnostic was changed by this audit. Subsequent DEC model
+verification established AAP's case-9 result and led to the isolated
+SIMH PDP-6 fix in `828459c`; the 24-case mathematical diagnostic
+remains unchanged.

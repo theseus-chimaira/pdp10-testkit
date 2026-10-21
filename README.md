@@ -29,6 +29,18 @@ Supporting sources included by registered tests remain next to their owning
 tests. The dated import batch was consolidated into `tests/semantic/imported/`
 and `misc/kcc-host/`.
 
+## PDP-6 Type 166 floating-point fidelity
+
+The original DEC Type 166 FDAS/EMNF normalization logic differs from
+mathematically rounded floating-point results at some boundaries. The
+dedicated case-9 hardware regression expects octal `0544000000003` and
+passes under both SIMH PDP-6 and AAP with KCC optimized and unoptimized.
+The original 24-case mathematical regression retains its independent
+oracle and is **manual**, not hardware acceptance. Hardware behavior for
+its other 23 cases and floating-point semantics of later PDP-10 CPU
+families remain to be verified. See
+`docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md` and `TODO.md`.
+
 The retired codegen import collection was reviewed and selectively migrated;
 see `docs/CODEGEN-IMPORT-AUDIT-20261014.md`.
 

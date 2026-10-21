@@ -1,6 +1,6 @@
 # PDP-10 testkit — outstanding work
 
-## PDP-6 Type 166 floating-point hardware fidelity (2026-10-20)
+## PDP-6 Type 166 floating-point hardware fidelity (updated 2026-10-21)
 
 - [x] Recover original DEC `FD-D-166-0-EMNF` normalization drawing and
   archive the relevant sheet in `refs/hardware`.
@@ -19,9 +19,11 @@
   recording any additional differences from the mathematical oracle.
 - [ ] Characterize KA10/KI10/KS10/KL10 floating-point semantics separately.
 
-See `docs/PDP6-FP-NRT-HARDWARE-RESULT-20261020-v1.md`.
+Current verified state: `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`.
+Original drawing/trace evidence:
+`docs/PDP6-FP-NRT-HARDWARE-RESULT-20261020-v1.md`.
 
-Status: 2026-10-20. This is the central checklist for **open** testkit work.
+Status: 2026-10-21. This is the central checklist for **open** testkit work.
 
 ## Freestanding search dependency update (2026-10-19)
 
@@ -117,18 +119,22 @@ compiler check, not a full compiler/CPU/optimization sweep.
   SIMH/AAP PDP-6, and prevent unsafe floating reassociation. See
   `docs/KCC-PDP6-TARGET-FLOAT-FOLDING-20261020-v1.md`.
 - [x] Repair SIMH PDP-6 native negative-halfway FADR/FSBR rounding.
-  The PDP-6-only fix is grounded in Stanford SAIL `10TO6.TED` and
-  verified on SIMH and AAP with eight negative-halfway cases, with
-  24 theoretical boundary cases also passing corrected SIMH. The
-  original `kcc-pdp6-negative-fp-runtime-v1` is now enabled.
-- [ ] Establish the original PDP-6 hardware behavior for
-  `-134217728.0F + 1.0F` at the exponent edge. AAP emits
-  `0544000000003`; SIMH emits the mathematically expected
-  `0544000000001`. **Do not assume AAP is wrong**: `10TO6.TED`
-  explicitly documents low-word information loss in some PDP-6
-  normalization cases. The complete 24-case AAP run remains manual
-  and fails on case 9 until checked against DEC 166 circuitry.
-  Investigation plan: `docs/PDP6-FP-NEXT-STEPS-20261020-v1.md`.
+  The first PDP-6-only repair (`sims` commit `2e6612e`) was grounded in
+  Stanford SAIL `10TO6.TED`; eight negative-halfway cases passed on AAP
+  and SIMH. At that intermediate revision, SIMH also passed all 24
+  *mathematical* boundary cases. The subsequent Type 166 AR/MQ hardware
+  correction (`828459c`) supersedes its arithmetic implementation while
+  retaining the passing negative-halfway regressions. The original
+  `kcc-pdp6-negative-fp-runtime-v1` remains enabled.
+- [x] Establish the original DEC Type 166 behavior for
+  `-134217728.0F + 1.0F`: AAP and corrected SIMH both produce
+  `0544000000003`, consistent with independent FDAS/EMNF reconstruction;
+  the mathematical oracle produces `0544000000001`. The separate
+  case-9 hardware regression passes on both emulators with KCC optimized
+  and unoptimized. The 24-case mathematical test is **unchanged and
+  manual**; its case-9 disagreement is not an AAP defect. The other 23
+  cases are **not yet hardware-characterized**. See
+  `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`.
 - [x] Fix the strict four-phase KCC output mismatch in `cccse.c`
   at `-n`: DAIMOS KGEN previously had 64 PCODE peephole slots while
   DAIMOS KCC1/integrated KCC had 256, changing register selection at
@@ -623,7 +629,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## Current baseline (not a completion claim)
 
 - `COMPILER_MATRIX.tsv`: 1,986 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 210 unique entries (including manual probes); paths present, but not every
+- `SPECIAL_TESTS.tsv`: 211 unique entries (including manual probes); paths present, but not every
   special row is yet independently dispatched.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable
