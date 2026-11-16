@@ -9,6 +9,7 @@ checked without modifying any test or running a compiler.
 import argparse
 import collections
 import csv
+import hashlib
 from pathlib import Path
 import sys
 
@@ -18,6 +19,10 @@ MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
 CLASSIFIED = (ROOT / "docs" /
               "SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv")
+DEFERRED_DISPOSITIONS = (ROOT / "docs" /
+                         "SEMANTIC-DEFERRED-DISPOSITION-20261019-v1.tsv")
+DUPLICATE_OWNERSHIP = (ROOT / "docs" /
+                       "DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv")
 REQUIRED_ACTIVATIONS = frozenset(("active", "deferred", "removed",
                                   "stress-nonportable"))
 
@@ -92,6 +97,79 @@ def rows(path, comments=False):
 def duplicates(values):
     return sorted(key for key, count in collections.Counter(values).items()
                   if count > 1)
+
+
+def audit_deferred_duplicates(upstream, problems):
+    """Pin identical deferred sources without assuming equivalent test roles.
+
+    Include collisions with active copies: an active KCC result does not
+    discharge an independently recorded GCC failure on the same source.
+    This is a static ownership inventory, never execution acceptance.
+    """
+    eligible = {}
+    grouped = collections.defaultdict(list)
+    for row in upstream:
+        path = row["classified_path"]
+        if row["activation"] not in ("active", "deferred"):
+            continue
+        full = (ROOT / path).resolve()
+        if not full.is_relative_to(ROOT) or not full.is_file():
+            continue  # The existing source inventory reports this error.
+        digest = hashlib.sha256(full.read_bytes()).hexdigest()
+        eligible[path] = (digest, row["activation"])
+        grouped[digest].append(path)
+
+    deferred_dispositions = {r["classified_path"]: r["disposition"]
+                             for r in rows(DEFERRED_DISPOSITIONS)}
+    actual = {}
+    for digest, paths in grouped.items():
+        paths.sort()
+        for index, first in enumerate(paths):
+            for second in paths[index + 1:]:
+                first_activation = eligible[first][1]
+                second_activation = eligible[second][1]
+                if "deferred" not in (first_activation, second_activation):
+                    continue
+                disposition_a = deferred_dispositions.get(first, "")
+                disposition_b = deferred_dispositions.get(second, "")
+                if first_activation == "active" or second_activation == "active":
+                    flag = "active-copy-profile-reconciliation"
+                elif disposition_a != disposition_b:
+                    flag = "disposition-conflict"
+                else:
+                    flag = "profile-ownership-review"
+                actual[(first, second)] = {
+                    "source_a": first,
+                    "source_b": second,
+                    "sha256": digest,
+                    "activation_a": first_activation,
+                    "activation_b": second_activation,
+                    "disposition_a": disposition_a,
+                    "disposition_b": disposition_b,
+                    "review_flag": flag,
+                    "review_status": "pending",
+                }
+
+    recorded = {}
+    for row in rows(DUPLICATE_OWNERSHIP):
+        key = (row["source_a"], row["source_b"])
+        if key in recorded:
+            problems.append("duplicate deferred ownership row: %s %s" % key)
+        recorded[key] = row
+        if key not in actual:
+            problems.append("stale deferred ownership pair: %s %s" % key)
+            continue
+        for column, expected in actual[key].items():
+            if row.get(column) != expected:
+                problems.append("deferred ownership %s mismatch: %s %s" %
+                                (column, key[0], key[1]))
+    for key in sorted(actual.keys() - recorded.keys()):
+        problems.append("untracked identical deferred source: %s %s" % key)
+
+    flags = collections.Counter(row["review_flag"] for row in actual.values())
+    print("deferred_duplicate_pairs=%d active_copy=%d disposition_conflicts=%d pending_review=%d" %
+          (len(actual), flags["active-copy-profile-reconciliation"],
+           flags["disposition-conflict"], len(actual)))
 
 
 def audit():
@@ -191,6 +269,7 @@ def audit():
                             (source, owner))
     for source in sorted(unowned):
         problems.append("unowned test source: " + source)
+    audit_deferred_duplicates(upstream, problems)
     print("matrix_sources=%d special_entries=%d special_unique_ids=%d" %
           (len(matrix), len(special), len(set(r["id"] for r in special))))
     print("upstream_classified=%d %s" %

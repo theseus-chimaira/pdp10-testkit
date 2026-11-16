@@ -74,3 +74,12 @@ Upstream GCC execution tests are now individually classified beneath
 `tests/semantic/upstream/`. Their per-file activation state and rationale are
 recorded in `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv`.
 They are not automatically active compiler-matrix entries.
+
+The deferred upstream inventory includes identical retained sources with
+distinct original paths and sometimes different compiler evidence. The
+static source-ownership gate `tools/audit-test-inventory-v1.py` checks the
+50 source pairs pinned in
+`docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv`, including two copies
+that match already active tests. See
+`docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.md`. This tracks pending
+ownership review; it does not execute the tests or establish pass status.

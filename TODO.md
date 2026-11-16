@@ -161,6 +161,16 @@ compiler check, not a full compiler/CPU/optimization sweep.
 - [ ] Review the 48 pairs of identical deferred test content, including
   the two deferred sources identical to already active copies; consolidate
   test ownership only when the target profiles and intended assertions agree.
+  Static source fingerprinting now records **48 deferred/deferred pairs and
+  two additional deferred/active pairs** in
+  `docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv` (50 in total).
+  Six deferred pairs disagree on disposition; the two active
+  `strct-pack-1.c`/`strct-pack-3.c` copies retain unresolved GCC failure
+  evidence despite earlier KCC passes. This is pending manual review.
+- [x] Integrate a fail-closed static duplicate-source inventory into the
+  existing registered `test-inventory-v1` verifier; reject new, stale or
+  changed deferred/active source-collision evidence without executing tests.
+  See `docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.md`.
 - [ ] Verify deferred blockers with current target headers, libc, varargs,
   and supported GCC-only execution. Progress class by class; do not assign
   compiler defects to missing runtime prerequisites. Use the versioned
