@@ -1,3 +1,4 @@
+#define DAS_HOST 1
 #define DAS_ARGV_SELFTEST 1
 #define DAS_NO_MAIN 1
 #include "das.c"

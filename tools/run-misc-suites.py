@@ -16,15 +16,14 @@ TMP = os.environ.get("TMPDIR") or str(Path.home() / "tmp")
 Path(TMP).mkdir(parents=True, exist_ok=True)
 ENV = dict(os.environ, TMPDIR=TMP)
 
-DAS_FAST = """run-das-fast-tests.sh check-das-phase-ir.sh check-das-phase2-transport.sh check-reloc-negative-addend.sh check-symbol-leading-data.sh check-s6filter.sh run-das-stream-tests.sh check-s6text.sh""".split()
-
-def run_special(group, env=ENV):
+def run_special(group, env=ENV, profiles=None):
     failures = []
     executed = 0
     with (ROOT / "SPECIAL_TESTS.tsv").open(encoding="utf-8") as f:
         rows = list(csv.DictReader(f, delimiter="\t"))
     for row in rows:
-        if row["group"] != group or row["enabled"] != "yes":
+        if (row["group"] != group or row["enabled"] != "yes" or
+                (profiles is not None and row["profile"] not in profiles)):
             continue
         executed += 1
         path = ROOT / row["path"]
@@ -68,14 +67,12 @@ def main(suite):
             raise SystemExit("invalid DAS_ROOT: " + str(das))
         env = dict(ENV, DAS_ROOT=str(das), DAIMOS_REPO=os.environ.get("DAIMOS_REPO", "../DAIMOS"))
         if suite == "das-native":
-            run("sh", "misc/das/build-das-native-phases.sh", env=env)
+            failures += run_special("das", env=env, profiles={"native"})
         else:
             run("make", "-C", das, "PDP10_PREFIX=" + PREFIX, "all", env=env)
-            for name in DAS_FAST:
-                run("sh", "misc/das/" + name, env=env)
+            failures += run_special("das", env=env, profiles={"fast"})
             if suite == "das":
-                for name in ("run-das-tests.sh", "run-dobj-link-tests.sh"):
-                    run("sh", "misc/das/" + name, env=env)
+                failures += run_special("das", env=env, profiles={"full"})
     elif suite == "gcc-bare-libgcc":
         failures += run_special("gcc-bare-libgcc")
     elif suite == "pdp10-tools":

@@ -55,7 +55,7 @@ def main():
         ('bad-entry', [word(DXR_MAGIC, 2), word(1, 0), 0, 0], 'outside image size'),
         ('trunc-image', [word(DXR_MAGIC, 0), word(3, 0), 0], 'truncated image'),
         ('trunc-bitmap', [word(DXR_MAGIC, 0), word(3, 0), 0, 0, 0], 'truncated relocation bitmap'),
-        ('bad-dxr2-tag', [word(DXR_MAGIC, 0), word(1, 0), 0, 0, 0], 'bad DXR2 text metadata tag'),
+        ('bad-dxr2-tag', [word(DXR_MAGIC, 0), word(1, 0), 0, 0, 0], 'bad DXR2 metadata tag'),
         ('trailing', [word(DXR_MAGIC, 0), word(1, 0), 0, 0, 0, 0], 'trailing words'),
     ]
     rc = 0

@@ -74,9 +74,16 @@ under `misc/kcc-host/`; set `KCC_REPO` to the KCC source checkout (defaults
 used by some scripts to `$HOME/git/kcc`). Individual scripts may also need
 `BMAKE`, `MAKESYSPATH`, or a host C compiler. These are not CPU/ISA/optimization
 matrix cells.
-The DAS and tools aggregators retain their original ordered execution and
-build prerequisites; their individual registry entries are informational
-until those suites are fully migrated to per-test execution.
+The DAS dispatcher reads ordered, independently timed `fast`, `full`, and
+`native` entries directly from `SPECIAL_TESTS.tsv`. `das` runs all eight
+`fast` entries before the two `full` entries; `das-native` runs the native
+phase-build entry. Entries marked `nested` belong to their parent scripts
+and are not repeated. The manual native chain probe is registered but not
+part of the default suite. Native execution remains subject to its genuine
+code-size and guest-execution gates.
+
+The independent tools suite retains one authoritative registry entry for its
+aggregate; it has not been split into per-utility registry entries yet.
 
 `pdp10-tools` selects the **independent** `../pdp10-tools` checkout by
 default (override with `PDP10_TOOLS_REPO`). It rejects uncommitted source

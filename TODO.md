@@ -412,11 +412,18 @@ The next eight batches are documented in
   different DAIMOS host-tool sources.
 
 - [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.
-  Currently `tools/run-misc-suites.py` retains hardcoded `DAS_FAST`, explicit
-  DAS build/run lists, and a tools aggregate. Preserve prerequisite builds,
-  ordering, per-test environment, timeouts, and error reporting when migrating
-  individual registry rows. Do not remove the useful separate
+  DAS dispatch is now complete: `fast`/`full`/`native` execution is driven
+  by ordered registry rows and their per-test timeouts; nested helpers are
+  not independently redispatched. DAS fast 8/8 and full 2/2 pass on
+  2026-11-16. The independent tools suite still owns one aggregate row,
+  not individual per-utility registrations. Preserve the separate
   `run-misc-tests.sh` interface: these are not CPU/optimization cells.
+- [ ] Resolve the current native DAS size gate without relaxing its bound:
+  KCC PDP-6 `-O` emits 94 instructions for `das_strip_c_comments` versus
+  the established 68-instruction limit. Phase output filename expectations
+  have been reconciled; the native guest test was not reached. Verify that
+  any proposed correction preserves comment/quote handling, resident budget,
+  and complete native phase/guest acceptance.
 - [ ] Audit the specialized suite registry for other hardcoded dispatch and
   misleading/informational entries; verify each enabled registration really
   executes in its advertised suite, and decide whether `kcc-all` should

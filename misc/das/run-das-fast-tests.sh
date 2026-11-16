@@ -77,7 +77,9 @@ $CC $CFLAGS -o "$MKU9" "$TEST_ROOT/mkutf9.c"
 cmp "$ASCII" "$UTF9"
 cmp "$ASCII" "$S6"
 "$DAS_ROOT/dxrcheck" -q "$ASCII"
-for oldopt in --ascii --optimize -a -o; do
+# -o is an intentionally supported legacy output flag and is exercised via
+# pdp10-dec-none-as below; it is not an obsolete option to reject here.
+for oldopt in --ascii --optimize -a; do
     if "$DAS_ROOT/das" "$oldopt" -O "$BAD_EXPR" \
             "$TEST_ROOT/dxr-input-equivalence.s" >/dev/null 2>&1; then
         echo "DAS accepted retired option spelling: $oldopt" >&2
@@ -100,12 +102,12 @@ done
 "$TEST_ROOT/check-dxr-c-comments.sh" "$TEST_ROOT" "$DAS_ROOT/das"
 "$TEST_ROOT/check-dxr-c-comments.sh" "$TEST_ROOT" "$DAS_ROOT/pdp10-dec-none-as"
 
-"$DAS_ROOT/pdp10-dec-none-as" -L "$GCC_SYNTAX_LABELS" -O "$GCC_SYNTAX" \
+"$DAS_ROOT/pdp10-dec-none-as" -l "$GCC_SYNTAX_LABELS" -o "$GCC_SYNTAX" \
     "$TEST_ROOT/dxr-gcc-syntax-compat.s"
 "$TEST_ROOT/dxr-gcc-syntax-compat-check.py" "$GCC_SYNTAX"
 grep -q '^runtime_compare_subword_branches_all[[:space:]]' "$GCC_SYNTAX_LABELS"
 
-"$DAS_ROOT/pdp10-dec-none-as" -O "$GCC_KL10_DATA" \
+"$DAS_ROOT/pdp10-dec-none-as" -o "$GCC_KL10_DATA" \
     "$TEST_ROOT/dxr-gcc-kl10-data.s"
 "$TEST_ROOT/dxr-gcc-kl10-data-check.py" "$GCC_KL10_DATA"
 

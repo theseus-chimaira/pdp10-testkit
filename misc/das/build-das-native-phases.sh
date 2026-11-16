@@ -14,9 +14,9 @@ DAIMOS_REPO=${DAIMOS_REPO:?set DAIMOS_REPO to the DAIMOS source tree}
 TMPDIR=${TMPDIR:?set TMPDIR to a writable temporary directory}
 BASE=$TMPDIR/das-native-phases-$$
 BUILD=$BASE-build
-P1S=$BUILD/das1.s
+P1S=$BUILD/das1-v1.s
 P1I=$BUILD/das1.dxr
-P2S=$BUILD/das2.s
+P2S=$BUILD/das2-v1.s
 P2I=$BUILD/das2.dxr
 DRIVER=$BUILD/das.dxr
 trap 'rm -rf "$BUILD"' 0 1 2 3 15

@@ -20,6 +20,11 @@ run by `./run-misc-tests.sh`. Runner usage is described in `docs/parallel-cells.
 The `pdp10-tools` special suite tests the independent `../pdp10-tools`
 repository at its explicitly reported Git revision; it does not silently
 substitute the different `DAIMOS/tools/host` source tree.
+The DAS `das-fast`, `das`, and `das-native` suites select ordered `fast`,
+`full`, and `native` entries in the special registry. Nested helper tests
+are not dispatched a second time; see
+`docs/DAS-REGISTRY-INTEGRATION-20261116-v1.md` for verified results and the
+still-open native code-size gate.
 
 For a read-only inventory across the KCC, GCC, DAS, and PDP10-TOOLS source
 repositories, run `python3 tools/census-cross-repo-v1.py`. The versioned

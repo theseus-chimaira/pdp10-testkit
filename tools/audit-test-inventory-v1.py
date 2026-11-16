@@ -102,6 +102,24 @@ def audit():
     matrix_paths = set(row["test"] for row in matrix)
     special_paths = set(row["path"] for row in special)
 
+    # DAS suites are dispatched from profile-ordered registry entries.
+    # A nested checker is owned by its enclosing fast/native script and
+    # must not run a second time as an independent suite entry.
+    das_profiles = collections.Counter()
+    for row in special:
+        if row["group"] != "das":
+            continue
+        profile = row["profile"]
+        enabled = row["enabled"]
+        das_profiles[profile] += 1
+        if profile not in ("fast", "full", "native", "nested", "manual"):
+            problems.append("unknown DAS execution profile: %s" % row["id"])
+        elif enabled != ("manual" if profile == "manual" else "yes"):
+            problems.append("inconsistent DAS registration: %s" % row["id"])
+    for profile in ("fast", "full", "native"):
+        if not das_profiles[profile]:
+            problems.append("missing DAS execution group: " + profile)
+
     for label, keys in (("matrix source", [r["test"] for r in matrix]),
                         ("special ID", [r["id"] for r in special]),
                         ("special script", [r["path"] for r in special]),

@@ -11,7 +11,7 @@ TMPBASE=${TMPDIR:-.}
 WORK=$(mktemp -d "$TMPBASE/das-dobj-test.XXXXXX")
 trap 'rm -rf "$WORK"' EXIT HUP INT TERM
 
-make -C "$DAS_ROOT" all >/dev/null
+make -C "$DAS_ROOT" PDP10_PREFIX="$PDP10_PREFIX" all >/dev/null
 
 # DARC is the target archive format.  Host ar/ranlib compatibility aliases are
 # intentionally absent; DARC carries its own symbol index.

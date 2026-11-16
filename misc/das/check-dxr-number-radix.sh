@@ -2,10 +2,16 @@
 set -eu
 root=${1:-.}
 assembler=${2:-$root/das}
+# The GCC compatibility alias uses the historical -b/-a/-o interface;
+# standalone DAS uses -B/-A/-O. Test the same octal oracle through both.
+case ${assembler##*/} in
+    pdp10-dec-none-as) set -- -b -a -o ;;
+    *) set -- -B -A -O ;;
+esac
 TMPDIR=${TMPDIR:?set TMPDIR to a writable temporary directory}
 tmp=$TMPDIR/das-radix.$$
 trap 'rm -f "$tmp.dxr"' 0 1 2 3 15
-"$assembler" -B -A -O "$tmp.dxr" "$root/dxr-number-radix.s"
+"$assembler" "$@" "$tmp.dxr" "$root/dxr-number-radix.s"
 python3 - "$tmp.dxr" <<'PYRADIX'
 import pathlib
 import sys

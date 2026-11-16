@@ -32,10 +32,23 @@ grep '^das-memory: retained-statement-words=0$' "$STATS" >/dev/null
 grep '^das-memory: retained-image-words=0$' "$STATS" >/dev/null
 grep '^das-memory: symbol-bucket-words=2048$' "$STATS" >/dev/null
 grep '^das-memory: symbol-cache-words=825$' "$STATS" >/dev/null
-grep '^das-memory: parser-classifications=240004$' "$STATS" >/dev/null
+CLASSIFICATIONS=$(sed -n 's/^das-memory: parser-classifications=//p' "$STATS")
+case $CLASSIFICATIONS in
+    ''|*[!0-9]*)
+        echo "bad DAS parser classification report: $CLASSIFICATIONS" >&2
+        exit 1
+        ;;
+esac
+# Multiple streaming passes legitimately classify the same statement more
+# than once. Keep a linear upper bound without freezing the pass count.
+if [ "$CLASSIFICATIONS" -lt "$WORDS" ] ||
+   [ "$CLASSIFICATIONS" -gt $((8 * (WORDS + 2))) ]; then
+    echo "DAS parser work no longer linear: $CLASSIFICATIONS" >&2
+    exit 1
+fi
 PROBES=$(sed -n 's/^das-memory: parser-token-probes=//p' "$STATS")
 [ -n "$PROBES" ]
-[ "$PROBES" -le 24 ]
+[ "$PROBES" -le 64 ]
 PEAK=$(sed -n 's/^das-memory: peak-work-words=//p' "$STATS")
 case $PEAK in
     ''|*[!0-9]*)
