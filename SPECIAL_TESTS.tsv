@@ -22,6 +22,7 @@ pdp6-opcode-report-v1	compat	python3	misc/compat/test-pdp6-opcode-report-v1.py	h
 pdp6-profile-comparison-v1	compat	python3	misc/compat/test-pdp6-profile-comparison-v1.py	host	yes	60
 deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
 test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
+test-pdp10-tools-registry-v2	verify	python3	tools/test-pdp10-tools-registry-v2.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120
 kcc-p0-diagnostics-v1	validation	sh	misc/validation/test-kcc-p0-diagnostics-v1.sh	default	yes	120
@@ -99,7 +100,15 @@ das-check-dxr-conditional-rept-errors	das	sh	misc/das/check-dxr-conditional-rept
 das-check-dxr-irp-irpc-errors	das	sh	misc/das/check-dxr-irp-irpc-errors.sh	nested	yes	120
 das-check-dxr-macro-errors	das	sh	misc/das/check-dxr-macro-errors.sh	nested	yes	120
 das-check-dxr-number-radix	das	sh	misc/das/check-dxr-number-radix.sh	nested	yes	120
-pdp10-tools	tools	sh	misc/tools/run.sh	repository	yes	120
+pdp10-tools-dobj-v2	tools	sh	misc/tools/cases/dobj-v2.sh	repository	yes	120
+pdp10-tools-objdump-v2	tools	sh	misc/tools/cases/objdump-v2.sh	repository	yes	120
+pdp10-tools-p10fold-v2	tools	sh	misc/tools/cases/p10fold-v2.sh	repository	yes	120
+pdp10-tools-p10super-cfg-v2	tools	sh	misc/tools/cases/p10super-cfg-v2.sh	repository	yes	120
+pdp10-tools-p10super-rewrite-v2	tools	sh	misc/tools/cases/p10super-rewrite-v2.sh	repository	yes	120
+pdp10-tools-p10run-v2	tools	sh	misc/tools/cases/p10run-v2.sh	repository	yes	120
+pdp10-tools-csix-v2	tools	sh	misc/tools/cases/csix-v2.sh	repository	yes	120
+pdp10-tools-media-v2	tools	sh	misc/tools/cases/media-v2.sh	repository	yes	120
+pdp10-tools-install-v2	tools	sh	misc/tools/cases/install-v2.sh	repository	yes	120
 daimos-kcc-array-bound36-20261010	kcc-host	sh	misc/kcc-host/daimos-kcc-array-bound36-20261010.sh	host	yes	120
 daimos-kcc-ccsrc-singlepass-20261010	kcc-host	sh	misc/kcc-host/daimos-kcc-ccsrc-singlepass-20261010.sh	host	yes	120
 daimos-kcc-findptr-reverse-20261010	kcc-host	sh	misc/kcc-host/daimos-kcc-findptr-reverse-20261010.sh	host	yes	120

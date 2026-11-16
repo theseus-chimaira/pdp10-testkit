@@ -120,6 +120,19 @@ def audit():
         if not das_profiles[profile]:
             problems.append("missing DAS execution group: " + profile)
 
+    # The independent tools build is prepared exactly once outside the
+    # registry; each entry owns a single assertion suite, never a second
+    # source build or a nested aggregate rerun.
+    tool_rows = [row for row in special if row["group"] == "tools"]
+    if not tool_rows:
+        problems.append("missing independent PDP10-TOOLS test cases")
+    for row in tool_rows:
+        if (row["runner"] != "sh" or row["profile"] != "repository" or
+                row["enabled"] != "yes" or
+                not row["path"].startswith("misc/tools/cases/")):
+            problems.append("invalid independent tool-case ownership: " +
+                            row["id"])
+
     for label, keys in (("matrix source", [r["test"] for r in matrix]),
                         ("special ID", [r["id"] for r in special]),
                         ("special script", [r["path"] for r in special]),

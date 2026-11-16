@@ -418,13 +418,15 @@ The next eight batches are documented in
   This does not establish coverage of all independent tools or of the
   different DAIMOS host-tool sources.
 
-- [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.
-  DAS dispatch is now complete: `fast`/`full`/`native` execution is driven
-  by ordered registry rows and their per-test timeouts; nested helpers are
-  not independently redispatched. DAS fast 9/9 and full 2/2 pass on
-  2026-11-16. The independent tools suite still owns one aggregate row,
-  not individual per-utility registrations. Preserve the separate
-  `run-misc-tests.sh` interface: these are not CPU/optimization cells.
+- [x] Make `SPECIAL_TESTS.tsv` authoritative for DAS and independent tools.
+  DAS `fast`/`full`/`native` profiles retain ordered independently timed
+  entries; nested helpers are not redispatched. The independent tools
+  suite now has nine individual registered test cases, each with its own
+  timeout and PASS/FAIL status, sharing exactly one clean Git-archived
+  source build. All nine original cases pass, and the source-independent
+  dispatcher regression verifies failure isolation and cleanup. Preserve
+  the separate `run-misc-tests.sh` interface: these are not CPU/opt cells.
+  See `docs/PDP10-TOOLS-REGISTRY-20261116-v2.md`.
 - [x] Restore the native DAS size gates without raising any limits:
   current DAS `6dfb707` emits 68/68 for `das_strip_c_comments`, 133/136
   for `das_read_line`, and fits both phase-image/BSS/process ceilings.

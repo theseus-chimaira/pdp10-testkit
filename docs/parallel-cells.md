@@ -82,11 +82,15 @@ and are not repeated. The manual native chain probe is registered but not
 part of the default suite. Native execution remains subject to its genuine
 code-size and guest-execution gates.
 
-The independent tools suite retains one authoritative registry entry for its
-aggregate; it has not been split into per-utility registry entries yet.
-The aggregate also checks the byte-exact output and malformed-input behavior
-of `mkdt`, `mkstream` and `words2pt` without rebuilding the tools separately;
-see `docs/PDP10-TOOLS-MEDIA-ENCODERS-20261116-v1.md`.
+The independent `pdp10-tools` suite now has nine individually registered
+test entries in `SPECIAL_TESTS.tsv`: DOBJ/DARC, objdump, p10fold/dlink,
+p10super CFG, p10super rewrites, p10run/KA10, CSIX, media encoders, and
+install/uninstall cleanup. The dispatcher snapshots and builds the source
+**once** before running all nine entries, each with an independent timeout
+and PASS/FAIL result. The same source revision and artifacts are used by
+every test, with guaranteed cleanup on test or setup failure. See
+`docs/PDP10-TOOLS-REGISTRY-20261116-v2.md` and the media-format contract
+in `docs/PDP10-TOOLS-MEDIA-ENCODERS-20261116-v1.md`.
 
 `pdp10-tools` selects the **independent** `../pdp10-tools` checkout by
 default (override with `PDP10_TOOLS_REPO`). It rejects uncommitted source

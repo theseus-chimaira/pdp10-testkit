@@ -9,6 +9,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
 PREFIX = os.environ["PDP10_PREFIX"]
@@ -35,6 +36,8 @@ def run_special(group, env=ENV, profiles=None):
             if timeout <= 0:
                 raise ValueError("timeout must be positive")
             run(row["runner"], path, env=env, timeout=timeout)
+            if group == "tools":
+                print("PASS %s" % row["id"], flush=True)
         except (SystemExit, ValueError) as error:
             failures.append((row["id"], str(error)))
     print("suite %s: %d executed, %d passed, %d failed" %
@@ -80,10 +83,17 @@ def main(suite):
         if not all((repo / name).is_file() for name in
                    ("Makefile", "dobj.c", "p10run.c", "p10fold.c")):
             raise SystemExit("invalid PDP10_TOOLS_REPO: " + str(repo))
-        # The independent repository has its own Makefile and source tree.
-        # Its regression script archives the selected Git revision and builds
-        # it in isolation, rather than testing DAIMOS/tools/host by accident.
-        failures += run_special("tools", env=dict(ENV, PDP10_TOOLS_REPO=str(repo)))
+        # Snapshot and build the independent repository exactly once. Each
+        # registered utility test then receives the same private build root;
+        # per-case failures are recorded independently and cleanup is always
+        # performed, including after a failed prepare or timed-out case.
+        with tempfile.TemporaryDirectory(prefix="pdp10-tools-registry-v2.",
+                                         dir=TMP) as work:
+            env = dict(ENV, PDP10_TOOLS_REPO=str(repo),
+                       PDP10_TOOLS_WORK=work)
+            run("sh", ROOT / "misc/tools/prepare-v2.sh", work,
+                env=env, timeout=240)
+            failures += run_special("tools", env=env)
     elif suite == "kcc-regression":
         failures += run_special("kcc-regression")
     elif suite == "kcc-all":
