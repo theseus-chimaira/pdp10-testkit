@@ -463,10 +463,18 @@ The next eight batches are documented in
   static script inventory now assigns explicit owners to all 366 committed
   shell/Python scripts in `pdp10-testkit`, including the newly connected
   three UTF-9 tool tests and five original PDP-6 KCC standalone runners.
-  **No execution tests were run for this integration stage.** Next audit
-  source-level and dynamic ownership in `daimos-testkit`, the absent
-  GCC upstream testsuite, and deferred C/assembler sources before sweeps.
-  See `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md`.
+  **No execution tests were run for this integration stage.** The static
+  owner ledger now includes historical `refs/` test scripts. Twelve
+  original GCC PDP-10 C checks were already registered; three preserved
+  GCC shell oracles now have distinct validation registrations, a fourth
+  is covered by the stronger BADL test, and a legacy assembler smoke is
+  replaced by the current DAS DXR/include oracle. The original generic
+  GCC testsuite is recoverable from Git revision `b0f5374`, not lost.
+  Next audit source-level and dynamic ownership in `daimos-testkit`
+  (1,680 scripts, 969 without discovered static callers), and review
+  deferred C/assembler sources before sweeps. See
+  `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md` and
+  `docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md`.
 - [ ] Audit `run-tests.sh` / `tools/run-tests.py` execution, resume, parallel
   result aggregation, statuses and negative-test crash detection. Maintain a
   single compiler matrix runner and a separate special-suite runner, without

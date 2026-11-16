@@ -10,10 +10,12 @@ for every discovered `.sh`/`.py` script below `misc/`, `tests/`, or `tools/`
 in the current `pdp10-testkit` checkout. New scripts with no owner cause
 `tools/audit-script-ownership-v4.py` to fail in the future `verify` suite.
 
-The committed integration scope accounts for 366
-scripts: 224 enabled registered roots, seven registered manual entries,
-125 delegated scripts, five imported helper modules, three dispatch or
-legacy entrypoints, and two explicitly manual analysis tools. There were
+The current staged integration scope accounts for 375 scripts, including
+the historical `.sh` files retained in `refs/`: 228 enabled registered
+roots, seven registered manual entries, 128 delegated scripts, five
+imported helper modules, three dispatch or legacy entrypoints, two
+explicitly manual analysis tools and two explicitly superseded oracles.
+There were
 zero unclassified script paths. These numbers are not successful test
 counts. The owner graph checks exact script references and that delegation
 reaches a registered root or an explicit entrypoint. It cannot prove that
@@ -61,14 +63,19 @@ scheduled individually without those fixtures.
 
 ## Remaining source and policy gaps
 
-This ledger covers executable Python/shell scripts in `pdp10-testkit`.
+This ledger covers executable Python/shell scripts in `pdp10-testkit`,
+including the five historical reference shell scripts.
 The compiler matrix's C/assembler source ownership is audited separately
 by `tools/audit-test-inventory-v1.py`. The current `gcc-pdp10` Git
-checkout has no tracked `gcc/testsuite` tree, so it is impossible to
-verify coverage or import the historical 19 `gcc.target/pdp10` sources
-from that checkout. The historical 2026-11-16 v1 cross-repository census
-documents those original 19 names; obtaining source-bearing upstream
-revisions and doing an assertion-level crosswalk remain open.
+checkout intentionally omits the old DejaGNU testsuite, but the source
+is recoverable from revision `b0f5374`. Eighteen applicable target-specific
+artifacts are already preserved under `refs/gcc-pdp10-target-v2/`:
+twelve C codegen oracles have a registered runner, three shell oracles
+now have registered wrappers, and one is covered by a stronger existing
+BADL test. The obsolete ITS-only CIRC case was explicitly excluded.
+See `docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md` for the review.
+The larger historical GCC corpus (including 693 independently flagged
+unmirrored C candidates) still needs assertion-level source review.
 
 The separate `daimos-testkit` repository also has a substantially larger
 target/validation script collection. Its integration/ownership accounting

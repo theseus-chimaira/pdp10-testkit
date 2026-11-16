@@ -33,11 +33,14 @@ or scheduling duplicates. Other host scripts relate to DAIMOS-specific
 D6FS, DSH, native MAKE, `rm`, swap and XIP behavior and must retain
 their original project ownership if still relevant.
 
-The independent historical GCC testsuite is a separate obstacle:
-the **currently selected** `gcc-pdp10` checkout contains no tracked
-`gcc/testsuite` tree, unlike the earlier revision used for the v1
-cross-repository census. Its 19 historical target-specific test files
-cannot be equivalence-reviewed against absent current sources.
+The independent historical GCC testsuite is a separate review queue:
+the **currently selected** `gcc-pdp10` checkout omits `gcc/testsuite`,
+but revision `b0f5374` retains all historical source blobs. The 18
+applicable PDP-10 target artifacts are preserved in
+`pdp10-testkit/refs/gcc-pdp10-target-v2/` with the original ITS-only
+CIRC case intentionally excluded. The current testkit has registrations
+or a documented stronger oracle for all 18; the remaining generic
+DejaGNU candidates still require source-level classification.
 
 ## Required classification before execution
 

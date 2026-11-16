@@ -109,6 +109,13 @@ records every currently discovered shell/Python script's owner; the
 integration changes only: the newly registered cases have **not yet
 been executed**, pending the remaining disconnected-source audit.
 
+Three distinct historical GCC target shell checks now have `validation`
+registrations selecting preserved reference scripts. The fourth GCC
+shell probe is intentionally deduplicated against the stronger existing
+BADL runtime/link test. A legacy assembler smoke test now has a DAS
+`fast` registration using binary DXR, not the removed `--start`/deposit
+interface. See `docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md`.
+
 `pdp10-tools` selects the **independent** `../pdp10-tools` checkout by
 default (override with `PDP10_TOOLS_REPO`). It rejects uncommitted source
 edits, prints the selected Git revision, and builds an isolated archive of

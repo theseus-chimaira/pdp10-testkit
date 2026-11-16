@@ -88,6 +88,7 @@ daimos-kcc-loop-return-standalone-v1	kcc-regression	sh	tests/semantic/imported/t
 daimos-kcc-pointer-scan-standalone-v1	kcc-regression	sh	tests/semantic/imported/target/daimos-kcc-pointer-scan-pdp6-20261009/run.sh	pdp6	yes	120
 daimos-kcc-sixarg-char-standalone-v1	kcc-regression	sh	tests/semantic/imported/target/daimos-kcc-sixarg-char-pdp6/run.sh	pdp6	yes	120
 das-run-das-fast-tests	das	sh	misc/das/run-das-fast-tests.sh	fast	yes	900
+das-reference-assembly-v5	das	sh	misc/das/check-reference-assembly-v5.sh	fast	yes	120
 das-check-das-phase-ir	das	sh	misc/das/check-das-phase-ir.sh	fast	yes	300
 das-check-das-phase2-transport	das	sh	misc/das/check-das-phase2-transport.sh	fast	yes	300
 das-native-relmap-spill-v1	das	sh	misc/das/check-das-native-relmap-spill-v1.sh	fast	yes	180
@@ -237,3 +238,6 @@ aap-ptr-handoff-v1	compat	python3	misc/compat/test-aap-ptr-handoff-v1.py	host	ye
 aap-ptr-assemble-v1	compat	python3	misc/compat/test-aap-ptr-assemble-v1.py	host	yes	120
 simh-ptr-tsfs-boot-v1	compat	sh	misc/compat/test-simh-ptr-tsfs-boot-v1.sh	host	yes	400
 gcc-target-codegen-v2	validation	python3	misc/validation/test-gcc-target-codegen-v2.py	host	yes	120
+gcc-target-badptr-octal-v3	validation	sh	misc/validation/test-gcc-target-badptr-octal-v3.sh	host	yes	120
+gcc-target-static-members-v3	validation	sh	misc/validation/test-gcc-target-static-members-v3.sh	host	yes	120
+gcc-target-wide-macros-v3	validation	sh	misc/validation/test-gcc-target-wide-macros-v3.sh	host	yes	120

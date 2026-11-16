@@ -35,9 +35,15 @@ asserts the expected and forbidden assembler patterns. Historical
 not interpret them.
 
 The remaining two C files are companion inputs for four historical
-shell probes; these shell scripts have not yet been enabled in the
-testkit and require separate runner/oracle validation. No old test
-is counted as passing merely because its source was preserved.
+shell probes. Subsequent static ownership work has registered three
+preserved probes with explicit current source paths: libgcc byte-pointer
+octal tables, freestanding static-member exclusions, and 71/72-bit
+mode-selection macros. The fourth probe (`bare-dlink-libgcc.sh`) is
+covered by the stronger pre-existing `badl-tables` registration, which
+also tests direct driver linking and guest execution. See
+`docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md` for the precise
+crosswalk. The new registrations have **not been executed** yet. No old
+test is counted as passing merely because its source was preserved.
 
 The ITS-only CIRC test was previously deleted as not applicable to
 DAIMOS and was neither copied nor converted to a different test.

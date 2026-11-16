@@ -104,6 +104,11 @@ misc/tools/p10super-rewrite-test.sh	delegated	misc/tools/cases/p10super-rewrite-
 misc/tools/pdp10-objdump-test.sh	delegated	misc/tools/cases/objdump-v2.sh	Invoked by independent tools shared-build registry case
 misc/tools/prepare-v2.sh	delegated	tools/run-misc-suites.py	One shared independent tools snapshot and fixture build
 misc/tools/run.sh	compat-entrypoint		Legacy entry point delegates to authoritative tools dispatcher; not a test
+refs/assembler-inputs/run-smoke.sh	replaced-assertion	misc/das/check-reference-assembly-v5.sh	Obsolete deposit CLI replaced by DXR and include-equivalence regression
+refs/gcc-pdp10-target-v2/bare-dlink-libgcc.sh	replaced-assertion	misc/validation/test-badl-tables.sh	Stronger registered BADL table link and two-CPU execution oracle
+refs/gcc-pdp10-target-v2/libgcc-badptr-octal.sh	delegated	misc/validation/test-gcc-target-badptr-octal-v3.sh	Original octal source-table checker invoked with current GCC tree
+refs/gcc-pdp10-target-v2/libgcc-empty-static-members.sh	delegated	misc/validation/test-gcc-target-static-members-v3.sh	Original static-member exclusion checker uses current gcc subdirectory
+refs/gcc-pdp10-target-v2/wide-int-mode-options.sh	delegated	misc/validation/test-gcc-target-wide-macros-v3.sh	Original 71-bit and 72-bit macro probes use retained companion C source
 tools/aap-class-events-v1.py	delegated	misc/compat/test-aap-class-events-v1.py	Invocation/checking helper used by registered suite
 tools/aap-daimos-asm-coverage-v1.py	delegated	misc/compat/test-aap-daimos-asm-coverage-v1.py	Invocation/checking helper used by registered suite
 tools/aap-execution-class-v1.py	delegated	misc/compat/test-aap-execution-class-parser-v1.py	Invocation/checking helper used by registered suite

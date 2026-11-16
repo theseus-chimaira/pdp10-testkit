@@ -29,9 +29,10 @@ def read_tsv(path):
 def script_paths():
     paths = subprocess.check_output(
         ['git', 'ls-files', '--cached', '--others', '--exclude-standard',
-         '--', 'misc', 'tests', 'tools'], cwd=ROOT, text=True).splitlines()
+         '--', 'misc', 'tests', 'tools', 'refs'],
+        cwd=ROOT, text=True).splitlines()
     return set(path for path in paths
-               if path.startswith(('misc/', 'tests/', 'tools/'))
+               if path.startswith(('misc/', 'tests/', 'tools/', 'refs/'))
                and path.endswith(('.sh', '.py'))
                and (ROOT / path).is_file())
 
@@ -65,7 +66,7 @@ def audit():
             problems.append('stale ledger source: ' + path)
         if row['disposition'] not in (
                 'delegated', 'module-helper', 'compat-entrypoint',
-                'entrypoint', 'manual-tool'):
+                'entrypoint', 'manual-tool', 'replaced-assertion'):
             problems.append('unknown disposition: ' + path)
         if not row['reason'].strip():
             problems.append('missing ownership reason: ' + path)
@@ -105,6 +106,18 @@ def audit():
                 }
                 if path not in allowed[row['disposition']] or parent:
                     problems.append('invalid standalone disposition: ' + path)
+            elif row['disposition'] == 'replaced-assertion':
+                allowed = {
+                    'refs/gcc-pdp10-target-v2/bare-dlink-libgcc.sh':
+                        'misc/validation/test-badl-tables.sh',
+                    'refs/assembler-inputs/run-smoke.sh':
+                        'misc/das/check-reference-assembly-v5.sh',
+                }
+                if (allowed.get(path) != parent or parent not in direct or
+                        direct[parent]['enabled'] != 'yes'):
+                    problems.append('unreviewed assertion replacement: ' + path)
+                elif parent in scripts:
+                    resolve(parent)
             else:
                 if not parent or parent == path:
                     problems.append('missing delegate parent: ' + path)
@@ -137,10 +150,10 @@ def audit():
                  direct[p]['enabled'] == 'manual' for p in scripts)
     print('script_ownership_v4 scripts=%d registered_enabled=%d '
           'registered_manual=%d delegated=%d modules=%d '
-          'entrypoints=%d manual_tools=%d' %
+          'entrypoints=%d manual_tools=%d replaced=%d' %
           (len(scripts), active, manual, counts['delegated'], counts['module-helper'],
            counts['entrypoint'] + counts['compat-entrypoint'],
-           counts['manual-tool']))
+           counts['manual-tool'], counts['replaced-assertion']))
     for issue in sorted(set(problems)):
         print('ERROR: ' + issue)
     print('script ownership: %s (%d issue(s))' %

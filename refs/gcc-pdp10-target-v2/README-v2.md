@@ -13,9 +13,14 @@ not interpret the historical `dg-*` comments left in these source files.
 
 `bare-dlink-libgcc-1.c` and `wide-int-mode-macros.c` are companion sources
 for dedicated shell probes, not standalone compile-only semantic tests.
-The four historical `.sh` files are retained for future source-level
-adaptation.  They are **not** independently enabled, and registration must
-wait for a verified test oracle and correct source/tree prerequisites.
+The four historical `.sh` files remain unchanged as independent oracles.
+Three now have registered compatibility wrappers selecting live GCC sources
+and preserved companion inputs: `libgcc-badptr-octal.sh`,
+`libgcc-empty-static-members.sh`, and `wide-int-mode-options.sh`.
+`bare-dlink-libgcc.sh` is covered by the stronger existing `badl-tables`
+test and is not scheduled twice. See
+`docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md`. These registrations
+have **not been executed** in the ownership-integration stage.
 
 The ITS-only `its-circ-1.c` is intentionally absent.  It was removed from
 the GCC repository as inapplicable and must not be recreated as a generic

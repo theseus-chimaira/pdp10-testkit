@@ -1,5 +1,16 @@
 # GCC C-test PDP-10 feasibility review (2026-11-16, v1)
 
+**Ownership update, later on 2026-11-16:** The GCC DejaGNU driver
+`gcc.target/pdp10/pdp10.exp` mentioned in the historical review below
+was subsequently removed with the rest of `gcc/testsuite` by commit
+`b2649d1`. The 18 applicable PDP-10 target artifacts are now preserved
+in `pdp10-testkit/refs/gcc-pdp10-target-v2/`: twelve C codegen checks
+have an enabled DejaGNU-free runner, three original shell assertions
+have explicit registered wrappers, and one is covered by the stronger
+already-registered BADL runtime/link test. See
+`docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md`. These registrations
+are not evidence of a newly completed execution sweep.
+
 This review precedes any import of disconnected GCC C tests. Tests must
 preserve their original regression assertion rather than merely compile.
 Source-level classification is not compiler, assembler, or simulator
