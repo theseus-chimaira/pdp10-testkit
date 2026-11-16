@@ -41,6 +41,26 @@ static kword_t source_path[] = {
     PDP10_SIX6('T','E','S','T','.','S')
 };
 
+/* Check the writable scratch directory before invoking either DAS phase.
+ * A failed OPEN is a filesystem/guest setup error, not a parser failure. */
+static kword_t scratch_probe_path[] = {
+    17UL,
+    PDP10_SIX6('/','T','E','M','P','/'),
+    PDP10_SIX6('O','U','T','.','D','X'),
+    PDP10_SIX6('R','.','D','2','R',' ')
+};
+
+static kword_t temp_dir_path[] = {
+    5UL,
+    PDP10_SIX6('/','T','E','M','P',' ')
+};
+
+static kword_t short_probe_path[] = {
+    7UL,
+    PDP10_SIX6('/','T','E','M','P','/'),
+    PDP10_SIX6('P',' ',' ',' ',' ',' ')
+};
+
 static kword_t out_name[] = {
     3UL,
     PDP10_SIX6('O','U','T',' ',' ',' ')
@@ -172,6 +192,25 @@ main(void)
     int rc;
 
     das_argv[0] = das_name;
+    if (dsys_stat(temp_dir_path, &st) != 0)
+        fail('D');
+    put_text("DAS TEMP MODE ");
+    put_octal((kword_t)st.mode);
+    put_text("\r\n");
+    if (dsys_stat(source_path, &st) != 0)
+        fail('I');
+    fd = dsys_open(short_probe_path,
+        SYS_O_WRONLY | SYS_O_CREAT | SYS_O_TRUNC);
+    if (fd < 0)
+        fail('W');
+    if (dsys_close(fd) != 0 || dsys_unlink(short_probe_path) != 0)
+        fail('V');
+    fd = dsys_open(scratch_probe_path,
+        SYS_O_RDWR | SYS_O_CREAT | SYS_O_TRUNC);
+    if (fd < 0)
+        fail('P');
+    if (dsys_close(fd) != 0 || dsys_unlink(scratch_probe_path) != 0)
+        fail('Q');
     das_argv[1] = opt_f;
     das_argv[2] = opt_o;
     das_argv[3] = output_path;

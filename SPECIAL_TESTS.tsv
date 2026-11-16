@@ -1,5 +1,6 @@
 id	group	runner	path	profile	enabled	timeout
 kcc-kpcode2-float-phase-v1	kcc-regression	sh	misc/kcc-regression/kcc-kpcode2-float-phase-v1.sh	pdp6	yes	900
+kcc-compound-negating-assign-v1	kcc-regression	sh	misc/kcc-regression/compound-negating-assign-v1.sh	pdp6	yes	180
 kcc-pdp6-negative-fp-runtime-v1	validation	sh	misc/validation/test-kcc-pdp6-negative-fp-runtime-v1.sh	pdp6	yes	120
 kcc-pdp6-rounded-fp-boundaries-v2	validation	sh	misc/validation/test-kcc-pdp6-rounded-fp-boundaries-v2.sh	pdp6	manual	150
 kcc-pdp6-fp-hardware-case9-v1	validation	sh	misc/validation/test-kcc-pdp6-fp-hardware-case9-v1.sh	pdp6	yes	150
@@ -77,6 +78,7 @@ terminal-return-chain	kcc-regression	sh	misc/kcc-regression/terminal-return-chai
 das-run-das-fast-tests	das	sh	misc/das/run-das-fast-tests.sh	fast	yes	900
 das-check-das-phase-ir	das	sh	misc/das/check-das-phase-ir.sh	fast	yes	300
 das-check-das-phase2-transport	das	sh	misc/das/check-das-phase2-transport.sh	fast	yes	300
+das-native-relmap-spill-v1	das	sh	misc/das/check-das-native-relmap-spill-v1.sh	fast	yes	180
 das-check-reloc-negative-addend	das	sh	misc/das/check-reloc-negative-addend.sh	fast	yes	120
 das-check-symbol-leading-data	das	sh	misc/das/check-symbol-leading-data.sh	fast	yes	120
 das-check-s6filter	das	sh	misc/das/check-s6filter.sh	fast	yes	120

@@ -414,21 +414,30 @@ The next eight batches are documented in
 - [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.
   DAS dispatch is now complete: `fast`/`full`/`native` execution is driven
   by ordered registry rows and their per-test timeouts; nested helpers are
-  not independently redispatched. DAS fast 8/8 and full 2/2 pass on
+  not independently redispatched. DAS fast 9/9 and full 2/2 pass on
   2026-11-16. The independent tools suite still owns one aggregate row,
   not individual per-utility registrations. Preserve the separate
   `run-misc-tests.sh` interface: these are not CPU/optimization cells.
-- [ ] Resolve the current native DAS size gate without relaxing its bound:
-  DAS `c0d6002` shrinks PDP-6 KCC `-O` output for
-  `das_strip_c_comments` from 94 to 72 instructions, still above the
-  strict 68-instruction limit; `das_read_line` remains 133/136. The
-  native guest test is not yet accepted. Host DAS tests pass (8 fast,
-  2 full), five previously uninitialized input-reader fixture states are
-  fixed, and expanded escape/multiline comment oracles pass with original
-  and compact sources. See
-  `docs/DAS-COMMENT-COMPACTION-20261116-v2.md`. Finish the last four
-  words without out-of-bounds byte pointers or relaxed acceptance limits;
-  verify full native phase/guest execution afterward.
+- [x] Restore the native DAS size gates without raising any limits:
+  current DAS `6dfb707` emits 68/68 for `das_strip_c_comments`, 133/136
+  for `das_read_line`, and fits both phase-image/BSS/process ceilings.
+  Replacing the static relocation bitmap with bounded scratch storage
+  removed the 2,731-word fixed bitmap from native DAS2 BSS. The new
+  maximum-size disk-backed relocation mock and all 9 fast plus 2 full
+  host DAS tests pass. See
+  `docs/DAS-NATIVE-KCC-INTEGRATION-20261116-v3.md`.
+- [ ] Complete full native DAS guest execution: the guest can stat
+  `/TEMP` (mode `01777`) and imported `TEST.S`, but cannot create even
+  a short file in `/TEMP` in the current boot image. Investigate root
+  mount flags and actual D6FS write services, not assembler size gates;
+  require actual native DAS1/DAS2 assemble, DXR comparison and execution
+  before reporting a full guest PASS.
+- [x] Correct optimized KCC negative-one compound assignments and
+  illegal immediate IDIV folding (KCC `22aedc8`). Test all eight CPU/mode
+  combinations (PDP-6, KA10, KI10, KS10 x opt/noopt), including
+  single-evaluation pointer lvalues, unsigned and float cases. Repair
+  stale `terminal-return-chain` register-shape expectation and add a
+  PDP-6 executed semantic assertion.
 - [ ] Audit the specialized suite registry for other hardcoded dispatch and
   misleading/informational entries; verify each enabled registration really
   executes in its advertised suite, and decide whether `kcc-all` should

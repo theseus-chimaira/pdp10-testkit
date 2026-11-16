@@ -59,20 +59,23 @@ START:
 EOF
 "$DAS_ROOT/s6text" --encode "$src" "$s6"
 
+# DAS1/DAS2 create private scratch files next to OUT.DXR. The native
+# guest must have write permission on /TEMP, not merely read TEST.S.
 PATH="$PDP10_PREFIX/bin:$PATH" make -C "$DAIMOS_REPO/system/boot/pdp6" image \
     BUILD="$build/system/boot/pdp6" PDP10_PREFIX="$PDP10_PREFIX" \
     DAS="$DAS_ROOT/das" DASFLAGS=-F DAS_REPO="$DAS_ROOT" \
     DAS_NATIVE_BUILD="$NATIVE_BUILD_DIR" PROC_BOOT_USERS=1 \
     D6FS_LOGSTORE_BLOCKS=010 D6FS_SWAP_TAIL_BLOCKS=010 \
     SYSTEM_INIT_DXR="$user/init.dxr" \
-    D6FS_EXTRA_ARGS="-f /TEMP/TEST.S:$s6:644:binwords" \
+    D6FS_EXTRA_ARGS="-D /TEMP:1777 -f /TEMP/TEST.S:$s6:644:binwords" \
     >/dev/null
 
 boot=$build/system/boot/pdp6
 set +e
 (
     cd "$boot"
-    TERM=dumb timeout -k 2s 60s stdbuf -o0 -e0 "$simh" boot.ini
+    TERM=dumb SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
+        timeout -k 2s 60s stdbuf -o0 -e0 "$simh" boot.ini
 ) >"$out" 2>&1
 rc=$?
 set -e
