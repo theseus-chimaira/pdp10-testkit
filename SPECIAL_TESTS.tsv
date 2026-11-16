@@ -22,6 +22,7 @@ pdp6-opcode-report-v1	compat	python3	misc/compat/test-pdp6-opcode-report-v1.py	h
 pdp6-profile-comparison-v1	compat	python3	misc/compat/test-pdp6-profile-comparison-v1.py	host	yes	60
 deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
 test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
+gcc-c-unmirrored-ownership-v1	verify	python3	tools/inventory-gcc-unmirrored-v1.py	host	yes	120
 test-script-ownership-v4	verify	python3	tools/audit-script-ownership-v4.py	host	yes	120
 test-pdp10-tools-registry-v2	verify	python3	tools/test-pdp10-tools-registry-v2.py	host	yes	120
 test-kcc-negative-policy-v1	verify	python3	tools/test-kcc-negative-policy-v1.py	host	yes	120

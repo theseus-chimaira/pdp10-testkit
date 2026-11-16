@@ -1,0 +1,372 @@
+#!/usr/bin/env python3
+"""Own historical GCC C sources without conflating source and test coverage.
+
+--import archives source blobs from the pinned GCC Git revision and writes
+the reviewed-source ledger. Default mode verifies local archive fingerprints,
+ledger classifications and matrix owners. Neither mode executes any tests.
+"""
+
+import argparse
+import collections
+import csv
+import hashlib
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+
+ROOT = Path(__file__).resolve().parents[1]
+PREFLIGHT = ROOT / 'docs/GCC-C-FEASIBILITY-PREFLIGHT-20261116-v1.tsv'
+LEDGER = ROOT / 'docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv'
+STRUCTURAL = ROOT / 'docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv'
+REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
+REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
+FIELDS = ('group', 'original_source', 'source_sha256', 'snapshot_path',
+          'oracle_type', 'dg_action', 'dg_assertions', 'target_restrictions',
+          'risk_flags', 'central_candidates', 'review_status', 'matrix_owner',
+          'review_reason')
+
+# These source-level adaptations were compared with the original assertions.
+# This list is intentionally small and is NOT evidence of test execution.
+REVIEWED = {
+    'gcc.c-torture/execute/20000403-1.c': (
+        'adapted-active', 'tests/semantic/upstream/generic/20000403-1.c',
+        'Replaced sizeof(long)*8 with sizeof(long)*CHAR_BIT; original sign-boundary assertion retained'),
+    'gcc.c-torture/execute/20011126-1.c': (
+        'adapted-active', 'tests/semantic/upstream/wide-int/20011126-1.c',
+        'Original negative-result abort becomes nonzero return'),
+    'gcc.c-torture/execute/20020216-1.c': (
+        'adapted-active', 'tests/semantic/upstream/generic/20020216-1.c',
+        '9/18/36-bit sign-extension expectation replaces vacuous 8/16/32-bit guard'),
+    'gcc.c-torture/execute/960311-3.c': (
+        'adapted-active', 'tests/semantic/upstream/generic/960311-3.c',
+        'DEBUG guard now encloses stdio include; main assertion unchanged'),
+    'gcc.c-torture/execute/920711-1.c': (
+        'adapted-active', 'tests/semantic/upstream/generic/920711-1.c',
+        'Original decrement/branch condition retained and return converted to status; PDP-10 constant is positive'),
+    'gcc.c-torture/compile/20020304-1.c': (
+        'adapted-active', 'tests/codegen/upstream-gcc/compile/20020304-1.c',
+        'Giant compile-only original retains function body; overly long GCC symbols shortened'),
+    'gcc.c-torture/execute/20020402-3.c': (
+        'adapted-deferred', 'tests/todo/generic/20020402-3.c',
+        'Return checks blockvector pointer rather than unconditional success; not registered'),
+    'gcc.c-torture/execute/920728-1.c': (
+        'adapted-deferred', 'tests/todo/generic/920728-1.c',
+        'Long diagnostic label shortened for target assembler; not registered'),
+    'gcc.c-torture/execute/921202-1.c': (
+        'partial-compile-overlap', 'tests/codegen/upstream-gcc/compile/921202-1.c',
+        'Reworked large-array optimizer shape is compiled, but original runtime exit and checks are not retained'),
+    'gcc.dg/builtin-prefetch-1.c': (
+        'non-equivalent-overlap', '',
+        'Current semantic version tests valid builtin arguments, not original invalid-argument warnings'),
+    'gcc.dg/format/attr-2.c': (
+        'non-equivalent-overlap', '',
+        'Shared attribute syntax is not a matching format-warning oracle or format.h dependency'),
+}
+
+# Independent PDP-10 runtime assertions absent from the central matrix.
+# Registered with GCC-only *pending* PDP-6 cells, never as successful tests.
+# The KL10-only pointer-initializer case is excluded until a KL10 profile
+# exists; the signed 71-bit division case needs -mlong-long-71bit first.
+NEW_RUNTIME = {
+    name: ('registered-pending', 'tests/semantic/gcc-historical-v1/' + name,
+           'Original PDP-10 GCC runtime assertion retained unchanged; GCC PDP-6 profiles only, pending verification')
+    for name in (
+        'alignas-frame-byteptr-v1.c',
+        'exact16-pointer-call-1.c',
+        'exact16-word-roundtrip-1.c',
+        'packed-bitptr-arith-1.c',
+        'packed-bitptr-decay-1.c',
+        'packed-bitptr-direct-1.c',
+        'packed-char-store-1.c',
+        'packed-exact16-crossword-1.c',
+        'packed-exact16-global-arith-1.c',
+        'packed-exact16-global-roundtrip-1.c',
+        'packed-pointer-global-1.c',
+        'packed-pointer-local-1.c',
+        'sibcall-fallthrough-1.c',
+    )
+}
+for _name, _review in NEW_RUNTIME.items():
+    REVIEWED['gcc.c-torture/execute/pdp10/' + _name] = _review
+
+ACTION = re.compile(r'\bdg-do\s+(run|compile|assemble|preprocess|link)\b')
+ASSERTIONS = re.compile(r'\bdg-(error|warning|message|bogus|excess-errors|final)\b')
+TARGETS = re.compile(r'\bdg-(require-effective-target|skip-if)\b|'
+                     r'\bdg-do\s+\w+\s*\{\s*target\b')
+COMMENTS = re.compile(r'("(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|'
+                      r'/\*.*?\*/|//[^\n]*)', re.S)
+TOKENS = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|'
+                    r'[A-Za-z_][A-Za-z_0-9]*|0[xX][0-9A-Fa-f]+|'
+                    r'[0-9]+(?:\.[0-9]*)?(?:[eE][+-]?[0-9]+)?|'
+                    r'\.\.\.|>>=|<<=|->|\+\+|--|==|!=|<=|>=|&&|'
+                    r'\|\||<<|>>|\+=|-=|\*=|/=|%=|&=|\^=|\|=|\S', re.S)
+
+
+def read_tsv(path):
+    with path.open(encoding='utf-8', newline='') as stream:
+        return list(csv.DictReader(stream, delimiter='\t'))
+
+
+def original_rows():
+    rows = [r for r in read_tsv(PREFLIGHT)
+            if r['group'] != 'pdp10-target']
+    if (len(rows) != 679 or
+            len({r['original_source'] for r in rows}) != len(rows)):
+        raise ValueError('expected 679 distinct non-target GCC C sources')
+    return rows
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def token_grams(data):
+    """Cheap similarity hints, NOT semantic or assertion equivalence."""
+    source = data.decode('latin-1')
+    bare = COMMENTS.sub(
+        lambda match: ' ' if match.group().startswith(('/',))
+        else match.group(), source)
+    words = TOKENS.findall(bare)
+    return set(hash(tuple(words[i:i + 6]))
+               for i in range(max(0, len(words) - 5)))
+
+
+def report_structural_overlaps():
+    """Compare all 679 original bodies with all central C test bodies.
+
+    A shared six-token sequence is evidence to inspect, not the test's
+    oracle; ignore common/short patterns to avoid misleading matches.
+    """
+    central = []
+    index = collections.defaultdict(list)
+    for path in sorted((ROOT / 'tests').rglob('*.c')):
+        grams = token_grams(path.read_bytes())
+        number = len(central)
+        central.append((path.relative_to(ROOT).as_posix(), len(grams)))
+        for gram in grams:
+            index[gram].append(number)
+    rows = []
+    for original in original_rows():
+        path = original['original_source']
+        grams = token_grams(snapshot_path(path).read_bytes())
+        counter = collections.Counter()
+        if len(grams) >= 20:
+            for gram in grams:
+                owners = index.get(gram, ())
+                if len(owners) < 35:
+                    counter.update(owners)
+        leads = []
+        for number, shared in counter.items():
+            central_path, size = central[number]
+            if shared < 10 or size < 20:
+                continue
+            # A partial copy can legitimately be smaller than the original.
+            fraction = shared / min(len(grams), size)
+            if fraction >= 0.5:
+                leads.append((fraction, shared, central_path))
+        leads.sort(key=lambda item: (-item[0], -item[1], item[2]))
+        best = leads[0] if leads else (0.0, 0, '')
+        rows.append((path, len(grams), best[2], best[1],
+                     '%.3f' % best[0],
+                     'potential-source-shape-overlap' if leads else
+                     'no-strong-source-shape-lead'))
+    with STRUCTURAL.open('w', encoding='utf-8', newline='') as stream:
+        writer = csv.writer(stream, delimiter='\t', lineterminator='\n')
+        writer.writerow(('original_source', 'original_sixgrams',
+                         'central_source_candidate', 'shared_sixgrams',
+                         'fraction_of_smaller_source', 'evidence_level'))
+        writer.writerows(rows)
+    print('Structural search: %d sources, %d potential source-shape leads' %
+          (len(rows), sum(bool(r[2]) for r in rows)))
+    print('No assertion equivalence inferred from token similarity')
+
+
+def snapshot_path(original):
+    prefix = 'gcc/testsuite/'
+    if not original.startswith(prefix):
+        raise ValueError('source outside GCC test suite: ' + original)
+    suffix = original[len(prefix):]
+    path = (REFS / suffix).resolve()
+    if not path.is_relative_to(REFS.resolve()) or path.suffix != '.c':
+        raise ValueError('unsafe source path: ' + original)
+    return path
+
+
+def archived(repo, records):
+    with subprocess.Popen(['git', '-C', str(repo), 'cat-file', '--batch'],
+                          stdin=subprocess.PIPE, stdout=subprocess.PIPE) as proc:
+        for row in records:
+            original = row['original_source']
+            proc.stdin.write((REVISION + ':' + original + '\n').encode('ascii'))
+            proc.stdin.flush()
+            header = proc.stdout.readline().split()
+            if len(header) != 3 or header[1] != b'blob':
+                raise ValueError('missing original blob: ' + original)
+            size = int(header[2])
+            data = proc.stdout.read(size)
+            if len(data) != size or proc.stdout.read(1) != b'\n':
+                raise ValueError('invalid original blob: ' + original)
+            if digest(data) != row['source_sha256']:
+                raise ValueError('GCC archival source hash mismatch: ' + original)
+            yield row, data
+        proc.stdin.close()
+        if proc.wait():
+            raise ValueError('GCC git cat-file failed')
+
+
+def ownership(row, data):
+    original = row['original_source']
+    suffix = original[len('gcc/testsuite/'):]
+    dg_action = ACTION.findall(data.decode('latin-1'))
+    dg_checks = ASSERTIONS.findall(data.decode('latin-1'))
+    target = bool(TARGETS.search(data.decode('latin-1')))
+    if 'error' in dg_checks:
+        oracle = 'diagnostic-rejection'
+    elif 'warning' in dg_checks or 'bogus' in dg_checks:
+        oracle = 'warning-diagnostic'
+    elif 'final' in dg_checks:
+        oracle = 'dg-final-oracle'
+    elif '/cpp/' in original or dg_action == ['preprocess']:
+        oracle = 'preprocessor-contract'
+    elif dg_action == ['run'] or row['group'] == 'torture-execute':
+        oracle = 'runtime-oracle-review'
+    else:
+        oracle = 'compile-oracle-review'
+    reviewed = REVIEWED.get(suffix)
+    if reviewed:
+        status, matrix_owner, reason = reviewed
+    else:
+        status = ('same-name-review' if row['name_match'] != 'no-same-name'
+                  else 'unreviewed')
+        matrix_owner = ''
+        reason = ('Filename overlap is not proof of equivalent GCC assertions'
+                  if status == 'same-name-review' else
+                  'Source not byte-identical to existing tests; independent assertion review required')
+    return dict(zip(FIELDS, (
+        row['group'], original, row['source_sha256'],
+        snapshot_path(original).relative_to(ROOT).as_posix(),
+        oracle, ','.join(dg_action) or ('run' if row['group'] == 'torture-execute'
+                                      else 'compile'),
+        ','.join(sorted(set(dg_checks))), 'yes' if target else 'no',
+        row['risk_flags'],
+        '' if row['central_candidate_path'] == 'none'
+        else row['central_candidate_path'],
+        status, matrix_owner, reason)))
+
+
+def import_sources(repo):
+    records = original_rows()
+    result = []
+    for row, data in archived(repo, records):
+        path = snapshot_path(row['original_source'])
+        if path.is_file() and path.read_bytes() != data:
+            raise ValueError('existing snapshot differs: ' + str(path))
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(data)
+        suffix = row['original_source'][len('gcc/testsuite/'):]
+        if suffix in REVIEWED and REVIEWED[suffix][0] == 'registered-pending':
+            dest = ROOT / REVIEWED[suffix][1]
+            if dest.is_file() and dest.read_bytes() != data:
+                raise ValueError('registered GCC test differs: ' + str(dest))
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(data)
+        result.append(ownership(row, data))
+    with LEDGER.open('w', encoding='utf-8', newline='') as stream:
+        writer = csv.DictWriter(stream, fieldnames=FIELDS,
+                                delimiter='\t', lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(result)
+    print('Archived %d historical GCC source snapshots; no tests executed' %
+          len(result))
+    print('Ledger: ' + str(LEDGER))
+
+
+def verify_sources():
+    originals = original_rows()
+    ledger = read_tsv(LEDGER)
+    errors = []
+    if len(ledger) != len(originals):
+        errors.append('ledger count differs from 679')
+    by_path = {r['original_source']: r for r in ledger}
+    if len(by_path) != len(ledger):
+        errors.append('duplicate ledger source path')
+    matrix_rows = {}
+    with (ROOT / 'COMPILER_MATRIX.tsv').open(encoding='utf-8') as stream:
+        matrix_rows = {r['test']: r for r in csv.DictReader(
+            (line for line in stream if line.strip() and not line.startswith('#')),
+            delimiter='\t')}
+    matrix = set(matrix_rows)
+    for orig in originals:
+        path = orig['original_source']
+        stored = snapshot_path(path)
+        if not stored.is_file():
+            errors.append('missing archived source: ' + path)
+            continue
+        data = stored.read_bytes()
+        if digest(data) != orig['source_sha256']:
+            errors.append('wrong archived source hash: ' + path)
+        actual = ownership(orig, data)
+        recorded = by_path.get(path)
+        if recorded != actual:
+            errors.append('stale source classification/crosswalk: ' + path)
+        if recorded and recorded['matrix_owner']:
+            target = recorded['matrix_owner']
+            if not (ROOT / target).is_file():
+                errors.append('missing adapted source: ' + target)
+            active = recorded['review_status'] in (
+                'adapted-active', 'partial-compile-overlap', 'registered-pending')
+            if (target in matrix) != active:
+                errors.append('adapted registration status disagrees: ' + target)
+            if recorded['review_status'] == 'registered-pending':
+                if not (ROOT / target).is_file() or (ROOT / target).read_bytes() != data:
+                    errors.append('registered historical source changed: ' + target)
+                cell_row = matrix_rows.get(target)
+                if cell_row:
+                    if cell_row['group'] != 'semantic-gcc-historical':
+                        errors.append('wrong GCC historical matrix group: ' + target)
+                    allowed = {'pdp6_gcc_o0', 'pdp6_gcc_o1',
+                               'pdp6_gcc_o2', 'pdp6_gcc_os'}
+                    permitted_statuses = {'pending', 'semantic', 'ok',
+                                          'fail', 'error', 'timeout'}
+                    for column, value in cell_row.items():
+                        if column in ('test', 'group', 'name'):
+                            continue
+                        if column in allowed:
+                            if value not in permitted_statuses:
+                                errors.append('inactive GCC target cell: %s %s' %
+                                              (target, column))
+                        elif value != 'no_test':
+                            errors.append('unreviewed compiler/CPU cell: %s %s' %
+                                          (target, column))
+    snapshots = {p.relative_to(ROOT).as_posix()
+                 for p in REFS.rglob('*.c')}
+    expected = {snapshot_path(r['original_source']).relative_to(ROOT).as_posix()
+                for r in originals}
+    for extra in sorted(snapshots - expected):
+        errors.append('unowned GCC archival source: ' + extra)
+    counts = collections.Counter(r['review_status'] for r in ledger)
+    print('GCC historical C sources: %d; statuses: %s' %
+          (len(ledger), ', '.join('%s=%d' % p for p in sorted(counts.items()))))
+    for err in errors:
+        print('ERROR: ' + err, file=sys.stderr)
+    return int(bool(errors))
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--import-sources', action='store_true')
+    parser.add_argument('--report-overlaps', action='store_true',
+                        help='write six-token similarity hints, without execution')
+    parser.add_argument('--gcc-repo', default=str(ROOT.parent / 'gcc-pdp10'))
+    args = parser.parse_args()
+    if args.import_sources:
+        import_sources(Path(args.gcc_repo))
+    if args.report_overlaps:
+        report_structural_overlaps()
+    return verify_sources()
+
+
+if __name__ == '__main__':
+    sys.exit(main())

@@ -402,6 +402,24 @@ The next eight batches are documented in
   the feasibility preflight before proposing further imports or removals.
   Preserve the original assertion and derive native 36-bit/9-bit/non-IEEE
   expectations; do not mistake a successful compile for meaningful coverage.
+  The original 679 source blobs are now retained and source-hash pinned in
+  `refs/gcc-c-unmirrored-v1/` with per-file classification in
+  `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. First manual crosswalk:
+  six existing active adaptations, two deferred adaptations, one partial
+  compile-only overlap, one same-name but non-equivalent diagnostic test,
+  13 newly registered PDP-10 GCC runtime tests awaiting execution, 64
+  additional same-name reviews, two non-equivalent overlaps, and 591
+  other unreviewed sources. Do not
+  count preserved reference files as activated tests.
+- [x] Restore the historical non-target GCC sources to a testkit-owned,
+  reproducible reference inventory and add a registered static hash/ownership
+  gate (`gcc-c-unmirrored-ownership-v1`). No compiler or emulator tests run.
+- [ ] Complete the remaining GCC historical assertion-level overlap review,
+  especially `gcc.dg` warnings/errors/preprocessor checks. Existing semantic
+  tests do not automatically exercise DejaGNU diagnostics. The preserved
+  negative `builtin-prefetch-1.c` warnings are **not** covered by the current
+  valid-argument semantic test with the same name. See
+  `docs/GCC-C-UNMIRRORED-INTEGRATION-20261116-v1.md`.
 
 - [x] Establish a reproducible static census across `pdp10-testkit`, KCC,
   GCC PDP-10, DAS, independent PDP10-TOOLS, and DAIMOS host tools. See

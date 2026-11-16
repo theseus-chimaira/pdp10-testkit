@@ -44,6 +44,17 @@ cases are maintained in `refs/gcc-pdp10-target-v2/` and validated by
 `misc/validation/test-gcc-target-codegen-v2.py`. See
 `docs/GCC-DEJAGNU-REMOVAL-20261116-v2.md` for source provenance.
 
+The 679 historical non-target-specific GCC sources not byte-identical to
+existing tests are now preserved under `refs/gcc-c-unmirrored-v1/`, pinned
+to GCC revision `b0f5374`. The per-source assertion/ownership inventory is
+`docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. Its registered static
+verifier is `tools/inventory-gcc-unmirrored-v1.py`. A reviewed first batch of
+13 additional PDP-10-specific runtime regressions is in
+`tests/semantic/gcc-historical-v1/`, with only GCC PDP-6 optimization cells
+marked `pending` in the compiler matrix. These have **not been executed**.
+The historical snapshots are *not* automatically active test cases; consult
+`docs/GCC-C-UNMIRRORED-INTEGRATION-20261116-v1.md` before promoting more.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
