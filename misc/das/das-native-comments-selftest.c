@@ -45,7 +45,13 @@ int main(void)
         "ASCII \\\"A\\\\\\\"/*B\\\"\n"
         "/* multi-line begins\n"
         "continues */ JRST DONE\n"
-        "A/B\n";
+        "A/B\n"
+        "ASCII 'q\\'/*stay' /*drop*/\n"
+        "ASCII \"q\\\\\" /*drop*/\n"
+        "/*a*//*b*/MOVEI 3,3\n"
+        "XYZ /*open\n"
+        "middle */ /*again\n"
+        "last */ DONE\n";
     static const char unterminated[] = "MOVEI 1,1 /* bad";
     struct test_input input;
     struct das_char_reader reader;
@@ -70,19 +76,31 @@ int main(void)
         return 6;
     if (expect_line(&reader, "A/B") != 0)
         return 7;
-    if (das_read_line(&reader, line, sizeof(line)) != DAS_INPUT_EOF)
+    if (expect_line(&reader, "ASCII 'q\\'/*stay'  ") != 0)
         return 8;
-    if ((reader.cstate & DAS_CSTATE_COMMENT) != 0U)
+    if (expect_line(&reader, "ASCII \"q\\\\\"  ") != 0)
         return 9;
+    if (expect_line(&reader, "  MOVEI 3,3") != 0)
+        return 10;
+    if (expect_line(&reader, "XYZ  ") != 0)
+        return 11;
+    if (expect_line(&reader, "  ") != 0)
+        return 12;
+    if (expect_line(&reader, " DONE") != 0)
+        return 13;
+    if (das_read_line(&reader, line, sizeof(line)) != DAS_INPUT_EOF)
+        return 14;
+    if ((reader.cstate & DAS_CSTATE_COMMENT) != 0U)
+        return 15;
 
     input.text = unterminated;
     input.pos = 0U;
     reader.cstate = 0U;
     if (expect_line(&reader, "MOVEI 1,1  ") != 0)
-        return 10;
+        return 16;
     if (das_read_line(&reader, line, sizeof(line)) != DAS_INPUT_EOF)
-        return 11;
+        return 17;
     if ((reader.cstate & DAS_CSTATE_COMMENT) == 0U)
-        return 12;
+        return 18;
     return 0;
 }

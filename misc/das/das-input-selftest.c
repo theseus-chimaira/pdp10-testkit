@@ -67,6 +67,7 @@ test_utf9_mask(void)
     mem.pos = 0U;
     reader.get = mem_char_get;
     reader.arg = &mem;
+    reader.cstate = 0U;
     rc = das_read_line(&reader, line, sizeof(line));
     if (rc != DAS_INPUT_OK)
         return 1;
@@ -100,6 +101,7 @@ test_s6rec(void)
     das_s6_init(&s6, mem_word_get, &mem);
     reader.get = das_s6_get;
     reader.arg = &s6;
+    reader.cstate = 0U;
     rc = das_read_line(&reader, line, sizeof(line));
     if (rc != DAS_INPUT_OK || !same_string(line, "MOVEI 1,7"))
         return 10;
@@ -129,6 +131,7 @@ test_long_line(void)
     mem.pos = 0U;
     reader.get = mem_char_get;
     reader.arg = &mem;
+    reader.cstate = 0U;
     if (das_read_line(&reader, line, sizeof(line)) != DAS_INPUT_TOOLONG)
         return 20;
     if (!same_string(line, "ABC"))
@@ -159,6 +162,7 @@ test_truncated_s6rec(void)
     das_s6_init(&s6, mem_word_get, &mem);
     reader.get = das_s6_get;
     reader.arg = &s6;
+    reader.cstate = 0U;
     if (das_read_line(&reader, line, sizeof(line)) != DAS_INPUT_ERROR)
         return 30;
     return 0;
@@ -182,6 +186,7 @@ test_nontext_s6rec(void)
     das_s6_init(&s6, mem_word_get, &mem);
     reader.get = das_s6_get;
     reader.arg = &s6;
+    reader.cstate = 0U;
     if (das_read_line(&reader, line, sizeof(line)) != DAS_INPUT_ERROR)
         return 40;
     return 0;

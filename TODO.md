@@ -419,11 +419,16 @@ The next eight batches are documented in
   not individual per-utility registrations. Preserve the separate
   `run-misc-tests.sh` interface: these are not CPU/optimization cells.
 - [ ] Resolve the current native DAS size gate without relaxing its bound:
-  KCC PDP-6 `-O` emits 94 instructions for `das_strip_c_comments` versus
-  the established 68-instruction limit. Phase output filename expectations
-  have been reconciled; the native guest test was not reached. Verify that
-  any proposed correction preserves comment/quote handling, resident budget,
-  and complete native phase/guest acceptance.
+  DAS `c0d6002` shrinks PDP-6 KCC `-O` output for
+  `das_strip_c_comments` from 94 to 72 instructions, still above the
+  strict 68-instruction limit; `das_read_line` remains 133/136. The
+  native guest test is not yet accepted. Host DAS tests pass (8 fast,
+  2 full), five previously uninitialized input-reader fixture states are
+  fixed, and expanded escape/multiline comment oracles pass with original
+  and compact sources. See
+  `docs/DAS-COMMENT-COMPACTION-20261116-v2.md`. Finish the last four
+  words without out-of-bounds byte pointers or relaxed acceptance limits;
+  verify full native phase/guest execution afterward.
 - [ ] Audit the specialized suite registry for other hardcoded dispatch and
   misleading/informational entries; verify each enabled registration really
   executes in its advertised suite, and decide whether `kcc-all` should

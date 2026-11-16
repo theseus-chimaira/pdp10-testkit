@@ -25,6 +25,8 @@ The DAS `das-fast`, `das`, and `das-native` suites select ordered `fast`,
 are not dispatched a second time; see
 `docs/DAS-REGISTRY-INTEGRATION-20261116-v1.md` for verified results and the
 still-open native code-size gate.
+The current native comment-scanner reduction and remaining four-word gap
+are documented in `docs/DAS-COMMENT-COMPACTION-20261116-v2.md`.
 
 For a read-only inventory across the KCC, GCC, DAS, and PDP10-TOOLS source
 repositories, run `python3 tools/census-cross-repo-v1.py`. The versioned
