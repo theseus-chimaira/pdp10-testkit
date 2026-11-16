@@ -373,6 +373,21 @@ The next eight batches are documented in
 
 ## P1 — registry and runner consolidation
 
+- [x] Establish a reproducible static census across `pdp10-testkit`, KCC,
+  GCC PDP-10, DAS, independent PDP10-TOOLS, and DAIMOS host tools. See
+  `tools/census-cross-repo-v1.py` and the versioned 2026-11-16 report/TSV.
+  This audits sources and references, not executed test results.
+- [ ] Compare the 19 original GCC PDP-10 target-specific tests with the
+  assertions of the centrally registered tests; classify equivalent,
+  inapplicable, and missing coverage without assuming filename equivalence.
+- [ ] Review the six unregistered scripts lacking discovered static callers,
+  especially the DAS native-image checker and AAP diagnostics. Distinguish
+  test cases from helper tools and dynamic invocation.
+- [ ] Fix the independent PDP10-TOOLS source/build selection for its suite.
+  The default DAIMOS host-tool checkout differs in 13 common C/header files
+  at the census v1 baseline; do not interpret its aggregate pass as proof
+  about the independent repository.
+
 - [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.
   Currently `tools/run-misc-suites.py` retains hardcoded `DAS_FAST`, explicit
   DAS build/run lists, and a tools aggregate. Preserve prerequisite builds,

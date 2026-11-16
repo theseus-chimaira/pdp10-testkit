@@ -18,6 +18,11 @@ for the matrix, `./run-tests.sh list` to enumerate cells, and
 `COMPILER_MATRIX.tsv`; specialized suites are listed in `SPECIAL_TESTS.tsv` and
 run by `./run-misc-tests.sh`. Runner usage is described in `docs/parallel-cells.md`.
 
+For a read-only inventory across the KCC, GCC, DAS, and PDP10-TOOLS source
+repositories, run `python3 tools/census-cross-repo-v1.py`. The versioned
+report and manifest are `docs/CROSS-REPO-TEST-CENSUS-20261116-v1.*`.
+This static census does not build or run tests or claim execution coverage.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
