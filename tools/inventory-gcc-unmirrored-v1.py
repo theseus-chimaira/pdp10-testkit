@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PREFLIGHT = ROOT / 'docs/GCC-C-FEASIBILITY-PREFLIGHT-20261116-v1.tsv'
 LEDGER = ROOT / 'docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv'
 STRUCTURAL = ROOT / 'docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv'
+COMPANIONS = ROOT / 'docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
 FIELDS = ('group', 'original_source', 'source_sha256', 'snapshot_path',
@@ -95,6 +96,7 @@ ACTION = re.compile(r'\bdg-do\s+(run|compile|assemble|preprocess|link)\b')
 ASSERTIONS = re.compile(r'\bdg-(error|warning|message|bogus|excess-errors|final)\b')
 TARGETS = re.compile(r'\bdg-(require-effective-target|skip-if)\b|'
                      r'\bdg-do\s+\w+\s*\{\s*target\b')
+QUOTED_INCLUDE = re.compile(rb'^\s*#\s*include\s*"([^"\n]+)"', re.M)
 COMMENTS = re.compile(r'("(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|'
                       r'/\*.*?\*/|//[^\n]*)', re.S)
 TOKENS = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|'
@@ -189,9 +191,64 @@ def snapshot_path(original):
         raise ValueError('source outside GCC test suite: ' + original)
     suffix = original[len(prefix):]
     path = (REFS / suffix).resolve()
-    if not path.is_relative_to(REFS.resolve()) or path.suffix != '.c':
+    if not path.is_relative_to(REFS.resolve()):
         raise ValueError('unsafe source path: ' + original)
     return path
+
+
+def quoted_companions(original, data):
+    """Yield test-local include paths, not installed/system headers."""
+    for name in QUOTED_INCLUDE.findall(data):
+        inc = name.decode('latin-1')
+        candidate = (Path(original).parent / inc).as_posix()
+        if (not candidate.startswith('gcc/testsuite/') or
+                '..' in Path(candidate).parts):
+            raise ValueError('unsafe relative GCC include: ' + candidate)
+        yield candidate
+
+
+def import_companions(repo, originals):
+    """Preserve archived local #include dependencies, not just C entries."""
+    original_paths = {r['original_source'] for r in originals}
+    pending = [(r['original_source'], snapshot_path(r['original_source']).read_bytes())
+               for r in originals]
+    dependencies = {}
+    while pending:
+        owner, data = pending.pop()
+        for child in quoted_companions(owner, data):
+            if child in original_paths:
+                continue  # Already present as one of the 679 C snapshots.
+            if child in dependencies:
+                dependencies[child]['included_by'].add(owner)
+                continue
+            cmd = ['git', '-C', str(repo), 'show', REVISION + ':' + child]
+            result = subprocess.run(cmd, stdout=subprocess.PIPE,
+                                    stderr=subprocess.DEVNULL)
+            if result.returncode:
+                dependencies[child] = {'sha256': '',
+                                       'included_by': {owner},
+                                       'status': 'absent-in-original'}
+                continue
+            body = result.stdout
+            out = snapshot_path(child)
+            if out.is_file() and out.read_bytes() != body:
+                raise ValueError('existing companion differs: ' + child)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_bytes(body)
+            dependencies[child] = {'sha256': digest(body),
+                                   'included_by': {owner},
+                                   'status': 'preserved'}
+            pending.append((child, body))
+    with COMPANIONS.open('w', encoding='utf-8', newline='') as stream:
+        writer = csv.writer(stream, delimiter='\t', lineterminator='\n')
+        writer.writerow(('original_source', 'source_sha256', 'status',
+                         'included_by'))
+        for path, info in sorted(dependencies.items()):
+            writer.writerow((path, info['sha256'], info['status'],
+                             ';'.join(sorted(info['included_by']))))
+    print('Preserved %d quoted include companions; missing historical files: %d' %
+          (sum(d['status'] == 'preserved' for d in dependencies.values()),
+           sum(d['status'] == 'absent-in-original' for d in dependencies.values())))
 
 
 def archived(repo, records):
@@ -278,6 +335,7 @@ def import_sources(repo):
                                 delimiter='\t', lineterminator='\n')
         writer.writeheader()
         writer.writerows(result)
+    import_companions(repo, records)
     print('Archived %d historical GCC source snapshots; no tests executed' %
           len(result))
     print('Ledger: ' + str(LEDGER))
@@ -340,10 +398,46 @@ def verify_sources():
                         elif value != 'no_test':
                             errors.append('unreviewed compiler/CPU cell: %s %s' %
                                           (target, column))
+    included = read_tsv(COMPANIONS)
+    companion_paths = {}
+    for row in included:
+        child = row['original_source']
+        if child in companion_paths:
+            errors.append('duplicate GCC companion path: ' + child)
+        companion_paths[child] = row
+        target = snapshot_path(child)
+        if row['status'] == 'preserved':
+            if not target.is_file() or digest(target.read_bytes()) != row['source_sha256']:
+                errors.append('missing/changed GCC companion: ' + child)
+        elif row['status'] != 'absent-in-original' or row['source_sha256'] or target.exists():
+            errors.append('invalid absent GCC companion: ' + child)
+    original_paths = {r['original_source'] for r in originals}
+    visited = set()
+    reached_companions = set()
+    queue = [(r['original_source'], snapshot_path(r['original_source']).read_bytes())
+             for r in originals if snapshot_path(r['original_source']).is_file()]
+    while queue:
+        owner, data = queue.pop()
+        if owner in visited:
+            continue
+        visited.add(owner)
+        for child in quoted_companions(owner, data):
+            if child in original_paths:
+                continue
+            reached_companions.add(child)
+            if child not in companion_paths:
+                errors.append('unowned GCC quoted include: ' + child)
+            elif companion_paths[child]['status'] == 'preserved':
+                queue.append((child, snapshot_path(child).read_bytes()))
+    for stale in sorted(companion_paths.keys() - reached_companions):
+        errors.append('stale GCC companion record: ' + stale)
     snapshots = {p.relative_to(ROOT).as_posix()
                  for p in REFS.rglob('*.c')}
     expected = {snapshot_path(r['original_source']).relative_to(ROOT).as_posix()
                 for r in originals}
+    expected.update(snapshot_path(p).relative_to(ROOT).as_posix()
+                    for p, row in companion_paths.items()
+                    if row['status'] == 'preserved' and p.endswith('.c'))
     for extra in sorted(snapshots - expected):
         errors.append('unowned GCC archival source: ' + extra)
     counts = collections.Counter(r['review_status'] for r in ledger)

@@ -48,8 +48,10 @@ The 679 historical non-target-specific GCC sources not byte-identical to
 existing tests are now preserved under `refs/gcc-c-unmirrored-v1/`, pinned
 to GCC revision `b0f5374`. The per-source assertion/ownership inventory is
 `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. Its registered static
-verifier is `tools/inventory-gcc-unmirrored-v1.py`. A reviewed first batch of
-13 additional PDP-10-specific runtime regressions is in
+verifier is `tools/inventory-gcc-unmirrored-v1.py`. Archived local include
+dependencies are tracked in `docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv`.
+The reviewed first batch of 13 additional PDP-10-specific runtime
+regressions is in
 `tests/semantic/gcc-historical-v1/`, with only GCC PDP-6 optimization cells
 marked `pending` in the compiler matrix. These have **not been executed**.
 The historical snapshots are *not* automatically active test cases; consult

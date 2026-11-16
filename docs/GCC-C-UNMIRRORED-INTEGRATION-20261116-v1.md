@@ -33,10 +33,20 @@ source-to-adaptation paths and active registrations. An explicit
 `--import-sources` restores the original snapshots from the historical GCC
 Git object database; the ordinary verifier requires no GCC checkout.
 
+The archived C sources also have test-local quoted-include dependencies.
+The recursive source inventory preserves 25 companion files, including
+`gcc.dg/format/format.h` (used by 53 historical C tests), preprocessor
+`mi*` headers and `unc1.c`. The versioned
+`docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv` pins their original hashes,
+referencers and reachability. One historical `#include "silly\\` from the
+preprocessor diagnostic corpus names a file absent from the original GCC
+tree; this is recorded as absent, not replaced with a synthetic header.
+None of this installs hosted/system headers or implements DejaGNU execution.
+
 ## Already integrated or partially adapted
 
-Six original execution tests have source-level assertion-preserving
-adaptations already registered in the testkit:
+Six original GCC tests have source-level adaptations already registered
+in the testkit (five execution cases and one compile-only case):
 
 | Original GCC basename | Actual ownership / adaptation |
 | --- | --- |
@@ -44,7 +54,7 @@ adaptations already registered in the testkit:
 | `20011126-1.c` | `tests/semantic/upstream/wide-int/`: failed negative-value assertion becomes nonzero status |
 | `20020216-1.c` | `tests/semantic/upstream/generic/`: replace vacuous 8/16/32-bit guard by native 9/18/36-bit signed XOR expectation |
 | `960311-3.c` | `tests/semantic/upstream/generic/`: move `stdio.h` inside `DEBUG`; assertion unchanged |
-| `920711-1.c` | `tests/semantic/upstream/generic/`: preserve decrement/branch comparison, express original abort as status |
+| `920711-1.c` | `tests/semantic/upstream/generic/`: retain decrement/branch comparison and return status, but the original 32-bit signed boundary becomes an interior positive PDP-10 value |
 | `20020304-1.c` | `tests/codegen/upstream-gcc/compile/`: retained large compile-only source with shortened PDP-10 linker symbols |
 
 Two additional source adaptations are present **but deferred**:
