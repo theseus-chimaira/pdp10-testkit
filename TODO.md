@@ -453,14 +453,20 @@ The next eight batches are documented in
 - [ ] Audit the specialized suite registry for other hardcoded dispatch and
   misleading/informational entries; verify each enabled registration really
   executes in its advertised suite, and decide whether `kcc-all` should
-  include host regressions as well as `kcc-regression`.
+  include host regressions as well as `kcc-regression`. The expected-failure
+  KCC `language-modes`, parser-diagnostics and language-attribute checks
+  now require genuine source-rejection diagnostics, not merely a nonzero
+  compiler exit; see `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
 - [ ] Audit all registered tests for exactly-once ownership, duplicate source
   or redundant coverage, obsolete scripts, missing prerequisites, and correct
   statuses. Preserve intentional CPU/ISA-specific test variation.
 - [ ] Audit `run-tests.sh` / `tools/run-tests.py` execution, resume, parallel
   result aggregation, statuses and negative-test crash detection. Maintain a
   single compiler matrix runner and a separate special-suite runner, without
-  duplicating execution logic.
+  duplicating execution logic. KCC negative cells now share one fail-closed
+  ICE/rejection policy with special scripts, including its documented
+  non-ICE maximum-error limit; all 814 KCC negative profile cells pass.
+  Continue with GCC negatives, restart/parallel aggregation and failures.
 - [ ] Review support for upstream GCC diagnostic directives (`dg-error`,
   expected warnings, target constraints) and decide which cases are worth
   importing as explicitly negative/diagnostic tests. Do not misclassify
@@ -473,7 +479,10 @@ The next eight batches are documented in
   installed-toolchain prerequisites; record actionable failures.
 - [ ] Sweep the 37 negative tests across supported KCC/GCC CPU and
   optimization combinations; compare to the PDP-6 KCC pilot, and resolve
-  compiler ICEs first. Do not infer results from a `--list-only` check.
+  compiler ICEs first. KCC has now executed **814/814 passing cells**:
+  296 base-family and 518 native/PDP-10-family cells across all 22 KCC
+  profiles. GCC is still pending; no `--list-only` results are counted
+  as execution. See `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
 - [ ] Complete codegen compilation sweeps for the 706 consolidated upstream
   GCC tests and the other codegen groups. Previously only focused KCC PDP-6
   samples were run; in particular, GCC and cross-CPU/optimization coverage

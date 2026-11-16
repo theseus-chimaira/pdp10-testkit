@@ -6,7 +6,7 @@ testroot=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 kcc_setup_env
 root=$PDP10_PREFIX/lib/kcc
 KCC=$PDP10_PREFIX/bin/kcc
-tmp=${TMPDIR:-/tmp}/kcc-language-modes-$$
+tmp=${TMPDIR:-$HOME/tmp}/kcc-language-modes-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp"
 
@@ -72,7 +72,14 @@ reject()
     file=$2
     if TERM=dumb "$KCC" "-P$mode" -S -v=nostats -R="$tmp/out" "$tmp/$file.c" \
         >"$tmp/$mode-$file.out" 2>"$tmp/$mode-$file.err"; then
-        echo "$mode unexpectedly accepted $file" >&2
+        status=0
+    else
+        status=$?
+    fi
+    if ! python3 "$testroot/../../tools/check-kcc-rejection-v1.py" \
+        "$status" "$tmp/$mode-$file.out" "$tmp/$mode-$file.err"; then
+        echo "invalid KCC rejection: $mode $file" >&2
+        cat "$tmp/$mode-$file.err" >&2
         exit 1
     fi
 }

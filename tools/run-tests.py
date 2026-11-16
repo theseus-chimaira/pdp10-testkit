@@ -14,6 +14,7 @@ import sys
 import time
 from pathlib import Path
 from stubselect import STUB_SYMBOLS, selected_test_stubs
+from compiler_negative_policy_v1 import ICE_RE, check_kcc_rejection
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -1115,9 +1116,6 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
     return status
 
 
-ICE_RE = re.compile(r'(?i)(internal compiler error|internal error|\bICE\b|segmentation fault|compiler (?:crash|abort)|please submit a (?:full )?bug report|assertion .* failed|fatal error: .*compiler)')
-
-
 def run_negative_cell(idx, total, src, cell, outroot, bins, announce=True):
     """Expected compilation rejection; crashes, signals and timeouts never pass."""
     cdir = begin_cell_run(outroot, src, cell, 'negative')
@@ -1141,7 +1139,15 @@ def run_negative_cell(idx, total, src, cell, outroot, bins, announce=True):
     elif result in ('pass', 'no_output'):
         status = 'unexpected_compile_success'
     elif result == 'fail':
-        status = 'pass' if diagnostics.partition('\n')[2].strip() else 'policy_fail'
+        if cell['compiler'] == 'kcc':
+            # A failed KCC process alone does not prove a diagnosed source
+            # rejection. An I/O failure or fatal setup diagnostic must not
+            # become a green negative-test cell merely because it printed
+            # more than one log line.
+            status = ('pass' if check_kcc_rejection(1, diagnostics) is None
+                      else 'policy_fail')
+        else:
+            status = 'pass' if diagnostics.partition('\n')[2].strip() else 'policy_fail'
     else:
         status = 'compile_fail'
     line = [src, cell['machine'], cell['compiler'], cell['profile'], 'negative',

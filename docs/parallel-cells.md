@@ -53,6 +53,14 @@ Skip known failures as well as already-green cells:
 `COMPILER_MATRIX.tsv`. Standalone compiler ABI, assembler, and tools tests
 live under `misc/` and are dispatched by `run-misc-tests.sh`:
 
+KCC negative compiler cells and the standalone KCC expected-rejection
+regressions now share one fail-closed diagnostic policy. A nonzero compiler
+exit is not sufficient: a real KCC source error or its documented
+maximum-error limit must be present, and internal errors, timeouts and
+signals remain failures. All 814 KCC negative cells were executed and
+passed; GCC negative diagnostics are a separate open audit. See
+`docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
+
 ```sh
 ./run-misc-tests.sh verify
 ./run-misc-tests.sh compat

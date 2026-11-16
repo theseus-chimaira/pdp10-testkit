@@ -16,10 +16,14 @@ check_rejected() {
     case_name=$1
     source="$root/tests/negative/upstream-gcc/gcc-dg-noncompile/$case_name.c"
     cp "$source" "$work/$case_name.c"
-    (cd "$work" && "$kcc" -S -v=nostats -x=pdp6 "$case_name.c") \
-        > "$work/$case_name.log" 2>&1 || :
-    if ! grep -q '^? KCC - .*error' "$work/$case_name.log" ||
-       grep -q '\[Internal error\]' "$work/$case_name.log"; then
+    if (cd "$work" && "$kcc" -S -v=nostats -x=pdp6 "$case_name.c") \
+        > "$work/$case_name.log" 2>&1; then
+        status=0
+    else
+        status=$?
+    fi
+    if ! python3 "$root/tools/check-kcc-rejection-v1.py" \
+        "$status" "$work/$case_name.log"; then
         cat "$work/$case_name.log" >&2
         echo "Incorrect rejection or internal compiler error: $case_name" >&2
         exit 1

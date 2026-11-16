@@ -23,6 +23,7 @@ pdp6-profile-comparison-v1	compat	python3	misc/compat/test-pdp6-profile-comparis
 deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
 test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
 test-pdp10-tools-registry-v2	verify	python3	tools/test-pdp10-tools-registry-v2.py	host	yes	120
+test-kcc-negative-policy-v1	verify	python3	tools/test-kcc-negative-policy-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120
 kcc-p0-diagnostics-v1	validation	sh	misc/validation/test-kcc-p0-diagnostics-v1.sh	default	yes	120
