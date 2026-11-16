@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate instruction regression gates and safe weighted comparison."""
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -13,7 +14,10 @@ def run(*args):
 
 
 def main(compare):
-    with tempfile.TemporaryDirectory() as d:
+    tmpdir = pathlib.Path(os.environ.get('TMPDIR') or pathlib.Path.home() / 'tmp')
+    tmpdir.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='pdp6-profile-comparison-v1.',
+                                     dir=tmpdir) as d:
         root = pathlib.Path(d)
         a, b = root / 'baseline.json', root / 'candidate.json'
         sample = {'schema': 'pdp6-opcode-profile-v1', 'instruction_count': 1000,
@@ -29,6 +33,7 @@ def main(compare):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        raise SystemExit('usage: test-pdp6-profile-comparison-v1.py COMPARATOR')
-    main(sys.argv[1])
+    if len(sys.argv) > 2:
+        raise SystemExit('usage: test-pdp6-profile-comparison-v1.py [COMPARATOR]')
+    default = pathlib.Path(__file__).resolve().parents[2] / 'tools' / 'compare-pdp6-profiles-v1.py'
+    main(sys.argv[1] if len(sys.argv) == 2 else str(default))

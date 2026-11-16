@@ -400,9 +400,13 @@ The next eight batches are documented in
 - [ ] Compare the 19 original GCC PDP-10 target-specific tests with the
   assertions of the centrally registered tests; classify equivalent,
   inapplicable, and missing coverage without assuming filename equivalence.
-- [ ] Review the six unregistered scripts lacking discovered static callers,
-  especially the DAS native-image checker and AAP diagnostics. Distinguish
-  test cases from helper tools and dynamic invocation.
+- [x] Review the six scripts formerly lacking discovered static callers.
+  Four deterministic host checks are now enabled in the special registry;
+  the speculative AAP JRST/ILLOP probe stays unregistered, and the obsolete
+  monolithic ASCII-DXR DAS checker was retired in favor of the native
+  phase/chain/guest gates. The census now distinguishes directly dispatched
+  DAS tests from nested helpers. See
+  `docs/SPECIAL-SCRIPT-OWNERSHIP-AUDIT-20261116-v2.md`.
 - [x] Fix independent PDP10-TOOLS source/build selection. The suite now
   defaults to `../pdp10-tools`, builds a clean Git-archived source revision
   in temporary storage, and prints its source SHA. Real independent revision

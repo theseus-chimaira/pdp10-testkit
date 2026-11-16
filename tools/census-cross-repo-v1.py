@@ -130,7 +130,11 @@ def run(args):
         elif row and row["group"] in registry_groups:
             status = "registered-registry-dispatched"
         elif row and row["group"] == "das":
-            status = "registered-das-aggregate-only"
+            # Fast, full and native DAS profiles now run directly from the
+            # special registry. Nested scripts run *within* those owners;
+            # their row does not imply an additional independent execution.
+            status = ("registered-nested-owner" if row["profile"] == "nested"
+                      else "registered-registry-dispatched")
         elif row:
             status = "registered-dispatch-unknown"
         elif mentions:
@@ -175,6 +179,10 @@ def run(args):
     print("gcc_pdp10_target=%d unmatched_source=%d" %
           (len(gcc_target), sum(r[3] == "no-direct-testkit-source-match"
                                 and r[0] == "gcc-pdp10" for r in rows)))
+    if not tracked(gcc, "gcc/testsuite"):
+        print("NOTE: selected gcc-pdp10 revision contains no tracked "
+              "gcc/testsuite tree; zero GCC counts mean unavailable source, "
+              "not complete target-test coverage")
     for sub in ("execute", "compile"):
         prefix = "gcc/testsuite/gcc.c-torture/" + sub
         upstream = [p for p in tracked(gcc, prefix)

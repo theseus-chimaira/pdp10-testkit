@@ -4,6 +4,7 @@ kcc-compound-negating-assign-v1	kcc-regression	sh	misc/kcc-regression/compound-n
 kcc-pdp6-negative-fp-runtime-v1	validation	sh	misc/validation/test-kcc-pdp6-negative-fp-runtime-v1.sh	pdp6	yes	120
 kcc-pdp6-rounded-fp-boundaries-v2	validation	sh	misc/validation/test-kcc-pdp6-rounded-fp-boundaries-v2.sh	pdp6	manual	150
 kcc-pdp6-fp-hardware-case9-v1	validation	sh	misc/validation/test-kcc-pdp6-fp-hardware-case9-v1.sh	pdp6	yes	150
+aap-pdp6-emnf-case9-model-v1	validation	python3	misc/validation/analyze-aap-pdp6-emnf-case9-v1.py	host	yes	120
 kcc-aap-pdp6-rounded-fp-v2	validation	python3	misc/validation/test-aap-pdp6-rounded-fp-v2.py	pdp6	manual	180
 kcc-pdp6-float-fold-v1	validation	sh	misc/validation/test-kcc-pdp6-float-fold-v1.sh	pdp6	yes	120
 kcc-pdp6-dimode-nativefloat-v1	validation	sh	misc/validation/test-kcc-pdp6-dimode-nativefloat-v1.sh	pdp6	yes	120
@@ -16,6 +17,9 @@ freestanding-search-benchmark-v1	validation	python3	tools/benchmark-freestanding
 gcc-addressof-pdp6-ice-v1	validation	sh	misc/validation/test-gcc-addressof-pdp6-ice-v1.sh	pdp6	yes	120
 gcc-9bit-data-section-v1	validation	sh	misc/validation/test-gcc-9bit-data-section-v1.sh	pdp6	yes	120
 freestanding-search-v1	compat	sh	misc/compat/test-freestanding-search-v1.sh	pdp6	yes	120
+aap-timing-trace-parser-v1	compat	python3	misc/compat/test-aap-timing-trace-v1.py	host	yes	60
+pdp6-opcode-report-v1	compat	python3	misc/compat/test-pdp6-opcode-report-v1.py	host	yes	60
+pdp6-profile-comparison-v1	compat	python3	misc/compat/test-pdp6-profile-comparison-v1.py	host	yes	60
 deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
 test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120

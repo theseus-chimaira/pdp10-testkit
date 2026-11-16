@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """Check decimal SIMH counters, aggregate totals and partial timing coverage."""
 import pathlib
+import os
 import subprocess
 import sys
 import tempfile
 
 
 def main(reporter):
-    with tempfile.TemporaryDirectory() as d:
+    tmpdir = pathlib.Path(os.environ.get('TMPDIR') or pathlib.Path.home() / 'tmp')
+    tmpdir.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='pdp6-opcode-report-v1.',
+                                     dir=tmpdir) as d:
         sample = pathlib.Path(d) / 'sample.out'
         sample.write_text('''__P10RUN_OPCODE_PROFILE__
 OPCOUNT[0]: 00000000000000000000
@@ -28,6 +32,7 @@ OPCOUNT[174]-OPCOUNT[511]: same as above
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        raise SystemExit('usage: test-pdp6-opcode-report-v1.py REPORTER')
-    main(sys.argv[1])
+    if len(sys.argv) > 2:
+        raise SystemExit('usage: test-pdp6-opcode-report-v1.py [REPORTER]')
+    default = pathlib.Path(__file__).resolve().parents[2] / 'tools' / 'report-pdp6-opcodes-v1.py'
+    main(sys.argv[1] if len(sys.argv) == 2 else str(default))
