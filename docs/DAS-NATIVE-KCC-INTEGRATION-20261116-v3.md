@@ -44,10 +44,17 @@ image ceiling, and injected scratch-read errors. It passes.
 
 The guest image boots, finds the imported S6REC input, and reports
 `/TEMP` mode `01777`, but the guest cannot create even a short scratch
-file in the directory. This is a preflight failure *before* DAS1 starts.
+file in the directory. A subsequent diagnostic run confirmed root
+`FSINFO` flags **zero** (read-write) and successfully opened the existing
+`/TEMP/TEST.S` for writing without truncation. Creating `/TEMP/P` with
+`O_WRONLY | O_CREAT | O_TRUNC` still fails at preflight stage `W`.
+This narrows the fault to the guest file-creation path rather than a
+read-only root or general inability to open files for writing. It does
+not yet distinguish parent-path resolution, VFS CREATE dispatch, D6FS
+free-FCB allocation, or D6FS metadata publication. DAS1 has not started.
 The native build and phase-chain checks do not substitute for an
-assemble/execute PASS. Root mount read-only policy, blockset write
-service and D6FS journal conditions are under investigation.
+assemble/execute PASS. The guest fixture uses small auxiliary drum
+reservations, since the unused auxiliary drum is not part of this test.
 
 The earlier v1/v2 reports remain historical records of the 94-word
 and 72-word failures, respectively. The current strict size gates pass;

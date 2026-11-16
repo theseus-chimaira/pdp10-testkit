@@ -187,6 +187,7 @@ main(void)
     kword_t *out_argv[1];
     kword_t words[6];
     struct vfs_stat st;
+    struct sys_fsinfo root_info;
     unsigned int i;
     int fd;
     int rc;
@@ -199,6 +200,16 @@ main(void)
     put_text("\r\n");
     if (dsys_stat(source_path, &st) != 0)
         fail('I');
+    if (dsys_fsinfo(0U, &root_info) != 1)
+        fail('F');
+    put_text("DAS ROOT FLAGS ");
+    put_octal(root_info.flags);
+    put_text("\r\n");
+    fd = dsys_open(source_path, SYS_O_WRONLY);
+    if (fd < 0)
+        fail('B');
+    if (dsys_close(fd) != 0)
+        fail('C');
     fd = dsys_open(short_probe_path,
         SYS_O_WRONLY | SYS_O_CREAT | SYS_O_TRUNC);
     if (fd < 0)
