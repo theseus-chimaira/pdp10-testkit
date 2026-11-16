@@ -409,8 +409,19 @@ The next eight batches are documented in
   compile-only overlap, one same-name but non-equivalent diagnostic test,
   13 newly registered PDP-10 GCC runtime tests awaiting execution, 64
   additional same-name reviews, two non-equivalent overlaps, and 591
-  other unreviewed sources. Do not
+  other initially unreviewed sources. Batch 01 subsequently reviewed 50:
+  17 additional PDP-10 GCC-only tests registered as pending, 10 deferred,
+  and 23 inapplicable. **605 sources remain** (52 same-name review,
+  553 unreviewed). Do not
   count preserved reference files as activated tests.
+- [x] Complete a 50-source GCC integration batch with one recorded
+  compatibility and oracle decision per source, 17 versioned adapted
+  regressions and 68 pending PDP-6 GCC matrix cells. See
+  `docs/GCC-C-BATCH01-REVIEW-20261116-v1.md` and its source-hash-pinned TSV.
+- [ ] Continue source-level GCC compatibility integration in 50-source
+  batches, starting with the next 50 entries still marked `unreviewed`
+  or `same-name-review` in the source-ownership ledger. Do not schedule
+  a deferred/inapplicable case by weakening its original assertion.
 - [x] Restore the historical non-target GCC sources to a testkit-owned,
   reproducible reference inventory and add a registered static hash/ownership
   gate (`gcc-c-unmirrored-ownership-v1`). No compiler or emulator tests run.

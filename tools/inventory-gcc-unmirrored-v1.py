@@ -9,6 +9,7 @@ ledger classifications and matrix owners. Neither mode executes any tests.
 import argparse
 import collections
 import csv
+from functools import lru_cache
 import hashlib
 from pathlib import Path
 import re
@@ -21,6 +22,7 @@ PREFLIGHT = ROOT / 'docs/GCC-C-FEASIBILITY-PREFLIGHT-20261116-v1.tsv'
 LEDGER = ROOT / 'docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv'
 STRUCTURAL = ROOT / 'docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv'
 COMPANIONS = ROOT / 'docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv'
+BATCH01 = ROOT / 'docs/GCC-C-BATCH01-20261116-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
 FIELDS = ('group', 'original_source', 'source_sha256', 'snapshot_path',
@@ -109,6 +111,12 @@ TOKENS = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|'
 def read_tsv(path):
     with path.open(encoding='utf-8', newline='') as stream:
         return list(csv.DictReader(stream, delimiter='\t'))
+
+
+@lru_cache(maxsize=1)
+def batch01_decisions():
+    """Explicit per-source compatibility decisions, never inferred from names."""
+    return {r['original_source']: r for r in read_tsv(BATCH01)}
 
 
 def original_rows():
@@ -292,8 +300,14 @@ def ownership(row, data):
     else:
         oracle = 'compile-oracle-review'
     reviewed = REVIEWED.get(suffix)
+    batch = batch01_decisions().get(original)
     if reviewed:
         status, matrix_owner, reason = reviewed
+    elif batch:
+        status = 'batch01-' + ('pending' if batch['decision'] == 'integrate'
+                               else batch['decision'])
+        matrix_owner = batch['integrated_path']
+        reason = batch['review_reason']
     else:
         status = ('same-name-review' if row['name_match'] != 'no-same-name'
                   else 'unreviewed')
@@ -350,6 +364,30 @@ def verify_sources():
     by_path = {r['original_source']: r for r in ledger}
     if len(by_path) != len(ledger):
         errors.append('duplicate ledger source path')
+    batch = read_tsv(BATCH01)
+    selected = [r['original_source'] for r in originals
+                if r['original_source'][len('gcc/testsuite/'):] not in REVIEWED][:50]
+    batch_paths = [r['original_source'] for r in batch]
+    if len(batch) != 50 or batch_paths != selected:
+        errors.append('batch01 must contain the first 50 previously unresolved GCC C sources in order')
+    source_hashes = {r['original_source']: r['source_sha256'] for r in originals}
+    for row in batch:
+        path = row['original_source']
+        if row['source_sha256'] != source_hashes.get(path):
+            errors.append('batch01 original source hash mismatch: ' + path)
+        if (not row['review_reason'] or not row['original_oracle'] or
+                row['decision'] not in ('integrate', 'defer', 'inapplicable')):
+            errors.append('batch01 incomplete disposition: ' + path)
+        if row['decision'] == 'integrate':
+            expected = 'tests/semantic/gcc-historical-b01-v1/' + Path(path).name
+            if (row['integrated_path'] != expected or
+                    row['pdp10_compatibility'] != 'adapted-native'):
+                errors.append('batch01 unexpected test owner: ' + path)
+            target = ROOT / row['integrated_path']
+            if not target.is_file() or digest(target.read_bytes()) != row['integrated_sha256']:
+                errors.append('batch01 missing/changed adapted test: ' + path)
+        elif row['integrated_path'] or row['integrated_sha256']:
+            errors.append('batch01 deferred source incorrectly registered: ' + path)
     matrix_rows = {}
     with (ROOT / 'COMPILER_MATRIX.tsv').open(encoding='utf-8') as stream:
         matrix_rows = {r['test']: r for r in csv.DictReader(
@@ -374,15 +412,20 @@ def verify_sources():
             if not (ROOT / target).is_file():
                 errors.append('missing adapted source: ' + target)
             active = recorded['review_status'] in (
-                'adapted-active', 'partial-compile-overlap', 'registered-pending')
+                'adapted-active', 'partial-compile-overlap',
+                'registered-pending', 'batch01-pending')
             if (target in matrix) != active:
                 errors.append('adapted registration status disagrees: ' + target)
-            if recorded['review_status'] == 'registered-pending':
-                if not (ROOT / target).is_file() or (ROOT / target).read_bytes() != data:
+            if recorded['review_status'] in ('registered-pending', 'batch01-pending'):
+                if (recorded['review_status'] == 'registered-pending' and
+                        (not (ROOT / target).is_file() or (ROOT / target).read_bytes() != data)):
                     errors.append('registered historical source changed: ' + target)
                 cell_row = matrix_rows.get(target)
                 if cell_row:
-                    if cell_row['group'] != 'semantic-gcc-historical':
+                    expected_group = ('semantic-gcc-historical-b01'
+                                      if recorded['review_status'] == 'batch01-pending'
+                                      else 'semantic-gcc-historical')
+                    if cell_row['group'] != expected_group:
                         errors.append('wrong GCC historical matrix group: ' + target)
                     allowed = {'pdp6_gcc_o0', 'pdp6_gcc_o1',
                                'pdp6_gcc_o2', 'pdp6_gcc_os'}
@@ -398,6 +441,13 @@ def verify_sources():
                         elif value != 'no_test':
                             errors.append('unreviewed compiler/CPU cell: %s %s' %
                                           (target, column))
+    expected_batch_sources = {r['integrated_path'] for r in batch
+                              if r['decision'] == 'integrate'}
+    actual_batch_sources = {
+        path.relative_to(ROOT).as_posix()
+        for path in (ROOT / 'tests/semantic/gcc-historical-b01-v1').glob('*.c')}
+    for unowned in sorted(actual_batch_sources - expected_batch_sources):
+        errors.append('unowned batch01 source: ' + unowned)
     included = read_tsv(COMPANIONS)
     companion_paths = {}
     for row in included:

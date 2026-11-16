@@ -140,3 +140,17 @@ review preprocessor/assembler oracles. Any source whose original
 assertion cannot be represented by the current runner should remain an
 owned reference, not a fake passing test. Avoid deleting an active
 KCC/GCC cross-compiler test merely because it originated in GCC.
+
+## Batch 01 update (2026-11-16)
+
+The next 50 unresolved original sources, all from
+`gcc.c-torture/execute`, have now received source-level compatibility
+decisions. Seventeen new GCC-only PDP-6 semantic sources are registered
+under `tests/semantic/gcc-historical-b01-v1/` with 68 `pending` cells;
+ten sources are deferred and 23 original assertions are inapplicable
+to this PDP-10 environment. The source-hash-pinned audit trail is
+`docs/GCC-C-BATCH01-20261116-v1.tsv`, explained in
+`docs/GCC-C-BATCH01-REVIEW-20261116-v1.md`. The preceding table is
+the historical pre-batch snapshot; after batch 01, the current ledger
+has **553 unreviewed plus 52 same-name review** sources (605 unresolved).
+No tests have been executed in this batch.

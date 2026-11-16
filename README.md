@@ -57,6 +57,13 @@ marked `pending` in the compiler matrix. These have **not been executed**.
 The historical snapshots are *not* automatically active test cases; consult
 `docs/GCC-C-UNMIRRORED-INTEGRATION-20261116-v1.md` before promoting more.
 
+The first 50-source assertion-level compatibility review is recorded in
+`docs/GCC-C-BATCH01-20261116-v1.tsv` and
+`docs/GCC-C-BATCH01-REVIEW-20261116-v1.md`. It integrated 17 PDP-10
+GCC-only pending semantic regressions, deferred 10 cases and identified
+23 incompatible historical assertions. Source ownership is checked by
+the existing GCC inventory verifier. No tests were run for this batch.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
