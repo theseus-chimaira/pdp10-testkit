@@ -23,6 +23,12 @@ repositories, run `python3 tools/census-cross-repo-v1.py`. The versioned
 report and manifest are `docs/CROSS-REPO-TEST-CENSUS-20261116-v1.*`.
 This static census does not build or run tests or claim execution coverage.
 
+Before importing new upstream GCC C tests, apply the PDP-10 feasibility gate
+in `docs/GCC-C-FEASIBILITY-REVIEW-20261116-v1.md`. The companion TSVs record
+original assertions, PDP-10-specific restrictions, and an initial source-risk
+queue. GCC-only target codegen cases remain owned by the GCC repository;
+do not duplicate them here without a distinct regression contract.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,

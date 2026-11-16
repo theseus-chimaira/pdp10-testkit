@@ -373,6 +373,18 @@ The next eight batches are documented in
 
 ## P1 — registry and runner consolidation
 
+- [x] Review original GCC PDP-10 target C regression feasibility and drop the
+  ITS-only CIRC case rather than inventing a false generic PDP-10 adaptation.
+  See `docs/GCC-C-FEASIBILITY-REVIEW-20261116-v1.md` and its target TSV.
+- [x] Retire the two central GCC-only codegen sources whose assertions are
+  already GCC-owned (BSS zero aggregate and SIXBIT/indexing). Keep the
+  cross-compiler copies that also exercise KCC. The GCC-owned suite must
+  still receive independent DejaGNU execution/optimization validation.
+- [ ] Manually review the 679 non-PDP-10-target original GCC C sources in
+  the feasibility preflight before proposing further imports or removals.
+  Preserve the original assertion and derive native 36-bit/9-bit/non-IEEE
+  expectations; do not mistake a successful compile for meaningful coverage.
+
 - [x] Establish a reproducible static census across `pdp10-testkit`, KCC,
   GCC PDP-10, DAS, independent PDP10-TOOLS, and DAIMOS host tools. See
   `tools/census-cross-repo-v1.py` and the versioned 2026-11-16 report/TSV.

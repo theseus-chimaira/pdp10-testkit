@@ -84,7 +84,8 @@ def run(args):
     matrix = read_rows(ROOT / "COMPILER_MATRIX.tsv", comments=True)
     direct = {row["path"]: row for row in specials}
     test_sources = [p for p in tracked(ROOT, "tests")
-                    if Path(p).suffix in (".c", ".s", ".S", ".sh", ".py")]
+                    if Path(p).suffix in (".c", ".s", ".S", ".sh", ".py")
+                    and (ROOT / p).is_file()]
     by_name, by_hash = sources_index(test_sources)
     all_scripts = [p for p in tracked(ROOT, "misc")
                    if Path(p).suffix in (".sh", ".py")]
@@ -102,7 +103,8 @@ def run(args):
     # individually; same-name and same-content matches are not equivalents.
     gcc = repos["gcc-pdp10"]
     gcc_target = [p for p in tracked(gcc, "gcc/testsuite/gcc.target/pdp10")
-                  if Path(p).suffix in (".c", ".sh", ".s", ".S")]
+                  if Path(p).suffix in (".c", ".sh", ".s", ".S")
+                  and (gcc / p).is_file()]
     for rel in gcc_target:
         exact = by_hash.get(sha(gcc / rel), [])
         names = by_name.get(Path(rel).name, [])
@@ -175,13 +177,14 @@ def run(args):
                                 and r[0] == "gcc-pdp10" for r in rows)))
     for sub in ("execute", "compile"):
         prefix = "gcc/testsuite/gcc.c-torture/" + sub
-        upstream = [p for p in tracked(gcc, prefix) if p.endswith(".c")]
+        upstream = [p for p in tracked(gcc, prefix)
+                    if p.endswith(".c") and (gcc / p).is_file()]
         names = sum(bool(by_name.get(Path(p).name)) for p in upstream)
         hashes = sum(bool(by_hash.get(sha(gcc / p))) for p in upstream)
         print("gcc_c_torture_%s=%d same_name=%d same_bytes=%d" %
               (sub, len(upstream), names, hashes))
     upstream = [p for p in tracked(gcc, "gcc/testsuite/gcc.dg")
-                if p.endswith(".c")]
+                if p.endswith(".c") and (gcc / p).is_file()]
     print("gcc_dg=%d same_name=%d same_bytes=%d" %
           (len(upstream), sum(bool(by_name.get(Path(p).name)) for p in upstream),
            sum(bool(by_hash.get(sha(gcc / p))) for p in upstream)))
