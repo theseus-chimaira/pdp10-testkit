@@ -33,7 +33,8 @@ printf 'pdp10-tools independent source revision: %s\n' "$revision"
 
 ${MAKE:-make} -C "$source" all
 
-for f in dlink darc p10run pdp10-objdump p10fold p10super csix; do
+for f in dlink darc p10run pdp10-objdump p10fold p10super csix \
+        mkdt mkstream words2pt; do
         ln -s "$source/$f" "$work/$f"
 done
 ln -s "$source/p10run.c" "$work/p10run.c"
@@ -43,7 +44,7 @@ for f in dobj-test.c pdp10-objdump-test.c pdp10-objdump-test.sh \
         p10super-cfg-test.c p10super-cfg-test.sh \
         p10super-rewrite-test.c p10super-rewrite-test.sh \
         p10run-functional-test.sh \
-        csix-test.sh; do
+        csix-test.sh media-encoders-test-v1.py; do
         cp "$here/$f" "$work/tests/$f"
 done
 chmod 755 "$work/tests"/*.sh
@@ -70,6 +71,9 @@ ${CC:-c99} ${CFLAGS:--O2} -I"$source" -o "$work/tests/p10fold-link-mk" \
         ./tests/p10super-rewrite-test.sh
         ./tests/p10run-functional-test.sh
         TMPDIR="$TMPDIR" CSIX="$work/csix" ./tests/csix-test.sh
+        python3 ./tests/media-encoders-test-v1.py \
+                "$work/mkdt" "$work/mkstream" "$work/words2pt" \
+                "$work/tests/media-fixtures-v1"
 )
 
 TMPDIR="$TMPDIR" PDP10_TOOLS_REPO="$source" \

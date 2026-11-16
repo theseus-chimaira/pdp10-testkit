@@ -412,6 +412,9 @@ The next eight batches are documented in
   in temporary storage, and prints its source SHA. Real independent revision
   `fbef3d0334d9` passed DOBJ/DARC, p10fold/dlink, p10super CFG/rewrite,
   p10run KA10, CSIX, and install/uninstall checks (2026-11-16).
+  Additional independent full-output/bad-input media-format regressions
+  for `mkdt`, `mkstream` and `words2pt` also pass in the same isolated
+  build. See `docs/PDP10-TOOLS-MEDIA-ENCODERS-20261116-v1.md`.
   This does not establish coverage of all independent tools or of the
   different DAIMOS host-tool sources.
 

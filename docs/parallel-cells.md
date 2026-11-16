@@ -84,6 +84,9 @@ code-size and guest-execution gates.
 
 The independent tools suite retains one authoritative registry entry for its
 aggregate; it has not been split into per-utility registry entries yet.
+The aggregate also checks the byte-exact output and malformed-input behavior
+of `mkdt`, `mkstream` and `words2pt` without rebuilding the tools separately;
+see `docs/PDP10-TOOLS-MEDIA-ENCODERS-20261116-v1.md`.
 
 `pdp10-tools` selects the **independent** `../pdp10-tools` checkout by
 default (override with `PDP10_TOOLS_REPO`). It rejects uncommitted source
