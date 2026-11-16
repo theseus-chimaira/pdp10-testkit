@@ -403,10 +403,13 @@ The next eight batches are documented in
 - [ ] Review the six unregistered scripts lacking discovered static callers,
   especially the DAS native-image checker and AAP diagnostics. Distinguish
   test cases from helper tools and dynamic invocation.
-- [ ] Fix the independent PDP10-TOOLS source/build selection for its suite.
-  The default DAIMOS host-tool checkout differs in 13 common C/header files
-  at the census v1 baseline; do not interpret its aggregate pass as proof
-  about the independent repository.
+- [x] Fix independent PDP10-TOOLS source/build selection. The suite now
+  defaults to `../pdp10-tools`, builds a clean Git-archived source revision
+  in temporary storage, and prints its source SHA. Real independent revision
+  `fbef3d0334d9` passed DOBJ/DARC, p10fold/dlink, p10super CFG/rewrite,
+  p10run KA10, CSIX, and install/uninstall checks (2026-11-16).
+  This does not establish coverage of all independent tools or of the
+  different DAIMOS host-tool sources.
 
 - [ ] Make `SPECIAL_TESTS.tsv` authoritative for DAS and tools execution.
   Currently `tools/run-misc-suites.py` retains hardcoded `DAS_FAST`, explicit

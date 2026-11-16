@@ -6,18 +6,37 @@ set -eu
 
 here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 repo=$(CDPATH= cd -- "$PDP10_TOOLS_REPO" && pwd)
+git_root=$(git -C "$repo" rev-parse --show-toplevel) || {
+        echo 'pdp10-tools source must be a Git checkout' >&2
+        exit 1
+}
+if [ "$repo" != "$git_root" ]; then
+        echo 'PDP10_TOOLS_REPO must be the independent repository root' >&2
+        exit 1
+fi
 work=$TMPDIR/pdp10-tools-regression-$$
 trap 'rm -rf "$work"' 0 1 2 3 15
-mkdir -p "$work/tests"
-build="$work/build"
-bin="$build/tools/host"
+mkdir -p "$work/tests" "$work/source"
 
-${MAKE:-make} -C "$repo" all BUILD_ROOT="$build"
+# The independent tools Makefile builds directly in its source directory.
+# Snapshot the exact committed revision so stale local executables and
+# in-tree build products can neither affect the result nor dirty the checkout.
+if ! git -C "$repo" diff --quiet HEAD --; then
+        echo 'pdp10-tools source tree has uncommitted changes' >&2
+        exit 1
+fi
+revision=$(git -C "$repo" rev-parse HEAD)
+git -C "$repo" archive --format=tar -o "$work/source-v1.tar" HEAD
+tar -xf "$work/source-v1.tar" -C "$work/source"
+source=$work/source
+printf 'pdp10-tools independent source revision: %s\n' "$revision"
+
+${MAKE:-make} -C "$source" all
 
 for f in dlink darc p10run pdp10-objdump p10fold p10super csix; do
-        ln -s "$bin/$f" "$work/$f"
+        ln -s "$source/$f" "$work/$f"
 done
-ln -s "$repo/p10run.c" "$work/p10run.c"
+ln -s "$source/p10run.c" "$work/p10run.c"
 
 for f in dobj-test.c pdp10-objdump-test.c pdp10-objdump-test.sh \
         p10fold-link-test.c p10fold-link-test.sh \
@@ -29,16 +48,16 @@ for f in dobj-test.c pdp10-objdump-test.c pdp10-objdump-test.sh \
 done
 chmod 755 "$work/tests"/*.sh
 
-${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/dobj-test" \
-        "$work/tests/dobj-test.c" "$repo/dobj.c"
-${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/pdp10-objdump-mk" \
-        "$work/tests/pdp10-objdump-test.c" "$repo/dobj.c"
-${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/p10super-cfg-mk" \
-        "$work/tests/p10super-cfg-test.c" "$repo/dobj.c"
-${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/p10super-rewrite-mk" \
-        "$work/tests/p10super-rewrite-test.c" "$repo/dobj.c"
-${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/p10fold-link-mk" \
-        "$work/tests/p10fold-link-test.c" "$repo/dobj.c"
+${CC:-c99} ${CFLAGS:--O2} -I"$source" -o "$work/tests/dobj-test" \
+        "$work/tests/dobj-test.c" "$source/dobj.c"
+${CC:-c99} ${CFLAGS:--O2} -I"$source" -o "$work/tests/pdp10-objdump-mk" \
+        "$work/tests/pdp10-objdump-test.c" "$source/dobj.c"
+${CC:-c99} ${CFLAGS:--O2} -I"$source" -o "$work/tests/p10super-cfg-mk" \
+        "$work/tests/p10super-cfg-test.c" "$source/dobj.c"
+${CC:-c99} ${CFLAGS:--O2} -I"$source" -o "$work/tests/p10super-rewrite-mk" \
+        "$work/tests/p10super-rewrite-test.c" "$source/dobj.c"
+${CC:-c99} ${CFLAGS:--O2} -I"$source" -o "$work/tests/p10fold-link-mk" \
+        "$work/tests/p10fold-link-test.c" "$source/dobj.c"
 
 (
         cd "$work"
@@ -53,7 +72,7 @@ ${CC:-c99} ${CFLAGS:--O2} -I"$repo" -o "$work/tests/p10fold-link-mk" \
         TMPDIR="$TMPDIR" CSIX="$work/csix" ./tests/csix-test.sh
 )
 
-TMPDIR="$TMPDIR" PDP10_TOOLS_REPO="$repo" BUILD_ROOT="$build" \
+TMPDIR="$TMPDIR" PDP10_TOOLS_REPO="$source" \
         "$here/install-cleanup-test.sh"
 
 echo 'pdp10-tools generic regressions: PASS'

@@ -79,11 +79,13 @@ def main(suite):
     elif suite == "gcc-bare-libgcc":
         failures += run_special("gcc-bare-libgcc")
     elif suite == "pdp10-tools":
-        repo = Path(os.environ.get("PDP10_TOOLS_REPO", "../DAIMOS/tools/host")).resolve()
-        if not (repo / "Makefile").is_file():
+        repo = Path(os.environ.get("PDP10_TOOLS_REPO", "../pdp10-tools")).resolve()
+        if not all((repo / name).is_file() for name in
+                   ("Makefile", "dobj.c", "p10run.c", "p10fold.c")):
             raise SystemExit("invalid PDP10_TOOLS_REPO: " + str(repo))
-        # The registry owns this aggregate; its prerequisites are supplied
-        # explicitly rather than reimplementing its constituent test script.
+        # The independent repository has its own Makefile and source tree.
+        # Its regression script archives the selected Git revision and builds
+        # it in isolation, rather than testing DAIMOS/tools/host by accident.
         failures += run_special("tools", env=dict(ENV, PDP10_TOOLS_REPO=str(repo)))
     elif suite == "kcc-regression":
         failures += run_special("kcc-regression")

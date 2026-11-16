@@ -17,6 +17,9 @@ for the matrix, `./run-tests.sh list` to enumerate cells, and
 `./run-misc-tests.sh clean` to remove generated artifacts. The compiler matrix is
 `COMPILER_MATRIX.tsv`; specialized suites are listed in `SPECIAL_TESTS.tsv` and
 run by `./run-misc-tests.sh`. Runner usage is described in `docs/parallel-cells.md`.
+The `pdp10-tools` special suite tests the independent `../pdp10-tools`
+repository at its explicitly reported Git revision; it does not silently
+substitute the different `DAIMOS/tools/host` source tree.
 
 For a read-only inventory across the KCC, GCC, DAS, and PDP10-TOOLS source
 repositories, run `python3 tools/census-cross-repo-v1.py`. The versioned

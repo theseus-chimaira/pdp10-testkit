@@ -78,6 +78,13 @@ The DAS and tools aggregators retain their original ordered execution and
 build prerequisites; their individual registry entries are informational
 until those suites are fully migrated to per-test execution.
 
+`pdp10-tools` selects the **independent** `../pdp10-tools` checkout by
+default (override with `PDP10_TOOLS_REPO`). It rejects uncommitted source
+edits, prints the selected Git revision, and builds an isolated archive of
+that revision. This avoids accidentally exercising DAIMOS's distinct host
+tools or reusing prebuilt executables. The generic tool regression and
+installation probes operate on the same isolated revision.
+
 The compiler runner retains `list`, `list-kcc`, `list-gcc`, `reset`, `test`,
 `test-parallel`, parallelism (`-j N`), and restart checkpoints.
 
