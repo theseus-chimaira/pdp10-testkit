@@ -459,7 +459,14 @@ The next eight batches are documented in
   compiler exit; see `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
 - [ ] Audit all registered tests for exactly-once ownership, duplicate source
   or redundant coverage, obsolete scripts, missing prerequisites, and correct
-  statuses. Preserve intentional CPU/ISA-specific test variation.
+  statuses. Preserve intentional CPU/ISA-specific test variation. The
+  static script inventory now assigns explicit owners to all 366 committed
+  shell/Python scripts in `pdp10-testkit`, including the newly connected
+  three UTF-9 tool tests and five original PDP-6 KCC standalone runners.
+  **No execution tests were run for this integration stage.** Next audit
+  source-level and dynamic ownership in `daimos-testkit`, the absent
+  GCC upstream testsuite, and deferred C/assembler sources before sweeps.
+  See `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md`.
 - [ ] Audit `run-tests.sh` / `tools/run-tests.py` execution, resume, parallel
   result aggregation, statuses and negative-test crash detection. Maintain a
   single compiler matrix runner and a separate special-suite runner, without
@@ -481,8 +488,10 @@ The next eight batches are documented in
   optimization combinations; compare to the PDP-6 KCC pilot, and resolve
   compiler ICEs first. KCC has now executed **814/814 passing cells**:
   296 base-family and 518 native/PDP-10-family cells across all 22 KCC
-  profiles. GCC is still pending; no `--list-only` results are counted
-  as execution. See `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
+  profiles. A later GCC sweep was also run prematurely; neither sweep
+  establishes test ownership or missing-source integration. Freeze further
+  broad execution until disconnected tests are connected and the inventory
+  is complete. See `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
 - [ ] Complete codegen compilation sweeps for the 706 consolidated upstream
   GCC tests and the other codegen groups. Previously only focused KCC PDP-6
   samples were run; in particular, GCC and cross-CPU/optimization coverage

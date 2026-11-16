@@ -36,7 +36,7 @@ printf 'pdp10-tools independent source revision: %s\n' "$revision"
 ${MAKE:-make} -C "$work/source" all
 
 for f in dlink darc p10run pdp10-objdump p10fold p10super csix \
-    mkdt mkstream words2pt; do
+    mkdt mkstream words2pt utf9-file-v1 utf9-s6rec-v1 s6rec-utf9-v1; do
     ln -s "$work/source/$f" "$work/$f"
 done
 ln -s "$work/source/p10run.c" "$work/p10run.c"
@@ -47,6 +47,13 @@ for f in dobj-test.c pdp10-objdump-test.c pdp10-objdump-test.sh \
     p10super-rewrite-test.c p10super-rewrite-test.sh \
     p10run-functional-test.sh csix-test.sh media-encoders-test-v1.py; do
     cp "$here/$f" "$work/tests/$f"
+done
+# UTF-9 oracles live under compat and are invoked by dedicated registry
+# cases, but run against the same immutable pdp10-tools snapshot.
+root=$(CDPATH= cd -- "$here/../.." && pwd)
+for f in test-utf9-file-v1.py test-utf9-s6rec-v1.py \
+    test-s6rec-utf9-v1.py; do
+    cp "$root/misc/compat/$f" "$work/tests/$f"
 done
 chmod 755 "$work/tests"/*.sh
 

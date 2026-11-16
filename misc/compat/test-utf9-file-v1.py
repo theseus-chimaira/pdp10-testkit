@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 """Validate counted MSB-first packed 9-bit UTF-9 interchange files."""
+import os
 import pathlib
 import subprocess
 import sys
 import tempfile
+
+
+def require(condition, description):
+    if not condition:
+        raise RuntimeError('utf9-file-v1: ' + description)
 
 
 def pack(text):
@@ -22,7 +28,9 @@ def pack(text):
 
 
 def main(tool):
-    with tempfile.TemporaryDirectory() as d:
+    scratch = pathlib.Path(os.environ.get('TMPDIR') or pathlib.Path.home() / 'tmp')
+    scratch.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='utf9-file-v1.', dir=scratch) as d:
         root = pathlib.Path(d)
         source, output = root / 'source', root / 'target'
         cases = ['', 'ASCII\x00test', 'AÿΑ𐌰', '\u00ff\u0100\uffff\U0010ffff',
@@ -30,20 +38,23 @@ def main(tool):
         for item in cases:
             source.write_bytes(item.encode('utf-8'))
             subprocess.run([tool, str(source), str(output)], check=True)
-            assert output.read_bytes() == pack(item), repr(item[:32])
+            require(output.read_bytes() == pack(item),
+                    'encoded bytes differ for ' + repr(item[:32]))
         for invalid in [b'\xff', b'\xc0\x80', b'\xe0\x80\x80',
                         b'\xed\xa0\x80', b'\xf4\x90\x80\x80',
                         b'\xe2\x82', b'ABC\xff', b'\xe2(\xa1']:
             source.write_bytes(invalid)
             result = subprocess.run([tool, str(source), str(output)],
                                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            assert result.returncode != 0 and not output.exists()
+            require(result.returncode != 0 and not output.exists(),
+                    'invalid UTF-8 input was accepted or left output')
         source.write_text('keep', encoding='ascii')
         alias = root / 'alias'
         alias.hardlink_to(source)
         result = subprocess.run([tool, str(source), str(alias)],
                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        assert result.returncode != 0 and source.read_text() == 'keep'
+        require(result.returncode != 0 and source.read_text() == 'keep',
+                'aliased output corrupted source')
     print('utf9-file-v1: PASS')
 
 

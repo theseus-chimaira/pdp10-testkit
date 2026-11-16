@@ -90,15 +90,24 @@ and are not repeated. The manual native chain probe is registered but not
 part of the default suite. Native execution remains subject to its genuine
 code-size and guest-execution gates.
 
-The independent `pdp10-tools` suite now has nine individually registered
+The independent `pdp10-tools` suite now has twelve individually registered
 test entries in `SPECIAL_TESTS.tsv`: DOBJ/DARC, objdump, p10fold/dlink,
 p10super CFG, p10super rewrites, p10run/KA10, CSIX, media encoders, and
-install/uninstall cleanup. The dispatcher snapshots and builds the source
-**once** before running all nine entries, each with an independent timeout
+install/uninstall cleanup, plus three UTF-9 interchange checks formerly
+invoked only by the independent Makefile's optional `check-utf9` target.
+The dispatcher snapshots and builds the source
+**once** before running the registered entries, each with an independent timeout
 and PASS/FAIL result. The same source revision and artifacts are used by
 every test, with guaranteed cleanup on test or setup failure. See
 `docs/PDP10-TOOLS-REGISTRY-20261116-v2.md` and the media-format contract
 in `docs/PDP10-TOOLS-MEDIA-ENCODERS-20261116-v1.md`.
+Five original standalone PDP-6 KCC regression runners are also now
+registered under `kcc-regression`, separately from their compiler-matrix
+wrappers. The static ledger `docs/TEST-SCRIPT-OWNERSHIP-20261116-v4.tsv`
+records every currently discovered shell/Python script's owner; the
+`verify` suite has a fail-closed static ownership audit. These are
+integration changes only: the newly registered cases have **not yet
+been executed**, pending the remaining disconnected-source audit.
 
 `pdp10-tools` selects the **independent** `../pdp10-tools` checkout by
 default (override with `PDP10_TOOLS_REPO`). It rejects uncommitted source

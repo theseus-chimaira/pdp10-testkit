@@ -22,6 +22,7 @@ pdp6-opcode-report-v1	compat	python3	misc/compat/test-pdp6-opcode-report-v1.py	h
 pdp6-profile-comparison-v1	compat	python3	misc/compat/test-pdp6-profile-comparison-v1.py	host	yes	60
 deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
 test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
+test-script-ownership-v4	verify	python3	tools/audit-script-ownership-v4.py	host	yes	120
 test-pdp10-tools-registry-v2	verify	python3	tools/test-pdp10-tools-registry-v2.py	host	yes	120
 test-kcc-negative-policy-v1	verify	python3	tools/test-kcc-negative-policy-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
@@ -81,6 +82,11 @@ language-modes	kcc-regression	sh	misc/kcc-regression/language-modes.sh	default	y
 register-abi-opt	kcc-regression	sh	misc/kcc-regression/register-abi-opt.sh	default	yes	120
 runtime-helper-fragments	kcc-regression	sh	misc/kcc-regression/runtime-helper-fragments.sh	default	yes	120
 terminal-return-chain	kcc-regression	sh	misc/kcc-regression/terminal-return-chain.sh	default	yes	120
+daimos-kcc-indexed-call-standalone-v1	kcc-regression	sh	tests/semantic/imported/target/daimos-kcc-indexed-call-pdp6/run.sh	pdp6	yes	120
+daimos-kcc-local-word-array-standalone-v1	kcc-regression	sh	tests/semantic/imported/target/daimos-kcc-local-word-array-pdp6/run.sh	pdp6	yes	120
+daimos-kcc-loop-return-standalone-v1	kcc-regression	sh	tests/semantic/imported/target/daimos-kcc-loop-return-pdp6/run.sh	pdp6	yes	120
+daimos-kcc-pointer-scan-standalone-v1	kcc-regression	sh	tests/semantic/imported/target/daimos-kcc-pointer-scan-pdp6-20261009/run.sh	pdp6	yes	120
+daimos-kcc-sixarg-char-standalone-v1	kcc-regression	sh	tests/semantic/imported/target/daimos-kcc-sixarg-char-pdp6/run.sh	pdp6	yes	120
 das-run-das-fast-tests	das	sh	misc/das/run-das-fast-tests.sh	fast	yes	900
 das-check-das-phase-ir	das	sh	misc/das/check-das-phase-ir.sh	fast	yes	300
 das-check-das-phase2-transport	das	sh	misc/das/check-das-phase2-transport.sh	fast	yes	300
@@ -109,6 +115,9 @@ pdp10-tools-p10super-rewrite-v2	tools	sh	misc/tools/cases/p10super-rewrite-v2.sh
 pdp10-tools-p10run-v2	tools	sh	misc/tools/cases/p10run-v2.sh	repository	yes	120
 pdp10-tools-csix-v2	tools	sh	misc/tools/cases/csix-v2.sh	repository	yes	120
 pdp10-tools-media-v2	tools	sh	misc/tools/cases/media-v2.sh	repository	yes	120
+pdp10-tools-utf9-file-v3	tools	sh	misc/tools/cases/utf9-file-v3.sh	repository	yes	120
+pdp10-tools-utf9-s6rec-v3	tools	sh	misc/tools/cases/utf9-s6rec-v3.sh	repository	yes	120
+pdp10-tools-s6rec-utf9-v3	tools	sh	misc/tools/cases/s6rec-utf9-v3.sh	repository	yes	120
 pdp10-tools-install-v2	tools	sh	misc/tools/cases/install-v2.sh	repository	yes	120
 daimos-kcc-array-bound36-20261010	kcc-host	sh	misc/kcc-host/daimos-kcc-array-bound36-20261010.sh	host	yes	120
 daimos-kcc-ccsrc-singlepass-20261010	kcc-host	sh	misc/kcc-host/daimos-kcc-ccsrc-singlepass-20261010.sh	host	yes	120
@@ -202,6 +211,7 @@ aap-linked-pc-profile-v1	compat	python3	misc/compat/test-aap-linked-pc-profile-v
 aap-linked-image-verify-v1	compat	python3	misc/compat/test-aap-linked-image-verify-v1.py	host	yes	120
 aap-linked-load-v1	compat	python3	misc/compat/test-aap-linked-load-v1.py	host	yes	120
 aap-daimos-stage1-v1	compat	sh	misc/compat/test-aap-daimos-stage1-v1.sh	host	manual	120
+aap-illegal-relocation-diagnostic-v1	compat	python3	misc/compat/test-aap-illegal-relocation-probe-v1.py	host	manual	300
 aap-all-asm-coverage-v1	compat	python3	misc/compat/test-aap-daimos-asm-coverage-v1.py	host	yes	120
 aap-setzm-v1	compat	python3	misc/compat/test-aap-setzm-v1.py	host	yes	120
 aap-hrli-v1	compat	python3	misc/compat/test-aap-hrli-v1.py	host	yes	120
