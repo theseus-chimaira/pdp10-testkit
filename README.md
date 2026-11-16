@@ -26,8 +26,10 @@ This static census does not build or run tests or claim execution coverage.
 Before importing new upstream GCC C tests, apply the PDP-10 feasibility gate
 in `docs/GCC-C-FEASIBILITY-REVIEW-20261116-v1.md`. The companion TSVs record
 original assertions, PDP-10-specific restrictions, and an initial source-risk
-queue. GCC-only target codegen cases remain owned by the GCC repository;
-do not duplicate them here without a distinct regression contract.
+queue. After removal of GCC's DejaGNU suite, reviewed GCC-only codegen
+cases are maintained in `refs/gcc-pdp10-target-v2/` and validated by
+`misc/validation/test-gcc-target-codegen-v2.py`. See
+`docs/GCC-DEJAGNU-REMOVAL-20261116-v2.md` for source provenance.
 
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 

@@ -16,6 +16,9 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
+# Last GCC revision containing the original source corpus (after ITS removal).
+# The source tree intentionally no longer ships DejaGNU tests.
+GCC_ARCHIVE_REF = "b0f5374"
 GROUPS = (
     ("torture-execute", "gcc/testsuite/gcc.c-torture/execute"),
     ("torture-compile", "gcc/testsuite/gcc.c-torture/compile"),
@@ -67,7 +70,31 @@ def group_source(group, rel):
     return group == "pdp10-target" or rel.endswith(".c")
 
 
-def preflight(gcc_repo):
+def archived_c_sources(repo, revision, prefix):
+    paths = subprocess.check_output(
+        ["git", "-C", str(repo), "ls-tree", "-r", "--name-only",
+         revision, "--", prefix], text=True).splitlines()
+    paths = [p for p in paths if p.endswith(".c")]
+    cmd = ["git", "-C", str(repo), "cat-file", "--batch"]
+    with subprocess.Popen(cmd, stdin=subprocess.PIPE,
+                          stdout=subprocess.PIPE) as proc:
+        for rel in paths:
+            proc.stdin.write((revision + ":" + rel + "\n").encode("ascii"))
+            proc.stdin.flush()
+            header = proc.stdout.readline().split()
+            if len(header) != 3 or header[1] != b"blob":
+                raise ValueError("invalid Git source object for " + rel)
+            size = int(header[2])
+            data = proc.stdout.read(size)
+            if len(data) != size or proc.stdout.read(1) != b"\n":
+                raise ValueError("short Git source object for " + rel)
+            yield rel, data
+        proc.stdin.close()
+        if proc.wait() != 0:
+            raise ValueError("git cat-file failed")
+
+
+def preflight(gcc_repo, revision):
     # A source may be tracked in the index but deleted in the working tree
     # during a deliberate ownership transfer. Compare actual source files.
     local = [p for p in tracked(ROOT, "tests")
@@ -80,11 +107,7 @@ def preflight(gcc_repo):
         by_name[Path(rel).name].append(rel)
     rows = []
     for group, prefix in GROUPS:
-        for rel in tracked(gcc_repo, prefix):
-            # Ignore deletions staged or pending in the source checkout.
-            if not rel.endswith(".c") or not (gcc_repo / rel).is_file():
-                continue
-            data = (gcc_repo / rel).read_bytes()
+        for rel, data in archived_c_sources(gcc_repo, revision, prefix):
             source_hash = digest(data)
             if source_hash in by_hash:
                 continue
@@ -112,12 +135,17 @@ def preflight(gcc_repo):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--gcc-repo", default=str(ROOT.parent / "gcc-pdp10"))
+    p.add_argument("--gcc-ref", default=GCC_ARCHIVE_REF,
+                   help="historical GCC source revision (default: %(default)s)")
     p.add_argument("--output", help="explicit TSV output path; no other writes")
     args = p.parse_args()
     gcc = Path(args.gcc_repo)
-    if not (gcc / "gcc/testsuite").is_dir():
-        p.error("not a GCC source checkout: " + str(gcc))
-    rows = preflight(gcc)
+    if not (gcc / ".git").exists():
+        p.error("not a GCC Git checkout: " + str(gcc))
+    try:
+        rows = preflight(gcc, args.gcc_ref)
+    except (OSError, subprocess.CalledProcessError, ValueError) as exc:
+        p.error(str(exc))
     if args.output:
         with Path(args.output).open("w", encoding="utf-8", newline="") as stream:
             writer = csv.writer(stream, delimiter="\t", lineterminator="\n")

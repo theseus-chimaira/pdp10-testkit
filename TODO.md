@@ -373,6 +373,14 @@ The next eight batches are documented in
 
 ## P1 — registry and runner consolidation
 
+- [x] Preserve 18 reviewed GCC target artifacts outside the GCC source
+  tree and register twelve independent compiler/codegen oracles in the
+  DejaGNU-free `misc/validation/test-gcc-target-codegen-v2.py` runner.
+  See `docs/GCC-DEJAGNU-REMOVAL-20261116-v2.md`.
+- [ ] Rework and verify four historical GCC target shell probes before
+  activating them in `SPECIAL_TESTS.tsv`. The two companion C sources
+  are not standalone semantic tests.
+
 - [x] Review original GCC PDP-10 target C regression feasibility and drop the
   ITS-only CIRC case rather than inventing a false generic PDP-10 adaptation.
   See `docs/GCC-C-FEASIBILITY-REVIEW-20261116-v1.md` and its target TSV.
