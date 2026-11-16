@@ -426,12 +426,15 @@ The next eight batches are documented in
   maximum-size disk-backed relocation mock and all 9 fast plus 2 full
   host DAS tests pass. See
   `docs/DAS-NATIVE-KCC-INTEGRATION-20261116-v3.md`.
-- [ ] Complete full native DAS guest execution: the guest can stat
-  `/TEMP` (mode `01777`) and imported `TEST.S`, but cannot create even
-  a short file in `/TEMP` in the current boot image. Investigate root
-  mount flags and actual D6FS write services, not assembler size gates;
-  require actual native DAS1/DAS2 assemble, DXR comparison and execution
-  before reporting a full guest PASS.
+- [x] Complete full native DAS guest execution. The guest now exercises
+  read-write root FSINFO, an existing-file CHMOD, MKDIR/RMDIR, CREATE,
+  DAS1/DAS2 scratch files, exact six-word DXR output and execution. All
+  pass after fixing the resident D6FS free-FCB scan bound: it compared
+  against `reader->super_block[0]` instead of `reader->fcb_count`.
+  The original image had 295 populated nodes and 360 FCB slots, but
+  could not allocate a file. The independent original PDP-6 allocator
+  regression checks both too-small and too-large superblock addresses.
+  See `docs/DAS-NATIVE-KCC-INTEGRATION-20261116-v5.md`.
 - [x] Correct optimized KCC negative-one compound assignments and
   illegal immediate IDIV folding (KCC `22aedc8`). Test all eight CPU/mode
   combinations (PDP-6, KA10, KI10, KS10 x opt/noopt), including

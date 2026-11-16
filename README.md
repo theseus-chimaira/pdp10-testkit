@@ -24,9 +24,10 @@ The DAS `das-fast`, `das`, and `das-native` suites select ordered `fast`,
 `full`, and `native` entries in the special registry. Nested helper tests
 are not dispatched a second time; see
 `docs/DAS-REGISTRY-INTEGRATION-20261116-v1.md` for the original registry
-conversion. The native scanner and phase size checks now pass, but the
-full DAIMOS guest acceptance remains open at a writable-root check; see
-`docs/DAS-NATIVE-KCC-INTEGRATION-20261116-v3.md`. The previous
+conversion. The native scanner, phase-size checks and complete DAIMOS
+guest assemble/compare/execute acceptance now pass after correction of
+the D6FS free-FCB allocation bound; see
+`docs/DAS-NATIVE-KCC-INTEGRATION-20261116-v5.md`. The previous
 `docs/DAS-COMMENT-COMPACTION-20261116-v2.md` records the intermediate
 72-instruction scanner before the final four-word reduction.
 

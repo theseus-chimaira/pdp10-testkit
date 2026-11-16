@@ -61,6 +61,12 @@ static kword_t short_probe_path[] = {
     PDP10_SIX6('P',' ',' ',' ',' ',' ')
 };
 
+static kword_t dir_probe_path[] = {
+    7UL,
+    PDP10_SIX6('/','T','E','M','P','/'),
+    PDP10_SIX6('Z',' ',' ',' ',' ',' ')
+};
+
 static kword_t out_name[] = {
     3UL,
     PDP10_SIX6('O','U','T',' ',' ',' ')
@@ -210,6 +216,20 @@ main(void)
         fail('B');
     if (dsys_close(fd) != 0)
         fail('C');
+    rc = dsys_chmod(source_path, 0644U);
+    put_text("DAS EXISTING CHMOD ");
+    put_octal((kword_t)(unsigned int)rc);
+    put_text("\r\n");
+    if (rc != 0)
+        fail('H');
+    rc = dsys_mkdir(dir_probe_path);
+    put_text("DAS NEW MKDIR ");
+    put_octal((kword_t)(unsigned int)rc);
+    put_text("\r\n");
+    if (rc != 0)
+        fail('N');
+    if (dsys_rmdir(dir_probe_path) != 0)
+        fail('Z');
     fd = dsys_open(short_probe_path,
         SYS_O_WRONLY | SYS_O_CREAT | SYS_O_TRUNC);
     if (fd < 0)
