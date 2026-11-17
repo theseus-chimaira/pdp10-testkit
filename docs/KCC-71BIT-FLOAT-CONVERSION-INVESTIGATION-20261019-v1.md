@@ -5,9 +5,10 @@ resolved and verified on PDP-6 on 2026-10-20. See the completed
 `KCC-PDP6-SOFTWARE-DFORMAT-20261020-v1.md`; the earlier failed approaches
 and observations are retained as the investigation record.
 
-## Current acceptance state
+## Historical acceptance state (superseded 2026-10-20)
 
-The unmodified upstream `tests/todo/generic/930622-2.c` is still deferred.
+The unmodified upstream `tests/semantic/upstream/wide-int/930622-2.c`
+was still deferred when these measurements were made.
 Installed and original source-built KCC both fail in `vrwiden` with:
 
 ```

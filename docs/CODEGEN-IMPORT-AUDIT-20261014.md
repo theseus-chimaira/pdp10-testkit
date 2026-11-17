@@ -1,8 +1,10 @@
 # Inactive upstream codegen import audit (2026-10-14)
 
-Audited `tests/todo/codegen/upstream-gcc/` (900 files, including 873 C
-sources and 27 support files). A conservative automatic source/harness
-classification was followed by a focused KCC PDP-6 compile check.
+Audited 900 original staged files (873 C sources and 27 support files).
+The old `tests/todo/codegen` staging directory has since been removed;
+the retained codegen import is under `tests/codegen/upstream-gcc/`.
+A conservative automatic source/harness classification was followed by
+a focused KCC PDP-6 compile check at the time of this report.
 
 ## Retained in the compiler matrix
 

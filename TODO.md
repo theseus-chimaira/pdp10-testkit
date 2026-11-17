@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
 Current ownership and registration baseline (2026-11-17): 2,108 compiler
-matrix sources, 279 special entries (229 enabled direct, 44 manual,
-6 nested), and 420 owned script paths. The authoritative counts come
+matrix sources, 280 special entries (230 enabled direct, 44 manual,
+6 nested), and 421 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The ownership split is documented in
@@ -232,7 +232,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   `docs/SEMANTIC-EXTENSION-BATCH-20261014-v16.md`; remaining *execution*
   requirements are inventoried in the deferred-disposition v1 table.
 - [ ] Resolve the 269 currently `deferred` sources (seven inline-assembly C
-  tests, KL10-specific `support/920428-1.s`, varargs/header/runtime
+  tests, KL10-specific `tests/semantic/upstream/support/920428-1.s`, varargs/header/runtime
   dependencies, GNU extension feature decisions, width-sensitive cases and
   independently observed compiler failures). Earlier deferred
   `20000314-3.c` and `20000519-1.c` were already activated; incompatible
@@ -657,7 +657,7 @@ The next eight batches are documented in
 - [ ] Finish indirect/dynamic DAIMOS OS test-call ownership and actual
   runtime validation; the static cross-repository separation is already
   complete. Current PDP10 inventory has 2,108 compiler sources,
-  279 specialized registrations, 420 owned scripts, 50 reviewed duplicate
+  280 specialized registrations, 421 owned scripts, 50 reviewed duplicate
   pairs and 19 original GCC target artifacts. The older DAIMOS census
   (1,680 scripts, 969 with no static caller) was a historical estimate
   and needs reassessment, not another compiler test relocation.
@@ -989,6 +989,13 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   current ownership paths does not retroactively re-run earlier studies.
 - [x] Confirm the obsolete `tests/todo/codegen` and `tests/todo/negative`
   placeholders are already absent. Preserve `tests/todo/generic/`.
+- [x] Relink 125 historical compiler source paths to byte-identical
+  retained files using Git blob/hash evidence; preserve the original
+  outcomes and record each old/current source pair. Audit all local
+  Markdown paths with four explicitly annotated retired-path exceptions.
+  Correct five OS reports that pointed to DAIMOS production source
+  as though it belonged to the testkit. See
+  `docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261117-v1.md`.
 - [ ] Keep testkit-specific instructions near the tests; only update
   completed cross-project toolchain/ABI documentation in `pdp10-doc`.
 - [ ] After the major review, rerun registry-source validation, shell/Python
@@ -998,11 +1005,11 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## Current baseline (not a completion claim)
 
 - `COMPILER_MATRIX.tsv`: 2,108 source rows, ownership and source paths audited.
-- `SPECIAL_TESTS.tsv`: 279 unique entries, including 229 enabled direct,
+- `SPECIAL_TESTS.tsv`: 280 unique entries, including 230 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 420 owned shell/Python scripts; registered host
-  verification passed 19/19 checks after the ownership split.
+- Script inventory: 421 owned shell/Python scripts; registered host
+  verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).

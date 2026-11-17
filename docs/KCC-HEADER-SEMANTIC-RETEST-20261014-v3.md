@@ -1,5 +1,7 @@
 # KCC installed-header semantic retest (2026-10-14, v3)
 
+> **Source-path maintenance (2026-11-17):** 46 paths in this dated 2026-10-14 test report were relinked to byte-identical files in the current tree. Original paths, SHA256 and historical Git blobs are preserved in `docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv`. Recorded results and classification labels are **historical**; this path correction is not a new test run or a claim of current activation.
+
 ## Environment
 
 - Compiler: KCC rebuilt from repository, installed into versioned temporary staging prefix.
@@ -19,99 +21,99 @@
 
 | Original deferred source | Compilation | Runtime | Classification |
 | --- | --- | --- | --- |
-| `tests/todo/generic/20000519-1.c` | compiled | pass | active |
-| `tests/todo/generic/20000910-1.c` | compiled | pass | active |
-| `tests/todo/generic/20000910-2.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/20010329-1.c` | compiled | pass | active |
-| `tests/todo/generic/20010604-1.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/20020226-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/20000519-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/20000910-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/20000910-2.c` | compiled | run_fail | deferred |
+| `tests/semantic/upstream/generic/20010329-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/20010604-1.c` | compile_fail | not run | deferred |
+| `tests/semantic/upstream/wide-int/20020226-1.c` | compiled | pass | active |
 | `tests/todo/generic/920501-6.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/920501-8.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/920625-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/920625-1.c` | compiled | pass | active |
 | `tests/todo/generic/920726-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/920730-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/920730-1.c` | compiled | pass | active |
 | `tests/todo/generic/920810-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/920908-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/920908-1.c` | compiled | pass | active |
 | `tests/todo/generic/930513-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/931004-10.c` | compiled | pass | active |
-| `tests/todo/generic/931004-12.c` | compiled | pass | active |
-| `tests/todo/generic/931004-14.c` | compiled | pass | active |
-| `tests/todo/generic/931004-2.c` | compiled | pass | active |
-| `tests/todo/generic/931004-4.c` | compiled | pass | active |
-| `tests/todo/generic/931004-6.c` | compiled | pass | active |
-| `tests/todo/generic/931004-8.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/931004-10.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/931004-12.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/931004-14.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/931004-2.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/931004-4.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/931004-6.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/931004-8.c` | compiled | pass | active |
 | `tests/todo/generic/941014-2.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/960311-1.c` | compiled | pass | active |
-| `tests/todo/generic/960311-2.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/960311-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/960311-2.c` | compiled | pass | active |
 | `tests/todo/generic/960327-1.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/960521-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/980205.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/980205.c` | compiled | pass | active |
 | `tests/todo/generic/980605-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/980608-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/980608-1.c` | compiled | pass | active |
 | `tests/todo/generic/980707-1.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/980709-1.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/980716-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/980716-1.c` | compiled | pass | active |
 | `tests/todo/generic/990513-1.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/990628-1.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/990826-0.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/991216-2.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/991216-2.c` | compiled | pass | active |
 | `tests/todo/generic/991216-3.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/builtin-abs-1.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/gofast.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/inst-check.c` | compiled | pass | deferred |
-| `tests/todo/generic/int-compare.c` | compiled | pass | active |
-| `tests/todo/generic/loop-2b.c` | compiled | pass | active |
-| `tests/todo/generic/loop-3.c` | compiled | pass | active |
-| `tests/todo/generic/loop-3b.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/int-compare.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/loop-2b.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/loop-3.c` | compiled | pass | active |
+| `tests/semantic/upstream/generic/loop-3b.c` | compiled | pass | active |
 | `tests/todo/generic/loop-3c.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/memcpy-1.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/memcpy-2.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/memset-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/pdp10/920625-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/920625-1.c` | compiled | pass | active |
 | `tests/todo/generic/pdp10/930513-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/pdp10/931004-6.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/931004-6.c` | compiled | pass | active |
 | `tests/todo/generic/pdp10/gofast.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/pdp10/loop-2b.c` | compiled | pass | active |
-| `tests/todo/generic/pdp10/strct-stdarg-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/loop-2b.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/strct-stdarg-1.c` | compiled | pass | active |
 | `tests/todo/generic/pdp10/strct-varg-1.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/pdp10/strct-varg-1b.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/pdp10/tmp.c` | compiled | pass | active |
-| `tests/todo/generic/pdp10/va-arg-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/tmp.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/va-arg-1.c` | compiled | pass | active |
 | `tests/todo/generic/pdp10/va-arg-10.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/pdp10/va-arg-19.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/pdp10/va-arg-2.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/pdp10/va-arg-22.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/pdp10/va-arg-3.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/pdp10/va-arg-4.c` | compiled | pass | active |
-| `tests/todo/generic/pdp10/va-arg-5.c` | compiled | pass | active |
-| `tests/todo/generic/pdp10/va-arg-6.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/va-arg-4.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/va-arg-5.c` | compiled | pass | active |
+| `tests/semantic/upstream/pdp10/pdp10/va-arg-6.c` | compiled | pass | active |
 | `tests/todo/generic/pdp10/va-arg-7.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/pdp10/va-arg-8.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/pdp10/va-arg-9.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/wide-int/strcmp-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/varargs/strct-stdarg-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/strct-stdarg-1.c` | compiled | pass | active |
 | `tests/todo/generic/varargs/strct-varg-1.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/wide-int/strlen-1.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/wide-int/strncmp-1.c` | compiled | run_fail | deferred |
 | `tests/todo/generic/generic/struct-ret-1.c` | compiled | run_fail | deferred |
-| `tests/todo/generic/varargs/va-arg-1.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-1.c` | compiled | pass | active |
 | `tests/todo/generic/varargs/va-arg-10.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/varargs/va-arg-11.c` | compiled | pass | active |
-| `tests/todo/generic/varargs/va-arg-12.c` | compiled | pass | active |
-| `tests/todo/generic/varargs/va-arg-13.c` | compiled | pass | active |
-| `tests/todo/generic/varargs/va-arg-14.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-11.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-12.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-13.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-14.c` | compiled | pass | active |
 | `tests/todo/generic/varargs/va-arg-15.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/varargs/va-arg-16.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/varargs/va-arg-17.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/varargs/va-arg-18.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-18.c` | compiled | pass | active |
 | `tests/todo/generic/varargs/va-arg-19.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/varargs/va-arg-2.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/varargs/va-arg-20.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-20.c` | compiled | pass | active |
 | `tests/todo/generic/varargs/va-arg-22.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/varargs/va-arg-3.c` | compile_fail | not run | deferred |
-| `tests/todo/generic/varargs/va-arg-4.c` | compiled | pass | active |
-| `tests/todo/generic/varargs/va-arg-5.c` | compiled | pass | active |
-| `tests/todo/generic/varargs/va-arg-6.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-4.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-5.c` | compiled | pass | active |
+| `tests/semantic/upstream/varargs/va-arg-6.c` | compiled | pass | active |
 | `tests/todo/generic/varargs/va-arg-7.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/varargs/va-arg-8.c` | compile_fail | not run | deferred |
 | `tests/todo/generic/varargs/va-arg-9.c` | compile_fail | not run | deferred |

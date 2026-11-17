@@ -64,10 +64,13 @@ portability adaptation, GCC-only activation, or documented removal.
 | Historical evidence requires fresh reproduction | 2 |
 | **Total** | **276** |
 
-One priority case is `tests/todo/generic/930622-2.c`: its recorded KCC
-diagnostic is `fatal vrwiden reg already wide`. This is a *potential ICE*
-requiring immediate reproducibility checking before ordinary compiler
-debugging. Other historical failures are not automatically compiler bugs.
+One priority case at this checkpoint was
+`tests/semantic/upstream/wide-int/930622-2.c`: the KCC diagnostic
+recorded then was `fatal vrwiden reg already wide`. It was a potential
+ICE requiring immediate reproducibility checking. That issue was
+subsequently resolved and verified for PDP-6; see
+`docs/KCC-PDP6-SOFTWARE-DFORMAT-20261020-v1.md`. The original
+2026-10-19 observation is retained, not a current compiler failure.
 
 There are 48 groups of two byte-identical sources *within* the 276 deferred
 files (228 distinct source contents). Two additional deferred sources,

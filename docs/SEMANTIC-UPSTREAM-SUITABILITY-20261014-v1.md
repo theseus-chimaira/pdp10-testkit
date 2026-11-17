@@ -50,7 +50,7 @@ All 73 entries are marked `review-extension` in the manifest.
 
 ## Auxiliary assembler support
 
-`support/920428-1.s` is KL10-targeted assembly using `.DIRECTIVE KL10`,
+`tests/semantic/upstream/support/920428-1.s` is KL10-targeted assembly using `.DIRECTIVE KL10`,
 `XMOVEI`, `ADJBP`, byte pointers and unresolved external symbols. This may be
 useful as a **DAS/ISA assembler** regression if dependencies and target mode
 are provided. It is not a standalone C semantic test. Retained but deferred.

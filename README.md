@@ -75,10 +75,11 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Verified integration state (2026-11-17)
 
 - Compiler matrix: **2,108 sources** with no unowned test sources.
-- Special registry: **279 entries**, including **229 enabled direct**,
+- Special registry: **280 entries**, including **230 enabled direct**,
   **44 manual** and **6 nested** registrations.
-- Script ownership: **420** registered/delegated Python or shell scripts.
-- Registered host verification: **19/19 passed** after the ownership split.
+- Script ownership: **421** registered/delegated Python or shell scripts.
+- Registered host verification: **20/20 passed** after the documentation
+  path audit (no full compiler or OS sweep).
 - Cross-repository migration: **127** former DAIMOS compiler/assembler
   identities (99 relocated, 28 deduplicated) and **23** OS test files
   relocated into `daimos-testkit`. Both v3 source manifests match.
@@ -110,6 +111,9 @@ weakening their original assertions, in
 - `docs/PDP6-AAP-LOGICAL-TICK-OPTIMIZATION-20261015-v1.md`: historical
   processor timing work; DAIMOS-specific kernel coverage is now under
   `../daimos-testkit/tests/validation/`.
+- `docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261117-v1.md`: source-path
+  reconciliation, historical-provenance crosswalk and missing-link
+  regression policy (125 unchanged original source identities).
 
 Dated integration reports remain evidence of what was checked at the
 stated time; the current status of registrations comes from the TSVs

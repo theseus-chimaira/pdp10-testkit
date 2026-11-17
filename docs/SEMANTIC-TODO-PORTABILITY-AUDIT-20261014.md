@@ -2,7 +2,13 @@
 
 # Semantic upstream todo portability review (2026-10-14)
 
-Reviewed the 773 C sources in `tests/todo/semantic-upstream-gcc/torture-execute/` for explicit inline assembler, host-OS headers and kernel interfaces. These are unregistered upstream execution tests; no compiler-matrix entries were added.
+Reviewed 773 C sources from the original, now-removed semantic GCC
+staging directory for explicit inline assembler, host-OS headers and
+kernel interfaces. **At the time of this initial audit**, none was
+registered. The subsequently classified sources live under
+`tests/semantic/upstream/`; use
+`docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv` for current
+source locations and activation dispositions.
 
 Removed **16** tests with explicit host assembler/OS dependencies:
 

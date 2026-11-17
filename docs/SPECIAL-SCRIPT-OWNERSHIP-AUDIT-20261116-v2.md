@@ -5,6 +5,9 @@
 The six `misc/` scripts without discovered static callers in the
 historical `CROSS-REPO-TEST-CENSUS-20261116-v1.md` were reviewed by
 opening their actual source, not by treating filenames as test evidence.
+The original filenames in the table are historical identifiers. The
+retired DAS single-image checker has no current executable path; it
+must not be called in place of the native-phase chain verifier.
 Four are deterministic, standalone **host-side** checks and are now
 registered in `SPECIAL_TESTS.tsv`. One exploratory probe remains
 deliberately unregistered. The sixth was an obsolete single-image DAS

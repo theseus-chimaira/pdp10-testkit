@@ -1,6 +1,11 @@
 # DAIMOS testkit disconnected-script discovery (2026-11-16 v1)
 
 **Static discovery only, not a test run or an execution-coverage result.**
+This 2026-11-16 census predates the 2026-11-17 split of 127 compiler /
+assembler source identities into `pdp10-testkit` and 23 OS tests into
+`daimos-testkit`. The totals below are **historical**, not a current
+DAIMOS testkit script census. For current repository ownership, consult
+`docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`.
 The separate `../daimos-testkit` checkout has a substantially larger
 historical collection of tests than the generic `pdp10-testkit`.
 Before attempting a complete suite, it needs its own ownership and
@@ -23,8 +28,9 @@ be invoked through constructed paths or variable names. Static string
 references also do not prove that a Makefile target is reachable from
 the 31-row `regression` matrix or that referenced assertions execute.
 
-The largest unreferenced subdirectories are `tests/validation` (721)
-and `tests/host` (72), with smaller historical/versioned fixture
+The largest unreferenced subdirectories were
+`../daimos-testkit/tests/validation` (721) and
+`../daimos-testkit/tests/host` (72), with smaller historical/versioned fixture
 directories. The host subset includes 17 scripts with corresponding
 generic KCC host regression names in `pdp10-testkit/misc/kcc-host`;
 seven are byte-identical and ten differ. Differences need an

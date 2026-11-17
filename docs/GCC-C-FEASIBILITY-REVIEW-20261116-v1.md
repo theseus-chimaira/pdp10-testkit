@@ -106,10 +106,10 @@ install an unused ITS feature just to satisfy an obsolete test.
 Two GCC-only codegen sources were deleted from the central testkit,
 along with exactly their two matrix rows:
 
-- `tests/codegen/gcc/gcc_zero_aggregate_bss_size.c` is covered by
+- The deleted historical `gcc_zero_aggregate_bss_size.c` is covered by
   GCC's `bss-zero-aggregate-1.c` (the identical positive and negative
   `.space` assertions; GCC original comment corrected to 36-bit `long`).
-- `tests/codegen/gcc/gcc_char6_sixbit.c` combined assertions already in
+- The deleted historical `gcc_char6_sixbit.c` combined assertions already in
   GCC `char6-cast-1.c`, `char6-sixbit-1.c`, and `char6-type-1.c`.
 
 The GCC-owned originals compile and their key assembler patterns were
