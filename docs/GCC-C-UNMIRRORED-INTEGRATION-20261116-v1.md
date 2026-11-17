@@ -208,3 +208,20 @@ especially foreign ISA and positive/negative diagnostic cases.
 Twenty GCC and four KCC PDP-6 `pending` cells were added.
 **455 originals remain unresolved** (14 same-name candidates and
 441 unreviewed). No compilation or execution tests were run.
+
+## Batch 05 update (2026-11-17)
+
+Fifty further original gcc.dg tests were reviewed source-by-source,
+including strict C90 and C99 language-mode contracts, required and
+forbidden diagnostics, and GNU compiler extension assertions. Details
+and individual KCC compatibility decisions are in
+`docs/GCC-C-BATCH05-REVIEW-20261117-v1.md` and
+`docs/GCC-C-BATCH05-20261117-v1.tsv`. Four tests are registered:
+`attr-alwaysinline.c` (GCC `-O0` assembly omission),
+`builtin-choose-expr.c` (GCC `-O1` runtime), and C99 array
+decay/boolean oracles shared with KCC. Another 45 are deferred
+pending strict C90/C99 compiler-mode and diagnostics mapping; the
+IEEE64 double packed-union test is inapplicable to PDP-10.
+The matrix gained **10 pending GCC** and **four pending KCC** cells.
+**405 original sources remain unresolved** (12 same-name candidates,
+393 unreviewed). No compilation, simulator or runtime tests were run.

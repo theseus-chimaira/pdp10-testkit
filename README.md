@@ -90,8 +90,17 @@ It registers five compile-only sources: two shared GCC/KCC C language
 cases and three GCC-only GNU inline-asm cases, including two exact
 assembler percent-escape regex oracles. This adds 20 pending GCC and
 four pending KCC PDP-6 compiler cells; 25 sources were deferred and
-20 found inapplicable. **455 original sources remain unresolved**.
-No compiler or emulator tests were executed.
+20 found inapplicable. No compiler or emulator tests were executed.
+
+The fifth 50-source review is documented in
+`docs/GCC-C-BATCH05-REVIEW-20261117-v1.md` and its full 50-row TSV.
+It adds four pending tests: two shared KCC/GCC C99 source-level cases,
+and two GCC-only extension cases (forced inlining and choose-expression
+runtime behavior). Exact compiler profile selections enable 10 GCC
+and four KCC pending PDP-6 cells. Forty-five original cases were
+deferred (mostly strict C90/C99 mode or diagnostic assertions) and
+one IEEE-specific 64-bit layout was inapplicable. **405 original sources
+remain unresolved**. This batch has not executed compiler tests.
 
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
