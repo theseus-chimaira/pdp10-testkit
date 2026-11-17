@@ -2,7 +2,7 @@
 /* The optimized dead branch must not pull in undefined_reference. */
 static inline int foo(void)
 {
-#ifdef __OPTIMIZE__
+#if defined(__OPTIMIZE__) || defined(__COMPILER_KCC__)
     extern int undefined_reference;
     return undefined_reference;
 #else

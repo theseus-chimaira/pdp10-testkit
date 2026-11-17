@@ -32,7 +32,7 @@ The 17 sources under `tests/semantic/gcc-historical-b01-v1/` are:
 
 | Regression | Preserved PDP-10 oracle |
 | --- | --- |
-| `20000314-2.c` | 72-bit integer constant through conditional return |
+| `20000314-2.c` | Wide integer constant through conditional return |
 | `20000402-1.c` | Constant and volatile/runtime wide unsigned division giving 40 |
 | `20000523-1.c` | Variable and constant high-bit shift followed by signed division |
 | `20000818-1.c` | Termination of original lexer loop on zero input |
@@ -57,7 +57,10 @@ The other compiler, CPU, and profile cells are `no_test`, not
 when those cells are eventually selected, and the static source
 inventory protects the source hashes and explicit profile choices.
 
-The new tests are intentionally GCC-only. Most use C89 constructs;
+The first registration was GCC-only. The KCC applicability review in
+`docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.md` subsequently enabled
+KCC PDP-6 native and base profile cells for all 17 adapted cases.
+Most use C89 constructs;
 historical GCC-specific `long long`, inline, and `noinline` contracts
 are retained only where eliminating them would destroy the regression.
 No new C99-only control syntax or host library dependencies are added.
@@ -68,16 +71,18 @@ No new C99-only control syntax or host library dependencies are added.
 
 The historical tests frequently assume an octet equals eight bits.
 PDP-10 C uses 9-bit addressable `char`, 18-bit `short`, and 36-bit
-`int`/`long` in the current target. GCC's wide `long long` variant is
-wider than 64 bits. In `20000523-1.c`, for example,
+`int`/`long` in the current target. KCC and GCC's normalized `long long`
+ABI has **71 value bits** represented in two 36-bit machine words.
+In `20000523-1.c`, for example,
 `sizeof(long long) < 64` is an **invalid bit-width test**: 8 C bytes
-hold 72 bits. The adapted source therefore checks the 55-bit shift
+hold the two-word wide representation, not eight octets; the value has
+71 bits, not 72 independent bits. The adapted source checks the 55-bit shift
 and nonzero quotient directly. The original `20000314-2.c` bit-34
 constant and `20000402-1.c` wide division remain representable.
 
 The historical `longlong.c` masks and shifts only lanes below bit 64,
-so its expected low eight-bit result remains valid when the container
-has 72 bits. The ABI-forwarding case `20020321-1.c` uses exactly
+so its expected low eight-bit result remains valid in the normalized
+71-bit value. The ABI-forwarding case `20020321-1.c` uses exactly
 representable floating constants, **not** IEEE rounding, NaN or infinity.
 
 ### Sources not activated

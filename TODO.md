@@ -410,7 +410,7 @@ The next eight batches are documented in
   13 newly registered PDP-10 GCC runtime tests awaiting execution, 64
   additional same-name reviews, two non-equivalent overlaps, and 591
   other initially unreviewed sources. Batch 01 subsequently reviewed 50:
-  17 additional PDP-10 GCC-only tests registered as pending, 10 deferred,
+  17 additional PDP-10 tests registered as pending, 10 deferred,
   and 23 inapplicable. **605 sources remain** (52 same-name review,
   553 unreviewed). Do not
   count preserved reference files as activated tests.
@@ -418,10 +418,17 @@ The next eight batches are documented in
   compatibility and oracle decision per source, 17 versioned adapted
   regressions and 68 pending PDP-6 GCC matrix cells. See
   `docs/GCC-C-BATCH01-REVIEW-20261116-v1.md` and its source-hash-pinned TSV.
+- [x] Review KCC applicability of all 30 registered historical GCC runtime
+  sources (17 batch-01 adaptations and 13 earlier PDP-10 regressions):
+  20 retain KCC semantic oracles and gained PDP-6 native/base `pending`
+  cells (40 added), while 10 remain GCC-only exact-width/packing tests.
+  See `docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.md` and its TSV.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
-  or `same-name-review` in the source-ownership ledger. Do not schedule
-  a deferred/inapplicable case by weakening its original assertion.
+  or `same-name-review` in the source-ownership ledger. Review **KCC
+  applicability for each source in the same batch** and share compatible
+  oracles. Do not schedule a deferred/inapplicable case by weakening its
+  original assertion.
 - [x] Restore the historical non-target GCC sources to a testkit-owned,
   reproducible reference inventory and add a registered static hash/ownership
   gate (`gcc-c-unmirrored-ownership-v1`). No compiler or emulator tests run.

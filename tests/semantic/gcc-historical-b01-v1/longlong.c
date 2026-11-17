@@ -1,5 +1,5 @@
 /* GCC execute/longlong.c: unsigned wide byte extraction. */
-/* 72-bit long long still preserves the original 64-bit bit operations. */
+/* PDP-10 normalized 71-bit long long covers the original bit operations. */
 typedef unsigned long long uint64;
 static unsigned long pars;
 static uint64 b[32];

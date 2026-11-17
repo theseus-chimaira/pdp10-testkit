@@ -154,3 +154,14 @@ to this PDP-10 environment. The source-hash-pinned audit trail is
 the historical pre-batch snapshot; after batch 01, the current ledger
 has **553 unreviewed plus 52 same-name review** sources (605 unresolved).
 No tests have been executed in this batch.
+
+## KCC eligibility follow-up (2026-11-17)
+
+The 17 batch-01 tests and the 13 prior registered GCC PDP-10 runtime
+regressions now have per-source KCC applicability decisions in
+`docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv`. All 17 batch-01
+adaptations and three earlier cases have KCC semantic contracts and
+are enabled as `pending` for KCC PDP-6 native and base profiles
+(40 new matrix cells). The other ten retain GCC-only exact-width/packing
+semantics. No tests were executed. The static inventory checks eligibility.
+Future 50-source review batches must classify both compilers.

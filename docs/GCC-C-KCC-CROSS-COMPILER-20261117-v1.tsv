@@ -1,0 +1,31 @@
+original_source	integrated_path	kcc_disposition	kcc_profiles	kcc_reason
+gcc/testsuite/gcc.c-torture/execute/20000314-2.c	tests/semantic/gcc-historical-b01-v1/20000314-2.c	pending	pdp6;pdp6_base	KCC implements 71-bit long long; bit 34 constant and conditional return stay representable
+gcc/testsuite/gcc.c-torture/execute/20000402-1.c	tests/semantic/gcc-historical-b01-v1/20000402-1.c	pending	pdp6;pdp6_base	Wide division values fit canonical 71-bit integer; original quotient 40 unchanged
+gcc/testsuite/gcc.c-torture/execute/20000523-1.c	tests/semantic/gcc-historical-b01-v1/20000523-1.c	pending	pdp6;pdp6_base	Signed shift by 55 of nine and divide by 255 fits signed 71-bit long long
+gcc/testsuite/gcc.c-torture/execute/20000818-1.c	tests/semantic/gcc-historical-b01-v1/20000818-1.c	pending	pdp6;pdp6_base	C89 lexer loop with observable termination; no GCC-only syntax
+gcc/testsuite/gcc.c-torture/execute/20001203-1.c	tests/semantic/gcc-historical-b01-v1/20001203-1.c	pending	pdp6;pdp6_base	C89 local aggregate initializer with observable long and char fields
+gcc/testsuite/gcc.c-torture/execute/20011115-1.c	tests/semantic/gcc-historical-b01-v1/20011115-1.c	pending	pdp6;pdp6_base	KCC defines __COMPILER_KCC__; selected undefined-reference path remains unreachable on function pointer self-comparison
+gcc/testsuite/gcc.c-torture/execute/20011126-2.c	tests/semantic/gcc-historical-b01-v1/20011126-2.c	pending	pdp6;pdp6_base	C89 same-array pointer loop; return pointer and byte copy oracle unchanged
+gcc/testsuite/gcc.c-torture/execute/20011128-1.c	tests/semantic/gcc-historical-b01-v1/20011128-1.c	pending	pdp6;pdp6_base	C89 string initialization with volatile char array and zero-fill assertions
+gcc/testsuite/gcc.c-torture/execute/20020321-1.c	tests/semantic/gcc-historical-b01-v1/20020321-1.c	pending	pdp6;pdp6_base	KCC recognizes noinline attribute; five-argument float forwarding with exactly representable values
+gcc/testsuite/gcc.c-torture/execute/20020402-2.c	tests/semantic/gcc-historical-b01-v1/20020402-2.c	pending	pdp6;pdp6_base	KCC macro selects shortened identifiers; original high-register-pressure and field readbacks preserved
+gcc/testsuite/gcc.c-torture/execute/920202-1.c	tests/semantic/gcc-historical-b01-v1/920202-1.c	pending	pdp6;pdp6_base	C89 flag assignment and return-path assertions
+gcc/testsuite/gcc.c-torture/execute/920604-1.c	tests/semantic/gcc-historical-b01-v1/920604-1.c	pending	pdp6;pdp6_base	KCC supports 71-bit signed long long remainder and the tested low-range values fit
+gcc/testsuite/gcc.c-torture/execute/930526-1.c	tests/semantic/gcc-historical-b01-v1/930526-1.c	pending	pdp6;pdp6_base	KCC accepts static inline; ordinary in-bounds array pointer arithmetic
+gcc/testsuite/gcc.c-torture/execute/980506-1.c	tests/semantic/gcc-historical-b01-v1/980506-1.c	pending	pdp6;pdp6_base	C89 goto and null-pointer guard; no extension requirements
+gcc/testsuite/gcc.c-torture/execute/991202-1.c	tests/semantic/gcc-historical-b01-v1/991202-1.c	pending	pdp6;pdp6_base	C89 bounded integer do/while with exact final-state assertions
+gcc/testsuite/gcc.c-torture/execute/991216-4.c	tests/semantic/gcc-historical-b01-v1/991216-4.c	pending	pdp6;pdp6_base	C89 nested loops with volatile input and exact increment total
+gcc/testsuite/gcc.c-torture/execute/longlong.c	tests/semantic/gcc-historical-b01-v1/longlong.c	pending	pdp6;pdp6_base	KCC 71-bit unsigned long long covers original 64-bit constants and all extraction shifts
+gcc/testsuite/gcc.c-torture/execute/pdp10/alignas-frame-byteptr-v1.c	tests/semantic/gcc-historical-v1/alignas-frame-byteptr-v1.c	pending	pdp6;pdp6_base	KCC honors aligned(2)/aligned(4) on struct members; byte-pointer offsets are C-level observable
+gcc/testsuite/gcc.c-torture/execute/pdp10/exact16-pointer-call-1.c	tests/semantic/gcc-historical-v1/exact16-pointer-call-1.c	gcc-only		size(16) is GCC exact-width extension not implemented as equivalent KCC type
+gcc/testsuite/gcc.c-torture/execute/pdp10/exact16-word-roundtrip-1.c	tests/semantic/gcc-historical-v1/exact16-word-roundtrip-1.c	gcc-only		size(16) pointer storage and exact-width ABI do not exist with equivalent KCC semantics
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-bitptr-arith-1.c	tests/semantic/gcc-historical-v1/packed-bitptr-arith-1.c	gcc-only		Packed size(16) arrays require GCC noncanonical bit-pointer and exact-width element semantics
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-bitptr-decay-1.c	tests/semantic/gcc-historical-v1/packed-bitptr-decay-1.c	gcc-only		Array-to-pointer decay of packed size(16) members is GCC-specific
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-bitptr-direct-1.c	tests/semantic/gcc-historical-v1/packed-bitptr-direct-1.c	gcc-only		Packed size(16) member indexing is a GCC-only exact-width contract
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-char-store-1.c	tests/semantic/gcc-historical-v1/packed-char-store-1.c	pending	pdp6;pdp6_base	KCC supports packed attribute; direct char field stores retain 9-bit PDP-10 C semantics
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-exact16-crossword-1.c	tests/semantic/gcc-historical-v1/packed-exact16-crossword-1.c	gcc-only		Custom 6/8/9/16/18-bit element types and packed cross-word layout require GCC size extension
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-exact16-global-arith-1.c	tests/semantic/gcc-historical-v1/packed-exact16-global-arith-1.c	gcc-only		GCC size(16) packed global bit-pointer arithmetic has no equivalent KCC ABI
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-exact16-global-roundtrip-1.c	tests/semantic/gcc-historical-v1/packed-exact16-global-roundtrip-1.c	gcc-only		GCC size(16) packed global pointer roundtrip cannot be tested as the same KCC oracle
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-pointer-global-1.c	tests/semantic/gcc-historical-v1/packed-pointer-global-1.c	gcc-only		GCC mode(SI), size(8), and packed mixed-width pointer layout lack equivalent KCC ABI
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-pointer-local-1.c	tests/semantic/gcc-historical-v1/packed-pointer-local-1.c	gcc-only		GCC size(8) packed pointer layout lacks equivalent KCC ABI
+gcc/testsuite/gcc.c-torture/execute/pdp10/sibcall-fallthrough-1.c	tests/semantic/gcc-historical-v1/sibcall-fallthrough-1.c	pending	pdp6;pdp6_base	KCC understands noinline and JRST control flow; original two observable calls remain meaningful

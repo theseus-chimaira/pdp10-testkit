@@ -52,17 +52,21 @@ verifier is `tools/inventory-gcc-unmirrored-v1.py`. Archived local include
 dependencies are tracked in `docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv`.
 The reviewed first batch of 13 additional PDP-10-specific runtime
 regressions is in
-`tests/semantic/gcc-historical-v1/`, with only GCC PDP-6 optimization cells
-marked `pending` in the compiler matrix. These have **not been executed**.
+`tests/semantic/gcc-historical-v1/`, initially with GCC PDP-6 optimization
+cells marked `pending` in the compiler matrix. Three now also have KCC
+pending PDP-6 coverage. These have **not been executed**.
 The historical snapshots are *not* automatically active test cases; consult
 `docs/GCC-C-UNMIRRORED-INTEGRATION-20261116-v1.md` before promoting more.
 
 The first 50-source assertion-level compatibility review is recorded in
 `docs/GCC-C-BATCH01-20261116-v1.tsv` and
 `docs/GCC-C-BATCH01-REVIEW-20261116-v1.md`. It integrated 17 PDP-10
-GCC-only pending semantic regressions, deferred 10 cases and identified
+pending semantic regressions, deferred 10 cases and identified
 23 incompatible historical assertions. Source ownership is checked by
 the existing GCC inventory verifier. No tests were run for this batch.
+All 17 adapted batch cases also apply to KCC. See
+`docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.md` and its per-source TSV
+for the 40 additional pending KCC PDP-6 native/base matrix cells.
 
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 

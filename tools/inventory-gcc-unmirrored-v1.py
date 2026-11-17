@@ -23,6 +23,7 @@ LEDGER = ROOT / 'docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv'
 STRUCTURAL = ROOT / 'docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv'
 COMPANIONS = ROOT / 'docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv'
 BATCH01 = ROOT / 'docs/GCC-C-BATCH01-20261116-v1.tsv'
+KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
 FIELDS = ('group', 'original_source', 'source_sha256', 'snapshot_path',
@@ -69,7 +70,8 @@ REVIEWED = {
 }
 
 # Independent PDP-10 runtime assertions absent from the central matrix.
-# Registered with GCC-only *pending* PDP-6 cells, never as successful tests.
+# Initially registered with GCC-only *pending* PDP-6 cells. The separate
+# KCC sharing crosswalk explicitly enables compatible KCC pending cells.
 # The KL10-only pointer-initializer case is excluded until a KL10 profile
 # exists; the signed 71-bit division case needs -mlong-long-71bit first.
 NEW_RUNTIME = {
@@ -394,6 +396,27 @@ def verify_sources():
             (line for line in stream if line.strip() and not line.startswith('#')),
             delimiter='\t')}
     matrix = set(matrix_rows)
+    kcc_review = read_tsv(KCC_SHARING)
+    kcc_by_owner = {r['integrated_path']: r for r in kcc_review}
+    expected_kcc_owners = {
+        r['integrated_path'] for r in batch if r['decision'] == 'integrate'
+    }
+    expected_kcc_owners.update(
+        r['matrix_owner'] for r in ledger
+        if r['review_status'] == 'registered-pending')
+    if (len(kcc_review) != 30 or len(kcc_by_owner) != 30 or
+            set(kcc_by_owner) != expected_kcc_owners):
+        errors.append('KCC cross-compiler review must cover exactly 30 new historical runtime owners')
+    for item in kcc_review:
+        owner = item['integrated_path']
+        decision = item['kcc_disposition']
+        if (not item['kcc_reason'] or decision not in ('pending', 'gcc-only') or
+                item['kcc_profiles'] != ('pdp6;pdp6_base' if decision == 'pending' else '')):
+            errors.append('invalid KCC compatibility decision: ' + owner)
+        if by_path.get(item['original_source'], {}).get('matrix_owner') != owner:
+            errors.append('KCC compatibility decision has wrong original source: ' + owner)
+        if owner not in matrix:
+            errors.append('missing KCC cross-compiler matrix owner: ' + owner)
     for orig in originals:
         path = orig['original_source']
         stored = snapshot_path(path)
@@ -429,6 +452,9 @@ def verify_sources():
                         errors.append('wrong GCC historical matrix group: ' + target)
                     allowed = {'pdp6_gcc_o0', 'pdp6_gcc_o1',
                                'pdp6_gcc_o2', 'pdp6_gcc_os'}
+                    kcc = kcc_by_owner.get(target)
+                    if kcc and kcc['kcc_disposition'] == 'pending':
+                        allowed.update(('pdp6', 'pdp6_base'))
                     permitted_statuses = {'pending', 'semantic', 'ok',
                                           'fail', 'error', 'timeout'}
                     for column, value in cell_row.items():
@@ -436,7 +462,7 @@ def verify_sources():
                             continue
                         if column in allowed:
                             if value not in permitted_statuses:
-                                errors.append('inactive GCC target cell: %s %s' %
+                                errors.append('inactive historical compiler cell: %s %s' %
                                               (target, column))
                         elif value != 'no_test':
                             errors.append('unreviewed compiler/CPU cell: %s %s' %

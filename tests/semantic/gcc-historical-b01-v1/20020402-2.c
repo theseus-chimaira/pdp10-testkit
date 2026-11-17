@@ -7,7 +7,7 @@
    relatively large, since register spilling is required to twig
    the bug.  */
 
-#ifdef __pdp10__
+#if defined(__pdp10__) || defined(__COMPILER_KCC__)
 #define IntCode3 IC3
 #define IntCode4 IC4
 #define IntCode5 IC5
