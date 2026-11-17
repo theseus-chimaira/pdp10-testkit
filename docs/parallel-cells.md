@@ -172,6 +172,18 @@ relying on the launch CWD. This preserves unique parallel checkpoints
 even with deeply nested `--out-dir` values. GCC uses separate
 `codegen-gcc-extra` source-specific include options where necessary.
 
+The codegen source directive parser recognizes both one-line `/* */`
+and directive lines inside multiline C comments. This preserves two
+historical GCC `scan-assembler` assertions that the prior parser
+silently ignored. The matrix runner also checks all declared operand-
+form, helper-symbol and compiler target-macro assertions. Macro
+checking uses a private per-cell preprocessor probe under the
+**selected** KCC/GCC target options, with distinct policy, ICE,
+timeout and setup-failure statuses. The registered host
+`test-codegen-declared-oracles-v1.py` audits all registered codegen
+declarations and their runner dispatch. See
+`docs/PDP10-CODEGEN-DECLARED-ORACLES-20261117-v1.md`.
+
 ## Why not replay `cell.log`?
 
 The retired parallel-cell helper tried to replay shell commands

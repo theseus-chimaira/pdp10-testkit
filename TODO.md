@@ -659,6 +659,19 @@ The next eight batches are documented in
   Preserve ISA-specific test variation. See
   `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md` and
   `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md`.
+- [x] Enforce all registered declarative codegen assertion families:
+  16 forbidden instruction forms, four required KCC double-helper
+  symbols, two compiler target-macro conditions, plus the two original
+  GCC `scan-assembler` checks previously hidden in multiline comments.
+  The registered host auditor covers all 459 declared `codegen-*`
+  directives and rejects new unknown/ignored assertions. Correct eight
+  incorrectly registered native KI10/KS10 GCC generic-PDP10 macro
+  cells to `no_test`, while preserving the KCC PDP10 missing-macro
+  compiler regression. Host verify: **17/17 PASS**, including syntax of
+  383 registered/owned Python and shell scripts and 313 local quoted
+  positive-test C include edges with no missing fixture. The user will
+  perform future full sweeps; none was run for this integration change.
+  See `docs/PDP10-CODEGEN-DECLARED-ORACLES-20261117-v1.md`.
 - [x] Audit and fix `run-tests.sh` / `tools/run-tests.py` negative-source
   rejection, restart checkpoints, sequential/parallel worker accounting,
   failure listing and summary status handling. Keep one compiler matrix
@@ -718,6 +731,9 @@ The next eight batches are documented in
   KCC optimized codegen and other profile families from their own
   versioned output roots. See
   `docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md`.
+  Per user request, further full sweeps are not part of harness
+  preparation. The later native GCC macro test ownership correction
+  removes eight inapplicable cells; archival results were not rerun.
 - [ ] Run the full semantic/ISA matrix across applicable PDP-6, KA10, KI10,
   KS10, KCC/GCC and optimization profiles; check 71-bit variants where
   supported. The two newly enabled width regressions were validated on
@@ -945,9 +961,10 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 1,986 source rows; verified source paths present.
-- `SPECIAL_TESTS.tsv`: 211 unique entries (including manual probes); paths present, but not every
-  special row is yet independently dispatched.
+- `COMPILER_MATRIX.tsv`: 2,105 source rows, ownership and source paths audited.
+- `SPECIAL_TESTS.tsv`: 249 unique entries including manual probes;
+  235 enabled direct registrations are statically dispatcher-verified,
+  but not all executed.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).

@@ -16,6 +16,8 @@ from pathlib import Path
 from stubselect import STUB_SYMBOLS, selected_test_stubs
 from compiler_negative_policy_v1 import (ICE_RE, check_kcc_rejection,
                                          check_gcc_rejection)
+from codegen_declared_oracles_v1 import (
+    form_failures, macro_probe_source, required_symbol_failures)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -77,7 +79,8 @@ FORBID_KI10 = set('''
 XMOVEI XMOVEM XJRST XJEN XPCW XHLLI XHLLM XHLL XHLR XHRL XHRR
 '''.split())
 
-DIRECTIVE_RE = re.compile(r'^\s*/\*\s*(codegen-[a-z-]+)\s*:\s*(.*?)\s*\*/\s*$')
+DIRECTIVE_RE = re.compile(
+    r'^\s*(?:/\*\s*|\*\s+)(codegen-[a-z-]+)\s*:\s*(.*?)\s*(?:\*/)?\s*$')
 LABEL_RE = re.compile(r'^\s*(?:[A-Za-z_.$%][A-Za-z0-9_.$%]*:\s*)?([A-Za-z][A-Za-z0-9_.]*)\b')
 KCC_RUNTIME_SYMBOLS = ('$ADJBP', '$KDFAD', '$KDFSB', '$KDFMP', '$KDFDV', '$ZERO')
 KCC_RUNTIME_MACHINE_STEMS = {
@@ -270,10 +273,18 @@ def directives(src):
     out = {}
     try:
         with open(src, 'r', encoding='utf-8', errors='replace') as f:
+            in_comment = False
             for line in f:
-                m = DIRECTIVE_RE.match(line)
-                if m:
-                    out.setdefault(m.group(1), []).extend(shlex.split(m.group(2)))
+                stripped = line.lstrip()
+                if stripped.startswith('/*'):
+                    in_comment = True
+                if in_comment:
+                    m = DIRECTIVE_RE.match(line)
+                    if m:
+                        out.setdefault(m.group(1), []).extend(
+                            shlex.split(m.group(2)))
+                if '*/' in line:
+                    in_comment = False
     except OSError:
         pass
     return out
@@ -985,6 +996,47 @@ def compile_failure_status(result, diagnostics=''):
     return 'compile_fail'
 
 
+def codegen_macro_probe(cell, source_directives, cdir, bins, log_path):
+    """Check the original compiler target macros, not a source heuristic.
+
+    This runs only when a registered codegen source explicitly declares a
+    macro oracle.  A failed preprocessor check is a real failing policy
+    assertion, while a crash/timeout/launcher error keeps its own status.
+    """
+    required = source_directives.get('codegen-require-macro', [])
+    forbidden = source_directives.get('codegen-forbid-macro', [])
+    if not required and not forbidden:
+        return 'pass'
+    source, errors = macro_probe_source(required, forbidden)
+    if errors:
+        with log_path.open('a') as log:
+            log.write('invalid codegen macro policy: %s\n' % ' | '.join(errors))
+        return 'policy_fail'
+    directory = cdir / 'asm'
+    probe = directory / 'macro-oracle-v1.c'
+    probe.write_text(source, encoding='ascii')
+    if cell['compiler'] == 'kcc':
+        cmd = [str(bins['kcc']), '-E'] + list(cell.get('extra', [])) + [
+            '-x=' + cell['arch'], probe.name]
+    else:
+        cmd = [str(bins['gcc']), '-E', cell['opt'],
+               '-march=' + cell['arch'], probe.name]
+    rc = run_cmd(cmd, directory, log_path, timeout=COMPILE_TIMEOUT)
+    diagnostic = read_text(log_path)
+    if rc == 0:
+        return 'pass'
+    if rc == 124:
+        return 'timeout'
+    if rc in (125, 126, 127):
+        return 'setup_fail'
+    if rc < 0 or rc >= 128 or ICE_RE.search(diagnostic):
+        return 'compiler_ice'
+    with log_path.open('a') as log:
+        log.write('codegen macro policy failed for %s %s\n' %
+                  (cell['compiler'], cell['arch']))
+    return 'policy_fail'
+
+
 def p10run_failure_status(returncode, output):
     """Distinguish an unresolved/failed target link from a guest failure.
 
@@ -1299,6 +1351,15 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         status = compile_failure_status(compile_status, read_text(log_path))
         report = str(log_path)
     else:
+        status = codegen_macro_probe(cell, source_directives, cdir,
+                                     bins, log_path)
+        if status != 'pass':
+            write_cell_result(outroot, [src, cell['machine'],
+                                        cell['compiler'], cell['profile'],
+                                        'codegen', status,
+                                        '%.2f' % (time.time() - t0),
+                                        str(asm_path), str(log_path)])
+            return status
         if cell['compiler'] == 'kcc' and not source_directives.get('codegen-kcc-preprocess'):
             normalize_kcc_asm_file(asm_path, log_path)
         asm_text = read_text(asm_path)
@@ -1309,7 +1370,10 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
         miss = sorted(required - mnems)
         bad_regex, miss_regex, invalid_regex = regex_policy_failures(
             asm_text, forbid_regex, require_regex)
-        structured_failures = []
+        structured_failures = form_failures(
+            asm_text, source_directives.get('codegen-forbid-form', []))
+        structured_failures.extend(required_symbol_failures(
+            asm_text, source_directives.get('codegen-require-symbol', [])))
         if cell['compiler'] == 'kcc':
             check_names = directives(ROOT / src).get('codegen-kcc-check', [])
             if check_names:

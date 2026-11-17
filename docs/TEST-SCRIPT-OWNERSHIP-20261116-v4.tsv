@@ -139,3 +139,4 @@ tools/report-pdp6-opcodes-v1.py	delegated	misc/compat/test-pdp6-opcode-report-v1
 tools/run-misc-suites.py	entrypoint		Authoritative test or specialized suite dispatcher invoked by shell entry point
 tools/run-tests.py	entrypoint		Authoritative test or specialized suite dispatcher invoked by shell entry point
 tools/stubselect.py	module-helper	tools/run-tests.py	Imported Python module helper
+tools/codegen_declared_oracles_v1.py	module-helper	tools/run-tests.py	Versioned assembly form, helper symbol and compiler target-macro oracle predicates imported by matrix runner

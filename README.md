@@ -299,3 +299,21 @@ verification group now includes a byte-preserving special KCC diagnostic
 regression and **233** enabled direct test registrations.
 The registered host `verify` subgroup passed **15/15**; all 227
 nonpassing compiler cells remain explicit, source-pinned findings.
+
+**Codegen-oracle integration follow-up (no full sweep):** the matrix
+runner now checks 22 previously ignored declarative assertions:
+forbidden instruction operand forms, four required `$KDF*` symbols,
+and generic-PDP10 compiler macro requirements. Its C comment parser
+also recognizes two original GCC inline-assembler regex assertions
+written inside multiline comments. Eight incorrectly assigned native
+KI10/KS10 GCC macro test cells were corrected to `no_test`, with the
+genuine KCC missing-macro failure left visible. The registered
+`verify` host subgroup now passes **17/17**, including fail-closed
+coverage of all **459** codegen directives. The special registry
+contains **249** entries (235 enabled direct tests). Original test
+bodies, compilers and simulator code were unchanged. See
+`docs/PDP10-CODEGEN-DECLARED-ORACLES-20261117-v1.md`.
+The new static fixture-integrity check also validates syntax for all
+383 owned shell/Python scripts (163 shell, 220 Python) and resolves
+313 local quoted includes across registered positive C sources without
+executing compiler or guest tests.
