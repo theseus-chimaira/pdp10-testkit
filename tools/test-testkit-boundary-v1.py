@@ -2,8 +2,9 @@
 """Fail-closed compiler/assembler versus DAIMOS OS test ownership audit.
 
 Compiler, assembler, linker, optimizer, and ISA output assertions belong to
-pdp10-testkit.  A test requiring booted DAIMOS, devices, filesystems or OS
-services belongs to daimos-testkit even when its setup calls KCC or DAS.
+pdp10-testkit, including native toolchain tests executed in a DAIMOS guest.
+DAIMOS boot, device, filesystem and OS-service assertions belong to
+daimos-testkit even when their setup calls KCC or DAS.
 The source-hash-pinned transfer manifest records every moved/deduplicated
 original; this audit never executes a guest or modifies either repository.
 """
@@ -127,6 +128,33 @@ def audit(daimos):
                  'misc/das/das-native-run.c'):
         if (PDP10 / path).exists():
             errors.append('native DAIMOS guest assertion in compiler repo: ' + path)
+
+    # README/TODO/current STATUS are live directions, unlike dated
+    # historical reports or the migration manifest itself. Reject
+    # references to any source path that has changed owner.
+    documents = [PDP10 / 'README.md', PDP10 / 'TODO.md',
+                 PDP10 / 'docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md']
+    if daimos is not None:
+        documents += [daimos / 'README.MD', daimos / 'TODO.MD',
+                      daimos / 'STATUS.MD',
+                      daimos / 'tests/validation/TESTKIT-SCOPE-MIGRATION-20261117-v3.md']
+    obsolete_docs = ('TESTKIT-SCOPE-MIGRATION-20261117-v1.tsv',
+                     'TESTKIT-SCOPE-MIGRATION-20261117-v2.tsv',
+                     'TESTKIT-SCOPE-MIGRATION-20261117-v2.md',
+                     'PDP6-AAP-KERNEL-COVERAGE-MATRIX-20261015-v1.md')
+    for document in documents:
+        if not document.is_file():
+            errors.append('missing active documentation: ' + str(document))
+            continue
+        body = document.read_text(encoding='utf-8', errors='replace')
+        for row in rows:
+            if row['old_path'] in body:
+                errors.append('stale old-owner test path in ' + str(document) +
+                              ': ' + row['old_path'])
+        for old_name in obsolete_docs:
+            if old_name in body:
+                errors.append('superseded document cited by ' +
+                              str(document) + ': ' + old_name)
 
     for error in sorted(set(errors)):
         print('ERROR:', error)

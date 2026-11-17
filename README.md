@@ -1,351 +1,116 @@
-# PDP-10 bare-metal processor testkit
+# PDP-10 compiler, assembler and CPU testkit
 
-This repository tests the PDP-10 processor architecture and its bare-metal
-software toolchain: compiler semantics and code generation, assembler, ISA,
-ABI, object format, linker, and CPU execution. CPU variants include PDP-6,
-KA10, KI10, KS10, and later supported implementations.
+This repository tests GCC and KCC compiler behavior, PDP-6/PDP-10
+assembler and linker formats, ABI contracts, optimization and processor
+ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
+the DAIMOS operating-system test suite.
 
-The ordinary compiler, assembler and CPU matrix must not require DAIMOS,
-an operating-system runtime, filesystems, boot images, or peripheral
-devices. Tests of device controllers and hardware beyond the processor
-belong in `daimos-testkit`. A separate, **manual**, native KCC/DAS/DLINK
-toolchain suite may use a booted DAIMOS guest solely as an execution
-environment: its primary oracle is compiler/assembler behavior, not
-the OS. That suite uses `DAIMOS_TESTKIT_REPO` for the OS harness and
-is never part of an automatic compiler sweep. See
-`docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`.
+## Test ownership
 
-Set `PDP10_PREFIX` to the installed toolchain prefix. Use
-`./run-misc-tests.sh verify` for specialized compatibility checks, `./run-tests.sh -j 6`
-for the matrix, `./run-tests.sh list` to enumerate cells, and
-`./run-misc-tests.sh clean` to remove generated artifacts. The compiler matrix is
-`COMPILER_MATRIX.tsv`; specialized suites are listed in `SPECIAL_TESTS.tsv` and
-run by `./run-misc-tests.sh`. Runner usage is described in `docs/parallel-cells.md`.
-The `pdp10-tools` special suite tests the independent `../pdp10-tools`
-repository at its explicitly reported Git revision; it does not silently
-substitute the different `DAIMOS/tools/host` source tree.
-The DAS `das-fast`, `das`, and `das-native` suites select ordered `fast`,
-`full`, and `native` entries in the special registry. Nested helper tests
-are not dispatched a second time; see
-`docs/DAS-REGISTRY-INTEGRATION-20261116-v1.md` for the original registry
-conversion. The native scanner, phase-size checks and complete DAIMOS
-guest assemble/compare/execute acceptance now pass after correction of
-the D6FS free-FCB allocation bound; see
-`docs/DAS-NATIVE-KCC-INTEGRATION-20261116-v5.md`. The previous
-`docs/DAS-COMMENT-COMPACTION-20261116-v2.md` records the intermediate
-72-instruction scanner before the final four-word reduction.
+- **`pdp10-testkit`** owns GCC/KCC, DAS/DLINK, p10fold, ABI,
+  compiler diagnostics/code generation and processor ISA tests.
+- **`../daimos-testkit`** owns DAIMOS boot, kernel, filesystem,
+  device, process, syscall, shell and guest-service tests.
+- Ownership follows **what is asserted**. A native KCC/DAS/DLINK
+  compiler regression can use DAIMOS as its execution environment,
+  but remains here as an **explicit manual** test. Such tests use
+  `DAIMOS_TESTKIT_REPO` for the OS-owned boot and SIMH harness,
+  never an implicit copy of those tools. They are excluded from
+  routine compiler/CPU matrix sweeps.
+- Generic AAP/PDP-6 instruction/timing fixtures remain here;
+  DAIMOS-specific kernel-coverage inventories and runtime profiles
+  belong in `daimos-testkit`.
 
-For a read-only inventory across the KCC, GCC, DAS, and PDP10-TOOLS source
-repositories, run `python3 tools/census-cross-repo-v1.py`. The versioned
-report and manifest are `docs/CROSS-REPO-TEST-CENSUS-20261116-v1.*`.
-This static census does not build or run tests or claim execution coverage.
+The current 150-file, SHA256-pinned cross-repository ownership record
+is `docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.tsv`. Its explanation is
+`docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`. Intermediate versions
+are preserved in Git history rather than as competing active manifests.
 
-Before importing new upstream GCC C tests, apply the PDP-10 feasibility gate
-in `docs/GCC-C-FEASIBILITY-REVIEW-20261116-v1.md`. The companion TSVs record
-original assertions, PDP-10-specific restrictions, and an initial source-risk
-queue. After removal of GCC's DejaGNU suite, reviewed GCC-only codegen
-cases are maintained in `refs/gcc-pdp10-target-v2/` and validated by
-`misc/validation/test-gcc-target-codegen-v2.py`. See
-`docs/GCC-DEJAGNU-REMOVAL-20261116-v2.md` for source provenance.
+## Usage
 
-Of the 679 historical non-target-specific GCC sources not byte-identical to
-existing tests, **560 source snapshots remain** in `refs/gcc-c-unmirrored-v1/`,
-pinned to GCC revision `b0f5374`. The other **119 reviewed inapplicable sources
-were deleted** (89 from batches 01-06, five from batch 10, and 25 from
-batches 12-13). Their original
-hashes, rejection reasons, and source paths remain recorded in
-`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v3.tsv`, with the original
-89-row v1 and 94-row v2 manifests preserved for audit history.
-The per-source assertion/ownership inventory for all 679 original entries is
-`docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. Its registered static
-verifier is `tools/inventory-gcc-unmirrored-v1.py`; inventory re-imports
-cannot restore deleted tests. Archived local include
-dependencies are tracked in `docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv`.
-The reviewed first batch of 13 additional PDP-10-specific runtime
-regressions is in
-`tests/semantic/gcc-historical-v1/`, initially with GCC PDP-6 optimization
-cells marked `pending` in the compiler matrix. Three now also have KCC
-pending PDP-6 coverage. These have **not been executed**.
-The historical snapshots are *not* automatically active test cases; consult
-`docs/GCC-C-UNMIRRORED-INTEGRATION-20261116-v1.md` before promoting more.
+Set `PDP10_PREFIX` to the installed toolchain root (containing `bin/`).
+Set `TMPDIR` to a writable scratch area; if unset, prefer `$HOME/tmp`.
+Optional source overrides include `KCC_REPO`, `DAS_ROOT`,
+`DAIMOS_TESTKIT_REPO`, and `PDP10_TOOLS_REPO`.
 
-The first 50-source assertion-level compatibility review is recorded in
-`docs/GCC-C-BATCH01-20261116-v1.tsv` and
-`docs/GCC-C-BATCH01-REVIEW-20261116-v1.md`. It integrated 17 PDP-10
-pending semantic regressions, deferred 10 cases and identified
-23 incompatible historical assertions. Source ownership is checked by
-the existing GCC inventory verifier. No tests were run for this batch.
-All 17 adapted batch cases also apply to KCC. See
-`docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.md` and its per-source TSV
-for the 40 additional pending KCC PDP-6 native/base matrix cells.
+```sh
+export PDP10_PREFIX="$HOME/cross"
+export TMPDIR="${TMPDIR:-$HOME/tmp}"
+mkdir -p "$TMPDIR"
+./run-tests.sh list
+python3 tools/audit-test-inventory-v1.py
+python3 tools/test-testkit-boundary-v1.py --require-cross
+```
 
-The second 50-source original GCC review is recorded in
-`docs/GCC-C-BATCH02-REVIEW-20261117-v1.md` and its source-hash-pinned TSV.
-It registers 11 more tests (eight runtime and three compile-only): eight
-shared KCC/GCC cases, two GCC-only, and one KCC-only until an explicit
-71-bit GCC compiler profile is provided. The remaining 39 cases are
-explicitly deferred or inapplicable. New registrations comprise 40
-pending GCC and 18 pending KCC PDP-6 matrix cells. No tests were run.
+`./run-tests.sh` runs selected compiler, CPU and optimization cells;
+its `list`, `list-kcc` and `list-gcc` commands only enumerate tests.
+`COMPILER_MATRIX.tsv` defines compiler applicability and expectations.
+Use `./run-tests.sh --help` and `docs/parallel-cells.md` for selector,
+resume, output and timeout controls. A pending entry is not a passing
+execution result. Full sweeps are operator-selected.
 
-The third 50-source review is documented in
-`docs/GCC-C-BATCH03-REVIEW-20261117-v1.md` and its per-original TSV.
-Seven more source oracles (three runtime, four compile-only) are
-registered: six shared with KCC and one GCC-only wide bit-field case.
-They add 28 pending GCC and 12 pending KCC PDP-6 matrix cells;
-22 sources are deferred, 21 inapplicable. All checks for this batch
-were static; no tests ran.
+`SPECIAL_TESTS.tsv` records specialized tests, including deliberately
+manual guest-native KCC/DAS/DLINK cases. `./run-misc-tests.sh` is the
+special-suite entry point; `verify` runs the broader verify/compatibility
+and validation groups, **not** merely a fast static ownership audit.
+Use the individual Python auditors above for host-only preflight.
+For named DAS groups use `das-fast`, `das`, or `das-native`.
+The independent PDP10-TOOLS suite is sourced from `../pdp10-tools`;
+it is not silently replaced by `DAIMOS/tools/host`.
 
-The fourth 50-source review is documented in
-`docs/GCC-C-BATCH04-REVIEW-20261117-v1.md` and its source-hash TSV.
-It registers five compile-only sources: two shared GCC/KCC C language
-cases and three GCC-only GNU inline-asm cases, including two exact
-assembler percent-escape regex oracles. This adds 20 pending GCC and
-four pending KCC PDP-6 compiler cells; 25 sources were deferred and
-20 found inapplicable. No compiler or emulator tests were executed.
+## Directory ownership
 
-The fifth 50-source review is documented in
-`docs/GCC-C-BATCH05-REVIEW-20261117-v1.md` and its full 50-row TSV.
-It adds four pending tests: two shared KCC/GCC C99 source-level cases,
-and two GCC-only extension cases (forced inlining and choose-expression
-runtime behavior). Exact compiler profile selections enable 10 GCC
-and four KCC pending PDP-6 cells. Forty-five original cases were
-deferred (mostly strict C90/C99 mode or diagnostic assertions) and
-one IEEE-specific 64-bit layout was inapplicable. **405 original sources
-remain unresolved**. This batch has not executed compiler tests.
+| Location | Purpose |
+| --- | --- |
+| `tests/semantic/` | Compiler semantic/runtime tests; `upstream/` is individually classified |
+| `tests/codegen/` | Compiler assembly/code-generation assertions and reviewed GCC imports |
+| `tests/negative/` | Rejection and diagnostic source tests |
+| `tests/isa/` | CPU instruction and machine-specific semantics |
+| `misc/` | Registered special suites (`kcc-host`, `das`, `compat`, `validation`, `tools`) |
+| `refs/` | Reviewed historical source snapshots, not automatically runnable tests |
+| `docs/` | Test-specific policy, source decisions, historical evidence and versioned manifests |
+| `tools/` | Matrix runners and static integrity/ownership audits |
+| `tests/todo/generic/` | Retained historical generic candidates, **not** active matrix tests |
 
-The sixth 50-source review is documented in
-`docs/GCC-C-BATCH06-REVIEW-20261117-v1.md` and its 50-row TSV.
-It registers 12 new pending sources (nine runtime, three compile-only),
-including nine shared KCC/GCC C99 or preprocessor assertions and three
-GCC-only cases. The compiler matrix adds 48 pending GCC and 18 pending
-KCC PDP-6 cells. Thirty-seven sources were deferred and one x86
-inline-assembly test is inapplicable. **355 original sources now remain
-unresolved** (12 same-name and 343 unreviewed). Neither compilation
-nor emulator tests were run.
+## Verified integration state (2026-11-17)
 
-The seventh 50-source review is documented in
-`docs/GCC-C-BATCH07-REVIEW-20261117-v1.md`, its individual 50-source
-TSV and a two-header companion hash ledger. Eleven preprocessor-focused
-tests are registered pending (ten compile-only and one runtime), eight
-shared with KCC and three GCC-only. This adds 44 pending GCC and 16
-pending KCC PDP-6 cells; 39 tests were deferred because they require
-explicit diagnostics, preprocessing-only flags or output-text checks.
-No new tests were classified inapplicable, so the prior 89 deletions
-remain unchanged. **305 original source reviews remain unresolved**
-(nine same-name candidates and 296 unreviewed). No tests were executed.
+- Compiler matrix: **2,108 sources** with no unowned test sources.
+- Special registry: **279 entries**, including **229 enabled direct**,
+  **44 manual** and **6 nested** registrations.
+- Script ownership: **420** registered/delegated Python or shell scripts.
+- Registered host verification: **19/19 passed** after the ownership split.
+- Cross-repository migration: **127** former DAIMOS compiler/assembler
+  identities (99 relocated, 28 deduplicated) and **23** OS test files
+  relocated into `daimos-testkit`. Both v3 source manifests match.
+- Historical upstream classification: **449 active**, **269 deferred**,
+  **55 removed**, and **one** nonportable stress source. Classification
+  does not establish that all active tests have executed successfully.
 
-The eighth 50-source CPP review is documented in
-`docs/GCC-C-BATCH08-REVIEW-20261117-v1.md`, its 50-source decision TSV,
-and the hash-pinned `mi1c.h` companion record. Seven source tests are
-newly registered pending (five compile/preprocessor and two runtime),
-four shared between GCC/KCC and three GCC-only. Another 43 original
-diagnostic, language-mode or preprocessing-output cases were deferred;
-none was classified inapplicable. The matrix gains 28 pending GCC and
-eight pending KCC PDP-6 cells. **255 original sources remain unresolved**
-(nine same-name candidates and 246 unreviewed). No compiler or
-emulator tests were executed.
+No full GCC/KCC or DAIMOS suite was run as part of the ownership split.
+The previously observed compiler failures remain recorded, without
+weakening their original assertions, in
+`docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md` and its failure TSV.
 
-The ninth 50-source historical CPP review is in
-`docs/GCC-C-BATCH09-REVIEW-20261117-v1.md`, its 50-row source review
-TSV, and an 11-companion SHA256 ledger. It registers 19 pending
-test sources (11 runtime and eight compile/preprocess): 14 with both
-GCC and KCC eligibility, and five GCC-only GNU extensions. The
-matrix adds 76 pending GCC and 28 KCC PDP-6 cells. Thirty-one
-original sources remain deferred for diagnostic, output-text,
-include-trace or preprocessing-only assertions; none was classified
-inapplicable. The 89 deleted original sources remain absent.
-**205 source reviews remain unresolved** (nine same-name and 196
-unreviewed). No compiler or emulator tests were executed.
+## Detailed documentation
 
-The tenth 50-source review spans GNU CPP, debug-info generation,
-ordinary GCC diagnostics, and ARM/Thumb PE targets, as detailed in
-`docs/GCC-C-BATCH10-REVIEW-20261117-v1.md` and its original SHA256
-decision TSV. Three GCC-only source tests are registered pending:
-two runtime and one compile/preprocessor, adding 12 GCC PDP-6 cells.
-Forty-two original sources remain deferred for required dialect,
-diagnostic, linker or DWARF-mode assertions. Five inapplicable i386
-or ARM/Thumb PE sources were deleted and appended to the new
-94-row tombstone v2 manifest. **155 original source reviews remain**
-(five same-name candidates, 150 unreviewed). No compiler or
-emulator tests were executed.
+- `TODO.md`: **open work**, source classification follow-ups and testkit
+  verification priorities. Dated checked-off entries are historical
+  milestones, not current registration totals.
+- `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`: original registration,
+  dispatcher and host-check preflight (historical snapshot).
+- `docs/GCC-C-FINAL105-REVIEW-20261117-v1.md`: completed historical GCC C
+  classification; source-level TSVs preserve rejected/deferred decisions.
+- `docs/GCC-C-INAPPLICABLE-REMOVALS-REVIEW-20261117-v2.md`: original
+  source tombstone justification and provenance.
+- `docs/PDP10-CODEGEN-DECLARED-ORACLES-20261117-v1.md` and
+  `docs/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`: implemented
+  compiler oracle policy, distinct from runtime results.
+- `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`: DEC Type 166 hardware
+  evidence and the remaining floating-point characterization work.
+- `docs/PDP6-AAP-LOGICAL-TICK-OPTIMIZATION-20261015-v1.md`: historical
+  processor timing work; DAIMOS-specific kernel coverage is now under
+  `../daimos-testkit/tests/validation/`.
 
-The eleventh 50-source review covers only the historical
-`gcc.dg/format/` suite. See
-`docs/GCC-C-BATCH11-REVIEW-20261117-v1.md` and the hash-pinned,
-per-source TSV. Its **940 required warning**, **33 required error**,
-and **11 forbidden diagnostic** assertions (plus five cases relying
-on warning-free option-specific acceptance) cannot be exercised by
-ordinary compile-success registrations. Accordingly all 50 sources
-remain preserved but deferred; none was registered or deleted.
-The original `format.h` companion remains preserved and verified.
-**105 source reviews remain unresolved** (four same-name and 101
-unreviewed). The 585 retained originals and 94 deleted-source
-tombstones remain unchanged. No tests were executed.
-
-**The final 105-source review is complete**, covering batches 12, 13
-and 14 (50/50/5). See
-`docs/GCC-C-FINAL105-REVIEW-20261117-v1.md` and three per-original
-TSVs. Ten further native tests are registered pending (seven runtime,
-three compile-only), with 31 new GCC and four KCC PDP-6 cells.
-Another 70 assertions remain explicitly deferred for diagnostics,
-multi-file linking, target-width adaptations, or exact assembly scans;
-25 foreign-ISA/ABI sources were deleted and recorded in the v3
-tombstone manifest. The 679-source census now has **zero unreviewed
-or same-name-review originals**. A total of 560 historical snapshots
-remain retained, 119 tombstoned; no compiler or emulator tests were
-run. Pending/deferred execution work is separate from source review.
-
-The two historical PDP-10 assembler regressions are now active GCC O2
-**codegen** tests, not compile-only stand-ins. See
-`docs/GCC-C-PDP10-ASSEMBLER-REGRESSIONS-20261117-v1.md` and the
-version-2 batch12 review. Both the fifth 9-bit byte-pointer boundary
-and shift-count SUBREG/LSH safety cases require positive and forbidden
-assembler regexes on PDP-6, KA10, KI10 and KS10. **Eight GCC 3.2
-assembler-output checks passed**, with 16 deliberately corrupted
-assembler predicates correctly rejected. The final105 status is now
-12 pending active sources, 68 deferred and 25 inapplicable. The
-earlier batch12 v1 review and 119 tombstones remain unchanged.
-
-The previously uncommitted GCC negative-classifier and parallel-result
-changes were reviewed, corrected and integrated. Historical GCC 3.2
-negative cases now require a source-located rejection diagnostic and
-cannot pass merely from warnings, a driver/setup error or a compiler
-crash. Worker exceptions, incomplete checkpoints and unknown statuses
-remain visible as failures and are safely retried. Two `verify`
-registrations exercise the GCC classifier and runner accounting;
-31 synthetic GCC policy cases, 17 existing KCC policy cases and
-six real GCC negative compiler cells (three sources, sequential and
-two-worker parallel) passed. See
-`docs/GCC-NEGATIVE-RUNNER-ACCOUNTING-20261117-v1.md`. Exact upstream
-diagnostic-text matching and full matrix sweeps remain separate.
-All 13 registered host `verify` checks passed after two pre-existing
-batch-01 compiler-conditioned tests were correctly classified in
-`OPTIMIZATION_SEMANTIC_ONLY.tsv`; no source or measured result was
-changed to obtain this pass.
-
-DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
-
-Active matrix-registered compiler sources are organized under `tests/semantic/`,
-`tests/codegen/`, `tests/negative/`, and `tests/isa/`. Upstream GCC execution
-sources awaiting review are classified under `tests/semantic/upstream/`, not
-`tests/todo/`; classification does not imply successful execution. Upstream
-GCC code-generation sources live under `tests/codegen/upstream-gcc/`.
-Supporting sources included by registered tests remain next to their owning
-tests. The dated import batch was consolidated into `tests/semantic/imported/`
-and `misc/kcc-host/`.
-
-## PDP-6 Type 166 floating-point fidelity
-
-The original DEC Type 166 FDAS/EMNF normalization logic differs from
-mathematically rounded floating-point results at some boundaries. The
-dedicated case-9 hardware regression expects octal `0544000000003` and
-passes under both SIMH PDP-6 and AAP with KCC optimized and unoptimized.
-The original 24-case mathematical regression retains its independent
-oracle and is **manual**, not hardware acceptance. Hardware behavior for
-its other 23 cases and floating-point semantics of later PDP-10 CPU
-families remain to be verified. See
-`docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md` and `TODO.md`.
-
-The retired codegen import collection was reviewed and selectively migrated;
-see `docs/CODEGEN-IMPORT-AUDIT-20261014.md`.
-
-Upstream GCC execution tests are now individually classified beneath
-`tests/semantic/upstream/`. Their per-file activation state and rationale are
-recorded in `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv`.
-They are not automatically active compiler-matrix entries.
-
-The deferred upstream inventory includes 50 pairs of identical retained
-sources with distinct original paths and sometimes different compiler
-evidence. All 50 now have a reviewed canonical owner and individual
-source assertion in `docs/DEFERRED-SOURCE-DUPLICATES-20261117-v2.tsv`,
-with the original hash-pinned v1 inventory unchanged. Of these, 48
-pairs remain deferred and two have active KCC-compatible owners that
-**also reproduce real GCC PDP-6 `-O0`/`-O2` runtime failures**. No
-compiler result was hidden or test source weakened. The strict inventory
-audit checks all decisions and six preserved conflicting blocker pairs.
-See `docs/DEFERRED-SOURCE-DUPLICATES-REVIEW-20261117-v2.md`.
-
-All 19 original PDP-10-specific GCC C/shell artifacts now have explicit
-assertion-level ownership in
-`docs/GCC-PDP10-TARGET-OWNERSHIP-20261117-v2.tsv`: 12 codegen tests,
-four preserved shell oracles, two unscheduled C companions and one ITS
-CIRC exclusion. The 12 installed GCC codegen oracles and all four shell
-contracts passed. A missing default simulator path in the BADL harness
-was corrected; the canonical test now passes on PDP-6 and KA10.
-
-The special-suite dispatcher has a registered host test verifying
-**232 distinct enabled direct registrations**, nested/manual exclusion,
-and 11 suite entrypoints. The registered GCC negative-test sweep passed
-**296/296 cells** across PDP-6/KA10/KI10/KS10 at `-O0` and `-O2`.
-Focused semantic and ISA preflight results, compiler failures left
-unmodified, and the strictly harness-only link-failure status fix are
-documented in `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`.
-
-**Initial broad compiler execution, 2026-11-17:** GCC native negative
-tests now pass **592/592** across all four CPUs and all four GCC
-optimization levels. The full-group native PDP-6 codegen sweeps produced
-**3,538/3,603 GCC passes** and **800/962 KCC noopt passes**. Together
-with the negative tests, these are **4,930/5,157 passing distinct
-registered cells**, with **227 retained failures** (nine compiler
-ICE/signal cells, 151 compile failures and 67 strict policy failures).
-The final 227-cell source/profile/hash/diagnostic manifest is
-`docs/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv`; the complete
-reproduction, status and harness-only integration report is
-`docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md`.
-
-Test integration fixed a stale ABI include path and passed the original
-GCC `#include_next` directories, restored KCC source-relative headers,
-captured KCC raw `0xff` diagnostics, and used short private KCC output
-names without changing stable checkpoints. Four previously failing GCC
-and five KCC cells now pass. Original C assertions, compiler backends,
-assemblers and simulators were not modified. The registered host
-verification group now includes a byte-preserving special KCC diagnostic
-regression and **233** enabled direct test registrations.
-The registered host `verify` subgroup passed **15/15**; all 227
-nonpassing compiler cells remain explicit, source-pinned findings.
-
-**Codegen-oracle integration follow-up (no full sweep):** the matrix
-runner now checks 22 previously ignored declarative assertions:
-forbidden instruction operand forms, four required `$KDF*` symbols,
-and generic-PDP10 compiler macro requirements. Its C comment parser
-also recognizes two original GCC inline-assembler regex assertions
-written inside multiline comments. Eight incorrectly assigned native
-KI10/KS10 GCC macro test cells were corrected to `no_test`, with the
-genuine KCC missing-macro failure left visible. The registered
-`verify` host subgroup now passes **17/17**, including fail-closed
-coverage of all **459** codegen directives. The special registry
-contains **249** entries (235 enabled direct tests). Original test
-bodies, compilers and simulator code were unchanged. See
-`docs/PDP10-CODEGEN-DECLARED-ORACLES-20261117-v1.md`.
-The new static fixture-integrity check also validates syntax for all
-383 owned shell/Python scripts (163 shell, 220 Python) and resolves
-313 local quoted includes across registered positive C sources without
-executing compiler or guest tests.
-
-**Compiler diagnostic integration (2026-11-17):** The existing matrix
-runner now has `--kind diagnostic`, with a versioned, source/SHA-pinned
-per-compiler oracle registry (`DIAGNOSTIC_ORACLES_V1.tsv`). Three
-byte-identical historical GCC C sources test source-located errors,
-required warnings, original GCC regexps and compiler options. A
-focused five-cell PDP-6 pilot passed four; the original GCC `parse
-error` wording differs from the current compiler's `syntax error`
-and correctly remains `policy_fail`. The KCC `cpp/mi6.c` GCC-only
-candidate was independently verified PASS in all four PDP-6
-native/base, opt/noopt configurations and has corresponding KCC
-`pending` matrix cells. The batch09 v2 review records this single
-promoted KCC applicability; its v1 history remains intact. A new
-registered host diagnostic regression makes the `verify` subgroup
-**18/18**. No full compiler sweep or compiler change was made. See
-`docs/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`.
-
-**Cross-repository ownership split (2026-11-17 v3):** The versioned
-SHA-pinned transfer tracks 127 GCC/KCC/DAS/DLINK/ABI/optimizer files
-previously in `daimos-testkit` (99 moved, 28 deduplicated) and 23
-DAIMOS-specific boot, media, kernel and guest-acceptance files moved
-to that OS testkit. The mixed DAIMOS `RM -R`/KCC MAKE test was split
-by its original assertions. Every relocated compiler script and
-helper now has an explicit active, manual or delegated owner. Both
-testkits enforce this boundary via the registered
-`tools/test-testkit-boundary-v1.py`; `--require-cross` checks both
-trees. No full compiler or OS sweep was performed. See the v3 report
-and its source-hash manifest in `docs/`.
+Dated integration reports remain evidence of what was checked at the
+stated time; the current status of registrations comes from the TSVs
+and their audits, **not** from historical counts in those reports.

@@ -636,7 +636,7 @@ The installed SIMH PDP-6 exposes all 512 dispatched opcode counters via
 using a disposable-media copy of DAIMOS's generated boot configuration
 returned a complete counter array, but only three distinct opcodes were
 active. This is *not* proof of KCORE/MRES execution. The checked-in
-`tools/check-pdp6-linked-profile-v1.py` refuses such inadequate profiles,
+`../daimos-testkit/tools/check-pdp6-linked-profile-v1.py` refuses such inadequate profiles,
 and the parser regression confirms that an incomplete or three-opcode
 bootstrap log cannot satisfy the gate. Counter diversity alone also is
 not sufficient: execution addresses must be correlated with actual linked
@@ -667,7 +667,7 @@ never treat temporary files as permanent evidence. The instrumented
 run used the installed SIMH PDP-6 build; its counted dispatches are not
 AAP logical ticks or calibrated microseconds.
 
-`tools/check-pdp6-kernel-boot-profile-v1.py` authenticates the linked
+`../daimos-testkit/tools/check-pdp6-kernel-boot-profile-v1.py` authenticates the linked
 kernel/module boot milestone plus bounded stop and complete 512 counter
 array. It intentionally reports **boot-stage coverage**, not full KCORE
 and MRES runtime hotpath coverage, and is tested against missing
@@ -686,7 +686,7 @@ reaching `INIT V1`. It is NOT accepted by the bounded boot-stage validator
 and must not be used as evidence of sustained MRES/KCORE runtime coverage.
 The stop reason requires further kernel/loader investigation.
 
-`tools/pdp6-fresh-media-profile-v1.py` now constructs versioned isolated
+`../daimos-testkit/tools/pdp6-fresh-media-profile-v1.py` now constructs versioned isolated
 media copies retaining disk/drum subdirectories, refuses to reuse outputs,
 sets the bootstrap PC explicitly to 020, disables optional GUI/network
 listeners, and records hashes of all media copies in a manifest. The
@@ -724,7 +724,7 @@ this checker result alone does **not** explain why KINIT printed `?RT`.
 The prior interactive SIMH boot log reached `INIT V1`, but it was recorded
 on a different occasion; do not assume its media contents were identical.
 
-`tools/check-pdp6-root-media-v1.py` independently verifies all expected
+`../daimos-testkit/tools/check-pdp6-root-media-v1.py` independently verifies all expected
 member image hashes and optionally records each read-only `d6fsck` result.
 Its regression rejects divergent or missing members and invalid counts.
 No original DAIMOS disk image has been changed for this investigation.
@@ -1365,7 +1365,7 @@ merely coincident trace addresses. KINIT executes `kcore_load`, `mres_init`,
 `mres_install`, and `module_run_minits` before low-core KCORE and dynamically
 installed MRES instructions execute.
 
-`tools/aap-linked-runtime-profile-v2.py` independently parses actual
+`../daimos-testkit/tools/aap-linked-runtime-profile-v2.py` independently parses actual
 AAP IT0/ET0A records, using ET0A for opcode decoding, the matching
 `kinit.map` KCORE boundary and the linked-image readback checks. One
 representative run reports 84,087 KINIT/other starts, 640 KCORE starts
@@ -1406,3 +1406,10 @@ interactive login or a verified root mount transaction. A versioned
 AAP's real linked KINIT/KCORE/MRES startup counts remain genuine, but
 PI/PDLOV exception handling still prevents closing the ordinary-hotpath
 attribution criterion, so the gate stays at 18/19.
+
+## Testkit ownership update (2026-11-17)
+
+The historical SIMH/DAIMOS boot and linked-KCORE/MRES examples above
+now use the corresponding OS-owned validators in `../daimos-testkit/tools/`.
+The generic PDP-6/AAP ISA and timing fixtures remain in this testkit.
+Original dated measurements were not rerun by the ownership cleanup.

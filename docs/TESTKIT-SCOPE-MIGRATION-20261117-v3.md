@@ -44,9 +44,10 @@ The generic ISA fixture profiler and opcode engine remain here and
 are imported from `daimos-testkit` without duplicating source.
 
 The earlier **v1** (56 compiler and 23 OS transfers) and **v2**
-(115 compiler and 23 OS transfers) manifests remain intact. This
-v3 extends v2 by 12 additional native KCC phase, staged Makefile,
-overflow and compiler progress assertions.
+(115 compiler and 23 OS transfers) are preserved in Git history,
+not retained as competing active snapshots. This canonical v3 manifest
+includes those records and the 12 additional native KCC phase, staged
+Makefile, overflow and compiler-progress assertions.
 
 ## Mixed tests and special cases
 
@@ -90,3 +91,15 @@ No full sweeps are run by this preparation. Further exhaustive audit
 of **dynamically dispatched** DAIMOS OS scripts (and actual suite
 execution) remains a separate open item; static ownership is not a
 claim that every such OS test has been executed.
+
+## Documentation cleanup (2026-11-17)
+
+The active README and TODO refer to this canonical v3 report and
+manifest. The intermediate migration v1/v2 Markdown/TSV documents were
+removed from the working tree because all 150 original file identities
+are now present in the v3 manifest. Their exact earlier forms remain
+recoverable from Git history. The historical DAIMOS-specific AAP kernel
+coverage document is now maintained under
+`../daimos-testkit/tests/validation/DAIMOS-AAP-KERNEL-COVERAGE-MATRIX-20261117-v2.md`.
+Older timing studies retain their dated measurements but now point to
+OS-owned source/profile helpers in `daimos-testkit`.

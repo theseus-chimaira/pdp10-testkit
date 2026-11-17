@@ -1,5 +1,13 @@
 # PDP-10 testkit — outstanding work
 
+Current ownership and registration baseline (2026-11-17): 2,108 compiler
+matrix sources, 279 special entries (229 enabled direct, 44 manual,
+6 nested), and 420 owned script paths. The authoritative counts come
+from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
+audits. Checked milestones below are dated historical records, not
+current inventory totals. The ownership split is documented in
+`docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`.
+
 ## PDP-6 Type 166 floating-point hardware fidelity (updated 2026-10-21)
 
 - [x] Recover original DEC `FD-D-166-0-EMNF` normalization drawing and
@@ -638,7 +646,7 @@ The next eight batches are documented in
   PDP-6 executed semantic assertion.
 - [x] Verify all PDP10 testkit special-suite registrations against the
   actual dispatcher routes with a registered fail-closed host test:
-  **232 enabled direct registrations** across verified ordered groups,
+  **232 enabled direct registrations at that earlier checkpoint** across verified ordered groups,
   11 suite entrypoints; nested DAS and manual entries not double-run.
   Keep `kcc-all` as both `kcc-regression` and `kcc-host`, with KCC host
   prerequisites validated separately when actually executing the suite.
@@ -646,16 +654,13 @@ The next eight batches are documented in
   The script-ownership inventory has no disconnected scripts. See
   `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`. This is dispatch
   validation, not execution of all special-test dependencies.
-- [ ] Audit all registered tests for exactly-once ownership, duplicate source
-  or redundant coverage, obsolete scripts, missing prerequisites, and correct
-  statuses **across the separate DAIMOS testkit as well**. In this
-  `pdp10-testkit` repository, the 2,105-source matrix, 246 special
-  registrations, 379 script paths, 50 identical source pairs and 19
-  original GCC target-specific artifacts now have strict ownership
-  checks with no unowned test sources or dispatched duplicates.
-  **Remaining work is cross-repository ownership in `daimos-testkit`**
-  (historically 1,680 scripts, 969 without static callers), and
-  eventual runtime validation of its dynamically invoked scripts.
+- [ ] Finish indirect/dynamic DAIMOS OS test-call ownership and actual
+  runtime validation; the static cross-repository separation is already
+  complete. Current PDP10 inventory has 2,108 compiler sources,
+  279 specialized registrations, 420 owned scripts, 50 reviewed duplicate
+  pairs and 19 original GCC target artifacts. The older DAIMOS census
+  (1,680 scripts, 969 with no static caller) was a historical estimate
+  and needs reassessment, not another compiler test relocation.
   Preserve ISA-specific test variation. See
   `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md` and
   `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md`.
@@ -911,7 +916,11 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Reach the requested 500 independently checked real-guest cases in
   ten reproducible batches. Further expansion should follow a coverage audit
   of actual DAIMOS workloads, not redundant variations.
-- [x] Audit the static DAIMOS PDP-6 kernel assembly mnemonic inventory against registered, verified AAP timing fixtures, including generated family mappings. The resulting source occurrence proxy is 16034/16675 (96.2%), *not* runtime or path coverage; see `docs/PDP6-AAP-KERNEL-COVERAGE-MATRIX-20261015-v1.md`.
+- [x] Record a historical DAIMOS kernel assembly mnemonic inventory
+  against verified AAP timing fixtures. The 2026-10-15 report records
+  16184/16675 (97.1%) *static occurrences*, not runtime/path coverage.
+  Its source-specific report is now owned by the OS testkit:
+  `../daimos-testkit/tests/validation/DAIMOS-AAP-KERNEL-COVERAGE-MATRIX-20261117-v2.md`.
 - [ ] Audit against actual linked DAIMOS kernel workload opcode histograms (and C-generated code), identify high-frequency gaps and prioritize new fixtures.
 - [ ] Extend to 100-case batches only when generation and aggregation
   preserve full correctness, reproducibility and failure attribution.
@@ -972,15 +981,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## P2 — documentation and repository hygiene
 
 
-- [ ] Update `README.md` and older audit documents that still describe active
-  upstream semantic sources as living in `tests/todo/`. The classified but
-  mostly inactive collection is now `tests/semantic/upstream/`.
-- [ ] Check all docs, path references, suite names, matrix group labels and
-  source manifests after the upstream GCC codegen directory merge into
-  `tests/codegen/upstream-gcc/`.
-- [ ] Determine whether the empty `tests/todo/codegen` and
-  `tests/todo/negative` placeholders are still needed; remove obsolete empty
-  directories when safe.
+- [x] Correct the active `README.md` layout and migrate moved OS-specific
+  source paths in the AAP documentation. Classified upstream semantic
+  tests are under `tests/semantic/upstream/`; the existing
+  `tests/todo/generic/` corpus holds retained candidates, not active cells.
+- [ ] Continue historical document and source-manifest reviews; updating
+  current ownership paths does not retroactively re-run earlier studies.
+- [x] Confirm the obsolete `tests/todo/codegen` and `tests/todo/negative`
+  placeholders are already absent. Preserve `tests/todo/generic/`.
 - [ ] Keep testkit-specific instructions near the tests; only update
   completed cross-project toolchain/ABI documentation in `pdp10-doc`.
 - [ ] After the major review, rerun registry-source validation, shell/Python
@@ -990,9 +998,11 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 ## Current baseline (not a completion claim)
 
 - `COMPILER_MATRIX.tsv`: 2,108 source rows, ownership and source paths audited.
-- `SPECIAL_TESTS.tsv`: 250 unique entries including manual probes;
-  236 enabled direct registrations are statically dispatcher-verified,
-  but not all executed.
+- `SPECIAL_TESTS.tsv`: 279 unique entries, including 229 enabled direct,
+  44 manual and six nested; dispatch is statically verified, but full
+  execution is not claimed.
+- Script inventory: 420 owned shell/Python scripts; registered host
+  verification passed 19/19 checks after the ownership split.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
