@@ -24,6 +24,7 @@ STRUCTURAL = ROOT / 'docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv'
 COMPANIONS = ROOT / 'docs/GCC-C-SOURCE-COMPANIONS-20261116-v1.tsv'
 BATCH01 = ROOT / 'docs/GCC-C-BATCH01-20261116-v1.tsv'
 BATCH02 = ROOT / 'docs/GCC-C-BATCH02-20261117-v1.tsv'
+BATCH03 = ROOT / 'docs/GCC-C-BATCH03-20261117-v1.tsv'
 KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
@@ -126,6 +127,12 @@ def batch01_decisions():
 def batch02_decisions():
     """The next 50 original GCC tests, including KCC and GCC eligibility."""
     return {r['original_source']: r for r in read_tsv(BATCH02)}
+
+
+@lru_cache(maxsize=1)
+def batch03_decisions():
+    """Third 50-source assertion/diagnostic/KCC compatibility review."""
+    return {r['original_source']: r for r in read_tsv(BATCH03)}
 
 
 def original_rows():
@@ -311,6 +318,7 @@ def ownership(row, data):
     reviewed = REVIEWED.get(suffix)
     batch = batch01_decisions().get(original)
     batch2 = batch02_decisions().get(original)
+    batch3 = batch03_decisions().get(original)
     if reviewed:
         status, matrix_owner, reason = reviewed
     elif batch:
@@ -323,6 +331,11 @@ def ownership(row, data):
                                else batch2['disposition'])
         matrix_owner = batch2['integrated_path']
         reason = batch2['pdp10_reason']
+    elif batch3:
+        status = 'batch03-' + ('pending' if batch3['disposition'] == 'integrate'
+                               else batch3['disposition'])
+        matrix_owner = batch3['integrated_path']
+        reason = batch3['pdp10_reason']
     else:
         status = ('same-name-review' if row['name_match'] != 'no-same-name'
                   else 'unreviewed')
@@ -439,6 +452,46 @@ def verify_sources():
             errors.append('batch02 deferred/inapplicable source has a test owner: ' + path)
     if len(batch2_owners) != 11:
         errors.append('batch02 source review has incorrect active owner count')
+    batch3 = read_tsv(BATCH03)
+    selected3 = [r['original_source'] for r in originals
+                 if (r['original_source'][len('gcc/testsuite/'):] not in REVIEWED
+                     and r['original_source'] not in batch_paths
+                     and r['original_source'] not in batch2_paths)][:50]
+    batch3_paths = [r['original_source'] for r in batch3]
+    if (len(batch3) != 50 or batch3_paths != selected3 or
+            len(set(batch3_paths)) != 50):
+        errors.append('batch03 must contain exactly the next 50 unresolved original GCC sources in order')
+    batch3_owners = {}
+    for row in batch3:
+        path = row['original_source']
+        decision = row['disposition']
+        scope = row['compiler_scope']
+        owner = row['integrated_path']
+        if row['source_sha256'] != source_hashes.get(path):
+            errors.append('batch03 original source hash mismatch: ' + path)
+        if (not row['original_oracle'] or not row['pdp10_reason'] or
+                not row['kcc_reason'] or not row['constraints_not_exercised'] or
+                decision not in ('integrate', 'defer', 'inapplicable')):
+            errors.append('batch03 incomplete source decision: ' + path)
+        if decision == 'integrate':
+            prefix = ('tests/semantic/gcc-historical-b03-v1/'
+                      if row['test_kind'] == 'run' else
+                      'tests/codegen/gcc-historical-b03-v1/')
+            if (scope not in ('both', 'gcc-only', 'kcc-only') or
+                    row['test_kind'] not in ('run', 'compile') or not owner or
+                    owner in batch3_owners or not owner.startswith(prefix) or
+                    owner in batch2_owners):
+                errors.append('batch03 invalid active test owner: ' + path)
+            batch3_owners[owner] = row
+            src = ROOT / owner
+            if (not src.is_file() or
+                    digest(src.read_bytes()) != row['integrated_sha256']):
+                errors.append('batch03 adapted source hash differs: ' + path)
+        elif (scope != 'none' or row['test_kind'] or owner or
+              row['integrated_sha256']):
+            errors.append('batch03 deferred/inapplicable source has an active owner: ' + path)
+    if len(batch3_owners) != 7:
+        errors.append('batch03 source review has incorrect active owner count')
     matrix_rows = {}
     with (ROOT / 'COMPILER_MATRIX.tsv').open(encoding='utf-8') as stream:
         matrix_rows = {r['test']: r for r in csv.DictReader(
@@ -477,6 +530,37 @@ def verify_sources():
             name = src.relative_to(ROOT).as_posix()
             if name not in batch2_owners:
                 errors.append('unowned batch02 C source: ' + name)
+    for owner, row in batch3_owners.items():
+        entry = matrix_rows.get(owner)
+        if entry is None:
+            errors.append('batch03 test not registered: ' + owner)
+            continue
+        group = ('semantic-gcc-historical-b03' if row['test_kind'] == 'run'
+                 else 'codegen-gcc-historical-b03')
+        if entry['group'] != group:
+            errors.append('batch03 incorrect matrix group: ' + owner)
+        allowed = set()
+        if row['compiler_scope'] in ('both', 'gcc-only'):
+            allowed.update(('pdp6_gcc_o0', 'pdp6_gcc_o1',
+                            'pdp6_gcc_o2', 'pdp6_gcc_os'))
+        if row['compiler_scope'] in ('both', 'kcc-only'):
+            allowed.update(('pdp6', 'pdp6_base'))
+        for col, value in entry.items():
+            if col in ('test', 'group', 'name'):
+                continue
+            if col in allowed:
+                if value != 'pending':
+                    errors.append('batch03 expected pending compiler cell: %s %s' %
+                                  (owner, col))
+            elif value != 'no_test':
+                errors.append('batch03 unreviewed compiler cell: %s %s' %
+                              (owner, col))
+    for folder in ('tests/semantic/gcc-historical-b03-v1',
+                   'tests/codegen/gcc-historical-b03-v1'):
+        for src in (ROOT / folder).glob('*.c'):
+            name = src.relative_to(ROOT).as_posix()
+            if name not in batch3_owners:
+                errors.append('unowned batch03 C source: ' + name)
     kcc_review = read_tsv(KCC_SHARING)
     kcc_by_owner = {r['integrated_path']: r for r in kcc_review}
     expected_kcc_owners = {
@@ -517,7 +601,8 @@ def verify_sources():
                 errors.append('missing adapted source: ' + target)
             active = recorded['review_status'] in (
                 'adapted-active', 'partial-compile-overlap',
-                'registered-pending', 'batch01-pending', 'batch02-pending')
+                'registered-pending', 'batch01-pending',
+                'batch02-pending', 'batch03-pending')
             if (target in matrix) != active:
                 errors.append('adapted registration status disagrees: ' + target)
             if recorded['review_status'] in ('registered-pending', 'batch01-pending'):

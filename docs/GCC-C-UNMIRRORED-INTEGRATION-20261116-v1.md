@@ -178,3 +178,17 @@ compiler-option and diagnostic oracles. The matrix gained 40 pending
 GCC and 18 pending KCC PDP-6 cells. **555 original sources are still
 unresolved** (37 same-name candidates, 518 unreviewed). Neither compiler
 nor emulator tests were executed.
+
+## Batch 03 update (2026-11-17)
+
+Another 50 original gcc.dg C files have source-level classifications,
+separate KCC decisions, original-oracle descriptions and source hashes
+in `docs/GCC-C-BATCH03-20261117-v1.tsv`, explained in
+`docs/GCC-C-BATCH03-REVIEW-20261117-v1.md`. Seven sources became
+pending matrix owners (three runtime, four compile-only; six share
+KCC/GCC scope and one has GCC-only `unsigned long long` bitfields).
+The other 43 remain archived, of which 22 are deferred and 21 are
+inapplicable. This adds 28 pending GCC and 12 pending KCC PDP-6 cells.
+**505 originals remain without assertion-level decisions** (21
+same-name review and 484 unreviewed). No compilation, linker,
+emulator or runtime tests were executed in this batch.

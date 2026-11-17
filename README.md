@@ -76,6 +76,14 @@ shared KCC/GCC cases, two GCC-only, and one KCC-only until an explicit
 explicitly deferred or inapplicable. New registrations comprise 40
 pending GCC and 18 pending KCC PDP-6 matrix cells. No tests were run.
 
+The third 50-source review is documented in
+`docs/GCC-C-BATCH03-REVIEW-20261117-v1.md` and its per-original TSV.
+Seven more source oracles (three runtime, four compile-only) are
+registered: six shared with KCC and one GCC-only wide bit-field case.
+They add 28 pending GCC and 12 pending KCC PDP-6 matrix cells;
+22 sources are deferred, 21 inapplicable. **505 original sources remain**
+unresolved. All checks so far for this batch are static; no tests ran.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
