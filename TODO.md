@@ -414,7 +414,9 @@ The next eight batches are documented in
   and 23 inapplicable. Batch 02 reviewed 50 further sources: 11 tests
   registered, 16 deferred, 23 inapplicable. Batch 03 reviewed the next
   50 gcc.dg originals: seven registered, 22 deferred and 21 inapplicable.
-  **505 sources now remain** (21 same-name review, 484 unreviewed). Do not
+  Batch 04 reviewed another 50 gcc.dg originals: five registered,
+  25 deferred and 20 inapplicable. **455 sources now remain**
+  (14 same-name review, 441 unreviewed). Do not
   count preserved reference files as activated tests.
 - [x] Complete a 50-source GCC integration batch with one recorded
   compatibility and oracle decision per source, 17 versioned adapted
@@ -438,6 +440,12 @@ The next eight batches are documented in
   and retain one GCC-only wide bitfield case; add 28 GCC and 12 KCC
   pending PDP-6 matrix cells. See
   `docs/GCC-C-BATCH03-REVIEW-20261117-v1.md` and its TSV.
+- [x] Review GCC integration batch 04: 50 gcc.dg originals, five
+  compile-only pending owners (two shared GCC/KCC and three GCC-only
+  inline-asm sources, two with exact assembly-output regex oracles),
+  25 deferred and 20 inapplicable. Register 20 new GCC and four KCC
+  pending PDP-6 cells. See
+  `docs/GCC-C-BATCH04-REVIEW-20261117-v1.md` and its TSV.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
   or `same-name-review` in the source-ownership ledger. Review **KCC

@@ -192,3 +192,19 @@ inapplicable. This adds 28 pending GCC and 12 pending KCC PDP-6 cells.
 **505 originals remain without assertion-level decisions** (21
 same-name review and 484 unreviewed). No compilation, linker,
 emulator or runtime tests were executed in this batch.
+
+## Batch 04 update (2026-11-17)
+
+The next 50 unresolved gcc.dg originals have explicit PDP-10 and KCC
+compatibility decisions, preserved compiler/link/diagnostic oracles,
+and SHA256 fingerprints in `docs/GCC-C-BATCH04-20261117-v1.tsv`, with
+the detailed review in `docs/GCC-C-BATCH04-REVIEW-20261117-v1.md`.
+Five are registered as compiler-matrix codegen tests: two shared C
+compile-only regressions and three GCC-only inline-assembly regressions.
+The two percent-escape sources preserve their `dg-final` assertions via
+the native assembler regex policy; the third originally had no active
+`dg-final`. Twenty-five cases are deferred and twenty inapplicable,
+especially foreign ISA and positive/negative diagnostic cases.
+Twenty GCC and four KCC PDP-6 `pending` cells were added.
+**455 originals remain unresolved** (14 same-name candidates and
+441 unreviewed). No compilation or execution tests were run.
