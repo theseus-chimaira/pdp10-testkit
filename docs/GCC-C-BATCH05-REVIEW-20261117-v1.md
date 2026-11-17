@@ -4,11 +4,14 @@
 
 The next **50 unresolved original GCC C sources** after batches 01-04 were
 reviewed in ownership-ledger order. All are historical `gcc.dg` C files.
-Their original byte-for-byte snapshots remain under
+The retained original snapshots remain byte-for-byte unchanged under
 `refs/gcc-c-unmirrored-v1/gcc.dg/`, pinned to GCC revision
-`b0f5374f6d4462bb8759160ece635e306d90998f`. Every original was
+`b0f5374f6d4462bb8759160ece635e306d90998f`. The one inapplicable
+snapshot from this batch was subsequently deleted. Every original was
 inspected for the DejaGNU action and assertion, GCC options, PDP-10
 ABI implications, KCC applicability, and existing test ownership.
+The deleted-source list and rejection rationales are recorded in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
 
 The source-hash-pinned 50-row ledger is
 `docs/GCC-C-BATCH05-20261117-v1.tsv`. It records the original oracle,

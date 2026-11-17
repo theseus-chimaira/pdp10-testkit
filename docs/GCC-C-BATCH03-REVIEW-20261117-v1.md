@@ -4,13 +4,16 @@
 
 The next 50 unresolved original GCC C sources in ledger order were
 read individually. All 50 come from the historical `gcc.dg` collection.
-The original source bodies remain unchanged under
+The retained original source bodies remain unchanged under
 `refs/gcc-c-unmirrored-v1/gcc.dg/` at pinned GCC revision
-`b0f5374f6d4462bb8759160ece635e306d90998f`. The per-file
+`b0f5374f6d4462bb8759160ece635e306d90998f`. The 21 inapplicable
+originals from this batch were subsequently deleted. The per-file
 source hashes, original source actions, target options, original oracle,
 PDP-10 compatibility, KCC applicability, adapted target hashes and
 lost original conditions are recorded in
 `docs/GCC-C-BATCH03-20261117-v1.tsv`.
+The deleted-source list and rejection rationales are recorded in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
 
 | Decision | Count |
 | --- | ---: |

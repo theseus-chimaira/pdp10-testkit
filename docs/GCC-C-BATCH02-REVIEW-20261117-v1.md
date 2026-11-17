@@ -5,9 +5,13 @@
 Exactly the next **50 unresolved historical GCC C sources**, in original
 ledger order after batch 01, were read and classified individually.
 They include five `gcc.c-torture/execute` sources, ten
-`gcc.c-torture/compile` sources, and 35 `gcc.dg` sources. The unchanged
-original blobs are hash-pinned under `refs/gcc-c-unmirrored-v1/`, at
-GCC revision `b0f5374f6d4462bb8759160ece635e306d90998f`.
+`gcc.c-torture/compile` sources, and 35 `gcc.dg` sources. Original
+SHA256 fingerprints are pinned to GCC revision
+`b0f5374f6d4462bb8759160ece635e306d90998f`. The 23 inapplicable
+snapshots from this batch were subsequently deleted; retained originals
+remain unchanged in `refs/gcc-c-unmirrored-v1/`.
+The deleted-source list and rejection rationales are recorded in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
 
 The full 50-row oracle, original `dg-options` and target restrictions,
 PDP-10/KCC decisions, per-compiler eligibility, adapted file path,

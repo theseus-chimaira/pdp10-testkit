@@ -3,20 +3,17 @@ gcc/testsuite/gcc.c-torture/execute/20000121-1.c	56		0	0.000	no-strong-source-sh
 gcc/testsuite/gcc.c-torture/execute/20000314-2.c	69		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/20000402-1.c	137		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/20000403-1.c	142	tests/semantic/upstream/generic/20000403-1.c	128	0.901	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/20000523-1.c	69		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/20000717-4.c	57		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.c-torture/execute/20000523-1.c	69	tests/semantic/gcc-historical-b01-v1/20000523-1.c	33	0.647	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/20000818-1.c	181		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/20001203-1.c	55		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/20010724-1.c	215		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/20011115-1.c	64		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.c-torture/execute/20011115-1.c	64	tests/semantic/gcc-historical-b01-v1/20011115-1.c	32	0.500	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/20011126-1.c	43	tests/semantic/upstream/wide-int/20011126-1.c	34	0.791	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/20011126-2.c	92		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.c-torture/execute/20011126-2.c	92	tests/semantic/gcc-historical-b01-v1/20011126-2.c	73	0.793	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/20011128-1.c	13		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/20020118-1.c	64		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/20020216-1.c	95	tests/semantic/upstream/generic/20020216-1.c	73	0.768	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/20020321-1.c	64		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/20020402-2.c	966		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/20020402-3.c	307	tests/todo/generic/20020402-3.c	300	0.977	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/20020321-1.c	64	tests/semantic/gcc-historical-b01-v1/20020321-1.c	39	0.609	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/20020402-2.c	966	tests/semantic/gcc-historical-b01-v1/20020402-2.c	958	0.992	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/20020402-3.c	307	tests/todo/generic/20020402-3.c	299	0.974	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/920202-1.c	44		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/920410-1.c	50		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/920501-9.c	211		0	0.000	no-strong-source-shape-lead
@@ -30,168 +27,92 @@ gcc/testsuite/gcc.c-torture/execute/921208-2.c	96		0	0.000	no-strong-source-shap
 gcc/testsuite/gcc.c-torture/execute/930526-1.c	71		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/930719-1.c	68		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/950906-1.c	44		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/960311-3.c	162	tests/semantic/upstream/generic/960311-3.c	145	0.895	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/960311-3.c	162	tests/semantic/upstream/generic/960311-3.c	143	0.883	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/980506-1.c	64		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/991202-1.c	46		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/991216-4.c	57		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/boot.c	535		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/20000320-1.c	497		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.c-torture/execute/991202-1.c	46	tests/semantic/gcc-historical-b01-v1/991202-1.c	27	0.587	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/991216-4.c	57	tests/semantic/gcc-historical-b01-v1/991216-4.c	29	0.509	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/ieee/20001122-1.c	73		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/20010114-2.c	105		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/20010226-1.c	59		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/20011123-1.c	48		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/ieee/920518-1.c	34		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/920810-1.c	67		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/930529-1.c	175		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/980619-1.c	79		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/fp-cmp-1.c	122		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/fp-cmp-2.c	127		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/fp-cmp-3.c	129		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/fp-cmp-4.c	343		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/fp-cmp-5.c	488		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/hugeval.c	99		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/minuszero.c	87		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/mzero2.c	271		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/ieee/rbug.c	150		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/longlong.c	183		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/loop-2e.c	284		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/loop-2f.c	294		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/loop-2g.c	294		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/pdp10-dimode-div71-1.c	90		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/pdp10-dimode-stack-negconst-1.c	77		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/pdp10-int9-array-opt-1.c	124		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/pdp10/20000717-4.c	57		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/execute/pdp10/alignas-frame-byteptr-v1.c	85	tests/semantic/gcc-historical-v1/alignas-frame-byteptr-v1.c	82	0.965	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10-dimode-div71-1.c	90	tests/semantic/gcc-historical-b02-v1/pdp10-dimode-div71-1.c	86	0.956	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10-dimode-stack-negconst-1.c	77	tests/semantic/gcc-historical-b02-v1/pdp10-dimode-stack-negconst-1.c	67	0.870	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10-int9-array-opt-1.c	124	tests/semantic/gcc-historical-b02-v1/pdp10-int9-array-opt-1.c	119	0.960	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10/alignas-frame-byteptr-v1.c	85	tests/semantic/gcc-historical-v1/alignas-frame-byteptr-v1.c	81	0.953	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/exact16-pointer-call-1.c	149	tests/semantic/gcc-historical-v1/exact16-pointer-call-1.c	145	0.973	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/exact16-word-roundtrip-1.c	134	tests/semantic/gcc-historical-v1/exact16-word-roundtrip-1.c	130	0.970	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/kl10-static-pointer-init-1.c	109		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/pdp10/packed-bitptr-arith-1.c	211	tests/semantic/gcc-historical-v1/packed-bitptr-arith-1.c	199	0.943	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/pdp10/packed-bitptr-decay-1.c	176	tests/semantic/gcc-historical-v1/packed-bitptr-decay-1.c	166	0.943	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-bitptr-decay-1.c	176	tests/semantic/gcc-historical-v1/packed-bitptr-decay-1.c	165	0.938	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/packed-bitptr-direct-1.c	174	tests/semantic/gcc-historical-v1/packed-bitptr-direct-1.c	158	0.908	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/packed-char-store-1.c	109	tests/semantic/gcc-historical-v1/packed-char-store-1.c	98	0.899	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/pdp10/packed-exact16-crossword-1.c	293	tests/semantic/gcc-historical-v1/packed-exact16-crossword-1.c	283	0.966	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-exact16-crossword-1.c	293	tests/semantic/gcc-historical-v1/packed-exact16-crossword-1.c	282	0.962	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/packed-exact16-global-arith-1.c	243	tests/semantic/gcc-historical-v1/packed-exact16-global-arith-1.c	232	0.955	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/packed-exact16-global-roundtrip-1.c	145	tests/semantic/gcc-historical-v1/packed-exact16-global-roundtrip-1.c	134	0.924	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/packed-pointer-global-1.c	224	tests/semantic/gcc-historical-v1/packed-pointer-global-1.c	204	0.911	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/pdp10/packed-pointer-local-1.c	190	tests/semantic/gcc-historical-v1/packed-pointer-local-1.c	183	0.963	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/pdp10/sibcall-fallthrough-1.c	117	tests/semantic/gcc-historical-v1/sibcall-fallthrough-1.c	106	0.906	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/compile/20010518-2.c	41		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.c-torture/execute/pdp10/packed-pointer-local-1.c	190	tests/semantic/gcc-historical-v1/packed-pointer-local-1.c	182	0.958	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10/sibcall-fallthrough-1.c	117	tests/semantic/gcc-historical-v1/sibcall-fallthrough-1.c	105	0.897	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/compile/20020304-1.c	2110	tests/codegen/upstream-gcc/compile/20020304-1.c	2083	0.987	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/compile/920520-1.c	22		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/920521-1.c	33		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/920821-1.c	0		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/930111-1.c	27		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/950919-1.c	13		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/961203-1.c	50		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/991026-2.c	182		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/dll.c	69		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.c-torture/compile/pdp10-regrename-1.c	445		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.c-torture/compile/pdp10-regrename-1.c	445	tests/codegen/gcc-historical-b02-v1/pdp10-regrename-1.c	440	0.989	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20000108-1.c	58		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000609-1.c	38		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000614-1.c	109		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000614-2.c	142		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20000614-2.c	142	tests/semantic/gcc-historical-b02-v1/20000614-2.c	113	0.796	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20000623-1.c	88		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20000629-1.c	42		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000707-1.c	36		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000715-1.c	24		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000720-1.c	212		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000724-1.c	301		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20000807-1.c	158		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20000707-1.c	36	tests/codegen/gcc-historical-b02-v1/20000707-1.c	36	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20000904-1.c	48		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20000906-1.c	320		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20000926-1.c	63		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20001009-1.c	377		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20001012-1.c	59		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20001012-2.c	147		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20001013-1.c	151		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20001023-1.c	393		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20001101-1.c	159		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20001102-1.c	187		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20001108-1.c	99		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20001101-1.c	159	tests/semantic/gcc-historical-b02-v1/20001101-1.c	134	0.870	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/20001108-1.c	99	tests/semantic/gcc-historical-b02-v1/20001108-1.c	75	0.773	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20001116-1.c	8		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20001117-1.c	90		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20001127-1.c	48		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20001201-1.c	2		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20001228-1.c	51		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20010202-1.c	118		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20010405-1.c	79		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20010423-1.c	64		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20010520-1.c	19		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20010405-1.c	79	tests/codegen/gcc-historical-b02-v1/20010405-1.c	75	0.949	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20010622-1.c	7		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20010822-1.c	217		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20010912-1.c	152		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20010822-1.c	217	tests/semantic/gcc-historical-b02-v1/20010822-1.c	206	0.949	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/20010912-1.c	152	tests/semantic/gcc-historical-b02-v1/20010912-1.c	129	0.849	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20011008-1.c	46		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20011008-2.c	82		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20011009-1.c	44		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20011008-2.c	82	tests/semantic/gcc-historical-b03-v1/20011008-2.c	76	0.927	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20011015-1.c	45		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20011018-1.c	45		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20011021-1.c	109		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20011029-2.c	118		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20011107-1.c	227		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20011113-1.c	46		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20011119-1.c	224		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20011127-1.c	86		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20011130-1.c	142		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20011214-1.c	66		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020103-1.c	208		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020104-1.c	67		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020108-1.c	16		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020116-1.c	24		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020116-2.c	66		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020118-1.c	45		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020122-1.c	45		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020122-2.c	126		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020122-3.c	35		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020122-4.c	29		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020201-1.c	79		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020201-2.c	102		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020201-3.c	61		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020201-4.c	27		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020206-1.c	119		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020210-1.c	84		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020218-1.c	162		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020219-1.c	130		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020220-1.c	40		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20020210-1.c	84	tests/semantic/gcc-historical-b03-v1/20020210-1.c	61	0.726	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/20020220-1.c	40	tests/codegen/gcc-historical-b03-v1/20020220-1.c	38	0.950	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20020220-2.c	19		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020222-1.c	127		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020224-1.c	112		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20020222-1.c	127	tests/codegen/gcc-historical-b03-v1/20020222-1.c	121	0.953	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20020304-1.c	192		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020310-1.c	172		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20020310-1.c	172	tests/semantic/gcc-historical-b03-v1/20020310-1.c	155	0.901	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20020312-1.c	15		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020312-2.c	450		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020313-1.c	403		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020319-1.c	14		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020326-1.c	24		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020411-1.c	196		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/20020411-1.c	196	tests/codegen/gcc-historical-b03-v1/20020411-1.c	195	0.995	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20020415-1.c	196		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/920413-1.c	12		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/940409-1.c	21		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/940510-1.c	9		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/951130-1.c	30		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980211-1.c	115		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980217-1.c	139		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980226-1.c	36		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/980312-1.c	67		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/980313-1.c	80		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980414-1.c	272		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980502-1.c	21		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980520-1.c	38		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980523-1.c	297		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980526-1.c	83		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980709-1.c	75		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/980502-1.c	21	tests/codegen/gcc-historical-b04-v1/980502-1.c	21	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/980816-1.c	91		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/980827-1.c	101		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/990117-1.c	84		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/990130-1.c	197		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/990213-1.c	19		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/990213-2.c	78		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/990214-1.c	43		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/990424-1.c	101		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/990506-0.c	5		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/990524-1.c	127		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/991129-1.c	41		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/991209-1.c	13		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/991214-1.c	40		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/990524-1.c	127	tests/codegen/gcc-historical-b04-v1/990524-1.c	126	0.992	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/991230-1.c	54		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/Wconversion.c	47		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/Wlarger-than.c	3		0	0.000	no-strong-source-shape-lead
@@ -205,38 +126,29 @@ gcc/testsuite/gcc.dg/Wswitch-enum.c	172		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/Wswitch.c	172		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/Wunreachable-1.c	58		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/Wunreachable-2.c	68		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/altivec-1.c	191		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/altivec-2.c	105		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/altivec-3.c	385		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/altivec-4.c	333		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/altivec-5.c	43		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/arm-asm.c	34		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/array-2.c	69		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/array-3.c	49		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/array-4.c	129		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/array-5.c	135		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/array-6.c	74		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/asm-1.c	30		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/asm-2.c	9		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/asm-3.c	6		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/asm-4.c	85		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/asm-5.c	278		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/asm-4.c	85	tests/codegen/gcc-historical-b04-v1/asm-4.c	84	0.988	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/asm-6.c	39		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/asm-fs-1.c	25		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/asm-names.c	68		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/attr-alwaysinline.c	33		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/attr-alwaysinline.c	33	tests/codegen/gcc-historical-b05-v1/attr-alwaysinline.c	33	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/attr-invalid.c	156		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/attr-nest.c	82		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/attr-noinline.c	186		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/attr-used.c	25		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/bf-spl1.c	208		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/bitfld-1.c	97		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/bitfld-2.c	85		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/builtin-choose-expr.c	453		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/builtin-choose-expr.c	453	tests/semantic/gcc-historical-b05-v1/builtin-choose-expr.c	441	0.974	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/builtin-prefetch-1.c	143		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-array-lval-1.c	51		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-array-lval-2.c	101		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c90-array-lval-3.c	96		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c90-array-lval-3.c	96	tests/codegen/gcc-historical-b05-v1/c99-array-lval-3.c	95	0.990	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c90-array-lval-4.c	138		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-array-lval-5.c	70		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-arraydecl-1.c	73		0	0.000	no-strong-source-shape-lead
@@ -245,12 +157,12 @@ gcc/testsuite/gcc.dg/c90-complit-1.c	58		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-const-expr-1.c	79		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-const-expr-2.c	114		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-const-expr-3.c	143		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c90-digraph-1.c	104		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c90-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	92	0.885	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c90-enum-comma-1.c	2		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-float-1.c	250		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c90-fordecl-1.c	25		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c90-fordecl-1.c	25	tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	19	0.760	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c90-hexfloat-1.c	16		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c90-hexfloat-2.c	82		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c90-hexfloat-2.c	82	tests/semantic/gcc-historical-b06-v1/c99-hexfloat-2.c	68	0.829	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c90-idem-qual-1.c	4		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-impl-decl-1.c	29		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-impl-int-1.c	4		0	0.000	no-strong-source-shape-lead
@@ -261,37 +173,37 @@ gcc/testsuite/gcc.dg/c90-longlong-1.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-mixdecl-1.c	12		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-restrict-1.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-return-1.c	14		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c90-scope-1.c	101		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c94-digraph-1.c	104		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c90-scope-1.c	101	tests/semantic/gcc-historical-b06-v1/c99-scope-1.c	75	0.743	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c94-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	98	0.942	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-array-lval-1.c	51		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-array-lval-2.c	102		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-array-lval-3.c	96		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-array-lval-3.c	96	tests/codegen/gcc-historical-b05-v1/c99-array-lval-3.c	95	0.990	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-array-lval-4.c	140		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-array-lval-5.c	70		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-array-nonobj-1.c	53		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-arraydecl-1.c	242		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-bool-1.c	807		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-bool-1.c	807	tests/semantic/gcc-historical-b05-v1/c99-bool-1.c	774	0.959	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-complex-1.c	46		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-complex-2.c	20		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-complit-1.c	865		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-complit-1.c	865	tests/semantic/gcc-historical-b06-v1/c99-complit-1.c	838	0.969	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-complit-2.c	205		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-condexpr-1.c	316		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-condexpr-1.c	316	tests/codegen/gcc-historical-b06-v1/c99-condexpr-1.c	316	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-const-expr-1.c	10		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-const-expr-2.c	115		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-const-expr-3.c	143		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-digraph-1.c	104		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	98	0.942	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-enum-comma-1.c	2		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-flex-array-1.c	41		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-flex-array-2.c	25		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-float-1.c	250		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-fordecl-1.c	89		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-fordecl-1.c	89	tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	68	0.764	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-fordecl-2.c	81		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-func-1.c	55		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-func-1.c	55	tests/semantic/gcc-historical-b06-v1/c99-func-1.c	43	0.782	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-func-2.c	5		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-func-3.c	32		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-func-3.c	32	tests/semantic/gcc-historical-b06-v1/c99-func-3.c	18	0.562	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-func-4.c	8		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-hexfloat-1.c	3		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-hexfloat-2.c	82		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-hexfloat-2.c	82	tests/semantic/gcc-historical-b06-v1/c99-hexfloat-2.c	74	0.902	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-idem-qual-1.c	4		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-impl-decl-1.c	29		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-impl-int-1.c	4		0	0.000	no-strong-source-shape-lead
@@ -301,15 +213,14 @@ gcc/testsuite/gcc.dg/c99-init-2.c	232		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-intconst-1.c	3297		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-longlong-1.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-main-1.c	2		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-mixdecl-1.c	87		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-mixdecl-1.c	87	tests/semantic/gcc-historical-b06-v1/c99-mixdecl-1.c	65	0.747	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-restrict-1.c	29		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-return-1.c	14		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-scope-1.c	101		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-scope-2.c	221		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/c99-scope-1.c	101	tests/semantic/gcc-historical-b06-v1/c99-scope-1.c	86	0.851	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c99-scope-2.c	221	tests/semantic/gcc-historical-b06-v1/c99-scope-2.c	197	0.891	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-tag-1.c	350		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cast-qual-1.c	58		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cast-qual-2.c	155		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/clobbers.c	99		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/compare1.c	86		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/compare2.c	137		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/compare3.c	178		0	0.000	no-strong-source-shape-lead
@@ -317,7 +228,7 @@ gcc/testsuite/gcc.dg/compare4.c	170		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/compare5.c	109		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/complete-port.c	403		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/concat.c	41		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/19921210-1.c	53		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/19921210-1.c	53	tests/codegen/gcc-historical-b06-v1/19921210-1.c	53	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/19930510-1.c	14		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/19940712-1.c	13		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/19951025-1.c	0		0	0.000	no-strong-source-shape-lead

@@ -5,9 +5,12 @@
 This batch reviews **exactly the first 50 unresolved** historical GCC C
 sources in the order of `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`
 before this batch. All 50 belong to `gcc.c-torture/execute`; 18 of them
-are under its `ieee/` subdirectory. The unchanged originals are in
-`refs/gcc-c-unmirrored-v1/` and trace back to GCC Git revision
-`b0f5374f6d4462bb8759160ece635e306d90998f`.
+are under its `ieee/` subdirectory. Original fingerprints trace to
+GCC Git revision `b0f5374f6d4462bb8759160ece635e306d90998f`.
+The 23 inapplicable snapshots from this batch were subsequently deleted;
+retained originals remain in `refs/gcc-c-unmirrored-v1/`.
+The deleted-source list and rejection rationales are recorded in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
 
 `docs/GCC-C-BATCH01-20261116-v1.tsv` is the per-file decision record:
 original path and SHA-256, original assertion, native PDP-10 assessment,

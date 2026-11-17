@@ -5,9 +5,12 @@
 Batch 06 examines exactly the next 50 unresolved original GCC C files
 in the source-ownership ledger, following the five earlier 50-source
 batches. The originals are under `gcc/testsuite/gcc.dg/`, including
-five sources from `gcc.dg/cpp/`. Their original byte-for-byte snapshots
-remain preserved under `refs/gcc-c-unmirrored-v1/`, pinned to GCC revision
-`b0f5374f6d4462bb8759160ece635e306d90998f`.
+five sources from `gcc.dg/cpp/`. Retained originals remain byte-for-byte
+unchanged under `refs/gcc-c-unmirrored-v1/`, pinned to GCC revision
+`b0f5374f6d4462bb8759160ece635e306d90998f`. The one inapplicable
+original from this batch was subsequently deleted.
+The deleted-source list and rejection rationales are recorded in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
 
 The source-level ledger `docs/GCC-C-BATCH06-20261117-v1.tsv`
 records each original source and SHA256, the `dg-do` action, original

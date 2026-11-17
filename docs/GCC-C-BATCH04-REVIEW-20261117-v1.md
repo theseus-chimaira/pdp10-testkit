@@ -5,13 +5,17 @@
 Batch 04 reviews exactly the next 50 original C sources in the 679-source
 non-PDP-10 GCC archive, after the three earlier 50-source batches.
 All 50 are from the historical `gcc.dg` tree. The original source
-snapshots under `refs/gcc-c-unmirrored-v1/gcc.dg/` remain byte-for-byte
-unchanged at GCC revision `b0f5374f6d4462bb8759160ece635e306d90998f`.
+retained snapshots under `refs/gcc-c-unmirrored-v1/gcc.dg/` remain
+byte-for-byte unchanged at GCC revision
+`b0f5374f6d4462bb8759160ece635e306d90998f`. The 20 inapplicable
+original snapshots from this batch were subsequently deleted.
 Every source was inspected for the actual DejaGNU oracle, original target
 and flags, PDP-10 semantics, KCC compatibility, and same-name overlaps.
 The individual classifications, original/derived source hashes, and
 unexercised conditions are retained in
 `docs/GCC-C-BATCH04-20261117-v1.tsv`.
+The deleted-source list and rejection rationales are recorded in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
 
 | Decision | Number of original C sources |
 | --- | ---: |

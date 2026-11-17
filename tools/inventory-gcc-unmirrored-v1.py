@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Own historical GCC C sources without conflating source and test coverage.
+"""Own retained historical GCC C sources and rejected-source tombstones.
 
---import archives source blobs from the pinned GCC Git revision and writes
-the reviewed-source ledger. Default mode verifies local archive fingerprints,
-ledger classifications and matrix owners. Neither mode executes any tests.
+--import restores eligible source blobs from the pinned GCC Git revision,
+deletes inapplicable snapshots, and writes the full decision ledger.
+Default mode verifies retained hashes, removed-source absence, review
+decisions, and compiler matrix owners. Neither mode executes any tests.
 """
 
 import argparse
@@ -28,6 +29,7 @@ BATCH03 = ROOT / 'docs/GCC-C-BATCH03-20261117-v1.tsv'
 BATCH04 = ROOT / 'docs/GCC-C-BATCH04-20261117-v1.tsv'
 BATCH05 = ROOT / 'docs/GCC-C-BATCH05-20261117-v1.tsv'
 BATCH06 = ROOT / 'docs/GCC-C-BATCH06-20261117-v1.tsv'
+REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
 KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
@@ -156,6 +158,19 @@ def batch06_decisions():
     return {r['original_source']: r for r in read_tsv(BATCH06)}
 
 
+@lru_cache(maxsize=1)
+def removed_originals():
+    """Tombstones for the 89 reviewed and deleted inapplicable originals.
+
+    Keep their identities and fingerprints in the 679-source provenance
+    ledger, but never restore or schedule their source snapshots.
+    """
+    rows = read_tsv(REMOVALS)
+    if len(rows) != 89 or len({r['original_source'] for r in rows}) != 89:
+        raise ValueError('expected 89 distinct inapplicable source tombstones')
+    return {r['original_source']: r for r in rows}
+
+
 def original_rows():
     rows = [r for r in read_tsv(PREFLIGHT)
             if r['group'] != 'pdp10-target']
@@ -181,7 +196,7 @@ def token_grams(data):
 
 
 def report_structural_overlaps():
-    """Compare all 679 original bodies with all central C test bodies.
+    """Compare retained original bodies with all central C test bodies.
 
     A shared six-token sequence is evidence to inspect, not the test's
     oracle; ignore common/short patterns to avoid misleading matches.
@@ -195,8 +210,11 @@ def report_structural_overlaps():
         for gram in grams:
             index[gram].append(number)
     rows = []
+    deleted = removed_originals()
     for original in original_rows():
         path = original['original_source']
+        if path in deleted:
+            continue
         grams = token_grams(snapshot_path(path).read_bytes())
         counter = collections.Counter()
         if len(grams) >= 20:
@@ -262,7 +280,7 @@ def import_companions(repo, originals):
         owner, data = pending.pop()
         for child in quoted_companions(owner, data):
             if child in original_paths:
-                continue  # Already present as one of the 679 C snapshots.
+                continue  # Already present as a retained original C snapshot.
             if child in dependencies:
                 dependencies[child]['included_by'].add(owner)
                 continue
@@ -396,14 +414,23 @@ def ownership(row, data):
 
 def import_sources(repo):
     records = original_rows()
+    deleted = removed_originals()
     result = []
+    retained = []
     for row, data in archived(repo, records):
-        path = snapshot_path(row['original_source'])
+        original = row['original_source']
+        path = snapshot_path(original)
         if path.is_file() and path.read_bytes() != data:
             raise ValueError('existing snapshot differs: ' + str(path))
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(data)
-        suffix = row['original_source'][len('gcc/testsuite/'):]
+        if original in deleted:
+            # A regular inventory rebuild must not resurrect rejected tests.
+            if path.exists():
+                path.unlink()
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(data)
+            retained.append(row)
+        suffix = original[len('gcc/testsuite/'):]
         if suffix in REVIEWED and REVIEWED[suffix][0] == 'registered-pending':
             dest = ROOT / REVIEWED[suffix][1]
             if dest.is_file() and dest.read_bytes() != data:
@@ -416,9 +443,10 @@ def import_sources(repo):
                                 delimiter='\t', lineterminator='\n')
         writer.writeheader()
         writer.writerows(result)
-    import_companions(repo, records)
-    print('Archived %d historical GCC source snapshots; no tests executed' %
-          len(result))
+    import_companions(repo, retained)
+    print('Retained %d historical GCC source snapshots; deleted %d inapplicable originals; '
+          'indexed %d historical decisions; no tests executed' %
+          (len(retained), len(deleted), len(result)))
     print('Ledger: ' + str(LEDGER))
 
 
@@ -660,6 +688,39 @@ def verify_sources():
             errors.append('batch06 excluded source has active test owner: ' + path)
     if len(batch6_owners) != 12:
         errors.append('batch06 source review has incorrect active owner count')
+    deleted = removed_originals()
+    rejected = {}
+    for index, review in enumerate((batch, batch2, batch3,
+                                    batch4, batch5, batch6), 1):
+        for row in review:
+            decision = row['decision'] if index == 1 else row['disposition']
+            if decision != 'inapplicable':
+                continue
+            original = row['original_source']
+            rejected[original] = (index, row)
+    if set(deleted) != set(rejected):
+        errors.append('inapplicable deletion manifest differs from reviewed decisions')
+    for original, removed in deleted.items():
+        original_row = next((r for r in originals
+                             if r['original_source'] == original), None)
+        reviewed_row = rejected.get(original)
+        recorded = by_path.get(original)
+        if not original_row or not reviewed_row or not recorded:
+            errors.append('unknown or unreviewed deleted source: ' + original)
+            continue
+        index, review = reviewed_row
+        reason = (review['review_reason'] if index == 1
+                  else review['pdp10_reason'])
+        expected_status = 'batch%02d-inapplicable' % index
+        if (removed['source_sha256'] != original_row['source_sha256'] or
+                removed['snapshot_path'] != snapshot_path(original).relative_to(ROOT).as_posix() or
+                removed['review_status'] != expected_status or
+                removed['inapplicable_reason'] != reason or
+                removed['removal_action'] != 'delete-original-snapshot' or
+                recorded['review_status'] != expected_status or
+                recorded['source_sha256'] != removed['source_sha256'] or
+                recorded['review_reason'] != reason or recorded['matrix_owner']):
+            errors.append('inapplicable deletion record diverged: ' + original)
     matrix_rows = {}
     with (ROOT / 'COMPILER_MATRIX.tsv').open(encoding='utf-8') as stream:
         matrix_rows = {r['test']: r for r in csv.DictReader(
@@ -856,6 +917,10 @@ def verify_sources():
     for orig in originals:
         path = orig['original_source']
         stored = snapshot_path(path)
+        if path in deleted:
+            if stored.exists():
+                errors.append('deleted inapplicable original was restored: ' + path)
+            continue
         if not stored.is_file():
             errors.append('missing archived source: ' + path)
             continue
@@ -945,18 +1010,27 @@ def verify_sources():
                 queue.append((child, snapshot_path(child).read_bytes()))
     for stale in sorted(companion_paths.keys() - reached_companions):
         errors.append('stale GCC companion record: ' + stale)
+    structural = read_tsv(STRUCTURAL)
+    structural_paths = [r['original_source'] for r in structural]
+    retained_paths = {r['original_source'] for r in originals
+                      if r['original_source'] not in deleted}
+    if (len(structural_paths) != len(retained_paths) or
+            set(structural_paths) != retained_paths):
+        errors.append('structural overlap index is not restricted to retained originals')
     snapshots = {p.relative_to(ROOT).as_posix()
                  for p in REFS.rglob('*.c')}
     expected = {snapshot_path(r['original_source']).relative_to(ROOT).as_posix()
-                for r in originals}
+                for r in originals if r['original_source'] not in deleted}
     expected.update(snapshot_path(p).relative_to(ROOT).as_posix()
                     for p, row in companion_paths.items()
                     if row['status'] == 'preserved' and p.endswith('.c'))
     for extra in sorted(snapshots - expected):
         errors.append('unowned GCC archival source: ' + extra)
     counts = collections.Counter(r['review_status'] for r in ledger)
-    print('GCC historical C sources: %d; statuses: %s' %
-          (len(ledger), ', '.join('%s=%d' % p for p in sorted(counts.items()))))
+    print('GCC historical C decisions: %d; retained snapshots: %d; '
+          'deleted inapplicable originals: %d; statuses: %s' %
+          (len(ledger), len(originals) - len(deleted), len(deleted),
+           ', '.join('%s=%d' % p for p in sorted(counts.items()))))
     for err in errors:
         print('ERROR: ' + err, file=sys.stderr)
     return int(bool(errors))

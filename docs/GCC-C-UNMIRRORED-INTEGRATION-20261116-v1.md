@@ -11,12 +11,13 @@ Its revision `b0f5374f6d4462bb8759160ece635e306d90998f` still contains
 the historical original sources. The prior preflight excluded every
 byte-identical `tests/*.c` copy and inventoried 693 remaining sources:
 14 separately reviewed `gcc.target/pdp10/` sources and **679 other** C
-sources. The 679 original blobs are now preserved byte-for-byte under
-`refs/gcc-c-unmirrored-v1/`, retaining their group/subdirectory names and
-recorded SHA-256 hashes. Total source payload is approximately 657 KB.
-Original whitespace and line endings, including historical trailing
-whitespace, are retained deliberately. Reformatting would invalidate
-the source hashes and compromise the archival provenance.
+sources. The 679 original blobs were initially preserved byte-for-byte under
+`refs/gcc-c-unmirrored-v1/`, with their group/subdirectory names and
+SHA-256 hashes. The initial source payload was approximately 657 KB.
+On 2026-11-17, the 89 reviewed inapplicable originals were deleted;
+590 source snapshots remain byte-for-byte unchanged. All 679 source
+identities and SHA-256 fingerprints remain in the provenance ledger.
+Whitespace and line endings of retained sources are not reformatted.
 
 The authoritative per-file static inventory is
 `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. Every row identifies
@@ -27,11 +28,13 @@ and a conservative assertion-level review status. This is an ownership
 inventory, **not** a 679-test execution schedule.
 
 The existing `verify` group now owns
-`tools/inventory-gcc-unmirrored-v1.py`. The default action compares all
-679 retained source hashes against the preflight and verifies the ledger,
-source-to-adaptation paths and active registrations. An explicit
-`--import-sources` restores the original snapshots from the historical GCC
-Git object database; the ordinary verifier requires no GCC checkout.
+`tools/inventory-gcc-unmirrored-v1.py`. The default action checks all
+**590 retained source hashes** against preflight, verifies the full
+679-row decision ledger, confirms absence of the 89 deleted originals,
+and audits source-to-adaptation paths and active registrations. Explicit
+`--import-sources` restores **only eligible** snapshots from the historical
+GCC Git object database, deleting inapplicable snapshots if present;
+the ordinary verifier requires no GCC checkout.
 
 The archived C sources also have test-local quoted-include dependencies.
 The recursive source inventory preserves 25 companion files, including
@@ -71,17 +74,16 @@ negative diagnostic oracle. A same-named source is not automatically a
 duplicate, and a common 10-token `main` that returns zero is not evidence
 of shared compiler regression coverage.
 
-A static six-token structural comparison of all 679 original sources
-against the testkit C sources is recorded in
+A refreshed static six-token structural comparison of the **590 retained**
+original sources against the testkit C sources is recorded in
 `docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv`. It is reproduced with
-`tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. Of its 21
-potential source-shape leads, 13 are newly registered copies of the
-original sources. Seven of the eight remaining leads correspond to
-adapted sources independently reviewed above. The eighth,
-`gcc.dg/format/attr-2.c` versus `compile/20010701-1.c`, is a false
-equivalence: shared attribute syntax does not preserve the original
-format-warning diagnostics and `format.h` dependency. Heavily rewritten
-or very short adaptations can escape this structural scan.
+`tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. The refreshed
+scan has **69 potential source-shape leads** (compared to 21 at initial
+import, before later registrations). These are merely token-level hints:
+matching source shape does not prove an equivalent test oracle. The
+historically identified `gcc.dg/format/attr-2.c` versus
+`compile/20010701-1.c` is still not equivalent because its required
+format diagnostics and `format.h` dependency are not preserved.
 
 ## Newly integrated runtime sources (not yet executed)
 
@@ -241,3 +243,22 @@ for strict C99 mode, diagnostic, representation, or link assertions,
 and the x86 physical-register clobber case is inapplicable.
 **355 original sources remain unresolved** (12 same-name candidates,
 343 unreviewed). No compiler, emulator or runtime tests were executed.
+
+## Inapplicable original source removal (2026-11-17)
+
+Per the explicit cleanup request, **89 original C source snapshots**
+classified `inapplicable` across batches 01-06 have been deleted from
+`refs/gcc-c-unmirrored-v1/`. Counts by batch are 23, 23, 21, 20, 1,
+and 1 respectively. Only **590 original C snapshots are retained**;
+all 679 historical source identities, hashes, original assertions and
+review decisions remain auditable in the preflight, six batch TSVs and
+ownership ledger. The deleted-source tombstone manifest is
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`, explained in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-REVIEW-20261117-v1.md`.
+
+Static verifier and `--import-sources` paths now enforce absence of
+inapplicable source files; re-imports do not resurrect them. The
+structural overlap index was refreshed for 590 retained originals.
+The 25 preserved local include companions, all active/adapted tests,
+all deferred tests, and the 355 unresolved originals were left intact.
+No compiler, assembler or emulator tests were executed.

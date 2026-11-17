@@ -402,8 +402,9 @@ The next eight batches are documented in
   the feasibility preflight before proposing further imports or removals.
   Preserve the original assertion and derive native 36-bit/9-bit/non-IEEE
   expectations; do not mistake a successful compile for meaningful coverage.
-  The original 679 source blobs are now retained and source-hash pinned in
-  `refs/gcc-c-unmirrored-v1/` with per-file classification in
+  Of the 679 original source blobs, **590 are retained and hash-pinned** in
+  `refs/gcc-c-unmirrored-v1/`; **89 reviewed inapplicable originals have been
+  deleted**. All 679 remain indexed with per-file classification in
   `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. First manual crosswalk:
   six existing active adaptations, two deferred adaptations, one partial
   compile-only overlap, one same-name but non-equivalent diagnostic test,
@@ -421,6 +422,13 @@ The next eight batches are documented in
   one x86 ISA-specific inapplicable case. **355 sources now remain**
   (12 same-name review, 343 unreviewed). Do not
   count preserved reference files as activated tests.
+- [x] Delete all 89 inapplicable original GCC source snapshots classified
+  in batches 01-06 (23, 23, 21, 20, 1, 1). Keep only review metadata,
+  original SHA256 fingerprints and rationales in the versioned tombstone
+  manifest `docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
+  Re-imports must not restore deleted sources, and the static verifier
+  rejects any reappearance. Preserve the 590 retained originals and all
+  25 still-referenced local include companions. No active test removed.
 - [x] Complete a 50-source GCC integration batch with one recorded
   compatibility and oracle decision per source, 17 versioned adapted
   regressions and 68 pending PDP-6 GCC matrix cells. See
