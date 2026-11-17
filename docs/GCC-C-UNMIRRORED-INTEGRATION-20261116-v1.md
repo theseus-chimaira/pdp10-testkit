@@ -165,3 +165,16 @@ are enabled as `pending` for KCC PDP-6 native and base profiles
 (40 new matrix cells). The other ten retain GCC-only exact-width/packing
 semantics. No tests were executed. The static inventory checks eligibility.
 Future 50-source review batches must classify both compilers.
+
+## Batch 02 update (2026-11-17)
+
+The next 50 unresolved original GCC C tests are now classified in
+`docs/GCC-C-BATCH02-20261117-v1.tsv` and
+`docs/GCC-C-BATCH02-REVIEW-20261117-v1.md`. Eleven are newly registered
+as pending (eight runtime, three compile-only): eight KCC/GCC-shared,
+two GCC-only and one KCC-only in the current compiler profiles. The
+other 39 have explicit defer/inapplicable rationales, especially for
+compiler-option and diagnostic oracles. The matrix gained 40 pending
+GCC and 18 pending KCC PDP-6 cells. **555 original sources are still
+unresolved** (37 same-name candidates, 518 unreviewed). Neither compiler
+nor emulator tests were executed.

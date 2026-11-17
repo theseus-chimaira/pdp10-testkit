@@ -411,8 +411,9 @@ The next eight batches are documented in
   additional same-name reviews, two non-equivalent overlaps, and 591
   other initially unreviewed sources. Batch 01 subsequently reviewed 50:
   17 additional PDP-10 tests registered as pending, 10 deferred,
-  and 23 inapplicable. **605 sources remain** (52 same-name review,
-  553 unreviewed). Do not
+  and 23 inapplicable. Batch 02 reviewed 50 further sources: 11 tests
+  registered, 16 deferred, 23 inapplicable. **555 sources now remain**
+  (37 same-name review, 518 unreviewed). Do not
   count preserved reference files as activated tests.
 - [x] Complete a 50-source GCC integration batch with one recorded
   compatibility and oracle decision per source, 17 versioned adapted
@@ -423,6 +424,13 @@ The next eight batches are documented in
   20 retain KCC semantic oracles and gained PDP-6 native/base `pending`
   cells (40 added), while 10 remain GCC-only exact-width/packing tests.
   See `docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.md` and its TSV.
+- [x] Review GCC integration batch 02, covering five torture execute,
+  ten torture compile, and 35 gcc.dg original sources with 11 new PDP-10
+  test cases (8 runtime and 3 compile-only). Register 40 new pending
+  GCC optimization cells and 18 KCC native/base cells, each with a
+  per-source compiler/ABI and oracle review. Sixteen deferred and 23
+  inapplicable source records remain owned but inactive. See
+  `docs/GCC-C-BATCH02-REVIEW-20261117-v1.md` and its TSV.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
   or `same-name-review` in the source-ownership ledger. Review **KCC

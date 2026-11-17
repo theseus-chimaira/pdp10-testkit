@@ -68,6 +68,14 @@ All 17 adapted batch cases also apply to KCC. See
 `docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.md` and its per-source TSV
 for the 40 additional pending KCC PDP-6 native/base matrix cells.
 
+The second 50-source original GCC review is recorded in
+`docs/GCC-C-BATCH02-REVIEW-20261117-v1.md` and its source-hash-pinned TSV.
+It registers 11 more tests (eight runtime and three compile-only): eight
+shared KCC/GCC cases, two GCC-only, and one KCC-only until an explicit
+71-bit GCC compiler profile is provided. The remaining 39 cases are
+explicitly deferred or inapplicable. New registrations comprise 40
+pending GCC and 18 pending KCC PDP-6 matrix cells. No tests were run.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
