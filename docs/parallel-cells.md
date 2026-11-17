@@ -193,6 +193,27 @@ commands cannot be found, every cell can fail immediately with return code 127.
 
 The compatibility wrapper has been removed. Runs should call `run-tests.sh -j N` directly.
 
+## Original GCC/KCC diagnostic oracles
+
+`--kind diagnostic` uses the **same matrix runner**, per-cell restart
+checkpoints, parallel worker accounting, source ownership and failure
+reports as `semantic`, `negative` and `codegen`. The source-specific
+`DIAGNOSTIC_ORACLES_V1.tsv` registry pins the original file hash and
+declares per-compiler expected success/rejection, original option
+string, source line, severity, required regexp and count.
+
+Unlike `--kind negative`, ordinary rejection alone cannot pass a
+diagnostic cell. Exact source-located messages must satisfy the
+declared original GCC requirement or an independently reviewed KCC
+equivalent. Warnings on wrong lines or from unrelated source files,
+launcher errors, ICEs and timeouts cannot satisfy the oracle.
+
+Use `--kind diagnostic --list-only` to inspect the tiny initial set.
+The registered `test-diagnostic-oracles-v1.py` host verifier checks
+source identity and fake/mutated diagnostic output before any larger
+suite is attempted. See
+`docs/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`.
+
 ## Negative compilation tests
 
 The `tests/negative/` category contains imported invalid-source tests that

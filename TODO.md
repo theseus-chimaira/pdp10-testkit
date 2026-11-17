@@ -695,6 +695,23 @@ The next eight batches are documented in
   expected warnings, target constraints) and decide which cases are worth
   importing as explicitly negative/diagnostic tests. Do not misclassify
   diagnostic tests as codegen tests. See `docs/parallel-cells.md`.
+- [x] Establish a first-class `diagnostic` matrix kind in the existing
+  compiler runner; preserve source line, original GCC `dg-error` /
+  `dg-warning` regexp, compiler options and independent KCC equivalent
+  text. Three byte-identical original GCC sources, four compiler oracle
+  entries, and five PDP-6 pilot cells are covered: four PASS and one
+  retained GCC original-warning-text mismatch. Register a fail-closed
+  host policy/regression test. Reclassify GCC CPP `mi6.c` for KCC
+  PDP-6 native/base only after four focused real PASS results; preserve
+  the original batch09 v1 and add the single-decision v2 review.
+  No full sweep; see
+  `docs/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`.
+- [ ] Expand source-reviewed diagnostic cases from the historical GCC
+  corpus, preserving each source-located positive/negative diagnostic,
+  target restriction and original compiler options. DejaGNU target
+  selectors, xfail branches, full format-warning policy, multitranslation
+  unit link semantics and output/assembly scans need separate matching
+  infrastructure; do not treat GCC-only features as KCC obligations.
 
 ## P2 — execution coverage and regression verification
 
@@ -961,9 +978,9 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,105 source rows, ownership and source paths audited.
-- `SPECIAL_TESTS.tsv`: 249 unique entries including manual probes;
-  235 enabled direct registrations are statically dispatcher-verified,
+- `COMPILER_MATRIX.tsv`: 2,108 source rows, ownership and source paths audited.
+- `SPECIAL_TESTS.tsv`: 250 unique entries including manual probes;
+  236 enabled direct registrations are statically dispatcher-verified,
   but not all executed.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable

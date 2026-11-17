@@ -33,7 +33,8 @@ BATCH07 = ROOT / 'docs/GCC-C-BATCH07-20261117-v1.tsv'
 BATCH07_COMPANIONS = ROOT / 'docs/GCC-C-BATCH07-COMPANIONS-20261117-v1.tsv'
 BATCH08 = ROOT / 'docs/GCC-C-BATCH08-20261117-v1.tsv'
 BATCH08_COMPANIONS = ROOT / 'docs/GCC-C-BATCH08-COMPANIONS-20261117-v1.tsv'
-BATCH09 = ROOT / 'docs/GCC-C-BATCH09-20261117-v1.tsv'
+BATCH09_V1 = ROOT / 'docs/GCC-C-BATCH09-20261117-v1.tsv'
+BATCH09 = ROOT / 'docs/GCC-C-BATCH09-20261117-v2.tsv'
 BATCH09_COMPANIONS = ROOT / 'docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv'
 BATCH10 = ROOT / 'docs/GCC-C-BATCH10-20261117-v1.tsv'
 BATCH11 = ROOT / 'docs/GCC-C-BATCH11-20261117-v1.tsv'
@@ -919,6 +920,29 @@ def verify_sources():
                 row['integrated_sha256'] != digest(target.read_bytes())):
             errors.append('batch08 CPP header hash/ownership mismatch: ' + original)
     batch9 = read_tsv(BATCH09)
+    batch9_v1 = read_tsv(BATCH09_V1)
+    if len(batch9) != len(batch9_v1):
+        errors.append('batch09 v2 must preserve the full v1 census')
+    else:
+        changed = 0
+        for old, new in zip(batch9_v1, batch9):
+            name = old['original_source']
+            if name != new['original_source']:
+                errors.append('batch09 v2 changed original order: ' + name)
+            if name == 'gcc/testsuite/gcc.dg/cpp/mi6.c':
+                allowed = {'compiler_scope', 'kcc_profiles', 'kcc_reason'}
+                if (any(old[k] != new[k] for k in old if k not in allowed) or
+                        old['compiler_scope'] != 'gcc-only' or
+                        old['kcc_profiles'] or
+                        new['compiler_scope'] != 'both' or
+                        new['kcc_profiles'] != 'pdp6;pdp6_base' or
+                        'all executed PASS' not in new['kcc_reason']):
+                    errors.append('batch09 mi6 shared KCC review is not source-preserving')
+                changed += 1
+            elif old != new:
+                errors.append('batch09 v2 changed unrelated source: ' + name)
+        if changed != 1:
+            errors.append('batch09 v2 must review exactly one KCC source')
     selected9 = [r['original_source'] for r in originals
                  if (r['original_source'][len('gcc/testsuite/'):] not in REVIEWED
                      and r['original_source'] not in batch_paths

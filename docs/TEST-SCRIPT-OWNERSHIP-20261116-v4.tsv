@@ -140,3 +140,4 @@ tools/run-misc-suites.py	entrypoint		Authoritative test or specialized suite dis
 tools/run-tests.py	entrypoint		Authoritative test or specialized suite dispatcher invoked by shell entry point
 tools/stubselect.py	module-helper	tools/run-tests.py	Imported Python module helper
 tools/codegen_declared_oracles_v1.py	module-helper	tools/run-tests.py	Versioned assembly form, helper symbol and compiler target-macro oracle predicates imported by matrix runner
+tools/diagnostic_oracles_v1.py	module-helper	tools/run-tests.py	Versioned source-located compiler diagnostic policy imported by authoritative matrix runner

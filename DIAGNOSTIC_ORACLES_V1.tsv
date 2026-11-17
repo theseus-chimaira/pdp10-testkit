@@ -1,0 +1,5 @@
+source	original	sha256	compiler	outcome	options	severity	line	regex	count
+tests/diagnostic/gcc-historical-v1/cpp-19990413-1.c	refs/gcc-c-unmirrored-v1/gcc.dg/cpp/19990413-1.c	da9bb83ff81c6359eb07770cdc90b1338429f1078b31a5526154b2db5a2a98bd	gcc	reject		error	12	parse error	1
+tests/diagnostic/gcc-historical-v1/cpp-19990413-1.c	refs/gcc-c-unmirrored-v1/gcc.dg/cpp/19990413-1.c	da9bb83ff81c6359eb07770cdc90b1338429f1078b31a5526154b2db5a2a98bd	kcc	reject		error	12	Primary expr expected	1
+tests/diagnostic/gcc-historical-v1/return-type-1.c	refs/gcc-c-unmirrored-v1/gcc.dg/return-type-1.c	6ae3322aebf3f95c7aeb1bee4a65f516779d65b9a00216c3b777d80e6df247b8	gcc	accept	-O -Wreturn-type	warning	9	control reaches end of non-void function	1
+tests/diagnostic/gcc-historical-v1/unused-1.c	refs/gcc-c-unmirrored-v1/gcc.dg/unused-1.c	196f6976df32df930a4f0f7047c0c789bf5ac3beea2c75f29d5d5a22bd05f112	gcc	accept	-O -Wall -W	warning	8	unused parameter	1

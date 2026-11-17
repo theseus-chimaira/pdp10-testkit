@@ -317,3 +317,19 @@ The new static fixture-integrity check also validates syntax for all
 383 owned shell/Python scripts (163 shell, 220 Python) and resolves
 313 local quoted includes across registered positive C sources without
 executing compiler or guest tests.
+
+**Compiler diagnostic integration (2026-11-17):** The existing matrix
+runner now has `--kind diagnostic`, with a versioned, source/SHA-pinned
+per-compiler oracle registry (`DIAGNOSTIC_ORACLES_V1.tsv`). Three
+byte-identical historical GCC C sources test source-located errors,
+required warnings, original GCC regexps and compiler options. A
+focused five-cell PDP-6 pilot passed four; the original GCC `parse
+error` wording differs from the current compiler's `syntax error`
+and correctly remains `policy_fail`. The KCC `cpp/mi6.c` GCC-only
+candidate was independently verified PASS in all four PDP-6
+native/base, opt/noopt configurations and has corresponding KCC
+`pending` matrix cells. The batch09 v2 review records this single
+promoted KCC applicability; its v1 history remains intact. A new
+registered host diagnostic regression makes the `verify` subgroup
+**18/18**. No full compiler sweep or compiler change was made. See
+`docs/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`.

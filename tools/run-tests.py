@@ -18,6 +18,8 @@ from compiler_negative_policy_v1 import (ICE_RE, check_kcc_rejection,
                                          check_gcc_rejection)
 from codegen_declared_oracles_v1 import (
     form_failures, macro_probe_source, required_symbol_failures)
+from diagnostic_oracles_v1 import (read_oracles, group_oracles,
+                                   check_diagnostics)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -60,6 +62,7 @@ FAIL_STATUSES = set(['compiler_ice', 'unexpected_compile_success', 'compile_fail
 SEMANTIC_MATRIX_STATUSES = set(['semantic', 'run', 'runtime', 'ok', 'pending', 'fail', 'timeout', 'error'])
 NEGATIVE_MATRIX_STATUSES = set(['negative', 'ok', 'pending', 'fail', 'timeout', 'error'])
 CODEGEN_MATRIX_STATUSES = set(['codegen', 'ok', 'pending', 'fail', 'timeout', 'error'])
+DIAGNOSTIC_MATRIX_STATUSES = set(['diagnostic', 'ok', 'pending', 'fail', 'timeout', 'error'])
 INACTIVE_MATRIX_STATUSES = set(['', 'no_test', 'unsupported', 'obsolete'])
 STATUS_FIELDS = ['test', 'machine', 'compiler', 'profile', 'kind', 'status', 'elapsed', 'asm', 'report']
 FAILURE_FIELDS = STATUS_FIELDS
@@ -516,6 +519,8 @@ def test_stubs(asm_text, outdir, exclude=None):
 
 
 def matrix_kind(group):
+    if group.startswith('diagnostic'):
+        return 'diagnostic'
     if group.startswith('semantic') or group.startswith('validation'):
         return 'semantic'
     if group.startswith('negative'):
@@ -582,7 +587,8 @@ Selection model:
   --family chooses native, base, pdp10, or all.
   --cpu chooses pdp6, ka10, ki10, or all.
   --opt chooses compiler optimization profile.
-  --kind negative runs rejection tests: ordinary diagnostic failure passes, ICE fails.
+  --kind negative checks rejection without requiring a specific diagnostic.
+  --kind diagnostic checks original source-located errors/warnings and options.
   pdp10-family cells are never scheduled on pdp6.
 
 Default output:
@@ -618,7 +624,7 @@ Restart behavior:
                     metavar='LIST',
                     help='optimization profile(s): all,opt,noopt,o0,o1,o2,os or comma list')
     ap.add_argument('--kind', default=os.environ.get('P10_SWEEP_KIND', 'all'),
-                    choices=('all', 'semantic', 'codegen', 'negative'),
+                    choices=('all', 'semantic', 'codegen', 'negative', 'diagnostic'),
                     help='test kind to run; default: all')
     ap.add_argument('--skip-failures', action='store_true',
                     help='also skip old failing cells, not only pass/compile_only cells')
@@ -696,6 +702,8 @@ def active_matrix_status(kind, value):
         return value in CODEGEN_MATRIX_STATUSES
     if kind == 'negative':
         return value in NEGATIVE_MATRIX_STATUSES
+    if kind == 'diagnostic':
+        return value in DIAGNOSTIC_MATRIX_STATUSES
     return False
 
 
@@ -876,7 +884,7 @@ def remove_selected_cells(outroot, semantic_cells, codegen_cells):
     return removed
 
 
-def compile_to_asm(cell, src, asm_path, log_path, bins):
+def compile_to_asm(cell, src, asm_path, log_path, bins, extra_options=()):
     if cell['compiler'] == 'kcc':
         source_directives = directives(ROOT / src)
         extra_kcc = source_directives.get('codegen-kcc-extra', [])
@@ -944,7 +952,7 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
                       not Path(option[2:]).is_absolute() else option)
                      for option in extra_kcc]
         target_include = kcc_include_dir()
-        cmd = [str(bins['kcc']), '-S', '-v=nostats'] + list(cell.get('extra', [])) + extra_kcc + [
+        cmd = [str(bins['kcc']), '-S', '-v=nostats'] + list(cell.get('extra', [])) + list(extra_options) + extra_kcc + [
             '-x=' + cell['arch'],
             # KCC does not implicitly search the directory containing a
             # relative input C file for adjacent quote/macro includes.
@@ -962,7 +970,7 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
         # just as the KCC preprocessor tests do.  Do not use KCC flags:
         # the two compiler command lines have independent contracts.
         extra_gcc = directives(ROOT / src).get('codegen-gcc-extra', [])
-        cmd = [str(bins['gcc']), '-S', cell['opt'], '-march=' + cell['arch']] + extra_gcc + [
+        cmd = [str(bins['gcc']), '-S', cell['opt'], '-march=' + cell['arch']] + list(extra_options) + extra_gcc + [
                '-I' + str(ROOT / 'support/gcc'),
                '-I' + str(ROOT / 'support/common'),
                '-I' + str(ROOT / 'support/include')] + (
@@ -1284,6 +1292,55 @@ def run_negative_cell(idx, total, src, cell, outroot, bins, announce=True):
     return status
 
 
+def run_diagnostic_cell(idx, total, src, cell, outroot, bins,
+                        announce=True):
+    """Exercise source-located diagnostics under their original options.
+
+    Unlike generic negative cells, a nonzero compiler exit is insufficient:
+    the exact declared source location, warning/error class, regexp and
+    original options must be tested.  KCC has separate equivalent wording.
+    """
+    cdir = begin_cell_run(outroot, src, cell, 'diagnostic')
+    adir = cdir / 'asm'
+    adir.mkdir(parents=True, exist_ok=True)
+    log_path = cdir / 'cell.log'
+    log_path.write_text('')
+    asm_path = adir / (safe_name(src) + '.s')
+    if announce:
+        print('[%06d/%06d] diagnostic %-3s %-18s %-5s %s' %
+              (idx, total, cell['compiler'], cell['profile'],
+               cell['machine'], src), flush=True)
+    start = time.time()
+    try:
+        oracles = group_oracles(read_oracles(), src, cell['compiler'])
+    except ValueError as error:
+        with log_path.open('a') as log:
+            log.write('SETUP_FAIL %s\n' % error)
+        status = 'setup_fail'
+        report = str(log_path)
+    else:
+        options = shlex.split(oracles[0]['options'])
+        result = compile_to_asm(cell, src, asm_path, log_path, bins,
+                                extra_options=options)
+        status, errors = check_diagnostics(cell['compiler'],
+                                           oracles[0]['outcome'], oracles,
+                                           result, read_text(log_path))
+        report = str(log_path)
+        if errors:
+            path = cdir / 'diagnostic-policy.report.txt'
+            with path.open('w') as output:
+                output.write('test=%s\ncompiler=%s\nprofile=%s\n' %
+                             (src, cell['compiler'], cell['profile']))
+                for error in errors:
+                    output.write('failure=%s\n' % error)
+            report = str(path)
+    write_cell_result(outroot, [src, cell['machine'], cell['compiler'],
+                                cell['profile'], 'diagnostic', status,
+                                '%.2f' % (time.time() - start),
+                                str(asm_path), report])
+    return status
+
+
 def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
     cdir = begin_cell_run(outroot, src, cell, 'codegen')
     adir = cdir / 'asm'
@@ -1452,6 +1509,9 @@ def run_cell_worker(task, announce=False):
         elif kind == 'negative':
             status = run_negative_cell(idx, total, src, cell, outroot, bins,
                                        announce=announce)
+        elif kind == 'diagnostic':
+            status = run_diagnostic_cell(idx, total, src, cell, outroot,
+                                         bins, announce=announce)
         else:
             status = run_codegen_cell(idx, total, src, cell, outroot, bins,
                                       announce=announce)
@@ -1573,7 +1633,7 @@ def failure_count_from_counts(counts):
     return sum(v for k, v in counts.items() if k not in PASS_STATUSES)
 
 
-def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, scheduled_total,
+def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, diagnostic_test_count, scheduled_total,
                   selected_by_compiler, account, skipped, ran, new_pass, new_compile_only, new_fail, final_counts,
                   missing_sources, ignored_status):
     final_fail = failure_count_from_counts(final_counts)
@@ -1589,6 +1649,7 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
         f.write('semantic_tests=%d\n' % semantic_test_count)
         f.write('codegen_tests=%d\n' % codegen_test_count)
         f.write('negative_tests=%d\n' % negative_test_count)
+        f.write('diagnostic_tests=%d\n' % diagnostic_test_count)
         f.write('selected_cells=%d\n' % scheduled_total)
         for comp in sorted(selected_by_compiler):
             f.write('selected_%s=%d\n' % (comp, selected_by_compiler[comp]))
@@ -1614,7 +1675,7 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
             f.write('ignored_nonactive_statuses=%s\n' % ','.join('%s:%d' % (k, ignored_status[k]) for k in sorted(ignored_status)))
 
 
-def print_selection(args, outroot, semantic_test_count, codegen_test_count, negative_test_count, profiles,
+def print_selection(args, outroot, semantic_test_count, codegen_test_count, negative_test_count, diagnostic_test_count, profiles,
                     scheduled_total, selected_by_compiler, account, old_status_counts, missing_sources, ignored_status):
     print('output:         %s' % outroot)
     print('compiler:       %s' % args.compiler)
@@ -1625,6 +1686,7 @@ def print_selection(args, outroot, semantic_test_count, codegen_test_count, nega
     print('semantic tests: %d' % semantic_test_count)
     print('codegen tests:  %d' % codegen_test_count)
     print('negative tests: %d' % negative_test_count)
+    print('diagnostic tests: %d' % diagnostic_test_count)
     print('profiles:       %d' % len(profiles))
     print('test cells:     %d' % scheduled_total)
     if selected_by_compiler:
@@ -1672,6 +1734,9 @@ def main():
     scheduled_total = len(semantic_cells) + len(codegen_cells)
     selected_by_compiler = selected_counts_by_compiler(semantic_cells, codegen_cells)
     semantic_test_count, codegen_test_count, negative_test_count = known_test_counts(rows)
+    diagnostic_test_count = sum(1 for row in rows
+                                if matrix_kind(row.get('group','')) == 'diagnostic'
+                                and source_exists(row.get('test','')))
     needed_compilers = set(p['compiler'] for _, p in semantic_cells + codegen_cells)
     setup_prefix_env(needed_compilers)
 
@@ -1692,12 +1757,13 @@ def main():
         return 0
 
     if args.list_only:
-        print_selection(args, outroot, semantic_test_count, codegen_test_count, negative_test_count, profiles,
+        print_selection(args, outroot, semantic_test_count, codegen_test_count, negative_test_count, diagnostic_test_count, profiles,
                         scheduled_total, selected_by_compiler, account, old_status_counts, missing_sources, ignored_status)
         return 0
 
     bins = {}
-    if semantic_cells or any(cell['kind'] != 'negative' for _, cell in codegen_cells):
+    if semantic_cells or any(cell['kind'] not in ('negative', 'diagnostic')
+                             for _, cell in codegen_cells):
         bins['p10run'] = find_one('p10run')
     if 'kcc' in needed_compilers:
         bins['kcc'] = find_one('kcc')
@@ -1748,6 +1814,7 @@ def main():
     print('semantic tests:    %d' % semantic_test_count)
     print('codegen tests:     %d' % codegen_test_count)
     print('negative tests:    %d' % negative_test_count)
+    print('diagnostic tests:  %d' % diagnostic_test_count)
     print('selected cells:    %d' % scheduled_total)
     if selected_by_compiler:
         print('by compiler:       %s' % ' '.join('%s=%d' % (k, selected_by_compiler[k]) for k in sorted(selected_by_compiler)))
@@ -1768,7 +1835,7 @@ def main():
     selected_rows = collect_selected_statuses(outroot, semantic_cells, codegen_cells)
     final_counts = status_counts(selected_rows)
     summary = outroot / 'summary.txt'
-    write_summary(summary, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, scheduled_total,
+    write_summary(summary, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, diagnostic_test_count, scheduled_total,
                   selected_by_compiler, account, skipped, idx, passed, compile_only, failed, final_counts,
                   missing_sources, ignored_status)
     final_fail = failure_count_from_counts(final_counts)
