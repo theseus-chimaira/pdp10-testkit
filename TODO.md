@@ -692,18 +692,32 @@ The next eight batches are documented in
   optimization combinations; compare to the PDP-6 KCC pilot, and resolve
   compiler ICEs separately. KCC has executed **814/814 passing cells**:
   296 base-family and 518 native/PDP-10-family cells across all 22 KCC
-  profiles. The post-ownership GCC sweep now passes **296/296 cells**
-  (37 source oracles x PDP-6/KA10/KI10/KS10 x `-O0`/`-O2`).
-  Remaining GCC optimization and family combinations have not been run.
+  profiles. The post-ownership GCC native sweep now passes **592/592
+  cells** (37 source oracles x PDP-6/KA10/KI10/KS10 x all four `-O0`,
+  `-O1`, `-O2`, `-Os` settings). Remaining GCC base/PDP-10-family
+  negative selections have not been executed as a complete matrix.
   The source/dispatcher preflight blockers are now closed in this testkit;
   do not interpret partial execution as full matrix coverage. See
   `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md` and
   `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`.
 - [ ] Complete codegen compilation sweeps for the 706 consolidated upstream
-  GCC tests and the other codegen groups. Previously only focused KCC PDP-6
-  samples were run; in particular, GCC and cross-CPU/optimization coverage
-  remains unverified. Review any imported tests that depend on unsupported
-  GCC-only constructs or compiler options.
+  GCC tests and the other codegen groups across all applicable CPUs,
+  optimization levels and compiler target families. The first real
+  PDP-6 native full-group selections now cover GCC `-O0`, `-O1`, `-O2`,
+  `-Os` (**3,538/3,603 pass**) and KCC `noopt` (**800/962 pass**).
+  Combined: **4,338/4,565 codegen cells pass; 227 fail**, including nine
+  compiler ICE/signal cases, 151 compile failures and 67 codegen
+  policy failures. All 227 are pinned with exact source/profile SHA256,
+  diagnostic excerpts and unchanged failing status in
+  `docs/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv`.
+  The harness-only repairs recovered four GCC and five KCC cells,
+  corrected actual ICE classification, source-local header lookup,
+  special diagnostic byte decoding and KCC's bounded output paths.
+  **No compiler/assembler/simulator was modified; do not disable these
+  failing cells to improve the score.** Continue cross-CPU GCC codegen,
+  KCC optimized codegen and other profile families from their own
+  versioned output roots. See
+  `docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md`.
 - [ ] Run the full semantic/ISA matrix across applicable PDP-6, KA10, KI10,
   KS10, KCC/GCC and optimization profiles; check 71-bit variants where
   supported. The two newly enabled width regressions were validated on

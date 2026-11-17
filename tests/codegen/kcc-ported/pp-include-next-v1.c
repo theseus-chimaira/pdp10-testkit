@@ -1,5 +1,6 @@
 /* codegen-kcc-preprocess: "source" */
 /* codegen-kcc-extra: "-Isupport/kcc/include-next-v1/first" "-Isupport/kcc/include-next-v1/second" "-Isupport/kcc/include-next-v1/third" */
+/* codegen-gcc-extra: "-Isupport/kcc/include-next-v1/first" "-Isupport/kcc/include-next-v1/second" "-Isupport/kcc/include-next-v1/third" */
 /* codegen-require-regex: "include_next_v1_ok" */
 
 /* Both angled and quoted forms must continue AFTER their own -I path.

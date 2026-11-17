@@ -872,10 +872,14 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
         preprocess_kind = source_directives.get('codegen-kcc-preprocess', [])
         if preprocess_kind:
             kind = preprocess_kind[0]
+            generated_input = kind in ('long-macro', 'long-string')
             if kind == 'source':
                 source_path = ROOT / src
             elif kind in ('long-macro', 'long-string'):
-                source_path = asm_path.parent / (safe_name(src) + '-input.c')
+                # The cell directory already provides uniqueness.  Avoid
+                # repeating the long test identity in this generated input:
+                # old KCC rejects input pathnames over 169 characters.
+                source_path = asm_path.parent / 'input.c'
                 if kind == 'long-macro':
                     macro = 'DAIMON_' + 'X' * 4096
                     source_path.write_text('#define ' + macro + ' 1\n#ifdef ' +
@@ -885,38 +889,69 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
             else:
                 raise RuntimeError('unknown preprocessor regression kind: ' + kind)
             target_include = kcc_include_dir()
+            if generated_input:
+                # Use a cell-local CWD and basename for synthetic inputs.
+                # Even an arbitrarily deep --out-dir then cannot exceed
+                # KCC's legacy pathname-length limit for the input token.
+                source_arg = source_path.name
+                compile_dir = source_path.parent
+                include_flags = [
+                    '-I' + str(ROOT / Path(src).parent),
+                    '-I' + str(ROOT / 'support/kcc'),
+                    '-I' + str(ROOT / 'support/common'),
+                    '-I' + str(ROOT / 'support/include')]
+            else:
+                source_arg = str(source_path)
+                compile_dir = ROOT
+                include_flags = [
+                    '-I' + str(Path(src).parent),
+                    '-Isupport/kcc/',
+                    '-Isupport/common/',
+                    '-Isupport/include/']
             cmd = [str(bins['kcc']), '-E'] + list(cell.get('extra', [])) + extra_kcc + [
-                '-x=' + cell['arch'],
-                '-Isupport/kcc/',
-                '-Isupport/common/',
-                '-Isupport/include/',
-            ] + (['-I' + str(target_include)] if target_include else []) + [str(source_path)]
+                '-x=' + cell['arch']] + include_flags + (
+                ['-I' + str(target_include)] if target_include else []) + [source_arg]
             try:
                 with open(asm_path, 'w') as output, open(log_path, 'w') as errors:
-                    result = subprocess.run(cmd, cwd=str(ROOT), stdout=output,
+                    result = subprocess.run(cmd, cwd=str(compile_dir), stdout=output,
                                             stderr=errors, timeout=COMPILE_TIMEOUT)
                 if result.returncode < 0 or result.returncode > 128:
                     return 'signal'
                 return 'pass' if result.returncode == 0 else 'fail'
             except subprocess.TimeoutExpired:
                 return 'timeout'
-        stem = str(asm_path)
-        if stem.endswith('.s'):
-            stem = stem[:-2]
-        stem = os.path.relpath(stem, ROOT)
+        # KCC limits filenames to 169 characters.  Compiler output goes to
+        # the existing private per-cell ASM directory with a short -R name;
+        # atomically rename the result to the stable checkpoint filename.
+        # This works even when callers choose a deeply nested --out-dir.
+        kcc_output = asm_path.parent / 'unit.s'
+        if kcc_output.exists():
+            kcc_output.unlink()
+        compile_dir = asm_path.parent
+        extra_kcc = [('-I' + str(ROOT / option[2:])
+                      if option.startswith('-I') and
+                      not Path(option[2:]).is_absolute() else option)
+                     for option in extra_kcc]
         target_include = kcc_include_dir()
         cmd = [str(bins['kcc']), '-S', '-v=nostats'] + list(cell.get('extra', [])) + extra_kcc + [
             '-x=' + cell['arch'],
-            '-Isupport/kcc/',
-            '-Isupport/common/',
-            '-Isupport/include/',
+            # KCC does not implicitly search the directory containing a
+            # relative input C file for adjacent quote/macro includes.
+            '-I' + str(ROOT / Path(src).parent),
+            '-I' + str(ROOT / 'support/kcc'),
+            '-I' + str(ROOT / 'support/common'),
+            '-I' + str(ROOT / 'support/include'),
         ] + (['-I' + str(target_include)] if target_include else []) + [
-            '-R=' + stem,
-            src,
+            '-R=unit',
+            str(ROOT / src),
         ]
     elif cell['compiler'] == 'gcc':
         target_include = gcc_target_include_dir()
-        cmd = [str(bins['gcc']), '-S', cell['opt'], '-march=' + cell['arch'],
+        # GCC header-chain regressions need source-specific include paths,
+        # just as the KCC preprocessor tests do.  Do not use KCC flags:
+        # the two compiler command lines have independent contracts.
+        extra_gcc = directives(ROOT / src).get('codegen-gcc-extra', [])
+        cmd = [str(bins['gcc']), '-S', cell['opt'], '-march=' + cell['arch']] + extra_gcc + [
                '-I' + str(ROOT / 'support/gcc'),
                '-I' + str(ROOT / 'support/common'),
                '-I' + str(ROOT / 'support/include')] + (
@@ -924,7 +959,10 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
                str(ROOT / src), '-o', str(asm_path)]
     else:
         raise RuntimeError('unsupported compiler family: %s' % cell['compiler'])
-    rc = run_cmd(cmd, ROOT, log_path, timeout=COMPILE_TIMEOUT)
+    rc = run_cmd(cmd, compile_dir if cell['compiler'] == 'kcc' else ROOT,
+                 log_path, timeout=COMPILE_TIMEOUT)
+    if cell['compiler'] == 'kcc' and rc == 0 and kcc_output.is_file():
+        kcc_output.replace(asm_path)
     if rc == 124:
         return 'timeout'
     # 125..127 are launcher/command failure statuses, not diagnosed C
@@ -938,11 +976,11 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
     return 'fail'
 
 
-def compile_failure_status(result):
+def compile_failure_status(result, diagnostics=''):
     """Classify a failed compile without losing launch/ICE information."""
     if result in ('timeout', 'setup_fail'):
         return result
-    if result == 'signal':
+    if result == 'signal' or (result == 'fail' and ICE_RE.search(diagnostics)):
         return 'compiler_ice'
     return 'compile_fail'
 
@@ -1000,7 +1038,7 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
     t0 = time.time()
     compile_status = compile_to_asm(cell, src, asm_path, log_path, bins)
     if compile_status != 'pass':
-        status = compile_failure_status(compile_status)
+        status = compile_failure_status(compile_status, read_text(log_path))
         report = str(log_path)
     else:
         if cell['compiler'] == 'kcc' and not directives(ROOT / src).get('codegen-kcc-preprocess'):
@@ -1258,7 +1296,7 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
             with open(log_path, 'a') as f:
                 f.write('\nnegative compile policy failures: ' + ' | '.join(errors) + '\n')
     elif compile_status != 'pass':
-        status = compile_failure_status(compile_status)
+        status = compile_failure_status(compile_status, read_text(log_path))
         report = str(log_path)
     else:
         if cell['compiler'] == 'kcc' and not source_directives.get('codegen-kcc-preprocess'):

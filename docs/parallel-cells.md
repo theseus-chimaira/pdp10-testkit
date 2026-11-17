@@ -155,6 +155,23 @@ An isolated KCC PDP-6 test exposed this issue, and the existing
 runner-accounting host verifier now checks both classifications.
 See `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`.
 
+Native GCC 3.2 can return exit 1 with a source-located *internal compiler
+error*, not just an ordinary syntax rejection. The semantic and codegen
+runner now checks the emitted diagnostic against the existing `ICE_RE`
+and records `compiler_ice`, even for exit 1. Codegen test suites do not
+silently treat these cases as passing compile-only cells. See
+`docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md`.
+
+KCC has a historical 169-character filename limit. The runner compiles
+synthetic preprocessor `input.c` from the private per-cell directory,
+and normal KCC source files using a short `-R=unit` output basename
+in the same directory. It then atomically renames `unit.s` to the
+expected stable per-cell assembler filename. KCC receives its input
+source directory and installed support includes explicitly, without
+relying on the launch CWD. This preserves unique parallel checkpoints
+even with deeply nested `--out-dir` values. GCC uses separate
+`codegen-gcc-extra` source-specific include options where necessary.
+
 ## Why not replay `cell.log`?
 
 The retired parallel-cell helper tried to replay shell commands

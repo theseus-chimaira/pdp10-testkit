@@ -151,6 +151,15 @@ def test_reserved_compiler_exits(runner, outroot):
             ['compile_fail', 'compile_fail', 'timeout',
              'setup_fail', 'compiler_ice'],
             'failed compilation lost setup/signal classification')
+    require(runner.compile_failure_status(
+                'fail', 'source.c:11: Internal compiler error in '
+                'instantiate_virtual_regs_1, at function.c:4444\n') ==
+            'compiler_ice',
+            'source-located GCC 3.2 ICE must not be called compile_fail')
+    require(runner.compile_failure_status(
+                'fail', 'source.c:11: syntax error before a variable\n') ==
+            'compile_fail',
+            'ordinary compiler rejection must not become an ICE')
     require([runner.p10run_failure_status(rc, diagnostic) for rc, diagnostic in
              ((0, ''), (1, 'dlink: undefined symbol\np10run: link failed\n'),
               (1, 'FAIL: __test_exit: got 1 expected 0\n'),

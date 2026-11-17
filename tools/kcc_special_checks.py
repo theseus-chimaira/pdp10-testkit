@@ -14,7 +14,11 @@ def _compile(kcc, cwd, source, target, stem):
     command = [str(kcc), "-S", "-v=nostats", "-x=" + target,
                "-R=" + stem, source]
     try:
+        # KCC sometimes includes raw 0xff bytes in diagnostic excerpts.
+        # Preserve every emitted byte instead of treating those legitimate
+        # compiler diagnostics as a harness UnicodeDecodeError.
         result = subprocess.run(command, cwd=str(cwd), text=True,
+                                encoding="latin-1",
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                 timeout=20)
         return result.returncode, result.stdout
@@ -136,7 +140,7 @@ def local_dse(workdir, kcc):
                str(crt.resolve()), str((directory / "dse.s").resolve())]
         try:
             result = subprocess.run(cmd, cwd=str(Path.cwd()), capture_output=True,
-                                    text=True, timeout=20)
+                                    text=True, encoding="latin-1", timeout=20)
             if result.returncode != 0:
                 errors.append(cpu + " runtime failed: " + result.stdout + result.stderr)
         except (OSError, subprocess.TimeoutExpired) as exc:

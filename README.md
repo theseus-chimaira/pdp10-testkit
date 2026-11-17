@@ -276,3 +276,26 @@ and 11 suite entrypoints. The registered GCC negative-test sweep passed
 Focused semantic and ISA preflight results, compiler failures left
 unmodified, and the strictly harness-only link-failure status fix are
 documented in `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`.
+
+**Initial broad compiler execution, 2026-11-17:** GCC native negative
+tests now pass **592/592** across all four CPUs and all four GCC
+optimization levels. The full-group native PDP-6 codegen sweeps produced
+**3,538/3,603 GCC passes** and **800/962 KCC noopt passes**. Together
+with the negative tests, these are **4,930/5,157 passing distinct
+registered cells**, with **227 retained failures** (nine compiler
+ICE/signal cells, 151 compile failures and 67 strict policy failures).
+The final 227-cell source/profile/hash/diagnostic manifest is
+`docs/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv`; the complete
+reproduction, status and harness-only integration report is
+`docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md`.
+
+Test integration fixed a stale ABI include path and passed the original
+GCC `#include_next` directories, restored KCC source-relative headers,
+captured KCC raw `0xff` diagnostics, and used short private KCC output
+names without changing stable checkpoints. Four previously failing GCC
+and five KCC cells now pass. Original C assertions, compiler backends,
+assemblers and simulators were not modified. The registered host
+verification group now includes a byte-preserving special KCC diagnostic
+regression and **233** enabled direct test registrations.
+The registered host `verify` subgroup passed **15/15**; all 227
+nonpassing compiler cells remain explicit, source-pinned findings.

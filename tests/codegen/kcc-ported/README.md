@@ -30,7 +30,9 @@ rules run through `tools/kcc_assembly_checks.py`.
 - `codegen-kcc-check` invokes a stateful KCC assembly checker, with the CPU
   profile supplied when a target-specific instruction sequence is required.
 - `codegen-kcc-extra` selects required KCC options such as `-m=gas`, `-O`,
-  or `-Pgnu99`. `codegen-kcc-preprocess` selects preprocessing tests.
+  or `-Pgnu99`. `codegen-gcc-extra` separately selects necessary GCC
+  flags (for example the three ordered `#include_next` fixture paths).
+  `codegen-kcc-preprocess` selects preprocessing tests.
 - `codegen-expect-compile-fail` requires rejection on either compiler.
   Compiler-specific diagnostic requirements remain separate so a correct
   rejection does not require identical wording on GCC and KCC.
@@ -41,6 +43,15 @@ rules run through `tools/kcc_assembly_checks.py`.
 source is a failed cell, not an unsupported cell.** Keep such GCC and KCC
 matrix cells enabled. `no_test` denotes a test not assigned to that profile;
 `unsupported` must not be used to conceal known compiler failures.
+
+The 2026-11-17 real compiler sweeps verified GCC PDP-6 at all four
+optimization levels and KCC PDP-6 unoptimized. Harness-only integration
+corrected the `local-idempotent-cleanup-selfmove.c` ABI source include,
+added GCC header-chain options to `pp-include-next-v1.c`, and restored
+KCC source-directory include lookup and collision-free short output names.
+No compiler behavior or test assertion was changed. Genuine GCC and KCC
+failures remain scheduled; their exact cell list and classifications are
+in `docs/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv`.
 
 ## Known remaining regressions
 
