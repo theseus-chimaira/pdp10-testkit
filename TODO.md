@@ -659,6 +659,17 @@ The next eight batches are documented in
   Preserve ISA-specific test variation. See
   `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md` and
   `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md`.
+- [x] Enforce the compiler/assembler versus DAIMOS OS test ownership
+  boundary in both repositories: 127 GCC/KCC/DAS/DLINK source/fixture
+  files formerly in `daimos-testkit` (99 moved, 28 deduplicated),
+  23 DAIMOS boot/media/linked-kernel/guest execution sources moved
+  into the OS testkit. Split the mixed OS recursive RM and KCC MAKE
+  assertions; preserve all original C/ASM fixtures and independent
+  source SHA256, and use prerequisite-gated **manual** registrations
+  for boot-backed native compiler/assembler tests. Install a registered
+  two-repository ownership guard, without running full sweeps. See
+  `docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`. The broader task of
+  checking every dynamically invoked DAIMOS OS script remains open.
 - [x] Enforce all registered declarative codegen assertion families:
   16 forbidden instruction forms, four required KCC double-helper
   symbols, two compiler target-macro conditions, plus the two original

@@ -102,7 +102,9 @@ def audit():
                     'entrypoint': {'tools/run-tests.py',
                                    'tools/run-misc-suites.py'},
                     'manual-tool': {'tools/audit-gcc-c-feasibility-v1.py',
-                                    'tools/census-cross-repo-v1.py'},
+                                    'tools/census-cross-repo-v1.py',
+                                    'misc/kcc-host/daimos-kcc-make-auto-vars-20261010-v1.py',
+                                    'misc/kcc-host/daimos-kcc-make-normalization-20261010-v1.py'},
                 }
                 if path not in allowed[row['disposition']] or parent:
                     problems.append('invalid standalone disposition: ' + path)

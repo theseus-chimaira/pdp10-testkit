@@ -5,11 +5,15 @@ software toolchain: compiler semantics and code generation, assembler, ISA,
 ABI, object format, linker, and CPU execution. CPU variants include PDP-6,
 KA10, KI10, KS10, and later supported implementations.
 
-Tests must not require DAIMOS, an operating-system runtime, filesystems,
-boot images, or emulated peripheral devices. Tests of device controllers and
-other hardware beyond the processor do not belong here. DAIMOS-dependent
-regressions belong in `daimos-testkit`; generic host-tool regression tests
-may remain here if they exercise processor-oriented tooling only.
+The ordinary compiler, assembler and CPU matrix must not require DAIMOS,
+an operating-system runtime, filesystems, boot images, or peripheral
+devices. Tests of device controllers and hardware beyond the processor
+belong in `daimos-testkit`. A separate, **manual**, native KCC/DAS/DLINK
+toolchain suite may use a booted DAIMOS guest solely as an execution
+environment: its primary oracle is compiler/assembler behavior, not
+the OS. That suite uses `DAIMOS_TESTKIT_REPO` for the OS harness and
+is never part of an automatic compiler sweep. See
+`docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`.
 
 Set `PDP10_PREFIX` to the installed toolchain prefix. Use
 `./run-misc-tests.sh verify` for specialized compatibility checks, `./run-tests.sh -j 6`
@@ -333,3 +337,15 @@ promoted KCC applicability; its v1 history remains intact. A new
 registered host diagnostic regression makes the `verify` subgroup
 **18/18**. No full compiler sweep or compiler change was made. See
 `docs/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`.
+
+**Cross-repository ownership split (2026-11-17 v3):** The versioned
+SHA-pinned transfer tracks 127 GCC/KCC/DAS/DLINK/ABI/optimizer files
+previously in `daimos-testkit` (99 moved, 28 deduplicated) and 23
+DAIMOS-specific boot, media, kernel and guest-acceptance files moved
+to that OS testkit. The mixed DAIMOS `RM -R`/KCC MAKE test was split
+by its original assertions. Every relocated compiler script and
+helper now has an explicit active, manual or delegated owner. Both
+testkits enforce this boundary via the registered
+`tools/test-testkit-boundary-v1.py`; `--require-cross` checks both
+trees. No full compiler or OS sweep was performed. See the v3 report
+and its source-hash manifest in `docs/`.

@@ -38,6 +38,6 @@ python3 "$TEST_ROOT/check-das-native-chain.py" \
     --driver "$DRIVER" --phase1 "$P1I" --phase2 "$P2I" \
     --phase1-assembly "$P1S"
 
-PDP10_PREFIX="$PDP10_PREFIX" DAS_ROOT="$DAS_ROOT" DAIMOS_REPO="$DAIMOS_REPO" \
-    NATIVE_BUILD_DIR="$BUILD" TMPDIR="$TMPDIR" \
-    "$TEST_ROOT/run-das-native-daimos.sh"
+# The booted DAIMOS/D6FS native guest acceptance is an OS integration
+# test, owned by daimos-testkit. This toolchain suite ends after
+# independently checking compiler/assembler phase images and formats.

@@ -68,7 +68,7 @@ def main():
         # nested-only helpers and never marks them as direct manual runs.
         nested = [row for row in registered
                   if row['group'] == 'das' and row['profile'] == 'nested']
-        require(len(nested) == 7 and all(row['enabled'] == 'yes'
+        require(len(nested) == 6 and all(row['enabled'] == 'yes'
                                          for row in nested),
                 'DAS nested helper ownership changed unexpectedly')
         routes = []
