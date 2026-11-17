@@ -52,7 +52,7 @@ gcc/testsuite/gcc.c-torture/execute/pdp10/packed-pointer-global-1.c	224	tests/se
 gcc/testsuite/gcc.c-torture/execute/pdp10/packed-pointer-local-1.c	190	tests/semantic/gcc-historical-v1/packed-pointer-local-1.c	182	0.958	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/sibcall-fallthrough-1.c	117	tests/semantic/gcc-historical-v1/sibcall-fallthrough-1.c	105	0.897	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/compile/20020304-1.c	2110	tests/codegen/upstream-gcc/compile/20020304-1.c	2083	0.987	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/compile/pdp10-regrename-1.c	445	tests/codegen/gcc-historical-b02-v1/pdp10-regrename-1.c	440	0.989	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/compile/pdp10-regrename-1.c	445	tests/codegen/gcc-historical-b02-v1/pdp10-regrename-1.c	439	0.987	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20000108-1.c	58		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20000614-2.c	142	tests/semantic/gcc-historical-b02-v1/20000614-2.c	113	0.796	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20000623-1.c	88		0	0.000	no-strong-source-shape-lead
@@ -157,12 +157,12 @@ gcc/testsuite/gcc.dg/c90-complit-1.c	58		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-const-expr-1.c	79		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-const-expr-2.c	114		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-const-expr-3.c	143		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c90-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	92	0.885	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c90-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	91	0.875	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c90-enum-comma-1.c	2		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-float-1.c	250		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-fordecl-1.c	25	tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	19	0.760	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c90-hexfloat-1.c	16		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c90-hexfloat-2.c	82	tests/semantic/gcc-historical-b06-v1/c99-hexfloat-2.c	68	0.829	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c90-hexfloat-2.c	82	tests/semantic/gcc-historical-b06-v1/c99-hexfloat-2.c	67	0.817	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c90-idem-qual-1.c	4		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-impl-decl-1.c	29		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-impl-int-1.c	4		0	0.000	no-strong-source-shape-lead
@@ -174,7 +174,7 @@ gcc/testsuite/gcc.dg/c90-mixdecl-1.c	12		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-restrict-1.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-return-1.c	14		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c90-scope-1.c	101	tests/semantic/gcc-historical-b06-v1/c99-scope-1.c	75	0.743	potential-source-shape-overlap
-gcc/testsuite/gcc.dg/c94-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	98	0.942	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c94-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	97	0.933	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-array-lval-1.c	51		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-array-lval-2.c	102		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-array-lval-3.c	96	tests/codegen/gcc-historical-b05-v1/c99-array-lval-3.c	95	0.990	potential-source-shape-overlap
@@ -182,7 +182,7 @@ gcc/testsuite/gcc.dg/c99-array-lval-4.c	140		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-array-lval-5.c	70		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-array-nonobj-1.c	53		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-arraydecl-1.c	242		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-bool-1.c	807	tests/semantic/gcc-historical-b05-v1/c99-bool-1.c	774	0.959	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c99-bool-1.c	807	tests/semantic/gcc-historical-b05-v1/c99-bool-1.c	773	0.958	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-complex-1.c	46		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-complex-2.c	20		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-complit-1.c	865	tests/semantic/gcc-historical-b06-v1/c99-complit-1.c	838	0.969	potential-source-shape-overlap
@@ -191,19 +191,19 @@ gcc/testsuite/gcc.dg/c99-condexpr-1.c	316	tests/codegen/gcc-historical-b06-v1/c9
 gcc/testsuite/gcc.dg/c99-const-expr-1.c	10		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-const-expr-2.c	115		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-const-expr-3.c	143		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	98	0.942	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c99-digraph-1.c	104	tests/semantic/gcc-historical-b06-v1/c99-digraph-1.c	97	0.933	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-enum-comma-1.c	2		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-flex-array-1.c	41		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-flex-array-2.c	25		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-float-1.c	250		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-fordecl-1.c	89	tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	68	0.764	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-fordecl-2.c	81		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-func-1.c	55	tests/semantic/gcc-historical-b06-v1/c99-func-1.c	43	0.782	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c99-func-1.c	55	tests/semantic/gcc-historical-b06-v1/c99-func-1.c	42	0.764	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-func-2.c	5		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-func-3.c	32	tests/semantic/gcc-historical-b06-v1/c99-func-3.c	18	0.562	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-func-4.c	8		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-hexfloat-1.c	3		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/c99-hexfloat-2.c	82	tests/semantic/gcc-historical-b06-v1/c99-hexfloat-2.c	74	0.902	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/c99-hexfloat-2.c	82	tests/semantic/gcc-historical-b06-v1/c99-hexfloat-2.c	73	0.890	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/c99-idem-qual-1.c	4		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-impl-decl-1.c	29		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/c99-impl-int-1.c	4		0	0.000	no-strong-source-shape-lead
@@ -288,7 +288,7 @@ gcc/testsuite/gcc.dg/cpp/defined.c	134		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/defined_trad.c	130		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/digraph1.c	31		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/digraph2.c	28		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/digraphs.c	164		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/digraphs.c	164	tests/semantic/gcc-historical-b08-v1/digraphs.c	160	0.976	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/direct2.c	67		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/direct2s.c	67		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/directiv.c	40		0	0.000	no-strong-source-shape-lead
@@ -317,9 +317,9 @@ gcc/testsuite/gcc.dg/cpp/if-mop.c	41		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/if-mpar.c	30		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/if-oppr.c	292		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/if-paren.c	81		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/if-sc.c	64		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/if-sc.c	64	tests/codegen/gcc-historical-b08-v1/if-sc.c	64	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/if-shift.c	43		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/if-unary.c	81		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/if-unary.c	81	tests/codegen/gcc-historical-b08-v1/if-unary.c	81	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/include1.c	15		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/include2.c	4		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/lexident.c	36		0	0.000	no-strong-source-shape-lead
@@ -328,9 +328,9 @@ gcc/testsuite/gcc.dg/cpp/lexstrng.c	225		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/line1.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/line2.c	7		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/line3.c	62		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/line4.c	62		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/line4.c	62	tests/codegen/gcc-historical-b08-v1/line4.c	60	0.968	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/line5.c	0		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/mac-dir-1.c	64		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/mac-dir-1.c	64	tests/semantic/gcc-historical-b08-v1/mac-dir-1.c	51	0.797	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/mac-dir-2.c	11		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/maccom1.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/maccom2.c	0		0	0.000	no-strong-source-shape-lead

@@ -127,6 +127,17 @@ No new tests were classified inapplicable, so the prior 89 deletions
 remain unchanged. **305 original source reviews remain unresolved**
 (nine same-name candidates and 296 unreviewed). No tests were executed.
 
+The eighth 50-source CPP review is documented in
+`docs/GCC-C-BATCH08-REVIEW-20261117-v1.md`, its 50-source decision TSV,
+and the hash-pinned `mi1c.h` companion record. Seven source tests are
+newly registered pending (five compile/preprocessor and two runtime),
+four shared between GCC/KCC and three GCC-only. Another 43 original
+diagnostic, language-mode or preprocessing-output cases were deferred;
+none was classified inapplicable. The matrix gains 28 pending GCC and
+eight pending KCC PDP-6 cells. **255 original sources remain unresolved**
+(nine same-name candidates and 246 unreviewed). No compiler or
+emulator tests were executed.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,

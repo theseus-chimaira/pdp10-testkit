@@ -78,9 +78,9 @@ A refreshed static six-token structural comparison of the **590 retained**
 original sources against the testkit C sources is recorded in
 `docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv`. It is reproduced with
 `tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. The refreshed
-scan after batch 07 has **78 potential source-shape leads** (compared to
-69 immediately after inapplicable-source deletion and 21 at the initial
-import). These are merely token-level hints:
+scan after batch 08 has **83 potential source-shape leads** (compared
+to 78 after batch 07, 69 immediately after inapplicable-source deletion,
+and 21 at initial import). These are merely token-level hints:
 matching source shape does not prove an equivalent test oracle. The
 historically identified `gcc.dg/format/attr-2.c` versus
 `compile/20010701-1.c` is still not equivalent because its required
@@ -286,3 +286,26 @@ new originals were classified inapplicable, so all 89 previous source
 deletions remain enforced. **305 unresolved sources remain**
 (nine same-name candidates and 296 unreviewed). All verification was
 static; no compiler, assembler, simulator or runtime tests were run.
+
+## Batch 08 update (2026-11-17)
+
+Another 50 consecutive historical `gcc.dg/cpp` C sources were
+reviewed, including GNU CPP diagnostics and language-mode differences,
+preprocessed-output assertions, trigraphs, target-width-sensitive
+preprocessor arithmetic, macro-expanded includes, and `#line`.
+The 50 per-original assertion and KCC eligibility reviews are in
+`docs/GCC-C-BATCH08-20261117-v1.tsv` and explained in
+`docs/GCC-C-BATCH08-REVIEW-20261117-v1.md`. Seven positive original
+source oracles are registered pending: two runtime and five
+compile/preprocess tests; four also apply to KCC and three are GCC-only.
+The `mi1c.h` include file used by the macro-expanded include test
+is preserved and hash-pinned beside its owner, documented in
+`docs/GCC-C-BATCH08-COMPANIONS-20261117-v1.tsv`.
+
+The matrix gains **28 pending GCC** and **eight pending KCC** PDP-6
+cells. Forty-three sources are deferred for required diagnostics,
+compiler dialect flags, preprocessing-only output, or PDP-10 width
+semantics; **zero** are newly inapplicable, so all 89 previous source
+deletions are unchanged. **255 unresolved original sources remain**
+(nine same-name candidates, 246 unreviewed). All verification was
+static; no compiler, assembler, emulator or runtime tests were run.

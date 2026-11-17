@@ -1,0 +1,2 @@
+original_source	source_sha256	integrated_path	integrated_sha256	integrated_owner
+gcc/testsuite/gcc.dg/cpp/mi1c.h	0da820091c2293ab9e65e971e94778dd6fa5d41962fd7003427be36a4272defa	tests/codegen/gcc-historical-b08-v1/mi1c.h	0da820091c2293ab9e65e971e94778dd6fa5d41962fd7003427be36a4272defa	tests/codegen/gcc-historical-b08-v1/include1.c

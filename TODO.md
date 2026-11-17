@@ -421,7 +421,9 @@ The next eight batches are documented in
   Batch 06 reviewed another 50: 12 registered, 37 deferred and
   one x86 ISA-specific inapplicable case. Batch 07 reviewed the next
   50 CPP originals: 11 registered, 39 deferred, none inapplicable.
-  **305 sources now remain** (nine same-name review, 296 unreviewed). Do not
+  Batch 08 reviewed another 50 CPP originals, with seven pending tests,
+  43 deferred and none inapplicable. **255 sources now remain** (nine
+  same-name review, 246 unreviewed). Do not
   count preserved reference files as activated tests.
 - [x] Delete all 89 inapplicable original GCC source snapshots classified
   in batches 01-06 (23, 23, 21, 20, 1, 1). Keep only review metadata,
@@ -480,6 +482,16 @@ The next eight batches are documented in
   tests (the previous 89 deletion tombstones remain enforced). See
   `docs/GCC-C-BATCH07-REVIEW-20261117-v1.md`, its TSV, and the
   batch07 companion-header TSV.
+- [x] Review GCC integration batch 08: the next 50 historical CPP
+  originals, seven new pending test owners (two runtime, five
+  compile/preprocess), four shared GCC/KCC and three GCC-only.
+  Preserve the original `mi1c.h` include as a hash-pinned test-local
+  companion; add 28 pending GCC and eight pending KCC compiler cells.
+  Defer 43 exact diagnostic, dialect, preprocessing-output and target
+  width cases without weakening their assertions. No new inapplicable
+  cases, so the 89 previous deletion tombstones remain enforced.
+  See `docs/GCC-C-BATCH08-REVIEW-20261117-v1.md` and its review and
+  companion TSVs.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
   or `same-name-review` in the source-ownership ledger. Review **KCC
