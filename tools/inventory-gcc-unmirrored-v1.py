@@ -33,6 +33,8 @@ BATCH07 = ROOT / 'docs/GCC-C-BATCH07-20261117-v1.tsv'
 BATCH07_COMPANIONS = ROOT / 'docs/GCC-C-BATCH07-COMPANIONS-20261117-v1.tsv'
 BATCH08 = ROOT / 'docs/GCC-C-BATCH08-20261117-v1.tsv'
 BATCH08_COMPANIONS = ROOT / 'docs/GCC-C-BATCH08-COMPANIONS-20261117-v1.tsv'
+BATCH09 = ROOT / 'docs/GCC-C-BATCH09-20261117-v1.tsv'
+BATCH09_COMPANIONS = ROOT / 'docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv'
 REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
 KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
@@ -172,6 +174,12 @@ def batch07_decisions():
 def batch08_decisions():
     """Eighth 50-source diagnostic and CPP semantic compatibility review."""
     return {r['original_source']: r for r in read_tsv(BATCH08)}
+
+
+@lru_cache(maxsize=1)
+def batch09_decisions():
+    """Ninth 50-source CPP macro, include and stringify compatibility review."""
+    return {r['original_source']: r for r in read_tsv(BATCH09)}
 
 
 @lru_cache(maxsize=1)
@@ -379,6 +387,7 @@ def ownership(row, data):
     batch6 = batch06_decisions().get(original)
     batch7 = batch07_decisions().get(original)
     batch8 = batch08_decisions().get(original)
+    batch9 = batch09_decisions().get(original)
     if reviewed:
         status, matrix_owner, reason = reviewed
     elif batch:
@@ -421,6 +430,11 @@ def ownership(row, data):
                                else batch8['disposition'])
         matrix_owner = batch8['integrated_path']
         reason = batch8['pdp10_reason']
+    elif batch9:
+        status = 'batch09-' + ('pending' if batch9['disposition'] == 'integrate'
+                               else batch9['disposition'])
+        matrix_owner = batch9['integrated_path']
+        reason = batch9['pdp10_reason']
     else:
         status = ('same-name-review' if row['name_match'] != 'no-same-name'
                   else 'unreviewed')
@@ -853,10 +867,94 @@ def verify_sources():
                 row['source_sha256'] != digest(snapshot_path(original).read_bytes()) or
                 row['integrated_sha256'] != digest(target.read_bytes())):
             errors.append('batch08 CPP header hash/ownership mismatch: ' + original)
+    batch9 = read_tsv(BATCH09)
+    selected9 = [r['original_source'] for r in originals
+                 if (r['original_source'][len('gcc/testsuite/'):] not in REVIEWED
+                     and r['original_source'] not in batch_paths
+                     and r['original_source'] not in batch2_paths
+                     and r['original_source'] not in batch3_paths
+                     and r['original_source'] not in batch4_paths
+                     and r['original_source'] not in batch5_paths
+                     and r['original_source'] not in batch6_paths
+                     and r['original_source'] not in batch7_paths
+                     and r['original_source'] not in batch8_paths)][:50]
+    batch9_paths = [r['original_source'] for r in batch9]
+    if (len(batch9) != 50 or batch9_paths != selected9 or
+            len(set(batch9_paths)) != 50):
+        errors.append('batch09 must contain exactly the next 50 unresolved original GCC sources in order')
+    batch9_owners = {}
+    preprocess9 = {'macro11.c', 'macro4.c', 'macro5.c', 'mi4.c'}
+    for row in batch9:
+        path = row['original_source']
+        decision = row['disposition']
+        scope = row['compiler_scope']
+        owner = row['integrated_path']
+        if row['source_sha256'] != source_hashes.get(path):
+            errors.append('batch09 original source hash mismatch: ' + path)
+        if (not row['original_oracle'] or not row['pdp10_reason'] or
+                not row['kcc_reason'] or not row['constraints_not_exercised'] or
+                decision not in ('integrate', 'defer', 'inapplicable')):
+            errors.append('batch09 incomplete source decision: ' + path)
+        if decision == 'integrate':
+            prefix = ('tests/semantic/gcc-historical-b09-v1/'
+                      if row['test_kind'] == 'run' else
+                      'tests/codegen/gcc-historical-b09-v1/')
+            if (scope not in ('both', 'gcc-only', 'kcc-only') or
+                    row['test_kind'] not in ('compile', 'run') or
+                    not owner or not owner.startswith(prefix) or
+                    owner in batch9_owners or owner in batch8_owners or
+                    owner in batch7_owners or owner in batch6_owners or
+                    owner in batch5_owners or owner in batch4_owners or
+                    owner in batch3_owners or owner in batch2_owners):
+                errors.append('batch09 invalid active source owner: ' + path)
+            batch9_owners[owner] = row
+            original_data = snapshot_path(path).read_bytes()
+            expected = (b'/* codegen-kcc-preprocess: source */\n'
+                        if owner.rsplit('/', 1)[-1] in preprocess9 else b'') + original_data
+            src = ROOT / owner
+            if (not src.is_file() or src.read_bytes() != expected or
+                    digest(src.read_bytes()) != row['integrated_sha256']):
+                errors.append('batch09 adapted source mismatch: ' + path)
+        elif (scope != 'none' or row['test_kind'] or owner or
+              row['integrated_sha256'] or row['gcc_profiles'] or
+              row['kcc_profiles']):
+            errors.append('batch09 excluded source has active test owner: ' + path)
+    if len(batch9_owners) != 19:
+        errors.append('batch09 source review has incorrect active owner count')
+    expected_companion9 = {
+        'mi2.c': {'mi2a.h', 'mi2b.h', 'mi2c.h'},
+        'mi3.c': {'mi3.def', 'mi3.h'},
+        'mi4.c': {'mi1c.h'},
+        'mi6.c': {'mi6a.h', 'mi6b.h', 'mi6c.h', 'mi6d.h', 'mi6e.h'},
+    }
+    expected_header9 = {
+        ('gcc/testsuite/gcc.dg/cpp/' + name,
+         'tests/' + ('semantic' if owner == 'mi6.c' else 'codegen') +
+         '/gcc-historical-b09-v1/' + name,
+         'tests/' + ('semantic' if owner == 'mi6.c' else 'codegen') +
+         '/gcc-historical-b09-v1/' + owner)
+        for owner, names in expected_companion9.items()
+        for name in names
+    }
+    header9 = read_tsv(BATCH09_COMPANIONS)
+    if (len(header9) != 11 or
+            {(r['original_source'], r['integrated_path'], r['integrated_owner'])
+             for r in header9} != expected_header9):
+        errors.append('batch09 companion manifest must pin 11 exact include dependencies')
+    for row in header9:
+        original = row['original_source']
+        src = snapshot_path(original)
+        target = ROOT / row['integrated_path']
+        if (not src.is_file() or not target.is_file() or
+                src.read_bytes() != target.read_bytes() or
+                row['source_sha256'] != digest(src.read_bytes()) or
+                row['integrated_sha256'] != digest(target.read_bytes())):
+            errors.append('batch09 companion header hash/ownership mismatch: ' + original)
     deleted = removed_originals()
     rejected = {}
     for index, review in enumerate((batch, batch2, batch3,
-                                    batch4, batch5, batch6, batch7, batch8), 1):
+                                    batch4, batch5, batch6, batch7, batch8,
+                                    batch9), 1):
         for row in review:
             decision = row['decision'] if index == 1 else row['disposition']
             if decision != 'inapplicable':
@@ -1143,6 +1241,51 @@ def verify_sources():
                 for p in (ROOT / 'tests/codegen/gcc-historical-b08-v1').glob('*.h')}
     if headers8 != {r['integrated_path'] for r in header8}:
         errors.append('batch08 unexpected or missing CPP include headers')
+    for owner, row in batch9_owners.items():
+        entry = matrix_rows.get(owner)
+        if entry is None:
+            errors.append('batch09 test not registered: ' + owner)
+            continue
+        expected_group = ('semantic-gcc-historical-b09' if row['test_kind'] == 'run'
+                          else 'codegen-gcc-historical-b09')
+        if entry['group'] != expected_group:
+            errors.append('batch09 incorrect matrix group: ' + owner)
+        gcc_cells = row['gcc_profiles'].split(';') if row['gcc_profiles'] else []
+        kcc_cells = row['kcc_profiles'].split(';') if row['kcc_profiles'] else []
+        valid_gcc = {'pdp6_gcc_o0', 'pdp6_gcc_o1',
+                     'pdp6_gcc_o2', 'pdp6_gcc_os'}
+        valid_kcc = {'pdp6', 'pdp6_base'}
+        if (not set(gcc_cells) <= valid_gcc or
+                not set(kcc_cells) <= valid_kcc or
+                len(set(gcc_cells)) != len(gcc_cells) or
+                len(set(kcc_cells)) != len(kcc_cells) or
+                bool(gcc_cells) != (row['compiler_scope'] in ('both', 'gcc-only')) or
+                bool(kcc_cells) != (row['compiler_scope'] in ('both', 'kcc-only'))):
+            errors.append('batch09 inconsistent compiler profile review: ' + owner)
+        allowed = set(gcc_cells + kcc_cells)
+        for col, value in entry.items():
+            if col in ('test', 'group', 'name'):
+                continue
+            if col in allowed:
+                if value != 'pending':
+                    errors.append('batch09 expected pending compiler cell: %s %s' %
+                                  (owner, col))
+            elif value != 'no_test':
+                errors.append('batch09 unreviewed compiler cell: %s %s' %
+                              (owner, col))
+    for folder in ('tests/semantic/gcc-historical-b09-v1',
+                   'tests/codegen/gcc-historical-b09-v1'):
+        for src in (ROOT / folder).glob('*.c'):
+            name = src.relative_to(ROOT).as_posix()
+            if name not in batch9_owners:
+                errors.append('unowned batch09 C source: ' + name)
+    actual_header9 = {p.relative_to(ROOT).as_posix()
+                      for folder in ('tests/semantic/gcc-historical-b09-v1',
+                                     'tests/codegen/gcc-historical-b09-v1')
+                      for p in (ROOT / folder).glob('*')
+                      if p.is_file() and p.suffix not in ('.c',)}
+    if actual_header9 != {r['integrated_path'] for r in header9}:
+        errors.append('batch09 unexpected or missing CPP include companions')
     kcc_review = read_tsv(KCC_SHARING)
     kcc_by_owner = {r['integrated_path']: r for r in kcc_review}
     expected_kcc_owners = {
@@ -1190,7 +1333,7 @@ def verify_sources():
                 'registered-pending', 'batch01-pending',
                 'batch02-pending', 'batch03-pending', 'batch04-pending',
                 'batch05-pending', 'batch06-pending', 'batch07-pending',
-                'batch08-pending')
+                'batch08-pending', 'batch09-pending')
             if (target in matrix) != active:
                 errors.append('adapted registration status disagrees: ' + target)
             if recorded['review_status'] in ('registered-pending', 'batch01-pending'):

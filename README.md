@@ -138,6 +138,18 @@ eight pending KCC PDP-6 cells. **255 original sources remain unresolved**
 (nine same-name candidates and 246 unreviewed). No compiler or
 emulator tests were executed.
 
+The ninth 50-source historical CPP review is in
+`docs/GCC-C-BATCH09-REVIEW-20261117-v1.md`, its 50-row source review
+TSV, and an 11-companion SHA256 ledger. It registers 19 pending
+test sources (11 runtime and eight compile/preprocess): 14 with both
+GCC and KCC eligibility, and five GCC-only GNU extensions. The
+matrix adds 76 pending GCC and 28 KCC PDP-6 cells. Thirty-one
+original sources remain deferred for diagnostic, output-text,
+include-trace or preprocessing-only assertions; none was classified
+inapplicable. The 89 deleted original sources remain absent.
+**205 source reviews remain unresolved** (nine same-name and 196
+unreviewed). No compiler or emulator tests were executed.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,

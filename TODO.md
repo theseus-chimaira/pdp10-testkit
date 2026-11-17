@@ -422,8 +422,9 @@ The next eight batches are documented in
   one x86 ISA-specific inapplicable case. Batch 07 reviewed the next
   50 CPP originals: 11 registered, 39 deferred, none inapplicable.
   Batch 08 reviewed another 50 CPP originals, with seven pending tests,
-  43 deferred and none inapplicable. **255 sources now remain** (nine
-  same-name review, 246 unreviewed). Do not
+  43 deferred and none inapplicable. Batch 09 reviewed 50 more CPP
+  originals: 19 registered, 31 deferred, none inapplicable.
+  **205 sources now remain** (nine same-name review, 196 unreviewed). Do not
   count preserved reference files as activated tests.
 - [x] Delete all 89 inapplicable original GCC source snapshots classified
   in batches 01-06 (23, 23, 21, 20, 1, 1). Keep only review metadata,
@@ -492,6 +493,17 @@ The next eight batches are documented in
   cases, so the 89 previous deletion tombstones remain enforced.
   See `docs/GCC-C-BATCH08-REVIEW-20261117-v1.md` and its review and
   companion TSVs.
+- [x] Review GCC integration batch 09: another 50 historical CPP
+  originals, registering 19 pending source owners (11 runtime, eight
+  compile/preprocess), 14 GCC/KCC-shared and five GCC-only. Pin 11
+  original include companions, including multi-level `mi2`, `mi3`
+  and `mi6` source graphs; add 76 pending GCC and 28 pending KCC
+  PDP-6 cells. Defer 31 originals requiring diagnostic matching,
+  `-CC`/`-H` preprocessing output, or preprocessing-only compilation
+  modes. No new inapplicable cases, and all 89 previous deletion
+  tombstones remain enforced. See
+  `docs/GCC-C-BATCH09-REVIEW-20261117-v1.md`, its decision TSV, and
+  `docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv`.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
   or `same-name-review` in the source-ownership ledger. Review **KCC

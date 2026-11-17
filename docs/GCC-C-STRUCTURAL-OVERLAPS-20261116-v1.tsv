@@ -338,36 +338,36 @@ gcc/testsuite/gcc.dg/cpp/maccom3.c	9		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/maccom4.c	45		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/maccom5.c	67		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/maccom6.c	22		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/macro1.c	690		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/macro1.c	690	tests/semantic/gcc-historical-b09-v1/macro1.c	686	0.994	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/macro10.c	14		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/macro11.c	18		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/macro2.c	22		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/macro3.c	130		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/macro4.c	41		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/macro5.c	98		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/macro6.c	95		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/macro3.c	130	tests/semantic/gcc-historical-b09-v1/macro3.c	110	0.846	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/macro4.c	41	tests/codegen/gcc-historical-b09-v1/macro4.c	41	1.000	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/macro5.c	98	tests/codegen/gcc-historical-b09-v1/macro5.c	98	1.000	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/macro6.c	95	tests/semantic/gcc-historical-b09-v1/macro6.c	85	0.895	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/macro7.c	6		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/macro8.c	87		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/macro8.c	87	tests/semantic/gcc-historical-b09-v1/macro8.c	76	0.874	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/macro9.c	13		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/macsyntx.c	208		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/mi1.c	44		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/mi2.c	11		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/mi3.c	33		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/mi3.c	33	tests/codegen/gcc-historical-b09-v1/mi3.c	32	0.970	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/mi4.c	4		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/mi5.c	1		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/mi6.c	109		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/mi6.c	109	tests/semantic/gcc-historical-b09-v1/mi6.c	104	0.954	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/multiline.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/paste1.c	25		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/paste10.c	38		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/paste11.c	44		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/paste2.c	676		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/paste2.c	676	tests/semantic/gcc-historical-b09-v1/paste2.c	670	0.991	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/paste3.c	19		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/paste4.c	28		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/paste5.c	65		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/paste6.c	39		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/paste7.c	110		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/paste7.c	110	tests/semantic/gcc-historical-b09-v1/paste7.c	91	0.827	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/paste8.c	85		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/paste9.c	59		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/paste9.c	59	tests/semantic/gcc-historical-b09-v1/paste9.c	53	0.898	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/poison.c	67		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/pragma-1.c	8		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/pragma-2.c	18		0	0.000	no-strong-source-shape-lead
@@ -378,10 +378,10 @@ gcc/testsuite/gcc.dg/cpp/skipping2.c	10		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/spacing1.c	90		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/spacing2.c	8		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/strify1.c	23		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/strify2.c	276		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/strify3.c	120		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/strp1.c	138		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/strp2.c	92		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/strify2.c	276	tests/semantic/gcc-historical-b09-v1/strify3.c	71	0.592	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/strify3.c	120	tests/semantic/gcc-historical-b09-v1/strify3.c	116	0.967	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/strp1.c	138	tests/semantic/gcc-historical-b09-v1/strp1.c	128	0.928	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/strp2.c	92	tests/semantic/gcc-historical-b09-v1/strp2.c	83	0.902	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/syshdr.c	1		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/sysmac1.c	55		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/sysmac2.c	54		0	0.000	no-strong-source-shape-lead
@@ -406,7 +406,7 @@ gcc/testsuite/gcc.dg/cpp/unc2.c	14		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/unc3.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/unc4.c	37		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/undef2.c	10		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/vararg1.c	109		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/vararg1.c	109	tests/semantic/gcc-historical-b09-v1/paste9.c	31	0.525	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/vararg2.c	931		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/wchar-1.c	40		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/widestr1.c	4		0	0.000	no-strong-source-shape-lead

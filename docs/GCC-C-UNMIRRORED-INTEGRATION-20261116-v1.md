@@ -78,9 +78,10 @@ A refreshed static six-token structural comparison of the **590 retained**
 original sources against the testkit C sources is recorded in
 `docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv`. It is reproduced with
 `tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. The refreshed
-scan after batch 08 has **83 potential source-shape leads** (compared
-to 78 after batch 07, 69 immediately after inapplicable-source deletion,
-and 21 at initial import). These are merely token-level hints:
+scan after batch 09 has **99 potential source-shape leads** (compared
+to 83 after batch 08, 78 after batch 07, 69 immediately after
+inapplicable-source deletion, and 21 at initial import). These are
+merely token-level hints:
 matching source shape does not prove an equivalent test oracle. The
 historically identified `gcc.dg/format/attr-2.c` versus
 `compile/20010701-1.c` is still not equivalent because its required
@@ -309,3 +310,37 @@ semantics; **zero** are newly inapplicable, so all 89 previous source
 deletions are unchanged. **255 unresolved original sources remain**
 (nine same-name candidates, 246 unreviewed). All verification was
 static; no compiler, assembler, emulator or runtime tests were run.
+
+## Batch 09 update (2026-11-17)
+
+The next 50 unresolved historical `gcc.dg/cpp` sources were reviewed
+for original macro expansion, header inclusion, token paste and
+stringization behavior, as well as preprocessor output and exact
+warning/error assertions. Every original source has an explicit
+independent PDP-10 and KCC eligibility decision recorded in
+`docs/GCC-C-BATCH09-20261117-v1.tsv` and explained in
+`docs/GCC-C-BATCH09-REVIEW-20261117-v1.md`.
+
+Nineteen tests are registered pending: 11 runtime and eight
+compile/preprocessor tests, 14 GCC/KCC shared and five GCC-only.
+The matrix adds **76 pending GCC** and **28 pending KCC** PDP-6
+cells. Four owners depend on real include graphs with 11 distinct
+original companion files, all copied byte-for-byte and hash-pinned in
+`docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv`. `macro8.c` and
+`mi6.c` originally requested compile-only, but their retained source
+includes nonvacuous runtime abort checks; native registration additionally
+exercises those, without claiming the original DejaGNU harness did so.
+Any omitted strict -std language-mode flags are explicitly qualified.
+
+Thirty-one cases remain deferred because the original Tcl output checks,
+preprocessor-only actions, warning/error locations, -CC/-H include
+traces or token/character assumptions cannot be represented by a
+regular positive compiler test. No new inapplicable cases were found.
+The 89 prior source-deletion tombstones and the retained 590 originals
+are unchanged. **205 original sources remain unresolved**: nine
+same-name reviews and 196 unreviewed. Static six-token comparison has
+99 potential source-shape hints after batch09, not equivalence proofs.
+
+No compiler, assembler, linker, emulator, simulator or runtime tests
+were run during batch09; only source, hash, matrix, ownership and
+repository-documentation checks were performed.
