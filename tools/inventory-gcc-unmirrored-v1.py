@@ -37,8 +37,12 @@ BATCH09 = ROOT / 'docs/GCC-C-BATCH09-20261117-v1.tsv'
 BATCH09_COMPANIONS = ROOT / 'docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv'
 BATCH10 = ROOT / 'docs/GCC-C-BATCH10-20261117-v1.tsv'
 BATCH11 = ROOT / 'docs/GCC-C-BATCH11-20261117-v1.tsv'
+BATCH12 = ROOT / 'docs/GCC-C-BATCH12-20261117-v1.tsv'
+BATCH13 = ROOT / 'docs/GCC-C-BATCH13-20261117-v1.tsv'
+BATCH14 = ROOT / 'docs/GCC-C-BATCH14-20261117-v1.tsv'
 REMOVALS_V1 = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
-REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv'
+REMOVALS_V2 = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv'
+REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v3.tsv'
 KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
@@ -198,17 +202,27 @@ def batch11_decisions():
 
 
 @lru_cache(maxsize=1)
+def final105_decisions():
+    """Final three exact-source groups (50/50/5), with native scopes."""
+    return {r['original_source']: (index, r)
+            for index, review in ((12, BATCH12), (13, BATCH13), (14, BATCH14))
+            for r in read_tsv(review)}
+
+
+@lru_cache(maxsize=1)
 def removed_originals():
-    """Versioned tombstones for 94 reviewed/deleted inapplicable originals.
+    """Versioned tombstones for 119 reviewed/deleted inapplicable originals.
 
     Keep their identities and fingerprints in the 679-source provenance
     ledger, but never restore or schedule their source snapshots.
     """
     rows = read_tsv(REMOVALS)
-    previous = read_tsv(REMOVALS_V1)
-    if (len(previous) != 89 or rows[:89] != previous or
-            len(rows) != 94 or len({r['original_source'] for r in rows}) != 94):
-        raise ValueError('expected 94 distinct inapplicable tombstones, retaining all original 89 records')
+    previous_v1 = read_tsv(REMOVALS_V1)
+    previous_v2 = read_tsv(REMOVALS_V2)
+    if (len(previous_v1) != 89 or len(previous_v2) != 94 or
+            previous_v2[:89] != previous_v1 or rows[:94] != previous_v2 or
+            len(rows) != 119 or len({r['original_source'] for r in rows}) != 119):
+        raise ValueError('expected 119 distinct tombstones preserving all earlier v1/v2 decisions')
     return {r['original_source']: r for r in rows}
 
 
@@ -407,6 +421,7 @@ def ownership(row, data):
     batch9 = batch09_decisions().get(original)
     batch10 = batch10_decisions().get(original)
     batch11 = batch11_decisions().get(original)
+    final105 = final105_decisions().get(original)
     if reviewed:
         status, matrix_owner, reason = reviewed
     elif batch:
@@ -464,6 +479,12 @@ def ownership(row, data):
                                else batch11['disposition'])
         matrix_owner = batch11['integrated_path']
         reason = batch11['pdp10_reason']
+    elif final105:
+        index, decision = final105
+        status = 'batch%02d-' % index + ('pending' if decision['disposition'] == 'integrate'
+                                        else decision['disposition'])
+        matrix_owner = decision['integrated_path']
+        reason = decision['pdp10_reason']
     else:
         status = ('same-name-review' if row['name_match'] != 'no-same-name'
                   else 'unreviewed')
@@ -1094,11 +1115,84 @@ def verify_sources():
     if (sum(int(row['error_assertions']) for row in batch11) != 33 or
             sum(int(row['bogus_assertions']) for row in batch11) != 11):
         errors.append('batch11 historical diagnostic error/absence census changed')
+    final_batches = [(12, read_tsv(BATCH12), 50, 3, 22),
+                     (13, read_tsv(BATCH13), 50, 7, 3),
+                     (14, read_tsv(BATCH14), 5, 0, 0)]
+    final_originals = [r['original_source'] for r in originals
+                       if (r['original_source'][len('gcc/testsuite/'):] not in REVIEWED
+                           and r['original_source'] not in prior_reviewed
+                           and r['original_source'] not in batch11_paths)]
+    if len(final_originals) != 105:
+        errors.append('final historical GCC original queue must have 105 identities')
+    final_paths = []
+    final_owners = {}
+    final_rejected = 0
+    final_deferred = 0
+    for index, review, count, integrated, rejected_count in final_batches:
+        paths = [r['original_source'] for r in review]
+        if (len(review) != count or len(set(paths)) != count or
+                paths != final_originals[len(final_paths):len(final_paths) + count]):
+            errors.append('batch%02d must review exactly the next %d originals in order' %
+                          (index, count))
+        final_paths.extend(paths)
+        if (sum(r['disposition'] == 'integrate' for r in review) != integrated or
+                sum(r['disposition'] == 'inapplicable' for r in review) != rejected_count):
+            errors.append('batch%02d integrated/rejected counts diverged' % index)
+        for row in review:
+            original = row['original_source']
+            decision = row['disposition']
+            owner = row['integrated_path']
+            if row['source_sha256'] != source_hashes.get(original):
+                errors.append('final GCC original SHA256 mismatch: ' + original)
+            if (not row['original_oracle'] or not row['pdp10_reason'] or
+                    not row['kcc_reason'] or not row['constraints_not_exercised'] or
+                    decision not in ('integrate', 'inapplicable', 'defer')):
+                errors.append('final GCC review has incomplete source decision: ' + original)
+            for key in ('warning', 'error', 'bogus', 'final'):
+                if not row[key + '_assertions'].isdigit():
+                    errors.append('final GCC invalid diagnostic count: ' + original)
+            if decision == 'integrate':
+                prefix = ('tests/semantic/gcc-historical-b%02d-v1/' % index
+                          if row['test_kind'] == 'run' else
+                          'tests/codegen/gcc-historical-b%02d-v1/' % index)
+                source = snapshot_path(original)
+                compiled = ROOT / owner
+                if (row['test_kind'] not in ('run', 'compile') or not owner or
+                        not owner.startswith(prefix) or owner in final_owners or
+                        not source.is_file() or not compiled.is_file() or
+                        source.read_bytes() != compiled.read_bytes() or
+                        row['integrated_sha256'] != digest(compiled.read_bytes())):
+                    errors.append('final GCC original source adaptation mismatch: ' + original)
+                final_owners[owner] = row
+                allowed_kcc = (row['compiler_scope'] == 'both')
+                gcc_cells = row['gcc_profiles'].split(';') if row['gcc_profiles'] else []
+                kcc_cells = row['kcc_profiles'].split(';') if row['kcc_profiles'] else []
+                expected_gcc = (['pdp6_gcc_o2']
+                                if owner.rsplit('/', 1)[-1] in
+                                ('struct-alias-1.c', 'struct-by-value-1.c', 'ultrasp4.c')
+                                else ['pdp6_gcc_o0', 'pdp6_gcc_o1',
+                                      'pdp6_gcc_o2', 'pdp6_gcc_os'])
+                expected_kcc = ['pdp6', 'pdp6_base'] if allowed_kcc else []
+                if (row['compiler_scope'] not in ('both', 'gcc-only') or
+                        gcc_cells != expected_gcc or kcc_cells != expected_kcc):
+                    errors.append('final GCC invalid compiler profile selection: ' + original)
+            elif (row['compiler_scope'] != 'none' or row['test_kind'] or owner or
+                  row['integrated_sha256'] or row['gcc_profiles'] or row['kcc_profiles']):
+                errors.append('excluded final GCC source has active matrix owner: ' + original)
+            if decision == 'inapplicable':
+                final_rejected += 1
+            elif decision == 'defer':
+                final_deferred += 1
+    if (len(final_paths) != 105 or final_paths != final_originals or
+            len(final_owners) != 10 or final_rejected != 25 or final_deferred != 70):
+        errors.append('final GCC census must classify exactly 105 originals')
     deleted = removed_originals()
     rejected = {}
     for index, review in enumerate((batch, batch2, batch3,
                                     batch4, batch5, batch6, batch7, batch8,
-                                    batch9, batch10, batch11), 1):
+                                    batch9, batch10, batch11,
+                                    final_batches[0][1], final_batches[1][1],
+                                    final_batches[2][1]), 1):
         for row in review:
             decision = row['decision'] if index == 1 else row['disposition']
             if decision != 'inapplicable':
@@ -1466,6 +1560,35 @@ def verify_sources():
     if (len(list((ROOT / 'tests/semantic/gcc-historical-b10-v1').glob('*'))) != 2 or
             len(list((ROOT / 'tests/codegen/gcc-historical-b10-v1').glob('*'))) != 1):
         errors.append('batch10 unexpected or missing test-local sources')
+    for owner, row in final_owners.items():
+        entry = matrix_rows.get(owner)
+        if entry is None:
+            errors.append('final GCC test missing from compiler matrix: ' + owner)
+            continue
+        index = (12 if '/gcc-historical-b12-v1/' in owner else
+                 13 if '/gcc-historical-b13-v1/' in owner else 14)
+        expected_group = ('semantic' if row['test_kind'] == 'run' else 'codegen') + \
+                         '-gcc-historical-b%02d' % index
+        if entry['group'] != expected_group:
+            errors.append('final GCC matrix group mismatch: ' + owner)
+        allowed = set(row['gcc_profiles'].split(';'))
+        if row['kcc_profiles']:
+            allowed.update(row['kcc_profiles'].split(';'))
+        for col, value in entry.items():
+            if col in ('test', 'group', 'name'):
+                continue
+            if (col in allowed and value != 'pending') or (
+                    col not in allowed and value != 'no_test'):
+                errors.append('final GCC unreviewed compiler cell: %s %s' %
+                              (owner, col))
+    for index in (12, 13, 14):
+        for folder in ('tests/semantic/gcc-historical-b%02d-v1' % index,
+                       'tests/codegen/gcc-historical-b%02d-v1' % index):
+            for src in (ROOT / folder).glob('*'):
+                if src.is_file() and src.relative_to(ROOT).as_posix() not in final_owners:
+                    errors.append('unexpected final GCC unowned source: ' + str(src))
+    if any('gcc-historical-b14-v1' in m for m in matrix):
+        errors.append('final batch14 deferred sources must not be matrix active')
     kcc_review = read_tsv(KCC_SHARING)
     kcc_by_owner = {r['integrated_path']: r for r in kcc_review}
     expected_kcc_owners = {
@@ -1513,7 +1636,8 @@ def verify_sources():
                 'registered-pending', 'batch01-pending',
                 'batch02-pending', 'batch03-pending', 'batch04-pending',
                 'batch05-pending', 'batch06-pending', 'batch07-pending',
-                'batch08-pending', 'batch09-pending', 'batch10-pending')
+                'batch08-pending', 'batch09-pending', 'batch10-pending',
+                'batch12-pending', 'batch13-pending', 'batch14-pending')
             if (target in matrix) != active:
                 errors.append('adapted registration status disagrees: ' + target)
             if recorded['review_status'] in ('registered-pending', 'batch01-pending'):

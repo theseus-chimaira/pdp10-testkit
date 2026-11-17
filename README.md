@@ -45,12 +45,13 @@ cases are maintained in `refs/gcc-pdp10-target-v2/` and validated by
 `docs/GCC-DEJAGNU-REMOVAL-20261116-v2.md` for source provenance.
 
 Of the 679 historical non-target-specific GCC sources not byte-identical to
-existing tests, **585 source snapshots remain** in `refs/gcc-c-unmirrored-v1/`,
-pinned to GCC revision `b0f5374`. The other **94 reviewed inapplicable sources
-were deleted** (89 from batches 01-06 and five from batch 10). Their original
+existing tests, **560 source snapshots remain** in `refs/gcc-c-unmirrored-v1/`,
+pinned to GCC revision `b0f5374`. The other **119 reviewed inapplicable sources
+were deleted** (89 from batches 01-06, five from batch 10, and 25 from
+batches 12-13). Their original
 hashes, rejection reasons, and source paths remain recorded in
-`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv`, with the original
-89-row v1 manifest preserved for audit history.
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v3.tsv`, with the original
+89-row v1 and 94-row v2 manifests preserved for audit history.
 The per-source assertion/ownership inventory for all 679 original entries is
 `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. Its registered static
 verifier is `tools/inventory-gcc-unmirrored-v1.py`; inventory re-imports
@@ -176,6 +177,19 @@ The original `format.h` companion remains preserved and verified.
 **105 source reviews remain unresolved** (four same-name and 101
 unreviewed). The 585 retained originals and 94 deleted-source
 tombstones remain unchanged. No tests were executed.
+
+**The final 105-source review is complete**, covering batches 12, 13
+and 14 (50/50/5). See
+`docs/GCC-C-FINAL105-REVIEW-20261117-v1.md` and three per-original
+TSVs. Ten further native tests are registered pending (seven runtime,
+three compile-only), with 31 new GCC and four KCC PDP-6 cells.
+Another 70 assertions remain explicitly deferred for diagnostics,
+multi-file linking, target-width adaptations, or exact assembly scans;
+25 foreign-ISA/ABI sources were deleted and recorded in the v3
+tombstone manifest. The 679-source census now has **zero unreviewed
+or same-name-review originals**. A total of 560 historical snapshots
+remain retained, 119 tombstoned; no compiler or emulator tests were
+run. Pending/deferred execution work is separate from source review.
 
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 

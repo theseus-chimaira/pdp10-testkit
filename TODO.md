@@ -398,12 +398,12 @@ The next eight batches are documented in
   already GCC-owned (BSS zero aggregate and SIXBIT/indexing). Keep the
   cross-compiler copies that also exercise KCC. The GCC-owned suite must
   still receive independent DejaGNU execution/optimization validation.
-- [ ] Manually review the 679 non-PDP-10-target original GCC C sources in
+- [x] Manually review the 679 non-PDP-10-target original GCC C sources in
   the feasibility preflight before proposing further imports or removals.
   Preserve the original assertion and derive native 36-bit/9-bit/non-IEEE
   expectations; do not mistake a successful compile for meaningful coverage.
-  Of the 679 original source blobs, **585 are retained and hash-pinned** in
-  `refs/gcc-c-unmirrored-v1/`; **94 reviewed inapplicable originals have been
+  Of the 679 original source blobs, **560 are retained and hash-pinned** in
+  `refs/gcc-c-unmirrored-v1/`; **119 reviewed inapplicable originals have been
   deleted**. All 679 remain indexed with per-file classification in
   `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. First manual crosswalk:
   six existing active adaptations, two deferred adaptations, one partial
@@ -428,8 +428,10 @@ The next eight batches are documented in
   three registered, 42 deferred, five inapplicable and deleted.
   Batch 11 reviewed 50 `gcc.dg/format` originals: all 50 deferred
   pending exact diagnostic and language-mode oracles, with no new
-  registrations or deletions. **105 sources now remain** (four
-  same-name review, 101 unreviewed). Do not
+  registrations or deletions. Batches 12-14 finished the remaining
+  105 originals (50/50/5): ten registered, 70 deferred, 25
+  inapplicable and deleted. **No source remains unreviewed or
+  same-name-review.** Do not
   count preserved reference files as activated tests.
 - [x] Delete all 89 inapplicable original GCC source snapshots classified
   in batches 01-06 (23, 23, 21, 20, 1, 1). Keep only review metadata,
@@ -533,21 +535,30 @@ The next eight batches are documented in
   the hash-pinned `format.h` dependency, all 94 prior inapplicable
   deletion tombstones, and all existing pending matrix cells.
   See `docs/GCC-C-BATCH11-REVIEW-20261117-v1.md` and its 50-row TSV.
-- [ ] Continue source-level GCC compatibility integration in 50-source
-  batches, starting with the next 50 entries still marked `unreviewed`
-  or `same-name-review` in the source-ownership ledger. Review **KCC
-  applicability for each source in the same batch** and share compatible
-  oracles. Do not schedule a deferred/inapplicable case by weakening its
-  original assertion.
+- [x] Finish historical source-level GCC compatibility review for
+  batches 12-14, assigning an original assertion and separate KCC
+  applicability decision for all remaining 105 originals. Register
+  ten nonvacuous native tests, defer 70 intact oracles, and delete
+  25 foreign-target originals with 119 cumulative versioned
+  tombstones. See `docs/GCC-C-FINAL105-REVIEW-20261117-v1.md`.
+  No original source remains `unreviewed` or `same-name-review`.
 - [x] Restore the historical non-target GCC sources to a testkit-owned,
   reproducible reference inventory and add a registered static hash/ownership
   gate (`gcc-c-unmirrored-ownership-v1`). No compiler or emulator tests run.
-- [ ] Complete the remaining GCC historical assertion-level overlap review,
+- [x] Complete the remaining GCC historical assertion-level overlap review,
   especially `gcc.dg` warnings/errors/preprocessor checks. Existing semantic
   tests do not automatically exercise DejaGNU diagnostics. The preserved
   negative `builtin-prefetch-1.c` warnings are **not** covered by the current
   valid-argument semantic test with the same name. See
   `docs/GCC-C-UNMIRRORED-INTEGRATION-20261116-v1.md`.
+  The 679-source ownership ledger now has zero unresolved source
+  reviews; compiler warning/assembler oracles remain deferred pending
+  actual source-rejection, output matching, or multi-file link tests.
+- [ ] Implement exact native assembler-output oracle matching for the
+  original PDP-10 `pdp10-local-char-word-boundary-1.c` and
+  `pdp10-lshr-subreg-plus-1.c` compile regressions. These directly
+  concern backend correctness; do not mark a generic compile-success
+  check as their replacement. See the final105 source review.
 
 - [x] Establish a reproducible static census across `pdp10-testkit`, KCC,
   GCC PDP-10, DAS, independent PDP10-TOOLS, and DAIMOS host tools. See

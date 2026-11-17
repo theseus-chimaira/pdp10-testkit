@@ -14,8 +14,8 @@ byte-identical `tests/*.c` copy and inventoried 693 remaining sources:
 sources. The 679 original blobs were initially preserved byte-for-byte under
 `refs/gcc-c-unmirrored-v1/`, with their group/subdirectory names and
 SHA-256 hashes. The initial source payload was approximately 657 KB.
-On 2026-11-17, the 89 inapplicable originals from batches 01-06 and
-five further originals from batch 10 were deleted; **585** source
+On 2026-11-17, the 89 inapplicable originals from batches 01-06,
+five from batch 10, and 25 from batches 12-13 were deleted; **560** source
 snapshots remain byte-for-byte unchanged. All 679 source
 identities and SHA-256 fingerprints remain in the provenance ledger.
 Whitespace and line endings of retained sources are not reformatted.
@@ -30,8 +30,8 @@ inventory, **not** a 679-test execution schedule.
 
 The existing `verify` group now owns
 `tools/inventory-gcc-unmirrored-v1.py`. The default action checks all
-**585 retained source hashes** against preflight, verifies the full
-679-row decision ledger, confirms absence of the 94 deleted originals,
+**560 retained source hashes** against preflight, verifies the full
+679-row decision ledger, confirms absence of the 119 deleted originals,
 and audits source-to-adaptation paths and active registrations. Explicit
 `--import-sources` restores **only eligible** snapshots from the historical
 GCC Git object database, deleting inapplicable snapshots if present;
@@ -75,12 +75,13 @@ negative diagnostic oracle. A same-named source is not automatically a
 duplicate, and a common 10-token `main` that returns zero is not evidence
 of shared compiler regression coverage.
 
-A refreshed static six-token structural comparison of the **585 retained**
+A refreshed static six-token structural comparison of the **560 retained**
 original sources against the testkit C sources is recorded in
 `docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv`. It is reproduced with
 `tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. The refreshed
-scan after batch 10 has **101 potential source-shape leads** (compared
-to 99 after batch 09, 83 after batch 08, 78 after batch 07, 69
+scan after the final batches has **111 potential source-shape leads**
+(compared to 101 after batch 10, 99 after batch 09, 83 after batch 08,
+78 after batch 07, 69
 immediately after initial inapplicable-source deletion, and 21 at
 initial import). These are merely token-level hints:
 matching source shape does not prove an equivalent test oracle. The
@@ -423,3 +424,56 @@ tombstones. The structural overlap index is unchanged from batch 10:
 assertions. **105 unresolved originals remain**, with 101
 unreviewed and four same-name candidates. No compiler, assembler,
 linker, emulator or runtime tests were executed.
+
+## Final 105 originals: batches 12-14 complete (2026-11-17)
+
+The last 105 unresolved original GCC C sources were reviewed together
+in 50/50/5 source-order groups. Complete, individual PDP-10 and KCC
+compatibility decisions, source hashes, DejaGNU assertions, original
+options and exact matrix scopes are recorded in
+`docs/GCC-C-BATCH12-20261117-v1.tsv`,
+`docs/GCC-C-BATCH13-20261117-v1.tsv`, and
+`docs/GCC-C-BATCH14-20261117-v1.tsv`. A combined explanation is
+`docs/GCC-C-FINAL105-REVIEW-20261117-v1.md`.
+
+Ten original source-level tests are newly pending: seven runtime
+(GNU89/GNU99 aggregate initialization, alias/weak-alias symbol
+resolution, optimizer/linker structure alias behavior, and 64
+by-value aggregate sizes), plus three compile-only (long long/short
+conversions and optimized pointer arithmetic). Two compile-only
+sources also receive KCC native and base coverage. The matrix has
+**31 new pending GCC PDP-6** and **four pending KCC PDP-6** cells.
+All adapted source bytes are identical to their original snapshots;
+none has been executed. The native runtime registrations for three
+historical link-only tests strengthen their original source-level
+oracles without claiming the upstream DejaGNU suite originally ran
+them. Exact C89/GNU89/GNU99 mode gating is not inferred from default
+compiler profiles.
+
+Seventy sources are retained but deferred because they require an
+original warning/error/suppression oracle, multi-translation-unit
+link graph, `#pragma pack` behavior not yet verified on PDP-10,
+64-bit-specific results, or exact native assembler output. The
+PDP-10-specific `pdp10-local-char-word-boundary-1.c` and
+`pdp10-lshr-subreg-plus-1.c` have especially high priority, but
+`scan-assembler` checks are mandatory: compile success is insufficient.
+
+Twenty-five explicitly foreign architecture/ABI originals were
+marked inapplicable and deleted, with their exact SHA256 and reasons
+appended to the version-3 deletion manifest
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v3.tsv`, described in its
+v3 review. All earlier 94 v2 tombstones and earlier 89 v1 entries
+remain unchanged. The original 679-source preflight and ownership
+ledger still preserve every source identity, but only **560 C
+original source snapshots** remain archived, together with all 25
+archived include companions. **119** inapplicable originals remain
+absent. The static six-token overlap index covers 560 retained C
+sources with 111 source-shape hints, none a proof of equivalent
+compiler coverage.
+
+**All 679 historical C originals now have a source-level ownership
+classification: zero `unreviewed` or `same-name-review` entries**.
+This completes the review and registration process, not the pending
+execution of enabled cases, nor the genuine diagnostic, debugger,
+linker and assembler checks for deferred tests. No compiler,
+assembler, linker, emulator, simulator or runtime tests were run.
