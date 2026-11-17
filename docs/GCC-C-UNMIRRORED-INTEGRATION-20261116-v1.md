@@ -225,3 +225,19 @@ IEEE64 double packed-union test is inapplicable to PDP-10.
 The matrix gained **10 pending GCC** and **four pending KCC** cells.
 **405 original sources remain unresolved** (12 same-name candidates,
 393 unreviewed). No compilation, simulator or runtime tests were run.
+
+## Batch 06 update (2026-11-17)
+
+The next 50 original GCC C sources were inspected for their C99
+run/compile, preprocessor, diagnostic and link assertions, and for
+separate KCC PDP-10 eligibility. Per-original SHA256 fingerprints,
+portability decisions, original options and exact active compiler
+profiles are in `docs/GCC-C-BATCH06-20261117-v1.tsv`, explained in
+`docs/GCC-C-BATCH06-REVIEW-20261117-v1.md`. Twelve source oracles are
+newly registered pending (nine runtime, three compile-only); nine
+are shared with KCC, three are GCC-only. The matrix gains 48 pending
+GCC and 18 pending KCC PDP-6 cells. Thirty-seven others are deferred
+for strict C99 mode, diagnostic, representation, or link assertions,
+and the x86 physical-register clobber case is inapplicable.
+**355 original sources remain unresolved** (12 same-name candidates,
+343 unreviewed). No compiler, emulator or runtime tests were executed.

@@ -102,6 +102,16 @@ deferred (mostly strict C90/C99 mode or diagnostic assertions) and
 one IEEE-specific 64-bit layout was inapplicable. **405 original sources
 remain unresolved**. This batch has not executed compiler tests.
 
+The sixth 50-source review is documented in
+`docs/GCC-C-BATCH06-REVIEW-20261117-v1.md` and its 50-row TSV.
+It registers 12 new pending sources (nine runtime, three compile-only),
+including nine shared KCC/GCC C99 or preprocessor assertions and three
+GCC-only cases. The compiler matrix adds 48 pending GCC and 18 pending
+KCC PDP-6 cells. Thirty-seven sources were deferred and one x86
+inline-assembly test is inapplicable. **355 original sources now remain
+unresolved** (12 same-name and 343 unreviewed). Neither compilation
+nor emulator tests were run.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
