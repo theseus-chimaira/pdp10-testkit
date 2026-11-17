@@ -649,13 +649,25 @@ The next eight batches are documented in
   deferred C/assembler sources before sweeps. See
   `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md` and
   `docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md`.
-- [ ] Audit `run-tests.sh` / `tools/run-tests.py` execution, resume, parallel
-  result aggregation, statuses and negative-test crash detection. Maintain a
-  single compiler matrix runner and a separate special-suite runner, without
-  duplicating execution logic. KCC negative cells now share one fail-closed
-  ICE/rejection policy with special scripts, including its documented
-  non-ICE maximum-error limit; all 814 KCC negative profile cells pass.
-  Continue with GCC negatives, restart/parallel aggregation and failures.
+- [x] Audit and fix `run-tests.sh` / `tools/run-tests.py` negative-source
+  rejection, restart checkpoints, sequential/parallel worker accounting,
+  failure listing and summary status handling. Keep one compiler matrix
+  runner and one special-suite dispatcher. KCC negatives retain their
+  prior fail-closed ICE/rejection policy (814 KCC cells passed).
+  GCC 3.2 now requires diagnosed source-located errors, never a warning,
+  ICE, timeout, signal or launcher failure. Codes 125-127 are setup
+  failures; unknown/missing/running checkpoints are counted and retried.
+  The two registered host tests pass, along with six real GCC negative
+  cells (three sources sequentially and under two-worker parallelism).
+  The complete registered `verify` group now passes 13/13 checks.
+  During the audit, two prior batch-01 compiler-conditioned test
+  sources were classified semantic-only in the optimization manifest
+  to prevent invalid cross-compiler performance comparisons. See
+  `docs/GCC-NEGATIVE-RUNNER-ACCOUNTING-20261117-v1.md`.
+- [ ] Extend the targeted GCC negative checks to the full set of
+  applicable GCC negative sources, target CPUs and optimization
+  profiles; prioritize any actual compiler ICEs. Exact original
+  `dg-error`/`dg-bogus` diagnostic matching remains separate work.
 - [ ] Review support for upstream GCC diagnostic directives (`dg-error`,
   expected warnings, target constraints) and decide which cases are worth
   importing as explicitly negative/diagnostic tests. Do not misclassify

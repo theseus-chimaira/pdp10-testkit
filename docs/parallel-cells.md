@@ -58,8 +58,12 @@ regressions now share one fail-closed diagnostic policy. A nonzero compiler
 exit is not sufficient: a real KCC source error or its documented
 maximum-error limit must be present, and internal errors, timeouts and
 signals remain failures. All 814 KCC negative cells were executed and
-passed; GCC negative diagnostics are a separate open audit. See
-`docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
+passed. GCC 3.2 negative compiler cells now also require a diagnosed,
+source-located error; warnings, setup errors, ICEs and abnormal exits
+cannot pass. A focused real GCC and host test audit is recorded in
+`docs/GCC-NEGATIVE-RUNNER-ACCOUNTING-20261117-v1.md`. The broader GCC
+negative sweep and exact upstream diagnostic-pattern assertions remain
+separate work. See `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
 
 ```sh
 ./run-misc-tests.sh verify
@@ -139,6 +143,11 @@ written after all workers finish.
 
 Existing `pass` and `compile_only` cells are skipped by default.  Existing
 failures are retried unless `--skip-failures` is given.
+Missing, `running`, and unknown checkpoints are always retried, even
+with `--skip-failures`. Every nonpassing selected cell appears in
+`failures.tsv` and the final failure count. Worker exceptions in
+sequential and parallel execution persist a `setup_fail` checkpoint
+and an explanatory `WORKER_EXCEPTION` log.
 
 ## Why not replay `cell.log`?
 
@@ -157,7 +166,12 @@ Use `./run-tests.sh --kind negative --compiler kcc` or `--compiler gcc`.
 Both compilers are scheduled on supported CPU/ISA profiles and optimization
 settings. Successful compilation is a regression, as are a compiler ICE,
 process signal, missing diagnostic output, and timeout. Ordinary diagnostic
-failure is a passing result. Each case retains its own restart checkpoint.
+failure passes only after the compiler-specific rejection policy
+confirms a source error. GCC 3.2 often omits modern `error:` prefixes,
+so its policy recognizes source-file/line errors while rejecting
+warning-only messages, compiler crashes and driver/setup errors.
+Launcher exits 125-127 are `setup_fail`, not source rejection. Each
+case retains its own restart checkpoint.
 
 The original GCC `dg-error` annotations are preserved but not yet interpreted
 as diagnostic-pattern assertions for KCC: the initial contract is rejection

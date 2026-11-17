@@ -14,7 +14,8 @@ import sys
 import time
 from pathlib import Path
 from stubselect import STUB_SYMBOLS, selected_test_stubs
-from compiler_negative_policy_v1 import ICE_RE, check_kcc_rejection
+from compiler_negative_policy_v1 import (ICE_RE, check_kcc_rejection,
+                                         check_gcc_rejection)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -794,7 +795,10 @@ def write_rows_tsv(path, fields, rows):
 
 def write_failures(outroot, semantic_cells, codegen_cells):
     rows = [r for r in collect_selected_statuses(outroot, semantic_cells, codegen_cells)
-            if r.get('status') in FAIL_STATUSES]
+            if r.get('status') not in PASS_STATUSES]
+    # Incomplete or missing checkpoints must be reported as failures too.
+    # Do not add `running` to FAIL_STATUSES: an interrupted cell must always
+    # be retried, even when --skip-failures is requested.
     write_rows_tsv(outroot / 'failures.tsv', FAILURE_FIELDS, rows)
     return rows
 
@@ -922,11 +926,24 @@ def compile_to_asm(cell, src, asm_path, log_path, bins):
     rc = run_cmd(cmd, ROOT, log_path, timeout=COMPILE_TIMEOUT)
     if rc == 124:
         return 'timeout'
-    if rc < 0 or rc > 128:
+    # 125..127 are launcher/command failure statuses, not diagnosed C
+    # errors.  Negative tests must never treat exit 127 as a PASS.
+    if rc in (125, 126, 127):
+        return 'setup_fail'
+    if rc < 0 or rc >= 128:
         return 'signal'
     if rc == 0:
         return 'pass' if asm_path.is_file() else 'no_output'
     return 'fail'
+
+
+def compile_failure_status(result):
+    """Classify a failed compile without losing launch/ICE information."""
+    if result in ('timeout', 'setup_fail'):
+        return result
+    if result == 'signal':
+        return 'compiler_ice'
+    return 'compile_fail'
 
 
 def write_cell_result(outroot, line):
@@ -966,7 +983,7 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
     t0 = time.time()
     compile_status = compile_to_asm(cell, src, asm_path, log_path, bins)
     if compile_status != 'pass':
-        status = 'timeout' if compile_status == 'timeout' else 'compile_fail'
+        status = compile_failure_status(compile_status)
         report = str(log_path)
     else:
         if cell['compiler'] == 'kcc' and not directives(ROOT / src).get('codegen-kcc-preprocess'):
@@ -1132,7 +1149,7 @@ def run_negative_cell(idx, total, src, cell, outroot, bins, announce=True):
     diagnostics = read_text(log_path)
     if result == 'timeout':
         status = 'timeout'
-    elif 'EXEC_ERROR ' in diagnostics:
+    elif result == 'setup_fail' or 'EXEC_ERROR ' in diagnostics:
         status = 'setup_fail'
     elif result == 'signal' or ICE_RE.search(diagnostics):
         status = 'compiler_ice'
@@ -1147,7 +1164,11 @@ def run_negative_cell(idx, total, src, cell, outroot, bins, announce=True):
             status = ('pass' if check_kcc_rejection(1, diagnostics) is None
                       else 'policy_fail')
         else:
-            status = 'pass' if diagnostics.partition('\n')[2].strip() else 'policy_fail'
+            # GCC 3.2 diagnostics need not say `error:`. Require a real
+            # source-location diagnostic, however; otherwise a failed driver
+            # invocation could turn a negative test green.
+            status = ('pass' if check_gcc_rejection(1, diagnostics) is None
+                      else 'policy_fail')
     else:
         status = 'compile_fail'
     line = [src, cell['machine'], cell['compiler'], cell['profile'], 'negative',
@@ -1210,12 +1231,17 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
             except re.error as error:
                 errors.append('invalid diagnostic regex: ' + str(error))
         report = str(log_path)
-        status = 'policy_fail' if errors else 'pass'
+        if compile_status in ('timeout', 'setup_fail', 'signal'):
+            status = compile_failure_status(compile_status)
+        elif ICE_RE.search(diagnostics):
+            status = 'compiler_ice'
+        else:
+            status = 'policy_fail' if errors else 'pass'
         if errors:
             with open(log_path, 'a') as f:
                 f.write('\nnegative compile policy failures: ' + ' | '.join(errors) + '\n')
     elif compile_status != 'pass':
-        status = 'timeout' if compile_status == 'timeout' else 'compile_fail'
+        status = compile_failure_status(compile_status)
         report = str(log_path)
     else:
         if cell['compiler'] == 'kcc' and not source_directives.get('codegen-kcc-preprocess'):
@@ -1298,20 +1324,41 @@ def run_codegen_cell(idx, total, src, cell, outroot, bins, announce=True):
 
 
 
-def run_cell_worker(task):
+def run_cell_worker(task, announce=False):
     idx, total, kind, src, cell, outroot, bins, libgcc1 = task
     try:
         if kind == 'semantic':
-            status = run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=False)
+            status = run_semantic_cell(idx, total, src, cell, outroot, bins,
+                                       libgcc1, announce=announce)
         elif kind == 'negative':
-            status = run_negative_cell(idx, total, src, cell, outroot, bins, announce=False)
+            status = run_negative_cell(idx, total, src, cell, outroot, bins,
+                                       announce=announce)
         else:
-            status = run_codegen_cell(idx, total, src, cell, outroot, bins, announce=False)
+            status = run_codegen_cell(idx, total, src, cell, outroot, bins,
+                                      announce=announce)
         return (idx, kind, src, cell.get('compiler', ''), cell.get('profile', ''),
                 cell.get('machine', ''), status, None)
+    except KeyboardInterrupt:
+        raise
     except BaseException as e:
+        detail = repr(e)
+        try:
+            # The parent must never see a failed worker with a stale
+            # `running` or missing checkpoint. Otherwise the final summary
+            # could report success while stdout reported a setup failure.
+            path = cell_dir(outroot, src, cell)
+            path.mkdir(parents=True, exist_ok=True)
+            log_path = path / 'cell.log'
+            with log_path.open('a', encoding='utf-8') as log:
+                log.write('WORKER_EXCEPTION ' + detail + '\n')
+            write_cell_result(outroot, [src, cell['machine'],
+                                       cell['compiler'], cell['profile'],
+                                       kind, 'setup_fail', '0.00', '',
+                                       str(log_path)])
+        except BaseException as save_error:
+            detail += '; checkpoint write failed: ' + repr(save_error)
         return (idx, kind, src, cell.get('compiler', ''), cell.get('profile', ''),
-                cell.get('machine', ''), 'setup_fail', repr(e))
+                cell.get('machine', ''), 'setup_fail', detail)
 
 
 def run_cells_parallel(semantic_run, codegen_run, outroot, bins, libgcc1, jobs):
@@ -1333,22 +1380,17 @@ def run_cells_parallel(semantic_run, codegen_run, outroot, bins, libgcc1, jobs):
         failed = 0
         for task in tasks:
             idx, total, kind, src, cell, _outroot, _bins, _libgcc1 = task
-            if kind == 'semantic':
-                status = run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1)
-                if status == 'pass':
-                    passed += 1
-                elif status == 'compile_only':
-                    compile_only += 1
-                else:
-                    failed += 1
+            _idx, _kind, _src, _comp, _profile, _machine, status, error = (
+                run_cell_worker(task, announce=True))
+            if error:
+                print('[%06d/%06d] %s setup_fail %s: %s' %
+                      (idx, total, kind, src, error), flush=True)
+            if status == 'pass':
+                passed += 1
+            elif status == 'compile_only':
+                compile_only += 1
             else:
-                status = (run_negative_cell(idx, total, src, cell, outroot, bins)
-                          if kind == 'negative' else
-                          run_codegen_cell(idx, total, src, cell, outroot, bins))
-                if status == 'pass':
-                    passed += 1
-                else:
-                    failed += 1
+                failed += 1
         return total, passed, compile_only, failed
 
     passed = 0
@@ -1407,7 +1449,9 @@ def status_counts(rows):
 
 
 def failure_count_from_counts(counts):
-    return sum(v for k, v in counts.items() if k in FAIL_STATUSES)
+    # Any selected cell without a known passing checkpoint is a failure,
+    # including running, not_run, or a future/invalid status value.
+    return sum(v for k, v in counts.items() if k not in PASS_STATUSES)
 
 
 def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, scheduled_total,
@@ -1420,7 +1464,6 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
         f.write('family_filter=%s\n' % args.family)
         f.write('cpu_filter=%s\n' % args.cpu)
         f.write('opt_filter=%s\n' % args.opt)
-        f.write('kind_filter=%s\n' % args.kind)
         f.write('kind_filter=%s\n' % args.kind)
         f.write('checkpoint_model=per-cell status\n')
         f.write('matrix=COMPILER_MATRIX.tsv\n')

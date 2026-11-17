@@ -202,6 +202,23 @@ assembler predicates correctly rejected. The final105 status is now
 12 pending active sources, 68 deferred and 25 inapplicable. The
 earlier batch12 v1 review and 119 tombstones remain unchanged.
 
+The previously uncommitted GCC negative-classifier and parallel-result
+changes were reviewed, corrected and integrated. Historical GCC 3.2
+negative cases now require a source-located rejection diagnostic and
+cannot pass merely from warnings, a driver/setup error or a compiler
+crash. Worker exceptions, incomplete checkpoints and unknown statuses
+remain visible as failures and are safely retried. Two `verify`
+registrations exercise the GCC classifier and runner accounting;
+31 synthetic GCC policy cases, 17 existing KCC policy cases and
+six real GCC negative compiler cells (three sources, sequential and
+two-worker parallel) passed. See
+`docs/GCC-NEGATIVE-RUNNER-ACCOUNTING-20261117-v1.md`. Exact upstream
+diagnostic-text matching and full matrix sweeps remain separate.
+All 13 registered host `verify` checks passed after two pre-existing
+batch-01 compiler-conditioned tests were correctly classified in
+`OPTIMIZATION_SEMANTIC_ONLY.tsv`; no source or measured result was
+changed to obtain this pass.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,

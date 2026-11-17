@@ -91,3 +91,15 @@ the 366-script committed inventory count. That work should be reviewed
 and committed separately after owner registration
 and remaining static audits are settled. The next step is to continue
 source inventory and registration, not to execute broad compiler sweeps.
+
+**Subsequent review (2026-11-17):** The four previously uncommitted
+GCC negative-classifier/parallel-result changes were audited and
+accepted with corrected reserved-exit and worker status handling.
+Two directly registered host checks, `test-gcc-negative-policy-v1`
+and `test-runner-result-accounting-v1`, now exercise historical GCC
+diagnostics, fail-closed restarts, worker exceptions and compiler
+exit codes. The current static ownership audit passes with 378
+discovered scripts (the earlier 366 count is the historical v4
+snapshot). Real GCC negative cells passed sequentially and with two
+workers. See `docs/GCC-NEGATIVE-RUNNER-ACCOUNTING-20261117-v1.md`;
+this is not a full GCC compiler matrix or DejaGNU-text oracle sweep.
