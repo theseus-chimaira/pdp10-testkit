@@ -554,11 +554,18 @@ The next eight batches are documented in
   The 679-source ownership ledger now has zero unresolved source
   reviews; compiler warning/assembler oracles remain deferred pending
   actual source-rejection, output matching, or multi-file link tests.
-- [ ] Implement exact native assembler-output oracle matching for the
+- [x] Implement exact native assembler-output oracle matching for the
   original PDP-10 `pdp10-local-char-word-boundary-1.c` and
   `pdp10-lshr-subreg-plus-1.c` compile regressions. These directly
-  concern backend correctness; do not mark a generic compile-success
-  check as their replacement. See the final105 source review.
+  concern backend correctness. The native GCC codegen tests now check
+  both original positive and forbidden assembler regexes, at `-O2`
+  for PDP-6, KA10, KI10 and KS10. All eight installed GCC 3.2
+  compiler/assembler-output cells passed; eight deliberately mutated
+  assembler files triggered 16 required/forbidden policy failures.
+  The original batch12 v1 review stays unchanged; its v2 review
+  activates exactly these two sources, updates the 679-source crosswalk,
+  and retains the 119 tombstones. See
+  `docs/GCC-C-PDP10-ASSEMBLER-REGRESSIONS-20261117-v1.md`.
 
 - [x] Establish a reproducible static census across `pdp10-testkit`, KCC,
   GCC PDP-10, DAS, independent PDP10-TOOLS, and DAIMOS host tools. See

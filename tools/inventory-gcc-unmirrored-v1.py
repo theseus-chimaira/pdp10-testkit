@@ -37,7 +37,8 @@ BATCH09 = ROOT / 'docs/GCC-C-BATCH09-20261117-v1.tsv'
 BATCH09_COMPANIONS = ROOT / 'docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv'
 BATCH10 = ROOT / 'docs/GCC-C-BATCH10-20261117-v1.tsv'
 BATCH11 = ROOT / 'docs/GCC-C-BATCH11-20261117-v1.tsv'
-BATCH12 = ROOT / 'docs/GCC-C-BATCH12-20261117-v1.tsv'
+BATCH12_V1 = ROOT / 'docs/GCC-C-BATCH12-20261117-v1.tsv'
+BATCH12 = ROOT / 'docs/GCC-C-BATCH12-20261117-v2.tsv'
 BATCH13 = ROOT / 'docs/GCC-C-BATCH13-20261117-v1.tsv'
 BATCH14 = ROOT / 'docs/GCC-C-BATCH14-20261117-v1.tsv'
 REMOVALS_V1 = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
@@ -1115,7 +1116,31 @@ def verify_sources():
     if (sum(int(row['error_assertions']) for row in batch11) != 33 or
             sum(int(row['bogus_assertions']) for row in batch11) != 11):
         errors.append('batch11 historical diagnostic error/absence census changed')
-    final_batches = [(12, read_tsv(BATCH12), 50, 3, 22),
+    original_batch12 = read_tsv(BATCH12_V1)
+    current_batch12 = read_tsv(BATCH12)
+    if len(original_batch12) != 50 or len(current_batch12) != 50:
+        errors.append('batch12 original/updated review must have 50 entries')
+    else:
+        activations = {'pdp10-local-char-word-boundary-1.c',
+                       'pdp10-lshr-subreg-plus-1.c'}
+        for old, new in zip(original_batch12, current_batch12):
+            name = new['original_source'].rsplit('/', 1)[-1]
+            if old['original_source'] != new['original_source']:
+                errors.append('batch12 v2 changed source review order')
+            elif name not in activations and old != new:
+                errors.append('batch12 v2 changed unrelated original decision: ' + name)
+            elif name in activations and (
+                    old['disposition'] != 'defer' or
+                    new['disposition'] != 'integrate' or
+                    new['compiler_scope'] != 'gcc-only' or
+                    new['test_kind'] != 'compile' or
+                    new['kcc_profiles'] or
+                    any(old[key] != new[key] for key in
+                        ('original_source', 'source_sha256', 'original_oracle',
+                         'dg_options', 'dg_target', 'warning_assertions',
+                         'error_assertions', 'bogus_assertions', 'final_assertions'))):
+                errors.append('batch12 v2 invalid assembler-only activation: ' + name)
+    final_batches = [(12, current_batch12, 50, 5, 22),
                      (13, read_tsv(BATCH13), 50, 7, 3),
                      (14, read_tsv(BATCH14), 5, 0, 0)]
     final_originals = [r['original_source'] for r in originals
@@ -1160,14 +1185,32 @@ def verify_sources():
                 if (row['test_kind'] not in ('run', 'compile') or not owner or
                         not owner.startswith(prefix) or owner in final_owners or
                         not source.is_file() or not compiled.is_file() or
-                        source.read_bytes() != compiled.read_bytes() or
                         row['integrated_sha256'] != digest(compiled.read_bytes())):
                     errors.append('final GCC original source adaptation mismatch: ' + original)
+                if compiled.is_file() and source.is_file():
+                    if owner.rsplit('/', 1)[-1] in (
+                            'pdp10-local-char-word-boundary-1.c',
+                            'pdp10-lshr-subreg-plus-1.c'):
+                        expected_prefix = (
+                            "/* codegen-require-regex: 'POINT 9,\\(0?17\\),8' */\n"
+                            "/* codegen-forbid-regex: 'POINT 9,\\(0?17\\),17' */\n"
+                            if owner.endswith('pdp10-local-char-word-boundary-1.c') else
+                            "/* codegen-require-regex: 'subi.*036' */\n"
+                            "/* codegen-forbid-regex: 'lsh.*-036\\(' */\n")
+                        if compiled.read_bytes() != expected_prefix.encode('ascii') + source.read_bytes():
+                            errors.append('PDP-10 assembler regression source/oracle changed: ' + owner)
+                    elif compiled.read_bytes() != source.read_bytes():
+                        errors.append('final GCC original source body changed: ' + original)
                 final_owners[owner] = row
                 allowed_kcc = (row['compiler_scope'] == 'both')
                 gcc_cells = row['gcc_profiles'].split(';') if row['gcc_profiles'] else []
                 kcc_cells = row['kcc_profiles'].split(';') if row['kcc_profiles'] else []
-                expected_gcc = (['pdp6_gcc_o2']
+                expected_gcc = (['pdp6_gcc_o2', 'ka10_gcc_o2',
+                                 'ki10_gcc_o2', 'ks10_gcc_o2']
+                                if owner.rsplit('/', 1)[-1] in
+                                ('pdp10-local-char-word-boundary-1.c',
+                                 'pdp10-lshr-subreg-plus-1.c') else
+                                ['pdp6_gcc_o2']
                                 if owner.rsplit('/', 1)[-1] in
                                 ('struct-alias-1.c', 'struct-by-value-1.c', 'ultrasp4.c')
                                 else ['pdp6_gcc_o0', 'pdp6_gcc_o1',
@@ -1184,7 +1227,7 @@ def verify_sources():
             elif decision == 'defer':
                 final_deferred += 1
     if (len(final_paths) != 105 or final_paths != final_originals or
-            len(final_owners) != 10 or final_rejected != 25 or final_deferred != 70):
+            len(final_owners) != 12 or final_rejected != 25 or final_deferred != 68):
         errors.append('final GCC census must classify exactly 105 originals')
     deleted = removed_originals()
     rejected = {}

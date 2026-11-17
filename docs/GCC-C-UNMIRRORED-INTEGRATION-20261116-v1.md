@@ -79,8 +79,9 @@ A refreshed static six-token structural comparison of the **560 retained**
 original sources against the testkit C sources is recorded in
 `docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv`. It is reproduced with
 `tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. The refreshed
-scan after the final batches has **111 potential source-shape leads**
-(compared to 101 after batch 10, 99 after batch 09, 83 after batch 08,
+scan after the assembler-oracle activations has **113 potential
+source-shape leads** (compared to 111 after the final source-review
+batches, 101 after batch 10, 99 after batch 09, 83 after batch 08,
 78 after batch 07, 69
 immediately after initial inapplicable-source deletion, and 21 at
 initial import). These are merely token-level hints:
@@ -477,3 +478,43 @@ This completes the review and registration process, not the pending
 execution of enabled cases, nor the genuine diagnostic, debugger,
 linker and assembler checks for deferred tests. No compiler,
 assembler, linker, emulator, simulator or runtime tests were run.
+
+## Original PDP-10 assembler regressions activated (2026-11-17)
+
+The two historically deferred PDP-10 GCC assembler regressions
+`pdp10-local-char-word-boundary-1.c` and
+`pdp10-lshr-subreg-plus-1.c` now have native codegen owners under
+`tests/codegen/gcc-historical-b12-v1/`. These files preserve the
+original C bytes and prepend only the existing codegen runner's
+`codegen-require-regex` / `codegen-forbid-regex` directives.
+The required and forbidden regexes match the four original
+`dg-final scan-assembler`/`scan-assembler-not` assertions exactly.
+
+The unchanged original 50-row source review is preserved at
+`docs/GCC-C-BATCH12-20261117-v1.tsv`. The separately versioned
+`docs/GCC-C-BATCH12-20261117-v2.tsv` promotes only these two
+originals to `batch12-pending` in the authoritative 679-source
+crosswalk, and activates exactly eight GCC O2 codegen matrix cells
+(PDP-6, KA10, KI10, KS10). No KCC or non-O2 profiles are added.
+Batch12 now counts five pending, 23 deferred and 22 inapplicable.
+The final 105-source review has 12 pending, 68 deferred and 25
+inapplicable; the other source identities remain unchanged.
+
+Installed GCC 3.2 compiled both original source bodies at `-O2`
+for all four target architectures and the native runner checked
+both the required and forbidden assembler predicates. **All eight
+real codegen cells passed**. Eight separate deliberately corrupted
+assembler examples were rejected by the same policy checker with
+16 expected positive/negative match failures. No emulator or
+runtime test was executed. The full procedure, execution results,
+reproduction guidance and limitations are in
+`docs/GCC-C-PDP10-ASSEMBLER-REGRESSIONS-20261117-v1.md`.
+
+All 560 historical C snapshots remain byte-identical; the 119
+inapplicable original deletions and 25 preserved include companions
+remain unchanged. The uncommitted GCC negative-policy and runner
+worktree changes belong to a different task and are not part of
+this assembler regression activation.
+The recomputed structural overlap index has 113 token-level leads
+after adding these two near-identical active source copies; these
+are not independent new assertions or additional original sources.

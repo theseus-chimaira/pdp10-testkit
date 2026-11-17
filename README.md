@@ -191,6 +191,17 @@ or same-name-review originals**. A total of 560 historical snapshots
 remain retained, 119 tombstoned; no compiler or emulator tests were
 run. Pending/deferred execution work is separate from source review.
 
+The two historical PDP-10 assembler regressions are now active GCC O2
+**codegen** tests, not compile-only stand-ins. See
+`docs/GCC-C-PDP10-ASSEMBLER-REGRESSIONS-20261117-v1.md` and the
+version-2 batch12 review. Both the fifth 9-bit byte-pointer boundary
+and shift-count SUBREG/LSH safety cases require positive and forbidden
+assembler regexes on PDP-6, KA10, KI10 and KS10. **Eight GCC 3.2
+assembler-output checks passed**, with 16 deliberately corrupted
+assembler predicates correctly rejected. The final105 status is now
+12 pending active sources, 68 deferred and 25 inapplicable. The
+earlier batch12 v1 review and 119 tombstones remain unchanged.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,

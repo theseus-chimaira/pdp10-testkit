@@ -1,5 +1,16 @@
 # Historical GCC C source review, final 105 (2026-11-17 v1)
 
+**Subsequent codegen activation (2026-11-17):** Two original PDP-10
+assembler regressions were promoted from deferred to checked GCC
+O2 codegen cases on four architectures, with eight real compile/
+assembler-policy passes. This original review snapshot remains
+10 pending / 70 deferred / 25 inapplicable. Current source ownership
+uses `docs/GCC-C-BATCH12-20261117-v2.tsv`: 12 pending / 68 deferred /
+25 inapplicable. See
+`docs/GCC-C-PDP10-ASSEMBLER-REGRESSIONS-20261117-v1.md` for original
+regexes, negative mutations, and execution evidence. The original
+batch12 v1 review remains intact.
+
 ## Completion and source provenance
 
 All **105 previously unresolved** historical GCC C sources were reviewed

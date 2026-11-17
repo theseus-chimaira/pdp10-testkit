@@ -35,7 +35,7 @@ gcc/testsuite/gcc.c-torture/execute/ieee/20001122-1.c	73		0	0.000	no-strong-sour
 gcc/testsuite/gcc.c-torture/execute/ieee/920518-1.c	34		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/longlong.c	183		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.c-torture/execute/pdp10-dimode-div71-1.c	90	tests/semantic/gcc-historical-b02-v1/pdp10-dimode-div71-1.c	86	0.956	potential-source-shape-overlap
-gcc/testsuite/gcc.c-torture/execute/pdp10-dimode-stack-negconst-1.c	77	tests/semantic/gcc-historical-b02-v1/pdp10-dimode-stack-negconst-1.c	67	0.870	potential-source-shape-overlap
+gcc/testsuite/gcc.c-torture/execute/pdp10-dimode-stack-negconst-1.c	77	tests/semantic/gcc-historical-b02-v1/pdp10-dimode-stack-negconst-1.c	66	0.857	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10-int9-array-opt-1.c	124	tests/semantic/gcc-historical-b02-v1/pdp10-int9-array-opt-1.c	119	0.960	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/alignas-frame-byteptr-v1.c	85	tests/semantic/gcc-historical-v1/alignas-frame-byteptr-v1.c	81	0.953	potential-source-shape-overlap
 gcc/testsuite/gcc.c-torture/execute/pdp10/exact16-pointer-call-1.c	149	tests/semantic/gcc-historical-v1/exact16-pointer-call-1.c	145	0.973	potential-source-shape-overlap
@@ -90,7 +90,7 @@ gcc/testsuite/gcc.dg/20020201-1.c	79		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020201-2.c	102		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020201-4.c	27		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020206-1.c	119		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/20020210-1.c	84	tests/semantic/gcc-historical-b03-v1/20020210-1.c	61	0.726	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/20020210-1.c	84	tests/semantic/gcc-historical-b03-v1/20020210-1.c	60	0.714	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20020220-1.c	40	tests/codegen/gcc-historical-b03-v1/20020220-1.c	38	0.950	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/20020220-2.c	19		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/20020222-1.c	127	tests/codegen/gcc-historical-b03-v1/20020222-1.c	121	0.953	potential-source-shape-overlap
@@ -347,7 +347,7 @@ gcc/testsuite/gcc.dg/cpp/macro4.c	41	tests/codegen/gcc-historical-b09-v1/macro4.
 gcc/testsuite/gcc.dg/cpp/macro5.c	98	tests/codegen/gcc-historical-b09-v1/macro5.c	98	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/macro6.c	95	tests/semantic/gcc-historical-b09-v1/macro6.c	85	0.895	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/macro7.c	6		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/macro8.c	87	tests/semantic/gcc-historical-b09-v1/macro8.c	76	0.874	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/macro8.c	87	tests/semantic/gcc-historical-b09-v1/macro8.c	75	0.862	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/macro9.c	13		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/macsyntx.c	208		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/mi1.c	44		0	0.000	no-strong-source-shape-lead
@@ -497,8 +497,8 @@ gcc/testsuite/gcc.dg/noreturn-3.c	20		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/noreturn-4.c	20		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/pack-test-1.c	358		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/pack-test-2.c	43		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/pdp10-local-char-word-boundary-1.c	94		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/pdp10-lshr-subreg-plus-1.c	38		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/pdp10-local-char-word-boundary-1.c	94	tests/codegen/gcc-historical-b12-v1/pdp10-local-char-word-boundary-1.c	93	0.989	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/pdp10-lshr-subreg-plus-1.c	38	tests/codegen/gcc-historical-b12-v1/pdp10-lshr-subreg-plus-1.c	38	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/qual-return-1.c	103		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/qual-return-2.c	19		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/return-type-1.c	2		0	0.000	no-strong-source-shape-lead
