@@ -389,3 +389,37 @@ sources, producing 101 token-level similarity leads, not assertions
 of equivalence. **155 unresolved source reviews remain** (150
 unreviewed and five same-name). No compiler, assembler, linker,
 emulator, simulator or runtime tests were executed.
+
+## Batch 11 update: GCC format-diagnostic corpus (2026-11-17)
+
+Batch 11 reviews the next 50 unresolved historical sources, all from
+`gcc.dg/format/`. Their per-original assertion and PDP-10/KCC
+compatibility decisions are recorded in
+`docs/GCC-C-BATCH11-20261117-v1.tsv` and explained in
+`docs/GCC-C-BATCH11-REVIEW-20261117-v1.md`.
+
+The original 50 sources have **940** required `dg-warning`, **33**
+required `dg-error`, and **11** forbidden `dg-bogus` annotations.
+Five others contain no explicit diagnostic annotation but exercise
+warning-free acceptance only in a specified C94/GNU89/GNU99 dialect
+or with a particular `-Wformat` warning-suppression option.
+None has a meaningful positive compile-success oracle with generic
+optimizer flags. All **50 are deferred**, zero registered pending,
+zero inapplicable and zero removed. The namesake central `array-1.c`
+is unrelated source content and does not satisfy its format checker.
+
+The original `format.h` dependency remains byte-for-byte preserved
+and hash-pinned; 48 of the 50 sources include it, while `attr-5.c`
+and `attr-6.c` deliberately omit it to check default built-in or
+implicit format attributes. KCC GCC-format-warning equivalence is
+not established. The static inventory now checks the 50 SHA256
+fingerprints, exact `dg-do`/`dg-options`, per-source diagnostic
+annotation counts, header dependencies and inactive matrix ownership.
+
+The historical source archive still retains **585** C originals, with
+**94** inapplicable originals absent under unchanged version-2
+tombstones. The structural overlap index is unchanged from batch 10:
+585 retained sources and 101 token-shape hints, not equivalent
+assertions. **105 unresolved originals remain**, with 101
+unreviewed and four same-name candidates. No compiler, assembler,
+linker, emulator or runtime tests were executed.

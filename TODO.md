@@ -426,7 +426,10 @@ The next eight batches are documented in
   originals: 19 registered, 31 deferred, none inapplicable.
   Batch 10 reviewed 50 more CPP/debug/GCC diagnostic/PE originals:
   three registered, 42 deferred, five inapplicable and deleted.
-  **155 sources now remain** (five same-name review, 150 unreviewed). Do not
+  Batch 11 reviewed 50 `gcc.dg/format` originals: all 50 deferred
+  pending exact diagnostic and language-mode oracles, with no new
+  registrations or deletions. **105 sources now remain** (four
+  same-name review, 101 unreviewed). Do not
   count preserved reference files as activated tests.
 - [x] Delete all 89 inapplicable original GCC source snapshots classified
   in batches 01-06 (23, 23, 21, 20, 1, 1). Keep only review metadata,
@@ -521,6 +524,15 @@ The next eight batches are documented in
   oracles are unrelated. Delete five explicitly foreign-target
   originals using version-2 tombstones. See
   `docs/GCC-C-BATCH10-REVIEW-20261117-v1.md` and its TSV.
+- [x] Review GCC integration batch 11: the next 50 original
+  `gcc.dg/format` sources, individually documenting 940 positive
+  warning, 33 error and 11 forbidden-diagnostic expectations,
+  plus five tests of warning-free compiler-option behavior.
+  Defer all 50: none can be meaningfully activated through current
+  positive compile-only profiles. Preserve all original C sources,
+  the hash-pinned `format.h` dependency, all 94 prior inapplicable
+  deletion tombstones, and all existing pending matrix cells.
+  See `docs/GCC-C-BATCH11-REVIEW-20261117-v1.md` and its 50-row TSV.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
   or `same-name-review` in the source-ownership ledger. Review **KCC

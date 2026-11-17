@@ -164,6 +164,19 @@ or ARM/Thumb PE sources were deleted and appended to the new
 (five same-name candidates, 150 unreviewed). No compiler or
 emulator tests were executed.
 
+The eleventh 50-source review covers only the historical
+`gcc.dg/format/` suite. See
+`docs/GCC-C-BATCH11-REVIEW-20261117-v1.md` and the hash-pinned,
+per-source TSV. Its **940 required warning**, **33 required error**,
+and **11 forbidden diagnostic** assertions (plus five cases relying
+on warning-free option-specific acceptance) cannot be exercised by
+ordinary compile-success registrations. Accordingly all 50 sources
+remain preserved but deferred; none was registered or deleted.
+The original `format.h` companion remains preserved and verified.
+**105 source reviews remain unresolved** (four same-name and 101
+unreviewed). The 585 retained originals and 94 deleted-source
+tombstones remain unchanged. No tests were executed.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,

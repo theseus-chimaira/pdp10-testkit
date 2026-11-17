@@ -36,6 +36,7 @@ BATCH08_COMPANIONS = ROOT / 'docs/GCC-C-BATCH08-COMPANIONS-20261117-v1.tsv'
 BATCH09 = ROOT / 'docs/GCC-C-BATCH09-20261117-v1.tsv'
 BATCH09_COMPANIONS = ROOT / 'docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv'
 BATCH10 = ROOT / 'docs/GCC-C-BATCH10-20261117-v1.tsv'
+BATCH11 = ROOT / 'docs/GCC-C-BATCH11-20261117-v1.tsv'
 REMOVALS_V1 = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
 REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv'
 KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
@@ -188,6 +189,12 @@ def batch09_decisions():
 def batch10_decisions():
     """Tenth 50-source CPP, debugging and target-ABI compatibility review."""
     return {r['original_source']: r for r in read_tsv(BATCH10)}
+
+
+@lru_cache(maxsize=1)
+def batch11_decisions():
+    """Eleventh 50-source GCC format-diagnostic applicability review."""
+    return {r['original_source']: r for r in read_tsv(BATCH11)}
 
 
 @lru_cache(maxsize=1)
@@ -399,6 +406,7 @@ def ownership(row, data):
     batch8 = batch08_decisions().get(original)
     batch9 = batch09_decisions().get(original)
     batch10 = batch10_decisions().get(original)
+    batch11 = batch11_decisions().get(original)
     if reviewed:
         status, matrix_owner, reason = reviewed
     elif batch:
@@ -451,6 +459,11 @@ def ownership(row, data):
                                else batch10['disposition'])
         matrix_owner = batch10['integrated_path']
         reason = batch10['pdp10_reason']
+    elif batch11:
+        status = 'batch11-' + ('pending' if batch11['disposition'] == 'integrate'
+                               else batch11['disposition'])
+        matrix_owner = batch11['integrated_path']
+        reason = batch11['pdp10_reason']
     else:
         status = ('same-name-review' if row['name_match'] != 'no-same-name'
                   else 'unreviewed')
@@ -1020,11 +1033,72 @@ def verify_sources():
         errors.append('batch10 source review has incorrect active owner count')
     if sum(r['disposition'] == 'inapplicable' for r in batch10) != 5:
         errors.append('batch10 must record exactly five newly inapplicable originals')
+    batch11 = read_tsv(BATCH11)
+    prior_reviewed = (set(batch_paths) | set(batch2_paths) |
+                      set(batch3_paths) | set(batch4_paths) |
+                      set(batch5_paths) | set(batch6_paths) |
+                      set(batch7_paths) | set(batch8_paths) |
+                      set(batch9_paths) | set(batch10_paths))
+    selected11 = [r['original_source'] for r in originals
+                  if (r['original_source'][len('gcc/testsuite/'):] not in REVIEWED
+                      and r['original_source'] not in prior_reviewed)][:50]
+    batch11_paths = [r['original_source'] for r in batch11]
+    if (len(batch11) != 50 or batch11_paths != selected11 or
+            len(set(batch11_paths)) != 50):
+        errors.append('batch11 must contain exactly the next 50 unresolved sources in order')
+    format_header = 'gcc/testsuite/gcc.dg/format/format.h'
+    format_companions = [r for r in read_tsv(COMPANIONS)
+                         if r['original_source'] == format_header]
+    hdr = snapshot_path(format_header)
+    if (len(format_companions) != 1 or
+            format_companions[0]['status'] != 'preserved' or
+            not hdr.is_file() or
+            digest(hdr.read_bytes()) != format_companions[0]['source_sha256']):
+        errors.append('batch11 original format.h companion is missing or modified')
+    for row in batch11:
+        path = row['original_source']
+        source = snapshot_path(path)
+        if row['source_sha256'] != source_hashes.get(path) or not source.is_file():
+            errors.append('batch11 original hash or source missing: ' + path)
+            continue
+        data = source.read_bytes()
+        source_text = data.decode('latin-1')
+        if digest(data) != row['source_sha256']:
+            errors.append('batch11 original source changed: ' + path)
+        if (row['disposition'] != 'defer' or row['compiler_scope'] != 'none' or
+                row['test_kind'] or row['integrated_path'] or
+                row['integrated_sha256'] or row['gcc_profiles'] or
+                row['kcc_profiles']):
+            errors.append('batch11 diagnostic-only source incorrectly activated: ' + path)
+        if (not row['original_oracle'] or not row['pdp10_reason'] or
+                not row['kcc_reason'] or not row['constraints_not_exercised']):
+            errors.append('batch11 incomplete individual oracle review: ' + path)
+        options = re.findall(r'\bdg-options\s+"([^"]+)"', source_text)
+        actions = re.findall(r'\bdg-do\s+([a-z]+)', source_text)
+        if (len(options) != 1 or row['dg_options'] != options[0] or
+                actions != ['compile'] or row['dg_target'] != 'compile'):
+            errors.append('batch11 original DejaGNU action/options mismatch: ' + path)
+        diagnostics = collections.Counter(re.findall(
+            r'\{\s*dg-(warning|error|bogus)\b', source_text))
+        for kind in ('warning', 'error', 'bogus'):
+            if row[kind + '_assertions'] != str(diagnostics[kind]):
+                errors.append('batch11 diagnostic count mismatch: ' + path + ' ' + kind)
+        included = bool(re.search(
+            r'^\s*#\s*include\s+"format\.h"', source_text, re.M))
+        if (row['quoted_format_header'] != ('yes' if included else 'no') or
+                (not included and path.rsplit('/', 1)[-1] not in
+                 ('attr-5.c', 'attr-6.c'))):
+            errors.append('batch11 format header ownership mismatch: ' + path)
+    if sum(int(row['warning_assertions']) for row in batch11) != 940:
+        errors.append('batch11 historical format-warning oracle census changed')
+    if (sum(int(row['error_assertions']) for row in batch11) != 33 or
+            sum(int(row['bogus_assertions']) for row in batch11) != 11):
+        errors.append('batch11 historical diagnostic error/absence census changed')
     deleted = removed_originals()
     rejected = {}
     for index, review in enumerate((batch, batch2, batch3,
                                     batch4, batch5, batch6, batch7, batch8,
-                                    batch9, batch10), 1):
+                                    batch9, batch10, batch11), 1):
         for row in review:
             decision = row['decision'] if index == 1 else row['disposition']
             if decision != 'inapplicable':
@@ -1060,6 +1134,12 @@ def verify_sources():
             (line for line in stream if line.strip() and not line.startswith('#')),
             delimiter='\t')}
     matrix = set(matrix_rows)
+    if any('/gcc-historical-b11-v1/' in owner for owner in matrix):
+        errors.append('batch11 deferred format sources must not have compiler matrix registrations')
+    for folder in ('tests/semantic/gcc-historical-b11-v1',
+                   'tests/codegen/gcc-historical-b11-v1'):
+        if (ROOT / folder).exists() and list((ROOT / folder).glob('*')):
+            errors.append('batch11 has unexpected active test source: ' + folder)
     for owner, row in batch2_owners.items():
         entry = matrix_rows.get(owner)
         if entry is None:
