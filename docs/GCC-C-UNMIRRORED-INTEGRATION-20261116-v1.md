@@ -14,8 +14,9 @@ byte-identical `tests/*.c` copy and inventoried 693 remaining sources:
 sources. The 679 original blobs were initially preserved byte-for-byte under
 `refs/gcc-c-unmirrored-v1/`, with their group/subdirectory names and
 SHA-256 hashes. The initial source payload was approximately 657 KB.
-On 2026-11-17, the 89 reviewed inapplicable originals were deleted;
-590 source snapshots remain byte-for-byte unchanged. All 679 source
+On 2026-11-17, the 89 inapplicable originals from batches 01-06 and
+five further originals from batch 10 were deleted; **585** source
+snapshots remain byte-for-byte unchanged. All 679 source
 identities and SHA-256 fingerprints remain in the provenance ledger.
 Whitespace and line endings of retained sources are not reformatted.
 
@@ -29,8 +30,8 @@ inventory, **not** a 679-test execution schedule.
 
 The existing `verify` group now owns
 `tools/inventory-gcc-unmirrored-v1.py`. The default action checks all
-**590 retained source hashes** against preflight, verifies the full
-679-row decision ledger, confirms absence of the 89 deleted originals,
+**585 retained source hashes** against preflight, verifies the full
+679-row decision ledger, confirms absence of the 94 deleted originals,
 and audits source-to-adaptation paths and active registrations. Explicit
 `--import-sources` restores **only eligible** snapshots from the historical
 GCC Git object database, deleting inapplicable snapshots if present;
@@ -74,14 +75,14 @@ negative diagnostic oracle. A same-named source is not automatically a
 duplicate, and a common 10-token `main` that returns zero is not evidence
 of shared compiler regression coverage.
 
-A refreshed static six-token structural comparison of the **590 retained**
+A refreshed static six-token structural comparison of the **585 retained**
 original sources against the testkit C sources is recorded in
 `docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv`. It is reproduced with
 `tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. The refreshed
-scan after batch 09 has **99 potential source-shape leads** (compared
-to 83 after batch 08, 78 after batch 07, 69 immediately after
-inapplicable-source deletion, and 21 at initial import). These are
-merely token-level hints:
+scan after batch 10 has **101 potential source-shape leads** (compared
+to 99 after batch 09, 83 after batch 08, 78 after batch 07, 69
+immediately after initial inapplicable-source deletion, and 21 at
+initial import). These are merely token-level hints:
 matching source shape does not prove an equivalent test oracle. The
 historically identified `gcc.dg/format/attr-2.c` versus
 `compile/20010701-1.c` is still not equivalent because its required
@@ -344,3 +345,47 @@ same-name reviews and 196 unreviewed. Static six-token comparison has
 No compiler, assembler, linker, emulator, simulator or runtime tests
 were run during batch09; only source, hash, matrix, ownership and
 repository-documentation checks were performed.
+
+## Batch 10 update and deletion manifest v2 (2026-11-17)
+
+The next 50 unresolved historical C sources span `gcc.dg/cpp`,
+`gcc.dg/debug`, `gcc.dg` diagnostics and explicitly foreign target
+DLL tests. Source and independent KCC compiler-scope decisions are
+pinned in `docs/GCC-C-BATCH10-20261117-v1.tsv`, explained in
+`docs/GCC-C-BATCH10-REVIEW-20261117-v1.md`.
+
+Three GNU CPP source-level oracles are registered GCC-only pending:
+`vararg1.c` (runtime argument counting/string newline), `vararg2.c`
+(C99/GNU variadic preprocessor guards), and `wchar-1.c` (compiler/
+CPP agreement on wide-character signedness). There are **12 new
+pending GCC** PDP-6 optimizer cells, no new KCC cells. Original
+`-std=gnu99` and `-w` options are not reproduced by the generic
+compiler matrix; the exact retained source-level checks, not full
+original option-mode conformance, are registered. All original C
+bytes, including one trailing whitespace line, remain unchanged.
+
+Forty-two sources remain deferred: traditional preprocessor and
+warning output, 9-bit/36-bit tokenization and Unicode diagnostics,
+plus debug-specific DWARF generation, link and annotated assembler
+scan requirements. A default successful compile cannot establish
+those original assertions, and the same-name central testkit sources
+are not equivalent by name alone.
+
+Five newly inapplicable originals have been deleted: the original
+32-bit i386 `tr-sign.c` and `gcc.dg/dll-1.c` through `dll-4.c`,
+which are explicitly ARM/Thumb Windows PE import/export tests. Their
+original fingerprints and precise PDP-10 incompatibility reasons were
+appended to the complete version-2 tombstone manifest
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv`, separately
+explained in the v2 removal review document. The first **89** deletion
+records remain byte-for-byte identical to the v1 manifest; all
+**94** inapplicable original snapshots remain absent. The retained
+archive now has **585 C originals**, while the preflight and ownership
+ledger still account for all **679 original source identities**.
+The 25 original include companions remain retained.
+
+The structural overlap report was regenerated against 585 retained
+sources, producing 101 token-level similarity leads, not assertions
+of equivalence. **155 unresolved source reviews remain** (150
+unreviewed and five same-name). No compiler, assembler, linker,
+emulator, simulator or runtime tests were executed.

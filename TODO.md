@@ -402,8 +402,8 @@ The next eight batches are documented in
   the feasibility preflight before proposing further imports or removals.
   Preserve the original assertion and derive native 36-bit/9-bit/non-IEEE
   expectations; do not mistake a successful compile for meaningful coverage.
-  Of the 679 original source blobs, **590 are retained and hash-pinned** in
-  `refs/gcc-c-unmirrored-v1/`; **89 reviewed inapplicable originals have been
+  Of the 679 original source blobs, **585 are retained and hash-pinned** in
+  `refs/gcc-c-unmirrored-v1/`; **94 reviewed inapplicable originals have been
   deleted**. All 679 remain indexed with per-file classification in
   `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. First manual crosswalk:
   six existing active adaptations, two deferred adaptations, one partial
@@ -424,7 +424,9 @@ The next eight batches are documented in
   Batch 08 reviewed another 50 CPP originals, with seven pending tests,
   43 deferred and none inapplicable. Batch 09 reviewed 50 more CPP
   originals: 19 registered, 31 deferred, none inapplicable.
-  **205 sources now remain** (nine same-name review, 196 unreviewed). Do not
+  Batch 10 reviewed 50 more CPP/debug/GCC diagnostic/PE originals:
+  three registered, 42 deferred, five inapplicable and deleted.
+  **155 sources now remain** (five same-name review, 150 unreviewed). Do not
   count preserved reference files as activated tests.
 - [x] Delete all 89 inapplicable original GCC source snapshots classified
   in batches 01-06 (23, 23, 21, 20, 1, 1). Keep only review metadata,
@@ -433,6 +435,13 @@ The next eight batches are documented in
   Re-imports must not restore deleted sources, and the static verifier
   rejects any reappearance. Preserve the 590 retained originals and all
   25 still-referenced local include companions. No active test removed.
+- [x] Remove five more inapplicable original GCC snapshots from batch10:
+  one i386 32-bit traditional CPP source and four ARM/Thumb PE DLL tests.
+  Preserve the unchanged original 89-row tombstone v1 manifest and
+  publish the complete **94-row** v2 tombstone manifest and review at
+  `docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv` and
+  `docs/GCC-C-INAPPLICABLE-REMOVALS-REVIEW-20261117-v2.md`.
+  Enforce removal on re-import; 585 C originals remain retained.
 - [x] Complete a 50-source GCC integration batch with one recorded
   compatibility and oracle decision per source, 17 versioned adapted
   regressions and 68 pending PDP-6 GCC matrix cells. See
@@ -504,6 +513,14 @@ The next eight batches are documented in
   tombstones remain enforced. See
   `docs/GCC-C-BATCH09-REVIEW-20261117-v1.md`, its decision TSV, and
   `docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv`.
+- [x] Review GCC integration batch 10: 50 CPP, debug-info, general
+  diagnostic and ARM/Thumb PE sources. Register three GCC-only pending
+  source oracles (two runtime, one preprocessor/compile), adding 12
+  GCC PDP-6 pending cells. Retain 42 deferred mode/diagnostic/debug
+  cases, including four previously same-name candidates whose central
+  oracles are unrelated. Delete five explicitly foreign-target
+  originals using version-2 tombstones. See
+  `docs/GCC-C-BATCH10-REVIEW-20261117-v1.md` and its TSV.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
   or `same-name-review` in the source-ownership ledger. Review **KCC

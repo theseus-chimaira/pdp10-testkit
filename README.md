@@ -45,10 +45,12 @@ cases are maintained in `refs/gcc-pdp10-target-v2/` and validated by
 `docs/GCC-DEJAGNU-REMOVAL-20261116-v2.md` for source provenance.
 
 Of the 679 historical non-target-specific GCC sources not byte-identical to
-existing tests, **590 source snapshots remain** in `refs/gcc-c-unmirrored-v1/`,
-pinned to GCC revision `b0f5374`. The other **89 reviewed inapplicable sources
-were deleted**. Their original hashes, rejection reasons, and source paths
-remain recorded in `docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv`.
+existing tests, **585 source snapshots remain** in `refs/gcc-c-unmirrored-v1/`,
+pinned to GCC revision `b0f5374`. The other **94 reviewed inapplicable sources
+were deleted** (89 from batches 01-06 and five from batch 10). Their original
+hashes, rejection reasons, and source paths remain recorded in
+`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv`, with the original
+89-row v1 manifest preserved for audit history.
 The per-source assertion/ownership inventory for all 679 original entries is
 `docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv`. Its registered static
 verifier is `tools/inventory-gcc-unmirrored-v1.py`; inventory re-imports
@@ -149,6 +151,18 @@ include-trace or preprocessing-only assertions; none was classified
 inapplicable. The 89 deleted original sources remain absent.
 **205 source reviews remain unresolved** (nine same-name and 196
 unreviewed). No compiler or emulator tests were executed.
+
+The tenth 50-source review spans GNU CPP, debug-info generation,
+ordinary GCC diagnostics, and ARM/Thumb PE targets, as detailed in
+`docs/GCC-C-BATCH10-REVIEW-20261117-v1.md` and its original SHA256
+decision TSV. Three GCC-only source tests are registered pending:
+two runtime and one compile/preprocessor, adding 12 GCC PDP-6 cells.
+Forty-two original sources remain deferred for required dialect,
+diagnostic, linker or DWARF-mode assertions. Five inapplicable i386
+or ARM/Thumb PE sources were deleted and appended to the new
+94-row tombstone v2 manifest. **155 original source reviews remain**
+(five same-name candidates, 150 unreviewed). No compiler or
+emulator tests were executed.
 
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 

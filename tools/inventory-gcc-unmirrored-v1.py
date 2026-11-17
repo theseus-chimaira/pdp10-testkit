@@ -35,7 +35,9 @@ BATCH08 = ROOT / 'docs/GCC-C-BATCH08-20261117-v1.tsv'
 BATCH08_COMPANIONS = ROOT / 'docs/GCC-C-BATCH08-COMPANIONS-20261117-v1.tsv'
 BATCH09 = ROOT / 'docs/GCC-C-BATCH09-20261117-v1.tsv'
 BATCH09_COMPANIONS = ROOT / 'docs/GCC-C-BATCH09-COMPANIONS-20261117-v1.tsv'
-REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
+BATCH10 = ROOT / 'docs/GCC-C-BATCH10-20261117-v1.tsv'
+REMOVALS_V1 = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
+REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv'
 KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
@@ -183,15 +185,23 @@ def batch09_decisions():
 
 
 @lru_cache(maxsize=1)
+def batch10_decisions():
+    """Tenth 50-source CPP, debugging and target-ABI compatibility review."""
+    return {r['original_source']: r for r in read_tsv(BATCH10)}
+
+
+@lru_cache(maxsize=1)
 def removed_originals():
-    """Tombstones for the 89 reviewed and deleted inapplicable originals.
+    """Versioned tombstones for 94 reviewed/deleted inapplicable originals.
 
     Keep their identities and fingerprints in the 679-source provenance
     ledger, but never restore or schedule their source snapshots.
     """
     rows = read_tsv(REMOVALS)
-    if len(rows) != 89 or len({r['original_source'] for r in rows}) != 89:
-        raise ValueError('expected 89 distinct inapplicable source tombstones')
+    previous = read_tsv(REMOVALS_V1)
+    if (len(previous) != 89 or rows[:89] != previous or
+            len(rows) != 94 or len({r['original_source'] for r in rows}) != 94):
+        raise ValueError('expected 94 distinct inapplicable tombstones, retaining all original 89 records')
     return {r['original_source']: r for r in rows}
 
 
@@ -388,6 +398,7 @@ def ownership(row, data):
     batch7 = batch07_decisions().get(original)
     batch8 = batch08_decisions().get(original)
     batch9 = batch09_decisions().get(original)
+    batch10 = batch10_decisions().get(original)
     if reviewed:
         status, matrix_owner, reason = reviewed
     elif batch:
@@ -435,6 +446,11 @@ def ownership(row, data):
                                else batch9['disposition'])
         matrix_owner = batch9['integrated_path']
         reason = batch9['pdp10_reason']
+    elif batch10:
+        status = 'batch10-' + ('pending' if batch10['disposition'] == 'integrate'
+                               else batch10['disposition'])
+        matrix_owner = batch10['integrated_path']
+        reason = batch10['pdp10_reason']
     else:
         status = ('same-name-review' if row['name_match'] != 'no-same-name'
                   else 'unreviewed')
@@ -950,11 +966,65 @@ def verify_sources():
                 row['source_sha256'] != digest(src.read_bytes()) or
                 row['integrated_sha256'] != digest(target.read_bytes())):
             errors.append('batch09 companion header hash/ownership mismatch: ' + original)
+    batch10 = read_tsv(BATCH10)
+    selected10 = [r['original_source'] for r in originals
+                  if (r['original_source'][len('gcc/testsuite/'):] not in REVIEWED
+                      and r['original_source'] not in batch_paths
+                      and r['original_source'] not in batch2_paths
+                      and r['original_source'] not in batch3_paths
+                      and r['original_source'] not in batch4_paths
+                      and r['original_source'] not in batch5_paths
+                      and r['original_source'] not in batch6_paths
+                      and r['original_source'] not in batch7_paths
+                      and r['original_source'] not in batch8_paths
+                      and r['original_source'] not in batch9_paths)][:50]
+    batch10_paths = [r['original_source'] for r in batch10]
+    if (len(batch10) != 50 or batch10_paths != selected10 or
+            len(set(batch10_paths)) != 50):
+        errors.append('batch10 must contain exactly the next 50 unresolved originals in order')
+    batch10_owners = {}
+    for row in batch10:
+        path = row['original_source']
+        decision = row['disposition']
+        scope = row['compiler_scope']
+        owner = row['integrated_path']
+        if row['source_sha256'] != source_hashes.get(path):
+            errors.append('batch10 original source hash mismatch: ' + path)
+        if (not row['original_oracle'] or not row['pdp10_reason'] or
+                not row['kcc_reason'] or not row['constraints_not_exercised'] or
+                decision not in ('integrate', 'defer', 'inapplicable')):
+            errors.append('batch10 incomplete source decision: ' + path)
+        if decision == 'integrate':
+            prefix = ('tests/semantic/gcc-historical-b10-v1/'
+                      if row['test_kind'] == 'run' else
+                      'tests/codegen/gcc-historical-b10-v1/')
+            if (scope != 'gcc-only' or row['test_kind'] not in ('compile', 'run') or
+                    not owner or not owner.startswith(prefix) or
+                    owner in batch10_owners or owner in batch9_owners or
+                    owner in batch8_owners or owner in batch7_owners or
+                    owner in batch6_owners or owner in batch5_owners or
+                    owner in batch4_owners or owner in batch3_owners or
+                    owner in batch2_owners):
+                errors.append('batch10 invalid active source owner: ' + path)
+            batch10_owners[owner] = row
+            src = ROOT / owner
+            expected = snapshot_path(path).read_bytes()
+            if (not src.is_file() or src.read_bytes() != expected or
+                    digest(src.read_bytes()) != row['integrated_sha256']):
+                errors.append('batch10 original/active source mismatch: ' + path)
+        elif (scope != 'none' or row['test_kind'] or owner or
+              row['integrated_sha256'] or row['gcc_profiles'] or
+              row['kcc_profiles']):
+            errors.append('batch10 deferred/inapplicable original has active owner: ' + path)
+    if len(batch10_owners) != 3:
+        errors.append('batch10 source review has incorrect active owner count')
+    if sum(r['disposition'] == 'inapplicable' for r in batch10) != 5:
+        errors.append('batch10 must record exactly five newly inapplicable originals')
     deleted = removed_originals()
     rejected = {}
     for index, review in enumerate((batch, batch2, batch3,
                                     batch4, batch5, batch6, batch7, batch8,
-                                    batch9), 1):
+                                    batch9, batch10), 1):
         for row in review:
             decision = row['decision'] if index == 1 else row['disposition']
             if decision != 'inapplicable':
@@ -1286,6 +1356,36 @@ def verify_sources():
                       if p.is_file() and p.suffix not in ('.c',)}
     if actual_header9 != {r['integrated_path'] for r in header9}:
         errors.append('batch09 unexpected or missing CPP include companions')
+    for owner, row in batch10_owners.items():
+        entry = matrix_rows.get(owner)
+        if entry is None:
+            errors.append('batch10 test not registered: ' + owner)
+            continue
+        expected_group = ('semantic-gcc-historical-b10' if row['test_kind'] == 'run'
+                          else 'codegen-gcc-historical-b10')
+        if entry['group'] != expected_group:
+            errors.append('batch10 incorrect matrix group: ' + owner)
+        valid_gcc = {'pdp6_gcc_o0', 'pdp6_gcc_o1',
+                     'pdp6_gcc_o2', 'pdp6_gcc_os'}
+        cells = row['gcc_profiles'].split(';') if row['gcc_profiles'] else []
+        if (set(cells) != valid_gcc or len(cells) != 4 or
+                row['kcc_profiles'] or row['compiler_scope'] != 'gcc-only'):
+            errors.append('batch10 incorrect GCC/KCC profile scope: ' + owner)
+        for col, value in entry.items():
+            if col in ('test', 'group', 'name'):
+                continue
+            if (col in valid_gcc and value != 'pending') or (
+                    col not in valid_gcc and value != 'no_test'):
+                errors.append('batch10 unexpected compiler cell: %s %s' % (owner, col))
+    for folder in ('tests/semantic/gcc-historical-b10-v1',
+                   'tests/codegen/gcc-historical-b10-v1'):
+        for src in (ROOT / folder).glob('*.c'):
+            name = src.relative_to(ROOT).as_posix()
+            if name not in batch10_owners:
+                errors.append('unowned batch10 C source: ' + name)
+    if (len(list((ROOT / 'tests/semantic/gcc-historical-b10-v1').glob('*'))) != 2 or
+            len(list((ROOT / 'tests/codegen/gcc-historical-b10-v1').glob('*'))) != 1):
+        errors.append('batch10 unexpected or missing test-local sources')
     kcc_review = read_tsv(KCC_SHARING)
     kcc_by_owner = {r['integrated_path']: r for r in kcc_review}
     expected_kcc_owners = {
@@ -1333,7 +1433,7 @@ def verify_sources():
                 'registered-pending', 'batch01-pending',
                 'batch02-pending', 'batch03-pending', 'batch04-pending',
                 'batch05-pending', 'batch06-pending', 'batch07-pending',
-                'batch08-pending', 'batch09-pending')
+                'batch08-pending', 'batch09-pending', 'batch10-pending')
             if (target in matrix) != active:
                 errors.append('adapted registration status disagrees: ' + target)
             if recorded['review_status'] in ('registered-pending', 'batch01-pending'):
