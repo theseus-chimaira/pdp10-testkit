@@ -184,7 +184,10 @@ compiler check, not a full compiler/CPU/optimization sweep.
 - [ ] Verify deferred blockers with current target headers, libc, varargs,
   and supported GCC-only execution. Progress class by class; do not assign
   compiler defects to missing runtime prerequisites. Use the versioned
-  disposition manifest for each follow-up.
+  disposition manifest for each follow-up. A first 10-source, 20-cell
+  sample and immutable 269-row prerequisite grouping are recorded in
+  `docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261117-v1.md` and
+  `docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261117-v1.tsv`.
 - [x] Complete KCC P0 `vrwiden` ICE for the original upstream
   `tests/semantic/upstream/wide-int/930622-2.c` without altering its source
   or accepting any other processor's unverified floating-point behavior.
@@ -733,7 +736,18 @@ The next eight batches are documented in
 
 - [ ] Execute representative tests from every special suite, including the
   newly added `kcc-host` scripts, with their actual KCC, make/bmake, DAS and
-  installed-toolchain prerequisites; record actionable failures.
+  installed-toolchain prerequisites; record actionable failures. Focused
+  DAS fast (10/10), KCC-host, compatibility and validation pilots ran.
+  Missing GNU/BSD make setup and obsolete monolithic `KCC_RT` paths in
+  remaining compatibility scripts are real prerequisite blockers.
+  The tested mixed varargs script no longer requires unused `KCC_RT`.
+  See `docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261117-v1.md`.
+- [x] Verify operational installed freestanding KCC/GCC header compilation,
+  production DARC archive extraction, GCC libgcc dependency and genuine
+  PDP-6 libc calls in a registered targeted test. Both compilers pass;
+  no unrelated archive members are pulled into the image. This does not
+  imply hosted libc or full compiler/CPU matrix coverage. See
+  `misc/compat/test-installed-freestanding-archive-v1.sh`.
 - [ ] Sweep the 37 negative tests across supported KCC/GCC CPU and
   optimization combinations; compare to the PDP-6 KCC pilot, and resolve
   compiler ICEs separately. KCC has executed **814/814 passing cells**:

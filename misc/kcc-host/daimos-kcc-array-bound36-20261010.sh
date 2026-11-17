@@ -5,9 +5,12 @@ set -eu
 w=$(mktemp -d "$TMPDIR/daimos-kcc-array-bound36-20261010.XXXXXX")
 trap 'rm -rf "$w"' EXIT HUP INT TERM
 cd "$w"
-"${PDP10_KCC:-/usr/local/bin/kcc}" -S -P=stdc+kcc \
-    -DHOST_DAIMOS=1 -DHOST_UNIX=0 -I"$KCC_REPO/self/include/" -H"$KCC_REPO/self/include/" \
-    -x=pdp6 -m=gas "$KCC_REPO/ccdecl.c" > "$w/compiler.log" 2>&1
+"${PDP10_KCC:-${KCC:-/usr/local/bin/kcc}}" -S -P=stdc+kcc \
+    -DHOST_DAIMOS=1 -DHOST_UNIX=0 \
+    -I"$KCC_REPO/" -H"$KCC_REPO/" \
+    -I"$KCC_REPO/self/include/" -H"$KCC_REPO/self/include/" \
+    -x=pdp6 -m=gas -o "$w/ccdecl.s" \
+    "$KCC_REPO/ccdecl.c" > "$w/compiler.log" 2>&1
 # The unsized-array bound is a target INT, never the host unsigned width.
 grep -Fq 'move' "$w/ccdecl.s"
 grep -Fq '[0377777777777]' "$w/ccdecl.s"

@@ -75,9 +75,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Verified integration state (2026-11-17)
 
 - Compiler matrix: **2,108 sources** with no unowned test sources.
-- Special registry: **280 entries**, including **230 enabled direct**,
+- Special registry: **281 entries**, including **231 enabled direct**,
   **44 manual** and **6 nested** registrations.
-- Script ownership: **421** registered/delegated Python or shell scripts.
+- Script ownership: **422** registered/delegated Python or shell scripts.
 - Registered host verification: **20/20 passed** after the documentation
   path audit (no full compiler or OS sweep).
 - Cross-repository migration: **127** former DAIMOS compiler/assembler
@@ -91,6 +91,14 @@ No full GCC/KCC or DAIMOS suite was run as part of the ownership split.
 The previously observed compiler failures remain recorded, without
 weakening their original assertions, in
 `docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md` and its failure TSV.
+
+Subsequent focused prerequisite validation (no full matrix sweep) is in
+`docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261117-v1.md`, including
+DAS fast **10/10**, a new installed KCC/GCC freestanding archive and
+PDP-6 execution test, targeted KCC-host/compatibility fixes, and
+20 pilot cells from the 269-source deferred inventory. The
+SHA256-pinned outcomes and remaining gates are in
+`docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261117-v1.tsv`.
 
 ## Detailed documentation
 

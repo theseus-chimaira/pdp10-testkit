@@ -17,6 +17,7 @@ freestanding-search-benchmark-v1	validation	python3	tools/benchmark-freestanding
 gcc-addressof-pdp6-ice-v1	validation	sh	misc/validation/test-gcc-addressof-pdp6-ice-v1.sh	pdp6	yes	120
 gcc-9bit-data-section-v1	validation	sh	misc/validation/test-gcc-9bit-data-section-v1.sh	pdp6	yes	120
 freestanding-search-v1	compat	sh	misc/compat/test-freestanding-search-v1.sh	pdp6	yes	120
+installed-freestanding-archive-v1	compat	sh	misc/compat/test-installed-freestanding-archive-v1.sh	pdp6	yes	120
 aap-timing-trace-parser-v1	compat	python3	misc/compat/test-aap-timing-trace-v1.py	host	yes	60
 pdp6-opcode-report-v1	compat	python3	misc/compat/test-pdp6-opcode-report-v1.py	host	yes	60
 pdp6-profile-comparison-v1	compat	python3	misc/compat/test-pdp6-profile-comparison-v1.py	host	yes	60
