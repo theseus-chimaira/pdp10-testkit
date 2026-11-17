@@ -78,8 +78,9 @@ A refreshed static six-token structural comparison of the **590 retained**
 original sources against the testkit C sources is recorded in
 `docs/GCC-C-STRUCTURAL-OVERLAPS-20261116-v1.tsv`. It is reproduced with
 `tools/inventory-gcc-unmirrored-v1.py --report-overlaps`. The refreshed
-scan has **69 potential source-shape leads** (compared to 21 at initial
-import, before later registrations). These are merely token-level hints:
+scan after batch 07 has **78 potential source-shape leads** (compared to
+69 immediately after inapplicable-source deletion and 21 at the initial
+import). These are merely token-level hints:
 matching source shape does not prove an equivalent test oracle. The
 historically identified `gcc.dg/format/attr-2.c` versus
 `compile/20010701-1.c` is still not equivalent because its required
@@ -262,3 +263,26 @@ structural overlap index was refreshed for 590 retained originals.
 The 25 preserved local include companions, all active/adapted tests,
 all deferred tests, and the 355 unresolved originals were left intact.
 No compiler, assembler or emulator tests were executed.
+
+## Batch 07 update (2026-11-17)
+
+The next 50 original `gcc.dg/cpp` sources were reviewed for their
+preprocessor, compiler and diagnostic assertions, and separately
+for KCC/PDP-10 applicability. Eleven sources gained pending native
+test owners, of which eight can also be exercised with KCC and three
+are GCC-only. The tests include `__LINE__` source-location behavior,
+macro invocation and paste handling, unary preprocessor arithmetic,
+recursive includes (with two SHA256-pinned original headers), GNU
+varargs and predicate assertions, and runtime `@` stringization.
+The exact 50-row review is in `docs/GCC-C-BATCH07-20261117-v1.tsv`,
+explained in `docs/GCC-C-BATCH07-REVIEW-20261117-v1.md`; the two
+headers are pinned in `docs/GCC-C-BATCH07-COMPANIONS-20261117-v1.tsv`.
+This adds **44 pending GCC** and **16 pending KCC** PDP-6 matrix cells.
+
+Thirty-nine originals remain deferred because they require positive
+or negative diagnostics, preprocessing output comparison, unsupported
+language-mode flags, or distinct preprocessing-only contracts. No
+new originals were classified inapplicable, so all 89 previous source
+deletions remain enforced. **305 unresolved sources remain**
+(nine same-name candidates and 296 unreviewed). All verification was
+static; no compiler, assembler, simulator or runtime tests were run.

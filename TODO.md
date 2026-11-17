@@ -419,8 +419,9 @@ The next eight batches are documented in
   25 deferred and 20 inapplicable. Batch 05 reviewed another 50:
   four registered, 45 deferred and one inapplicable.
   Batch 06 reviewed another 50: 12 registered, 37 deferred and
-  one x86 ISA-specific inapplicable case. **355 sources now remain**
-  (12 same-name review, 343 unreviewed). Do not
+  one x86 ISA-specific inapplicable case. Batch 07 reviewed the next
+  50 CPP originals: 11 registered, 39 deferred, none inapplicable.
+  **305 sources now remain** (nine same-name review, 296 unreviewed). Do not
   count preserved reference files as activated tests.
 - [x] Delete all 89 inapplicable original GCC source snapshots classified
   in batches 01-06 (23, 23, 21, 20, 1, 1). Keep only review metadata,
@@ -470,6 +471,15 @@ The next eight batches are documented in
   classify one x86 assembler source inapplicable, and add 48 GCC plus
   18 KCC pending PDP-6 matrix cells. See
   `docs/GCC-C-BATCH06-REVIEW-20261117-v1.md` and its TSV.
+- [x] Review GCC integration batch 07: 50 CPP originals, 11 new pending
+  owners (ten compile-only, one runtime), eight GCC/KCC-shared cases
+  and three GCC-only GNU extensions. Copy and hash two original
+  recursively included headers; preserve source-line dependent
+  assertions. Add 44 GCC and 16 KCC pending PDP-6 cells, defer 39
+  diagnostics, dialect and output-text oracles. No new inapplicable
+  tests (the previous 89 deletion tombstones remain enforced). See
+  `docs/GCC-C-BATCH07-REVIEW-20261117-v1.md`, its TSV, and the
+  batch07 companion-header TSV.
 - [ ] Continue source-level GCC compatibility integration in 50-source
   batches, starting with the next 50 entries still marked `unreviewed`
   or `same-name-review` in the source-ownership ledger. Review **KCC

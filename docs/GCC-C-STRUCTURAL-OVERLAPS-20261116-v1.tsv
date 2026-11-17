@@ -236,19 +236,19 @@ gcc/testsuite/gcc.dg/cpp/19951227-1.c	2		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/19960224-1.c	7		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/19990119-1.c	16		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/19990228-1.c	18		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/19990407-1.c	55		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/19990407-1.c	55	tests/semantic/gcc-historical-b07-v1/19990407-1.c	46	0.836	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/19990409-1.c	12		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/19990413-1.c	16		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/20000127-1.c	10		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/20000129-1.c	8		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/20000207-1.c	26		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/20000207-2.c	26		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/20000207-1.c	26	tests/codegen/gcc-historical-b07-v1/20000207-1.c	26	1.000	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/20000207-2.c	26	tests/codegen/gcc-historical-b07-v1/20000207-2.c	26	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/20000209-1.c	39		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/20000209-2.c	50		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/20000209-2.c	50	tests/codegen/gcc-historical-b07-v1/20000209-2.c	49	0.980	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/20000301-1.c	0		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/20000419-1.c	62		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/20000519-1.c	45		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/20000529-1.c	61		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/20000529-1.c	61	tests/codegen/gcc-historical-b07-v1/20000529-1.c	61	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/20000625-1.c	26		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/20000625-2.c	126		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/20000627-1.c	15		0	0.000	no-strong-source-shape-lead
@@ -257,12 +257,12 @@ gcc/testsuite/gcc.dg/cpp/20000725-1.c	11		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/Wtrigraphs.c	7		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/_Pragma1.c	61		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/_Pragma2.c	13		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/assert1.c	134		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/assert1.c	134	tests/codegen/gcc-historical-b07-v1/assert1.c	134	1.000	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/assert2.c	39		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/assert3.c	31		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/assert_trad1.c	129		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/assert3.c	31	tests/codegen/gcc-historical-b07-v1/assert1.c	16	0.516	potential-source-shape-overlap
+gcc/testsuite/gcc.dg/cpp/assert_trad1.c	129	tests/codegen/gcc-historical-b07-v1/assert1.c	124	0.961	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/assert_trad2.c	39		0	0.000	no-strong-source-shape-lead
-gcc/testsuite/gcc.dg/cpp/assert_trad3.c	31		0	0.000	no-strong-source-shape-lead
+gcc/testsuite/gcc.dg/cpp/assert_trad3.c	31	tests/codegen/gcc-historical-b07-v1/assert1.c	16	0.516	potential-source-shape-overlap
 gcc/testsuite/gcc.dg/cpp/avoidpaste1.c	43		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/avoidpaste2.c	49		0	0.000	no-strong-source-shape-lead
 gcc/testsuite/gcc.dg/cpp/backslash.c	46		0	0.000	no-strong-source-shape-lead

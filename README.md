@@ -116,6 +116,17 @@ inline-assembly test is inapplicable. **355 original sources now remain
 unresolved** (12 same-name and 343 unreviewed). Neither compilation
 nor emulator tests were run.
 
+The seventh 50-source review is documented in
+`docs/GCC-C-BATCH07-REVIEW-20261117-v1.md`, its individual 50-source
+TSV and a two-header companion hash ledger. Eleven preprocessor-focused
+tests are registered pending (ten compile-only and one runtime), eight
+shared with KCC and three GCC-only. This adds 44 pending GCC and 16
+pending KCC PDP-6 cells; 39 tests were deferred because they require
+explicit diagnostics, preprocessing-only flags or output-text checks.
+No new tests were classified inapplicable, so the prior 89 deletions
+remain unchanged. **305 original source reviews remain unresolved**
+(nine same-name candidates and 296 unreviewed). No tests were executed.
+
 DAIMOS C language and ABI measurements are maintained in the `TOOLCHAIN/DAIMOS-*.MD` documentation under the separate `pdp10-doc` repository. The KCC KL10 EXTEND decision is recorded in `TOOLCHAIN/KCC-EXTEND-DECISION.MD` there. This testkit keeps executable tests and test-specific operating policies.
 
 Active matrix-registered compiler sources are organized under `tests/semantic/`,
