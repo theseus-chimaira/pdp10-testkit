@@ -53,7 +53,8 @@ P10_TIMEOUT = os.environ.get('P10_SWEEP_TIMEOUT', str(max(1, CELL_TIMEOUT - 2)))
 # COMPILER_MATRIX.tsv is the compiler cell matrix.  Everything under workdir is a
 # restart checkpoint or a report for the currently selected cells.
 PASS_STATUSES = set(['pass', 'compile_only', 'ok'])
-FAIL_STATUSES = set(['compiler_ice', 'unexpected_compile_success', 'compile_fail', 'run_fail', 'timeout', 'policy_fail', 'setup_fail'])
+FAIL_STATUSES = set(['compiler_ice', 'unexpected_compile_success', 'compile_fail',
+                    'link_fail', 'run_fail', 'timeout', 'policy_fail', 'setup_fail'])
 SEMANTIC_MATRIX_STATUSES = set(['semantic', 'run', 'runtime', 'ok', 'pending', 'fail', 'timeout', 'error'])
 NEGATIVE_MATRIX_STATUSES = set(['negative', 'ok', 'pending', 'fail', 'timeout', 'error'])
 CODEGEN_MATRIX_STATUSES = set(['codegen', 'ok', 'pending', 'fail', 'timeout', 'error'])
@@ -946,6 +947,22 @@ def compile_failure_status(result):
     return 'compile_fail'
 
 
+def p10run_failure_status(returncode, output):
+    """Distinguish an unresolved/failed target link from a guest failure.
+
+    A p10run return code alone cannot differentiate a target linker error
+    from an assertion failed by a running PDP-10 program.  Keep the actual
+    linker failure observable instead of reporting a nonexistent runtime.
+    """
+    if returncode == 0:
+        return 'pass'
+    if returncode == 124:
+        return 'timeout'
+    if 'p10run: link failed' in output:
+        return 'link_fail'
+    return 'run_fail'
+
+
 def write_cell_result(outroot, line):
     write_status_file(outroot, line)
 
@@ -1112,7 +1129,7 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                 rc = run_cmd(cmd, ROOT, log_path, timeout=CELL_TIMEOUT,
                              done_report_path=report_path)
                 report = str(report_path if report_path.is_file() else log_path)
-                status = 'pass' if rc == 0 else ('timeout' if rc == 124 else 'run_fail')
+                status = p10run_failure_status(rc, read_text(log_path))
                 if status == 'pass' and perf_profile:
                     # Profiling is post-correctness; reject missing/incomplete
                     # counters instead of silently reporting zero instructions.

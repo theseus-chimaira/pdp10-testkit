@@ -148,6 +148,12 @@ with `--skip-failures`. Every nonpassing selected cell appears in
 `failures.tsv` and the final failure count. Worker exceptions in
 sequential and parallel execution persist a `setup_fail` checkpoint
 and an explanatory `WORKER_EXCEPTION` log.
+Semantic cell failures now distinguish `link_fail` (p10run reports
+`p10run: link failed`) from `run_fail` (actual guest assertion or
+termination failure). Both remain failures and are retried normally.
+An isolated KCC PDP-6 test exposed this issue, and the existing
+runner-accounting host verifier now checks both classifications.
+See `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`.
 
 ## Why not replay `cell.log`?
 

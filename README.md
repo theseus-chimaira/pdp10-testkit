@@ -250,11 +250,29 @@ Upstream GCC execution tests are now individually classified beneath
 recorded in `docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv`.
 They are not automatically active compiler-matrix entries.
 
-The deferred upstream inventory includes identical retained sources with
-distinct original paths and sometimes different compiler evidence. The
-static source-ownership gate `tools/audit-test-inventory-v1.py` checks the
-50 source pairs pinned in
-`docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv`, including two copies
-that match already active tests. See
-`docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.md`. This tracks pending
-ownership review; it does not execute the tests or establish pass status.
+The deferred upstream inventory includes 50 pairs of identical retained
+sources with distinct original paths and sometimes different compiler
+evidence. All 50 now have a reviewed canonical owner and individual
+source assertion in `docs/DEFERRED-SOURCE-DUPLICATES-20261117-v2.tsv`,
+with the original hash-pinned v1 inventory unchanged. Of these, 48
+pairs remain deferred and two have active KCC-compatible owners that
+**also reproduce real GCC PDP-6 `-O0`/`-O2` runtime failures**. No
+compiler result was hidden or test source weakened. The strict inventory
+audit checks all decisions and six preserved conflicting blocker pairs.
+See `docs/DEFERRED-SOURCE-DUPLICATES-REVIEW-20261117-v2.md`.
+
+All 19 original PDP-10-specific GCC C/shell artifacts now have explicit
+assertion-level ownership in
+`docs/GCC-PDP10-TARGET-OWNERSHIP-20261117-v2.tsv`: 12 codegen tests,
+four preserved shell oracles, two unscheduled C companions and one ITS
+CIRC exclusion. The 12 installed GCC codegen oracles and all four shell
+contracts passed. A missing default simulator path in the BADL harness
+was corrected; the canonical test now passes on PDP-6 and KA10.
+
+The special-suite dispatcher has a registered host test verifying
+**232 distinct enabled direct registrations**, nested/manual exclusion,
+and 11 suite entrypoints. The registered GCC negative-test sweep passed
+**296/296 cells** across PDP-6/KA10/KI10/KS10 at `-O0` and `-O2`.
+Focused semantic and ISA preflight results, compiler failures left
+unmodified, and the strictly harness-only link-failure status fix are
+documented in `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`.

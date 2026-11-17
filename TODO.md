@@ -158,15 +158,17 @@ compiler check, not a full compiler/CPU/optimization sweep.
   `docs/SEMANTIC-DEFERRED-DISPOSITION-20261019-v1.tsv` and the fail-closed
   verifier; this is classification for subsequent work, **not** activation,
   independent target validation, or successful compiler execution.
-- [ ] Review the 48 pairs of identical deferred test content, including
-  the two deferred sources identical to already active copies; consolidate
-  test ownership only when the target profiles and intended assertions agree.
-  Static source fingerprinting now records **48 deferred/deferred pairs and
-  two additional deferred/active pairs** in
-  `docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv` (50 in total).
-  Six deferred pairs disagree on disposition; the two active
-  `strct-pack-1.c`/`strct-pack-3.c` copies retain unresolved GCC failure
-  evidence despite earlier KCC passes. This is pending manual review.
+- [x] Review all 50 byte-identical deferred/source pairs and assign one
+  canonical owner per identical source/assertion, preserving separate
+  compiler/profile blockers and nonowner source snapshots. All 48
+  deferred/deferred pairs remain deferred; both active/deferred pairs
+  retain their existing matrix registrations and independently observed
+  GCC PDP-6 runtime failures at `-O0`/`-O2` despite KCC passes.
+  Six distinct disposition conflicts retain both original blockers.
+  Exact source assertions, profiles, hash pins, owner decisions and
+  prerequisite gates are in
+  `docs/DEFERRED-SOURCE-DUPLICATES-20261117-v2.tsv` and the v2 review.
+  No duplicate was removed, no deferred oracle was spuriously enabled.
 - [x] Integrate a fail-closed static duplicate-source inventory into the
   existing registered `test-inventory-v1` verifier; reject new, stale or
   changed deferred/active source-collision evidence without executing tests.
@@ -387,9 +389,14 @@ The next eight batches are documented in
   tree and register twelve independent compiler/codegen oracles in the
   DejaGNU-free `misc/validation/test-gcc-target-codegen-v2.py` runner.
   See `docs/GCC-DEJAGNU-REMOVAL-20261116-v2.md`.
-- [ ] Rework and verify four historical GCC target shell probes before
-  activating them in `SPECIAL_TESTS.tsv`. The two companion C sources
-  are not standalone semantic tests.
+- [x] Verify the four original GCC target shell assertions under their
+  canonical enabled owners. The three source wrappers execute the
+  original preserved shell probes, all PASS. The fourth, bare GCC BADL
+  linking, is covered by the stronger already registered `badl-tables`
+  test: direct GCC link and PDP-6/KA10 guest execution PASS. Fix only
+  the harness's missing installed SIMH default path selection; preserve
+  explicit simulator overrides. The two companion C files are not
+  standalone semantic tests. See the GCC target ownership v2 review.
 
 - [x] Review original GCC PDP-10 target C regression feasibility and drop the
   ITS-only CIRC case rather than inventing a false generic PDP-10 adaptation.
@@ -571,9 +578,14 @@ The next eight batches are documented in
   GCC PDP-10, DAS, independent PDP10-TOOLS, and DAIMOS host tools. See
   `tools/census-cross-repo-v1.py` and the versioned 2026-11-16 report/TSV.
   This audits sources and references, not executed test results.
-- [ ] Compare the 19 original GCC PDP-10 target-specific tests with the
-  assertions of the centrally registered tests; classify equivalent,
-  inapplicable, and missing coverage without assuming filename equivalence.
+- [x] Compare all 19 historical GCC PDP-10 target-specific artifacts to
+  their exact registered owners and real assertions: 12 codegen cases,
+  four original shell contracts, two unscheduled C companions and one
+  deliberately excluded ITS CIRC case. Audit original source hashes,
+  GCC `dg-options`, positive/forbidden assembler assertions and wrapper
+  delegation. Installed GCC 3.2 passes all 12 original codegen oracles;
+  all four shell contracts PASS under their canonical owners. See
+  `docs/GCC-PDP10-TARGET-OWNERSHIP-20261117-v2.tsv` and its review.
 - [x] Review the six scripts formerly lacking discovered static callers.
   Four deterministic host checks are now enabled in the special registry;
   the speculative AAP JRST/ILLOP probe stays unregistered, and the obsolete
@@ -624,31 +636,29 @@ The next eight batches are documented in
   single-evaluation pointer lvalues, unsigned and float cases. Repair
   stale `terminal-return-chain` register-shape expectation and add a
   PDP-6 executed semantic assertion.
-- [ ] Audit the specialized suite registry for other hardcoded dispatch and
-  misleading/informational entries; verify each enabled registration really
-  executes in its advertised suite, and decide whether `kcc-all` should
-  include host regressions as well as `kcc-regression`. The expected-failure
-  KCC `language-modes`, parser-diagnostics and language-attribute checks
-  now require genuine source-rejection diagnostics, not merely a nonzero
-  compiler exit; see `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
+- [x] Verify all PDP10 testkit special-suite registrations against the
+  actual dispatcher routes with a registered fail-closed host test:
+  **232 enabled direct registrations** across verified ordered groups,
+  11 suite entrypoints; nested DAS and manual entries not double-run.
+  Keep `kcc-all` as both `kcc-regression` and `kcc-host`, with KCC host
+  prerequisites validated separately when actually executing the suite.
+  GCC target 19-artifact and 50-pair review is separately static-audited.
+  The script-ownership inventory has no disconnected scripts. See
+  `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`. This is dispatch
+  validation, not execution of all special-test dependencies.
 - [ ] Audit all registered tests for exactly-once ownership, duplicate source
   or redundant coverage, obsolete scripts, missing prerequisites, and correct
-  statuses. Preserve intentional CPU/ISA-specific test variation. The
-  static script inventory now assigns explicit owners to all 366 committed
-  shell/Python scripts in `pdp10-testkit`, including the newly connected
-  three UTF-9 tool tests and five original PDP-6 KCC standalone runners.
-  **No execution tests were run for this integration stage.** The static
-  owner ledger now includes historical `refs/` test scripts. Twelve
-  original GCC PDP-10 C checks were already registered; three preserved
-  GCC shell oracles now have distinct validation registrations, a fourth
-  is covered by the stronger BADL test, and a legacy assembler smoke is
-  replaced by the current DAS DXR/include oracle. The original generic
-  GCC testsuite is recoverable from Git revision `b0f5374`, not lost.
-  Next audit source-level and dynamic ownership in `daimos-testkit`
-  (1,680 scripts, 969 without discovered static callers), and review
-  deferred C/assembler sources before sweeps. See
-  `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md` and
-  `docs/GCC-TARGET-SHELL-OWNERSHIP-20261116-v3.md`.
+  statuses **across the separate DAIMOS testkit as well**. In this
+  `pdp10-testkit` repository, the 2,105-source matrix, 246 special
+  registrations, 379 script paths, 50 identical source pairs and 19
+  original GCC target-specific artifacts now have strict ownership
+  checks with no unowned test sources or dispatched duplicates.
+  **Remaining work is cross-repository ownership in `daimos-testkit`**
+  (historically 1,680 scripts, 969 without static callers), and
+  eventual runtime validation of its dynamically invoked scripts.
+  Preserve ISA-specific test variation. See
+  `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md` and
+  `docs/TEST-SCRIPT-OWNERSHIP-INTEGRATION-20261116-v4.md`.
 - [x] Audit and fix `run-tests.sh` / `tools/run-tests.py` negative-source
   rejection, restart checkpoints, sequential/parallel worker accounting,
   failure listing and summary status handling. Keep one compiler matrix
@@ -680,12 +690,15 @@ The next eight batches are documented in
   installed-toolchain prerequisites; record actionable failures.
 - [ ] Sweep the 37 negative tests across supported KCC/GCC CPU and
   optimization combinations; compare to the PDP-6 KCC pilot, and resolve
-  compiler ICEs first. KCC has now executed **814/814 passing cells**:
+  compiler ICEs separately. KCC has executed **814/814 passing cells**:
   296 base-family and 518 native/PDP-10-family cells across all 22 KCC
-  profiles. A later GCC sweep was also run prematurely; neither sweep
-  establishes test ownership or missing-source integration. Freeze further
-  broad execution until disconnected tests are connected and the inventory
-  is complete. See `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md`.
+  profiles. The post-ownership GCC sweep now passes **296/296 cells**
+  (37 source oracles x PDP-6/KA10/KI10/KS10 x `-O0`/`-O2`).
+  Remaining GCC optimization and family combinations have not been run.
+  The source/dispatcher preflight blockers are now closed in this testkit;
+  do not interpret partial execution as full matrix coverage. See
+  `docs/KCC-NEGATIVE-REJECTION-AUDIT-20261116-v1.md` and
+  `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`.
 - [ ] Complete codegen compilation sweeps for the 706 consolidated upstream
   GCC tests and the other codegen groups. Previously only focused KCC PDP-6
   samples were run; in particular, GCC and cross-CPU/optimization coverage
@@ -701,9 +714,16 @@ The next eight batches are documented in
 - [ ] Review differential KCC/GCC ABI coverage, including the documented
   non-symmetric GCC-to-KCC wide-varargs direction; only add the reciprocal
   case if it provides a meaningful additional assertion.
-- [ ] Verify failure classifications (compiler ICE versus ordinary rejection,
+- [x] Verify failure classifications (compiler ICE versus ordinary rejection,
   unsupported profile versus real failure, link failure versus test failure)
-  and ensure test outcome summaries are reproducible.
+  and reproducible selected-cell summaries in the testkit runner.
+  A preflight exposed a genuine harness classification defect:
+  `p10run: link failed` was called `run_fail`. It now records
+  `link_fail`, a real failing/restartable checkpoint, while guest
+  aborts remain `run_fail`. Host synthetic tests and the real KCC
+  `20011115-1.c` unresolved-symbol case prove the distinction.
+  No compiler behavior was modified; deeper compiler/guest failures
+  remain separately actionable. See the preflight v1 report.
 
 ## P1 — PDP-6 AAP logical-tick optimization coverage (next chat)
 

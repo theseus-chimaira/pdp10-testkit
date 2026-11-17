@@ -16,6 +16,11 @@ trap 'rm -rf "$TMP"' EXIT HUP INT TERM
 
 [ -x "$GCC" ] || { echo "compiler not found: $GCC" >&2; exit 1; }
 [ -x "$P10RUN" ] || { echo "p10run not found: $P10RUN" >&2; exit 1; }
+# The ordinary run-misc-tests.sh dispatcher exports PDP10_PREFIX, not
+# individual SIMH paths.  Use the same installed default executables as
+# p10run, while allowing explicit simulator paths for candidate testing.
+SIMH_PDP6=${SIMH_PDP6:-$PDP10_PREFIX/bin/pdp6}
+SIMH_KA=${SIMH_KA:-$PDP10_PREFIX/bin/pdp10-ka}
 [ -x "$SIMH_PDP6" ] || { echo "PDP-6 emulator not executable: $SIMH_PDP6" >&2; exit 1; }
 [ -x "$SIMH_KA" ] || { echo "KA10 emulator not executable: $SIMH_KA" >&2; exit 1; }
 

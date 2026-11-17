@@ -7,10 +7,12 @@ checked without modifying any test or running a compiler.
 """
 
 import argparse
+import ast
 import collections
 import csv
 import hashlib
 from pathlib import Path
+import re
 import sys
 
 
@@ -23,6 +25,12 @@ DEFERRED_DISPOSITIONS = (ROOT / "docs" /
                          "SEMANTIC-DEFERRED-DISPOSITION-20261019-v1.tsv")
 DUPLICATE_OWNERSHIP = (ROOT / "docs" /
                        "DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv")
+DUPLICATE_REVIEW = (ROOT / "docs" /
+                    "DEFERRED-SOURCE-DUPLICATES-20261117-v2.tsv")
+GCC_TARGET_FEASIBILITY = (ROOT / "docs" /
+                          "GCC-PDP10-TARGET-FEASIBILITY-20261116-v1.tsv")
+GCC_TARGET_REVIEW = (ROOT / "docs" /
+                     "GCC-PDP10-TARGET-OWNERSHIP-20261117-v2.tsv")
 REQUIRED_ACTIVATIONS = frozenset(("active", "deferred", "removed",
                                   "stress-nonportable"))
 
@@ -166,10 +174,173 @@ def audit_deferred_duplicates(upstream, problems):
     for key in sorted(actual.keys() - recorded.keys()):
         problems.append("untracked identical deferred source: %s %s" % key)
 
+    # The original v1 hash/activation/disposition census stays immutable.
+    # Review v2 chooses one canonical owner without making deferred test
+    # copies executable, and retains independently observed GCC/KCC failures.
+    reviewed = {}
+    base_fields = ("source_a", "source_b", "sha256", "activation_a",
+                   "activation_b", "disposition_a", "disposition_b",
+                   "review_flag")
+    for row in rows(DUPLICATE_REVIEW):
+        key = (row["source_a"], row["source_b"])
+        if key in reviewed:
+            problems.append("duplicate reviewed source pair: %s %s" % key)
+        reviewed[key] = row
+        old = recorded.get(key)
+        if old is None:
+            problems.append("untracked reviewed source pair: %s %s" % key)
+            continue
+        if any(row.get(field) != old.get(field) for field in base_fields):
+            problems.append("review changed pinned v1 source evidence: %s" % (key,))
+        expected_review = ("owner-selected-active-gcc-failed"
+                           if row["review_flag"] == "active-copy-profile-reconciliation"
+                           else "owner-selected-deferred")
+        if old["review_status"] != "pending" or row["review_status"] != expected_review:
+            problems.append("source pair has unresolved or false review status: %s" % (key,))
+        canonical = row.get("canonical_owner")
+        nonowner = row.get("nonowner_copy")
+        if canonical not in key or nonowner not in key or canonical == nonowner:
+            problems.append("review invalid canonical/nonowner sources: %s" % (key,))
+        if not all(row.get(field, "").strip() for field in
+                   ("original_assertion", "profile_scope", "resolution",
+                    "required_gate", "disposition_reconciliation",
+                    "review_evidence")):
+            problems.append("review missing explicit source assertion/gate: %s" % (key,))
+        if row["review_flag"] == "active-copy-profile-reconciliation":
+            if (canonical != row["source_b"] or
+                    row.get("resolution") != "active-owner-with-GCC-defect-retained" or
+                    "GCC" not in row.get("required_gate", "")):
+                problems.append("KCC active copy lost GCC regression evidence: %s" % (key,))
+        elif (row.get("resolution") != "single-deferred-owner; no-run" or
+              row["activation_a"] != "deferred" or
+              row["activation_b"] != "deferred"):
+            problems.append("deferred identical copy spuriously promoted: %s" % (key,))
+        if (row["review_flag"] == "disposition-conflict" and
+                not all(row[k] in row.get("disposition_reconciliation", "")
+                        for k in ("disposition_a", "disposition_b"))):
+            problems.append("conflicting deferred blocker lost: %s" % (key,))
+    for key in sorted(recorded.keys() - reviewed.keys()):
+        problems.append("source pair missing from manual review: %s %s" % key)
+
     flags = collections.Counter(row["review_flag"] for row in actual.values())
-    print("deferred_duplicate_pairs=%d active_copy=%d disposition_conflicts=%d pending_review=%d" %
+    print("deferred_duplicate_pairs=%d active_copy=%d disposition_conflicts=%d canonical_reviewed=%d missing_reviews=%d" %
           (len(actual), flags["active-copy-profile-reconciliation"],
-           flags["disposition-conflict"], len(actual)))
+           flags["disposition-conflict"], len(reviewed),
+           len(actual.keys() - reviewed.keys())))
+
+
+def audit_gcc_target_ownership(special, problems):
+    """Verify all 19 original PDP-10 GCC cases have one real oracle owner.
+
+    Read the static CASES tuple from the already-registered test runner.
+    This is a source/dispatch audit, not a claim that compilation passed.
+    """
+    previous = list(rows(GCC_TARGET_FEASIBILITY))
+    current = list(rows(GCC_TARGET_REVIEW))
+    if len(previous) != 19 or len(current) != 19:
+        problems.append("GCC target review must retain exactly 19 original sources")
+    original_fields = ("source", "kind", "decision", "target_scope",
+                       "original_assertion", "pdp10_feasibility",
+                       "adaptation_or_gate", "central_overlap")
+    registered = {r["path"]: r for r in special if r["enabled"] == "yes"}
+    codegen = "misc/validation/test-gcc-target-codegen-v2.py"
+    source = (ROOT / codegen).read_text(encoding="utf8")
+    tree = ast.parse(source, filename=codegen)
+    cases = None
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(
+                isinstance(t, ast.Name) and t.id == "CASES"
+                for t in node.targets):
+            cases = ast.literal_eval(node.value)
+    if cases is None or len(cases) != 12:
+        problems.append("GCC target codegen must retain 12 independent oracle cases")
+        case_names = set()
+    else:
+        case_names = {row[0] for row in cases}
+        for name, options, required, forbidden in cases:
+            original_path = ROOT / "refs/gcc-pdp10-target-v2" / name
+            if not original_path.is_file():
+                problems.append("GCC target codegen original is missing: " + name)
+                continue
+            original_text = original_path.read_text(encoding="latin1")
+            historical_options = re.findall(r'dg-options\s+"([^"]+)"',
+                                           original_text)
+            expected_options = historical_options[0] if historical_options else ""
+            if len(historical_options) != 1 or options != expected_options:
+                problems.append("GCC target compiler options changed: " + name)
+            positives = len(re.findall(r'\bscan-assembler\s+"', original_text))
+            negatives = len(re.findall(r'\bscan-assembler-not\s+"', original_text))
+            if len(required) != positives:
+                problems.append("GCC target lost positive assembler scans: " + name)
+            if name == "das-octal-immediate-1.c":
+                # The original three negatives are one equivalent alternation.
+                if (negatives != 3 or len(forbidden) != 1 or
+                        not all(token in forbidden[0] for token in ("42", "43", "53"))):
+                    problems.append("GCC target octal forbidden alternatives lost")
+            elif len(forbidden) != negatives:
+                problems.append("GCC target lost forbidden assembler scans: " + name)
+        if len(case_names) != len(cases):
+            problems.append("duplicate GCC target source in codegen CASES")
+        if any(not required and not forbidden and name != "wide-convert-71.c"
+               for name, _options, required, forbidden in cases):
+            problems.append("GCC target source has vacuous compile-only oracle")
+    wrappers = {
+        "bare-dlink-libgcc.sh": "misc/validation/test-badl-tables.sh",
+        "libgcc-badptr-octal.sh": "misc/validation/test-gcc-target-badptr-octal-v3.sh",
+        "libgcc-empty-static-members.sh": "misc/validation/test-gcc-target-static-members-v3.sh",
+        "wide-int-mode-options.sh": "misc/validation/test-gcc-target-wide-macros-v3.sh",
+    }
+    companions = {"bare-dlink-libgcc-1.c": "bare-dlink-libgcc.sh",
+                  "wide-int-mode-macros.c": "wide-int-mode-options.sh"}
+    direct_count = shell_count = companion_count = removed_count = 0
+    for original, review in zip(previous, current):
+        name = review["source"]
+        if any(original.get(field) != review.get(field)
+               for field in original_fields):
+            problems.append("GCC target v2 rewrote feasibility evidence: " + name)
+        retained = ROOT / "refs/gcc-pdp10-target-v2" / name
+        if name == "its-circ-1.c":
+            removed_count += 1
+            if (retained.exists() or review["resolution"] != "inapplicable-its-only"
+                    or review["canonical_runner"]):
+                problems.append("original ITS CIRC must not become a generic test")
+        else:
+            if (not retained.is_file() or
+                    (retained.is_file() and hashlib.sha256(retained.read_bytes()).hexdigest()
+                     != review["source_sha256"])):
+                problems.append("GCC target original missing or hash changed: " + name)
+            owner = review["canonical_runner"]
+            if owner not in registered:
+                problems.append("GCC target original lacks enabled owner: " + name)
+            if name in companions:
+                companion_count += 1
+                if (review["resolution"] != "original-companion-not-independent" or
+                        owner != wrappers[companions[name]]):
+                    problems.append("GCC target companion wrongly scheduled: " + name)
+            elif name.endswith(".sh"):
+                shell_count += 1
+                if (review["resolution"] != "original-shell-oracle-delegated" or
+                        owner != wrappers.get(name)):
+                    problems.append("GCC target original shell misowned: " + name)
+                if name != "bare-dlink-libgcc.sh" and owner in registered:
+                    wrapper = (ROOT / owner).read_text(encoding="utf8")
+                    if name not in wrapper:
+                        problems.append("GCC target wrapper loses original shell: " + name)
+            else:
+                direct_count += 1
+                if (name not in case_names or owner != codegen or
+                        review["resolution"] != "direct-codegen-oracle"):
+                    problems.append("GCC target codegen source has no real oracle: " + name)
+        for field in ("original_assertion", "adaptation_or_gate",
+                      "independence_check", "duplicate_policy"):
+            if not review.get(field, "").strip():
+                problems.append("GCC target review lacks assertion: %s %s" % (name, field))
+    if (direct_count, shell_count, companion_count, removed_count) != (12, 4, 2, 1):
+        problems.append("GCC target classification is not 12/4/2/1")
+    if direct_count != len(case_names):
+        problems.append("GCC target codegen case not in 19 original review")
+    print("gcc_target_originals=%d codegen=%d shell=%d companions=%d its_excluded=%d" %
+          (len(current), direct_count, shell_count, companion_count, removed_count))
 
 
 def audit():
@@ -270,6 +441,7 @@ def audit():
     for source in sorted(unowned):
         problems.append("unowned test source: " + source)
     audit_deferred_duplicates(upstream, problems)
+    audit_gcc_target_ownership(special, problems)
     print("matrix_sources=%d special_entries=%d special_unique_ids=%d" %
           (len(matrix), len(special), len(set(r["id"] for r in special))))
     print("upstream_classified=%d %s" %
