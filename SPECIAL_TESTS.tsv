@@ -2,6 +2,7 @@ id	group	runner	path	profile	enabled	timeout
 kcc-kpcode2-float-phase-v1	kcc-regression	sh	misc/kcc-regression/kcc-kpcode2-float-phase-v1.sh	pdp6	yes	900
 kcc-compound-negating-assign-v1	kcc-regression	sh	misc/kcc-regression/compound-negating-assign-v1.sh	pdp6	yes	180
 kcc-pdp6-negative-fp-runtime-v1	validation	sh	misc/validation/test-kcc-pdp6-negative-fp-runtime-v1.sh	pdp6	yes	120
+gcc-varargs-vla-no-ice-v1	validation	sh	misc/validation/test-gcc-varargs-vla-no-ice-v1.sh	multi-cpu	yes	180
 kcc-pdp6-rounded-fp-boundaries-v2	validation	sh	misc/validation/test-kcc-pdp6-rounded-fp-boundaries-v2.sh	pdp6	manual	150
 kcc-pdp6-fp-hardware-case9-v1	validation	sh	misc/validation/test-kcc-pdp6-fp-hardware-case9-v1.sh	pdp6	yes	150
 aap-pdp6-emnf-case9-model-v1	validation	python3	misc/validation/analyze-aap-pdp6-emnf-case9-v1.py	host	yes	120

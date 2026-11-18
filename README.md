@@ -75,9 +75,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Verified integration state (2026-11-17)
 
 - Compiler matrix: **2,108 sources** with no unowned test sources.
-- Special registry: **282 entries**, including **232 enabled direct**,
+- Special registry: **283 entries**, including **233 enabled direct**,
   **44 manual** and **6 nested** registrations.
-- Script ownership: **423** registered/delegated Python or shell scripts.
+- Script ownership: **424** registered/delegated Python or shell scripts.
 - Registered host verification: **20/20 passed** after the documentation
   path audit (no full compiler or OS sweep).
 - Cross-repository migration: **127** former DAIMOS compiler/assembler
@@ -114,6 +114,14 @@ passes **10/10** with the operational compiler. The mixed-call
 fixture's erroneous octal constant is corrected. GCC's packed
 record-array pointer/storage mismatch remains a reproduced compiler
 failure, not a silently skipped test.
+The `2026-11-18 v4` focused checkpoint is
+`docs/PDP10-VARARGS-AND-GCC-ICE-20261118-v4.md`. The genuine GCC
+variable-sized `va_arg` ICE is repaired in `pdp10-gcc` `66f5a15`;
+the installed compiler passes a new 16-cell compile-only regression.
+Its original dynamic-aggregate semantic execution still fails and
+remains deferred. All 26 historically deferred `varargs-abi` sources
+(52 operational PDP-6 cells) are recorded, without activation, in
+`docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v4.tsv`.
 
 ## Detailed documentation
 

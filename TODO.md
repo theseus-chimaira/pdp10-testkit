@@ -192,6 +192,22 @@ compiler check, not a full compiler/CPU/optimization sweep.
   v2 report and source-pinned triage TSV. Preserve the newly exposed
   `malloc` hosted-runtime gaps, unresolved compiler built-ins,
   and actual run failures as independent issues.
+  The v4 source-pinned ledger covers all 26 `varargs-abi` sources
+  with operational PDP-6 KCC `-n` and GCC `-O0`: KCC 23 compile
+  failures/three link failures; GCC two compile failures, one link
+  failure and 23 runtime failures. None was activated. See
+  `docs/PDP10-VARARGS-AND-GCC-ICE-20261118-v4.md`.
+- [x] Reproduce and eliminate the genuine GCC compiler ICE for
+  dynamically sized `va_arg` on original `20020412-1.c`.
+  `pdp10-gcc` `66f5a15` computes runtime word-aligned argument
+  size rather than aborting in the backend. The installed compiler
+  passes a registered compile-only 4-CPU x 4-optimization (16/16)
+  regression, preserving the separate failing runtime oracle.
+- [ ] Fix the separately exposed GCC variadic VLA aggregate-copy ABI:
+  unchanged `20020412-1.c` now executes with real freestanding
+  `memcpy` but aborts at its first digit. Investigate raw word
+  addresses versus 9-bit-byte-pointer arguments; do not weaken the
+  C assertion or count ICE elimination as an execution pass.
 - [x] Complete KCC P0 `vrwiden` ICE for the original upstream
   `tests/semantic/upstream/wide-int/930622-2.c` without altering its source
   or accepting any other processor's unverified floating-point behavior.
