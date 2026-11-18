@@ -187,7 +187,11 @@ compiler check, not a full compiler/CPU/optimization sweep.
   disposition manifest for each follow-up. A first 10-source, 20-cell
   sample and immutable 269-row prerequisite grouping are recorded in
   `docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261117-v1.md` and
-  `docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261117-v1.tsv`.
+  `docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261117-v1.tsv`. A follow-up
+  27-source, 54-cell libc/header batch is recorded in the 2026-11-18
+  v2 report and source-pinned triage TSV. Preserve the newly exposed
+  `malloc` hosted-runtime gaps, unresolved compiler built-ins,
+  and actual run failures as independent issues.
 - [x] Complete KCC P0 `vrwiden` ICE for the original upstream
   `tests/semantic/upstream/wide-int/930622-2.c` without altering its source
   or accepting any other processor's unverified floating-point behavior.
@@ -738,10 +742,20 @@ The next eight batches are documented in
   newly added `kcc-host` scripts, with their actual KCC, make/bmake, DAS and
   installed-toolchain prerequisites; record actionable failures. Focused
   DAS fast (10/10), KCC-host, compatibility and validation pilots ran.
-  Missing GNU/BSD make setup and obsolete monolithic `KCC_RT` paths in
-  remaining compatibility scripts are real prerequisite blockers.
-  The tested mixed varargs script no longer requires unused `KCC_RT`.
-  See `docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261117-v1.md`.
+  Missing GNU/BSD make setup remains an operational prerequisite. The
+  obsolete monolithic `KCC_RT` arguments were removed from 24
+  compatibility and five KCC regression scripts; targeted reruns show
+  21/24 compatibility checks passing (three real ABI/runtime assertion
+  failures) and 5/5 KCC regression checks passing. The direct ABI test
+  selects its genuinely required installed `$KDFAD` helper only when
+  referenced. See
+  `docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261118-v2.md`.
+- [ ] Investigate and correct the newly exposed compiler/ABI regressions:
+  mixed deep-call preserved register (`__test_exit=4`), GCC packed
+  character pointer stepping (`__test_exit=010` octal), and KCC
+  negative 71-bit remainder (`__test_exit=2`). Preserve original
+  C sources, assertions and complete diagnostics; do not fake helpers
+  or change runtime expected results to hide failures.
 - [x] Verify operational installed freestanding KCC/GCC header compilation,
   production DARC archive extraction, GCC libgcc dependency and genuine
   PDP-6 libc calls in a registered targeted test. Both compilers pass;

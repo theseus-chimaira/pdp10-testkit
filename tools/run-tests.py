@@ -463,7 +463,6 @@ def setup_prefix_env(needed_compilers):
     if needed_compilers:
         os.environ['P10RUN'] = str(PDP10_PREFIX / 'bin' / 'p10run')
     os.environ['KCC_LIBDIR'] = str(PDP10_PREFIX / 'lib' / 'kcc')
-    os.environ['KCC_RT'] = str(PDP10_PREFIX / 'lib' / 'kcc' / 'ks10rt.s')
 
 
 def find_kcc_rt(name):

@@ -86,6 +86,6 @@ done
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
         --step-limit 1000000 --timeout 20 --workdir "$work/run-pdp6" \
         --name byteptr-register-incdec --expect __test_exit=0 \
-        "$testroot/semantic-crt0.s" "$work/pdp6/t.s" "$KCC_RT" >/dev/null
+        "$testroot/semantic-crt0.s" "$work/pdp6/t.s" >/dev/null
 
 echo 'register byte-pointer inc/dec regression passed'

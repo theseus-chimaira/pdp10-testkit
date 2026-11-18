@@ -46,7 +46,7 @@ run_case() {
         "$tmp/${prefix}_width-callee.s" \
         "$root/misc/compat/mixed-stack-support.s" \
         "$root/misc/compat/mixed-register-support.s" \
-        "$KCC_RT" >/dev/null
+        >/dev/null
 }
 
 run_case gcc_to_kcc_deep "$tmp/g_main.s" k

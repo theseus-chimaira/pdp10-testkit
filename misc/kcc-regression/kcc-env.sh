@@ -14,7 +14,5 @@ kcc_setup_env() {
 
     KCC="$PDP10_PREFIX/bin/kcc"
     P10RUN="$PDP10_PREFIX/bin/p10run"
-    KCCLIBDIR="$PDP10_PREFIX/lib/kcc"
-    KCC_RT="$KCCLIBDIR/pdp6rt.s"
-    export KCC P10RUN KCCLIBDIR KCC_RT
+    export KCC P10RUN
 }

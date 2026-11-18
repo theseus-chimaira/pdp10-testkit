@@ -19,12 +19,12 @@ mkdir -p "$tmp"
     --step-limit 1000000 --timeout 20 --workdir "$tmp/run-kcc" \
     --name language-kcc --expect __test_exit=0 \
     "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-    "$tmp/p10lngv13.s" "$KCC_RT" >/dev/null
+    "$tmp/p10lngv13.s" >/dev/null
 "$P10RUN" --machine ks10 --mode deposit --exec-mode step \
     --step-limit 1000000 --timeout 20 --workdir "$tmp/run-gcc" \
     --name language-gcc --expect __test_exit=0 \
     "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-    "$tmp/gcc-language.s" "$KCC_RT" >/dev/null
+    "$tmp/gcc-language.s" >/dev/null
 
 if (
     cd "$tmp"

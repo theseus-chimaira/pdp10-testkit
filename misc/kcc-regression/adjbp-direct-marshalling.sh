@@ -80,7 +80,7 @@ for cpu in pdp6 ka10 ki10 ks10; do
                 --step-limit 1000000 --timeout 20 --workdir "$work/run-$cpu" \
                 --name "adjbp-direct-marshalling-$cpu" \
                 --expect __test_exit=0 \
-                "$testroot/semantic-crt0.s" "$asm" "$KCC_RT" >/dev/null
+                "$testroot/semantic-crt0.s" "$asm" >/dev/null
 done
 
 printf '%s\n' 'direct ADJBP marshalling regression passed'

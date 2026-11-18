@@ -7,8 +7,7 @@ pdp10_setup_env
 tmp=$TMPDIR/p10tk-runtime-helper-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp"
-libgcc1=$PDP10_PREFIX/share/gcc-pdp10/config/pdp10/libgcc1.s
-test -f "$libgcc1" || { echo "missing installed libgcc1.s: $libgcc1" >&2; exit 1; }
+# P10RUN links canonical installed libgcc.a for the GCC half of this test.
 cp "$root/misc/compat/runtime-helper-kcc.c" "$tmp/kcc.c"
 (
     cd "$tmp"
@@ -21,6 +20,6 @@ cp "$root/misc/compat/runtime-helper-kcc.c" "$tmp/kcc.c"
 "$P10RUN" --machine ks10 --mode deposit --exec-mode step \
     --step-limit 3500000 --timeout 30 --workdir "$tmp/run" \
     --name kcc_gcc_runtime_helper_v34 --expect __test_exit=0 \
-    "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-    "$tmp/main.s" "$tmp/kcc.s" "$tmp/gcc.s" "$libgcc1" "$KCC_RT" >/dev/null
+    "$root/support/crt0.s" \
+    "$tmp/main.s" "$tmp/kcc.s" "$tmp/gcc.s" >/dev/null
 echo "KCC/GCC runtime-helper coexistence: PASS"

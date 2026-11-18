@@ -3,7 +3,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 . "$root/tools/pdp10-env.sh"
 pdp10_setup_env
-tmp=${TMPDIR:-/tmp}/p10tk-packed-bitptr-$$
+tmp=${TMPDIR:-$HOME/tmp}/p10tk-packed-bitptr-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp"
 
@@ -18,11 +18,10 @@ mkdir -p "$tmp"
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 1000000 --timeout 20 --workdir "$tmp/run-kcc" \
     --name packed-bitptr-kcc --expect __test_exit=0 \
-    "$root/support/crt0.s" "$tmp/p10pbv22.s" "$KCC_RT" >/dev/null
+    "$root/support/crt0.s" "$tmp/p10pbv22.s" >/dev/null
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 1000000 --timeout 20 --workdir "$tmp/run-gcc" \
     --name packed-bitptr-gcc --expect __test_exit=0 \
-    "$root/support/crt0.s" "$tmp/gcc-packed-bitptr.s" \
-    "$root/misc/compat/mixed-call-support.s" "$KCC_RT" >/dev/null
+    "$root/support/crt0.s" "$tmp/gcc-packed-bitptr.s" >/dev/null
 
 echo "packed logical pointer GCC/KCC ABI/runtime: PASS"

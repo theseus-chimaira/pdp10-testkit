@@ -52,7 +52,7 @@ TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpacknestbit t.c
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 1000000 --timeout 20 --workdir "$tmp/run" \
     --name gnu-packed-nested-bitoffset --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/gpacknestbit.s" "$KCC_RT" >/dev/null
+    "$testroot/semantic-crt0.s" "$tmp/gpacknestbit.s" >/dev/null
 cat > "$tmp/addr.c" <<'SRC'
 volatile int __test_exit;
 struct inner { unsigned char x; } __attribute__((packed));
@@ -69,7 +69,7 @@ TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpacknestaddr "$tmp/addr.c"
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 1000000 --timeout 20 --workdir "$tmp/run-addr" \
     --name gnu-packed-nested-address --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/gpacknestaddr.s" "$KCC_RT" >/dev/null
+    "$testroot/semantic-crt0.s" "$tmp/gpacknestaddr.s" >/dev/null
 
 cat > "$tmp/stream.c" <<'SRC'
 typedef unsigned _KCCtype_char16 u16;
@@ -125,6 +125,6 @@ TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpacknestchain "$tmp/chain.c"
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 2000000 --timeout 20 --workdir "$tmp/run-chain" \
     --name gnu-packed-nested-chain --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/gpacknestchain.s" "$KCC_RT" >/dev/null
+    "$testroot/semantic-crt0.s" "$tmp/gpacknestchain.s" >/dev/null
 
 printf '%s\n' 'GNU packed nested bit-offset regression passed'

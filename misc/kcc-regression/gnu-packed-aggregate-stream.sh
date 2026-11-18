@@ -59,5 +59,5 @@ TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpackaggrun run.c
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 3000000 --timeout 20 --workdir "$tmp/run" \
     --name gnu-packed-aggregate-stream --expect __test_exit=0 \
-    "$testroot/semantic-crt0.s" "$tmp/gpackaggrun.s" "$KCC_RT" >/dev/null
+    "$testroot/semantic-crt0.s" "$tmp/gpackaggrun.s" >/dev/null
 printf '%s\n' 'GNU packed aggregate streaming regression passed'

@@ -36,12 +36,20 @@ run_case() {
     name=$1
     main_s=$2
     callee_s=$3
+    # KCC's base-target D-format addition uses the installed split helper.
+    # Supply it only for a translation unit that actually references $KDFAD.
+    set --
+    if grep -Fq '$KDFAD' "$main_s" "$callee_s"; then
+        helper="$KCC_LIBDIR/ks10rt-kdfad.s"
+        test -f "$helper" || { echo 'missing installed $KDFAD helper' >&2; exit 2; }
+        set -- "$helper"
+    fi
     "$P10RUN" --machine ks10 --mode deposit --exec-mode step \
         --step-limit 2000000 --timeout 25 --workdir "$tmp/$name" \
         --name "$name" --expect __test_exit=0 \
         "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
         "$root/misc/compat/mixed-stack-support.s" \
-        "$main_s" "$callee_s" "$KCC_RT" >/dev/null
+        "$main_s" "$callee_s" "$@" >/dev/null
 }
 
 run_case gcc_to_kcc_direct_abi "$tmp/g_main.s" "$tmp/k_callee.s"

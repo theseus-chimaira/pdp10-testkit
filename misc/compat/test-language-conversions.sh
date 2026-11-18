@@ -3,7 +3,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 . "$root/tools/pdp10-env.sh"
 pdp10_setup_env
-tmp=${TMPDIR:-/tmp}/p10tk-language-$$
+tmp=${TMPDIR:-$HOME/tmp}/p10tk-language-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp"
 (
@@ -19,6 +19,6 @@ for cc in kcc gcc; do
         --step-limit 1500000 --timeout 30 --workdir "$tmp/run-$cc" \
         --name language-conversions-$cc --expect __test_exit=0 \
         "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-        "$asm" "$KCC_RT" >/dev/null
+        "$asm" >/dev/null
 done
 echo "36-bit, 71-bit, and narrow conversions: PASS"

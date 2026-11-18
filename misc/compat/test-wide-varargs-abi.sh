@@ -3,7 +3,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 . "$root/tools/pdp10-env.sh"
 pdp10_setup_env
-tmp=${TMPDIR:-/tmp}/p10tk-wide-varargs-$$
+tmp=${TMPDIR:-$HOME/tmp}/p10tk-wide-varargs-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp"
 
@@ -45,7 +45,7 @@ run_case() {
         --step-limit 1000000 --timeout 20 --workdir "$tmp/$name" \
         --name "$name" --expect __test_exit=0 \
         "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-        "$main_s" "$tmp/va-kcc-callee.s" "$KCC_RT" >/dev/null
+        "$main_s" "$tmp/va-kcc-callee.s" >/dev/null
 }
 
 run_case kcc_varargs_control "$tmp/va-kcc-main.s"

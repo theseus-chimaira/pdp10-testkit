@@ -3,7 +3,7 @@ set -eu
 root=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 . "$root/tools/pdp10-env.sh"
 pdp10_setup_env
-tmp=${TMPDIR:-/tmp}/p10tk-packed-bitptr-arith-$$
+tmp=${TMPDIR:-$HOME/tmp}/p10tk-packed-bitptr-arith-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp"
 
@@ -19,11 +19,10 @@ mkdir -p "$tmp"
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 3000000 --timeout 30 --workdir "$tmp/run-kcc" \
     --name packed-bitptr-arith-kcc --expect __test_exit=0 \
-    "$root/support/crt0.s" "$tmp/p10pbav23.s" "$KCC_RT" >/dev/null
+    "$root/support/crt0.s" "$tmp/p10pbav23.s" >/dev/null
 "$P10RUN" --machine pdp6 --mode deposit --exec-mode step \
     --step-limit 3000000 --timeout 30 --workdir "$tmp/run-gcc" \
     --name packed-bitptr-arith-gcc --expect __test_exit=0 \
-    "$root/support/crt0.s" "$tmp/gcc-packed-bitptr-arith.s" \
-    "$root/misc/compat/mixed-call-support.s" "$KCC_RT" >/dev/null
+    "$root/support/crt0.s" "$tmp/gcc-packed-bitptr-arith.s" >/dev/null
 
 echo "packed logical pointer arithmetic GCC/KCC ABI/runtime: PASS"

@@ -38,8 +38,8 @@ run_case() {
     "$P10RUN" --machine ks10 --mode deposit --exec-mode step \
         --step-limit 1600000 --timeout 20 --workdir "$tmp/$name" \
         --name "$name" --expect __test_exit=0 \
-        "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-        "$main_s" "$callee_s" "$KCC_RT" >/dev/null
+        "$root/support/crt0.s" \
+        "$main_s" "$callee_s" >/dev/null
 }
 
 run_case gcc_to_kcc_negative_dimode "$tmp/g_main.s" "$tmp/k_callee.s"

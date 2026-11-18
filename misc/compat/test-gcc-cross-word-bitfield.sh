@@ -16,7 +16,7 @@ for opt in 0 1; do
         --step-limit 1000000 --timeout 20 --workdir "$tmp/run-o$opt" \
         --name "gcc-cross-word-bitfield-o$opt" --expect __test_exit=0 \
         "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-        "$asm" "$KCC_RT" >/dev/null
+        "$asm" >/dev/null
 done
 
 echo "GCC cross-word bit-field stores preserve adjacent fields: PASS"

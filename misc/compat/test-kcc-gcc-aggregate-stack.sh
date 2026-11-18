@@ -39,7 +39,7 @@ run_case() {
         --step-limit 1000000 --timeout 20 --workdir "$tmp/$name" \
         --name "$name" --expect __test_exit=0 \
         "$root/support/crt0.s" "$root/misc/compat/mixed-call-support.s" \
-        "$main_s" "$callee_s" "$KCC_RT" >/dev/null
+        "$main_s" "$callee_s" >/dev/null
 }
 
 run_case gcc_to_kcc_aggregate_stack "$tmp/g_main.s" "$tmp/k_callee.s"

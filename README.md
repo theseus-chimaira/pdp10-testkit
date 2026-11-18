@@ -99,6 +99,13 @@ PDP-6 execution test, targeted KCC-host/compatibility fixes, and
 20 pilot cells from the 269-source deferred inventory. The
 SHA256-pinned outcomes and remaining gates are in
 `docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261117-v1.tsv`.
+The next **2026-11-18 v2** focused checkpoint is
+`docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261118-v2.md`: split
+KCC-runtime prerequisite migration, 21/24 affected compatibility
+scripts passing (three real assertion failures retained), 5/5 KCC
+regression scripts passing, and 54 more deferred-source cells from
+libc/header batches. Its 269-row source-preserving results ledger is
+`docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v2.tsv`.
 
 ## Detailed documentation
 

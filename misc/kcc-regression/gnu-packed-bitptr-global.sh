@@ -88,5 +88,5 @@ TERM=dumb "$KCC" -S -v=nostats -x=pdp6 -R=gpackglob18m main.c
     --step-limit 18000000 --timeout 30 --workdir "$tmp/run" \
     --name gnu-packed-bitptr-global --expect __test_exit=0 \
     "$testroot/semantic-crt0.s" "$tmp/gpackglob18s.s" \
-    "$tmp/gpackglob18a.s" "$tmp/gpackglob18m.s" "$KCC_RT" >/dev/null
+    "$tmp/gpackglob18a.s" "$tmp/gpackglob18m.s" >/dev/null
 printf '%s\n' 'GNU packed global exact-width pointer round-trip regression passed'
