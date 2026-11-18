@@ -5,16 +5,20 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-The first bounded batch of ten historically deferred tests is now
-reviewed in `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`.
-Nine are connected (with precise passing/failing matrix profiles);
-one remains deferred due to hosted `malloc` prerequisites. No source
-was deleted and no full sweep was started. Current inventories are
-**2,117 matrix sources**, **458 active / 260 deferred** upstream tests,
-and **284 special registrations**, of which **44 remain manual**.
-The current upstream and deferred classification manifests are the
-`20261118-v3` and `20261118-v2` files, respectively; older manifests
-are historical snapshots.
+Two bounded, ten-entry deferred batches have been reviewed in
+`docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`.
+The first connected nine, retaining one; the second connected six,
+retained three (including the earlier unresolved hosted-`malloc`
+source) and removed one Alpha-only no-op after explaining why it
+had no PDP-10 assertion. The current inventories are **2,123
+matrix sources**, **464 active / 253 deferred / 56 removed** upstream
+tests, and **284 specialized registrations**, including **44
+intentionally manual tests**. No broad sweep was started.
+The current upstream and deferred classification manifests are
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v4.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v3.tsv`; older versions
+are immutable historical snapshots.
 
 ## Test ownership
 
@@ -91,7 +95,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,108 sources** with no unowned test sources.
+- Compiler matrix: **2,123 sources** with no unowned test sources.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.
 - Script ownership: **425** registered/delegated Python or shell scripts.

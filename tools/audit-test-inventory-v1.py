@@ -20,13 +20,13 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
 CLASSIFIED = (ROOT / "docs" /
-              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v3.tsv")
+              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v4.tsv")
 DEFERRED_DISPOSITIONS = (ROOT / "docs" /
-                         "SEMANTIC-DEFERRED-DISPOSITION-20261118-v2.tsv")
+                         "SEMANTIC-DEFERRED-DISPOSITION-20261118-v3.tsv")
 DUPLICATE_OWNERSHIP = (ROOT / "docs" /
-                       "DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv")
+                       "DEFERRED-SOURCE-DUPLICATES-20261118-v2.tsv")
 DUPLICATE_REVIEW = (ROOT / "docs" /
-                    "DEFERRED-SOURCE-DUPLICATES-20261117-v2.tsv")
+                    "DEFERRED-SOURCE-DUPLICATES-20261118-v3.tsv")
 GCC_TARGET_FEASIBILITY = (ROOT / "docs" /
                           "GCC-PDP10-TARGET-FEASIBILITY-20261116-v1.tsv")
 GCC_TARGET_REVIEW = (ROOT / "docs" /
@@ -174,9 +174,9 @@ def audit_deferred_duplicates(upstream, problems):
     for key in sorted(actual.keys() - recorded.keys()):
         problems.append("untracked identical deferred source: %s %s" % key)
 
-    # The original v1 hash/activation/disposition census stays immutable.
-    # Review v2 chooses one canonical owner without making deferred test
-    # copies executable, and retains independently observed GCC/KCC failures.
+    # The historical source census and review remain immutable snapshots.
+    # The current version tracks a single verified active owner while
+    # preserving an independently deferred, byte-identical profile copy.
     reviewed = {}
     base_fields = ("source_a", "source_b", "sha256", "activation_a",
                    "activation_b", "disposition_a", "disposition_b",
@@ -192,10 +192,7 @@ def audit_deferred_duplicates(upstream, problems):
             continue
         if any(row.get(field) != old.get(field) for field in base_fields):
             problems.append("review changed pinned v1 source evidence: %s" % (key,))
-        expected_review = ("owner-selected-active-gcc-failed"
-                           if row["review_flag"] == "active-copy-profile-reconciliation"
-                           else "owner-selected-deferred")
-        if old["review_status"] != "pending" or row["review_status"] != expected_review:
+        if old["review_status"] != "pending":
             problems.append("source pair has unresolved or false review status: %s" % (key,))
         canonical = row.get("canonical_owner")
         nonowner = row.get("nonowner_copy")
@@ -207,11 +204,30 @@ def audit_deferred_duplicates(upstream, problems):
                     "review_evidence")):
             problems.append("review missing explicit source assertion/gate: %s" % (key,))
         if row["review_flag"] == "active-copy-profile-reconciliation":
-            if (canonical != row["source_b"] or
-                    row.get("resolution") != "active-owner-with-GCC-defect-retained" or
-                    "GCC" not in row.get("required_gate", "")):
-                problems.append("KCC active copy lost GCC regression evidence: %s" % (key,))
+            active_sides = [row[side] for side in ("source_a", "source_b")
+                            if row["activation_" + side[-1]] == "active"]
+            deferred_sides = [row[side] for side in ("source_a", "source_b")
+                              if row["activation_" + side[-1]] == "deferred"]
+            if (len(active_sides) != 1 or len(deferred_sides) != 1 or
+                    canonical != active_sides[0] or nonowner != deferred_sides[0]):
+                problems.append("active duplicate has wrong canonical source: %s" % (key,))
+            # The evidence gate is about the failing compiler, not
+            # about whether the lexically first or second copy is active.
+            failure_class = {
+                "active-owner-with-GCC-defect-retained":
+                    "owner-selected-active-gcc-failed",
+                "active-owner-with-KCC-defect-retained":
+                    "owner-selected-active-kcc-failed",
+            }
+            resolution = row.get("resolution", "")
+            expected_status = failure_class.get(resolution)
+            compiler = ("GCC" if "GCC" in resolution else
+                        "KCC" if "KCC" in resolution else None)
+            if (expected_status is None or row["review_status"] != expected_status
+                    or compiler not in row.get("required_gate", "")):
+                problems.append("active duplicate lost compiler-specific failure gate: %s" % (key,))
         elif (row.get("resolution") != "single-deferred-owner; no-run" or
+              row["review_status"] != "owner-selected-deferred" or
               row["activation_a"] != "deferred" or
               row["activation_b"] != "deferred"):
             problems.append("deferred identical copy spuriously promoted: %s" % (key,))

@@ -166,12 +166,31 @@ compiler check, not a full compiler/CPU/optimization sweep.
   group, not a broad compiler sweep.
   See `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md` and
   its ten-row SHA256-pinned TSV.
-- [ ] Continue with the next batch of **ten** currently deferred
-  sources from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v2.tsv`.
-  Review real assertions and target prerequisites before registration;
-  explain why a source is not integratable **before any deletion**.
-  Keep the 44 manually registered special tests out of scope until
-  all deferred test decisions are complete; do not run broad suites.
+- [x] Review the next **ten** from the v2 deferred manifest. Six
+  GCC PDP-6 compiler regressions were connected with exact,
+  independently checked optimization applicability; three failing
+  originals remain deferred. The sole removed original was an
+  Alpha-only kernel/SIGBUS alignment test which executes only an
+  empty helper and `exit(0)` on PDP-10; the reason was provided
+  **before** deletion. Source hashes and 20 baseline/18 optimized
+  cell outcomes are recorded in
+  `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md` and TSV.
+- [x] Reconcile the newly active `20010124-1.c` with its exact
+  PDP-10 duplicate without promoting the latter or scheduling its
+  identical assertions twice. Source-review/census v3/v2 entries
+  preserve the separately deferred KCC compiler limitation;
+  the ownership auditor now accepts either source as the canonical
+  active owner **only** with matching source activation and a
+  compiler-specific deferred gate. All 50 pairs remain reviewed.
+- [ ] Process the next group of **ten unique, not-yet-reviewed**
+  sources from
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v3.tsv`, excluding
+  paths already reviewed in either first-ten v8 or next-ten v9 ledger.
+  Avoid repeatedly revisiting unresolved first-row sources. Assess
+  original assertions and prerequisites; explicitly explain any
+  proposed removal **before deleting** it. Do not run broad suites,
+  fix ordinary compiler defects yet, or revisit the 44 manual tests
+  until all deferred decisions are complete.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1098,14 +1117,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,108 source rows, ownership and source paths audited.
-- `SPECIAL_TESTS.tsv`: 280 unique entries, including 230 enabled direct,
+- `COMPILER_MATRIX.tsv`: 2,123 source rows, ownership and source paths audited.
+- `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 421 owned shell/Python scripts; registered host
+- Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 449 active, 269 deferred, 55 removed and one nonportable
+- Upstream manifest: 464 active, 253 deferred, 56 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
