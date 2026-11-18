@@ -249,14 +249,36 @@ compiler check, not a full compiler/CPU/optimization sweep.
   census/review; leave the latter deferred for the unsupported
   KCC nested label dialect and prevent duplicate GCC scheduling.
   All 50 source pairs retain their original hash identities.
+- [x] Review the seventh group of ten unreviewed deferred sources
+  (v14). Connect eight original compiler regressions with exact
+  GCC/KCC PDP-6 outcomes; retain two without deletion.
+  `920908-2.c` required only the `__PDP10__` or `__pdp10__`
+  macro condition, preserving its original nine-bit bitfield
+  numeric assertion; both compilers now pass. `921117-1.c`
+  exposes GCC O1/O2/Os runtime failures and KCC optimized
+  unresolved `strcmp` despite a KCC noopt pass. Preserve the
+  KCC `930111-1.c` internal compiler error (`sizetype: null
+  type`). The narrow default-only `920909-1.c` and
+  `930111-1.c` switch oracles must not be described as full
+  case-table coverage. `921215-1.c` stays deferred: the
+  original passing O0 trampoline has no callback success
+  assertion and its optimized modes fail. Source-pinned evidence
+  and individual decisions:
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH07-20261118-v14.md`
+  and its TSV.
+- [x] Reconcile the three promoted generic GCC sources with
+  byte-identical deferred PDP-10 copies (`920909-1.c`,
+  `930106-1.c`, `930111-1.c`). The v12 census/v13 review
+  preserves all 50 source hashes and separately retains the
+  KCC linker, runtime and compiler-ICE blockers without
+  duplicate GCC matrix registrations.
 - [ ] Review ten **new, previously unreviewed** deferred sources
-  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v7.tsv`,
-  excluding all source identities from the v8/v9/v10/v11/v12/v13
-  review ledgers. The next begins with `920908-2.c`. Preserve
-  original assertions and review real target/compiler prerequisites
-  before integrating; explain any proposed deletion *before*
-  removal. Keep broad compiler sweeps and the 44 manual special
-  tests on hold.
+  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v8.tsv`,
+  excluding all identities already reviewed in the v8-v14
+  ledgers. The next begins at `930126-1.c`.
+  Explain any proposed deletion before removing a source.
+  Keep full compiler sweeps, compiler bug repairs and the 44
+  manually registered special tests on hold.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1183,14 +1205,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,147 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,155 source rows, ownership and source paths audited.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 488 active, 229 deferred, 56 removed and one nonportable
+- Upstream manifest: 496 active, 221 deferred, 56 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).

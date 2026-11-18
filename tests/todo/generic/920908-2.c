@@ -18,7 +18,7 @@ main()
 struct T t;
 t.i=0xff;
 t.c=0xffff11;
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
 if(f(t)!=0x111)abort();
 #else
 if(f(t)!=0x11)abort();

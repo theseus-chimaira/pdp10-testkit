@@ -20,13 +20,13 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
 CLASSIFIED = (ROOT / "docs" /
-              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v8.tsv")
+              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v9.tsv")
 DEFERRED_DISPOSITIONS = (ROOT / "docs" /
-                         "SEMANTIC-DEFERRED-DISPOSITION-20261118-v7.tsv")
+                         "SEMANTIC-DEFERRED-DISPOSITION-20261118-v8.tsv")
 DUPLICATE_OWNERSHIP = (ROOT / "docs" /
-                       "DEFERRED-SOURCE-DUPLICATES-20261118-v10.tsv")
+                       "DEFERRED-SOURCE-DUPLICATES-20261118-v12.tsv")
 DUPLICATE_REVIEW = (ROOT / "docs" /
-                    "DEFERRED-SOURCE-DUPLICATES-20261118-v11.tsv")
+                    "DEFERRED-SOURCE-DUPLICATES-20261118-v13.tsv")
 GCC_TARGET_FEASIBILITY = (ROOT / "docs" /
                           "GCC-PDP10-TARGET-FEASIBILITY-20261116-v1.tsv")
 GCC_TARGET_REVIEW = (ROOT / "docs" /
