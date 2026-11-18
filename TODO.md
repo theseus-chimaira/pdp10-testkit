@@ -357,10 +357,34 @@ compiler check, not a full compiler/CPU/optimization sweep.
   reason was provided before deletion; original remains in Git.
   See `docs/PDP10-DEFERRED-INTEGRATION-BATCH11-20261118-v18.md`
   and its exact original/current SHA256-pinned ten-row ledger.
+- [x] Review the next ten unreviewed deferred source identities in
+  batch 12 (v19). Connect five original tests, retaining five
+  without deletion. `990513-1.c` passes both KCC modes and all
+  GCC modes with real `memset`/backward fill assertion.
+  `990525-1.c` exercises the for-loop update's struct copy:
+  GCC all modes and KCC noopt pass, KCC optimized fails.
+  `991014-1.c` exercises huge-type size and field-offset
+  calculations, **not large physical allocation**; GCC all
+  modes pass and KCC both fail. Reconcile its identical
+  PDP-10 copy to active GCC/deferred KCC in v16 duplicate census
+  and v17 review. `991030-1.c` tests the original hexadecimal
+  floating initializer; GCC all pass, KCC both fail.
+  Connect `991216-3.c` specifically as an **all-failing GCC**
+  old-style varargs/long-long ABI regression with real
+  `va_arg` assertions and eight original call sites; KCC
+  old-style varargs syntax remains unsupported.
+  Retain `990628-1.c` for real `malloc`, `990826-0.c` for
+  real `floor`/libm, `991112-1.c` for actual `isprint`,
+  `991118-1.c` for independent native 71-bit bitfield
+  expectations, and `991228-1.c` for the GCC O0
+  `instantiate_virtual_regs_1` ICE. Its apparent optimized
+  passes bypass `signbit` and are not promoted.
+  See `docs/PDP10-DEFERRED-INTEGRATION-BATCH12-20261118-v19.md`
+  and original-source SHA256-pinned decision ledger.
 - [ ] Review ten **new, previously unreviewed** deferred sources
-  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v12.tsv`,
-  excluding all identities already reviewed in the v8-v18
-  ledgers. The next begins at `990513-1.c`. Explain any
+  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v13.tsv`,
+  excluding all identities already reviewed in the v8-v19
+  ledgers. The next begins at `align-1.c`. Explain any
   proposed deletion before removal. Keep compiler fixes, full
   sweeps, and the 44 manual tests out of scope for now.
 
@@ -1289,14 +1313,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,180 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,185 source rows, ownership and source paths audited.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 521 active, 194 deferred, 58 removed and one nonportable
+- Upstream manifest: 526 active, 189 deferred, 58 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
