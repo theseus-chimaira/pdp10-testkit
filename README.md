@@ -5,25 +5,26 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-Seven bounded, ten-entry deferred reviews are recorded in
+Eight bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
 `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH04-20261118-v11.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH05-20261118-v12.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH06-20261118-v13.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH07-20261118-v14.md`.
-The seventh connected eight sources, retaining two original
-compiler/trampoline failures. The PDP-10 bitfield conversion test
-now recognizes the compiler-defined `__PDP10__` without altering
-its numeric assertion. The current inventories are **2,155 matrix
-sources**, **496 active / 221 deferred / 56 removed** upstream
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH07-20261118-v14.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH08-20261118-v15.md`.
+The eighth connected six sources with exact KCC/GCC PDP-6 results,
+retaining four historical sources with hosted-runtime, trampoline
+or nonasserting-test blockers. No source was deleted or edited in
+this batch. The current inventories are **2,161 matrix sources**,
+**502 active / 215 deferred / 56 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v9.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v8.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v10.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v9.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -101,7 +102,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,155 sources** with no unowned test sources.
+- Compiler matrix: **2,161 sources** with no unowned test sources.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.
 - Script ownership: **425** registered/delegated Python or shell scripts.
