@@ -331,10 +331,36 @@ compiler check, not a full compiler/CPU/optimization sweep.
   source is preserved in Git history. See
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH10-20261118-v17.md`
   and the original/current SHA256-pinned ten-row TSV.
+- [x] Review ten new deferred identities in batch 11 (v18):
+  five connected owners, four retained deferred, one explicitly
+  explained removal. `980526-1.c` actually executes both
+  GNU-label computed-goto paths, checked in emitted assembly and
+  through simulator execution. `990106-2.c`'s original unsigned
+  36-bit modular arithmetic value 1008 is preserved by recognizing
+  the installed `__PDP10__` macro as well as historical lowercase;
+  KCC noopt/optimized pass but GCC O0/O1/O2/Os all fail.
+  The identical deferred PDP-10 copy receives the same one-line
+  correction, is hash-reconciled in v14 duplicate census/v15
+  duplicate review, and remains unscheduled. `990127-2.c`
+  has a KCC optimized-only floating equality failure despite
+  unoptimized pass. `990130-1.c` tests GNU empty extended-asm
+  operand evaluation, not any PDP-10 ISA opcode.
+  `990324-1.c` tests a native 9-bit signed-char cast: KCC
+  both modes and GCC O1/O2/Os pass, while GCC O0 fails.
+  `980526-2.c` remains deferred for its fixed Linux 32-bit
+  device-number encoding; `980605-1.c` requires actual
+  `sprintf`; `980707-1.c` requires actual `isspace` and
+  `ctype.h`; `980709-1.c` requires actual math headers
+  and `pow`. Remove only `990413-2.c`, whose x87
+  `fpatan`/`fsqrt` register-stack constraints have no PDP-10
+  implementation or executable target assertion. This exact
+  reason was provided before deletion; original remains in Git.
+  See `docs/PDP10-DEFERRED-INTEGRATION-BATCH11-20261118-v18.md`
+  and its exact original/current SHA256-pinned ten-row ledger.
 - [ ] Review ten **new, previously unreviewed** deferred sources
-  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v11.tsv`,
-  excluding all identities already reviewed in the v8-v17
-  ledgers. The next begins at `980526-1.c`. Explain any
+  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v12.tsv`,
+  excluding all identities already reviewed in the v8-v18
+  ledgers. The next begins at `990513-1.c`. Explain any
   proposed deletion before removal. Keep compiler fixes, full
   sweeps, and the 44 manual tests out of scope for now.
 
@@ -1263,14 +1289,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,175 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,180 source rows, ownership and source paths audited.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 516 active, 200 deferred, 57 removed and one nonportable
+- Upstream manifest: 521 active, 194 deferred, 58 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).

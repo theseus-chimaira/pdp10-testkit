@@ -8,7 +8,7 @@ void f(long i)
 
 main()
 {
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
   f(0777777777001);
 #else
   f(0xffffff01);

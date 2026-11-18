@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
       unsigned x = 1234;
       unsigned y = calc_mp(x);
 
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
       if (y != 1008)
 #else
       if ((sizeof (y) == 4 && y != 680)
