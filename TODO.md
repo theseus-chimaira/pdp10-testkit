@@ -478,14 +478,43 @@ compiler check, not a full compiler/CPU/optimization sweep.
   and compiler execution record is
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH15-20261118-v23.md`
   and accompanying v23 TSV.
+- [x] Review batch 16 (v24), the next ten unique canonical deferred
+  sources. Connect six: `complex-5.c` float-complex addition,
+  `compndlit-1.c` compound-literal bitfield assignment and
+  statement expression, `cvt-1.c` double/long conversions,
+  `divconst-2.c` signed division/remainder recomposition against
+  -2147483648 in a 36-bit signed long, `loop-3c.c` INT_MAX
+  loop-bound/shift index writes, and full-size `memcpy-1.c`
+  original copy/fill/readback loops. Register **23 passing and
+  one failing GCC native PDP-6 profiles** (`memcpy-1.c` O0
+  fails), and two passing/six failing selected KCC profiles:
+  `divconst-2.c` passes both modes, `cvt-1.c` passes
+  noopt only, `loop-3c.c` and `memcpy-1.c` fail both.
+  Correct a **testkit harness defect** in `run-tests.py`:
+  optimized GCC emits direct `JRST memcpy` instead of
+  `PUSHJ 17,memcpy`; the freestanding archive dependency
+  scanner must recognize **both** and select real memcpy, not
+  a stub. The unchanged `memcpy-1.c` now passes GCC O2/Os
+  on focused rerun; the original link failures and corrected
+  results are separately documented in the v24 ledger.
+  Retain `eeprof-1.c` for missing explicit
+  `-finstrument-functions` invocation, `gofast.c` for real
+  hosted `stdio/fprintf`, `index-1.c` for **dlink RH18
+  relocation overflow** (GCC all levels and KCC optimized;
+  KCC noopt passes), and `inst-check.c` because `main`
+  never calls the purported sum function or checks any value.
+  Preserve the v21 source-alias linker gate, source SHA256,
+  and all original C bytes. See
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md`
+  and accompanying ten-row v24 TSV.
 - [ ] Review ten **new, previously unreviewed** surviving deferred
   sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v17.tsv`,
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v18.tsv`,
   excluding all previously reviewed canonical identities in the
-  v8-v23 ledgers. The next begins at `complex-5.c`.
-  **70** unique deferred sources still await first review;
-  **52** previously reviewed identities remain deferred.
-  Preserve the 16 consolidated compiler gates for the later sweep.
+  v8-v24 ledgers. The next begins at `memcpy-2.c`.
+  **60** unique deferred sources still await first review;
+  **56** previously reviewed identities remain deferred.
+  Keep the 16 consolidated compiler gates for the later sweep.
   Explain any proposed deletion before removal; do not run the
   44 manual tests or broad CPU/compiler sweeps yet.
 
@@ -1414,7 +1443,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,155 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,161 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1422,7 +1451,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 496 active, 122 deferred, 58 removed and one
+- Upstream manifest: 502 active, 116 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.

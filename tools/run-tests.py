@@ -1149,7 +1149,10 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                               'strcspn')
             if cell['compiler'] in ('kcc', 'gcc'):
                 externals = set(re.findall(
-                    r'(?mi)^\s*(?:pushj\s+\d+\s*,\s*|\.extern\s+)'
+                    # Optimized wrappers can tail-call a libc function
+                    # with JRST rather than PUSHJ. Discover either form
+                    # before selecting freestanding archive fragments.
+                    r'(?mi)^\s*(?:pushj\s+\d+\s*,\s*|jrst\s+|\.extern\s+)'
                     r'([A-Za-z_][A-Za-z_0-9]*)\b', asm_text))
                 needed_string = [name for name in string_symbols
                                  if name in externals and not label_exists(asm_text, name)]
