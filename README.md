@@ -5,7 +5,7 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-Nineteen bounded, ten-entry deferred reviews are recorded in
+Twenty bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
 `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
@@ -24,7 +24,8 @@ Nineteen bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md`.
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH20-20261118-v28.md`.
 The thirteenth connected five GCC original sources, including two
 verified 71-bit reference-table shift tests, optimized-only builtin
 constant checks, a narrow bitfield-size comparison and four
@@ -104,14 +105,26 @@ regressions, including three **link errors** for
 `string-opt-16.c` where GCC fails to fold intentionally
 unresolved `link_error` calls. `strct-pack-2.c` remains
 deferred for lack of an assertion. No source was deleted.
-The current inventories are **2,182 matrix sources**,
-**523 active / 95 deferred / 58 removed** upstream
+The twentieth review connected ten original assertion-bearing
+sources: eight GNU string optimization tests and two original
+aligned native `strlen`/`strncmp` coverage sources. Previously
+missing ordinary freestanding string library linkage is now
+available, and all ten run under GCC. The new profiles contain
+**seven GCC passes and 33 runtime aborts**; the alignment
+`strncmp-1.c` passes all four GCC modes, whereas `strlen-1.c`
+fails all GCC modes but passes KCC both ways. KCC additionally
+links neither GNU `__builtin_strpbrk` nor `__builtin_strchr`
+in either mode; those unsupported GNU-builtin KCC profiles
+remain `no_test`, with observed link failures recorded.
+No original C source was changed or removed in batch 20.
+The current inventories are **2,192 matrix sources**,
+**533 active / 85 deferred / 58 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v22.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v21.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v23.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v22.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -189,7 +202,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,182 sources** with no unowned test sources
+- Compiler matrix: **2,192 sources** with no unowned test sources
   and no duplicated classified upstream source bytes.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.

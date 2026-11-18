@@ -603,17 +603,51 @@ compiler check, not a full compiler/CPU/optimization sweep.
   suite. See
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md`
   and its ten-row source-pinned TSV.
+- [x] Review batch 20 (v28), all ten next unreviewed original
+  canonical sources; all ten are activated with real original
+  assertions and **zero C source changes/deletions**.
+  `string-opt-2.c` (`strpbrk` exact returned pointer and
+  argument side effects), `string-opt-3.c` (combined
+  strlen/strcmp/strrchr/rindex results and increments),
+  `string-opt-5.c` (multiple GNU string/memory builtins
+  and x/y argument effects), `string-opt-6.c` (strcpy/memcpy
+  return and memcmp buffer readback), and
+  `string-opt-8.c` (generic strncmp sign/length/pointer/n
+  increment checks) abort in GCC PDP-6 all O0/O1/O2/Os
+  profiles despite genuine freestanding string library
+  linkage. `string-opt-4.c` (strchr/index first/next/NUL
+  pointer), `string-opt-7.c` (strncpy length/padding and
+  two argument increments), and `string-opt-9.c` (strcat
+  destination/contents and ++d2) pass GCC O0 but abort at
+  O1/O2/Os. The source platform-conditional i386/pj/i370
+  extra tests in `string-opt-8.c` remain excluded on PDP-6;
+  real generic checks still execute. `strlen-1.c` loops
+  over aligned source offsets and exact NUL-terminated
+  lengths: KCC both modes pass, GCC all four modes abort.
+  `strncmp-1.c` checks alignment, prefix length and signs
+  including native 9-bit 0251/0252 characters: KCC both
+  modes and GCC all four modes pass. Register exactly
+  **seven GCC passes, 33 GCC runtime failures and four
+  KCC passing** PDP-6 native profiles. KCC both modes of
+  `string-opt-2.c` and `-4.c` link-fail with undefined
+  GNU-specific `__builtin_strpbrk`/`__builtin_strchr`,
+  even though actual ordinary libc routines link; retain
+  those precise results but do not select unsupported
+  GNU-builtin KCC profiles. See
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH20-20261118-v28.md`
+  and its ten-row SHA256-pinned TSV.
 - [ ] Review ten **new, previously unreviewed** canonical deferred
   sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v21.tsv`,
-  excluding all previously reviewed identities in the
-  v8-v27 review ledgers. The next begins at
-  `tests/semantic/upstream/extensions/string-opt-2.c`.
-  **30** unique deferred sources remain unreviewed; **65**
-  previously reviewed sources remain deferred. Keep
-  the 16 consolidated compiler gates for the later sweep.
-  Explain any proposed deletion beforehand; do not execute
-  the 44 manual tests or broad CPU/compiler matrix yet.
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v22.tsv`,
+  excluding previously reviewed v8-v28 canonical identities.
+  The next begins at
+  `tests/todo/generic/generic/struct-ini-4.c`.
+  **20** deferred sources remain unreviewed; **65**
+  previously reviewed sources remain deferred. Preserve
+  all 16 independent consolidated compiler gates for the
+  later compiler/assembler repair sweep. Explain any
+  proposed deletion beforehand and do not execute the
+  44 manual tests or broad CPU/compiler matrix.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1540,7 +1574,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,182 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,192 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1548,7 +1582,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 523 active, 95 deferred, 58 removed and one
+- Upstream manifest: 533 active, 85 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.
