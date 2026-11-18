@@ -90,9 +90,24 @@ def audit_consolidated_sources(upstream, matrix, problems):
         canonical = current.get(keep)
         if canonical is None:
             problems.append("lost canonical classification: " + keep)
-        elif (canonical["activation"] != old_keep["activation"] or
-              canonical["previous_path"] != old_keep["previous_path"]):
-            problems.append("canonical activation/provenance changed: " + keep)
+        else:
+            # Source consolidation preserves the 2026-11-18 baseline, but
+            # deferred originals may later be verified and registered.
+            # Such promotions do not revive their retired byte-identical
+            # aliases. Never allow an active source to be demoted, and
+            # never allow an unrelated status transition or changed origin.
+            prior = old_keep["activation"]
+            current_activation = canonical["activation"]
+            if (canonical["previous_path"] != old_keep["previous_path"] or
+                    (prior == "active" and current_activation != "active") or
+                    (prior == "deferred" and
+                     current_activation not in ("deferred", "active"))):
+                problems.append("canonical activation/provenance changed: " +
+                                keep)
+            if (prior == "deferred" and current_activation == "active" and
+                    not canonical["reason"].strip()):
+                problems.append("promoted canonical lacks source evidence: " +
+                                keep)
         if retired in current or retired in registered:
             problems.append("retired alias still registered/classified: " +
                             retired)
@@ -102,7 +117,9 @@ def audit_consolidated_sources(upstream, matrix, problems):
         if not survivor.is_file() or hashlib.sha256(
                 survivor.read_bytes()).hexdigest() != sha:
             problems.append("canonical SHA256 missing or changed: " + keep)
-        if (keep in registered) != (old_keep["activation"] == "active"):
+        if (keep in registered) != (
+                canonical is not None and
+                canonical["activation"] == "active"):
             problems.append("canonical compiler ownership changed: " + keep)
         if old_retired["activation"] == "active" and kind != "active-active":
             problems.append("active retired alias not recorded as active pair: " +
@@ -138,6 +155,7 @@ def audit_consolidated_sources(upstream, matrix, problems):
             if (old_keep["activation"] == "deferred" and
                     row["canonical_disposition_before"] !=
                     row["removed_disposition_before"] and canonical and
+                    canonical["activation"] == "deferred" and
                     retired not in canonical["reason"]):
                 problems.append("different deferred blocker lost: " + keep)
             if row["removed_matrix_profile_before"]:
@@ -206,7 +224,7 @@ if __name__ == "__main__":
                                        delimiter="\t"))
 
     current_upstream = current_rows(
-        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v16.tsv")
+        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v17.tsv")
     current_matrix = current_rows("COMPILER_MATRIX.tsv", skip_comments=True)
     errors = []
     audit_consolidated_sources(current_upstream, current_matrix, errors)

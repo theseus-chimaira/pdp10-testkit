@@ -425,16 +425,39 @@ compiler check, not a full compiler/CPU/optimization sweep.
   `bf-pack-1.c` GCC runtime failure after the consolidation.
   Detailed record:
   `docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md`.
+- [x] Review batch 14 (v22), the next ten canonical deferred
+  source identities after duplicate consolidation. Connect six:
+  `bitfld-2.c` for nonstandard short-bitfield structure `sizeof`
+  equality; `built-in-setjmp.c` for real nonlocal transfer and
+  stack string preservation (**GCC O0 passes, O1/O2/Os abort**);
+  `builtin-abs-1.c` and `builtin-abs-2.c` for standard and
+  explicit builtin absolute values over int/long/long-long/intmax;
+  `builtin-complex-1.c` for volatile float/double/long-double
+  complex conjugate/real/imag checks; and
+  `builtin-prefetch-4.c` for **22 real side-effect assertions**
+  evaluating the address argument to prefetch on a target lacking
+  a prefetch instruction. Register **21 passing and three
+  failing GCC native PDP-6 profiles**; KCC missing extension or
+  hosted prerequisites remain `no_test`, not invented successes.
+  Retain `builtin-noret-1.c` for nonportable hosted exit/noreturn
+  linkage, and `builtin-prefetch-1.c` through `-3.c` because
+  their successful GCC O0 no-prefetch executions contain **no
+  observable assertions**. Original bytes and numeric assertions
+  unchanged. Update the v21 consolidation auditor to permit
+  hash-stable deferred-to-active canonical transitions while
+  rejecting demotions or absent matrix registrations. See
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH14-20261118-v22.md`
+  and its SHA256-pinned ten-row TSV.
 - [ ] Review ten **new, previously unreviewed** canonical deferred
   sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v15.tsv`,
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v16.tsv`,
   excluding all previously reviewed *surviving* identities in
-  the v8-v20 ledgers. The next begins at `bitfld-2.c`.
-  **90** unique deferred sources still await first review;
-  **44** already-reviewed identities remain deferred. Keep the
-  16 independent compiler gates for the later compiler sweep.
-  Explain any proposed deletion before removal. Do not run the
-  44 manual tests or broad sweeps yet.
+  the v8-v22 ledgers. The next begins at
+  `builtin-prefetch-5.c`. **80** unique deferred sources still
+  await first review; **48** already-reviewed identities remain
+  deferred. Keep the 16 consolidated compiler gates for the later
+  sweep. Explain any proposed deletion before removal. Do not
+  run the 44 manual tests or broad CPU/compiler sweeps yet.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1361,7 +1384,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,143 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,149 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1369,7 +1392,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 484 active, 134 deferred, 58 removed and one
+- Upstream manifest: 490 active, 128 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.
