@@ -1,4 +1,4 @@
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
 f(got){if(got!=0777777)abort();}
 #else
 f(got){if(got!=0xffff)abort();}
