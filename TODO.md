@@ -290,10 +290,30 @@ compiler check, not a full compiler/CPU/optimization sweep.
   dropped. See
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH08-20261118-v15.md`
   and the original-source SHA256-pinned ten-row ledger.
+- [x] Review ten previously unreviewed deferred sources in batch 9
+  (v16). Connect eight original source owners with 28 verified
+  passing and four failing GCC PDP-6 optimization profiles; KCC
+  adds six passing and eight conservatively failing native profiles.
+  The original tests `950605-1.c` and `950704-1.c` both had
+  a lowercase-only `__pdp10__` guard; use either the installed
+  `__PDP10__` or historical lowercase spelling to retain the
+  exact original 9-bit unsigned-char and 71-bit signed-overflow
+  numeric expectations. GCC passes all four modes for
+  `950605-1.c` but KCC fails both. Conversely, KCC passes both
+  modes for `950704-1.c` while GCC fails all four. KCC
+  optimized-only failures in `950607-2.c` and `960321-1.c`
+  are preserved separately from successful unoptimized runs.
+  The empty GNU asm barrier `960312-1.c` is registered for
+  compiler register/liveness behavior, **not ISA execution**.
+  `960117-1.c` remains deferred without a readback assertion
+  and `960327-1.c` still requires hosted `sprintf`. No
+  source was removed, and no original expected result was changed.
+  See `docs/PDP10-DEFERRED-INTEGRATION-BATCH09-20261118-v16.md`
+  and its original/current SHA256 source ledger.
 - [ ] Review ten **new, previously unreviewed** deferred sources
-  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v9.tsv`,
-  excluding all identities already reviewed in the v8-v15
-  ledgers. The next begins at `950426-1.c`. Explain any
+  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v10.tsv`,
+  excluding all identities already reviewed in the v8-v16
+  ledgers. The next begins at `960416-1.c`. Explain any
   proposed deletion before removal. Keep compiler fixes, full
   sweeps, and the 44 manual tests out of scope for now.
 
@@ -1222,14 +1242,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,161 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,169 source rows, ownership and source paths audited.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 502 active, 215 deferred, 56 removed and one nonportable
+- Upstream manifest: 510 active, 207 deferred, 56 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
