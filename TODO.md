@@ -507,16 +507,45 @@ compiler check, not a full compiler/CPU/optimization sweep.
   and all original C bytes. See
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md`
   and accompanying ten-row v24 TSV.
+- [x] Review batch 17 (v25), the next ten unreviewed canonical
+  deferred tests. Connect seven sources with real assertions:
+  `memcpy-2.c` (both-end alignment and length, return pointer,
+  copied bytes and untouched prefix/suffix), `memcpy-bi.c`
+  (80 lengths of memset/memcpy checked by actual memcmp),
+  `memset-1.c` (three fill values and full prefix/filled/suffix
+  readback), `nest-stdar-1.c` (GNU nested variadic double
+  va_arg), `nestfunc-1.c` (nested function callback through
+  pointer), `nestfunc-2.c` (seven-argument nested callback,
+  global z and accumulated sum), and `20020507-3.c`
+  (leading native 9-bit byte readback of a copied negative
+  36-bit integer). Register **15 passing/13 failing native GCC
+  PDP-6 profiles** and **six passing/two failing native KCC
+  PDP-6 profiles**. `memcpy-bi.c` passes GCC O0 but aborts
+  O1/O2/Os; `nestfunc-2.c` passes O0/O1 but aborts O2/Os.
+  KCC passes both modes of all three memory-library tests,
+  while GCC `memcpy-2.c` and `memset-1.c` abort all modes.
+  Retain `nestfunc-3.c`, since GCC O0/O1/O2 SIMH execution
+  times out with no examine status and Os reaches abort;
+  do not label those three timeouts verified assertion failures.
+  Retain `old.tort.c` for real hosted XKL/TOPS20 pointer and
+  printf support (the native non-TOPS20 branch exits 256 even
+  on apparent success), and `packed-2.c`, whose only action
+  is storing zero into a packed member without any readback
+  or packing-size oracle. No C source adaptation or deletion.
+  Preserve source SHA256 and all exact compiler outcomes in
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md`
+  and the matching ten-row v25 TSV.
 - [ ] Review ten **new, previously unreviewed** surviving deferred
   sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v18.tsv`,
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v19.tsv`,
   excluding all previously reviewed canonical identities in the
-  v8-v24 ledgers. The next begins at `memcpy-2.c`.
-  **60** unique deferred sources still await first review;
-  **56** previously reviewed identities remain deferred.
-  Keep the 16 consolidated compiler gates for the later sweep.
-  Explain any proposed deletion before removal; do not run the
-  44 manual tests or broad CPU/compiler sweeps yet.
+  v8-v25 ledgers. The next begins at
+  `pdp10/pdp10/conversion.c`. **50** unique deferred sources
+  await first review; **59** previously reviewed identities
+  remain deferred. Keep all 16 consolidated compiler gates
+  for the later compiler/assembler sweep. Explain any proposed
+  deletion before acting, and do not run the 44 manual tests
+  or the broad CPU/compiler matrix yet.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1443,7 +1472,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,161 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,168 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1451,7 +1480,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 502 active, 116 deferred, 58 removed and one
+- Upstream manifest: 509 active, 109 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.

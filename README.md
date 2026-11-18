@@ -5,7 +5,7 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-Sixteen bounded, ten-entry deferred reviews are recorded in
+Seventeen bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
 `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
@@ -21,7 +21,8 @@ Sixteen bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH13-20261118-v20.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH14-20261118-v22.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH15-20261118-v23.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md`.
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md`.
 The thirteenth connected five GCC original sources, including two
 verified 71-bit reference-table shift tests, optimized-only builtin
 constant checks, a narrow bitfield-size comparison and four
@@ -64,14 +65,26 @@ without any change to the imported C source; GCC O0 and KCC
 still fail and remain recorded as such. The unresolved RH18
 relocation overflow in `index-1.c` remains deferred for
 assembler/linker repair. No original C source was changed.
-The current inventories are **2,161 matrix sources**,
-**502 active / 116 deferred / 58 removed** upstream
+The seventeenth review connected seven additional meaningful
+native PDP-6 tests: three original memcpy/memset/memcmp
+readback regressions, nested variadic and nested function
+callback ABI tests, and leading-byte memcpy verification.
+The newly selected compiler profiles contain **15 GCC passes
+and 13 GCC runtime failures**, plus **six KCC passes and two
+KCC runtime failures**. `nestfunc-3.c` remains deferred:
+GCC O0/O1/O2 simulator runs timed out without readable status,
+while Os reached abort. The full-size XKL `old.tort.c` still
+requires hosted TOPS-20 support, and `packed-2.c` has no
+checked packing assertion. No original C source was changed
+or deleted in batch 17.
+The current inventories are **2,168 matrix sources**,
+**509 active / 109 deferred / 58 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v19.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v18.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v20.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v19.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -149,7 +162,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,161 sources** with no unowned test sources
+- Compiler matrix: **2,168 sources** with no unowned test sources
   and no duplicated classified upstream source bytes.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.
