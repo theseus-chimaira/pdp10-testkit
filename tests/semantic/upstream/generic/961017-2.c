@@ -10,7 +10,7 @@ main ()
       do {
 	z -= 0x00004000;
 	i++;
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
 	if (i > 0x000400000)
 #else
 	if (i > 0x00040000)

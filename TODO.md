@@ -310,10 +310,31 @@ compiler check, not a full compiler/CPU/optimization sweep.
   source was removed, and no original expected result was changed.
   See `docs/PDP10-DEFERRED-INTEGRATION-BATCH09-20261118-v16.md`
   and its original/current SHA256 source ledger.
+- [x] Review ten new deferred identities in batch 10 (v17).
+  Connect six source owners with **24 passing native PDP-6 GCC
+  profiles** and **four passing / four conservatively failing KCC
+  profiles**. Adapt the lowercase-only `__pdp10__` guard in
+  `961017-2.c` to also recognize installed `__PDP10__`; the
+  unchanged 36-bit wraparound loop and original limit now pass
+  both GCC/KCC optimized and unoptimized. Preserve KCC optimized
+  failure in `961206-1.c` despite its passing noopt test, and
+  both KCC failures in `970217-1.c`. Register
+  `980506-3.c` only for actual `strlen`/`memset` call and
+  return-value behavior, **not** memset content verification.
+  `960416-1.c` remains deferred because its union-layout
+  predicates can bypass both assertions, `960521-1.c` because
+  real hosted `malloc` is missing, and `961122-1.c` because
+  its genuine signed-wide shift/add assertions fail in GCC/KCC.
+  Remove only `960830-1.c`: its x86-only inline `mull` and
+  all assertions are behind `__i386__`, with only `exit(0)`
+  on PDP-10. The reason was explicitly provided before removal;
+  source is preserved in Git history. See
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH10-20261118-v17.md`
+  and the original/current SHA256-pinned ten-row TSV.
 - [ ] Review ten **new, previously unreviewed** deferred sources
-  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v10.tsv`,
-  excluding all identities already reviewed in the v8-v16
-  ledgers. The next begins at `960416-1.c`. Explain any
+  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v11.tsv`,
+  excluding all identities already reviewed in the v8-v17
+  ledgers. The next begins at `980526-1.c`. Explain any
   proposed deletion before removal. Keep compiler fixes, full
   sweeps, and the 44 manual tests out of scope for now.
 
@@ -1242,14 +1263,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,169 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,175 source rows, ownership and source paths audited.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 510 active, 207 deferred, 56 removed and one nonportable
+- Upstream manifest: 516 active, 200 deferred, 57 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
