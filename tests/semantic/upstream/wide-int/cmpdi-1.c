@@ -106,7 +106,7 @@ long long args[] =
   0LL,
   1LL,
   -1LL,
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
 #ifdef __LONG_LONG_71BIT__
   0177777777777777777777777LL,
   0200000000000000000000000LL,

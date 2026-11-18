@@ -448,16 +448,46 @@ compiler check, not a full compiler/CPU/optimization sweep.
   rejecting demotions or absent matrix registrations. See
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH14-20261118-v22.md`
   and its SHA256-pinned ten-row TSV.
-- [ ] Review ten **new, previously unreviewed** canonical deferred
+- [x] Review batch 15 (v23), the next ten unique deferred tests
+  after consolidation, and connect six. `builtin-types-compatible-p.c`
+  verifies GNU constant-folded array-bound, qualifiers, enum, array,
+  typedef and pointer type compatibility (GCC O0/O1/O2/Os pass).
+  `cmpdi-1.c` has an original **640-entry** signed/unsigned
+  long-long comparison oracle; independently recomputing all
+  640 expected outcomes confirms the existing 71-bit PDP-10
+  values. Adapt the single `__pdp10__` guard to also recognize
+  installed `__PDP10__`, **without changing any expected value**:
+  GCC O0/O1/O2/Os all pass; KCC noopt passes, optimized runtime
+  fails, with conservative KCC matrix status `fail`.
+  `comp-goto-2.c` executes a real recursive nested helper and
+  indirect nonlocal `JRST` with O0/O2 assembly evidence;
+  `complex-1.c` executes complex real/imag operations (GCC all
+  pass). `complex-2.c` executes by-value complex addition with
+  **GCC O0 failure** but O1/O2/Os passes. `complex-4.c` passes
+  only constant-folded complex/scalar +/-0 comparison, **not**
+  runtime FP behavior.
+  Retain `builtin-prefetch-5.c` and `-6.c` as no-prefetch
+  target smoke tests with no observable assertions or sound
+  9-bit pointer-width oracle; retain `cbrt.c`, whose genuine
+  PDP-10 exclusion would skip all cube-root assertions, and
+  `comp-goto-1.c`, which requires real `malloc` and independent
+  PDP-10 address/byte model validation. No source deleted.
+  Register **23 passing / one failing GCC native PDP-6 profiles**
+  plus KCC `cmpdi-1.c` as conservatively failing (actual mode
+  split preserved). The complete ten-row original/current SHA256
+  and compiler execution record is
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH15-20261118-v23.md`
+  and accompanying v23 TSV.
+- [ ] Review ten **new, previously unreviewed** surviving deferred
   sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v16.tsv`,
-  excluding all previously reviewed *surviving* identities in
-  the v8-v22 ledgers. The next begins at
-  `builtin-prefetch-5.c`. **80** unique deferred sources still
-  await first review; **48** already-reviewed identities remain
-  deferred. Keep the 16 consolidated compiler gates for the later
-  sweep. Explain any proposed deletion before removal. Do not
-  run the 44 manual tests or broad CPU/compiler sweeps yet.
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v17.tsv`,
+  excluding all previously reviewed canonical identities in the
+  v8-v23 ledgers. The next begins at `complex-5.c`.
+  **70** unique deferred sources still await first review;
+  **52** previously reviewed identities remain deferred.
+  Preserve the 16 consolidated compiler gates for the later sweep.
+  Explain any proposed deletion before removal; do not run the
+  44 manual tests or broad CPU/compiler sweeps yet.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1384,7 +1414,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,149 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,155 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1392,7 +1422,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 490 active, 128 deferred, 58 removed and one
+- Upstream manifest: 496 active, 122 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.

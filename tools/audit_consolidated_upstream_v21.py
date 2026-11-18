@@ -224,7 +224,7 @@ if __name__ == "__main__":
                                        delimiter="\t"))
 
     current_upstream = current_rows(
-        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v17.tsv")
+        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v18.tsv")
     current_matrix = current_rows("COMPILER_MATRIX.tsv", skip_comments=True)
     errors = []
     audit_consolidated_sources(current_upstream, current_matrix, errors)
