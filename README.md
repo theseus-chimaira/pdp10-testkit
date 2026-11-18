@@ -5,7 +5,7 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-Twelve bounded, ten-entry deferred reviews are recorded in
+Thirteen bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
 `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
@@ -17,21 +17,23 @@ Twelve bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH09-20261118-v16.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH10-20261118-v17.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH11-20261118-v18.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH12-20261118-v19.md`.
-The twelfth connected five source owners, including an intentionally
-failing GCC old-style varargs regression, and retained five sources
-with real hosted, width/feature, or compiler-ICE blockers. The
-optimized GCC exits of the `991228-1.c` signbit test were **not**
-promoted because they bypass its real assertion; its GCC O0 ICE
-remains recorded. No source was modified or deleted in this batch.
-The current inventories are **2,185 matrix sources**,
-**526 active / 189 deferred / 58 removed** upstream
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH12-20261118-v19.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH13-20261118-v20.md`.
+The thirteenth connected five GCC original sources, including two
+verified 71-bit reference-table shift tests, optimized-only builtin
+constant checks, a narrow bitfield-size comparison and four
+failing packed-bitfield readback profiles. Five other sources
+remain deferred for alignment-oracle, hosted-runtime or native
+36/71-bit arithmetic expectations. KCC's `bcp-1.c` internal
+compiler error remains documented. No source was edited or deleted.
+The current inventories are **2,190 matrix sources**,
+**531 active / 184 deferred / 58 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v14.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v13.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v15.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -109,7 +111,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,185 sources** with no unowned test sources.
+- Compiler matrix: **2,190 sources** with no unowned test sources.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.
 - Script ownership: **425** registered/delegated Python or shell scripts.

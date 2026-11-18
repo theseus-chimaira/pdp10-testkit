@@ -381,10 +381,35 @@ compiler check, not a full compiler/CPU/optimization sweep.
   passes bypass `signbit` and are not promoted.
   See `docs/PDP10-DEFERRED-INTEGRATION-BATCH12-20261118-v19.md`
   and original-source SHA256-pinned decision ledger.
+- [x] Review the thirteenth group of ten previously unreviewed
+  deferred sources (v20). Connect five GCC owners:
+  `ashldi-1.c` and `ashrdi-1.c` pass O0/O1/O2/Os using
+  their unchanged 71-bit target reference tables, including
+  variable/constant shift and sign-extension checks.
+  `bcp-1.c` passes O0/O1/O2/Os; only optimized modes execute
+  its `__OPTIMIZE__`-specific `__builtin_constant_p` checks.
+  Preserve KCC's noopt internal `dodecl: scope mismatch`
+  errors for later compiler repair. `bf-layout-1.c` passes
+  only the asserted bitfield aggregate `sizeof` equality,
+  not field readback. `bf-pack-1.c` is deliberately connected
+  as **four failing GCC profiles**, since the source reads back
+  both packed fields and aborts on mismatch.
+  Retain `align-1.c` (its aligned typedef is never asserted),
+  `arith-ll.c` (requires real `printf`), `arith-rand.c`
+  (8-bit-width generator assumptions and potential zero divisors),
+  `bf-sign-2.c` (32-bit-int promotion assumptions), and
+  `bf64-1.c` (71-bit signed bitfield sign-extension oracle
+  not independently derived). No source edited or deleted.
+  Reconcile all five byte-identical active/deferred source pairs
+  in duplicate census v18/review v19, including the two
+  wide-int copies where the active owner is the B side.
+  Original SHA256 and all native PDP-6 outcomes are recorded in
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH13-20261118-v20.md`
+  and its ten-row v20 TSV.
 - [ ] Review ten **new, previously unreviewed** deferred sources
-  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v13.tsv`,
-  excluding all identities already reviewed in the v8-v19
-  ledgers. The next begins at `align-1.c`. Explain any
+  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv`,
+  excluding all identities already reviewed in the v8-v20
+  ledgers. The next begins at `bitfld-2.c`. Explain any
   proposed deletion before removal. Keep compiler fixes, full
   sweeps, and the 44 manual tests out of scope for now.
 
@@ -1313,14 +1338,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,185 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,190 source rows, ownership and source paths audited.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 526 active, 189 deferred, 58 removed and one nonportable
+- Upstream manifest: 531 active, 184 deferred, 58 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
