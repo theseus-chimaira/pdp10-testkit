@@ -751,11 +751,18 @@ The next eight batches are documented in
   referenced. See
   `docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261118-v2.md`.
 - [ ] Investigate and correct the newly exposed compiler/ABI regressions:
-  mixed deep-call preserved register (`__test_exit=4`), GCC packed
-  character pointer stepping (`__test_exit=010` octal), and KCC
-  negative 71-bit remainder (`__test_exit=2`). Preserve original
-  C sources, assertions and complete diagnostics; do not fake helpers
-  or change runtime expected results to hide failures.
+  GCC packed-character pointer stepping (`__test_exit=010` octal).
+  The mixed deep-call case (`__test_exit=4`) was an incorrect
+  assembler expected value: decimal 52 is octal 64, not octal 52;
+  the real preserved-register checks now pass. KCC's negative
+  71-bit remainder interop case (`__test_exit=2`) was caused by
+  AC10..AC14 clobbering in the inlined division before the later
+  remainder call. This is repaired in KCC `948dd9f`, deployed into
+  the operational prefix, and guarded by a new registered **10/10**
+  passing five-target/two-mode ABI regression. GCC's packed array
+  issue persists on PDP-6 for all `-O0/-O1/-O2/-Os`, with
+  contradictory word-separated stores and three-byte pointer steps.
+  See `docs/PDP10-ABI-COMPILER-REGRESSIONS-20261118-v3.md`.
 - [x] Verify operational installed freestanding KCC/GCC header compilation,
   production DARC archive extraction, GCC libgcc dependency and genuine
   PDP-6 libc calls in a registered targeted test. Both compilers pass;

@@ -32,7 +32,7 @@ abi_check_preserved_v24:
 	movei 3,3
 	movei 4,4
 	pushj 17,abi_pressure_v24
-	caie 1,52
+	caie 1,64		; 52 decimal (sum of six locals and clobber result)
 	 jrst abi_preserved_fail_v24
 	caie 10,110
 	 jrst abi_preserved_fail_v24
