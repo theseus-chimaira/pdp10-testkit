@@ -20,11 +20,48 @@ GATES = ROOT / "docs/UPSTREAM-CONSOLIDATED-COMPILER-GATES-20261118-v21.tsv"
 BEFORE = ROOT / "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v15.tsv"
 BEFORE_DEFERRED = ROOT / "docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv"
 BEFORE_REVIEW = ROOT / "docs/DEFERRED-SOURCE-DUPLICATES-20261118-v19.tsv"
+STDARG_PATCH_LEDGER = (ROOT / "docs" /
+                       "PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.tsv")
+STDARG_CANONICAL = "tests/todo/generic/varargs/strct-varg-1.c"
+STDARG_TARGET_PREFIX = (
+    b"/* PDP-10 has stdarg.h, not the obsolete varargs.h interface. */\n"
+    b"#if defined(__PDP10__) || defined(__pdp10__)\n"
+    b"#define NO_VARARGS 1\n"
+    b"#endif\n\n")
 
 
 def records(path):
     with path.open(encoding="utf8", newline="") as stream:
         return list(csv.DictReader(stream, delimiter="\t"))
+
+
+def audited_stdarg_adaptation(path, original_sha, data, classification):
+    """Verify the exact v27 target-only portability change, fail closed.
+
+    The historical v21 hash remains a pinned identity for the *original*
+    duplicate source pair. A later canonical owner can differ only if its
+    v27 ledger records the original and new bytes, and deleting exactly the
+    five prepended portability lines reconstructs those original bytes.
+    """
+    if path != STDARG_CANONICAL or classification is None:
+        return False
+    if classification["activation"] != "active":
+        return False
+    rows = [row for row in records(STDARG_PATCH_LEDGER)
+            if row["classified_path"] == path]
+    if len(rows) != 1:
+        return False
+    row = rows[0]
+    if (row["original_source_sha256"] != original_sha or
+            row["source_adaptation"] !=
+            "select-existing-stdarg-on-pdp10-only" or
+            row["activation"] != "active" or
+            row["current_source_sha256"] !=
+            hashlib.sha256(data).hexdigest() or
+            not data.startswith(STDARG_TARGET_PREFIX)):
+        return False
+    return (hashlib.sha256(data[len(STDARG_TARGET_PREFIX):]).hexdigest() ==
+            original_sha)
 
 
 def audit_consolidated_sources(upstream, matrix, problems):
@@ -114,9 +151,13 @@ def audit_consolidated_sources(upstream, matrix, problems):
         if (ROOT / retired).exists():
             problems.append("retired alias recreated: " + retired)
         survivor = ROOT / keep
-        if not survivor.is_file() or hashlib.sha256(
-                survivor.read_bytes()).hexdigest() != sha:
+        if not survivor.is_file():
             problems.append("canonical SHA256 missing or changed: " + keep)
+        else:
+            data = survivor.read_bytes()
+            if (hashlib.sha256(data).hexdigest() != sha and
+                    not audited_stdarg_adaptation(keep, sha, data, canonical)):
+                problems.append("canonical SHA256 missing or changed: " + keep)
         if (keep in registered) != (
                 canonical is not None and
                 canonical["activation"] == "active"):
@@ -224,7 +265,7 @@ if __name__ == "__main__":
                                        delimiter="\t"))
 
     current_upstream = current_rows(
-        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v21.tsv")
+        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v22.tsv")
     current_matrix = current_rows("COMPILER_MATRIX.tsv", skip_comments=True)
     errors = []
     audit_consolidated_sources(current_upstream, current_matrix, errors)

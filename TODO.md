@@ -563,17 +563,57 @@ compiler check, not a full compiler/CPU/optimization sweep.
   hashes, decisions and bounded compiler evidence in
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md`
   and its ten-row v26 TSV.
-- [ ] Review ten **new, previously unreviewed** surviving deferred
+- [x] Review batch 19 (v27), the next ten unique canonical
+  deferred sources. Connect nine: `strct-varg-1.c` exercises
+  two structures and an intervening scalar passed through
+  `va_arg` (KCC noopt/optimized and GCC O0/O1/O2/Os all
+  pass after **only** a five-line PDP-10-only prefix selects
+  the original existing `NO_VARARGS`/`stdarg.h` branch);
+  `string-opt-1.c` checks `strstr` pointer identities
+  (GCC all four modes abort); `string-opt-10.c` checks
+  strncat destination, contents and pointer/scalar side
+  effects (GCC four passes); `string-opt-11.c` checks
+  strspn spans and side effects (GCC four aborts);
+  `string-opt-12.c` checks strcspn and pointer side effects
+  (GCC O0 pass, O1/O2/Os abort); `string-opt-13.c`
+  tests strlen comparisons around zero (GCC four passes);
+  `string-opt-14.c` tests **optimized-only** removal
+  of zero-length memcpy/memset using the source's aborting
+  local functions (GCC four passes, without claiming runtime
+  memory readback); `string-opt-15.c` tests zero/one-byte
+  memcmp sign checks (GCC O0 pass, O1/O2/Os abort);
+  and `string-opt-16.c` tests constant-folding of three
+  fixed memcmp results (GCC O0 passes, O1/O2/Os
+  **LINK_FAIL** on intentionally undefined `link_error`,
+  registered `error`, **not** runtime failure).
+  New registrations: **19 GCC passes, 14 GCC runtime
+  failures, three GCC compile/link errors**, plus **two
+  KCC passes** for `strct-varg-1.c`.
+  Retain `strct-pack-2.c` because its only assignment
+  lacks an assertion of packing, alignment or pointer
+  contents. Keep all original expected values. Preserve
+  the historical v21 SHA256 for the canonical varargs
+  source and the retired alias while verifying the exact
+  v27 source-prefix reconstruction against both original
+  and current SHA256s. Note the exploratory
+  `profile.extra` GCC flag was not forwarded by the
+  runner: actual edited-source executions, not that
+  scratch result, support the passing compiler profiles.
+  No deletion, broad CPU/compiler run, or manual special
+  suite. See
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md`
+  and its ten-row source-pinned TSV.
+- [ ] Review ten **new, previously unreviewed** canonical deferred
   sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v20.tsv`,
-  excluding all previously reviewed canonical identities in the
-  v8-v26 ledgers. Next source:
-  `tests/semantic/upstream/extensions/strct-pack-2.c`.
-  **40** unique deferred sources await first review and **64**
-  previously reviewed sources remain deferred. Keep all 16
-  consolidated compiler gates for the later compiler/assembler
-  sweep. Explain any proposed deletion before acting; do not
-  run the 44 manual tests or broad CPU/compiler matrix yet.
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v21.tsv`,
+  excluding all previously reviewed identities in the
+  v8-v27 review ledgers. The next begins at
+  `tests/semantic/upstream/extensions/string-opt-2.c`.
+  **30** unique deferred sources remain unreviewed; **65**
+  previously reviewed sources remain deferred. Keep
+  the 16 consolidated compiler gates for the later sweep.
+  Explain any proposed deletion beforehand; do not execute
+  the 44 manual tests or broad CPU/compiler matrix yet.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1500,7 +1540,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,173 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,182 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1508,7 +1548,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 514 active, 104 deferred, 58 removed and one
+- Upstream manifest: 523 active, 95 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.

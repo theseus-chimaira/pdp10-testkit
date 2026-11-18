@@ -1,3 +1,8 @@
+/* PDP-10 has stdarg.h, not the obsolete varargs.h interface. */
+#if defined(__PDP10__) || defined(__pdp10__)
+#define NO_VARARGS 1
+#endif
+
 #ifdef NO_VARARGS
 #include <stdarg.h>
 #define va_alist int x_attr, ...
