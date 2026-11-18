@@ -203,7 +203,8 @@ compiler check, not a full compiler/CPU/optimization sweep.
   size rather than aborting in the backend. The installed compiler
   passes a registered compile-only 4-CPU x 4-optimization (16/16)
   regression, preserving the separate failing runtime oracle.
-- [ ] Fix the separately exposed GCC variadic VLA aggregate-copy ABI:
+- [ ] DEFER TO FULL COMPILER SWEEP: investigate the separately exposed GCC
+  variadic VLA aggregate-copy ABI:
   unchanged `20020412-1.c` now executes with real freestanding
   `memcpy` but aborts at its first digit. Investigate raw word
   addresses versus 9-bit-byte-pointer arguments; do not weaken the
@@ -213,6 +214,10 @@ compiler check, not a full compiler/CPU/optimization sweep.
   correct stack extent, byte count and source/destination addresses
   must be traced together before changing GCC or libc. See
   `docs/PDP10-GCC-VLA-AGGREGATE-COPY-20261118-v6.md`.
+  The original source stays deferred and its compiler/ABI runtime failure
+  is recorded. Do **not** pursue this during harness and unconnected-test
+  integration; other compiler failures can be triaged together in the
+  subsequent full sweep.
 - [x] Complete KCC P0 `vrwiden` ICE for the original upstream
   `tests/semantic/upstream/wide-int/930622-2.c` without altering its source
   or accepting any other processor's unverified floating-point behavior.
@@ -420,6 +425,16 @@ The next eight batches are documented in
   activating imported extension tests.
 
 ## P1 — registry and runner consolidation
+
+- [x] Add exact-ID specialized test invocation for deliberately
+  nonautomatic registered roots. `run-misc-tests.sh list-manual`
+  enumerates all 44 manual tests; `run-id ID` executes only an enabled
+  root, and `run-id ID --manual` explicitly opts in to a manual root.
+  Nested DAS and prepared tools remain gated. Dispatch tests verify
+  exact selection, manual/nested rejection and all listing identities;
+  the selected host script-ownership auditor executes and passes.
+  Static inventory still reports zero orphan sources/scripts.
+  See `docs/PDP10-HARNESS-SELECTED-TESTS-20261118-v7.md`.
 
 - [x] Preserve 18 reviewed GCC target artifacts outside the GCC source
   tree and register twelve independent compiler/codegen oracles in the

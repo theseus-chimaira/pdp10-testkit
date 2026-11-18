@@ -17,12 +17,60 @@ TMP = os.environ.get("TMPDIR") or str(Path.home() / "tmp")
 Path(TMP).mkdir(parents=True, exist_ok=True)
 ENV = dict(os.environ, TMPDIR=TMP)
 
+def registered_rows():
+    with (ROOT / "SPECIAL_TESTS.tsv").open(encoding="utf-8") as source:
+        return list(csv.DictReader(source, delimiter="\t"))
+
+
+def run_selected(test_id, allow_manual=False):
+    """Execute exactly one registered root, never a nested helper.
+
+    The direct registry owns the timeout and runner.  Manual roots
+    require two explicit choices: the exact ID and --manual.  Do not
+    silently reproduce group setup for DAS or independent tools: those
+    suites prepare their sources/images before running any child.
+    """
+    matches = [row for row in registered_rows() if row["id"] == test_id]
+    if len(matches) != 1:
+        raise SystemExit("unknown or duplicate registered test ID: " + test_id)
+    row = matches[0]
+    if row["group"] == "das" and row["profile"] == "nested":
+        raise SystemExit("nested DAS helper must run through its owning suite: "
+                         + test_id)
+    if row["enabled"] not in ("manual", "yes"):
+        raise SystemExit("test is not enabled: " + test_id)
+    if row["enabled"] == "manual" and not allow_manual:
+        raise SystemExit("manual test requires explicit --manual: " + test_id)
+    if row["group"] in ("das", "tools"):
+        raise SystemExit("test requires suite preparation; use its named "
+                         "suite instead: " + test_id)
+    if row["runner"] not in ("sh", "python3"):
+        raise SystemExit("invalid registered test runner: " + test_id)
+    path = (ROOT / row["path"]).resolve()
+    if not path.is_relative_to(ROOT) or not path.is_file():
+        raise SystemExit("invalid registered test path: " + test_id)
+    try:
+        timeout = int(row["timeout"])
+    except ValueError:
+        raise SystemExit("invalid registered test timeout: " + test_id)
+    if timeout <= 0:
+        raise SystemExit("nonpositive registered test timeout: " + test_id)
+    env = ENV
+    if row["group"] == "kcc-host":
+        kcc = Path(os.environ.get("KCC_REPO", "../kcc")).resolve()
+        if not (kcc / "cc.c").is_file():
+            raise SystemExit("invalid KCC_REPO: " + str(kcc))
+        env = dict(ENV, KCC_REPO=str(kcc))
+    print("selected %s [%s, %s] timeout=%ds" %
+          (test_id, row["group"], row["enabled"], timeout), flush=True)
+    run(row["runner"], path, env=env, timeout=timeout)
+    print("PASS selected registered test: " + test_id, flush=True)
+
+
 def run_special(group, env=ENV, profiles=None):
     failures = []
     executed = 0
-    with (ROOT / "SPECIAL_TESTS.tsv").open(encoding="utf-8") as f:
-        rows = list(csv.DictReader(f, delimiter="\t"))
-    for row in rows:
+    for row in registered_rows():
         if (row["group"] != group or row["enabled"] != "yes" or
                 (profiles is not None and row["profile"] not in profiles)):
             continue
@@ -125,6 +173,17 @@ def main(suite):
         raise SystemExit("%d special test(s) failed in %s" % (failures, suite))
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        raise SystemExit("usage: run-misc-suites.py SUITE")
-    main(sys.argv[1])
+    if len(sys.argv) == 2 and sys.argv[1] == "list-manual":
+        for row in registered_rows():
+            if row["enabled"] == "manual":
+                print("%s\t%s\t%s\t%s" %
+                      (row["id"], row["group"], row["profile"], row["path"]))
+    elif len(sys.argv) in (3, 4) and sys.argv[1] == "run-id":
+        if len(sys.argv) == 4 and sys.argv[3] != "--manual":
+            raise SystemExit("usage: run-id TEST_ID [--manual]")
+        run_selected(sys.argv[2], allow_manual=len(sys.argv) == 4)
+    elif len(sys.argv) == 2:
+        main(sys.argv[1])
+    else:
+        raise SystemExit("usage: run-misc-suites.py SUITE | "
+                         "run-id TEST_ID [--manual] | list-manual")

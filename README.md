@@ -53,6 +53,12 @@ execution result. Full sweeps are operator-selected.
 manual guest-native KCC/DAS/DLINK cases. `./run-misc-tests.sh` is the
 special-suite entry point; `verify` runs the broader verify/compatibility
 and validation groups, **not** merely a fast static ownership audit.
+Use `./run-misc-tests.sh list-manual` to enumerate manual roots without
+executing them, or `./run-misc-tests.sh run-id TEST_ID` to execute
+exactly one enabled registered test. A manual root additionally requires
+`--manual`; nested DAS helpers and suite-prepared tools cannot be
+launched by ID. This is explicitly selected execution, not a new
+automatic suite. See `docs/PDP10-HARNESS-SELECTED-TESTS-20261118-v7.md`.
 Use the individual Python auditors above for host-only preflight.
 For named DAS groups use `das-fast`, `das`, or `das-native`.
 The independent PDP10-TOOLS suite is sourced from `../pdp10-tools`;

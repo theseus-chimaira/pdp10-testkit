@@ -12,6 +12,7 @@ import importlib.util
 import io
 import os
 from pathlib import Path
+import subprocess
 import sys
 
 
@@ -117,14 +118,79 @@ def main():
     finally:
         dispatcher.run = original_run
 
+    # A single selected test must never implicitly launch its entire group
+    # or turn one of the 44 explicit manual roots into automatic coverage.
+    by_id = {r['id']: r for r in registered}
+    require(len(by_id) == len(registered), 'duplicate registered test ID')
+    enabled_id = 'test-script-ownership-v4'
+    manual_id = 'kcc-pdp6-rounded-fp-boundaries-v2'
+    nested_id = next(r['id'] for r in registered
+                     if r['group'] == 'das' and r['profile'] == 'nested')
+    require(by_id[enabled_id]['enabled'] == 'yes', 'enabled fixture changed')
+    require(by_id[manual_id]['enabled'] == 'manual', 'manual fixture changed')
+
+    def rejected(fn, expected):
+        try:
+            fn()
+        except SystemExit as exc:
+            require(expected in str(exc), 'wrong single-test rejection: ' +
+                    str(exc))
+            return
+        raise AssertionError('single-test guard did not reject: ' + expected)
+
+    observed[:] = []
+    dispatcher.run = record
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            dispatcher.run_selected(enabled_id)
+        require(observed == [('python3', str(ROOT / by_id[enabled_id]['path']))],
+                'single enabled test was not dispatched exactly once')
+        observed[:] = []
+        rejected(lambda: dispatcher.run_selected(manual_id),
+                 'requires explicit --manual')
+        require(not observed, 'manual test executed without flag')
+        with contextlib.redirect_stdout(io.StringIO()):
+            dispatcher.run_selected(manual_id, allow_manual=True)
+        require(observed == [('sh', str(ROOT / by_id[manual_id]['path']))],
+                'selected manual test was not dispatched exactly once')
+        observed[:] = []
+        rejected(lambda: dispatcher.run_selected(nested_id, True),
+                 'nested DAS helper')
+        rejected(lambda: dispatcher.run_selected('does-not-exist-v1', True),
+                 'unknown or duplicate')
+        require(not observed, 'an invalid or nested selected test ran')
+        # A root requiring a prepared build or media must not be run in a
+        # made-up environment.  Run its named suite instead.
+        tools_id = next(r['id'] for r in registered
+                        if r['group'] == 'tools' and r['enabled'] == 'yes')
+        rejected(lambda: dispatcher.run_selected(tools_id),
+                 'requires suite preparation')
+        require(not observed, 'suite-prepared test executed without setup')
+    finally:
+        dispatcher.run = original_run
+
+    listing = subprocess.run(['sh', str(ROOT / 'run-misc-tests.sh'),
+                              'list-manual'], cwd=ROOT, env=os.environ,
+                             text=True, stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE, check=True)
+    expected_manual = [r['id'] for r in registered
+                       if r['enabled'] == 'manual']
+    listed = [line.split('\t', 1)[0] for line in
+              listing.stdout.splitlines()]
+    require(listed == expected_manual,
+            'list-manual dropped, reordered or invented manual roots')
+    require(len(listed) == 44,
+            'historical manual gate count changed; review policy')
+
     total_enabled = sum(r['enabled'] == 'yes' and
                         not (r['group'] == 'das' and r['profile'] == 'nested')
                         for r in registered)
     require(checked == total_enabled,
             'not every enabled direct registration has a route')
     print('Special suite dispatch: PASS (%d direct enabled tests, '
-          '%d suite entrypoints, no nested/manual double dispatch)' %
-          (checked, len(expected_routes) + 1))
+          '%d suite entrypoints, %d manually gated roots, '
+          'exact-ID selection with no nested/manual double dispatch)' %
+          (checked, len(expected_routes) + 1, len(listed)))
 
 
 if __name__ == '__main__':
