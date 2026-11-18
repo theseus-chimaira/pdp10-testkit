@@ -1,0 +1,149 @@
+path	disposition	owner	reason
+misc/compat/test-s6rec-utf9-v1.py	delegated	misc/tools/cases/s6rec-utf9-v3.sh	UTF-9 converter check owned by independent tools registry case
+misc/compat/test-utf9-file-v1.py	delegated	misc/tools/cases/utf9-file-v3.sh	UTF-9 converter check owned by independent tools registry case
+misc/compat/test-utf9-s6rec-v1.py	delegated	misc/tools/cases/utf9-s6rec-v3.sh	UTF-9 converter check owned by independent tools registry case
+misc/das/check-das-native-chain.py	delegated	misc/das/build-das-native-phases.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-das-native-comments-asm.py	delegated	misc/das/build-das-native-phases.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-das-native-phases.py	delegated	misc/das/build-das-native-phases.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-dxr-block-expr.sh	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-dxr-c-comments.sh	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-dxr-conditional-rept-errors.sh	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-dxr-irp-irpc-errors.sh	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-dxr-long-decimal.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-dxr-macro-errors.sh	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/check-dxr-number-radix.sh	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-align-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-assignment-directives-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-byte-expr-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-common-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-conditional-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-conditional-rept-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-convenience-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-expect.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-expressions-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-gcc-corpus-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-gcc-kl10-data-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-gcc-syntax-compat-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-irp-irpc-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-jfcl-alias-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-jump-jrst-fold-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-kcc-corpus-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-literal-dedup-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-literal-set-nested-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-literal-set-source-order-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-macro-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-macro-opt-label-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-nested-literal-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-op-extended-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-op-simh-extra-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-access-kind-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-addi-overflow-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-addi-window-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-cai-flags-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-cai-zero-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-ea-audit-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-fault-order-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-halfword-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-immediate-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-label-xct-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-literal-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-load-store-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-lshr-mask-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-move-forward-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-movei-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-movei-forward-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-movei-hrrz-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-movei-unary-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-movn-overflow-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-overwrite-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-push-fault-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-setm-forward-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-shift-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-skip-ac0-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-skip-barrier-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-skip-fold-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-skip-state-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-store-forward-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-subi-flags-check.py	delegated	misc/das/check-das-phase-ir.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-test-nonskip-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-unary-fold-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-window-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-zero-copy-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-zero-pair-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-zero-store-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-optimize-zero-store-fault-check.py	delegated	misc/das/check-s6filter.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-org-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-point-default-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-point-forms-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-point-minus1-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-pseudo-alias-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-pseudo-more-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-reloc-forms-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-reloc-symbol-offset-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-selfasm-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-source-compat-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-space-byte-units-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-symbol-assign-check.py	delegated	misc/das/run-das-fast-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-word-address-reloc-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxr-words-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxrcheck-bad-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxrcheck-dump-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxrcheck-relocs-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/das/dxrconvert-check.py	delegated	misc/das/run-das-tests.sh	DAS phase/format checker consumes owning assembly fixture
+misc/kcc-regression/kcc-env.sh	delegated	misc/kcc-regression/adjbp-direct-marshalling.sh	Sourced KCC regression setup helper
+misc/tools/csix-test.sh	delegated	misc/tools/cases/csix-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/install-cleanup-test.sh	delegated	misc/tools/cases/install-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/media-encoders-test-v1.py	delegated	misc/tools/cases/media-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/p10fold-link-test.sh	delegated	misc/tools/cases/p10fold-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/p10run-functional-test.sh	delegated	misc/tools/cases/p10run-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/p10super-cfg-test.sh	delegated	misc/tools/cases/p10super-cfg-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/p10super-rewrite-test.sh	delegated	misc/tools/cases/p10super-rewrite-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/pdp10-objdump-test.sh	delegated	misc/tools/cases/objdump-v2.sh	Invoked by independent tools shared-build registry case
+misc/tools/prepare-v2.sh	delegated	tools/run-misc-suites.py	One shared independent tools snapshot and fixture build
+misc/tools/run.sh	compat-entrypoint		Legacy entry point delegates to authoritative tools dispatcher; not a test
+refs/assembler-inputs/run-smoke.sh	replaced-assertion	misc/das/check-reference-assembly-v5.sh	Obsolete deposit CLI replaced by DXR and include-equivalence regression
+refs/gcc-pdp10-target-v2/bare-dlink-libgcc.sh	replaced-assertion	misc/validation/test-badl-tables.sh	Stronger registered BADL table link and two-CPU execution oracle
+refs/gcc-pdp10-target-v2/libgcc-badptr-octal.sh	delegated	misc/validation/test-gcc-target-badptr-octal-v3.sh	Original octal source-table checker invoked with current GCC tree
+refs/gcc-pdp10-target-v2/libgcc-empty-static-members.sh	delegated	misc/validation/test-gcc-target-static-members-v3.sh	Original static-member exclusion checker uses current gcc subdirectory
+refs/gcc-pdp10-target-v2/wide-int-mode-options.sh	delegated	misc/validation/test-gcc-target-wide-macros-v3.sh	Original 71-bit and 72-bit macro probes use retained companion C source
+tools/aap-class-events-v1.py	delegated	misc/compat/test-aap-class-events-v1.py	Invocation/checking helper used by registered suite
+tools/aap-execution-class-v1.py	delegated	misc/compat/test-aap-execution-class-parser-v1.py	Invocation/checking helper used by registered suite
+tools/aap-kernel-coverage-v1.py	delegated	misc/compat/test-aap-exact-form-registry-v1.py	Invocation/checking helper used by registered suite
+tools/aap-linked-image-verify-v1.py	delegated	misc/compat/test-aap-linked-image-verify-v1.py	Invocation/checking helper used by registered suite
+tools/aap-linked-pc-profile-v1.py	delegated	misc/compat/test-aap-linked-pc-profile-v1.py	Invocation/checking helper used by registered suite
+tools/aap-profile-provenance-v1.py	delegated	misc/compat/test-aap-profile-provenance-v1.py	Invocation/checking helper used by registered suite
+tools/aap-tick-cost-v1.py	delegated	misc/compat/test-aap-addressing-v1.sh	Invocation/checking helper used by registered suite
+tools/aap_guest_console_v1.py	module-helper	misc/compat/test-aap-andcmi-v1.py	Imported Python module helper
+tools/audit-gcc-c-feasibility-v1.py	manual-tool		Read-only analysis utility requiring explicitly selected source inputs
+tools/census-cross-repo-v1.py	manual-tool		Read-only analysis utility requiring explicitly selected source inputs
+tools/check-aap-broad-coverage-v1.py	delegated	misc/compat/test-aap-broad-coverage-gate-v1.py	Invocation/checking helper used by registered suite
+tools/check-kcc-rejection-v1.py	delegated	misc/compat/test-language-compat.sh	Invocation/checking helper used by registered suite
+tools/compare-aap-tick-cost-v1.py	delegated	misc/compat/test-aap-tick-comparison-v1.py	Invocation/checking helper used by registered suite
+tools/compare-pdp6-profiles-v1.py	delegated	misc/compat/test-pdp6-profile-comparison-v1.py	Invocation/checking helper used by registered suite
+tools/compiler_negative_policy_v1.py	module-helper	tools/run-tests.py	Imported Python module helper
+tools/kcc_assembly_checks.py	module-helper	tools/run-tests.py	Imported Python module helper
+tools/kcc_special_checks.py	module-helper	tools/run-tests.py	Imported Python module helper
+tools/pdp10-env.sh	delegated	misc/compat/test-aggregate-return-abi.sh	Invocation/checking helper used by registered suite
+tools/report-pdp6-opcodes-v1.py	delegated	misc/compat/test-pdp6-opcode-report-v1.py	Invocation/checking helper used by registered suite
+tools/run-misc-suites.py	entrypoint		Authoritative test or specialized suite dispatcher invoked by shell entry point
+tools/run-tests.py	entrypoint		Authoritative test or specialized suite dispatcher invoked by shell entry point
+tools/stubselect.py	module-helper	tools/run-tests.py	Imported Python module helper
+tools/codegen_declared_oracles_v1.py	module-helper	tools/run-tests.py	Versioned assembly form, helper symbol and compiler target-macro oracle predicates imported by matrix runner
+tools/diagnostic_oracles_v1.py	module-helper	tools/run-tests.py	Versioned source-located compiler diagnostic policy imported by authoritative matrix runner
+misc/kcc-host/daimos-kcc-make-auto-vars-20261010-v1.py	manual-tool		Source graph comparison requires two explicit KCC platform makefiles
+misc/kcc-host/daimos-kcc-make-normalization-20261010-v1.py	manual-tool		Source graph comparison requires two explicit makefile snapshots
+misc/validation/kcc-indptr-call-v1395/check-v1395.py	delegated	misc/validation/kcc-indptr-call-v1395/run-v1395.sh	Compiler assembly form checker invoked by the registered KCC fixture
+misc/validation/dxr2-st2-v1070.py	delegated	misc/validation/dxr2-st2-v1070.sh	DAS DXR2 format checks executed by registered checker script
+misc/validation/daimos-native-dlink-c89-v1403/build_root_v1403.py	delegated	misc/validation/daimos-native-dlink-c89-v1403/run-v1403.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/das-native-ascii7-v1402/build_root_v1402.py	delegated	misc/validation/das-native-ascii7-v1402/run-v1402.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/das-native-ascii7-v1402/make_fixtures_v1402.py	delegated	misc/validation/das-native-ascii7-v1402/run-v1402.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/das-native-dobj-v1405/build_root_v1405.py	delegated	misc/validation/das-native-dobj-v1405/run-v1405.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/das-native-dobj-v1405/make_fixtures_v1405.py	delegated	misc/validation/das-native-dobj-v1405/run-v1405.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/das-native-dobj-v1405/make_probes_v1405.py	delegated	misc/validation/das-native-dobj-v1405/run-v1405.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/das-native-global-spill-v1405/make_fixture_v1405.py	delegated	misc/validation/das-native-global-spill-v1405/run-v1405.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/kcc-native-refresh-v1373/build_root_v1373.py	delegated	misc/validation/kcc-native-refresh-v1373/run-v1373.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/native-dlink-c-v1403/build_root_v1403.py	delegated	misc/validation/native-dlink-c-v1403/run-v1403.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+misc/validation/native-dlink-c-v1403/make_fixtures_v1403.py	delegated	misc/validation/native-dlink-c-v1403/run-v1403.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
+tools/audit_consolidated_upstream_v21.py	module-helper	tools/audit-test-inventory-v1.py	Canonical upstream SHA256 and retired-alias audit, imported by inventory source owner; no independent special registry execution

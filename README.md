@@ -26,14 +26,25 @@ failing packed-bitfield readback profiles. Five other sources
 remain deferred for alignment-oracle, hosted-runtime or native
 36/71-bit arithmetic expectations. KCC's `bcp-1.c` internal
 compiler error remains documented. No source was edited or deleted.
-The current inventories are **2,190 matrix sources**,
-**531 active / 184 deferred / 58 removed** upstream
+After the 13 reviews, an additional versioned upstream-source
+consolidation eliminated **97 exact duplicate source copies**:
+50 involving deferred sources and 47 independently registered
+active/active pairs with identical compiler profile vectors.
+No distinct assertion or supported compiler profile was lost.
+The canonical source and original SHA256/provenance for each pair
+are recorded in
+`docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md`
+and its TSV. All **16 outstanding compiler-specific blockers**
+from the retired deferred copies remain open in
+`docs/UPSTREAM-CONSOLIDATED-COMPILER-GATES-20261118-v21.tsv`.
+The current inventories are **2,143 matrix sources**,
+**484 active / 134 deferred / 58 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v15.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v16.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v15.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -111,10 +122,12 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,190 sources** with no unowned test sources.
+- Compiler matrix: **2,143 sources** with no unowned test sources
+  and no duplicated classified upstream source bytes.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.
-- Script ownership: **425** registered/delegated Python or shell scripts.
+- Script ownership: **426** registered/delegated Python or shell scripts,
+  including the v21 upstream consolidation auditor as a module helper.
 - Registered host verification: **20/20 passed** after the documentation
   path audit (no full compiler or OS sweep).
 - Cross-repository migration: **127** former DAIMOS compiler/assembler

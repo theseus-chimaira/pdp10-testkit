@@ -7,6 +7,5 @@ tests/semantic/base/base_ret_char_short_matrix.c	native char/short return semant
 tests/semantic/base/base_struct_return_1w_2w.c	native mixed aggregate value semantics intentionally differ
 tests/semantic/gcc-historical-b01-v1/20011115-1.c	GCC __OPTIMIZE__ and KCC-specific dead-branch selection changes source paths across optimization profiles
 tests/semantic/gcc-historical-b01-v1/20020402-2.c	PDP-10/KCC-specific symbol renaming avoids identifier collisions; compiler-conditioned source is semantic-only, not performance-comparable
-tests/semantic/upstream/wide-int/conversion.c	upstream GCC torture test omits unsupported long-long cases under KCC
 tests/semantic/upstream/pdp10/pdp10/conversion.c	upstream PDP-10 GCC torture variant omits unsupported long-long cases under KCC
 tests/semantic/upstream/extensions/va-arg-21.c	upstream GCC attribute spelling compatibility only

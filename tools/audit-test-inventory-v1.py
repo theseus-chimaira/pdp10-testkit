@@ -15,18 +15,16 @@ from pathlib import Path
 import re
 import sys
 
+from audit_consolidated_upstream_v21 import audit_consolidated_sources
+
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
 CLASSIFIED = (ROOT / "docs" /
-              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v15.tsv")
+              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v16.tsv")
 DEFERRED_DISPOSITIONS = (ROOT / "docs" /
-                         "SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv")
-DUPLICATE_OWNERSHIP = (ROOT / "docs" /
-                       "DEFERRED-SOURCE-DUPLICATES-20261118-v18.tsv")
-DUPLICATE_REVIEW = (ROOT / "docs" /
-                    "DEFERRED-SOURCE-DUPLICATES-20261118-v19.tsv")
+                         "SEMANTIC-DEFERRED-DISPOSITION-20261118-v15.tsv")
 GCC_TARGET_FEASIBILITY = (ROOT / "docs" /
                           "GCC-PDP10-TARGET-FEASIBILITY-20261116-v1.tsv")
 GCC_TARGET_REVIEW = (ROOT / "docs" /
@@ -105,144 +103,6 @@ def rows(path, comments=False):
 def duplicates(values):
     return sorted(key for key, count in collections.Counter(values).items()
                   if count > 1)
-
-
-def audit_deferred_duplicates(upstream, problems):
-    """Pin identical deferred sources without assuming equivalent test roles.
-
-    Include collisions with active copies: an active KCC result does not
-    discharge an independently recorded GCC failure on the same source.
-    This is a static ownership inventory, never execution acceptance.
-    """
-    eligible = {}
-    grouped = collections.defaultdict(list)
-    for row in upstream:
-        path = row["classified_path"]
-        if row["activation"] not in ("active", "deferred"):
-            continue
-        full = (ROOT / path).resolve()
-        if not full.is_relative_to(ROOT) or not full.is_file():
-            continue  # The existing source inventory reports this error.
-        digest = hashlib.sha256(full.read_bytes()).hexdigest()
-        eligible[path] = (digest, row["activation"])
-        grouped[digest].append(path)
-
-    deferred_dispositions = {r["classified_path"]: r["disposition"]
-                             for r in rows(DEFERRED_DISPOSITIONS)}
-    actual = {}
-    for digest, paths in grouped.items():
-        paths.sort()
-        for index, first in enumerate(paths):
-            for second in paths[index + 1:]:
-                first_activation = eligible[first][1]
-                second_activation = eligible[second][1]
-                if "deferred" not in (first_activation, second_activation):
-                    continue
-                disposition_a = deferred_dispositions.get(first, "")
-                disposition_b = deferred_dispositions.get(second, "")
-                if first_activation == "active" or second_activation == "active":
-                    flag = "active-copy-profile-reconciliation"
-                elif disposition_a != disposition_b:
-                    flag = "disposition-conflict"
-                else:
-                    flag = "profile-ownership-review"
-                actual[(first, second)] = {
-                    "source_a": first,
-                    "source_b": second,
-                    "sha256": digest,
-                    "activation_a": first_activation,
-                    "activation_b": second_activation,
-                    "disposition_a": disposition_a,
-                    "disposition_b": disposition_b,
-                    "review_flag": flag,
-                    "review_status": "pending",
-                }
-
-    recorded = {}
-    for row in rows(DUPLICATE_OWNERSHIP):
-        key = (row["source_a"], row["source_b"])
-        if key in recorded:
-            problems.append("duplicate deferred ownership row: %s %s" % key)
-        recorded[key] = row
-        if key not in actual:
-            problems.append("stale deferred ownership pair: %s %s" % key)
-            continue
-        for column, expected in actual[key].items():
-            if row.get(column) != expected:
-                problems.append("deferred ownership %s mismatch: %s %s" %
-                                (column, key[0], key[1]))
-    for key in sorted(actual.keys() - recorded.keys()):
-        problems.append("untracked identical deferred source: %s %s" % key)
-
-    # The historical source census and review remain immutable snapshots.
-    # The current version tracks a single verified active owner while
-    # preserving an independently deferred, byte-identical profile copy.
-    reviewed = {}
-    base_fields = ("source_a", "source_b", "sha256", "activation_a",
-                   "activation_b", "disposition_a", "disposition_b",
-                   "review_flag")
-    for row in rows(DUPLICATE_REVIEW):
-        key = (row["source_a"], row["source_b"])
-        if key in reviewed:
-            problems.append("duplicate reviewed source pair: %s %s" % key)
-        reviewed[key] = row
-        old = recorded.get(key)
-        if old is None:
-            problems.append("untracked reviewed source pair: %s %s" % key)
-            continue
-        if any(row.get(field) != old.get(field) for field in base_fields):
-            problems.append("review changed pinned v1 source evidence: %s" % (key,))
-        if old["review_status"] != "pending":
-            problems.append("source pair has unresolved or false review status: %s" % (key,))
-        canonical = row.get("canonical_owner")
-        nonowner = row.get("nonowner_copy")
-        if canonical not in key or nonowner not in key or canonical == nonowner:
-            problems.append("review invalid canonical/nonowner sources: %s" % (key,))
-        if not all(row.get(field, "").strip() for field in
-                   ("original_assertion", "profile_scope", "resolution",
-                    "required_gate", "disposition_reconciliation",
-                    "review_evidence")):
-            problems.append("review missing explicit source assertion/gate: %s" % (key,))
-        if row["review_flag"] == "active-copy-profile-reconciliation":
-            active_sides = [row[side] for side in ("source_a", "source_b")
-                            if row["activation_" + side[-1]] == "active"]
-            deferred_sides = [row[side] for side in ("source_a", "source_b")
-                              if row["activation_" + side[-1]] == "deferred"]
-            if (len(active_sides) != 1 or len(deferred_sides) != 1 or
-                    canonical != active_sides[0] or nonowner != deferred_sides[0]):
-                problems.append("active duplicate has wrong canonical source: %s" % (key,))
-            # The evidence gate is about the failing compiler, not
-            # about whether the lexically first or second copy is active.
-            failure_class = {
-                "active-owner-with-GCC-defect-retained":
-                    "owner-selected-active-gcc-failed",
-                "active-owner-with-KCC-defect-retained":
-                    "owner-selected-active-kcc-failed",
-            }
-            resolution = row.get("resolution", "")
-            expected_status = failure_class.get(resolution)
-            compiler = ("GCC" if "GCC" in resolution else
-                        "KCC" if "KCC" in resolution else None)
-            if (expected_status is None or row["review_status"] != expected_status
-                    or compiler not in row.get("required_gate", "")):
-                problems.append("active duplicate lost compiler-specific failure gate: %s" % (key,))
-        elif (row.get("resolution") != "single-deferred-owner; no-run" or
-              row["review_status"] != "owner-selected-deferred" or
-              row["activation_a"] != "deferred" or
-              row["activation_b"] != "deferred"):
-            problems.append("deferred identical copy spuriously promoted: %s" % (key,))
-        if (row["review_flag"] == "disposition-conflict" and
-                not all(row[k] in row.get("disposition_reconciliation", "")
-                        for k in ("disposition_a", "disposition_b"))):
-            problems.append("conflicting deferred blocker lost: %s" % (key,))
-    for key in sorted(recorded.keys() - reviewed.keys()):
-        problems.append("source pair missing from manual review: %s %s" % key)
-
-    flags = collections.Counter(row["review_flag"] for row in actual.values())
-    print("deferred_duplicate_pairs=%d active_copy=%d disposition_conflicts=%d canonical_reviewed=%d missing_reviews=%d" %
-          (len(actual), flags["active-copy-profile-reconciliation"],
-           flags["disposition-conflict"], len(reviewed),
-           len(actual.keys() - reviewed.keys())))
 
 
 def audit_gcc_target_ownership(special, problems):
@@ -456,7 +316,7 @@ def audit():
                             (source, owner))
     for source in sorted(unowned):
         problems.append("unowned test source: " + source)
-    audit_deferred_duplicates(upstream, problems)
+    audit_consolidated_sources(upstream, matrix, problems)
     audit_gcc_target_ownership(special, problems)
     print("matrix_sources=%d special_entries=%d special_unique_ids=%d" %
           (len(matrix), len(special), len(set(r["id"] for r in special))))

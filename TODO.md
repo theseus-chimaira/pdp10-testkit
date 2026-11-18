@@ -406,12 +406,35 @@ compiler check, not a full compiler/CPU/optimization sweep.
   Original SHA256 and all native PDP-6 outcomes are recorded in
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH13-20261118-v20.md`
   and its ten-row v20 TSV.
-- [ ] Review ten **new, previously unreviewed** deferred sources
-  from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv`,
-  excluding all identities already reviewed in the v8-v20
-  ledgers. The next begins at `bitfld-2.c`. Explain any
-  proposed deletion before removal. Keep compiler fixes, full
-  sweeps, and the 44 manual tests out of scope for now.
+- [x] Consolidate **all 97** byte-identical upstream source pairs:
+  50 containing a deferred copy and 47 active/active pairs whose
+  complete compiler matrix profile vectors are equal. Retain one
+  canonical source, eliminate 97 redundant files and 47 duplicate
+  active test registrations, and reduce the live deferred list by
+  50 aliases without eliminating any distinct assertion. The
+  versioned v21 provenance table pins both original import paths,
+  classifications, compiler profile status and exact source SHA256,
+  with all removed bytes recoverable in Git history.
+  Preserve **13 KCC and three GCC** independently recorded
+  compiler blockers as 16 actionable compiler gates, and merge
+  four distinct alternate deferred dispositions into the canonical
+  evidence. Replace the old active/deferred-only 50-pair audit with
+  `tools/audit_consolidated_upstream_v21.py`, which now requires
+  zero classified upstream duplicate hashes. Six focused native
+  PDP-6 executions verified five expected passes and one expected
+  `bf-pack-1.c` GCC runtime failure after the consolidation.
+  Detailed record:
+  `docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md`.
+- [ ] Review ten **new, previously unreviewed** canonical deferred
+  sources from
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v15.tsv`,
+  excluding all previously reviewed *surviving* identities in
+  the v8-v20 ledgers. The next begins at `bitfld-2.c`.
+  **90** unique deferred sources still await first review;
+  **44** already-reviewed identities remain deferred. Keep the
+  16 independent compiler gates for the later compiler sweep.
+  Explain any proposed deletion before removal. Do not run the
+  44 manual tests or broad sweeps yet.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1338,15 +1361,18 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,190 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,143 unique source rows, ownership and
+  source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 425 owned shell/Python scripts; registered host
+- Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 531 active, 184 deferred, 58 removed and one nonportable
-  stress source (all deferred entries have explicit blocker dispositions).
+- Upstream manifest: 484 active, 134 deferred, 58 removed and one
+  nonportable stress source; 97 byte-identical retired aliases remain
+  source-pinned in the v21 provenance map, and all current deferred
+  entries have actionable blocker dispositions.
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
 
