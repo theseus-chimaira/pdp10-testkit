@@ -5,7 +5,7 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-Twenty-one bounded, ten-entry deferred reviews are recorded in
+Twenty-two bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
 `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
@@ -26,7 +26,8 @@ Twenty-one bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH20-20261118-v28.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH21-20261118-v29.md`.
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH21-20261118-v29.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH22-20261118-v30.md`.
 The thirteenth connected five GCC original sources, including two
 verified 71-bit reference-table shift tests, optimized-only builtin
 constant checks, a narrow bitfield-size comparison and four
@@ -132,14 +133,31 @@ legacy `varargs.h` tests abort in all GCC modes.
 The hosted `struct-ret-1.c` source remains deferred for
 genuine `sprintf`, with no direct assertion of returned
 structure fields. No source was deleted.
-The current inventories are **2,201 matrix sources**,
-**542 active / 76 deferred / 58 removed** upstream
+The twenty-second and final first-review batch connected nine
+more original tests: GNU variadic aggregates, old-style and
+standard variadic passing, wide-character literals, and GNU
+zero-length members. The new 36 native GCC PDP-6 profiles
+contain **15 passes and 21 genuine runtime aborts**.
+`va-arg-9.c` fails O0 but passes O1/O2/Os; three wide/zero-length
+source tests pass all GCC modes. The original Latin-1 `0xC4`
+wide-string source fails its array-size assertion without any
+source transcoding. The deployed `limits.h` incorrectly
+advertises a 64-bit long-long maximum while the compiler also
+defines `__LONG_LONG_71BIT__`; `va-arg-8.c` executes
+its actual checks, but its width guard must not be interpreted
+as proof of a 64-bit PDP-10 ABI. The hosted `va-arg-21.c`
+remains deferred for genuine `malloc`/`vprintf` support.
+All **surviving canonical original identities have now
+received an individual first review**. No source was changed
+or deleted in batch 22.
+The current inventories are **2,210 matrix sources**,
+**551 active / 67 deferred / 58 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v24.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v23.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -217,7 +235,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,201 sources** with no unowned test sources
+- Compiler matrix: **2,210 sources** with no unowned test sources
   and no duplicated classified upstream source bytes.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.

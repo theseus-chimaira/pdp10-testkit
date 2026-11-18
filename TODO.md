@@ -672,18 +672,57 @@ compiler check, not a full compiler/CPU/optimization sweep.
   Exactly one original C line changed and no source deleted.
   See `docs/PDP10-DEFERRED-INTEGRATION-BATCH21-20261118-v29.md`
   and the ten-row, original/current source-hash TSV.
-- [ ] Review the **final ten** previously unreviewed surviving
-  canonical sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v23.tsv`,
-  excluding all prior v8-v29 review-ledger identities.
-  Batch 22 (v30) begins with
-  `tests/semantic/upstream/extensions/va-arg-21.c`.
-  **Ten** sources remain unreviewed, and **66**
-  previously reviewed identities remain deferred.
-  Preserve all 16 independent compiler gates for the later
-  compiler/assembler sweep. Explain any proposed deletion
-  first, and do not run broad CPU/compiler tests or the
-  44 manually gated special suites.
+- [x] Review the final ten previously unreviewed canonical
+  source identities in batch 22 (v30). Nine original tests
+  now have registered native PDP-6 GCC profiles: `va-arg-22.c`
+  verifies 21 GNU variadic aggregate sizes, each passed by
+  value and read back via `va_arg(typeof)` (GCC four
+  aborts); `va-arg-3.c` tests original 16-function old-style
+  varargs register/stack splits (four aborts; do not enable
+  vacuous NO_VARARGS exit); `va-arg-7.c` tests three
+  trailing ints after seven ints and nine doubles (four
+  aborts); `va-arg-8.c` checks trailing int and wide
+  long-long arguments (four aborts). The deployed
+  limits.h advertises `__LONG_LONG_MAX__ == 2^63-1`,
+  while the compiler also defines `__LONG_LONG_71BIT__`;
+  the original guarded test really executes, but is NOT
+  evidence of an exclusively 64-bit ABI. `va-arg-9.c`
+  forwards va_list through fap across the original 16
+  call arrangements (GCC O0 abort, O1/O2/Os pass).
+  `wchar_t-1.c` checks non-ASCII wide string and wide
+  character literal size/values (GCC four aborts).
+  The actual source character is **raw Latin-1 byte 0xC4**
+  and was not transcoded; the original wide string
+  has eight elements instead of two in compiled GCC
+  code: original-byte scratch output confirms sizeof(x)=32
+  and sizeof(wchar_t)=4. `widechar-2.c` checks four wide elements
+  in L"foo" (GCC four passes). `zerolen-1.c` tests GNU
+  zero-length member overlay (GCC four passes; intentionally
+  not portable ISO C indexing), and `zerolen-2.c`
+  checks GNU zero-length word-member sizeof/alignof
+  (GCC four passes, a compile-time layout oracle).
+  **15 GCC passes / 21 genuine guest aborts** are newly
+  registered. KCC noopt cannot compile any of the nine
+  supported GCC originals, so no KCC success is invented.
+  `va-arg-21.c` remains deferred: real malloc/vprintf
+  and hosted stdio are required to exercise its va_end
+  pointer-side-effect assertion. No original C file
+  changed and no source deleted. See
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH22-20261118-v30.md`
+  and its original/current SHA256-pinned ten-row ledger.
+- [ ] **Next stage after completing all 22 bounded
+  source reviews:** triage the **67 reviewed but deferred**
+  canonical identities by underlying blocker, prioritizing
+  reproducible assembler/compiler bugs over libc/header
+  enablement and feature-policy debates. Preserve 16
+  independently tracked consolidated compiler repair
+  gates; zero deferred identities still await a first
+  individual review. Do not silently drop nonportable
+  tests or invent passing slots for unsupported compilers.
+  Explain any proposed deletion first. Broad CPU/compiler
+  sweeps and all 44 manually gated special suites remain
+  separate work, not part of the completed first-review
+  stage.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1610,7 +1649,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,201 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,210 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1618,7 +1657,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 542 active, 76 deferred, 58 removed and one
+- Upstream manifest: 551 active, 67 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.
