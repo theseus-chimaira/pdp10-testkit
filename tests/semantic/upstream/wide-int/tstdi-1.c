@@ -1,7 +1,7 @@
 #define FALSE 140
 #define TRUE 13
 
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
 #ifdef __LONG_LONG_71BIT__
 #define MSB		0200000000000000000000000LL
 #define MSB_PLUS_1	0200000000000000000000001LL

@@ -5,7 +5,7 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-Twenty bounded, ten-entry deferred reviews are recorded in
+Twenty-one bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
 `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
@@ -25,7 +25,8 @@ Twenty bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH20-20261118-v28.md`.
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH20-20261118-v28.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH21-20261118-v29.md`.
 The thirteenth connected five GCC original sources, including two
 verified 71-bit reference-table shift tests, optimized-only builtin
 constant checks, a narrow bitfield-size comparison and four
@@ -117,14 +118,28 @@ links neither GNU `__builtin_strpbrk` nor `__builtin_strchr`
 in either mode; those unsupported GNU-builtin KCC profiles
 remain `no_test`, with observed link failures recorded.
 No original C source was changed or removed in batch 20.
-The current inventories are **2,192 matrix sources**,
-**533 active / 85 deferred / 58 removed** upstream
+The twenty-first review connected nine more tests: GNU field
+designated initialization, a 37-bit long-long bitfield,
+71-bit signed-comparison boundaries and six variadic-argument
+ABI tests. The signed-comparison `tstdi-1.c` guard was fixed
+to recognize uppercase `__PDP10__` while preserving all
+**36 independently verified original expected values**.
+GCC passes all four modes; KCC passes noopt but fails
+optimized, now conservatively registered as `fail`.
+The two standard `stdarg.h` tests `va-arg-10.c` and
+`va-arg-2.c` fail GCC O0 but pass O1/O2/Os; four
+legacy `varargs.h` tests abort in all GCC modes.
+The hosted `struct-ret-1.c` source remains deferred for
+genuine `sprintf`, with no direct assertion of returned
+structure fields. No source was deleted.
+The current inventories are **2,201 matrix sources**,
+**542 active / 76 deferred / 58 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v23.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v22.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v24.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v23.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -202,7 +217,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,192 sources** with no unowned test sources
+- Compiler matrix: **2,201 sources** with no unowned test sources
   and no duplicated classified upstream source bytes.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.
