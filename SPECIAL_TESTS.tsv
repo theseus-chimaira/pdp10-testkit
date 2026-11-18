@@ -75,6 +75,7 @@ language-full-range	compat	sh	misc/compat/test-language-full-range.sh	default	ye
 language-direct-widening	compat	sh	misc/compat/test-language-direct-widening.sh	default	yes	120
 language-char-enum	compat	sh	misc/compat/test-language-char-enum.sh	default	yes	120
 packed-char	compat	sh	misc/compat/test-packed-char.sh	default	yes	120
+gcc-packed-record-pointer-v1	compat	sh	misc/compat/test-gcc-packed-record-pointer-v1.sh	multi-cpu	yes	420
 packed-bitptr	compat	sh	misc/compat/test-packed-bitptr.sh	default	yes	120
 packed-bitptr-arith	compat	sh	misc/compat/test-packed-bitptr-arith.sh	default	yes	120
 no-xkl2-byte-extend	validation	sh	misc/validation/test-no-xkl2-byte-extend.sh	default	yes	120

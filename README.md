@@ -75,9 +75,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Verified integration state (2026-11-17)
 
 - Compiler matrix: **2,108 sources** with no unowned test sources.
-- Special registry: **283 entries**, including **233 enabled direct**,
+- Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.
-- Script ownership: **424** registered/delegated Python or shell scripts.
+- Script ownership: **425** registered/delegated Python or shell scripts.
 - Registered host verification: **20/20 passed** after the documentation
   path audit (no full compiler or OS sweep).
 - Cross-repository migration: **127** former DAIMOS compiler/assembler
@@ -122,6 +122,14 @@ Its original dynamic-aggregate semantic execution still fails and
 remains deferred. All 26 historically deferred `varargs-abi` sources
 (52 operational PDP-6 cells) are recorded, without activation, in
 `docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v4.tsv`.
+The `2026-11-18 v5` focused compiler repair is in
+`docs/PDP10-GCC-PACKED-RECORD-BYTEPOINTER-20261118-v5.md`. GCC
+`c099c40` corrects nonvolatile explicitly packed nine-bit record
+strides and byte-pointer field reads/writes. The previously failing
+original test and a new stricter companion pass all 32 staged
+CPU/optimization cells **and** all 32 operational installed-toolchain
+cells. This does not alter the deferred VLA-copy
+runtime blocker or imply a full matrix sweep.
 
 ## Detailed documentation
 

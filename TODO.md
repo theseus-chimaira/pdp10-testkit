@@ -766,7 +766,7 @@ The next eight batches are documented in
   selects its genuinely required installed `$KDFAD` helper only when
   referenced. See
   `docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261118-v2.md`.
-- [ ] Investigate and correct the newly exposed compiler/ABI regressions:
+- [x] Investigate and correct the newly exposed compiler/ABI regressions:
   GCC packed-character pointer stepping (`__test_exit=010` octal).
   The mixed deep-call case (`__test_exit=4`) was an incorrect
   assembler expected value: decimal 52 is octal 64, not octal 52;
@@ -776,9 +776,14 @@ The next eight batches are documented in
   remainder call. This is repaired in KCC `948dd9f`, deployed into
   the operational prefix, and guarded by a new registered **10/10**
   passing five-target/two-mode ABI regression. GCC's packed array
-  issue persists on PDP-6 for all `-O0/-O1/-O2/-Os`, with
-  contradictory word-separated stores and three-byte pointer steps.
-  See `docs/PDP10-ABI-COMPILER-REGRESSIONS-20261118-v3.md`.
+  failure was corrected in `pdp10-gcc` `c099c40` by keeping a
+  continuous 27-bit array stride and preserving true byte-pointer
+  addresses for early packed field reads and writes, including pointers
+  held on the stack. Its unmodified source and a new stronger pointer
+  write/read regression pass 32/32 staged CPU/optimization cases,
+  with six nearby byte-pointer tests also passing. See historical
+  `docs/PDP10-ABI-COMPILER-REGRESSIONS-20261118-v3.md` and resolved
+  `docs/PDP10-GCC-PACKED-RECORD-BYTEPOINTER-20261118-v5.md`.
 - [x] Verify operational installed freestanding KCC/GCC header compilation,
   production DARC archive extraction, GCC libgcc dependency and genuine
   PDP-6 libc calls in a registered targeted test. Both compilers pass;
