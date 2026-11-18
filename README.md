@@ -130,6 +130,10 @@ original test and a new stricter companion pass all 32 staged
 CPU/optimization cells **and** all 32 operational installed-toolchain
 cells. This does not alter the deferred VLA-copy
 runtime blocker or imply a full matrix sweep.
+The unresolved VLA block-copy investigation is recorded separately in
+`docs/PDP10-GCC-VLA-AGGREGATE-COPY-20261118-v6.md`. The original
+runtime assertion still fails; scratch-only pointer conversion trials
+were insufficient and no compiler/libc change was deployed for them.
 
 ## Detailed documentation
 

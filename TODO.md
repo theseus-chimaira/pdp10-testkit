@@ -207,7 +207,12 @@ compiler check, not a full compiler/CPU/optimization sweep.
   unchanged `20020412-1.c` now executes with real freestanding
   `memcpy` but aborts at its first digit. Investigate raw word
   addresses versus 9-bit-byte-pointer arguments; do not weaken the
-  C assertion or count ICE elimination as an execution pass.
+  C assertion or count ICE elimination as an execution pass. Focused
+  scratch-only pointer-conversion experiments do not fix it: the
+  outgoing-copy conversion can cause a long `memcpy` loop, so the
+  correct stack extent, byte count and source/destination addresses
+  must be traced together before changing GCC or libc. See
+  `docs/PDP10-GCC-VLA-AGGREGATE-COPY-20261118-v6.md`.
 - [x] Complete KCC P0 `vrwiden` ICE for the original upstream
   `tests/semantic/upstream/wide-int/930622-2.c` without altering its source
   or accepting any other processor's unverified floating-point behavior.
