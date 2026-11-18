@@ -5,7 +5,7 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
-Seventeen bounded, ten-entry deferred reviews are recorded in
+Eighteen bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
 `docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
@@ -22,7 +22,8 @@ Seventeen bounded, ten-entry deferred reviews are recorded in
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH14-20261118-v22.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH15-20261118-v23.md` and
 `docs/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md`.
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md` and
+`docs/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md`.
 The thirteenth connected five GCC original sources, including two
 verified 71-bit reference-table shift tests, optimized-only builtin
 constant checks, a narrow bitfield-size comparison and four
@@ -77,14 +78,25 @@ while Os reached abort. The full-size XKL `old.tort.c` still
 requires hosted TOPS-20 support, and `packed-2.c` has no
 checked packing assertion. No original C source was changed
 or deleted in batch 17.
-The current inventories are **2,168 matrix sources**,
-**509 active / 109 deferred / 58 removed** upstream
+The eighteenth review connected five original test sources
+covering GNU 71-bit-capable fourth-argument passing, a
+struct-by-value argument after three scalars, block-scope
+`extern` resolution of external and internal file-scope
+objects, and aligned/native-byte `strcmp` sign comparisons.
+GCC PDP-6 passes 19 of the 20 newly registered native profiles;
+`strct-1.c` fails only O0. KCC passes `strcmp-1.c` both modes,
+and `strct-1.c` noopt, but fails the remaining supported
+optimized/scope modes. Five other sources require genuine
+conversion or hosted stdio support. No original source was
+modified or deleted in batch 18.
+The current inventories are **2,173 matrix sources**,
+**514 active / 104 deferred / 58 removed** upstream
 tests, and
 **284 specialized registrations**, including **44 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
-`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v20.tsv` and
-`SEMANTIC-DEFERRED-DISPOSITION-20261118-v19.tsv`; older versions
+`SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v21.tsv` and
+`SEMANTIC-DEFERRED-DISPOSITION-20261118-v20.tsv`; older versions
 remain historical snapshots.
 
 ## Test ownership
@@ -162,7 +174,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,168 sources** with no unowned test sources
+- Compiler matrix: **2,173 sources** with no unowned test sources
   and no duplicated classified upstream source bytes.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.

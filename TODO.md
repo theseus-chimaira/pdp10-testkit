@@ -535,17 +535,45 @@ compiler check, not a full compiler/CPU/optimization sweep.
   Preserve source SHA256 and all exact compiler outcomes in
   `docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md`
   and the matching ten-row v25 TSV.
+- [x] Review batch 18 (v26), ten new original canonical sources.
+  Connect five actual assertion-bearing regressions:
+  `ll-1.c` checks a 71-bit-capable GNU `mode(DI)` value
+  passed as the fourth function parameter (GCC 4/4 pass,
+  KCC extension unsupported); `strct-1.c` checks three
+  scalars followed by a two-field structure by value
+  (GCC O0 abort, O1/O2/Os pass; KCC noopt passes, optimized
+  aborts); `scope-1.c` checks inner-block `extern`
+  resolution of an external file-scope object and
+  `scope-2.c` the analogous **internal/static** object
+  (GCC both 4/4 pass; KCC both modes abort); and
+  `strcmp-1.c` checks actual sign/equality results from
+  freestanding `strcmp` across two alignment offsets, lengths
+  and native-9-bit 0251/0252 high bytes (KCC both modes
+  and GCC all four modes pass).
+  Register **19 passing/one failing GCC** and **two passing/
+  six conservatively failing KCC** native PDP-6 profiles.
+  Retain `pdp10/pdp10/conversion.c` (GCC undefined
+  `__fixunssfsi`, KCC both modes abort; conversion ABI
+  unresolved), `strct-varg-1b.c` (real hosted printf must
+  work before two structure va_arg checks), and all three
+  `stdio-opt-1.c` through `-3.c` hosted stdio/builtin
+  transformation tests (missing or incompatible FILE/printf
+  dependencies). No original source edited/deleted; no fake
+  conversion routine or hosted formatter. Complete v26 source
+  hashes, decisions and bounded compiler evidence in
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md`
+  and its ten-row v26 TSV.
 - [ ] Review ten **new, previously unreviewed** surviving deferred
   sources from
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v19.tsv`,
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v20.tsv`,
   excluding all previously reviewed canonical identities in the
-  v8-v25 ledgers. The next begins at
-  `pdp10/pdp10/conversion.c`. **50** unique deferred sources
-  await first review; **59** previously reviewed identities
-  remain deferred. Keep all 16 consolidated compiler gates
-  for the later compiler/assembler sweep. Explain any proposed
-  deletion before acting, and do not run the 44 manual tests
-  or the broad CPU/compiler matrix yet.
+  v8-v26 ledgers. Next source:
+  `tests/semantic/upstream/extensions/strct-pack-2.c`.
+  **40** unique deferred sources await first review and **64**
+  previously reviewed sources remain deferred. Keep all 16
+  consolidated compiler gates for the later compiler/assembler
+  sweep. Explain any proposed deletion before acting; do not
+  run the 44 manual tests or broad CPU/compiler matrix yet.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1472,7 +1500,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,168 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,173 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
@@ -1480,7 +1508,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 509 active, 109 deferred, 58 removed and one
+- Upstream manifest: 514 active, 104 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
   source-pinned in the v21 provenance map, and all current deferred
   entries have actionable blocker dispositions.
