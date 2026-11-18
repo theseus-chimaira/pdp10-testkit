@@ -155,6 +155,24 @@ compiler check, not a full compiler/CPU/optimization sweep.
 
 ## P1 — complete upstream semantic test integration
 
+- [x] Classify and individually check the first **ten** formerly deferred
+  sources, connecting nine active matrix tests with exact observed
+  GCC/KCC results. Two original 9-bit char sources require only the
+  target macro spelling adaptation `__PDP10__` while preserving their
+  assertions. One nested-function source passes only GCC PDP-6
+  `-O0`; its three optimized GCC runtime failures remain recorded
+  and scheduled. One other source requires hosted `malloc` and stays
+  deferred; **none were dropped**. This was only a bounded first
+  group, not a broad compiler sweep.
+  See `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md` and
+  its ten-row SHA256-pinned TSV.
+- [ ] Continue with the next batch of **ten** currently deferred
+  sources from `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v2.tsv`.
+  Review real assertions and target prerequisites before registration;
+  explain why a source is not integratable **before any deletion**.
+  Keep the 44 manually registered special tests out of scope until
+  all deferred test decisions are complete; do not run broad suites.
+
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
   companion sources, zero unowned `tests/` C/assembly sources, zero missing

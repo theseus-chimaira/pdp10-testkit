@@ -5,6 +5,17 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
+The first bounded batch of ten historically deferred tests is now
+reviewed in `docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`.
+Nine are connected (with precise passing/failing matrix profiles);
+one remains deferred due to hosted `malloc` prerequisites. No source
+was deleted and no full sweep was started. Current inventories are
+**2,117 matrix sources**, **458 active / 260 deferred** upstream tests,
+and **284 special registrations**, of which **44 remain manual**.
+The current upstream and deferred classification manifests are the
+`20261118-v3` and `20261118-v2` files, respectively; older manifests
+are historical snapshots.
+
 ## Test ownership
 
 - **`pdp10-testkit`** owns GCC/KCC, DAS/DLINK, p10fold, ABI,

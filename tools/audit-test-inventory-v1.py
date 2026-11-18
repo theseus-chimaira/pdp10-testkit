@@ -20,9 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
 CLASSIFIED = (ROOT / "docs" /
-              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261014-v2.tsv")
+              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v3.tsv")
 DEFERRED_DISPOSITIONS = (ROOT / "docs" /
-                         "SEMANTIC-DEFERRED-DISPOSITION-20261019-v1.tsv")
+                         "SEMANTIC-DEFERRED-DISPOSITION-20261118-v2.tsv")
 DUPLICATE_OWNERSHIP = (ROOT / "docs" /
                        "DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv")
 DUPLICATE_REVIEW = (ROOT / "docs" /

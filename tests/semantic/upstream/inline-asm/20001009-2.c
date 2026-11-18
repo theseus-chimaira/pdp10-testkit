@@ -3,7 +3,7 @@ int foo()
 {
   int a;
   int c;
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
   a=0x1ff;
 #else
   a=0xff;

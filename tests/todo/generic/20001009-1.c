@@ -2,7 +2,7 @@ int a,b;
 main()
 {
   int c=-2;
-#ifdef __pdp10__
+#if defined(__PDP10__) || defined(__pdp10__)
   int d=0x1fe;
 #else
   int d=0xfe;
