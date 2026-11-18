@@ -215,13 +215,29 @@ compiler check, not a full compiler/CPU/optimization sweep.
   its byte-identical deferred PDP-10 copy. The v6/v7 duplicate
   records preserve the separately blocked KCC `alloca` linkage
   without a second GCC registration. All 50 source pairs audited.
+- [x] Review the next ten **unique, not previously reviewed** source
+  identities in batch 5 (v12). Connect five meaningful compiler
+  oracles with precise PDP-6 GCC profile results; retain five
+  unresolved sources and remove none. Preserve the three genuine
+  optimized GCC memcpy failures in `20020828-3.c`. Explicitly
+  classify `920302-1.c` as a simulator timeout, not an asserted
+  `strcmp` mismatch. `920428-1.s` remains a KL10 assembler
+  auxiliary requiring its own harness; do not falsely treat a C
+  compiler rejection as an ISA failure. Original `920415-1.c`
+  GCC passes are vacuous (computed jump and abort optimized away);
+  scratch-only stronger oracles expose a linker label defect, so
+  no test was promoted. Removing unused `stdio.h` from a scratch
+  `920501-6.c` still fails the original prime assertions. See
+  `docs/PDP10-DEFERRED-INTEGRATION-BATCH05-20261118-v12.md`
+  and SHA256-pinned v12 decision ledger.
 - [ ] Review the next ten **unique, not previously reviewed**
   source paths in
-  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v5.tsv`, excluding
-  v8/v9/v10/v11 review-ledger paths. Review exact assertions,
-  compiler prerequisites and meaningful supported execution,
-  explaining any deletion before removing a file. Continue to
-  defer compiler fixing, full sweeps and the 44 manual tests.
+  `docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v6.tsv`, excluding
+  all v8/v9/v10/v11/v12 review-ledger identities. The next begins
+  at `920501-7.c`. Review actual assertions, compiler and assembly
+  prerequisites, and meaningful PDP-6 execution. Explain any
+  proposed deletion **before** removing a file; no broad sweeps,
+  compiler repairs, or 44 manual test executions yet.
 
 - [x] Reconcile the physical and registered test inventory: 1,979 unique
   matrix C sources, 194 unique special registrations, 13 explicitly owned
@@ -1148,14 +1164,14 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,135 source rows, ownership and source paths audited.
+- `COMPILER_MATRIX.tsv`: 2,140 source rows, ownership and source paths audited.
 - `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
   44 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 425 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
-- Upstream manifest: 476 active, 241 deferred, 56 removed and one nonportable
+- Upstream manifest: 481 active, 236 deferred, 56 removed and one nonportable
   stress source (all deferred entries have explicit blocker dispositions).
 - Main entry points: `run-tests.sh` (compiler/CPU/optimization cells) and
   `run-misc-tests.sh` (specialized suites).
