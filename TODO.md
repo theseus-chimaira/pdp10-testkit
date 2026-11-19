@@ -40,6 +40,8 @@ compiler sweep.
 - [ ] Review the remaining exact-original semantic oracles, including
   nonasserting cases, target-width policies, real hosted dependencies and
   original-source assertions. Keep genuine compiler failures visible.
+- [x] Recheck installed freestanding libc archive extraction and callable PDP-6 ABI with the registered targeted test. Both KCC and GCC PASS; installed archives have identical SHA256. This covers memcpy, strlen, strcmp and strstr, not hosted allocation or I/O. See docs/PDP10-P1-LIBC-VERIFICATION-20261119-v1.md.
+- [ ] Identify exact remaining P1 libc/header/varargs prerequisites, distinguishing hosted malloc, I/O, alloca, missing runtime helpers and GNU built-ins from available freestanding symbols. No fake libc stubs.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;
