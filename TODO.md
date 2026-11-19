@@ -1,12 +1,49 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,221 compiler
-matrix sources, 266 special entries (242 enabled direct, 18 manual,
-6 nested), and 399 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,223 compiler
+matrix sources, 267 special entries (243 enabled direct, 18 manual,
+6 nested), and 400 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md`.
+
+## P1 nonasserting semantic-source coverage (2026-11-19)
+
+- [x] Reproduce all 67 original deferred source identities under KCC and
+  GCC PDP-6, retaining all 134 observed outcomes and original SHA256s.
+- [x] Register meaningful companion regressions for all 14 sources in
+  the `nonasserting` disposition. Eight companions are classified as
+  targeted and six as deliberately partial; **none** of the original
+  deferred sources has been silently activated or modified.
+- [x] Test GNU prefetch address-expression side effects, volatile
+  indices/calls, 9-bit byte addresses and no-fault null prefetches on
+  PDP-6 GCC in O0/O1/O2/Os. All four target executions pass. Do not
+  fabricate an unsupported KCC prefetch runtime symbol.
+- [x] Derive 36-bit-limb/71-bit multiplication expectations using
+  independent arbitrary-precision host arithmetic; test five cases
+  with observable results. KCC PDP-6 opt/noopt PASS, GCC O0/O1/O2/Os
+  genuinely fail. Compiler repair remains deferred.
+- [x] Verify all 14 original-to-companion ownership edges and ten new
+  normal matrix executions, including unchanged original byte hashes,
+  target profile selection, archived run evidence and independent
+  arithmetic expectations. Registered host verify: 28/28 PASS.
+- [ ] Establish the GNU union-overlay representation and 71-bit ABI
+  expectations independently before claiming complete coverage of
+  the original `960416-1.c` test. A preliminary assumed layout was
+  rejected by **both** compilers and was not promoted as an oracle.
+- [ ] Complete exact-original compiler/codegen policy review of GNU
+  `builtin-prefetch-{1,2,3,5,6}.c`, including forms not exercised by
+  the substantive companion. A no-prefetch target may legally issue
+  no machine prefetch instruction; source success is not ISA coverage.
+- [ ] Finish the remaining 53 non-nonasserting deferred source
+  dispositions and required libc, ABI, width and ISA test scaffolding;
+  original compiler defects remain for after testkit completion.
+
+The source/companion registry is
+`docs/PDP10-P1-NONASSERTING-COVERAGE-20261119-v1.tsv`; details and
+source-pinned execution evidence are in
+`docs/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
 
 ## Standalone manual acceptance (updated 2026-11-19)
 
@@ -1672,12 +1709,12 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,221 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,223 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
-- `SPECIAL_TESTS.tsv`: 266 unique entries, including 242 enabled direct,
+- `SPECIAL_TESTS.tsv`: 267 unique entries, including 243 enabled direct,
   18 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 399 owned shell/Python scripts after the native
+- Script inventory: 400 owned shell/Python scripts after the native
   guest-suite return (426 was a historical pre-return count).
   All 21 currently registered host verification tests passed on
   2026-11-19; see `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.

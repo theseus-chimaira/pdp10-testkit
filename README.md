@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,221 matrix sources**,
+The current inventories are **2,223 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**266 specialized registrations**, including **18 intentionally
+**267 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -234,9 +234,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,221** sources, including nine new substantive
+- Compiler matrix: **2,223** sources, including eleven substantive
   companions for formerly vacuous or width-dependent upstream tests.
-- Special registry: **266 entries** (**242** enabled direct, **18** manual,
+- Special registry: **267 entries** (**243** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -273,6 +273,17 @@ it is not silently replaced by `DAIMOS/tools/host`.
   registered in the matrix, with 18 actual PDP-6 executions and
   explicit distinction between failing assertions and SIMH timeouts.
   See `docs/PDP10-P1-NONASSERTING-COMPANIONS-20261119-v1.md`.
+- GNU prefetch address side effects and independent 36-bit-word/71-bit
+  multiplication now have ten more normal PDP-6 matrix executions;
+  **14/14** original nonasserting sources have an explicit companion
+  coverage classification (eight targeted, six partial) without changing
+  or prematurely activating the originals. See
+  `docs/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
+- The latest registered host verification sweep is **28/28 PASS**.
+  Earlier 24/24 and 27/27 milestones are historical counts, not the
+  current verifier inventory. The original 67 deferred sources remain
+  deferred pending the remaining 53 non-nonasserting dispositions and
+  exact-original feature/oracle review.
 
 ## Verified integration state (2026-11-17)
 

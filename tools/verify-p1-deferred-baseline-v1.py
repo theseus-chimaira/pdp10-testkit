@@ -18,9 +18,18 @@ HISTORICAL = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
 CURRENT = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
 RESULTS = ROOT / 'docs/PDP10-P1-DEFERRED-PDP6-EVIDENCE-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-deferred-pdp6-evidence-20261119-v1.tar.gz'
+COVERAGE = ROOT / 'docs/PDP10-P1-NONASSERTING-COVERAGE-20261119-v1.tsv'
+MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
+COMPANION_RESULTS = (
+    ROOT / 'docs/PDP10-P1-COMPANION-MATRIX-RESULTS-20261119-v1.tsv',
+    ROOT / 'docs/PDP10-P1-NONASSERTING-COMPANION-RESULTS-20261119-v1.tsv',
+    ROOT / 'docs/PDP10-P1-PREFETCH-WIDE-MATRIX-RESULTS-20261119-v1.tsv',
+)
 FIELDS = ('source', 'sha256', 'disposition', 'gcc_status', 'kcc_status',
           'oracle_review', 'gcc_evidence_sha256',
           'kcc_evidence_sha256', 'next_action')
+COVERAGE_FIELDS = ('source', 'source_sha256', 'companion',
+                   'coverage', 'remaining')
 STATUSES = frozenset(('pass', 'run_fail', 'compile_fail', 'link_fail',
                       'compiler_ice', 'assembler-harness-required'))
 ASSEMBLER = 'tests/semantic/upstream/support/920428-1.s'
@@ -42,6 +51,52 @@ def review_for(row):
     if row['disposition'] == 'compiler-ice-priority':
         return 'compiler-internal-error-preserved'
     return 'compiler-and-assertion-review-required'
+
+
+def audit_nonasserting_coverage(original):
+    """Ensure every nonasserting source has a real, reviewed matrix case.
+
+    Companion coverage is not an activation of the historical source.
+    Some target features require a deliberately partial companion:
+    the old 32/32 union-overlay guard, for example, is still unknown.
+    """
+    errors = []
+    cover = read_tsv(COVERAGE)
+    originals = {r['classified_path']: r for r in original
+                 if r['disposition'] == 'nonasserting'}
+    if len(originals) != 14 or len(cover) != 14:
+        errors.append('expected fourteen source-specific nonasserting reviews')
+    if cover and tuple(cover[0]) != COVERAGE_FIELDS:
+        errors.append('wrong nonasserting coverage ledger header')
+    by_source = {r['source']: r for r in cover}
+    if set(by_source) != set(originals) or len(by_source) != len(cover):
+        errors.append('missing, duplicated or extra nonasserting source')
+    with MATRIX.open(encoding='ascii') as handle:
+        matrix = {r['test']: r for r in csv.DictReader(
+            (line for line in handle if not line.startswith('#')),
+            delimiter='\t')}
+    evidence = {}
+    for file in COMPANION_RESULTS:
+        for r in read_tsv(file):
+            evidence.setdefault(r['source'], set()).add(r['source_sha256'])
+    for src, origin in originals.items():
+        row = by_source.get(src)
+        if row is None:
+            continue
+        cmpname = row['companion']
+        cmpfile = (ROOT / cmpname).resolve()
+        item = matrix.get(cmpname)
+        if (row['source_sha256'] != origin['source_sha256'] or
+                row['coverage'] not in ('targeted', 'partial') or
+                not row['remaining'].strip() or
+                not cmpfile.is_relative_to(ROOT / 'tests') or
+                not cmpfile.is_file() or item is None or
+                not any(item.get(col) in ('semantic', 'fail', 'error') for col
+                        in ('pdp6', 'pdp6_gcc_o0')) or
+                hashlib.sha256(cmpfile.read_bytes()).hexdigest()
+                not in evidence.get(cmpname, set())):
+            errors.append('invalid/orphaned nonasserting companion: ' + src)
+    return errors
 
 
 def audit(results=RESULTS, archive=ARCHIVE):
@@ -128,6 +183,7 @@ def audit(results=RESULTS, archive=ARCHIVE):
                 errors.append('missing/extra archived deferred observations')
     except (OSError, KeyError, tarfile.TarError, ValueError) as ex:
         errors.append('cannot inspect deferred baseline archive: ' + str(ex))
+    errors.extend(audit_nonasserting_coverage(original))
     return errors
 
 
