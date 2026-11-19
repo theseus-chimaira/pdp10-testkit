@@ -296,3 +296,4 @@ das-check-920428-port-v1	das	sh	misc/das/check-920428-port-v1.sh	fast	yes	120
 kcc-c89-constant-eval-v1683	validation	sh	misc/validation/kcc-constant-eval-v1683/run-v1683.sh	pdp6	yes	180
 p1-matrix-admissions-v1	verify	python3	tools/test-p1-matrix-admissions-v1.py	host	yes	120
 freestanding-selection-v1	verify	python3	tools/test-freestanding-selection-v1.py	host	yes	120
+installed-freestanding-selector-audit-v1	verify	python3	tools/test-installed-freestanding-audit-v1.py	host	yes	120

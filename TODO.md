@@ -46,6 +46,11 @@ compiler sweep.
   host-tested policy. Eleven positive/negative controls PASS; targeted
   PDP-6 KCC and GCC semantic cells PASS. The full sweep remains deferred.
   See docs/PDP10-P1-LIBC-SELECTION-20261119-v1.md.
+- [x] Validate installed KCC/GCC freestanding source exports and cross-member
+  references against the semantic selector: 23 exports across 13 members,
+  matching installed archives and source semantics. Host-only negative
+  controls reject missing exports, undeclared dependencies and divergent
+  archives. See docs/PDP10-P1-LIBC-INSTALLED-AUDIT-20261119-v1.md.
 - [ ] Identify exact remaining P1 libc/header/varargs prerequisites, distinguishing hosted malloc, I/O, alloca, missing runtime helpers and GNU built-ins from available freestanding symbols. No fake libc stubs.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
