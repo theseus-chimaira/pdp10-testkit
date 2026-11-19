@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,253 compiler
-matrix sources, 288 special entries (264 enabled direct, 18 manual,
-6 nested), and 421 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,261 compiler
+matrix sources, 293 special entries (269 enabled direct, 18 manual,
+6 nested), and 426 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -24,12 +24,12 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v6 ledger counts **28 covered, 6 partial, 33 blocked**.
+current v7 ledger counts **38 covered, 1 partial, 28 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
-**Current execution order:** Batches 1 and 2 completed 10/10 each;
-continue Batch 3, then Batches 4–6 in their fixed order. Complete at most ten
+**Current execution order:** Batches 1, 2 and 3 completed 10/10 each;
+continue Batches 4–6 in their fixed order. Complete at most ten
 original-source obligations per batch; do not pull unrelated AAP
 architecture-correctness testing into a P1 source batch.
 
@@ -67,11 +67,22 @@ architecture-correctness testing into a P1 source batch.
   address assertions and the KCC native D-format continuation-sign
   regression for P2. See
   `docs/PDP10-P1-BATCH2-FINAL-20261119-v1.md`.
-- [ ] Work Batch 3 (10 width/partial), Batch 4 (10 ABI/ISA/libc), Batch 5
+- [x] Complete **10/10 Batch 3** original-source construction intents:
+  source-pinned native device-number callback, full 52/53-bit signed
+  XOR/OR source layout, 1,000-iteration native 9/18/36-bit division
+  stress with independent Python signatures, native DEC D-format cube
+  root, actual nested-trampoline captures, original full Karatsuba
+  function bodies and union overlays, plus unchanged source forms for
+  all 22/51/46 prefetch examples (defined local pointer adaptation).
+  **42 new actual PDP-6 executions**: 28 PASS, 14 meaningful compiler
+  assertion failures preserved for P2. No original source, compiler,
+  simulator or kernel was changed. See
+  `docs/PDP10-P1-BATCH3-FINAL-20261119-v1.md`.
+- [ ] Work Batch 4 (10 ABI/ISA/libc), Batch 5
   (10 hosted), and Batch 6 (9 hosted). Preserve source profile
   evidence and update current resolution state after each closure.
 
-Current **actionable P1 backlog: 39** (six partial and thirty-three blocked).
+Current **actionable P1 backlog: 29** (one partial and twenty-eight blocked).
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources
 for provenance; it must never shrink or be renumbered.
 

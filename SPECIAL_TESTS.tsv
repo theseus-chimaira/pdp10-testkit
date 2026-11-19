@@ -65,6 +65,11 @@ p1-signed-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-signed-
 p1-batch2-final-evidence-v1	verify	python3	tools/verify-p1-batch2-final-v1.py	host	yes	120
 p1-semantic-resolution-v6	verify	python3	tools/build-p1-semantic-resolution-v6.py	host	yes	120
 p1-source-batches-v5	verify	python3	tools/audit-p1-source-batches-v5.py	host	yes	120
+p1-batch3-final-evidence-v1	verify	python3	tools/verify-p1-batch3-final-v1.py	host	yes	120
+p1-arith-random-generator-v1	verify	python3	tools/generate-pdp10-arith-rand-v1.py	host	yes	120
+p1-original-karatsuba-generator-v1	verify	python3	tools/generate-pdp10-wide-karatsuba-v1.py	host	yes	120
+p1-semantic-resolution-v7	verify	python3	tools/build-p1-semantic-resolution-v7.py	host	yes	120
+p1-source-batches-v6	verify	python3	tools/audit-p1-source-batches-v6.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120
