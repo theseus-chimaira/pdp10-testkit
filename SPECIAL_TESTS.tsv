@@ -46,6 +46,7 @@ p1-nonasserting-companions-evidence-v1	verify	python3	tools/verify-p1-nonasserti
 p1-prefetch-wide-evidence-v1	verify	python3	tools/verify-p1-prefetch-wide-v1.py	host	yes	120
 p1-kdev36-width-evidence-v1	verify	python3	tools/verify-p1-kdev36-v1.py	host	yes	120
 p1-divmod-native-width-evidence-v1	verify	python3	tools/verify-p1-divmod-native-v1.py	host	yes	120
+p1-bitfields-operations-evidence-v1	verify	python3	tools/verify-p1-bitfields-operations-v1.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

@@ -1,0 +1,5 @@
+source	source_sha256	profile	status	evidence_sha256	archive_member
+tests/semantic/regression/pdp10-signed-bitfields-operations-v1.c	327799ef4034a6b727addba3a3ecd83566ac1667b297a8ba16108711334b2264	gcc-pdp6-o0	run_fail	ebb812198fe3462c29a0c8b3ed6ed557bc9cbe16d62e0bd06466cc592995f43c	bitfields/gcc-pdp6-o0-v1.log
+tests/semantic/regression/pdp10-signed-bitfields-operations-v1.c	327799ef4034a6b727addba3a3ecd83566ac1667b297a8ba16108711334b2264	gcc-pdp6-o1	run_fail	3786043990de6eaecd86ba27bd098e597cb005c7977c88e7da97b37446064eb5	bitfields/gcc-pdp6-o1-v1.log
+tests/semantic/regression/pdp10-signed-bitfields-operations-v1.c	327799ef4034a6b727addba3a3ecd83566ac1667b297a8ba16108711334b2264	gcc-pdp6-o2	run_fail	298269c02a10ab2101928732f788b6c436da2fc67e8b8bd03811e0469366b1a1	bitfields/gcc-pdp6-o2-v1.log
+tests/semantic/regression/pdp10-signed-bitfields-operations-v1.c	327799ef4034a6b727addba3a3ecd83566ac1667b297a8ba16108711334b2264	gcc-pdp6-os	run_fail	dd3be30c534acd8179be03494fb4a7844dd7cf757d3fe00790ae60b6ad97c85e	bitfields/gcc-pdp6-os-v1.log

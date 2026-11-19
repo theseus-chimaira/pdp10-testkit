@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,225 matrix sources**,
+The current inventories are **2,226 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**269 specialized registrations**, including **18 intentionally
+**270 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -234,9 +234,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,225** sources, including thirteen substantive
+- Compiler matrix: **2,226** sources, including fourteen substantive
   companions for formerly vacuous or width-dependent upstream tests.
-- Special registry: **269 entries** (**245** enabled direct, **18** manual,
+- Special registry: **270 entries** (**246** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -279,7 +279,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
   coverage classification (eight targeted, six partial) without changing
   or prematurely activating the originals. See
   `docs/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
-- The latest registered host verification sweep is **30/30 PASS**.
+- The latest registered host verification sweep is **31/31 PASS**.
   Earlier 24/24 and 27/27 milestones are historical counts, not the
   current verifier inventory. The original 67 deferred sources remain
   deferred pending the remaining 53 non-nonasserting dispositions and
@@ -292,6 +292,11 @@ it is not silently replaced by `DAIMOS/tools/host`.
   signed/unsigned 9/18/36-bit quotient/remainder oracle. Two KCC
   modes pass; all four GCC profiles reach the same real assertion
   failure. See `docs/PDP10-P1-DIVMOD-NATIVE-20261119-v1.md`.
+- Signed 52/53-bit field XOR/OR and record-return paths now have
+  independently calculated sign-extended expected values with actual
+  GCC PDP-6 failures in all four optimization profiles. The original
+  64-bit-assumption sources stay deferred. See
+  `docs/PDP10-P1-BITFIELDS-OPERATIONS-20261119-v1.md`.
 
 ## Verified integration state (2026-11-17)
 

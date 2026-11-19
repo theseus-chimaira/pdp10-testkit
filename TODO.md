@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,225 compiler
-matrix sources, 269 special entries (245 enabled direct, 18 manual,
-6 nested), and 402 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,226 compiler
+matrix sources, 270 special entries (246 enabled direct, 18 manual,
+6 nested), and 403 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -27,7 +27,7 @@ current inventory totals. The current ownership split is documented in
 - [x] Verify all 14 original-to-companion ownership edges and ten new
   normal matrix executions, including unchanged original byte hashes,
   target profile selection, archived run evidence and independent
-  arithmetic expectations. Registered host verify: 30/30 PASS.
+  arithmetic expectations. Registered host verify: 31/31 PASS.
 - [ ] Establish the GNU union-overlay representation and 71-bit ABI
   expectations independently before claiming complete coverage of
   the original `960416-1.c` test. A preliminary assumed layout was
@@ -52,6 +52,14 @@ current inventory totals. The current ownership split is documented in
 - [ ] Independently reconstruct the original randomized-test source
   generation for PDP-10 nine-bit char and safe signed-divisor policy;
   the 36-case companion does not establish full random stress coverage.
+- [x] Add an independent signed 52/53-bit XOR/OR and by-value record
+  companion to the deferred `991118-1.c` and `bf64-1.c`; verify three
+  host-derived sign-extended values in both field orders and retain four
+  genuine GCC PDP-6 runtime failures at the first checkpoint.
+  See `docs/PDP10-P1-BITFIELDS-OPERATIONS-20261119-v1.md`.
+- [ ] Finish independent non-PDP6 signed bitfield layout and
+  by-value structure-return semantics before closing the two original
+  64-bit-dependent tests.
 - [ ] Establish a separate justified PDP-10 pointer/ABI contract
   before considering the original Linux `980526-2.c` complete;
   the independent numeric encoder does not test `mknod` or raw
@@ -1726,12 +1734,12 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,225 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,226 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
-- `SPECIAL_TESTS.tsv`: 269 unique entries, including 245 enabled direct,
+- `SPECIAL_TESTS.tsv`: 270 unique entries, including 246 enabled direct,
   18 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 402 owned shell/Python scripts after the native
+- Script inventory: 403 owned shell/Python scripts after the native
   guest-suite return (426 was a historical pre-return count).
   All 21 currently registered host verification tests passed on
   2026-11-19; see `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.
