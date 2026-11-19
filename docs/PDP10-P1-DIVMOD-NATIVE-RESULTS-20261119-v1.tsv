@@ -1,0 +1,7 @@
+source	source_sha256	profile	status	evidence_sha256	archive_member
+tests/semantic/regression/pdp10-divmod-native-widths-v1.c	bd883ed6595b7ed4e915705d8f3e06eb8f064dde2781c24a6145cc08d7a1b626	kcc-pdp6-opt	pass	e8b9622a54d48e7061250dc0a01f5ef6e04b4178889767df8eb9e3d0c73a2369	divmod/kcc-pdp6-opt-v1.log
+tests/semantic/regression/pdp10-divmod-native-widths-v1.c	bd883ed6595b7ed4e915705d8f3e06eb8f064dde2781c24a6145cc08d7a1b626	kcc-pdp6-noopt	pass	e2737dc3b656ad2218b102f9171193ca443468d8f2bc5909a0dc79c0f50b1019	divmod/kcc-pdp6-noopt-v1.log
+tests/semantic/regression/pdp10-divmod-native-widths-v1.c	bd883ed6595b7ed4e915705d8f3e06eb8f064dde2781c24a6145cc08d7a1b626	gcc-pdp6-o0	run_fail	ff031fbb90260e2fad3646ab75e1644991486d44a8fb215ce616612a3ae5ff64	divmod/gcc-pdp6-o0-v1.log
+tests/semantic/regression/pdp10-divmod-native-widths-v1.c	bd883ed6595b7ed4e915705d8f3e06eb8f064dde2781c24a6145cc08d7a1b626	gcc-pdp6-o1	run_fail	26853071fc9cfec1a1890b53a53284fbe6dbca2c7496db1fdfc136f21982dc4a	divmod/gcc-pdp6-o1-v1.log
+tests/semantic/regression/pdp10-divmod-native-widths-v1.c	bd883ed6595b7ed4e915705d8f3e06eb8f064dde2781c24a6145cc08d7a1b626	gcc-pdp6-o2	run_fail	525f24d31439a5c991fcfeaa0745d4da33f45ba1781204182a417c7afb1f835a	divmod/gcc-pdp6-o2-v1.log
+tests/semantic/regression/pdp10-divmod-native-widths-v1.c	bd883ed6595b7ed4e915705d8f3e06eb8f064dde2781c24a6145cc08d7a1b626	gcc-pdp6-os	run_fail	a6194d7f70761b13bcb44409c73bcd2533d63de6712c41d06577b9dace0543fe	divmod/gcc-pdp6-os-v1.log
