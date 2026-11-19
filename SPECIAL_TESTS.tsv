@@ -32,6 +32,7 @@ test-kcc-negative-policy-v1	verify	python3	tools/test-kcc-negative-policy-v1.py	
 test-gcc-negative-policy-v1	verify	python3	tools/test-gcc-negative-policy-v1.py	host	yes	120
 test-runner-result-accounting-v1	verify	python3	tools/test-runner-result-accounting-v1.py	host	yes	120
 test-special-suite-dispatch-v1	verify	python3	tools/test-special-suite-dispatch-v1.py	host	yes	120
+test-run-special-tests-v2	verify	python3	tools/test-run-special-tests-v2.py	host	yes	120
 test-kcc-special-output-decoding-v1	verify	python3	tools/test-kcc-special-output-decoding-v1.py	host	yes	120
 test-codegen-declared-oracles-v1	verify	python3	tools/test-codegen-declared-oracles-v1.py	host	yes	120
 test-registered-fixture-integrity-v1	verify	python3	tools/test-registered-fixture-integrity-v1.py	host	yes	120

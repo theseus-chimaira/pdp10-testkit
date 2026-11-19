@@ -19,3 +19,18 @@ The original `SPECIAL_TESTS.tsv` remains authoritative, and the existing
 `run-misc-tests.sh run-id ID --manual` remains functional. No test oracle,
 compiler profile, or matrix entry has changed. This runner intentionally
 performs no test execution on `list`.
+
+## Bounded dispatcher verification (v2)
+
+`tools/test-run-special-tests-v2.py` checks registry partitioning,
+exact-ID selection, complete opt-in selection, continued execution after
+one failing test, refusal of native/unknown IDs, and side-effect-free
+listing using a mocked subprocess. It is registered as an ordinary host
+verification check; it never starts a compiler or simulator.
+
+The 25 native cases are not a standalone move: some contain auxiliary
+Python scripts, assembly fixtures, expected probe files, and dependencies
+on earlier staged builds. Their new ownership must include the complete
+fixture trees and update the old v3 migration audit, which explicitly
+rejects native compiler tests under the DAIMOS testkit. Existing unrelated
+DAIMOS working-tree changes must be preserved.

@@ -147,3 +147,4 @@ misc/validation/kcc-native-refresh-v1373/build_root_v1373.py	delegated	misc/vali
 misc/validation/native-dlink-c-v1403/build_root_v1403.py	delegated	misc/validation/native-dlink-c-v1403/run-v1403.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
 misc/validation/native-dlink-c-v1403/make_fixtures_v1403.py	delegated	misc/validation/native-dlink-c-v1403/run-v1403.sh	Native compiler/assembler guest fixture helper owned by the explicit manual compiler validation runner
 tools/audit_consolidated_upstream_v21.py	module-helper	tools/audit-test-inventory-v1.py	Canonical upstream SHA256 and retired-alias audit, imported by inventory source owner; no independent special registry execution
+tools/run-special-tests-v1.py	module-helper	tools/test-run-special-tests-v2.py	Explicit special runner module imported by bounded dispatch test; CLI wrapper invokes it separately
