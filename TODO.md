@@ -41,6 +41,11 @@ compiler sweep.
   nonasserting cases, target-width policies, real hosted dependencies and
   original-source assertions. Keep genuine compiler failures visible.
 - [x] Recheck installed freestanding libc archive extraction and callable PDP-6 ABI with the registered targeted test. Both KCC and GCC PASS; installed archives have identical SHA256. This covers memcpy, strlen, strcmp and strstr, not hosted allocation or I/O. See docs/PDP10-P1-LIBC-VERIFICATION-20261119-v1.md.
+- [x] Centralize the normal semantic runner's freestanding libc member
+  selection and transitive memmove -> memcpy dependency in a small
+  host-tested policy. Eleven positive/negative controls PASS; targeted
+  PDP-6 KCC and GCC semantic cells PASS. The full sweep remains deferred.
+  See docs/PDP10-P1-LIBC-SELECTION-20261119-v1.md.
 - [ ] Identify exact remaining P1 libc/header/varargs prerequisites, distinguishing hosted malloc, I/O, alloca, missing runtime helpers and GNU built-ins from available freestanding symbols. No fake libc stubs.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.

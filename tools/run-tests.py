@@ -14,6 +14,7 @@ import sys
 import time
 from pathlib import Path
 from stubselect import STUB_SYMBOLS, selected_test_stubs
+from freestanding_selection_v1 import select_freestanding
 from compiler_negative_policy_v1 import (ICE_RE, check_kcc_rejection,
                                          check_gcc_rejection)
 from codegen_declared_oracles_v1 import (
@@ -1146,58 +1147,10 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
             # Freestanding library implementations belong to KCC's target
             # runtime, not DAIMOS's OS-dependent libc. Select only fragments
             # referenced by the test; never manufacture passing stub bodies.
-            string_symbols = ('strcpy', 'strncpy', 'strcat',
-                              'strncat', 'strchr', 'strrchr', 'strtok',
-                              'strcspn')
             if cell['compiler'] in ('kcc', 'gcc'):
-                externals = set(re.findall(
-                    # Optimized wrappers can tail-call a libc function
-                    # with JRST rather than PUSHJ. Discover either form
-                    # before selecting freestanding archive fragments.
-                    r'(?mi)^\s*(?:pushj\s+\d+\s*,\s*|jrst\s+|\.extern\s+)'
-                    r'([A-Za-z_][A-Za-z_0-9]*)\b', asm_text))
-                needed_string = [name for name in string_symbols
-                                 if name in externals and not label_exists(asm_text, name)]
-                fragments = []
-                if needed_string:
-                    fragments.append('kcc-libc-string-v1.s')
-                    stub_exclude.update(needed_string)
-                for hot_name in ('memcmp', 'strlen', 'strcmp', 'strncmp'):
-                    if hot_name in externals and not label_exists(asm_text, hot_name):
-                        fragment_version = 'v2' if hot_name == 'memcmp' else 'v1'
-                        fragments.append('kcc-libc-%s-%s.s' % (hot_name, fragment_version))
-                        stub_exclude.add(hot_name)
-                # Each search routine owns a separate archive member: a
-                # strstr-only program must not pull strspn/strpbrk into RAM.
-                for search_name in ('strstr', 'strpbrk', 'strspn'):
-                    if (search_name in externals and
-                            not label_exists(asm_text, search_name)):
-                        fragments.append('kcc-libc-%s-v1.s' % search_name)
-                        stub_exclude.add(search_name)
-                # This is a software *PDP-10 D-format ABI* conversion built
-                # from PDP-6 integer instructions, not PDP-6 native FP.
-                # The later processors' FP backends require separate
-                # validation; do not silently assign them this profile.
-                if (cell['machine'] == 'pdp6' and
-                        any(name in externals and
-                            not label_exists(asm_text, name)
-                            for name in ('__kcc_floatdidf', '__kcc_fixdfdi'))):
-                    fragments.append('kcc-libc-dimode-float-pdp6-v1.s')
-                    stub_exclude.update(('__kcc_floatdidf', '__kcc_fixdfdi'))
-                if 'memset' in externals and not label_exists(asm_text, 'memset'):
-                    fragments.append('kcc-libc-memset-v1.s')
-                    stub_exclude.add('memset')
-                if any(symbol in externals and not label_exists(asm_text, symbol)
-                       for symbol in ('p10bcopy_v2', 'p10bfill_v2', 'p10bcmp_v2')):
-                    fragments.append('p10bytes-v2.s')
-                if 'memmove' in externals and not label_exists(asm_text, 'memmove'):
-                    fragments.append('kcc-libc-memmove-v1.s')
-                    # The forward overlap-safe path jumps to memcpy.
-                    fragments.append('kcc-libc-memcpy-v1.s')
-                    stub_exclude.update(('memmove', 'memcpy'))
-                elif 'memcpy' in externals and not label_exists(asm_text, 'memcpy'):
-                    fragments.append('kcc-libc-memcpy-v1.s')
-                    stub_exclude.add('memcpy')
+                fragments, libc_symbols = select_freestanding(
+                    asm_text, cell['machine'])
+                stub_exclude.update(libc_symbols)
                 for fragment in fragments:
                     path = (find_kcc_freestanding(fragment) if cell['compiler'] == 'kcc'
                             else find_gcc_freestanding(fragment))
