@@ -138,3 +138,8 @@ misc/validation/kcc-indptr-call-v1395/check-v1395.py	delegated	misc/validation/k
 misc/validation/dxr2-st2-v1070.py	delegated	misc/validation/dxr2-st2-v1070.sh	DAS DXR2 format checks executed by registered checker script
 tools/audit_consolidated_upstream_v21.py	module-helper	tools/audit-test-inventory-v1.py	Canonical upstream SHA256 and retired-alias audit, imported by inventory source owner; no independent special registry execution
 tools/run-special-tests-v1.py	module-helper	tools/test-run-special-tests-v2.py	Explicit special runner module imported by bounded dispatch test; CLI wrapper invokes it separately
+tools/test-920428-das-port-v1.py	delegated	misc/das/check-920428-port-v1.sh	DAS assembly port fixture checker invoked by registered DAS wrapper
+tools/admit-p1-deferred-matrix-v1.py	manual-tool		Explicit matrix admission writer; must not run as a test
+tools/run-p1-batch4-deferred-v1.py	manual-tool		On-demand batch compiler execution probe; no automatic sweep invocation
+tools/run-p1-deferred-batches-v1.py	manual-tool		On-demand deferred batch compiler probe; no automatic sweep invocation
+tools/summarize-p1-deferred-batches-v1.py	manual-tool		On-demand offline archived batch report summarizer
