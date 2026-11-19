@@ -55,6 +55,9 @@ p1-align32-strides-evidence-v1	verify	python3	tools/verify-p1-align32-v1.py	host
 p1-batch1-admission-evidence-v1	verify	python3	tools/verify-p1-batch1-admission-v1.py	host	yes	120
 p1-semantic-resolution-v3	verify	python3	tools/build-p1-semantic-resolution-v3.py	host	yes	120
 p1-source-batches-v2	verify	python3	tools/audit-p1-source-batches-v2.py	host	yes	120
+p1-batch1-final-evidence-v1	verify	python3	tools/verify-p1-batch1-final-v1.py	host	yes	120
+p1-semantic-resolution-v4	verify	python3	tools/build-p1-semantic-resolution-v4.py	host	yes	120
+p1-source-batches-v3	verify	python3	tools/audit-p1-source-batches-v3.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,236 compiler
-matrix sources, 278 special entries (254 enabled direct, 18 manual,
-6 nested), and 411 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,241 compiler
+matrix sources, 281 special entries (257 enabled direct, 18 manual,
+6 nested), and 414 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -24,12 +24,12 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v3 ledger counts **14 covered, 10 partial, 43 blocked**.
+current v4 ledger counts **18 covered, 6 partial, 43 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
-**Current execution order:** Batch 1 (four partial source intents),
-then Batches 2–6 in their fixed source order. Complete at most ten
+**Current execution order:** Batch 1 completed 10/10; begin Batch 2,
+then Batches 3–6 in their fixed source order. Complete at most ten
 original-source obligations per batch; do not pull unrelated AAP
 architecture-correctness testing into a P1 source batch.
 
@@ -48,18 +48,24 @@ architecture-correctness testing into a P1 source batch.
   Close three more: flexible-array initialization (separate from its
   failing GCC pointer baseline), packed unaligned complex readback,
   and complex conjugation/array return. Original bytes are unchanged.
-- [ ] Complete the remaining **4/10 Batch 1** partial source intents:
-  8-bit enum signedness/policy at value 222, computed-goto SIMH timeout,
-  genuine KCC wide-modulo linkage plus factor search, and KCC/GCC
-  prime-search source/runtime and original interval. These are not
-  incorrectly labeled as compiler assertion failures or complete tests.
+- [x] Complete the remaining **4/10 Batch 1** *test-construction*
+  obligations with source-pinned original oracles: implementation-
+  defined signed/unsigned enum fields (6 PASS), bounded direct label
+  jumps (6 PASS) and short offsets (4 PASS), full original Pollard
+  factorization (GCC O1/O2/Os PASS), and the exact original prime
+  interval (GCC O0 genuine assertion failure). The five new sources
+  contribute **28 more native profiles**, preserving six actual step-
+  limit results, two real KCC missing-helper links, and the earlier
+  four combined-label SIMH wall timeouts. Batch 1 is **10/10 P1
+  covered**, NOT 10/10 compiler PASS. See
+  `docs/PDP10-P1-BATCH1-FINAL-20261119-v1.md`.
 - [ ] Work Batch 2 (10 compiler policy/diagnostic source identities),
   then Batch 3 (10 width/partial), Batch 4 (10 ABI/ISA/libc), Batch 5
   (10 hosted), and Batch 6 (9 hosted). Preserve source profile
   evidence and update current resolution state after each closure.
 
-Current **actionable P1 backlog: 53** (ten partial and forty-three blocked).
-The 59-source frozen batch plan still lists all six completed Batch 1 sources
+Current **actionable P1 backlog: 49** (six partial and forty-three blocked).
+The 59-source frozen batch plan still lists all ten completed Batch 1 sources
 for provenance; it must never shrink or be renumbered.
 
 - [x] Review **67/67** original SHA256s, historical blockers, current
@@ -73,8 +79,8 @@ for provenance; it must never shrink or be renumbered.
 - [x] Keep **6 partially covered intents** actionable, preserving
   each specific missing operation or simulator diagnosis; distinguish
   5 recorded companion assertion failures from one actual SIMH timeout.
-- [ ] Complete the remaining **50 blocked intents** (21 hosted runtime,
-  11 compiler-investigation sources still lacking active source-pinned
+- [ ] Complete the remaining **43 blocked intents** (21 hosted runtime,
+  4 compiler-investigation sources still lacking active source-pinned
   normal matrix admission, 5 target-width/representation, 3 feature
   policies, 3 libc linkage, 3 varargs ABI, and four individual
   header/ISA/ICE/linker prerequisites). Do not label these as 50
