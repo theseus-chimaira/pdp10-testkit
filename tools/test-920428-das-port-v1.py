@@ -4,6 +4,7 @@
 This is an assembly-only harness check, not a linked/runtime semantic pass.
 """
 import hashlib
+import shutil
 import os
 from pathlib import Path
 import subprocess
@@ -27,6 +28,20 @@ def main():
     result = subprocess.run(cmd, cwd=ROOT, check=False)
     if result.returncode or not target.is_file() or target.stat().st_size == 0:
         print('FAIL: DAS syntax port did not produce DOBJ', file=sys.stderr)
+        return 1
+    objdump = shutil.which('pdp10-objdump')
+    if objdump is None:
+        print('FAIL: pdp10-objdump not installed', file=sys.stderr)
+        return 1
+    symbols = subprocess.run([objdump, '-t', str(target)],
+                             capture_output=True, text=True, check=True).stdout
+    if not any('DEF' in line and '.text' in line and
+               line.split()[-1] == 'main' for line in symbols.splitlines()):
+        print('FAIL: main is not in executable .text', file=sys.stderr)
+        return 1
+    if not any('UNDEF' in line and line.split()[-1] == '__main'
+               for line in symbols.splitlines()):
+        print('FAIL: runtime __main import missing', file=sys.stderr)
         return 1
     print('PASS: DAS syntax port assembled into DOBJ (%d bytes)' %
           target.stat().st_size)

@@ -1,5 +1,5 @@
 ; DAS syntax port of upstream support/920428-1.s.
-; Assembly-only: MAIN_INIT is a placeholder for legacy ..main linkage.
+; Assembly-only: __main is the current GCC PDP-10 runtime entry for legacy ..main.
 ; Original source and expected machine behavior are not changed.
 	TITLE	920428-1
 
@@ -29,10 +29,10 @@ x:
 	.DATA
 %LC0:
 	.BYTE 9,0
-	.DATA
+	.TEXT
 	ENTRY	main
 main:
-	pushj 17,MAIN_INIT
+	pushj 17,__main
 	skipa 1,.+1
 	 OWGBP 070,GIW %LC0
 	pushj 17,x
@@ -44,7 +44,7 @@ main:
 
 	EXTERN	abort
 	EXTERN	exit
-	EXTERN	MAIN_INIT
+	EXTERN	__main
 
 ; expanded load unsigned 16  left:    0
 ; output   load unsigned 16  left:    0
