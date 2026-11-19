@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,211 compiler
-matrix sources, 259 special entries (235 enabled direct, 18 manual,
-6 nested), and 393 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,212 compiler
+matrix sources, 263 special entries (239 enabled direct, 18 manual,
+6 nested), and 396 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -1651,7 +1651,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - [x] Correct the active `README.md` layout and migrate moved OS-specific
   source paths in the AAP documentation. Classified upstream semantic
   tests are under `tests/semantic/upstream/`; the existing
-  `tests/todo/generic/` corpus holds retained candidates, not active cells.
+  `tests/todo/generic/` corpus holds retained candidates, including
+  some active canonical compiler-gate matrix sources.
 - [ ] Continue historical document and source-manifest reviews; updating
   current ownership paths does not retroactively re-run earlier studies.
 - [x] Confirm the obsolete `tests/todo/codegen` and `tests/todo/negative`
@@ -1671,12 +1672,12 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,211 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,212 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
-- `SPECIAL_TESTS.tsv`: 259 unique entries, including 235 enabled direct,
+- `SPECIAL_TESTS.tsv`: 263 unique entries, including 239 enabled direct,
   18 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 393 owned shell/Python scripts after the native
+- Script inventory: 396 owned shell/Python scripts after the native
   guest-suite return (426 was a historical pre-return count).
   All 21 currently registered host verification tests passed on
   2026-11-19; see `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.

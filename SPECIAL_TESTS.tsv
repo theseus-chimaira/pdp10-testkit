@@ -3,6 +3,7 @@ kcc-kpcode2-float-phase-v1	kcc-regression	sh	misc/kcc-regression/kcc-kpcode2-flo
 kcc-compound-negating-assign-v1	kcc-regression	sh	misc/kcc-regression/compound-negating-assign-v1.sh	pdp6	yes	180
 kcc-pdp6-negative-fp-runtime-v1	validation	sh	misc/validation/test-kcc-pdp6-negative-fp-runtime-v1.sh	pdp6	yes	120
 gcc-varargs-vla-no-ice-v1	validation	sh	misc/validation/test-gcc-varargs-vla-no-ice-v1.sh	multi-cpu	yes	180
+p1-gate15-assertion-strength-v1	validation	python3	misc/validation/test-p1-gate15-calls-v1.py	pdp6	yes	180
 kcc-pdp6-rounded-fp-boundaries-v2	validation	sh	misc/validation/test-kcc-pdp6-rounded-fp-boundaries-v2.sh	pdp6	manual	150
 kcc-pdp6-fp-hardware-case9-v1	validation	sh	misc/validation/test-kcc-pdp6-fp-hardware-case9-v1.sh	pdp6	yes	150
 aap-pdp6-emnf-case9-model-v1	validation	python3	misc/validation/analyze-aap-pdp6-emnf-case9-v1.py	host	yes	120
@@ -38,6 +39,9 @@ test-codegen-declared-oracles-v1	verify	python3	tools/test-codegen-declared-orac
 test-registered-fixture-integrity-v1	verify	python3	tools/test-registered-fixture-integrity-v1.py	host	yes	120
 test-diagnostic-oracles-v1	verify	python3	tools/test-diagnostic-oracles-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
+p1-deferred-source-provenance-v1	verify	python3	tools/run-p1-deferred-evidence-v1.py	host	yes	120
+p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
+p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120
 kcc-p0-diagnostics-v1	validation	sh	misc/validation/test-kcc-p0-diagnostics-v1.sh	default	yes	120
 int71-header	compat	sh	misc/compat/test-int71-header.sh	default	yes	120

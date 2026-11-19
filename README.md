@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,211 matrix sources**,
+The current inventories are **2,212 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**259 specialized registrations**, including **18 intentionally
+**263 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -230,12 +230,13 @@ it is not silently replaced by `DAIMOS/tools/host`.
 | `refs/` | Reviewed historical source snapshots, not automatically runnable tests |
 | `docs/` | Test-specific policy, source decisions, historical evidence and versioned manifests |
 | `tools/` | Matrix runners and static integrity/ownership audits |
-| `tests/todo/generic/` | Retained historical generic candidates, **not** active matrix tests |
+| `tests/todo/generic/` | Retained historical generic candidates; some canonical compiler gates are active matrix tests |
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,211** sources after adding the standalone KCC induction-pointer regression.
-- Special registry: **259 entries** (**235** enabled direct, **18** manual,
+- Compiler matrix: **2,212** sources after adding the KCC induction-pointer
+  regression and independently generated PDP-10 width-shift oracle.
+- Special registry: **263 entries** (**239** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -247,6 +248,19 @@ it is not silently replaced by `DAIMOS/tools/host`.
   `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.  The separate manual
   sweep remains 13 PASS / six not passing and is not a compiler-matrix
   acceptance claim.
+- The 16 original consolidated compiler gates are now **normal matrix**
+  cells (38 PDP-6 compiler/optimization profiles), rather than a parallel
+  execution suite. All 38 profiles were run through `run-tests.sh`:
+  36 still fail and the two KCC PDP-6 profiles of `20011113-1.c`
+  pass. The separate mutation/negative-control validation tests both
+  source call paths without changing the original C file. Full historical
+  failure logs and checked hashes: `docs/PDP10-COMPILER-GATES-MATRIX-20261119-v1.md`.
+- The current **24/24** registered host-only verification tests pass,
+  including P1 deferred-source provenance, DEC floating-point oracle
+  evidence coverage and the independent target-width shift-table check.
+  The PDP-6 width-shift regression passes all six tested KCC/GCC modes;
+  further CPU semantics and the 67 deferred-source resolutions remain P1.
+  See `docs/PDP10-P1-TEST-CONSTRUCTION-20261119-v1.md`.
 
 ## Verified integration state (2026-11-17)
 

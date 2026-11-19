@@ -12,11 +12,16 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import tarfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
 MAP = ROOT / "docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.tsv"
 GATES = ROOT / "docs/UPSTREAM-CONSOLIDATED-COMPILER-GATES-20261118-v21.tsv"
+GATE_RESULTS = (ROOT / "docs" /
+                "PDP10-COMPILER-GATES-MATRIX-RESULTS-20261119-v1.tsv")
+GATE_EVIDENCE = (ROOT / "refs" /
+                 "compiler-gates-pdp6-matrix-20261119-v1.tar.gz")
 BEFORE = ROOT / "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v15.tsv"
 BEFORE_DEFERRED = ROOT / "docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv"
 BEFORE_REVIEW = ROOT / "docs/DEFERRED-SOURCE-DUPLICATES-20261118-v19.tsv"
@@ -29,10 +34,95 @@ STDARG_TARGET_PREFIX = (
     b"#define NO_VARARGS 1\n"
     b"#endif\n\n")
 
+# Statuses consumed by tools/run-tests.py as executable semantic cells.
+# In particular, 'error' and 'fail' remain scheduled: those values are
+# historical observations, never a reason to skip a compiler defect.
+ACTIVE_GATE_MATRIX_STATUSES = frozenset((
+    "semantic", "run", "runtime", "ok", "pending", "fail", "timeout",
+    "error",
+))
+
 
 def records(path):
     with path.open(encoding="utf8", newline="") as stream:
         return list(csv.DictReader(stream, delimiter="\t"))
+
+
+def audit_gate_matrix_evidence(gates, problems):
+    """Verify all 38 archived results from the normal compiler matrix.
+
+    This is a static provenance audit of the initial PDP-6 observation,
+    not a test-run substitute or an expected-failure masking mechanism.
+    The normal matrix must still return nonzero on failing compiler cells.
+    """
+    expected = {}
+    for i, gate in enumerate(gates, 1):
+        compiler = gate["compiler"].lower()
+        profiles = (("kcc-pdp6-opt", "kcc-pdp6-noopt")
+                    if compiler == "kcc" else
+                    ("gcc-pdp6-o0", "gcc-pdp6-o1", "gcc-pdp6-o2",
+                     "gcc-pdp6-os"))
+        for profile in profiles:
+            expected[(gate["canonical_path"], profile)] = (i, gate)
+    try:
+        evidence = records(GATE_RESULTS)
+        with tarfile.open(GATE_EVIDENCE, "r:gz") as archive:
+            files = {item.name: item for item in archive.getmembers()}
+            if len(evidence) != 38 or len(files) != 38:
+                problems.append("incomplete PDP-6 compiler gate evidence")
+                return
+            seen = set()
+            members = set()
+            for row in evidence:
+                key = (row["canonical_path"], row["profile"])
+                if key in seen or key not in expected:
+                    problems.append("unexpected/duplicate compiler gate cell: " +
+                                    str(key))
+                    continue
+                seen.add(key)
+                number, gate = expected[key]
+                status = row["status"]
+                passing = gate["canonical_path"] == (
+                    "tests/todo/generic/20011113-1.c")
+                if ((status == "pass") != passing or
+                        status not in ("pass", "run_fail", "compile_fail",
+                                       "link_fail", "compiler_ice") or
+                        row["gate_index"] != str(number) or
+                        row["compiler"] != gate["compiler"].lower() or
+                        row["source_sha256"] != gate["source_sha256"]):
+                    problems.append("compiler gate result contradicts source/"
+                                    "profile: " + str(key))
+                member_name = "gate%02d/%s-v1.log" % (number, key[1])
+                members.add(member_name)
+                if row["archive_member"] != member_name:
+                    problems.append("wrong gate archive member: " + str(key))
+                item = files.get(member_name)
+                if item is None or not item.isfile():
+                    problems.append("missing genuine gate log: " + str(key))
+                    continue
+                stream = archive.extractfile(item)
+                content = stream.read() if stream is not None else b""
+                if (hashlib.sha256(content).hexdigest() !=
+                        row["evidence_sha256"] or
+                        (b"OBSERVED: " + status.encode("ascii") + b"\n")
+                        not in content or
+                        b"=== COMPILER AND LINKER ===\n" not in content):
+                    problems.append("gate evidence checksum/content failure: " +
+                                    str(key))
+                if (status == "pass" and b"result=PASS" not in content or
+                        status == "run_fail" and b"result=FAIL" not in content or
+                        status == "compiler_ice" and not any(
+                            needle in content.lower() for needle in
+                            (b"[internal error]", b"internal compiler error")) or
+                        status == "link_fail" and not any(
+                            needle in content.lower() for needle in
+                            (b"link failed", b"undefined symbol"))):
+                    problems.append("gate log does not substantiate status: " +
+                                    str(key))
+            if seen != set(expected) or members != set(files):
+                problems.append("compiler gate matrix snapshot incomplete")
+    except (OSError, tarfile.TarError, KeyError, UnicodeError, ValueError) as exc:
+        problems.append("cannot audit compiler gate evidence: %s" % exc)
 
 
 def audited_stdarg_adaptation(path, original_sha, data, classification):
@@ -73,6 +163,7 @@ def audit_consolidated_sources(upstream, matrix, problems):
                        for r in records(BEFORE_REVIEW)}
     current = {r["classified_path"]: r for r in upstream}
     registered = {r["test"] for r in matrix}
+    matrix_by_path = {r["test"]: r for r in matrix}
     mapping = records(MAP)
     gates = records(GATES)
     keep_paths = set()
@@ -243,11 +334,26 @@ def audit_consolidated_sources(upstream, matrix, problems):
                 row["source_sha256"] != hashlib.sha256(
                     (ROOT / key).read_bytes()).hexdigest()):
             problems.append("incorrect compiler-specific gate: " + key)
+        # The historical gate is a normal matrix source, not a parallel
+        # executable test. KCC uses the one PDP-6 column for opt/noopt;
+        # GCC uses four independently selected optimization columns.
+        # Require all failing-compiler PDP-6 profiles to remain runnable.
+        matrix_row = matrix_by_path.get(key)
+        cols = (("pdp6",) if row["compiler"] == "KCC" else
+                ("pdp6_gcc_o0", "pdp6_gcc_o1",
+                 "pdp6_gcc_o2", "pdp6_gcc_os"))
+        if (matrix_row is None or any(
+                matrix_row.get(col, "").lower() not in
+                ACTIVE_GATE_MATRIX_STATUSES for col in cols)):
+            problems.append("compiler gate missing active PDP-6 matrix "
+                            "profile: " + key)
     for key in sorted(expected_gates.keys() - seen_gates):
         problems.append("untracked active-owner compiler blocker: " + key)
     if (collections.Counter(r["compiler"] for r in gates) !=
             {"KCC": 13, "GCC": 3}):
         problems.append("consolidated compiler gate counts changed")
+
+    audit_gate_matrix_evidence(gates, problems)
 
     print("consolidated_duplicate_pairs=%d retired_active=47 retired_deferred=50"
           " remaining_duplicate_pairs=%d compiler_gates=%d" %
