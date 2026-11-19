@@ -154,7 +154,8 @@ def audited_stdarg_adaptation(path, original_sha, data, classification):
             original_sha)
 
 
-def audit_consolidated_sources(upstream, matrix, problems):
+def audit_consolidated_sources(upstream, matrix, problems,
+                               late_admissions=frozenset()):
     """Check the 97 retired aliases without accepting stale/missing sources."""
     previous = {r["classified_path"]: r for r in records(BEFORE)}
     previous_deferred = {r["classified_path"]: r
@@ -251,7 +252,8 @@ def audit_consolidated_sources(upstream, matrix, problems):
                 problems.append("canonical SHA256 missing or changed: " + keep)
         if (keep in registered) != (
                 canonical is not None and
-                canonical["activation"] == "active"):
+                (canonical["activation"] == "active" or
+                 keep in late_admissions)):
             problems.append("canonical compiler ownership changed: " + keep)
         if old_retired["activation"] == "active" and kind != "active-active":
             problems.append("active retired alias not recorded as active pair: " +
@@ -361,6 +363,7 @@ def audit_consolidated_sources(upstream, matrix, problems):
 
 
 if __name__ == "__main__":
+    from p1_matrix_admissions_v1 import admitted_sources
     # Standalone verification shares the upstream and matrix inventories.
     def current_rows(p, skip_comments=False):
         with (ROOT / p).open(encoding="utf8", newline="") as stream:
@@ -374,7 +377,9 @@ if __name__ == "__main__":
         "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv")
     current_matrix = current_rows("COMPILER_MATRIX.tsv", skip_comments=True)
     errors = []
-    audit_consolidated_sources(current_upstream, current_matrix, errors)
+    late_admissions = admitted_sources(current_upstream, current_matrix, errors)
+    audit_consolidated_sources(current_upstream, current_matrix, errors,
+                               late_admissions=late_admissions)
     for error in errors:
         print("ERROR: " + error, file=sys.stderr)
     print("upstream consolidation: %s (%d errors)" %

@@ -16,6 +16,7 @@ import re
 import sys
 
 from audit_consolidated_upstream_v21 import audit_consolidated_sources
+from p1_matrix_admissions_v1 import admitted_sources
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,6 +73,8 @@ SUPPORT_SOURCE_OWNERS = {
         "misc/compat/test-p10byte-blt-v3.sh",
     "tests/semantic/p10-byte-blt-fill-v3.s":
         "misc/compat/test-p10byte-blt-v3.sh",
+    "tests/isa/das-port/920428-1-das-v1.s":
+        "misc/das/check-920428-port-v1.sh",
     "tests/semantic/utf9-codec-pdp6-v1.c":
         "misc/compat/test-utf9-pdp6-runtime-v1.sh",
     "tests/semantic/utf9-codec-pdp6-v2.c":
@@ -224,6 +227,7 @@ def audit():
     matrix = list(rows(MATRIX, comments=True))
     special = list(rows(SPECIAL))
     upstream = list(rows(CLASSIFIED))
+    late_admissions = admitted_sources(upstream, matrix, problems)
     matrix_paths = set(row["test"] for row in matrix)
     special_paths = set(row["path"] for row in special)
 
@@ -295,7 +299,8 @@ def audit():
         else:
             if not exists:
                 problems.append("missing retained upstream source: %s" % rel)
-            if registered != (activation == "active"):
+            if registered != (activation == "active" or
+                              rel in late_admissions):
                 problems.append("upstream registration mismatch: %s (%s)" %
                                 (rel, activation))
         if rel in special_paths:
@@ -316,7 +321,8 @@ def audit():
                             (source, owner))
     for source in sorted(unowned):
         problems.append("unowned test source: " + source)
-    audit_consolidated_sources(upstream, matrix, problems)
+    audit_consolidated_sources(upstream, matrix, problems,
+                               late_admissions=late_admissions)
     audit_gcc_target_ownership(special, problems)
     print("matrix_sources=%d special_entries=%d special_unique_ids=%d" %
           (len(matrix), len(special), len(set(r["id"] for r in special))))

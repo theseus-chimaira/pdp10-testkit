@@ -1,12 +1,13 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,261 compiler
-matrix sources, 293 special entries (269 enabled direct, 18 manual,
-6 nested), and 426 owned script paths. The authoritative counts come
-from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
-audits. Checked milestones below are dated historical records, not
-current inventory totals. The current ownership split is documented in
-`docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md`.
+Current ownership and registration baseline (2026-11-19, pre-sweep
+reconciliation): **2,289 compiler matrix sources**, **296 special entries**
+(272 enabled direct, 18 manual, six enabled-but-nested), and **435 owned
+script paths**. The authoritative counts come from `COMPILER_MATRIX.tsv`,
+`SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
+are dated historical records, not current inventory totals. See
+`docs/PDP10-PRESWEEP-REGISTRY-GATE-20261119-v1.md` for the live gate and
+`docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Priority decision:** All *new* AAP emulator architecture-correctness
 work is **P3**, not P1 or P2: ASHC/IDIV and other instruction reference
@@ -16,6 +17,38 @@ historical AAP test results remain checked milestones; their old dated
 P1/P2 references do not override this priority. Independent floating-
 point *compiler test-oracle construction* stays in P1; repairing the
 underlying emulator or expanding its architecture coverage is P3.
+
+## Pre-sweep testkit preparation (2026-11-19 v1)
+
+**User decision:** Defer the large compiler/CPU/optimization test sweep
+until testkit construction, registration, oracle and runner work is ready.
+Do not run the large sweep as part of the following preparation tasks.
+Existing failing compiler tests remain scheduled; they are not reclassified
+as unsupported to improve the score. A small host-only validator is not a
+compiler sweep.
+
+- [x] Reconcile all registered compiler sources, special tests, companion
+  sources, script ownership and historical duplicate aliases. Both static
+  audits now PASS with zero errors; no source or historical classification
+  was rewritten. The 28 original C sources admitted from the frozen P1
+  v7 resolution ledger retain their 56 scheduled PDP-6 matrix cells.
+- [x] Register the existing KCC C89 constant-expression fixture and the
+  DAS assembly-port source owner; classify ad hoc batch-runner utilities
+  as manual tools, not automatic tests. Register a host-only P1 admission
+  guard with four negative controls so missing/disabled/wrong-owner
+  rows cannot silently pass the ownership audit.
+- [ ] Review the remaining exact-original semantic oracles, including
+  nonasserting cases, target-width policies, real hosted dependencies and
+  original-source assertions. Keep genuine compiler failures visible.
+- [ ] Complete useful negative/diagnostic source selection and target/
+  expected-output policy without implementing unused DejaGNU features.
+- [ ] Verify any missing assembler/linker/runtime test contracts;
+  assembly-only fixtures must not be called runtime passes.
+- [ ] Audit restart/checkpoint semantics, deterministic result identities,
+  and compile/link/guest/timeout/ICE classification with host-only and
+  narrowly scoped synthetic harness checks.
+- [ ] Finish host-only preflight, documentation reconciliation, and source
+  provenance checks before authorizing the large compiler/CPU sweep.
 
 ## P1 deferred semantic-source closure (2026-11-19 v1)
 
@@ -28,7 +61,7 @@ current v7 ledger counts **38 covered, 1 partial, 28 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
-**Current execution order:** Batches 1, 2 and 3 completed 10/10 each;
+**Current test-construction order:** Batches 1, 2 and 3 completed 10/10 each;
 continue Batches 4–6 in their fixed order. Complete at most ten
 original-source obligations per batch; do not pull unrelated AAP
 architecture-correctness testing into a P1 source batch.
@@ -82,7 +115,10 @@ architecture-correctness testing into a P1 source batch.
   (10 hosted), and Batch 6 (9 hosted). Preserve source profile
   evidence and update current resolution state after each closure.
 
-Current **actionable P1 backlog: 29** (one partial and twenty-eight blocked).
+Current **actionable P1 oracle backlog: 29** (one partial and twenty-eight blocked).
+The 28 C sources are already scheduled in the normal compiler matrix;
+registration does not resolve missing oracles or establish runtime PASS.
+The separate KL10 assembly port is an assembly-only DAS regression.
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources
 for provenance; it must never shrink or be renumbered.
 
@@ -1838,15 +1874,16 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,226 unique source rows, ownership and
-  source paths audited after removal of 47 identical registrations.
-- `SPECIAL_TESTS.tsv`: 270 unique entries, including 246 enabled direct,
-  18 manual and six nested; dispatch is statically verified, but full
-  execution is not claimed.
-- Script inventory: 403 owned shell/Python scripts after the native
-  guest-suite return (426 was a historical pre-return count).
-  All 21 currently registered host verification tests passed on
-  2026-11-19; see `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.
+- `COMPILER_MATRIX.tsv`: **2,289 unique source rows**. The 28 late
+  original-source admissions remain test registrations, not compiler PASS.
+- `SPECIAL_TESTS.tsv`: **296 entries**: 272 enabled direct, 18 manual
+  and six nested; dispatch is statically verified, not comprehensively
+  executed.
+- Script inventory: **435 owned shell/Python scripts**, including direct,
+  delegated, module, entrypoint and manual-tool roles. Both inventory and
+  script-ownership auditors PASS. These checks provide no guest-runtime
+  evidence; the previous 21-test host checkpoint remains documented at
+  `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 551 active, 67 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
