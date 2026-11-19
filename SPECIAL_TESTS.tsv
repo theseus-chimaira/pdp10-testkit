@@ -297,3 +297,4 @@ kcc-c89-constant-eval-v1683	validation	sh	misc/validation/kcc-constant-eval-v168
 p1-matrix-admissions-v1	verify	python3	tools/test-p1-matrix-admissions-v1.py	host	yes	120
 freestanding-selection-v1	verify	python3	tools/test-freestanding-selection-v1.py	host	yes	120
 installed-freestanding-selector-audit-v1	verify	python3	tools/test-installed-freestanding-audit-v1.py	host	yes	120
+p1-runtime-prerequisites-v1	verify	python3	tools/test-p1-runtime-prerequisites-v1.py	host	yes	120

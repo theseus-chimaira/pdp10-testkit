@@ -51,6 +51,11 @@ compiler sweep.
   matching installed archives and source semantics. Host-only negative
   controls reject missing exports, undeclared dependencies and divergent
   archives. See docs/PDP10-P1-LIBC-INSTALLED-AUDIT-20261119-v1.md.
+- [x] Produce a SHA-verified, source-specific prerequisite evidence manifest
+  for 27 historically probed libc/header sources and 26 varargs sources.
+  Resolve 12 historical duplicate aliases and explicitly record two
+  historical-vs-current hash differences; preserve all observed failures.
+  See docs/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.md.
 - [ ] Identify exact remaining P1 libc/header/varargs prerequisites, distinguishing hosted malloc, I/O, alloca, missing runtime helpers and GNU built-ins from available freestanding symbols. No fake libc stubs.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
