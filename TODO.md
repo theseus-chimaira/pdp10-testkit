@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,241 compiler
-matrix sources, 281 special entries (257 enabled direct, 18 manual,
-6 nested), and 414 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,247 compiler
+matrix sources, 285 special entries (261 enabled direct, 18 manual,
+6 nested), and 418 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -24,11 +24,11 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v4 ledger counts **18 covered, 6 partial, 43 blocked**.
+current v5 ledger counts **23 covered, 7 partial, 37 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
-**Current execution order:** Batch 1 completed 10/10; begin Batch 2,
+**Current execution order:** Batch 1 completed 10/10; finish Batch 2,
 then Batches 3–6 in their fixed source order. Complete at most ten
 original-source obligations per batch; do not pull unrelated AAP
 architecture-correctness testing into a P1 source batch.
@@ -64,7 +64,7 @@ architecture-correctness testing into a P1 source batch.
   (10 hosted), and Batch 6 (9 hosted). Preserve source profile
   evidence and update current resolution state after each closure.
 
-Current **actionable P1 backlog: 49** (six partial and forty-three blocked).
+Current **actionable P1 backlog: 44** (seven partial and thirty-seven blocked).
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources
 for provenance; it must never shrink or be renumbered.
 
