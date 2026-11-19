@@ -77,37 +77,49 @@ def main():
     for i, row in enumerate(rows, 1):
         path = row['classified_path']
         key = (path, args.compiler)
-        if key in existing_keys and existing_keys[key]['sha256'] == row['source_sha256']:
+        # 920428-1.s is a KL10 assembly fixture, not C source.  Feeding
+        # it to KCC/GCC -S produces a meaningless compile_fail; it needs
+        # an architecture-matched DAS/assembler harness instead.
+        assembler = path.endswith('.s')
+        if (not assembler and key in existing_keys and
+                existing_keys[key]['sha256'] == row['source_sha256']):
             print('%02d/%02d SKIP %s (already measured)' %
                   (i, len(rows), path), flush=True)
             continue
-        work = outdir / ('source-%03d-%s' % (i, args.compiler))
-        cmd = [sys.executable, str(PROBER), '--source', path,
-               '--compiler', args.compiler, '--outdir', str(work)]
-        print('%02d/%02d PROBE %s' % (i, len(rows), path), flush=True)
-        try:
-            result = subprocess.run(cmd, cwd=ROOT, capture_output=True,
-                                    text=True, timeout=args.timeout)
-            if result.returncode:
-                observed = 'probe-infrastructure-failed'
-                report = str(work / 'probe-output-v1.log')
-            else:
-                measured = tsv(work / 'results-v1.tsv')
-                if len(measured) != 1 or measured[0]['source'] != path:
-                    raise ValueError('incomplete probe result: ' + path)
-                observed = measured[0]['status']
-                report = measured[0]['report']
-            (work / 'probe-output-v1.log').write_text(
-                result.stdout + result.stderr, encoding='utf-8')
-        except subprocess.TimeoutExpired as exc:
-            observed = 'probe-outer-timeout'
-            report = str(work / 'probe-output-v1.log')
-            (work / 'probe-output-v1.log').write_text(
-                str(exc), encoding='utf-8')
-        if observed == 'pass':
-            review = 'assertion-review-required-not-activated'
+        if assembler:
+            observed = 'assembler-harness-required'
+            report = ''
+            review = 'non-C-KL10-source-not-a-PDP6-compiler-result'
+            print('%02d/%02d ASSEMBLER-ONLY %s' %
+                  (i, len(rows), path), flush=True)
         else:
-            review = 'failure-retained-not-activated'
+            work = outdir / ('source-%03d-%s' % (i, args.compiler))
+            cmd = [sys.executable, str(PROBER), '--source', path,
+                   '--compiler', args.compiler, '--outdir', str(work)]
+            print('%02d/%02d PROBE %s' % (i, len(rows), path), flush=True)
+            try:
+                result = subprocess.run(cmd, cwd=ROOT, capture_output=True,
+                                        text=True, timeout=args.timeout)
+                if result.returncode:
+                    observed = 'probe-infrastructure-failed'
+                    report = str(work / 'probe-output-v1.log')
+                else:
+                    measured = tsv(work / 'results-v1.tsv')
+                    if len(measured) != 1 or measured[0]['source'] != path:
+                        raise ValueError('incomplete probe result: ' + path)
+                    observed = measured[0]['status']
+                    report = measured[0]['report']
+                (work / 'probe-output-v1.log').write_text(
+                    result.stdout + result.stderr, encoding='utf-8')
+            except subprocess.TimeoutExpired as exc:
+                observed = 'probe-outer-timeout'
+                report = str(work / 'probe-output-v1.log')
+                (work / 'probe-output-v1.log').write_text(
+                    str(exc), encoding='utf-8')
+            if observed == 'pass':
+                review = 'assertion-review-required-not-activated'
+            else:
+                review = 'failure-retained-not-activated'
         entry = {'source': path, 'sha256': row['source_sha256'],
                  'disposition': row['disposition'], 'compiler': args.compiler,
                  'cpu': 'pdp6', 'optimization': '-n' if args.compiler == 'kcc'

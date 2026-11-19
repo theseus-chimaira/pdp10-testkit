@@ -40,8 +40,10 @@ def probe(sources, compiler, outdir):
     for src in sources:
         src_path = (ROOT / src).resolve()
         if (not src_path.is_relative_to(ROOT / "tests") or
-                not src_path.is_file()):
-            raise ValueError("source must be an existing tests/ file: " + src)
+                not src_path.is_file() or src_path.suffix != ".c"):
+            raise ValueError("C semantic probe requires a tests/*.c "
+                             "source; assembler fixtures need their own "
+                             "architecture-specific harness: " + src)
         for name in selected:
             cell = profiles[name]
             print("PROBE %s %s" % (name, src), flush=True)

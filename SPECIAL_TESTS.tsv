@@ -40,6 +40,8 @@ test-registered-fixture-integrity-v1	verify	python3	tools/test-registered-fixtur
 test-diagnostic-oracles-v1	verify	python3	tools/test-diagnostic-oracles-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
 p1-deferred-source-provenance-v1	verify	python3	tools/run-p1-deferred-evidence-v1.py	host	yes	120
+p1-deferred-baseline-evidence-v1	verify	python3	tools/verify-p1-deferred-baseline-v1.py	host	yes	120
+p1-companion-matrix-evidence-v1	verify	python3	tools/verify-p1-companion-matrix-v1.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

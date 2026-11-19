@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,212 matrix sources**,
+The current inventories are **2,217 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**263 specialized registrations**, including **18 intentionally
+**265 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -234,9 +234,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,212** sources after adding the KCC induction-pointer
-  regression and independently generated PDP-10 width-shift oracle.
-- Special registry: **263 entries** (**239** enabled direct, **18** manual,
+- Compiler matrix: **2,217** sources, including five new substantive
+  companions for formerly vacuous or width-dependent upstream tests.
+- Special registry: **265 entries** (**241** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -261,6 +261,14 @@ it is not silently replaced by `DAIMOS/tools/host`.
   The PDP-6 width-shift regression passes all six tested KCC/GCC modes;
   further CPU semantics and the 67 deferred-source resolutions remain P1.
   See `docs/PDP10-P1-TEST-CONSTRUCTION-20261119-v1.md`.
+- The full **67 x 2** deferred-source baseline is now captured, with
+  original source SHA256 identities, exact GCC/KCC result distinctions,
+  and 134 archived compiler/guest records. Five independently tested
+  companion regressions are now in the normal matrix without promoting
+  any vacuous historical source. See
+  `docs/PDP10-P1-DEFERRED-ROUND2-20261119-v1.md`.
+  All 26 new companion PDP-6 cells have archived, checksum-verified results
+  in `docs/PDP10-P1-COMPANION-MATRIX-RESULTS-20261119-v1.tsv`.
 
 ## Verified integration state (2026-11-17)
 
