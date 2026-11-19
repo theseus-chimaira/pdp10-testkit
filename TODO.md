@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,247 compiler
-matrix sources, 285 special entries (261 enabled direct, 18 manual,
-6 nested), and 418 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,253 compiler
+matrix sources, 288 special entries (264 enabled direct, 18 manual,
+6 nested), and 421 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -24,12 +24,12 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v5 ledger counts **23 covered, 7 partial, 37 blocked**.
+current v6 ledger counts **28 covered, 6 partial, 33 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
-**Current execution order:** Batch 1 completed 10/10; finish Batch 2,
-then Batches 3–6 in their fixed source order. Complete at most ten
+**Current execution order:** Batches 1 and 2 completed 10/10 each;
+continue Batch 3, then Batches 4–6 in their fixed order. Complete at most ten
 original-source obligations per batch; do not pull unrelated AAP
 architecture-correctness testing into a P1 source batch.
 
@@ -59,12 +59,19 @@ architecture-correctness testing into a P1 source batch.
   four combined-label SIMH wall timeouts. Batch 1 is **10/10 P1
   covered**, NOT 10/10 compiler PASS. See
   `docs/PDP10-P1-BATCH1-FINAL-20261119-v1.md`.
-- [ ] Work Batch 2 (10 compiler policy/diagnostic source identities),
-  then Batch 3 (10 width/partial), Batch 4 (10 ABI/ISA/libc), Batch 5
+- [x] Complete **10/10 Batch 2** source intents: five already closed
+  in the first 38-profile review, then five more with 26 new normal
+  PDP-6 compiler executions and four fully instrumented original-source
+  GCC runs. Preserve the original local GNU-union `signbit(double)`
+  GCC O0 compiler ICE, the nested-function wall timeouts, the return-
+  address assertions and the KCC native D-format continuation-sign
+  regression for P2. See
+  `docs/PDP10-P1-BATCH2-FINAL-20261119-v1.md`.
+- [ ] Work Batch 3 (10 width/partial), Batch 4 (10 ABI/ISA/libc), Batch 5
   (10 hosted), and Batch 6 (9 hosted). Preserve source profile
   evidence and update current resolution state after each closure.
 
-Current **actionable P1 backlog: 44** (seven partial and thirty-seven blocked).
+Current **actionable P1 backlog: 39** (six partial and thirty-three blocked).
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources
 for provenance; it must never shrink or be renumbered.
 
