@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,228 compiler
-matrix sources, 275 special entries (251 enabled direct, 18 manual,
-6 nested), and 408 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,236 compiler
+matrix sources, 278 special entries (254 enabled direct, 18 manual,
+6 nested), and 411 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -24,11 +24,11 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v2 ledger counts **11 covered, 6 partial, 50 blocked**.
+current v3 ledger counts **14 covered, 10 partial, 43 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
-**Current execution order:** Batch 1 (seven remaining source intents),
+**Current execution order:** Batch 1 (four partial source intents),
 then Batches 2–6 in their fixed source order. Complete at most ten
 original-source obligations per batch; do not pull unrelated AAP
 architecture-correctness testing into a P1 source batch.
@@ -43,15 +43,23 @@ architecture-correctness testing into a P1 source batch.
   `arith-ll.c` wide arithmetic (four GCC PASS, two real KCC assertion
   failures) and both original `20010904` aligned-array layouts (four
   GCC assertion failures). Original upstream bytes are unchanged.
-- [ ] Complete the remaining **7/10 Batch 1** matrix-admission and
-  independent-test-oracle sources without repairing the compilers.
+- [x] Construct normal matrix tests for the other **7/10 Batch 1**
+  original-source intents with 40 source-linked real PDP-6 executions.
+  Close three more: flexible-array initialization (separate from its
+  failing GCC pointer baseline), packed unaligned complex readback,
+  and complex conjugation/array return. Original bytes are unchanged.
+- [ ] Complete the remaining **4/10 Batch 1** partial source intents:
+  8-bit enum signedness/policy at value 222, computed-goto SIMH timeout,
+  genuine KCC wide-modulo linkage plus factor search, and KCC/GCC
+  prime-search source/runtime and original interval. These are not
+  incorrectly labeled as compiler assertion failures or complete tests.
 - [ ] Work Batch 2 (10 compiler policy/diagnostic source identities),
   then Batch 3 (10 width/partial), Batch 4 (10 ABI/ISA/libc), Batch 5
   (10 hosted), and Batch 6 (9 hosted). Preserve source profile
   evidence and update current resolution state after each closure.
 
-Current **actionable P1 backlog: 56** (six partial and fifty blocked).
-The 59-source frozen batch plan still lists the three completed sources
+Current **actionable P1 backlog: 53** (ten partial and forty-three blocked).
+The 59-source frozen batch plan still lists all six completed Batch 1 sources
 for provenance; it must never shrink or be renumbered.
 
 - [x] Review **67/67** original SHA256s, historical blockers, current
