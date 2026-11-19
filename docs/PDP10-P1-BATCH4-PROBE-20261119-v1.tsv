@@ -1,0 +1,20 @@
+source	original_sha256	compiler	cpu	optimization	observed	interpretation
+tests/semantic/upstream/extensions/20010518-2.c	7ed1a5988dbf615d39ff021a1b3c69b37f82d3a457a6d99ff74468e755a3e7b9	kcc	pdp6	-n	run_fail	evidence-only; no matrix activation
+tests/semantic/upstream/extensions/20010518-2.c	7ed1a5988dbf615d39ff021a1b3c69b37f82d3a457a6d99ff74468e755a3e7b9	gcc	pdp6	-O0	run_fail	evidence-only; no matrix activation
+tests/todo/generic/991112-1.c	8c6dd7a6a2a80914012a04aa95b1ab303b678087036b4c19df63e2f700aee9c4	kcc	pdp6	-n	link_fail	evidence-only; no matrix activation
+tests/todo/generic/991112-1.c	8c6dd7a6a2a80914012a04aa95b1ab303b678087036b4c19df63e2f700aee9c4	gcc	pdp6	-O0	link_fail	evidence-only; no matrix activation
+tests/semantic/upstream/extensions/builtin-prefetch-6.c	f3cb37e36779fb215941ab274dde2cef6b7fb88141538d01bd63e740184f3841	kcc	pdp6	-n	link_fail	evidence-only; no matrix activation
+tests/semantic/upstream/extensions/builtin-prefetch-6.c	f3cb37e36779fb215941ab274dde2cef6b7fb88141538d01bd63e740184f3841	gcc	pdp6	-O0	pass	evidence-only; no matrix activation
+tests/semantic/upstream/pdp10/pdp10/conversion.c	2736912e40e1dabd84f7f193ddaaf5ddf9bf00e76edb0cca0611b3f49e5c1beb	kcc	pdp6	-n	run_fail	evidence-only; no matrix activation
+tests/semantic/upstream/pdp10/pdp10/conversion.c	2736912e40e1dabd84f7f193ddaaf5ddf9bf00e76edb0cca0611b3f49e5c1beb	gcc	pdp6	-O0	link_fail	evidence-only; no matrix activation
+tests/todo/generic/20020412-1.c	e3ba27c686930bd2109700edb3c66a7d8b0d643f08be3cb89ae809aac6985c82	kcc	pdp6	-n	compile_fail	evidence-only; no matrix activation
+tests/todo/generic/20020412-1.c	e3ba27c686930bd2109700edb3c66a7d8b0d643f08be3cb89ae809aac6985c82	gcc	pdp6	-O0	run_fail	evidence-only; no matrix activation
+tests/todo/generic/920501-8.c	21884df76c9d24d4d4808d78de8e8a4e7909fffd1ee26a72f96f4be00a22b56a	kcc	pdp6	-n	run_fail	evidence-only; no matrix activation
+tests/todo/generic/920501-8.c	21884df76c9d24d4d4808d78de8e8a4e7909fffd1ee26a72f96f4be00a22b56a	gcc	pdp6	-O0	compile_fail	evidence-only; no matrix activation
+tests/todo/generic/920726-1.c	9e0cb6877e06fd241012cf216d8ad071d3061c7257f7ca17aea27d13f970e795	kcc	pdp6	-n	pass	evidence-only; no matrix activation
+tests/todo/generic/920726-1.c	9e0cb6877e06fd241012cf216d8ad071d3061c7257f7ca17aea27d13f970e795	gcc	pdp6	-O0	compile_fail	evidence-only; no matrix activation
+tests/todo/generic/20020406-1.c	25ba3fe43fc4109bd2eb1a2fb651f9ca0443800db46e67d60b4946e9c3e90e7c	kcc	pdp6	-n	run_fail	evidence-only; no matrix activation
+tests/todo/generic/20020406-1.c	25ba3fe43fc4109bd2eb1a2fb651f9ca0443800db46e67d60b4946e9c3e90e7c	gcc	pdp6	-O0	run_fail	evidence-only; no matrix activation
+tests/todo/generic/920810-1.c	23405fde00c057160ef5881b0561d2e5921be68a07cb11f7b2f2e6e66952dbb5	kcc	pdp6	-n	run_fail	evidence-only; no matrix activation
+tests/todo/generic/920810-1.c	23405fde00c057160ef5881b0561d2e5921be68a07cb11f7b2f2e6e66952dbb5	gcc	pdp6	-O0	compile_fail	evidence-only; no matrix activation
+tests/semantic/upstream/support/920428-1.s	747162b74215e1176b7031671da7d24012ffbaa508bbc3a6caf1f3fcc8f86ead	none	kl10	none	isa-harness-required	not a C compiler input
