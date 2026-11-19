@@ -1,3 +1,5 @@
+> Historical preparation-stage report. Current state: `docs/PDP10-SPECIAL-RUNNER-20261119-v3.md`.
+
 # Explicit special-test runner (2026-11-19 v1)
 
 `./run-special-tests-v1.sh list` lists all manually gated registrations.

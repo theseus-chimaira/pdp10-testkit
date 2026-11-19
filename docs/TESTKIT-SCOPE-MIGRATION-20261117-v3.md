@@ -1,3 +1,5 @@
+> Historical 2026-11-17 split. Current ownership: `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md`.
+
 # Compiler/assembler versus DAIMOS OS test ownership (2026-11-17 v3)
 
 The two testkits have one explicit boundary, determined by the actual

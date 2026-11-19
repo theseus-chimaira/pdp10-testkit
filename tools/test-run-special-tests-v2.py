@@ -14,8 +14,8 @@ rows = runner.entries()
 manual = [row for row in rows if row["enabled"] == "manual"]
 selectable = [row for row in manual if runner.eligible(row)]
 native = [row for row in manual if runner.native(row)]
-assert len(manual) == 44, len(manual)
-assert len(native) == 25, len(native)
+assert len(manual) == 19, len(manual)
+assert len(native) == 0, len(native)
 assert len(selectable) == 19, len(selectable)
 assert not set(x["id"] for x in native) & set(x["id"] for x in selectable)
 
@@ -40,7 +40,7 @@ with patch.object(runner.subprocess, "run", side_effect=fake_run):
     assert runner.main(["run-all"]) == 1
     assert calls == [row["id"] for row in selectable]
     calls.clear()
-    for invalid in (native[0]["id"], "nonexistent"):
+    for invalid in ("native-toolchain-moved-to-daimos", "nonexistent"):
         try:
             runner.main(["run", invalid])
         except SystemExit:
@@ -50,4 +50,4 @@ with patch.object(runner.subprocess, "run", side_effect=fake_run):
     assert not calls
     assert runner.main(["list"]) == 0
     assert not calls
-print("special runner dispatch v2: PASS (19 selectable, 25 native gated)")
+print("special runner dispatch v2: PASS (19 selectable, 0 native roots)")

@@ -119,7 +119,7 @@ def main():
         dispatcher.run = original_run
 
     # A single selected test must never implicitly launch its entire group
-    # or turn one of the 44 explicit manual roots into automatic coverage.
+    # or turn one of the 19 explicit manual roots into automatic coverage.
     by_id = {r['id']: r for r in registered}
     require(len(by_id) == len(registered), 'duplicate registered test ID')
     enabled_id = 'test-script-ownership-v4'
@@ -179,8 +179,8 @@ def main():
               listing.stdout.splitlines()]
     require(listed == expected_manual,
             'list-manual dropped, reordered or invented manual roots')
-    require(len(listed) == 44,
-            'historical manual gate count changed; review policy')
+    require(len(listed) == 19,
+            'current standalone manual gate count changed; review policy')
 
     total_enabled = sum(r['enabled'] == 'yes' and
                         not (r['group'] == 'das' and r['profile'] == 'nested')

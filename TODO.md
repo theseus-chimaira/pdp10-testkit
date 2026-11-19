@@ -1,12 +1,12 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-17): 2,108 compiler
-matrix sources, 280 special entries (230 enabled direct, 44 manual,
-6 nested), and 421 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,210 compiler
+matrix sources, 260 special entries (235 enabled direct, 19 manual,
+6 nested), and 393 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
-current inventory totals. The ownership split is documented in
-`docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`.
+current inventory totals. The current ownership split is documented in
+`docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md`.
 
 ## PDP-6 Type 166 floating-point hardware fidelity (updated 2026-10-21)
 
@@ -720,7 +720,7 @@ compiler check, not a full compiler/CPU/optimization sweep.
   individual review. Do not silently drop nonportable
   tests or invent passing slots for unsupported compilers.
   Explain any proposed deletion first. Broad CPU/compiler
-  sweeps and all 44 manually gated special suites remain
+  sweeps and the then-44 manually gated special suites remain
   separate work, not part of the completed first-review
   stage.
 
@@ -997,7 +997,7 @@ The next eight batches are documented in
 
 - [x] Add exact-ID specialized test invocation for deliberately
   nonautomatic registered roots. `run-misc-tests.sh list-manual`
-  enumerates all 44 manual tests; `run-id ID` executes only an enabled
+  enumerated all 44 manual tests at the v7 checkpoint (now 19); `run-id ID` executes only an enabled
   root, and `run-id ID --manual` explicitly opts in to a manual root.
   Nested DAS and prepared tools remain gated. Dispatch tests verify
   exact selection, manual/nested rejection and all listing identities;
@@ -1651,8 +1651,8 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 - `COMPILER_MATRIX.tsv`: 2,210 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
-- `SPECIAL_TESTS.tsv`: 284 unique entries, including 234 enabled direct,
-  44 manual and six nested; dispatch is statically verified, but full
+- `SPECIAL_TESTS.tsv`: 260 unique entries, including 235 enabled direct,
+  19 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 426 owned shell/Python scripts; registered host
   verification passed 20/20 checks including historical documentation.

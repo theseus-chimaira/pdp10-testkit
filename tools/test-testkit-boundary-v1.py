@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Fail-closed compiler/assembler versus DAIMOS OS test ownership audit.
 
-Compiler, assembler, linker, optimizer, and ISA output assertions belong to
-pdp10-testkit, including native toolchain tests executed in a DAIMOS guest.
-DAIMOS boot, device, filesystem and OS-service assertions belong to
-daimos-testkit even when their setup calls KCC or DAS.
+Standalone compiler, assembler, linker, optimizer and ISA assertions belong
+to pdp10-testkit; boot-backed native KCC/DAS/DLINK integration suites and OS
+assertions belong to daimos-testkit. The historical split and 71-file return
+are tracked separately so no source is owned by both repositories.
 The source-hash-pinned transfer manifest records every moved/deduplicated
 original; this audit never executes a guest or modifies either repository.
 """
@@ -21,6 +21,8 @@ import sys
 
 PDP10 = Path(__file__).resolve().parents[1]
 MANIFEST = PDP10 / 'docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.tsv'
+RETURN = PDP10 / 'docs/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv'
+RETURN_FIELDS = ('old_path', 'new_path', 'source_sha256', 'original_sha256')
 FIELDS = ('before', 'after', 'old_path', 'new_path',
           'original_sha256', 'resolution')
 
@@ -38,6 +40,28 @@ def audit(daimos):
         rows = list(csv.DictReader(file, delimiter='\t'))
     if len(rows) != 150 or not rows or tuple(rows[0]) != FIELDS:
         errors.append('unexpected migration manifest structure/census')
+
+    with RETURN.open(encoding='ascii', newline='') as file:
+        ret = list(csv.DictReader(file, delimiter='\t'))
+    if len(ret) != 71 or not ret or tuple(ret[0]) != RETURN_FIELDS:
+        errors.append('unexpected native return manifest structure/census')
+    reversed_paths = {row['old_path']: row for row in ret}
+    if len(reversed_paths) != len(ret):
+        errors.append('duplicate returned source paths')
+    historical = {row['new_path']: row for row in rows}
+    for row in ret:
+        original = historical.get(row['old_path'])
+        if (original is None or original['before'] != 'daimos-testkit' or
+                original['after'] != 'pdp10-testkit' or
+                original['old_path'] != row['new_path'] or
+                original['original_sha256'] != row['original_sha256']):
+            errors.append('invalid native return edge: ' + row['old_path'])
+        if not re.fullmatch('[0-9a-f]{64}', row['source_sha256']):
+            errors.append('invalid returned source SHA256: ' + row['old_path'])
+    if daimos is not None:
+        remote = daimos / 'tests/validation/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv'
+        if not remote.is_file() or remote.read_bytes() != RETURN.read_bytes():
+            errors.append('native return manifests differ between testkits')
 
     direction = Counter()
     seen = set()
@@ -58,6 +82,20 @@ def audit(daimos):
         digest = row['original_sha256']
         if not re.fullmatch('[0-9a-f]{64}', digest):
             errors.append('invalid original source SHA256: ' + old)
+        returned = reversed_paths.get(new)
+        if returned is not None:
+            # v3 was a valid historical transfer, later reversed by v4.
+            # Its old DAIMOS file is now authoritative again.
+            if (PDP10 / new).exists():
+                errors.append('returned file still in compiler testkit: ' + new)
+            if daimos is not None:
+                target = safe_path(daimos, old)
+                if not target.is_file():
+                    errors.append('missing returned native file: ' + old)
+                elif (target.suffix.lower() in ('.c', '.s') and
+                      hashlib.sha256(target.read_bytes()).hexdigest() != digest):
+                    errors.append('returned C/ASM fixture changed: ' + old)
+            continue
         source_root = daimos if before == 'daimos-testkit' else PDP10
         target_root = daimos if after == 'daimos-testkit' else PDP10
         if source_root is not None:
@@ -102,18 +140,22 @@ def audit(daimos):
             for path in (daimos / 'tests/validation').glob(prefix + '*'):
                 if path.exists():
                     errors.append('compiler/assembler oracle in OS repo: ' + str(path))
+        # Native toolchain directories are now allowed here only when each
+        # actual source is explicitly recorded in the v4 return ledger.
+        approved = {r['new_path'] for r in ret}
         for prefix in ('kcc-native-', 'kcc-kgen-', 'kcc-kir-',
-                       'kcc-gccabi-', 'kcc-indptr-', 'kcc-symbolic-',
-                       'das-native-ascii7-', 'das-native-object-gate-',
-                       'das-native-dobj-', 'das-native-dobj-c89-',
-                       'das-native-global-spill-', 'native-dlink-',
+                       'kcc-gccabi-', 'kcc-symbolic-', 'das-native-ascii7-',
+                       'das-native-dobj-', 'das-native-global-spill-',
+                       'das-native-object-gate-', 'native-dlink-',
                        'daimos-native-dlink-', 'daimos-native-kcc-',
                        'daimos-kcc-kparse-', 'daimos-kcc-kcpp-',
                        'daimos-kcc-make-all-', 'daimos-kcc-manual-',
                        'daimos-kcc-simh-progress-'):
-            for path in (daimos / 'tests/validation').glob(prefix + '*'):
-                if path.exists():
-                    errors.append('native compiler suite in OS repo: ' + str(path))
+            for item in (daimos / 'tests/validation').glob(prefix + '*'):
+                candidates = item.rglob('*') if item.is_dir() else (item,)
+                for file in candidates:
+                    if file.is_file() and file.relative_to(daimos).as_posix() not in approved:
+                        errors.append('unregistered native file in OS repo: ' + str(file))
 
     # Conversely, a boot-stage/DAIMOS service assertion cannot accidentally
     # reappear in the standalone compiler/assembler suite.
@@ -133,7 +175,7 @@ def audit(daimos):
     # historical reports or the migration manifest itself. Reject
     # references to any source path that has changed owner.
     documents = [PDP10 / 'README.md', PDP10 / 'TODO.md',
-                 PDP10 / 'docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md']
+                 PDP10 / 'docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md']
     if daimos is not None:
         documents += [daimos / 'README.MD', daimos / 'TODO.MD',
                       daimos / 'STATUS.MD',
@@ -148,7 +190,7 @@ def audit(daimos):
             continue
         body = document.read_text(encoding='utf-8', errors='replace')
         for row in rows:
-            if row['old_path'] in body:
+            if row['new_path'] not in reversed_paths and row['old_path'] in body:
                 errors.append('stale old-owner test path in ' + str(document) +
                               ': ' + row['old_path'])
         for old_name in obsolete_docs:
@@ -159,7 +201,7 @@ def audit(daimos):
     for error in sorted(set(errors)):
         print('ERROR:', error)
     print('testkit ownership boundary: %s (127 compiler/assembler transfers, '
-          '23 OS transfers, %d problems%s)' %
+          '23 OS transfers, 71 native returns, %d problems%s)' %
           ('PASS' if not errors else 'FAIL', len(errors),
            '' if daimos is not None else '; DAIMOS checkout not attached'))
     return int(bool(errors))

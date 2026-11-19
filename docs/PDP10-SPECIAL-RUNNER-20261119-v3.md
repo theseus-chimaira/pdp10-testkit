@@ -1,0 +1,25 @@
+# Explicit standalone special-test runner - 2026-11-19 v3
+
+`run-special-tests-v1.sh` executes manual special tests separately from
+the compiler matrix and default suites. The current registry contains
+19 standalone manually selected roots, none requiring native booted
+DAIMOS execution. The 25 native KCC/DAS/DLINK guest registrations and
+all 71 source/helper files now belong exclusively to `daimos-testkit`.
+
+```
+./run-special-tests-v1.sh list
+./run-special-tests-v1.sh run TEST_ID
+./run-special-tests-v1.sh run-all
+```
+
+Individual tests retain the timeout, interpreter and explicit manual
+gate supplied by the existing dispatcher. `run-all` is intentionally
+opt-in and can include exploratory diagnostics, an unresolved PDP-6
+floating-point oracle and benchmarks; it does not establish a clean
+regression result just by being invoked. `list` never executes tests.
+The `tools/test-run-special-tests-v2.py` dispatch test intercepts all
+child processes to confirm selection and rejection behavior.
+
+Guest-native test selection is now handled only by
+`daimos-testkit/tools/run-native-toolchain-v1.py`. See the ownership
+report `TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the 71-file return.

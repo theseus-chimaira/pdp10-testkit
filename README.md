@@ -153,7 +153,7 @@ or deleted in batch 22.
 The current inventories are **2,210 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**284 specialized registrations**, including **44 intentionally
+**260 specialized registrations**, including **19 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -163,23 +163,21 @@ remain historical snapshots.
 ## Test ownership
 
 - **`pdp10-testkit`** owns GCC/KCC, DAS/DLINK, p10fold, ABI,
-  compiler diagnostics/code generation and processor ISA tests.
+  compiler diagnostics/code generation and processor ISA tests
+  that run without booting a DAIMOS guest.
 - **`../daimos-testkit`** owns DAIMOS boot, kernel, filesystem,
-  device, process, syscall, shell and guest-service tests.
-- Ownership follows **what is asserted**. A native KCC/DAS/DLINK
-  compiler regression can use DAIMOS as its execution environment,
-  but remains here as an **explicit manual** test. Such tests use
-  `DAIMOS_TESTKIT_REPO` for the OS-owned boot and SIMH harness,
-  never an implicit copy of those tools. They are excluded from
-  routine compiler/CPU matrix sweeps.
+  device, process, syscall, shell and guest-service tests, plus all
+  25 guest-native KCC/DAS/DLINK toolchain integration suites.
+- Native guest integration tests are explicitly selected in DAIMOS;
+  no native suite enters this repository's normal compiler/CPU matrix.
 - Generic AAP/PDP-6 instruction/timing fixtures remain here;
   DAIMOS-specific kernel-coverage inventories and runtime profiles
   belong in `daimos-testkit`.
 
-The current 150-file, SHA256-pinned cross-repository ownership record
-is `docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.tsv`. Its explanation is
-`docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.md`. Intermediate versions
-are preserved in Git history rather than as competing active manifests.
+The historical 150-file split is recorded in the v3 manifest. The
+71-file native re-home and current ownership rules are recorded in
+`docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` and
+`docs/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv`.
 
 ## Usage
 
@@ -204,8 +202,9 @@ Use `./run-tests.sh --help` and `docs/parallel-cells.md` for selector,
 resume, output and timeout controls. A pending entry is not a passing
 execution result. Full sweeps are operator-selected.
 
-`SPECIAL_TESTS.tsv` records specialized tests, including deliberately
-manual guest-native KCC/DAS/DLINK cases. `./run-misc-tests.sh` is the
+`SPECIAL_TESTS.tsv` records standalone specialized tests, including
+19 deliberately manual roots. The 25 booted native toolchain tests are
+registered exclusively in `daimos-testkit`. `./run-misc-tests.sh` is the
 special-suite entry point; `verify` runs the broader verify/compatibility
 and validation groups, **not** merely a fast static ownership audit.
 Use `./run-misc-tests.sh list-manual` to enumerate manual roots without
@@ -213,7 +212,7 @@ executing them, or `./run-misc-tests.sh run-id TEST_ID` to execute
 exactly one enabled registered test. A manual root additionally requires
 `--manual`; nested DAS helpers and suite-prepared tools cannot be
 launched by ID. This is explicitly selected execution, not a new
-automatic suite. See `docs/PDP10-HARNESS-SELECTED-TESTS-20261118-v7.md`.
+automatic suite. See `docs/PDP10-SPECIAL-RUNNER-20261119-v3.md`.
 Use the individual Python auditors above for host-only preflight.
 For named DAS groups use `das-fast`, `das`, or `das-native`.
 The independent PDP10-TOOLS suite is sourced from `../pdp10-tools`;
@@ -232,6 +231,16 @@ it is not silently replaced by `DAIMOS/tools/host`.
 | `docs/` | Test-specific policy, source decisions, historical evidence and versioned manifests |
 | `tools/` | Matrix runners and static integrity/ownership audits |
 | `tests/todo/generic/` | Retained historical generic candidates, **not** active matrix tests |
+
+## Current static integration state (2026-11-19)
+
+- Compiler matrix: **2,210** sources, unchanged by the native suite move.
+- Special registry: **260 entries** (**235** enabled direct, **19** manual,
+  **6** nested). Native boot-backed suite identities: **0**.
+- DAIMOS native toolchain registry: **25** explicitly selected roots with
+  **71** restored source, wrapper and fixture files.
+- The source and ownership checks pass; no native or full compiler sweep
+  was run during the transfer.
 
 ## Verified integration state (2026-11-17)
 
