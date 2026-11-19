@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,223 matrix sources**,
+The current inventories are **2,224 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**267 specialized registrations**, including **18 intentionally
+**268 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -234,9 +234,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,223** sources, including eleven substantive
+- Compiler matrix: **2,224** sources, including twelve substantive
   companions for formerly vacuous or width-dependent upstream tests.
-- Special registry: **267 entries** (**243** enabled direct, **18** manual,
+- Special registry: **268 entries** (**244** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -279,11 +279,15 @@ it is not silently replaced by `DAIMOS/tools/host`.
   coverage classification (eight targeted, six partial) without changing
   or prematurely activating the originals. See
   `docs/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
-- The latest registered host verification sweep is **28/28 PASS**.
+- The latest registered host verification sweep is **29/29 PASS**.
   Earlier 24/24 and 27/27 milestones are historical counts, not the
   current verifier inventory. The original 67 deferred sources remain
   deferred pending the remaining 53 non-nonasserting dispositions and
   exact-original feature/oracle review.
+- Native 36-bit Linux-style device-number encoding is tested by ten
+  independent unsigned/modulo reference values on **all six** PDP-6
+  KCC/GCC compiler profiles, without changing the original deferred
+  32-bit source; see `docs/PDP10-P1-KDEV36-20261119-v1.md`.
 
 ## Verified integration state (2026-11-17)
 

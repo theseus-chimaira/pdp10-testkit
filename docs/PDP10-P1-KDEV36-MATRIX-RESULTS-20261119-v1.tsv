@@ -1,0 +1,7 @@
+source	source_sha256	profile	status	evidence_sha256	archive_member
+tests/semantic/regression/pdp10-kdev-36bit-encoding-v1.c	2cc577ed955f859b1666c9795b72065a3b238716054716108a07887f37473b62	kcc-pdp6-opt	pass	b02719289a370d2587f8ba23ffb8ac78c890a31ad4c40e014eb4c8a97ba7df3b	kdev36/kcc-pdp6-opt-v1.log
+tests/semantic/regression/pdp10-kdev-36bit-encoding-v1.c	2cc577ed955f859b1666c9795b72065a3b238716054716108a07887f37473b62	kcc-pdp6-noopt	pass	91b57bde35af452d9623308713f94c19355d16a77f393332b0b9b0ccd56c7d51	kdev36/kcc-pdp6-noopt-v1.log
+tests/semantic/regression/pdp10-kdev-36bit-encoding-v1.c	2cc577ed955f859b1666c9795b72065a3b238716054716108a07887f37473b62	gcc-pdp6-o0	pass	8220eb90610ba7e38a43e78498a54d6445c88acd773f3b7f03efd712a4ad2164	kdev36/gcc-pdp6-o0-v1.log
+tests/semantic/regression/pdp10-kdev-36bit-encoding-v1.c	2cc577ed955f859b1666c9795b72065a3b238716054716108a07887f37473b62	gcc-pdp6-o1	pass	334220c4230ef54913f8d79d7fcd1ac94cc465432ea584abd526164d218ec2cf	kdev36/gcc-pdp6-o1-v1.log
+tests/semantic/regression/pdp10-kdev-36bit-encoding-v1.c	2cc577ed955f859b1666c9795b72065a3b238716054716108a07887f37473b62	gcc-pdp6-o2	pass	f082c27d31b01ff7de446778d5b8b7a893ab72b75e1ed437a4dab139078ff4c9	kdev36/gcc-pdp6-o2-v1.log
+tests/semantic/regression/pdp10-kdev-36bit-encoding-v1.c	2cc577ed955f859b1666c9795b72065a3b238716054716108a07887f37473b62	gcc-pdp6-os	pass	3fff07135103f950849a6aa4786a8438e9986b1f93f5669f71ded4f7547f4770	kdev36/gcc-pdp6-os-v1.log
