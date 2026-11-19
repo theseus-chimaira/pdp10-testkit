@@ -50,7 +50,7 @@ executed.
 ## Independent duplicate-source ownership
 
 `20010124-1.c` also has a byte-identical copy under
-`tests/todo/generic/pdp10/20010124-1.c`. Its historical review
+`tests/todo/generic/20010124-1.c`. Its historical review
 recorded a deferred/deferred pair. Promoting the verified generic
 owner without reconciling its twin failed the fail-closed inventory
 audit, as intended.

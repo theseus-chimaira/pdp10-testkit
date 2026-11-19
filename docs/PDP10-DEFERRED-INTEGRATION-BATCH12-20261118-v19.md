@@ -82,7 +82,7 @@ Versioned local evidence:
 ## Exact duplicate ownership and next review
 
 `tests/todo/generic/991014-1.c` is byte-identical to
-`tests/todo/generic/pdp10/991014-1.c`. The v16 duplicate census
+`tests/todo/generic/991014-1.c`. The v16 duplicate census
 and v17 review preserve all **50 SHA256-identical source pairs**
 and reconcile this one pair to active generic GCC owner plus
 deferred PDP-10/KCC-specific blocker. Neither source is edited,

@@ -70,7 +70,7 @@ those later checks are **not** claimed verified.
 ## Duplicate-source ownership
 
 `tests/todo/generic/20020314-1.c` has a byte-identical PDP-10 copy
-under `tests/todo/generic/pdp10/20020314-1.c`. The v6 duplicate
+under `tests/todo/generic/20020314-1.c`. The v6 duplicate
 census and v7 duplicate review record only the verified generic
 source as the active GCC owner. The exact PDP-10 copy retains its
 KCC `alloca` link gate and is not scheduled as a second compiler

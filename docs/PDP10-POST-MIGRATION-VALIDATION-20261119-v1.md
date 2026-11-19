@@ -47,3 +47,11 @@ Reconcile each missing/changed source against Git history and preserve
 historical report semantics before declaring this audit passing.
 This documentation regression is independent of the three manual
 runtime passes above.
+
+## Follow-up: historical paths reconciled (2026-11-19)
+
+The 162-problem observation above is preserved as the original audit
+result. The historical path checker now passes with zero problems after
+relinking the moved sources and separately fingerprinting the reviewed
+stdarg adaptation. See
+`docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261119-v2.md`.

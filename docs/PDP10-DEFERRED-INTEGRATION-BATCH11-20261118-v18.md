@@ -1,5 +1,11 @@
 # Deferred integration: eleventh ten-source batch (2026-11-18, v18)
 
+> **Historical identity notice (2026-11-19):** The deferred
+> `990106-2.c` duplicate described below was subsequently removed by
+> consolidation commit `0b6baea`. Its original source is byte-identical
+> to the current `tests/semantic/upstream/generic/990106-2.c`. The
+> recorded batch results below remain historical.
+
 ## Scope and outcome
 
 Select exactly ten *previously unreviewed* deferred source identities

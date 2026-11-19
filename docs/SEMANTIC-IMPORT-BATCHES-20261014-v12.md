@@ -1,6 +1,6 @@
 # Upstream semantic import: eight batches of eight (2026-10-14, v12)
 
-> **Source-path maintenance (2026-11-17):** 36 paths in this dated 2026-10-14 test report were relinked to byte-identical files in the current tree. Original paths, SHA256 and historical Git blobs are preserved in `docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv`. Recorded results and classification labels are **historical**; this path correction is not a new test run or a claim of current activation.
+> **Source-path maintenance (2026-11-19):** 36 historical paths in this dated 2026-10-14 test report were relinked: 34 to byte-identical current sources and two to a single, explicitly fingerprinted PDP-10 stdarg adaptation. Original paths, SHA256 and historical Git blobs are preserved in `docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261119-v2.tsv`. Recorded results and classification labels are **historical**; this path correction is not a new test run or a claim of current activation.
 
 64 consecutive candidates from the classification manifest were compiled targeting PDP-6 KCC. Compilable programs were executed with the bare-metal termination contract. Original sources and compilers were not edited. TODO destinations retain category namespaces to avoid basename collisions.
 
@@ -9,10 +9,10 @@
 | Source | Observed | Decision | Explanation |
 | --- | --- | --- | --- |
 | `tests/todo/generic/pdp10/ll-1.c` | compile_fail | review-extension | "ll-1.c", line 1: GNU attribute mode is not supported; "ll-1.c", line 6: [Note] Call to undeclared function "abort" |
-| `tests/semantic/upstream/pdp10/pdp10/loop-2b.c` | compile_fail | deferred | "loop-2b.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/limits.h"; "loop-2b.c", line 7: Undefined identifier: "INT_MAX" |
-| `tests/semantic/upstream/pdp10/pdp10/packed-1.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
+| `tests/semantic/upstream/generic/loop-2b.c` | compile_fail | deferred | "loop-2b.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/limits.h"; "loop-2b.c", line 7: Undefined identifier: "INT_MAX" |
+| `tests/semantic/upstream/extensions/packed-1.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
 | `tests/semantic/upstream/extensions/packed-2.c` | pass | removed | Passing execution with no observable assertion |
-| `tests/semantic/upstream/pdp10/pdp10/ptr-arith-1.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
+| `tests/semantic/upstream/generic/ptr-arith-1.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
 | `tests/todo/generic/pdp10/strct-1.c` | run_fail | deferred | FAIL: __test_exit: got 000000000001 expected 000000000000; see report: /home/theseus/tmp/semantic-64-v7/06-strct-1/run/strct-1.report.txt |
 | `tests/semantic/upstream/pdp10/pdp10/strct-2.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
 | `tests/semantic/upstream/pdp10/pdp10/strct-3.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
@@ -25,44 +25,44 @@
 | `tests/semantic/upstream/pdp10/pdp10/strct-pack-1.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
 | `tests/semantic/upstream/extensions/strct-pack-2.c` | pass | removed | Passing execution with no observable assertion |
 | `tests/semantic/upstream/pdp10/pdp10/strct-pack-3.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
-| `tests/semantic/upstream/pdp10/pdp10/strct-pack-4.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
-| `tests/semantic/upstream/pdp10/pdp10/strct-stdarg-1.c` | compile_fail | deferred | "strct-stdarg-1.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "strct-stdarg-1.c", line 17: Undefined identifier: "va_list" |
-| `tests/todo/generic/pdp10/strct-varg-1.c` | compile_fail | deferred | "strct-varg-1.c", line 7: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "strct-varg-1.c", line 13: Declaration without storage class or type-spec |
+| `tests/semantic/upstream/extensions/strct-pack-4.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
+| `tests/semantic/upstream/varargs/strct-stdarg-1.c` | compile_fail | deferred | "strct-stdarg-1.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "strct-stdarg-1.c", line 17: Undefined identifier: "va_list" |
+| `tests/todo/generic/varargs/strct-varg-1.c` | compile_fail | deferred | "strct-varg-1.c", line 7: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "strct-varg-1.c", line 13: Declaration without storage class or type-spec |
 | `tests/todo/generic/pdp10/strct-varg-1b.c` | compile_fail | deferred | "strct-varg-1b.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "strct-varg-1b.c", line 8: Undefined identifier: "va_list" |
 
 ## Batch 3 (cases 17–24)
 
 | Source | Observed | Decision | Explanation |
 | --- | --- | --- | --- |
-| `tests/todo/generic/pdp10/string-opt-15.c` | compile_fail | review-extension | "string-opt-15.c", line 10: Expected token (semicolon) not found; "string-opt-15.c", line 11: No type-specifier for parameter, assuming int |
-| `tests/todo/generic/pdp10/string-opt-3.c` | compile_fail | review-extension | "string-opt-3.c", line 9: Expected token (semicolon) not found; "string-opt-3.c", line 21: [Note] Call to undeclared function "strlen" |
-| `tests/todo/generic/pdp10/string-opt-5.c` | compile_fail | review-extension | "string-opt-5.c", line 9: Expected token (semicolon) not found; "string-opt-5.c", line 13: No type-specifier for parameter, assuming int |
-| `tests/todo/generic/pdp10/string-opt-6.c` | compile_fail | review-extension | "string-opt-6.c", line 9: Expected token (semicolon) not found; "string-opt-6.c", line 10: No type-specifier for parameter, assuming int |
-| `tests/todo/generic/pdp10/string-opt-7.c` | compile_fail | review-extension | "string-opt-7.c", line 9: Expected token (semicolon) not found; "string-opt-7.c", line 10: No type-specifier for parameter, assuming int |
-| `tests/todo/generic/pdp10/string-opt-8.c` | compile_fail | review-extension | "string-opt-8.c", line 9: Expected token (semicolon) not found; "string-opt-8.c", line 10: No type-specifier for parameter, assuming int |
+| `tests/todo/generic/generic/string-opt-15.c` | compile_fail | review-extension | "string-opt-15.c", line 10: Expected token (semicolon) not found; "string-opt-15.c", line 11: No type-specifier for parameter, assuming int |
+| `tests/semantic/upstream/extensions/string-opt-3.c` | compile_fail | review-extension | "string-opt-3.c", line 9: Expected token (semicolon) not found; "string-opt-3.c", line 21: [Note] Call to undeclared function "strlen" |
+| `tests/todo/generic/generic/string-opt-5.c` | compile_fail | review-extension | "string-opt-5.c", line 9: Expected token (semicolon) not found; "string-opt-5.c", line 13: No type-specifier for parameter, assuming int |
+| `tests/semantic/upstream/extensions/string-opt-6.c` | compile_fail | review-extension | "string-opt-6.c", line 9: Expected token (semicolon) not found; "string-opt-6.c", line 10: No type-specifier for parameter, assuming int |
+| `tests/semantic/upstream/extensions/string-opt-7.c` | compile_fail | review-extension | "string-opt-7.c", line 9: Expected token (semicolon) not found; "string-opt-7.c", line 10: No type-specifier for parameter, assuming int |
+| `tests/semantic/upstream/extensions/string-opt-8.c` | compile_fail | review-extension | "string-opt-8.c", line 9: Expected token (semicolon) not found; "string-opt-8.c", line 10: No type-specifier for parameter, assuming int |
 | `tests/semantic/upstream/pdp10/pdp10/tmp.c` | compile_fail | deferred | "tmp.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "tmp.c", line 10: Undefined identifier: "va_list" |
-| `tests/semantic/upstream/pdp10/pdp10/va-arg-1.c` | compile_fail | deferred | "va-arg-1.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-1.c", line 6: Undefined identifier: "va_list" |
+| `tests/semantic/upstream/varargs/va-arg-1.c` | compile_fail | deferred | "va-arg-1.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-1.c", line 6: Undefined identifier: "va_list" |
 
 ## Batch 4 (cases 25–32)
 
 | Source | Observed | Decision | Explanation |
 | --- | --- | --- | --- |
-| `tests/todo/generic/pdp10/va-arg-10.c` | compile_fail | deferred | "va-arg-10.c", line 5: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-10.c", line 9: Expected token (semicolon) not found |
-| `tests/todo/generic/pdp10/va-arg-19.c` | compile_fail | deferred | "va-arg-19.c", line 10: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-19.c", line 15: No type-specifier for parameter decl, assuming int |
-| `tests/todo/generic/pdp10/va-arg-2.c` | compile_fail | deferred | "va-arg-2.c", line 8: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-2.c", line 8: Expected token (semicolon) not found |
-| `tests/todo/generic/pdp10/va-arg-22.c` | compile_fail | deferred | "va-arg-22.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-22.c", line 24: array dimension const must be > zero |
-| `tests/todo/generic/pdp10/va-arg-3.c` | compile_fail | deferred | "va-arg-3.c", line 16: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-3.c", line 16: Expected token (semicolon) not found |
-| `tests/semantic/upstream/pdp10/pdp10/va-arg-4.c` | compile_fail | deferred | "va-arg-4.c", line 6: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-4.c", line 14: Undefined identifier: "va_list" |
-| `tests/semantic/upstream/pdp10/pdp10/va-arg-5.c` | compile_fail | deferred | "va-arg-5.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-5.c", line 5: Undefined identifier: "va_list" |
-| `tests/semantic/upstream/pdp10/pdp10/va-arg-6.c` | compile_fail | deferred | "va-arg-6.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-6.c", line 5: Undefined identifier: "va_list" |
+| `tests/todo/generic/varargs/va-arg-10.c` | compile_fail | deferred | "va-arg-10.c", line 5: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-10.c", line 9: Expected token (semicolon) not found |
+| `tests/todo/generic/varargs/va-arg-19.c` | compile_fail | deferred | "va-arg-19.c", line 10: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-19.c", line 15: No type-specifier for parameter decl, assuming int |
+| `tests/todo/generic/varargs/va-arg-2.c` | compile_fail | deferred | "va-arg-2.c", line 8: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-2.c", line 8: Expected token (semicolon) not found |
+| `tests/todo/generic/varargs/va-arg-22.c` | compile_fail | deferred | "va-arg-22.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-22.c", line 24: array dimension const must be > zero |
+| `tests/todo/generic/varargs/va-arg-3.c` | compile_fail | deferred | "va-arg-3.c", line 16: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-3.c", line 16: Expected token (semicolon) not found |
+| `tests/semantic/upstream/varargs/va-arg-4.c` | compile_fail | deferred | "va-arg-4.c", line 6: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-4.c", line 14: Undefined identifier: "va_list" |
+| `tests/semantic/upstream/varargs/va-arg-5.c` | compile_fail | deferred | "va-arg-5.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-5.c", line 5: Undefined identifier: "va_list" |
+| `tests/semantic/upstream/varargs/va-arg-6.c` | compile_fail | deferred | "va-arg-6.c", line 3: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-6.c", line 5: Undefined identifier: "va_list" |
 
 ## Batch 5 (cases 33–40)
 
 | Source | Observed | Decision | Explanation |
 | --- | --- | --- | --- |
-| `tests/todo/generic/pdp10/va-arg-7.c` | compile_fail | deferred | "va-arg-7.c", line 5: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-7.c", line 10: No type-specifier for parameter decl, assuming int |
-| `tests/todo/generic/pdp10/va-arg-8.c` | compile_fail | deferred | "va-arg-8.c", line 4: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-8.c", line 6: Can't open include file, last tried "/usr/local/lib/kcc |
-| `tests/todo/generic/pdp10/va-arg-9.c` | compile_fail | deferred | "va-arg-9.c", line 6: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-9.c", line 6: Expected token (semicolon) not found |
+| `tests/todo/generic/varargs/va-arg-7.c` | compile_fail | deferred | "va-arg-7.c", line 5: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-7.c", line 10: No type-specifier for parameter decl, assuming int |
+| `tests/todo/generic/varargs/va-arg-8.c` | compile_fail | deferred | "va-arg-8.c", line 4: Can't open include file, last tried "/usr/local/lib/kcc/include/varargs.h"; "va-arg-8.c", line 6: Can't open include file, last tried "/usr/local/lib/kcc |
+| `tests/todo/generic/varargs/va-arg-9.c` | compile_fail | deferred | "va-arg-9.c", line 6: Can't open include file, last tried "/usr/local/lib/kcc/include/stdarg.h"; "va-arg-9.c", line 6: Expected token (semicolon) not found |
 | `tests/semantic/upstream/generic/pending-4.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
 | `tests/semantic/upstream/generic/ptr-arith-1.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |
 | `tests/semantic/upstream/generic/regstack-1.c` | pass | active | PDP-6 KCC PASS with asserted behavior; other profiles unverified |

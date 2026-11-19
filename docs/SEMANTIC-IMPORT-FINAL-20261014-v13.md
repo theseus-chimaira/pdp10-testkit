@@ -1,6 +1,6 @@
 # Final upstream semantic candidate import (2026-10-14, v13)
 
-> **Source-path maintenance (2026-11-17):** 12 paths in this dated 2026-10-14 test report were relinked to byte-identical files in the current tree. Original paths, SHA256 and historical Git blobs are preserved in `docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv`. Recorded results and classification labels are **historical**; this path correction is not a new test run or a claim of current activation.
+> **Source-path maintenance (2026-11-19):** 12 paths in this dated 2026-10-14 test report were relinked to byte-identical files in the current tree. Original paths, SHA256 and historical Git blobs are preserved in `docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261119-v2.tsv`. Recorded results and classification labels are **historical**; this path correction is not a new test run or a claim of current activation.
 
 All 18 remaining candidate sources compiled with PDP-6 KCC and, where compilation succeeded, executed with the testkit bare-metal termination contract. No test body or compiler code was modified.
 

@@ -85,7 +85,7 @@ Versioned local evidence:
 ## Identical-source ownership
 
 `tests/semantic/upstream/extensions/920721-4.c` is identical to
-`tests/todo/generic/pdp10/920721-4.c`. The new v10 duplicate
+`tests/semantic/upstream/extensions/920721-4.c`. The new v10 duplicate
 census and v11 duplicate review retain all **50 source-pair
 SHA256s**. Only this pair changes: the extension source becomes
 the active, actually verified GCC owner; its identical PDP-10 copy

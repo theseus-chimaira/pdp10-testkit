@@ -82,7 +82,7 @@ Real per-cell logs remain in:
 ## Identical source and owner reconciliation
 
 `tests/todo/generic/20011113-1.c` is byte-for-byte identical to
-`tests/todo/generic/pdp10/20011113-1.c`. The prior 50-pair
+`tests/todo/generic/20011113-1.c`. The prior 50-pair
 inventory classified both as deferred with distinct legacy
 `libc-linkage` and `feature-policy-decision` blockers. That
 collision cannot be silently ignored after promotion.
