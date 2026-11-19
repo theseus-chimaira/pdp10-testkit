@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,226 matrix sources**,
+The current inventories are **2,228 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**271 specialized registrations**, including **18 intentionally
+**275 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -234,9 +234,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,226** sources, including fourteen substantive
+- Compiler matrix: **2,228** sources, including sixteen substantive
   companions for formerly vacuous or width-dependent upstream tests.
-- Special registry: **271 entries** (**247** enabled direct, **18** manual,
+- Special registry: **275 entries** (**251** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -279,16 +279,20 @@ it is not silently replaced by `DAIMOS/tools/host`.
   coverage classification (eight targeted, six partial) without changing
   or prematurely activating the originals. See
   `docs/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
-- The latest registered host verification sweep is **32/32 PASS**.
+- The latest registered host verification sweep is **36/36 PASS**.
   Earlier 24/24 and 27/27 milestones are historical counts, not the
   current verifier inventory. **The historical 67 deferred sources
   are not all actionable P1 work.** The audited source-specific
-  resolution separates **8 covered**, **6 partial**, and **53 blocked**
-  source intents: **59 currently actionable P1 obligations**. The
-  eight completed intents no longer count as unfinished test
+  resolution v1 separated **8 covered**, **6 partial**, and **53 blocked**.
+  The current v2 ledger records **11 covered**, **6 partial**, and
+  **50 blocked**: **56 currently actionable P1 obligations**. The
+  eleven completed intents no longer count as unfinished test
   construction. The original 67 import entries and their compiler
-  failures are preserved. See
-  `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.md`.
+  failures are preserved. The 59 baseline-open sources are assigned to
+  fixed source-hash-pinned batches of **10, 10, 10, 10, 10, and 9**;
+  Batch 1 has **3/10** complete. See
+  `docs/PDP10-P1-SOURCE-BATCHES-20261119-v1.md` and
+  `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v2.md`.
 - Native 36-bit Linux-style device-number encoding is tested by ten
   independent unsigned/modulo reference values on **all six** PDP-6
   KCC/GCC compiler profiles, without changing the original deferred

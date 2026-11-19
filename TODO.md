@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,226 compiler
-matrix sources, 271 special entries (247 enabled direct, 18 manual,
-6 nested), and 404 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,228 compiler
+matrix sources, 275 special entries (251 enabled direct, 18 manual,
+6 nested), and 408 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -10,11 +10,40 @@ current inventory totals. The current ownership split is documented in
 
 ## P1 deferred semantic-source closure (2026-11-19 v1)
 
-**Actionable P1 source obligations: 59, not 67.** The historical
+**Initial actionable P1 source obligations: 59, not 67.** The historical
 import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` separately counts
-8 `covered`, 6 `partial`, and 53 `blocked` original-source intents.
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
+baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
+current v2 ledger counts **11 covered, 6 partial, 50 blocked**.
+
+## P1 work batches (2026-11-19 v1)
+
+**Current execution order:** Batch 1 (seven remaining source intents),
+then Batches 2–6 in their fixed source order. Complete at most ten
+original-source obligations per batch; do not pull unrelated AAP
+architecture-correctness testing into a P1 source batch.
+
+- [x] Assign all **59 original open-at-baseline identities** to six
+  fixed batches: **10 + 10 + 10 + 10 + 10 + 9**. The assignment and
+  progress are source-SHA-pinned in
+  `docs/PDP10-P1-SOURCE-BATCHES-20261119-v1.tsv` and verified by
+  `tools/audit-p1-source-batches-v1.py`. No reassignment occurs on
+  closure.
+- [x] Complete the first **3/10 Batch 1** source intents: original
+  `arith-ll.c` wide arithmetic (four GCC PASS, two real KCC assertion
+  failures) and both original `20010904` aligned-array layouts (four
+  GCC assertion failures). Original upstream bytes are unchanged.
+- [ ] Complete the remaining **7/10 Batch 1** matrix-admission and
+  independent-test-oracle sources without repairing the compilers.
+- [ ] Work Batch 2 (10 compiler policy/diagnostic source identities),
+  then Batch 3 (10 width/partial), Batch 4 (10 ABI/ISA/libc), Batch 5
+  (10 hosted), and Batch 6 (9 hosted). Preserve source profile
+  evidence and update current resolution state after each closure.
+
+Current **actionable P1 backlog: 56** (six partial and fifty blocked).
+The 59-source frozen batch plan still lists the three completed sources
+for provenance; it must never shrink or be renumbered.
 
 - [x] Review **67/67** original SHA256s, historical blockers, current
   active companion registrations, real PDP-6 compiler results, and
@@ -27,11 +56,11 @@ identities for provenance. The source-pinned resolution ledger
 - [x] Keep **6 partially covered intents** actionable, preserving
   each specific missing operation or simulator diagnosis; distinguish
   5 recorded companion assertion failures from one actual SIMH timeout.
-- [ ] Complete **53 genuinely blocked intents** (22 hosted runtime,
-  13 compiler-investigation sources still lacking active source-pinned
+- [ ] Complete the remaining **50 blocked intents** (21 hosted runtime,
+  11 compiler-investigation sources still lacking active source-pinned
   normal matrix admission, 5 target-width/representation, 3 feature
   policies, 3 libc linkage, 3 varargs ABI, and four individual
-  header/ISA/ICE/linker prerequisites). Do not label these as 53
+  header/ISA/ICE/linker prerequisites). Do not label these as 50
   independently proven compiler defects.
 - [ ] Finish the six partial exact-original oracles; the four
   partially covered GNU-prefetch original forms and union overlay are not
@@ -1551,7 +1580,7 @@ The next eight batches are documented in
   No compiler behavior was modified; deeper compiler/guest failures
   remain separately actionable. See the preflight v1 report.
 
-## P1 — PDP-6 AAP logical-tick optimization coverage (next chat)
+## P3 — PDP-6 AAP logical-tick optimization coverage (deferred)
 
 **Decision:** optimize against `pdp6-aap` logical pulse-delay ticks, not
 unverified historical microseconds. Physical-time calibration is optional
@@ -1637,7 +1666,7 @@ workload/model tick-cost comparison. Relevant details:
 `misc/compat/test-aap-guest-timing-v1.sh`; extend branch predicates and indexed/indirect guest addressing tests. Maintain C99 for new C tests. Commit/push with
 Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
-## P1 — automated AAP timing batches (50 cases per batch)
+## P3 — automated AAP timing batches (50 cases per batch)
 
 - [x] Establish a deterministic 50-case real-emulator batch runner, building
   AAP once per batch and checking independently calculated 36-bit guest
@@ -1691,7 +1720,7 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
   testkit workloads after timing instrumentation is sufficiently validated;
   do not compare incomplete or non-equivalent executions.
 
-## P1 — AAP 1500-case expansion (100-case batches)
+## P3 — AAP 1500-case expansion (100-case batches)
 
 - [x] Batch 100 v1: 100 real guest cases, ten full-word operand boundaries
   for each of MOVE, MOVN, MOVM, SETZ, SETO, ADD, SUB, XOR, AND, IOR.
@@ -1835,7 +1864,7 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Reproduce AAP paper-tape mount and launch of DAIMOS stage-one bootstrap (limited RUNNING/readback smoke; no boot or kernel coverage claim).
 - [ ] Bridge AAP and DAIMOS boot-media/controller requirements and trace genuine KCORE/MRES execution with verified loaded module bounds.
 
-## AAP coverage dependency: boot testing resumed (2026-10-15)
+## P3 — AAP architecture correctness and boot-dependent coverage (deferred)
 
 - [x] Lift the earlier TSFS-root boot-test hold at user direction on 2026-10-15. This is authorization to test, not evidence of a successful root mount or fixed TSFS implementation.
 - [x] Resume bootstrap integration smoke testing using the available built DAIMOS stage1-dsk.pt; AAP tape mount/launch smoke passed, but full boot remains unverified.

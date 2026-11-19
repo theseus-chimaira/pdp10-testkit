@@ -1,0 +1,5 @@
+source	source_sha256	profile	status	evidence_sha256	archive_member
+tests/semantic/regression/pdp10-aligned32-array-strides-v1.c	acd1059ac0285685e473525b1201743eebaaed7a9b2b858469ea80d51db47bda	gcc-pdp6-o0	run_fail	f4e63890c004cf3d84077343520b97bbd5b881cdd46afd060f1816a70846b13e	align32/gcc-pdp6-o0-v1.log
+tests/semantic/regression/pdp10-aligned32-array-strides-v1.c	acd1059ac0285685e473525b1201743eebaaed7a9b2b858469ea80d51db47bda	gcc-pdp6-o1	run_fail	eacdd7d4868f47f08ce6b772dd2374c83dca96e14346fb2764aec674f9209b8a	align32/gcc-pdp6-o1-v1.log
+tests/semantic/regression/pdp10-aligned32-array-strides-v1.c	acd1059ac0285685e473525b1201743eebaaed7a9b2b858469ea80d51db47bda	gcc-pdp6-o2	run_fail	8272a34d52c1e9e471d12a278f87d06c33981d424242bdcb376d47d69a52bc61	align32/gcc-pdp6-o2-v1.log
+tests/semantic/regression/pdp10-aligned32-array-strides-v1.c	acd1059ac0285685e473525b1201743eebaaed7a9b2b858469ea80d51db47bda	gcc-pdp6-os	run_fail	9d254b0e2c0b8dcbbbffd005502c669fbb5df0f6c89a3500165ed8f0c3ad4d06	align32/gcc-pdp6-os-v1.log
