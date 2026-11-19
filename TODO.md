@@ -8,6 +8,23 @@ audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md`.
 
+## Standalone manual acceptance (updated 2026-11-19)
+
+- [x] Reconcile the 162 historical document-path findings with pinned
+  original and current SHA256 identities; 179 original Git blobs match.
+  See `docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261119-v2.md`.
+- [x] Execute all 19 manually gated roots individually; 13 PASS, six
+  still fail or block. See `docs/PDP10-MANUAL-RUNTIME-SWEEP-20261119-v1.md`.
+- [ ] Investigate unsafe cross-object LOCAL folding (`p10fold-local-section-v1141`).
+- [ ] Investigate KCC's unsafe induction-pointer store across a call
+  (`kcc-indptr-call-v1395`). Compiler debugging deferred as requested.
+- [ ] Fix DAIMOS KINIT stack-mode stamp build dependency, then rerun
+  `kcc-kinit-adjsp-codegen-v1` without weakening the test.
+- [ ] Diagnose AAP ordinary JRST/control cpustatus timeout in the
+  illegal-relocation diagnostic.
+- [ ] Keep both 24-case rounded-FP mathematical diagnostics manual;
+  reconcile independently with DEC hardware before any acceptance claim.
+
 ## PDP-6 Type 166 floating-point hardware fidelity (updated 2026-10-21)
 
 - [x] Recover original DEC `FD-D-166-0-EMNF` normalization drawing and

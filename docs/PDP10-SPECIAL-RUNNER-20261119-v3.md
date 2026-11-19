@@ -23,3 +23,20 @@ child processes to confirm selection and rejection behavior.
 Guest-native test selection is now handled only by
 `daimos-testkit/tools/run-native-toolchain-v1.py`. See the ownership
 report `TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the 71-file return.
+
+## Focused manual input and executed acceptance (2026-11-19)
+
+The deferred-libc diagnostic requires an explicit source before it
+can be selected by ID. For example:
+
+```
+PDP10_DEFERRED_LIBC_SOURCE=tests/semantic/upstream/generic/20000910-2.c \
+    ./run-special-tests-v1.sh run deferred-libc-probe-v1
+```
+
+The native DAS manual build root is now selectable by its exact ID
+without starting the entire DAS suite; it builds its own native phase
+images. The other prepared/nested DAS and tools entries remain gated.
+The complete observed 19-root manual sweep is recorded in
+`docs/PDP10-MANUAL-RUNTIME-SWEEP-20261119-v1.md`. Six manual roots did
+not pass; consult that report before treating manual suites as clean.

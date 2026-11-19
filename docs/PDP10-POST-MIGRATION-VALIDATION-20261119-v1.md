@@ -55,3 +55,12 @@ result. The historical path checker now passes with zero problems after
 relinking the moved sources and separately fingerprinting the reviewed
 stdarg adaptation. See
 `docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261119-v2.md`.
+
+## Follow-up: all manual roots exercised (2026-11-19)
+
+All 19 standalone manual roots have now been attempted using current
+installed tools, with 13 passing and six not passing. The explicit
+source-bound deferred-libc diagnostic and the native DAS phase build
+completed successfully after routing/build-interface corrections.
+See `docs/PDP10-MANUAL-RUNTIME-SWEEP-20261119-v1.md` for individual
+results, actual benchmarks and outstanding defects.
