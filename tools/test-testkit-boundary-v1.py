@@ -143,6 +143,17 @@ def audit(daimos):
         # Native toolchain directories are now allowed here only when each
         # actual source is explicitly recorded in the v4 return ledger.
         approved = {r['new_path'] for r in ret}
+        # New guest-native smoke tests are not historical v4 transfers.
+        # Keep this list exact: a broad prefix exemption would hide
+        # accidental compiler-only tests added to the DAIMOS checkout.
+        followon_guest_smokes = {
+            'tests/validation/daimos-native-kcc-hello-v1.sh',
+            'tests/validation/daimos-native-kcc-hello-v1.md',
+        }
+        for name in sorted(followon_guest_smokes):
+            if not safe_path(daimos, name).is_file():
+                errors.append('missing approved guest smoke: ' + name)
+        approved.update(followon_guest_smokes)
         for prefix in ('kcc-native-', 'kcc-kgen-', 'kcc-kir-',
                        'kcc-gccabi-', 'kcc-symbolic-', 'das-native-ascii7-',
                        'das-native-dobj-', 'das-native-global-spill-',

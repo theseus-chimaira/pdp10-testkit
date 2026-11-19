@@ -44,3 +44,10 @@ These checks validate identity, source ownership, shell/Python syntax,
 fixture checksums, and selection without compiling or booting a guest.
 They are not evidence of native test success. Existing staged-build
 prerequisites and per-test oracles remain necessary for runtime results.
+
+Post-migration follow-up (2026-11-19): the DAIMOS-owned opt-in
+Hello-world native KCC smoke test was added after the historical v4
+return. The boundary checker recognizes its exact two files without
+changing the 71-file migration ledger. See
+`docs/PDP10-POST-MIGRATION-VALIDATION-20261119-v1.md` for current
+standalone manual test execution and unresolved historical doc drift.
