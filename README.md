@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,217 matrix sources**,
+The current inventories are **2,221 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**265 specialized registrations**, including **18 intentionally
+**266 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -234,9 +234,9 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,217** sources, including five new substantive
+- Compiler matrix: **2,221** sources, including nine new substantive
   companions for formerly vacuous or width-dependent upstream tests.
-- Special registry: **265 entries** (**241** enabled direct, **18** manual,
+- Special registry: **266 entries** (**242** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -269,6 +269,10 @@ it is not silently replaced by `DAIMOS/tools/host`.
   `docs/PDP10-P1-DEFERRED-ROUND2-20261119-v1.md`.
   All 26 new companion PDP-6 cells have archived, checksum-verified results
   in `docs/PDP10-P1-COMPANION-MATRIX-RESULTS-20261119-v1.tsv`.
+- Four more assertion-bearing GNU/packed/bitfield companions are now
+  registered in the matrix, with 18 actual PDP-6 executions and
+  explicit distinction between failing assertions and SIMH timeouts.
+  See `docs/PDP10-P1-NONASSERTING-COMPANIONS-20261119-v1.md`.
 
 ## Verified integration state (2026-11-17)
 

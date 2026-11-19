@@ -1,8 +1,8 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,217 compiler
-matrix sources, 265 special entries (241 enabled direct, 18 manual,
-6 nested), and 398 owned script paths. The authoritative counts come
+Current ownership and registration baseline (2026-11-19): 2,221 compiler
+matrix sources, 266 special entries (242 enabled direct, 18 manual,
+6 nested), and 399 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
@@ -1672,12 +1672,12 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,217 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,221 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
-- `SPECIAL_TESTS.tsv`: 265 unique entries, including 241 enabled direct,
+- `SPECIAL_TESTS.tsv`: 266 unique entries, including 242 enabled direct,
   18 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 398 owned shell/Python scripts after the native
+- Script inventory: 399 owned shell/Python scripts after the native
   guest-suite return (426 was a historical pre-return count).
   All 21 currently registered host verification tests passed on
   2026-11-19; see `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.
