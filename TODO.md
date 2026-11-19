@@ -8,6 +8,15 @@ audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md`.
 
+**Priority decision:** All *new* AAP emulator architecture-correctness
+work is **P3**, not P1 or P2: ASHC/IDIV and other instruction reference
+semantics, real ILLOP/PDLOV/PI and device interrupts, exact opcode/mode
+coverage, exception timing and linked-kernel AAP validation. Existing
+historical AAP test results remain checked milestones; their old dated
+P1/P2 references do not override this priority. Independent floating-
+point *compiler test-oracle construction* stays in P1; repairing the
+underlying emulator or expanding its architecture coverage is P3.
+
 ## P1 deferred semantic-source closure (2026-11-19 v1)
 
 **Initial actionable P1 source obligations: 59, not 67.** The historical

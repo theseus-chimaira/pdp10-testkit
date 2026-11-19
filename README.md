@@ -174,6 +174,16 @@ remain historical snapshots.
   DAIMOS-specific kernel-coverage inventories and runtime profiles
   belong in `daimos-testkit`.
 
+**Priority policy (2026-11-19):** Complete the 59-source P1 semantic
+construction backlog in six fixed work batches of 10/10/10/10/10/9.
+Historical source hashes and completed batch positions stay stable.
+AAP emulator architecture-correctness, exception/PI/device checks,
+opcode-coverage expansion and logical-tick validation are **P3**;
+they must not block P1 source admission or independently justified
+compiler/ABI test oracles. Existing AAP results remain valid evidence,
+but further AAP expansion is deferred until P3. See
+`docs/PDP10-P1-SOURCE-BATCHES-20261119-v1.md` and `TODO.md`.
+
 The historical 150-file split is recorded in the v3 manifest. The
 71-file native re-home and current ownership rules are recorded in
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` and
