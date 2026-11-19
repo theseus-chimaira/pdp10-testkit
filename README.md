@@ -153,7 +153,7 @@ or deleted in batch 22.
 The current inventories are **2,226 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**270 specialized registrations**, including **18 intentionally
+**271 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -236,7 +236,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 - Compiler matrix: **2,226** sources, including fourteen substantive
   companions for formerly vacuous or width-dependent upstream tests.
-- Special registry: **270 entries** (**246** enabled direct, **18** manual,
+- Special registry: **271 entries** (**247** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -259,7 +259,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
   including P1 deferred-source provenance, DEC floating-point oracle
   evidence coverage and the independent target-width shift-table check.
   The PDP-6 width-shift regression passes all six tested KCC/GCC modes;
-  further CPU semantics and the 67 deferred-source resolutions remain P1.
+  further CPU semantics and open P1 deferred-source obligations remain.
   See `docs/PDP10-P1-TEST-CONSTRUCTION-20261119-v1.md`.
 - The full **67 x 2** deferred-source baseline is now captured, with
   original source SHA256 identities, exact GCC/KCC result distinctions,
@@ -279,11 +279,16 @@ it is not silently replaced by `DAIMOS/tools/host`.
   coverage classification (eight targeted, six partial) without changing
   or prematurely activating the originals. See
   `docs/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
-- The latest registered host verification sweep is **31/31 PASS**.
+- The latest registered host verification sweep is **32/32 PASS**.
   Earlier 24/24 and 27/27 milestones are historical counts, not the
-  current verifier inventory. The original 67 deferred sources remain
-  deferred pending the remaining 53 non-nonasserting dispositions and
-  exact-original feature/oracle review.
+  current verifier inventory. **The historical 67 deferred sources
+  are not all actionable P1 work.** The audited source-specific
+  resolution separates **8 covered**, **6 partial**, and **53 blocked**
+  source intents: **59 currently actionable P1 obligations**. The
+  eight completed intents no longer count as unfinished test
+  construction. The original 67 import entries and their compiler
+  failures are preserved. See
+  `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.md`.
 - Native 36-bit Linux-style device-number encoding is tested by ten
   independent unsigned/modulo reference values on **all six** PDP-6
   KCC/GCC compiler profiles, without changing the original deferred

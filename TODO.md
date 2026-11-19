@@ -1,12 +1,45 @@
 # PDP-10 testkit — outstanding work
 
 Current ownership and registration baseline (2026-11-19): 2,226 compiler
-matrix sources, 270 special entries (246 enabled direct, 18 manual,
-6 nested), and 403 owned script paths. The authoritative counts come
+matrix sources, 271 special entries (247 enabled direct, 18 manual,
+6 nested), and 404 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
 current inventory totals. The current ownership split is documented in
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md`.
+
+## P1 deferred semantic-source closure (2026-11-19 v1)
+
+**Actionable P1 source obligations: 59, not 67.** The historical
+import/disposition manifests retain 67 originally deferred source
+identities for provenance. The source-pinned resolution ledger
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` separately counts
+8 `covered`, 6 `partial`, and 53 `blocked` original-source intents.
+
+- [x] Review **67/67** original SHA256s, historical blockers, current
+  active companion registrations, real PDP-6 compiler results, and
+  current source-specific remaining P1 actions.
+- [x] Close **8 completed PDP-6 test-construction intents**: nested
+  labels, signed-short field array, packed union, aligned typedef,
+  byte-offset prefetch, loop sum, packed member and packed pointers.
+  Their original historical files remain unchanged and deferred; a
+  completion is not a claim of cross-CPU correctness or compiler PASS.
+- [x] Keep **6 partially covered intents** actionable, preserving
+  each specific missing operation or simulator diagnosis; distinguish
+  5 recorded companion assertion failures from one actual SIMH timeout.
+- [ ] Complete **53 genuinely blocked intents** (22 hosted runtime,
+  13 compiler-investigation sources still lacking active source-pinned
+  normal matrix admission, 5 target-width/representation, 3 feature
+  policies, 3 libc linkage, 3 varargs ABI, and four individual
+  header/ISA/ICE/linker prerequisites). Do not label these as 53
+  independently proven compiler defects.
+- [ ] Finish the six partial exact-original oracles; the four
+  partially covered GNU-prefetch original forms and union overlay are not
+  inferred from successful companions. Resolve the nested-closure
+  simulator timeouts without claiming compiler ICE or assertion failure.
+
+The authoritative P1 closure rules, categories, and provenance are
+documented in `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.md`.
 
 ## P1 nonasserting semantic-source coverage (2026-11-19)
 
@@ -36,9 +69,10 @@ current inventory totals. The current ownership split is documented in
   `builtin-prefetch-{1,2,3,5,6}.c`, including forms not exercised by
   the substantive companion. A no-prefetch target may legally issue
   no machine prefetch instruction; source success is not ISA coverage.
-- [ ] Finish the remaining 53 non-nonasserting deferred source
-  dispositions and required libc, ABI, width and ISA test scaffolding;
-  original compiler defects remain for after testkit completion.
+- [ ] Finish the 53 still-blocked original source intents and their
+  required libc, ABI, width, compiler-matrix and ISA test scaffolding;
+  preserve compiler defects for after testkit completion. Refer to the
+  current per-source closure ledger rather than counting all 67 as open.
 - [x] Construct independent unsigned 36-bit device-code expectations
   for the deferred 32-bit Linux `980526-2.c` source. Ten nonvacuous
   expected values and six PDP-6 compiler profiles all PASS; retain the
