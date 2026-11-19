@@ -33,5 +33,21 @@ for opt in optimized unoptimized; do
         echo "FAIL: unexpected C89 constant-expression diagnostic" >&2
         exit 1
     fi
-    echo "PASS v1683: $opt valid C89 integer dimensions/enum folding"
+    runner=${P10RUN_BIN:-${PDP10_PREFIX:-$HOME/cross}/bin/p10run}
+    if ! test -x "$runner"; then
+        echo "FAIL: missing PDP-6 runner: $runner" >&2
+        exit 1
+    fi
+    "$runner" --machine pdp6 --mode deposit --exec-mode step \
+        --step-limit 250000 --timeout 25 \
+        --workdir "$work/pdp6-$opt" \
+        --name "kcc-c89-constant-v1683-$opt" \
+        --expect __test_exit=0 \
+        "$here/../../../support/crt0-upstream-v1.s" \
+        "$work/$opt.s" >"$work/$opt.run.log" 2>&1 || {
+        tail -75 "$work/$opt.run.log" >&2
+        echo "FAIL: $opt PDP-6 constant folding runtime" >&2
+        exit 1
+    }
+    echo "PASS v1683: $opt valid C89 folding, dimensions and PDP-6 execution"
 done

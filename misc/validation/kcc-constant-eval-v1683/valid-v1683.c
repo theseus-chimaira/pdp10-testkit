@@ -20,3 +20,13 @@ int v1683_constant_scalar(void)
 {
     return V1683_MIXED + V1683_SHIFT - V1683_IDENTWDS;
 }
+int main(void)
+{
+    if (v1683_constant_sizes() != 311)
+        return 1;
+    if (v1683_constant_scalar() != 397)
+        return 2;
+    if (V1683_MAX != 0377777777777)
+        return 3;
+    return 0;
+}
