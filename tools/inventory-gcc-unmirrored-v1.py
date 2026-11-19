@@ -46,6 +46,7 @@ REMOVALS_V1 = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv'
 REMOVALS_V2 = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v2.tsv'
 REMOVALS = ROOT / 'docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v3.tsv'
 KCC_SHARING = ROOT / 'docs/GCC-C-KCC-CROSS-COMPILER-20261117-v1.tsv'
+CURRENT_SEMANTIC = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
 REFS = ROOT / 'refs/gcc-c-unmirrored-v1'
 REVISION = 'b0f5374f6d4462bb8759160ece635e306d90998f'
 FIELDS = ('group', 'original_source', 'source_sha256', 'snapshot_path',
@@ -89,6 +90,19 @@ REVIEWED = {
     'gcc.dg/format/attr-2.c': (
         'non-equivalent-overlap', '',
         'Shared attribute syntax is not a matching format-warning oracle or format.h dependency'),
+}
+
+# The v1 ownership ledger records the November 16 review, not a live
+# activation decision.  These two originally deferred adaptations were
+# subsequently activated after actual GCC PDP-6 execution.  Preserve the
+# historical decision and require the newer semantic manifest to authorize
+# their *current* matrix registrations.  Do not infer promotion from mere
+# presence in COMPILER_MATRIX.tsv.
+LATER_SEMANTIC_ACTIVATIONS = {
+    'gcc/testsuite/gcc.c-torture/execute/20020402-3.c':
+        'tests/todo/generic/20020402-3.c',
+    'gcc/testsuite/gcc.c-torture/execute/920728-1.c':
+        'tests/todo/generic/920728-1.c',
 }
 
 # Independent PDP-10 runtime assertions absent from the central matrix.
@@ -1295,6 +1309,29 @@ def verify_sources():
             (line for line in stream if line.strip() and not line.startswith('#')),
             delimiter='\t')}
     matrix = set(matrix_rows)
+    # Cross-check post-baseline activations with the final reviewed
+    # semantic classification instead of rewriting the historical v1
+    # GCC ownership ledger or trusting a registration by itself.
+    current_semantic_rows = read_tsv(CURRENT_SEMANTIC)
+    current_semantic = {row['classified_path']: row
+                        for row in current_semantic_rows}
+    if len(current_semantic) != len(current_semantic_rows):
+        errors.append('duplicate current semantic classification owner')
+    for original, target in LATER_SEMANTIC_ACTIVATIONS.items():
+        baseline = by_path.get(original)
+        newer = current_semantic.get(target)
+        expected_source = ('tests/todo/semantic-upstream-gcc/torture-execute/'
+                           + original.rsplit('/', 1)[-1])
+        if (baseline is None or baseline['review_status'] != 'adapted-deferred'
+                or baseline['matrix_owner'] != target or newer is None
+                or newer['previous_path'] != expected_source
+                or newer['activation'] != 'active'):
+            errors.append('unverified later semantic activation: ' + target)
+        cell = matrix_rows.get(target)
+        if (cell is None or not any(
+                'gcc' in name and value not in ('', 'no_test', 'unsupported')
+                for name, value in cell.items())):
+            errors.append('later semantic activation lacks GCC cells: ' + target)
     if any('/gcc-historical-b11-v1/' in owner for owner in matrix):
         errors.append('batch11 deferred format sources must not have compiler matrix registrations')
     for folder in ('tests/semantic/gcc-historical-b11-v1',
@@ -1705,6 +1742,8 @@ def verify_sources():
                 'batch05-pending', 'batch06-pending', 'batch07-pending',
                 'batch08-pending', 'batch09-pending', 'batch10-pending',
                 'batch12-pending', 'batch13-pending', 'batch14-pending')
+            if path in LATER_SEMANTIC_ACTIVATIONS:
+                active = True
             if (target in matrix) != active:
                 errors.append('adapted registration status disagrees: ' + target)
             if recorded['review_status'] in ('registered-pending', 'batch01-pending'):

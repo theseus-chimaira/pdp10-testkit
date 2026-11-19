@@ -86,6 +86,10 @@ tests/codegen/pattern/umaxsi3.c	likely,unlikely	KCC ignores branch-likelihood hi
 tests/codegen/pattern/uminsi3.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
 tests/codegen/pattern/xorsi3.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
 tests/codegen/pattern/zero_extendhisi2.c	likely,unlikely	KCC ignores branch-likelihood hint while GCC uses __builtin_expect
+tests/semantic/upstream/extensions/20000703-1.c	__builtin_memcpy,__builtin_memset	GCC builtin copy/clear lowering is not comparable with KCC compatibility or unavailable builtin handling; runtime field assertions remain valid
+tests/semantic/upstream/extensions/20000815-1.c	__builtin_memset	GCC builtin clearing is not comparable with KCC compatibility or unavailable builtin handling; the CSE runtime assertion remains valid
+tests/semantic/upstream/extensions/20001026-1.c	__builtin_memset	GCC builtin clearing is not comparable with KCC compatibility or unavailable builtin handling; the structure-return assertion remains valid
+tests/semantic/upstream/extensions/20011121-1.c	__builtin_memcpy	GCC builtin copy lowering is not comparable with KCC compatibility or unavailable builtin handling; the field-preservation assertion remains valid
 tests/semantic/regression/varargs.c	__builtin_va_start,__builtin_va_arg,__builtin_va_end	KCC compatibility varargs macro differs from GCC builtin handling
 tests/semantic/runtime/runtime-builtin-memcpy-string-1byte.c	__builtin_memcpy	KCC compatibility macro calls memcpy while GCC may use builtin lowering
 tests/semantic/runtime/runtime-memcpy-string-1byte.c	__builtin_memcpy	KCC compatibility macro calls memcpy while GCC may use builtin lowering

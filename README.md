@@ -241,6 +241,12 @@ it is not silently replaced by `DAIMOS/tools/host`.
   **71** restored source, wrapper and fixture files.
 - The source and ownership checks pass; no native or full compiler sweep
   was run during the transfer.
+- The full registered **host-only verify** group subsequently passed
+  **21/21** on 2026-11-19 after reconciling two post-classification
+  ownership decisions and four differential-helper annotations.  See
+  `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.  The separate manual
+  sweep remains 13 PASS / six not passing and is not a compiler-matrix
+  acceptance claim.
 
 ## Verified integration state (2026-11-17)
 

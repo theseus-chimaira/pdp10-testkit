@@ -1671,8 +1671,10 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 - `SPECIAL_TESTS.tsv`: 260 unique entries, including 235 enabled direct,
   19 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
-- Script inventory: 426 owned shell/Python scripts; registered host
-  verification passed 20/20 checks including historical documentation.
+- Script inventory: 393 owned shell/Python scripts after the native
+  guest-suite return (426 was a historical pre-return count).
+  All 21 currently registered host verification tests passed on
+  2026-11-19; see `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.
 - `tests/codegen/upstream-gcc/`: 706 registered C sources.
 - Upstream manifest: 551 active, 67 deferred, 58 removed and one
   nonportable stress source; 97 byte-identical retired aliases remain
