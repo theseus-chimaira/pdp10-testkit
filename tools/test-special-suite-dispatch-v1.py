@@ -156,6 +156,31 @@ def main():
         observed[:] = []
         rejected(lambda: dispatcher.run_selected(nested_id, True),
                  'nested DAS helper')
+        with contextlib.redirect_stdout(io.StringIO()):
+            dispatcher.run_selected('das-build-das-native', allow_manual=True)
+        require(observed == [('sh', str(ROOT / by_id['das-build-das-native']['path']))],
+                'self-contained manual DAS native build was not dispatched once')
+        observed[:] = []
+        source_var = 'PDP10_DEFERRED_LIBC_SOURCE'
+        previous_source = os.environ.pop(source_var, None)
+        try:
+            rejected(lambda: dispatcher.run_selected('deferred-libc-probe-v1', True),
+                     'requires PDP10_DEFERRED_LIBC_SOURCE')
+            require(not observed, 'unspecified deferred source was executed')
+            source = 'tests/semantic/upstream/generic/20000910-2.c'
+            os.environ[source_var] = source
+            with contextlib.redirect_stdout(io.StringIO()):
+                dispatcher.run_selected('deferred-libc-probe-v1', True)
+            require(observed == [('python3',
+                                  str(ROOT / by_id['deferred-libc-probe-v1']['path']),
+                                  '--source', source)],
+                    'explicit deferred source was not dispatched exactly once')
+        finally:
+            if previous_source is None:
+                os.environ.pop(source_var, None)
+            else:
+                os.environ[source_var] = previous_source
+        observed[:] = []
         rejected(lambda: dispatcher.run_selected('does-not-exist-v1', True),
                  'unknown or duplicate')
         require(not observed, 'an invalid or nested selected test ran')

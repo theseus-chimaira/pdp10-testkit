@@ -28,7 +28,9 @@ def run_selected(test_id, allow_manual=False):
     The direct registry owns the timeout and runner.  Manual roots
     require two explicit choices: the exact ID and --manual.  Do not
     silently reproduce group setup for DAS or independent tools: those
-    suites prepare their sources/images before running any child.
+    suites prepare their sources/images before running any child.  The
+    manual DAS native-build root is self-contained and prepares its own
+    phase images, so it is safe to select individually.
     """
     matches = [row for row in registered_rows() if row["id"] == test_id]
     if len(matches) != 1:
@@ -41,7 +43,8 @@ def run_selected(test_id, allow_manual=False):
         raise SystemExit("test is not enabled: " + test_id)
     if row["enabled"] == "manual" and not allow_manual:
         raise SystemExit("manual test requires explicit --manual: " + test_id)
-    if row["group"] in ("das", "tools"):
+    if row["group"] in ("das", "tools") and not (
+            test_id == "das-build-das-native" and row["enabled"] == "manual"):
         raise SystemExit("test requires suite preparation; use its named "
                          "suite instead: " + test_id)
     if row["runner"] not in ("sh", "python3"):
@@ -63,7 +66,18 @@ def run_selected(test_id, allow_manual=False):
         env = dict(ENV, KCC_REPO=str(kcc))
     print("selected %s [%s, %s] timeout=%ds" %
           (test_id, row["group"], row["enabled"], timeout), flush=True)
-    run(row["runner"], path, env=env, timeout=timeout)
+    if test_id == "deferred-libc-probe-v1":
+        # Unlike the other manual roots, this diagnostic deliberately has
+        # no default source. Require an explicit user-selected fixture;
+        # never run an unrelated test simply to make the root pass.
+        source = os.environ.get("PDP10_DEFERRED_LIBC_SOURCE")
+        if not source:
+            raise SystemExit("deferred-libc-probe-v1 requires "
+                             "PDP10_DEFERRED_LIBC_SOURCE under tests/")
+        run(row["runner"], path, "--source", source, env=env,
+            timeout=timeout)
+    else:
+        run(row["runner"], path, env=env, timeout=timeout)
     print("PASS selected registered test: " + test_id, flush=True)
 
 
