@@ -625,6 +625,8 @@ Restart behavior:
     ap.add_argument('--kind', default=os.environ.get('P10_SWEEP_KIND', 'all'),
                     choices=('all', 'semantic', 'codegen', 'negative', 'diagnostic'),
                     help='test kind to run; default: all')
+    ap.add_argument('--source', default=None,
+                    help='run only this exact COMPILER_MATRIX.tsv source path')
     ap.add_argument('--skip-failures', action='store_true',
                     help='also skip old failing cells, not only pass/compile_only cells')
     ap.add_argument('--reset', action='store_true',
@@ -1729,6 +1731,11 @@ def main():
     validate_filter_combo(family_filter, cpu_filter)
 
     rows = split_rows()
+    if args.source is not None:
+        rows = [row for row in rows if row.get('test') == args.source]
+        if len(rows) != 1:
+            die('source not uniquely registered in compiler matrix: ' +
+                args.source)
     profiles_all = all_profiles()
     profiles = [p for p in profiles_all if profile_selected(p, compiler_filter, family_filter, cpu_filter, opt_filter)]
     kind_filter = None if args.kind == 'all' else args.kind

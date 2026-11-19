@@ -150,10 +150,10 @@ remains deferred for genuine `malloc`/`vprintf` support.
 All **surviving canonical original identities have now
 received an individual first review**. No source was changed
 or deleted in batch 22.
-The current inventories are **2,210 matrix sources**,
+The current inventories are **2,211 matrix sources**,
 **551 active / 67 deferred / 58 removed** upstream
 tests, and
-**260 specialized registrations**, including **19 intentionally
+**259 specialized registrations**, including **18 intentionally
 manual tests**. No broad sweep was started.
 The current upstream and deferred classification manifests are
 `SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv` and
@@ -203,7 +203,7 @@ resume, output and timeout controls. A pending entry is not a passing
 execution result. Full sweeps are operator-selected.
 
 `SPECIAL_TESTS.tsv` records standalone specialized tests, including
-19 deliberately manual roots. The 25 booted native toolchain tests are
+18 deliberately manual roots. The 25 booted native toolchain tests are
 registered exclusively in `daimos-testkit`. `./run-misc-tests.sh` is the
 special-suite entry point; `verify` runs the broader verify/compatibility
 and validation groups, **not** merely a fast static ownership audit.
@@ -234,8 +234,8 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current static integration state (2026-11-19)
 
-- Compiler matrix: **2,210** sources, unchanged by the native suite move.
-- Special registry: **260 entries** (**235** enabled direct, **19** manual,
+- Compiler matrix: **2,211** sources after adding the standalone KCC induction-pointer regression.
+- Special registry: **259 entries** (**235** enabled direct, **18** manual,
   **6** nested). Native boot-backed suite identities: **0**.
 - DAIMOS native toolchain registry: **25** explicitly selected roots with
   **71** restored source, wrapper and fixture files.
@@ -250,7 +250,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Verified integration state (2026-11-17)
 
-- Compiler matrix: **2,210 sources** with no unowned test sources
+- Compiler matrix: **2,211 sources** with no unowned test sources
   and no duplicated classified upstream source bytes.
 - Special registry: **284 entries**, including **234 enabled direct**,
   **44 manual** and **6 nested** registrations.

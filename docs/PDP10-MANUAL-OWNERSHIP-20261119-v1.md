@@ -36,3 +36,10 @@ not automatic. Guest-native runtime execution remains exclusively in
 `daimos-testkit`. The 19 tests may be run individually using
 `./run-special-tests-v1.sh run ID`; the ordinary compiler matrix does
 not dispatch them.
+
+## Subsequent ownership correction (2026-11-19)
+
+The KINIT production-source ADJSP check was moved to
+`daimos-testkit` after this historical 19-entry review. Current
+PDP10-testkit manual entries: 18. See
+`docs/PDP10-FOLD-KINIT-AAP-MATRIX-20261119-v1.md`.

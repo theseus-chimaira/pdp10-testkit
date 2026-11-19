@@ -1,7 +1,7 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19): 2,210 compiler
-matrix sources, 260 special entries (235 enabled direct, 19 manual,
+Current ownership and registration baseline (2026-11-19): 2,211 compiler
+matrix sources, 259 special entries (235 enabled direct, 18 manual,
 6 nested), and 393 owned script paths. The authoritative counts come
 from `COMPILER_MATRIX.tsv`, `SPECIAL_TESTS.tsv`, and their registered
 audits. Checked milestones below are dated historical records, not
@@ -15,13 +15,18 @@ current inventory totals. The current ownership split is documented in
   See `docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261119-v2.md`.
 - [x] Execute all 19 manually gated roots individually; 13 PASS, six
   still fail or block. See `docs/PDP10-MANUAL-RUNTIME-SWEEP-20261119-v1.md`.
-- [ ] Investigate unsafe cross-object LOCAL folding (`p10fold-local-section-v1141`).
-- [ ] Investigate KCC's unsafe induction-pointer store across a call
-  (`kcc-indptr-call-v1395`). Compiler debugging deferred as requested.
-- [ ] Fix DAIMOS KINIT stack-mode stamp build dependency, then rerun
-  `kcc-kinit-adjsp-codegen-v1` without weakening the test.
-- [ ] Diagnose AAP ordinary JRST/control cpustatus timeout in the
-  illegal-relocation diagnostic.
+- [x] Repair unsafe cross-object LOCAL folding in P10FOLD **and** the
+  DLINK fold-plan verifier; registered regressions pass with the
+  installed tools.
+- [ ] Investigate KCC's unsafe induction-pointer store across a call.
+  The versioned runtime fixture is now in the standalone compiler matrix;
+  the manual assembly-shape oracle remains separate until compiler repair.
+- [x] Fix DAIMOS KINIT stack-mode stamp build dependency and migrate
+  KINIT-specific codegen regression to `daimos-testkit`; the relocated
+  test passed against production DAIMOS KINIT (2026-11-19).
+- [x] Restore deterministic read-only AAP `cpustatus` and APR latch
+  snapshots; the illegal-relocation diagnostic now completes. Positive
+  ILLOP/pulse-level fault coverage remains separately unresolved.
 - [ ] Keep both 24-case rounded-FP mathematical diagnostics manual;
   reconcile independently with DEC hardware before any acceptance claim.
 
@@ -1666,10 +1671,10 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: 2,210 unique source rows, ownership and
+- `COMPILER_MATRIX.tsv`: 2,211 unique source rows, ownership and
   source paths audited after removal of 47 identical registrations.
-- `SPECIAL_TESTS.tsv`: 260 unique entries, including 235 enabled direct,
-  19 manual and six nested; dispatch is statically verified, but full
+- `SPECIAL_TESTS.tsv`: 259 unique entries, including 235 enabled direct,
+  18 manual and six nested; dispatch is statically verified, but full
   execution is not claimed.
 - Script inventory: 393 owned shell/Python scripts after the native
   guest-suite return (426 was a historical pre-return count).
@@ -1844,3 +1849,7 @@ recorded results; and registry entries agree with actual runner dispatch.
 - [x] Isolated SIMH `ROOT=tape BOOT=ptr` startup with a populated TSFS root: real SIMH run exchanged both counted PTR payload tapes, displayed `DAIMON V0.5`, `DTC OK`, `DTFS LOADED`, `INIT V1`, and reached `LOGIN:` (`test-simh-ptr-tsfs-boot-v1.sh`). Uses existing documented temporary DSH_IMAGE_LIMIT=037000 exception only in its isolated build.
 - [ ] Permanently recover DSH's 15 decimal words over the production `036000` image limit; the SIMH comparison did not solve this size regression.
 - [ ] Verify root mount and login operation independently under SIMH and compare the exact linked KINIT image, kernel PI/PDLOV fault sequence and ordinary-tick costs against AAP.
+
+2026-11-19 follow-up: see
+`docs/PDP10-FOLD-KINIT-AAP-MATRIX-20261119-v1.md` for P10FOLD/DLINK,
+KINIT ownership, PDP-6 AAP status, and matrix KCC regression evidence.

@@ -22,6 +22,7 @@ import sys
 PDP10 = Path(__file__).resolve().parents[1]
 MANIFEST = PDP10 / 'docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.tsv'
 RETURN = PDP10 / 'docs/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv'
+KINIT_RETURN = PDP10 / 'docs/DAIMOS-KINIT-CODEGEN-RETURN-20261119-v1.tsv'
 RETURN_FIELDS = ('old_path', 'new_path', 'source_sha256', 'original_sha256')
 FIELDS = ('before', 'after', 'old_path', 'new_path',
           'original_sha256', 'resolution')
@@ -49,6 +50,42 @@ def audit(daimos):
     if len(reversed_paths) != len(ret):
         errors.append('duplicate returned source paths')
     historical = {row['new_path']: row for row in rows}
+    # A later source-owner correction moves one DAIMOS KINIT integration
+    # check back into the OS testkit.  Retain all original v3/v4 ledgers;
+    # this is a separate exact, checksum-pinned re-home, not a wildcard.
+    with KINIT_RETURN.open(encoding='ascii', newline='') as file:
+        rereleased = list(csv.DictReader(file, delimiter='\t'))
+    if (len(rereleased) != 1 or not rereleased or
+            tuple(rereleased[0]) != ('old_path', 'new_path',
+            'original_sha256', 'current_sha256', 'basis')):
+        errors.append('wrong KINIT ownership return manifest')
+    kinit_old = 'misc/validation/daimos-kcc-pdp6-codegen-v1.sh'
+    kinit_new = 'tests/validation/daimos-kinit-pdp6-stack-codegen-v1.sh'
+    if rereleased:
+        kinit = rereleased[0]
+        old_edge = historical.get(kinit_old)
+        if (kinit['old_path'] != kinit_old or
+                kinit['new_path'] != kinit_new or
+                kinit['basis'] != 'tag-only-rename' or
+                old_edge is None or old_edge['before'] != 'daimos-testkit' or
+                old_edge['after'] != 'pdp10-testkit' or
+                kinit['original_sha256'] != old_edge['original_sha256']):
+            errors.append('invalid KINIT ownership return edge')
+        if (PDP10 / kinit_old).exists():
+            errors.append('KINIT test still owned by compiler testkit')
+        if daimos is not None:
+            source = safe_path(daimos, kinit_new)
+            if not source.is_file():
+                errors.append('missing DAIMOS-owned KINIT test')
+            else:
+                content = source.read_bytes()
+                if (hashlib.sha256(content).hexdigest() !=
+                        kinit['current_sha256'] or
+                        hashlib.sha256(content.replace(
+                        b'tag=daimos-kinit-pdp6-stack-codegen-v1',
+                        b'tag=daimos-kcc-pdp6-codegen-v1')).hexdigest() !=
+                        kinit['original_sha256']):
+                    errors.append('KINIT migrated test changed assertions')
     for row in ret:
         original = historical.get(row['old_path'])
         if (original is None or original['before'] != 'daimos-testkit' or
@@ -95,6 +132,10 @@ def audit(daimos):
                 elif (target.suffix.lower() in ('.c', '.s') and
                       hashlib.sha256(target.read_bytes()).hexdigest() != digest):
                     errors.append('returned C/ASM fixture changed: ' + old)
+            continue
+        if new == kinit_old:
+            # The exact v5 return above separately checks its new owner,
+            # original content, renamed diagnostic tag and absence here.
             continue
         source_root = daimos if before == 'daimos-testkit' else PDP10
         target_root = daimos if after == 'daimos-testkit' else PDP10

@@ -245,7 +245,6 @@ kcc-host-stage-readonly-v1	kcc-host	sh	misc/kcc-host/daimos-kcc-stage-readonly-2
 kcc-rm-codegen-v1	kcc-host	sh	misc/kcc-host/daimos-rm-recursive-kcc-codegen-20261010-v1.sh	host	manual	240
 gcc-heading-byteptr-v154	validation	sh	misc/validation/daimos-gcc-help-heading-v154/run.sh	pdp6	yes	180
 kcc-foldtrna-codegen-v1	validation	sh	misc/validation/daimos-kcc-foldtrna-conditional-20261008-v1.sh	pdp6	manual	240
-kcc-kinit-adjsp-codegen-v1	validation	sh	misc/validation/daimos-kcc-pdp6-codegen-v1.sh	pdp6	manual	240
 kcc-preserved-arg-codegen-v1175	validation	sh	misc/validation/daimos-kcc-preserved-arg-v1175.sh	pdp6	manual	240
 p10fold-io-skip-v1	validation	sh	misc/validation/daimos-p10fold-io-skip-20261012-v1.sh	host	manual	240
 p10fold-local-section-v1141	validation	sh	misc/validation/daimos-p10fold-local-section-v1141.sh	host	manual	240

@@ -2,7 +2,7 @@
 
 `run-special-tests-v1.sh` executes manual special tests separately from
 the compiler matrix and default suites. The current registry contains
-19 standalone manually selected roots, none requiring native booted
+18 standalone manually selected roots, none requiring native booted
 DAIMOS execution. The 25 native KCC/DAS/DLINK guest registrations and
 all 71 source/helper files now belong exclusively to `daimos-testkit`.
 
@@ -40,3 +40,7 @@ images. The other prepared/nested DAS and tools entries remain gated.
 The complete observed 19-root manual sweep is recorded in
 `docs/PDP10-MANUAL-RUNTIME-SWEEP-20261119-v1.md`. Six manual roots did
 not pass; consult that report before treating manual suites as clean.
+
+The 2026-11-19 KINIT ownership correction reduced manual entries
+from 19 to 18: its DAIMOS kernel-source check now runs through
+`daimos-testkit`, not this standalone compiler/ISA test runner.

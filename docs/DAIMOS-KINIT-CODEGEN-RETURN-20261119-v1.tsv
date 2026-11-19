@@ -1,0 +1,2 @@
+old_path	new_path	original_sha256	current_sha256	basis
+misc/validation/daimos-kcc-pdp6-codegen-v1.sh	tests/validation/daimos-kinit-pdp6-stack-codegen-v1.sh	d95e44e4eee75e83ddc0919e46ed1090c6b30cc4ce8714fa1f9b948f30ff3da5	f11252f58f6f122e8cacc3aed9e26614a9498b468d1dcb43ce9a496d2040a2ab	tag-only-rename

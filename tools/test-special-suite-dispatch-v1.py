@@ -204,7 +204,7 @@ def main():
               listing.stdout.splitlines()]
     require(listed == expected_manual,
             'list-manual dropped, reordered or invented manual roots')
-    require(len(listed) == 19,
+    require(len(listed) == 18,
             'current standalone manual gate count changed; review policy')
 
     total_enabled = sum(r['enabled'] == 'yes' and
