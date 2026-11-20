@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 from compiler_stdlib_prefix_v1 import (
     POLICY, archive_path, archive_sha256, env_for_cell,
-    overlay_path, prepare)
+    overlay_path, prepare, prepare_script_prefix)
 
 
 def fail(call, description):
@@ -71,6 +71,14 @@ def main():
                 overlay / "compiler-stdlib-policy-v1.txt").read_text(encoding="ascii")
         assert outputs == prepare(testroot, prefix, ("kcc", "gcc"))
 
+        # A GCC-only direct script must keep its compiler-only runtime
+        # even when the KCC archive has different bytes (unlike a mixed
+        # compiler special suite, which intentionally fails closed).
+        isolated = prepare_script_prefix(testroot / "raw-gcc", prefix, "gcc")
+        assert (isolated / "lib/libc.a").resolve() == sources["gcc"]
+        assert (isolated / "lib/gcc-lib").resolve() == (
+            prefix / "lib/gcc-lib").resolve()
+
         fail(lambda: archive_path(prefix, "unknown"), "unknown compiler")
         count += 1
         bad = prefix / "lib/kcc/freestanding/libp10c-v2.a"
@@ -81,6 +89,9 @@ def main():
         with bad.open("ab") as stream:
             stream.write(b"-changed")
         fail(lambda: prepare(testroot, prefix, ("kcc",)), "changed archive fingerprint")
+        count += 1
+        solo = prepare_script_prefix(testroot / "raw-gcc-mismatch", prefix, "gcc")
+        assert (solo / "lib/libc.a").resolve() == sources["gcc"]
         count += 1
         bad.write_bytes(b"genuine-kcc-compiler-archive")
         link = overlay_path(testroot, "gcc") / "lib/libc.a"

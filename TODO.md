@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-20, after six
 source-pinned original/deferred integrations): **2,298 compiler matrix
-sources**, **365 special entries**, and **538 owned script paths**.
+sources**, **366 special entries**, and **539 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v8.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v9.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 49 covered, zero partial, **18
@@ -50,6 +50,16 @@ remain historical. See
   dispatcher and tool/host-builder exceptions (`tools`, `kcc-host`,
   `das`) before the full sweep. Do not turn their library requirements
   into unrelated hosted OS libc links or silently change test oracles.
+- [x] Fix the two raw-invocable GCC `p10stdio` production formatter
+  compatibility scripts to link the installed GCC compiler
+  `libp10c-v2.a` archive directly, never the generic `lib/libc.a`.
+  Both scripts' implicit `p10run` links now also use a compiler-owned
+  temporary prefix, even if the script itself was launched directly.
+  Both archive extractions and four selected PDP-6 O0 guest cells
+  PASS; 16 real artifacts are SHA256-pinned and 15 negative controls
+  reject accidental hosted-libc reuse or false guest results.
+  Remaining raw scripts still require explicit ownership review.
+  See `docs/PDP10-GCC-STDIO-DIRECT-COMPILER-ARCHIVE-20261120-v1.md`.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -396,7 +406,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v8.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v9.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
