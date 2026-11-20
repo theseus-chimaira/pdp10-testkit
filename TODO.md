@@ -1,17 +1,17 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-20, after seven
-source-pinned original/deferred integrations): **2,299 compiler matrix
-sources**, **369 special entries**, and **542 owned script paths**.
+Current ownership and registration baseline (2026-11-20, after eight
+source-pinned original/deferred integrations): **2,300 compiler matrix
+sources**, **372 special entries**, and **545 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v10.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v11.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
-**Live P1 construction ledger:** 50 covered, zero partial, **17
+**Live P1 construction ledger:** 51 covered, zero partial, **16
 blocked** across 67 historical deferred identities; frozen batches
-42 covered, 17 blocked. Recent original-source/companion integrations
+43 covered, 16 blocked. Recent original-source/companion integrations
 are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
 `run_fail` at the real sprintf `%f` contract), and `960521-1.c`
@@ -19,8 +19,10 @@ stack/frame guest PASS) and `920501-8.c` (six substantive companion
 timeout), `990628-1.c` (six real `memset`/record-copy PASS,
 original allocator-dependent timeouts retained), and `941014-2.c`
 (three real compiler-oracle PASS, three GCC optimized `run_fail`,
-original compiler-only `malloc`/`printf` unresolved). See live v21 P1
-and seven focused 2026-11-20 closure reports.
+original compiler-only `malloc`/`printf` unresolved), and `920810-1.c`
+(six real compiler-library `memcpy`/`memset` guest PASS, original
+`malloc` link failures preserved). See live v22 P1 and eight focused
+2026-11-20 closure reports.
 The noreturn `__builtin_abort` linkage and original hosted `printf`
 dependency remain open. The old duplicate-global `vsprintf` failure
 under generic libc is explained by competing formatter providers
@@ -79,6 +81,17 @@ remain historical. See
   failures. Construction is covered, compiler bugs and original
   hosted runtime **not** fixed. See
   `docs/PDP10-P1-941014-VOLATILE-SHORT-CLOSURE-20261120-v1.md`.
+
+- [x] Construct the compiler-only `920810-1.c` child-copy oracle
+  without a fake allocator. The unchanged original currently has
+  two native compiler stdlib `malloc` link failures. Six selected
+  PDP-6 KCC/GCC companion profiles PASS using real compiler-library
+  `memcpy` and `memset`, asserting the three fields before and after
+  inheritance fixups, exact 9-bit byte-fill representation, and
+  both guards. Thirty raw artifacts and eleven negative controls
+  preserve the evidence. Original hosted heap behavior is still
+  unresolved. See
+  `docs/PDP10-P1-920810-CHILD-COPY-CLOSURE-20261120-v1.md`.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -425,7 +438,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v10.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v11.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
@@ -437,7 +450,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the current v21 ledger has **50 covered, 0 partial, 17 blocked**.
+the current v22 ledger has **51 covered, 0 partial, 16 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
