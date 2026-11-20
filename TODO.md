@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-20, after six
 source-pinned original/deferred integrations): **2,298 compiler matrix
-sources**, **364 special entries**, and **537 owned script paths**.
+sources**, **365 special entries**, and **538 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v7.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v8.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 49 covered, zero partial, **18
@@ -39,11 +39,17 @@ controls. The old provider-dependent timeouts/duplicate-global links
 remain historical. See
 `docs/PDP10-COMPILER-STDLIB-RUNTIME-20261120-v1.md`.
 
-- [ ] Bring independently dispatched native guest test scripts under
-  the compiler-standard-library-only policy as well. Many direct
-  `p10run` invocations bypass the normal `run-tests.py` runtime prefix;
-  audit those entrypoints and preserve their real test/oracle contracts.
-  Do not start the full compiler or CPU sweep until this is resolved.
+- [x] Bring the official `run-misc-tests.sh` registered compiler guest
+  groups under compiler-standard-library-only selection. `verify`,
+  `compat`, `validation`, `kcc-regression` and `gcc-bare-libgcc` use a
+  shared compiler archive prefix only when KCC/GCC installed archive
+  bytes match. Three exact registered guest tests PASS, with a host-only
+  dispatcher/provenance regression and incompatible-archive rejection.
+  See `docs/PDP10-COMPILER-STDLIB-SPECIAL-DISPATCH-20261120-v1.md`.
+- [ ] Audit direct raw `p10run` script invocations outside the official
+  dispatcher and tool/host-builder exceptions (`tools`, `kcc-host`,
+  `das`) before the full sweep. Do not turn their library requirements
+  into unrelated hosted OS libc links or silently change test oracles.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -390,7 +396,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v7.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v8.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 

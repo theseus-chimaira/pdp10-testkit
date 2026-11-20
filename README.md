@@ -250,8 +250,8 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,298 compiler-matrix sources**, **364 special registrations**
-and **537 owned script paths**, with zero unowned test sources and zero
+report **2,298 compiler-matrix sources**, **365 special registrations**
+and **538 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
@@ -283,7 +283,7 @@ codegen recheck was not a full sweep.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v7.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v8.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
@@ -291,9 +291,13 @@ the actual target compiler and canonical libgcc, and invalidates
 legacy semantic PASS checkpoints from a different libc provider.
 Two real native PDP-6 compiler-library guest PASS and six genuine
 original-source missing-hosted-function link failures are verified.
-See `docs/PDP10-COMPILER-STDLIB-RUNTIME-20261120-v1.md`. Independently
-dispatched legacy guest scripts still need the same runtime-policy
-enforcement before a full suite execution.
+See `docs/PDP10-COMPILER-STDLIB-RUNTIME-20261120-v1.md`. The official
+registered special dispatcher now also isolates the compiler-owned
+stdlib for five compiler guest-test groups, with three selected real
+PDP-6 registered checks passing. See
+`docs/PDP10-COMPILER-STDLIB-SPECIAL-DISPATCH-20261120-v1.md`.
+Direct raw script invocations and host/tool-builder exceptions remain
+separate from this runtime-policy guarantee.
 Under the **previous generic/hosted-libc policy**, the GCC original
 `920501-8.c` duplicate-global `vsprintf` diagnostic
 is now traced to overlapping real formatter providers: selected

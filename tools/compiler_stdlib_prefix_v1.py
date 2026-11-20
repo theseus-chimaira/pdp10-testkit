@@ -110,3 +110,28 @@ def env_for_cell(outroot, prefix, compiler, base_env=None):
     env = dict(os.environ if base_env is None else base_env)
     env["PDP10_PREFIX"] = str(overlay.resolve())
     return env
+
+
+def prepare_shared(outroot, prefix):
+    """Provide a compiler-only prefix for mixed KCC/GCC special tests.
+
+    A special script can invoke both compilers. Only use one common
+    runtime when the installed archives have precisely identical bytes.
+    Link compiler include/runtime directories for legacy scripts, but
+    never inherit the installed generic lib/libc.a automatically.
+    """
+    source = Path(prefix).resolve()
+    if archive_sha256(source, "kcc") != archive_sha256(source, "gcc"):
+        raise ValueError("KCC/GCC stdlib archives differ; mixed runtime unsafe")
+    available = prepare(outroot, source, ("kcc", "gcc"))
+    shared = available["gcc"]
+    relatives = (
+        "lib/kcc", "lib/gcc-lib", "lib/gcc", "pdp10-dec-none",
+        "share", "include")
+    for name in relatives:
+        target = source / name
+        if target.is_dir():
+            require_link(shared / name, target)
+    if (shared / "lib/libc.a").resolve() != archive_path(source, "gcc"):
+        raise ValueError("mixed compiler stdlib does not own libc.a")
+    return shared

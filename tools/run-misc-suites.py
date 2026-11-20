@@ -10,12 +10,34 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from compiler_stdlib_prefix_v1 import prepare_shared, POLICY as STDLIB_POLICY
 
 ROOT = Path(__file__).resolve().parents[1]
 PREFIX = os.environ["PDP10_PREFIX"]
 TMP = os.environ.get("TMPDIR") or str(Path.home() / "tmp")
 Path(TMP).mkdir(parents=True, exist_ok=True)
 ENV = dict(os.environ, TMPDIR=TMP)
+
+# Registered compiler/ABI/guest checks must not pick up the installed
+# generic OS libc through p10run's automatic prefix/lib/libc.a lookup.
+# Tool-builder, DAS builder, and KCC-host groups stay on the real
+# installation prefix: they can install/build tools and are not normal
+# compiler standard-library oracles.
+COMPILER_GUEST_GROUPS = frozenset((
+    "verify", "compat", "validation", "kcc-regression",
+    "gcc-bare-libgcc"))
+SPECIAL_RUNTIME_DIR = Path(TMP) / ("p10tk-special-compiler-stdlib-v1-%d" % os.getpid())
+
+
+def compiler_guest_env(env):
+    """Use identical compiler-owned KCC/GCC stdlib in mixed guest scripts."""
+    shared = prepare_shared(SPECIAL_RUNTIME_DIR, PREFIX)
+    scoped = dict(env)
+    scoped["PDP10_PREFIX"] = str(shared)
+    scoped["PATH"] = str(shared / "bin") + os.pathsep + env.get("PATH", "")
+    scoped["KCC_LIBDIR"] = str(shared / "lib/kcc")
+    scoped["P10TK_RUNTIME_POLICY"] = STDLIB_POLICY
+    return scoped
 
 def registered_rows():
     with (ROOT / "SPECIAL_TESTS.tsv").open(encoding="utf-8") as source:
@@ -58,7 +80,7 @@ def run_selected(test_id, allow_manual=False):
         raise SystemExit("invalid registered test timeout: " + test_id)
     if timeout <= 0:
         raise SystemExit("nonpositive registered test timeout: " + test_id)
-    env = ENV
+    env = compiler_guest_env(ENV) if row["group"] in COMPILER_GUEST_GROUPS else ENV
     if row["group"] == "kcc-host":
         kcc = Path(os.environ.get("KCC_REPO", "../kcc")).resolve()
         if not (kcc / "cc.c").is_file():
@@ -84,6 +106,8 @@ def run_selected(test_id, allow_manual=False):
 def run_special(group, env=ENV, profiles=None):
     failures = []
     executed = 0
+    if group in COMPILER_GUEST_GROUPS:
+        env = compiler_guest_env(env)
     for row in registered_rows():
         if (row["group"] != group or row["enabled"] != "yes" or
                 (profiles is not None and row["profile"] not in profiles)):
