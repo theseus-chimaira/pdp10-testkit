@@ -139,6 +139,22 @@ compiler sweep.
   controls are checked by `tools/test-p1-return-oracles-v1.py`.
   Original hosted tests remain blocked. See
   `docs/PDP10-P1-RETURN-ORACLES-20261120-v1.md`.
+  The live v9 P1 ledger has now been reconciled with expanded native
+  compiler matrix scheduling: all 28 unresolved C obligations already
+  had PDP-6 KCC/GCC entries; 162 more native profile columns were
+  activated for 24 original sources (192 additional runnable cells).
+  The total is 297 scheduled native compiler/profile cells, **not**
+  297 passes. Six portable ABI/compiler sources have KA10/KI10/KS10
+  KCC+GCC native pending cells; four KCC hosted originals have
+  additional KA10/KI10/KS10 KCC pending cells; fourteen other sources
+  have additional PDP-6 GCC optimization cells. Three resource-gated
+  originals retain their current profiles. The native byte-pointer
+  replacement remains singly owned; the KL10 assembly fixture stays
+  outside the C matrix. Three narrow smoke cells (KA10 GCC O2 prefetch
+  PASS, KA10 KCC noopt variadic PASS, PDP-6 GCC O2 stdio-opt-2 real
+  putchar link failure) are checksum-pinned. The audit has 16
+  negative controls. See
+  `docs/PDP10-P1-MATRIX-ADMISSION-20261120-v1.md`.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;

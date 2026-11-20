@@ -1,0 +1,4 @@
+source	source_sha256	profile	status	archive_member	evidence_sha256
+tests/semantic/upstream/extensions/builtin-prefetch-6.c	f3cb37e36779fb215941ab274dde2cef6b7fb88141538d01bd63e740184f3841	gcc-ka10-o2	pass	native/gcc-ka10-o2.report.txt	e093f2aabf11d7e6bc91e753f76beb431e08a3a4199ff3ff8fa374cc16363c71
+tests/todo/generic/920726-1.c	9e0cb6877e06fd241012cf216d8ad071d3061c7257f7ca17aea27d13f970e795	kcc-ka10-noopt	pass	native/kcc-ka10-noopt.report.txt	0f0a8d3b243c4c8d6fe08840d9972f96cdc65613c66fade2c4ca8e4f8d42fa34
+tests/semantic/upstream/extensions/stdio-opt-2.c	edeac8b6df3c92f04ab9ea666bc39ae6cf48ada5f96e30f93ebe58e072848d0b	gcc-pdp6-o2	link_fail	native/gcc-pdp6-o2.cell.log	e80c16816ebdd2f315100576f20f5c0641fc3eb25a3289e98f53d7cd6cd9a288

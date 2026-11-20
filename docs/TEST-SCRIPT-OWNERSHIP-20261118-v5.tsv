@@ -154,3 +154,4 @@ tools/audit-p1-batch5-contract-v1.py	module-helper	tools/test-p1-batch5-contract
 tools/audit-p1-batch6-contract-v1.py	module-helper	tools/test-p1-batch6-contract-v1.py	SHA-pinned Batch 6 nine original sources and eighteen-cell compiler/linker/simulator prerequisite evidence validator
 tools/p1_source_replacement_v1.py	module-helper	tools/test-p1-native-byteptr-replacement-v1.py	Exact one-source retired import migration to native PDP-10 pointer test
 tools/audit-p1-return-oracles-v1.py	module-helper	tools/test-p1-return-oracles-v1.py	Two source-pinned return-value ABI oracles and twelve archived PDP-6 guest outcomes
+tools/audit-p1-matrix-admission-v1.py	module-helper	tools/test-p1-matrix-admission-v1.py	Source-pinned native P1 matrix scheduling, 29 unresolved obligations and three archived compiler smoke outcomes
