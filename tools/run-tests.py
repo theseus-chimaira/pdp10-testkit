@@ -86,7 +86,9 @@ XMOVEI XMOVEM XJRST XJEN XPCW XHLLI XHLLM XHLL XHLR XHRL XHRR
 DIRECTIVE_RE = re.compile(
     r'^\s*(?:/\*\s*|\*\s+)(codegen-[a-z-]+)\s*:\s*(.*?)\s*(?:\*/)?\s*$')
 LABEL_RE = re.compile(r'^\s*(?:[A-Za-z_.$%][A-Za-z0-9_.$%]*:\s*)?([A-Za-z][A-Za-z0-9_.]*)\b')
-KCC_RUNTIME_SYMBOLS = ('$ADJBP', '$KDFAD', '$KDFSB', '$KDFMP', '$KDFDV', '$ZERO')
+KCC_RUNTIME_SYMBOLS = ('$ADJBP', '$KDFAD', '$KDFSB', '$KDFMP', '$KDFDV', '$ZERO',
+                       '__kcc_divdi3', '__kcc_moddi3', '__kcc_udivdi3',
+                       '__kcc_umoddi3')
 KCC_RUNTIME_MACHINE_STEMS = {
     '$ADJBP': 'adjbp',
     '$KDFAD': 'kdfad',
@@ -96,6 +98,10 @@ KCC_RUNTIME_MACHINE_STEMS = {
 }
 KCC_RUNTIME_COMMON_FILES = {
     '$ZERO': 'kccrt-zero.s',
+    '__kcc_divdi3': 'kccrt-dimode-div.s',
+    '__kcc_moddi3': 'kccrt-dimode-div.s',
+    '__kcc_udivdi3': 'kccrt-dimode-div.s',
+    '__kcc_umoddi3': 'kccrt-dimode-div.s',
 }
 KCC_RUNTIME_MACHINE_PREFIX = {
     'pdp6': 'pdp6rt',

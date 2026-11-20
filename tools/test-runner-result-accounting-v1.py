@@ -175,6 +175,22 @@ def test_reserved_compiler_exits(runner, outroot):
             'linker failures must not be skipped as unknown status')
 
 
+def test_kcc_dimode_helper_ownership(runner):
+    """Four compiler helper entrypoints share one real installed source."""
+    symbols = ('__kcc_divdi3', '__kcc_moddi3',
+               '__kcc_udivdi3', '__kcc_umoddi3')
+    for symbol in symbols:
+        require(symbol in runner.KCC_RUNTIME_SYMBOLS,
+                'missing KCC DImode runtime helper ownership: ' + symbol)
+        require(runner.kcc_runtime_fragment_name('pdp6', symbol) ==
+                'kccrt-dimode-div.s', 'wrong DImode member: ' + symbol)
+    files, error = runner.kcc_runtime_fragments('pdp6', symbols)
+    require(error is None and len(files) == 1,
+            'installed DImode runtime helper unavailable or duplicated')
+    require(all(runner.runtime_defines_symbol(runner.read_text(files[0]), sym)
+                for sym in symbols), 'installed DImode entrypoint absent')
+
+
 def test_real_negative_policy_path(runner, outroot):
     """Use the actual negative runner, faking only the compiler invocation."""
     source = 'tests/negative/upstream-gcc/gcc-dg-noncompile/20010425-1.c'
@@ -223,9 +239,10 @@ def main():
         test_restart_and_summary(runner, outroot)
         test_worker_failure(runner, outroot)
         test_reserved_compiler_exits(runner, outroot)
+        test_kcc_dimode_helper_ownership(runner)
         test_real_negative_policy_path(runner, outroot)
     print('Runner result accounting: PASS (restart, failures, workers, '
-          'reserved compiler exit codes)')
+          'reserved compiler exit codes, KCC DImode helper ownership)')
 
 
 if __name__ == '__main__':

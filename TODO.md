@@ -1206,6 +1206,11 @@ The next eight batches are documented in
   assertions (`run_fail`), with synthetic regression checks; see
   `docs/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.md`. Source-specific
   runtime integration and real ABI validation remain open.
+  A focused 2026-11-20 probe fixed the semantic runner's missing KCC
+  DImode division/remainder helper ownership; the original 920501-2.c
+  now passes KCC PDP-6 noopt. GCC still fails its guest oracle. Both
+  compilers still fail packed-structure 20010518-2.c; memcpy-bi passes.
+  See docs/PDP10-P1-TARGETED-LIBC-PROBE-20261120-v1.md.
   A bounded SHA-verified 1-10-source planner is available for the 53
   historical prerequisite identities; duplicate canonical sources are
   selected once. It is a host-only selection tool, not a runtime retest.
