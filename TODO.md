@@ -1,12 +1,12 @@
 # PDP-10 testkit — outstanding work
 
 Current ownership and registration baseline (2026-11-20, after eleven
-source-pinned original/deferred integrations): **2,306 compiler matrix
-sources**, **390 special entries**, and **563 owned script paths**.
+source-pinned original/deferred integrations): **2,311 compiler matrix
+sources**, **392 special entries**, and **565 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v17.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v18.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 55 covered, zero partial, **12
@@ -528,6 +528,30 @@ compiler sweep.
   narrowly scoped verified exception retains all six historical
   admission manifests and their 16 negative controls; no new source
   or unapproved CPU/profile registration is accepted.
+- [x] Repair the native PDP-6 compiler/runtime 36-bit conversion
+  subtask without weakening the unchanged historical `conversion.c`.
+  KCC and GCC now PASS five C89 signed/unsigned FP conversion
+  suites in all six profiles, including signed `-2^35`, unsigned
+  `2^36-1`, exact unsigned SI-to-DF, and nearest/ties-to-even.
+  Six genuine old signed-conversion failures and twelve remaining
+  original/line-map failures stay pinned alongside 30 new guest
+  PASS, 230 SHA256-pinned raw outputs and 13 negative controls.
+  New KCC `libp10fp36-pdp6-v1.a` has independent matched KCC/GCC
+  installs while `libp10c-v2.a` remains byte-identical. The GCC
+  backend and libgcc1 are corrected; no foreign hosted libc was
+  used. **Original conversion.c stays blocked** (KCC original
+  lines 58/266; GCC missing real 71-bit `__fixunssfdi`). P1
+  remains **55 covered / 12 blocked** and the full sweep remains
+  prohibited. See
+  `docs/PDP10-P1-CONVERSION-36BIT-REPAIR-20261120-v1.md`.
+
+- [ ] Complete the historical `conversion.c` source: KCC noopt
+  original line 266 signed D-format minimum conversion, KCC opt
+  line 58 `fnear` upper unsigned-SF comparison, and GCC genuine
+  GNU 71-bit `__fixunssfdi` and later 71-bit helpers. Preserve
+  the unchanged historical assertions and keep current source
+  classification blocked until faithful execution/coverage.
+
 - [ ] Investigate verified missing callable symbols `__builtin_abort`,
   `__fixunssfsi`, `_eexit`, `__builtin_printf`,
   and `putchar`, plus real hosted `stdout` and `stderr` objects.
@@ -547,7 +571,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v17.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v18.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 

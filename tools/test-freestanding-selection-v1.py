@@ -31,6 +31,25 @@ def main():
            ("p10bcmp_v2",))
     expect("pushj 17,__kcc_floatdidf\n", "pdp6",
            ["kcc-libc-dimode-float-pdp6-v1.s"], ("__kcc_floatdidf",))
+    expect("pushj 17,__kcc_floatunssisf\n", "pdp6",
+           ["kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_floatunssisf",))
+    expect("pushj 17,__kcc_floatunsidf\n", "pdp6",
+           ["kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_floatunsidf",))
+    expect("pushj 17,__kcc_floatunsidf\n", "ka10", [], ())
+    expect("pushj 17,__kcc_fixunssfsi\n", "pdp6",
+           ["kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_fixunssfsi",))
+    expect("pushj 17,__kcc_fixunsdfsi\n", "pdp6",
+           ["kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_fixunsdfsi",))
+    expect("pushj 17,__kcc_floatsisf\n", "pdp6",
+           ["kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_floatsisf",))
+    expect("pushj 17,__kcc_fixsfsi\n", "pdp6",
+           ["kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_fixsfsi",))
     expect("pushj 17,__kcc_floatdidf\n", "ka10", [], ())
     expect("pushj 17,malloc\n", "pdp6", [], ())
     expect("pushj 17,sprintf\n", "pdp6",
@@ -51,7 +70,7 @@ def main():
     # Console functions require a real DAIMOS WRITECHAR veneer; never
     # load an OS-specific sink into the bare-metal compiler matrix.
     expect("pushj 17,printf\n", "pdp6", [], (), "gcc")
-    print("PASS: freestanding member selection (20 host-only controls)")
+    print("PASS: freestanding member selection (27 host-only controls)")
 
 
 if __name__ == "__main__":

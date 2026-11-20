@@ -33,6 +33,7 @@ def audit(prefix):
     # Real C-locale classification is packaged separately from the
     # SHA-frozen core compiler C archive, and must match for both ABIs.
     ctype_archives = [d / "libp10ctype-c-locale-v1.a" for d in (kcc, gcc)]
+    float_archives = [d / "libp10fp36-pdp6-v1.a" for d in (kcc, gcc)]
     for archive in archives:
         if not archive.is_file():
             problems.append("missing installed archive: " + str(archive))
@@ -48,6 +49,13 @@ def audit(prefix):
         if (hashlib.sha256(ctype_archives[0].read_bytes()).digest() !=
                 hashlib.sha256(ctype_archives[1].read_bytes()).digest()):
             problems.append("installed KCC/GCC C-locale archives differ")
+    for archive in float_archives:
+        if not archive.is_file() or archive.is_symlink():
+            problems.append("missing or linked compiler unsigned-FP archive: " + str(archive))
+    if all(p.is_file() and not p.is_symlink() for p in float_archives):
+        if (hashlib.sha256(float_archives[0].read_bytes()).digest() !=
+                hashlib.sha256(float_archives[1].read_bytes()).digest()):
+            problems.append("installed KCC/GCC unsigned-FP archives differ")
 
     members = sorted(set(MEMBERS.values()))
     actual = {}
@@ -107,7 +115,7 @@ def audit(prefix):
             print("ERROR: " + problem, file=sys.stderr)
         return 1
     print("PASS: installed freestanding selector: %d exports, %d members, "
-          "KCC/GCC core and C-locale archive parity" %
+          "KCC/GCC core, C-locale and unsigned-FP archive parity" %
           (len(all_exports), len(members)))
     return 0
 

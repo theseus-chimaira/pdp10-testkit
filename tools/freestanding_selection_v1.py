@@ -13,6 +13,9 @@ STRING_SYMBOLS = ("strcpy", "strncpy", "strcat", "strncat", "strchr",
 SEARCH_SYMBOLS = ("strstr", "strpbrk", "strspn")
 BYTE_SYMBOLS = ("p10bcopy_v2", "p10bfill_v2", "p10bcmp_v2")
 DFLOAT_SYMBOLS = ("__kcc_floatdidf", "__kcc_fixdfdi")
+UFLOAT_SYMBOLS = ("__kcc_floatunssisf", "__kcc_floatunsidf",
+                  "__kcc_fixunssfsi", "__kcc_fixunsdfsi",
+                  "__kcc_floatsisf", "__kcc_fixsfsi")
 GCC_STDIO_SYMBOLS = ("sprintf", "vsprintf", "snprintf", "vsnprintf")
 CTYPE_C_LOCALE_SYMBOLS = ("isprint", "isspace")
 
@@ -32,6 +35,8 @@ MEMBERS = {
     **{symbol: "p10bytes-v2.s" for symbol in BYTE_SYMBOLS},
     **{symbol: "kcc-libc-dimode-float-pdp6-v1.s"
        for symbol in DFLOAT_SYMBOLS},
+    **{symbol: "kcc-libc-fp36-pdp6-v1.s"
+       for symbol in UFLOAT_SYMBOLS},
 }
 
 # Explicit cross-member dependencies, including tail calls.
@@ -69,7 +74,7 @@ def select_freestanding(asm_text, machine, compiler=None):
         member = members.get(symbol)
         if member is None or symbol in defined:
             continue
-        if symbol in DFLOAT_SYMBOLS and machine != "pdp6":
+        if symbol in DFLOAT_SYMBOLS + UFLOAT_SYMBOLS and machine != "pdp6":
             continue
         owned.add(symbol)
         if member not in selected:
