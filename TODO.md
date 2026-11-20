@@ -1206,6 +1206,9 @@ The next eight batches are documented in
   assertions (`run_fail`), with synthetic regression checks; see
   `docs/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.md`. Source-specific
   runtime integration and real ABI validation remain open.
+  A bounded SHA-verified 1-10-source planner is available for the 53
+  historical prerequisite identities; duplicate canonical sources are
+  selected once. It is a host-only selection tool, not a runtime retest.
 
 ## P1 — immediately after semantic classifications: libc ASM optimization verification
 

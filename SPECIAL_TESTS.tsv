@@ -298,3 +298,5 @@ p1-matrix-admissions-v1	verify	python3	tools/test-p1-matrix-admissions-v1.py	hos
 freestanding-selection-v1	verify	python3	tools/test-freestanding-selection-v1.py	host	yes	120
 installed-freestanding-selector-audit-v1	verify	python3	tools/test-installed-freestanding-audit-v1.py	host	yes	120
 p1-runtime-prerequisites-v1	verify	python3	tools/test-p1-runtime-prerequisites-v1.py	host	yes	120
+p1-prerequisite-probe-plan-v1	verify	python3	tools/test-p1-prerequisite-probe-plan-v1.py	host	yes	120
+p1-prerequisite-probe-planner-v1	validation	python3	tools/plan-p1-prerequisite-probes-v1.py	host	manual	120

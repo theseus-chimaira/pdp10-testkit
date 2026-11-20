@@ -45,6 +45,23 @@ Still open: individual runtime/link/varargs ABI diagnoses, source-specific
 oracle policies, installed header contracts, and missing hosted-service
 policy. The full matrix sweep remains deferred.
 
+## Bounded probe selection
+
+`tools/plan-p1-prerequisite-probes-v1.py` produces a read-only plan
+from the frozen 53-row ledger. Example:
+
+```
+python3 tools/plan-p1-prerequisite-probes-v1.py --policy freestanding-or-source-review --limit 3
+```
+
+It verifies the SHA256 of every canonical source before selecting any
+row, limits each request to 1-10 sources, and selects each canonical
+source only once when several historical identities alias it. Conflicting
+alias policies or hashes fail closed. The output contains historical
+per-compiler outcomes, not new results. It neither executes tests nor
+changes the source registry. A registered host-only test covers six
+negative controls.
+
 ## Host launcher versus guest outcome
 
 The semantic runner now treats p10run's reserved launcher exits 125-127
