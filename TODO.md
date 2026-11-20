@@ -1,22 +1,24 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-20, after five
-source-pinned original/deferred integrations): **2,297 compiler matrix
-sources**, **357 special entries**, and **525 owned script paths**.
+Current ownership and registration baseline (2026-11-20, after six
+source-pinned original/deferred integrations): **2,298 compiler matrix
+sources**, **360 special entries**, and **529 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v3.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v4.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
-**Live P1 construction ledger:** 48 covered, zero partial, **19
+**Live P1 construction ledger:** 49 covered, zero partial, **18
 blocked** across 67 historical deferred identities; frozen batches
-40 covered, 19 blocked. Recent original-source/companion integrations
+41 covered, 18 blocked. Recent original-source/companion integrations
 are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
 `run_fail` at the real sprintf `%f` contract), and `960521-1.c`
 (six bounded shifted-array guest PASS; original remains a real malloc
-timeout). See v19 P1 and five focused 2026-11-20 closure reports.
+timeout), and `990628-1.c` (six real `memset`/record-copy PASS,
+original allocator-dependent timeouts retained). See v20 P1 and six
+focused 2026-11-20 closure reports.
 The noreturn
 `__builtin_abort` and duplicate-global `vsprintf` linker failures
 remain open; no full sweep has run.
@@ -327,6 +329,14 @@ compiler sweep.
   `*b++`, `b[-1]`, both guards and every stored word. Eight guest
   outcomes, 24 source-pinned archive artifacts and ten host negative
   controls pass. No malloc implementation or full-memory PASS is claimed.
+- [x] Construct the `990628-1.c` real memset/aggregate-copy oracle:
+  six installed KCC/GCC PDP-6 profiles PASS a true 101-word record,
+  repeated 9-bit `0x55` byte pattern, `*p++` struct assignment,
+  SQL fetch/termination loop, every output field and canaries.
+  Unchanged original still times out under KCC noopt and GCC O0 with
+  real `malloc` and `memset` symbols present; no fake heap or hosted
+  allocator success is claimed. Eight guest reports, 24 SHA-pinned
+  artifacts and ten negative controls verify the distinction.
 - [x] Repair pre-existing manual-dispatch contract drift: the live
   registry has 21 individually gated roots rather than the historical
   18; pin all 21 exact IDs/groups/paths in the versioned manual-root
@@ -345,7 +355,7 @@ compiler sweep.
   `980707-1.c` duplicate-global `exit` and `920501-8.c` duplicate-global
   `vsprintf` linker defects high priority, separately from the tested
   default-precision `sprintf` `%f` runtime failure. See
-  `docs/PDP10-PRESWEEP-STATE-20261120-v3.md`.
+  `docs/PDP10-PRESWEEP-STATE-20261120-v4.md`.
 
 ## P1 deferred semantic-source closure (2026-11-19 baseline)
 
@@ -355,7 +365,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the live v19 ledger has **48 covered, 0 partial, 19 blocked**.
+the live v20 ledger has **49 covered, 0 partial, 18 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
@@ -417,8 +427,8 @@ architecture-correctness testing into a P1 source batch.
   oracle construction and acceptance remain open; a historical
   blocker is not closed by classifying its failure.
 
-Current **actionable P1 oracle backlog: 19** (zero partial, nineteen blocked).
-The 18 unresolved C-source intents are represented by their original
+Current **actionable P1 oracle backlog: 18** (zero partial, eighteen blocked).
+The 17 unresolved C-source intents are represented by their original
 matrix source or an explicitly registered native replacement;
 registration does not resolve missing oracles or establish runtime PASS.
 The separate KL10 assembly port is an assembly-only DAS regression.
@@ -436,11 +446,11 @@ for provenance; it must never shrink or be renumbered.
 - [x] Keep **6 partially covered intents** actionable, preserving
   each specific missing operation or simulator diagnosis; distinguish
   5 recorded companion assertion failures from one actual SIMH timeout.
-- [ ] Complete the remaining **19 live blocked intents** (16 hosted
+- [ ] Complete the remaining **18 live blocked intents** (15 hosted
   runtime, two libc linkage and one KL10 ISA/assembler source). The
-  v19 source-specific ledger is authoritative; historical baseline
+  v20 source-specific ledger is authoritative; historical baseline
   breakdowns are not additional independent work. Do not label
-  these 19 intents as 19 proved compiler defects.
+  these 18 intents as 18 proved compiler defects.
 - [ ] Finish the six partial exact-original oracles; the four
   partially covered GNU-prefetch original forms and union overlay are not
   inferred from successful companions. Resolve the nested-closure
@@ -2221,11 +2231,11 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: **2,297 unique source rows**. The 28 late
+- `COMPILER_MATRIX.tsv`: **2,298 unique source rows**. The 28 late
   original-source admissions remain test registrations, not compiler PASS.
-- `SPECIAL_TESTS.tsv`: **357 entries**; dispatch is statically verified, not comprehensively
+- `SPECIAL_TESTS.tsv`: **360 entries**; dispatch is statically verified, not comprehensively
   executed.
-- Script inventory: **525 owned shell/Python scripts**, including direct,
+- Script inventory: **529 owned shell/Python scripts**, including direct,
   delegated, module, entrypoint and manual-tool roles. Both inventory and
   script-ownership auditors PASS. These checks provide no guest-runtime
   evidence; the previous 21-test host checkpoint remains documented at
