@@ -148,3 +148,4 @@ tools/freestanding_selection_v1.py	module-helper	tools/run-tests.py	Shared frees
 tools/audit-installed-freestanding-v1.py	module-helper	tools/test-installed-freestanding-audit-v1.py	Installed freestanding archive source and dependency validator
 tools/audit-p1-runtime-prerequisites-v1.py	module-helper	tools/test-p1-runtime-prerequisites-v1.py	Frozen P1 hosted runtime and varargs prerequisite manifest validator
 tools/audit-p1-batch4-libc-contract-v1.py	module-helper	tools/test-p1-batch4-libc-contract-v1.py	SHA-pinned installed libc export and four-cell P1 Batch 4 prerequisite validator
+tools/audit-p1-batch4-variadic-contract-v1.py	module-helper	tools/test-p1-batch4-variadic-contract-v1.py	SHA-pinned Batch 4 variadic source, target stdio header and six-cell simulator evidence validator

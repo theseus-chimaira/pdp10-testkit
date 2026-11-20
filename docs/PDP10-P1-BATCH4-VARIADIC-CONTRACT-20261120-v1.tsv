@@ -1,0 +1,7 @@
+source	source_sha256	compiler	profile	status	diagnosis
+tests/todo/generic/20020412-1.c	e3ba27c686930bd2109700edb3c66a7d8b0d643f08be3cb89ae809aac6985c82	kcc	kcc-pdp6-noopt	compile_fail	vla-source-rejection
+tests/todo/generic/20020412-1.c	e3ba27c686930bd2109700edb3c66a7d8b0d643f08be3cb89ae809aac6985c82	gcc	gcc-pdp6-o0	run_fail	variadic-aggregate-guest-assertion
+tests/todo/generic/920501-8.c	21884df76c9d24d4d4808d78de8e8a4e7909fffd1ee26a72f96f4be00a22b56a	kcc	kcc-pdp6-noopt	timeout	simh-wall-timeout
+tests/todo/generic/920501-8.c	21884df76c9d24d4d4808d78de8e8a4e7909fffd1ee26a72f96f4be00a22b56a	gcc	gcc-pdp6-o0	compile_fail	missing-gcc-stdio-header
+tests/todo/generic/920726-1.c	9e0cb6877e06fd241012cf216d8ad071d3061c7257f7ca17aea27d13f970e795	kcc	kcc-pdp6-noopt	pass	guest-formatting-assertion-pass
+tests/todo/generic/920726-1.c	9e0cb6877e06fd241012cf216d8ad071d3061c7257f7ca17aea27d13f970e795	gcc	gcc-pdp6-o0	compile_fail	missing-gcc-stdio-header

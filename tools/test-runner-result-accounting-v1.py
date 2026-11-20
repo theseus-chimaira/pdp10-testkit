@@ -189,6 +189,32 @@ def test_reserved_compiler_exits(runner, outroot):
     require(not runner.p10run_step_limit_exhausted(report) and
             runner.p10run_failure_status(1, '', False) == 'run_fail',
             'guest abort falsely classified as step exhaustion')
+    report.write_text(
+        '========== p10run report ==========\n'
+        'machine=pdp6\nrc=124\nresult=FAIL\n'
+        '========== simh output ==========\nPC: 001000\n',
+        encoding='ascii')
+    require(runner.p10run_simulator_wall_timeout(report),
+            'SIMH rc=124 report not classified as timeout')
+    require(runner.p10run_failure_status(
+                1, 'FAIL: SIMH exited with status 124\n',
+                runner.p10run_simulator_wall_timeout(report)) == 'timeout',
+            'p10run exit 1 with SIMH wall timeout mistaken for guest failure')
+    report.write_text(
+        '========== p10run report ==========\n'
+        'machine=pdp6\nrc=124\nresult=PASS\n'
+        '========== simh output ==========\n',
+        encoding='ascii')
+    require(not runner.p10run_simulator_wall_timeout(report),
+            'invalid PASS report with rc=124 accepted as SIMH timeout')
+    report.write_text(
+        '========== p10run report ==========\n'
+        'machine=pdp6\nrc=0\nresult=FAIL\n'
+        '========== simh output ==========\n'
+        'HALT instruction, PC: 000000\n',
+        encoding='ascii')
+    require(not runner.p10run_simulator_wall_timeout(report),
+            'completed guest abort classified as SIMH timeout')
 
 
 def test_kcc_dimode_helper_ownership(runner):

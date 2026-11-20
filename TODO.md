@@ -65,6 +65,15 @@ compiler sweep.
   four exact source/profile outcomes, with six negative controls.
   Both sources remain blocked. See
   `docs/PDP10-P1-BATCH4-LIBC-CONTRACT-20261120-v1.md`.
+  Batch 4 variadic originals now have a six-cell installed PDP-6
+  contract: GCC `20020412-1.c` executes and aborts (KCC rejects
+  variable-sized struct constructs); KCC `920501-8.c` times out in
+  SIMH, not a guest assertion failure; GCC's formatting sources
+  cannot find the target `stdio.h`. KCC `920726-1.c` genuinely links
+  and passes its two formatted-string assertions, but does not assert
+  the ignored structure return. All three P1 originals remain blocked.
+  The report-aware SIMH `rc=124` classification is fixed and tested.
+  See `docs/PDP10-P1-BATCH4-VARIADIC-CONTRACT-20261120-v1.md`.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;

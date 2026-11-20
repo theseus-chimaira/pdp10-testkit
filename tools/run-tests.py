@@ -1062,6 +1062,29 @@ def p10run_step_limit_exhausted(report_path):
         return False
 
 
+def p10run_simulator_wall_timeout(report_path):
+    """Recognize SIMH timeout from p10run's own report status, not exit 1.
+
+    p10run itself returns 1 for an unmet expectation, but also returns 1
+    when SIMH times out with rc=124. The simulator never reaches the
+    guest exit/readback in the latter case. Require the report's own
+    explicit rc=124 and failed result, not just the word 'timeout' in a
+    transient log or an old report.
+    """
+    try:
+        with open(report_path, 'r', errors='replace') as stream:
+            header = []
+            for line in stream:
+                if line.startswith('========== simh output'):
+                    break
+                header.append(line.strip())
+                if len(header) > 32:
+                    break
+        return 'rc=124' in header and 'result=FAIL' in header
+    except OSError:
+        return False
+
+
 def p10run_failure_status(returncode, output, step_limit_exhausted=False):
     """Distinguish an unresolved/failed target link from a guest failure.
 
@@ -1212,7 +1235,8 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                              done_report_path=report_path)
                 report = str(report_path if report_path.is_file() else log_path)
                 step_exhausted = (rc != 0 and report_path.is_file() and
-                                  p10run_step_limit_exhausted(report_path))
+                                  (p10run_step_limit_exhausted(report_path)
+                                   or p10run_simulator_wall_timeout(report_path)))
                 status = p10run_failure_status(
                     rc, read_text(log_path), step_exhausted)
                 if status == 'pass' and perf_profile:
