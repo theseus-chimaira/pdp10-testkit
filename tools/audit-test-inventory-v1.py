@@ -61,6 +61,8 @@ SUPPORT_SOURCE_OWNERS = {
         "tools/benchmark-freestanding-search-v1.py",
     "tests/semantic/validation-gcc/gcc-addressof-pdp6-ice-v1.c":
         "misc/validation/test-gcc-addressof-pdp6-ice-v1.sh",
+    "tests/semantic/validation-gcc/gcc-packed-block-bytepointer-v1.c":
+        "misc/validation/test-gcc-packed-block-bytepointer-v1.sh",
     "tests/semantic/freestanding-search-v1.c":
         "misc/compat/test-freestanding-search-v1.sh",
     "tests/semantic/freestanding-search-reference-v1.c":
