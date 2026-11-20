@@ -230,6 +230,13 @@ compiler sweep.
   See docs/PDP10-P1-960327-ORIGINAL-CLOSURE-20261120-v1.md.
   991112-1.c remains blocked until a real linked isprint
   implementation is tested, not a dummy test-only substitute.
+  Decision for 1.0: defer the complete <ctype.h> implementation
+  and 991112-1.c closure to post-1.0, when the PDP-10 character
+  library can have a defined UTF-9 strategy. Do not substitute an
+  ASCII-only ctype implementation or claim Unicode support without
+  defining UTF-9 decoding, locale behavior and 9-bit code-unit
+  semantics. Keep the existing source in the normal matrix,
+  recorded as blocked; continue other P1 testkit obligations.
   GCC stdio.h now declares real sprintf, vsprintf, snprintf and
   vsnprintf backed by libp10stdio-v1.a with genuine GCC stdarg.
   The registered compatibility suite verifies production archive
