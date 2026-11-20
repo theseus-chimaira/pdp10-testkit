@@ -1,17 +1,17 @@
 # PDP-10 testkit — outstanding work
 
 Current ownership and registration baseline (2026-11-20, after eleven
-source-pinned original/deferred integrations): **2,305 compiler matrix
-sources**, **387 special entries**, and **560 owned script paths**.
+source-pinned original/deferred integrations): **2,306 compiler matrix
+sources**, **390 special entries**, and **563 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v16.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v17.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
-**Live P1 construction ledger:** 54 covered, zero partial, **13
+**Live P1 construction ledger:** 55 covered, zero partial, **12
 blocked** across 67 historical deferred identities; frozen batches
-46 covered, 13 blocked. Recent original-source/companion integrations
+47 covered, 12 blocked. Recent original-source/companion integrations
 are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
 `run_fail` at the real sprintf `%f` contract), and `960521-1.c`
@@ -130,8 +130,9 @@ remain historical. See
   Optimized GCC emitted only one `DPB` for the literal `" a b"`,
   confirming a compiler code-generation regression. All 14 outcomes,
   65 SHA256-pinned raw outputs and 11 fail-closed mutation controls
-  are preserved. Original hosted ctype and the GCC defect remain
-  unresolved. See
+  are preserved. Original hosted ctype and the GCC defect were
+  unresolved at that historical checkpoint; both have since been
+  fixed for the verified PDP-6/C-locale scope. See
   `docs/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md`.
 
 - [x] Construct upstream `va-arg-21.c` freestanding compiler
@@ -169,8 +170,27 @@ remain historical. See
   PASSes all four, plus four `strcpy` and four original token-scanner
   PDP-6 replays. All 18 native results (including two KCC failures),
   90 raw artifacts and eleven negative controls are pinned.
-  Original `ctype.h`/`isspace` remains unavailable. See
+  Original `ctype.h`/`isspace` was unavailable in that historical run;
+  the genuine C-locale provider now allows the unchanged original to
+  PASS. See
   `docs/PDP10-GCC-STRING9-FOLD-REPAIR-20261120-v1.md`.
+
+- [x] Close the P1 `991112-1.c` genuine ctype requirement (Batch 4,
+  slot 3) without replacing the original source, its indirect
+  function-pointer call or either abort assertion. The real
+  freestanding C-locale `isprint` and `isspace` source is owned by
+  KCC commit `5264ccc`; GCC commit `4fb9555` provides the installed
+  target header. The identical small ctype archive is installed
+  independently of the untouched core `libp10c-v2.a`. All six
+  original PDP-6 compiler profiles PASS; a separate exhaustive
+  512-value 9-bit/EOF classification oracle also has six PASS, as
+  does the unchanged original `980707-1.c` using real `isspace`.
+  The two genuine pre-provider `isprint` link failures remain pinned.
+  The 20 actual source/profile results, 102 raw artifacts and 11
+  negative controls validate the closure. No UTF-9 or full compiler
+  sweep is claimed. P1 now has **55 covered / 12 blocked**, with
+  frozen batches **47 covered / 12 blocked**. See
+  `docs/PDP10-P1-991112-C-LOCALE-CLOSURE-20261120-v1.md`.
 
 - [ ] Investigate KCC native PDP-6 9-bit string escape truncation:
   both noopt/opt FAIL the new constant-string compiler test at
@@ -509,22 +529,25 @@ compiler sweep.
   admission manifests and their 16 negative controls; no new source
   or unapproved CPU/profile registration is accepted.
 - [ ] Investigate verified missing callable symbols `__builtin_abort`,
-  `__fixunssfsi`, `isprint`, `isspace`, `_eexit`, `__builtin_printf`,
+  `__fixunssfsi`, `_eexit`, `__builtin_printf`,
   and `putchar`, plus real hosted `stdout` and `stderr` objects.
   Distinguish absent functions from present-but-unverified `sprintf`,
   `malloc`, and other hosted services. Keep the separate
-  `980707-1.c` duplicate-global `exit` is now explained by hosted libc
+  The historical `980707-1.c` duplicate-global `exit` was explained by hosted libc
   pulling its own `exit`/`abort` to supply `isspace`, conflicting with
-  the test CRT's termination helpers. The original remains link-fail:
+  the test CRT's termination helpers. In that old provider attempt the original link-failed:
   removing the helpers is not an execution-valid fix. Its five actual
-  link comparisons and six negative controls are source-pinned.
+  link comparisons and six negative controls are source-pinned. The
+  newer real compiler-owned C-locale archive avoids the double
+  provider; the unchanged `980707-1.c` now PASSes all six native
+  PDP-6 profiles, as does `991112-1.c` with real `isprint`.
   The GCC `920501-8.c` duplicate-global `vsprintf`
   has a *diagnosed provider conflict* between selected GCC
   `p10stdio-format-v2.s` and the default hosted libc archive, not a
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v16.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v17.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
@@ -536,7 +559,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the current v27 ledger has **54 covered, 0 partial, 13 blocked**.
+the current v28 ledger has **55 covered, 0 partial, 12 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 

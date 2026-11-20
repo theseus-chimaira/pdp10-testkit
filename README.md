@@ -250,17 +250,17 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,305 compiler-matrix sources**, **387 special registrations**
-and **560 owned script paths**, with zero unowned test sources and zero
+report **2,306 compiler-matrix sources**, **390 special registrations**
+and **563 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
 historical import disposition must not be read as present compiler PASS.
 
 The live P1 source-specific construction ledger is
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v27.tsv`:
-**54 covered, zero partial, 13 blocked**. The frozen 59-source batch
-ledger now has 46 covered and 13 blocked; no original is deleted or
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v28.tsv`:
+**55 covered, zero partial, 12 blocked**. The frozen 59-source batch
+ledger now has 47 covered and 12 blocked; no original is deleted or
 renumbered. Eleven recent deferred-source intentions have real,
 archived PDP-6 evidence: `930513-1.c` (six native KCC/GCC PASS),
 `struct-ret-1.c` (four original GCC PASS with a separate asserting
@@ -291,8 +291,12 @@ corrected and `cc1` reinstalled; all four GCC PDP-6 profiles now
 PASS both existing tests. A separate high-9-bit constant-string
 test has four original GCC `run_fail` ID 1, four corrected GCC
 PASS, and two still-failing KCC `run_fail` ID 6 for high octal
-`\400`. The unchanged original still needs real hosted `ctype.h`
-and `isspace`. See
+`\400`. Real compiler-owned C-locale `isprint`/`isspace` and matching
+target `ctype.h` now allow the **unchanged `980707-1.c` original**
+to PASS all six PDP-6 profiles. The unchanged `991112-1.c` original
+also PASSes six profiles; an independent C-locale classifier oracle
+PASSes all 512 nine-bit values plus EOF in each of the six profiles.
+See `docs/PDP10-P1-991112-C-LOCALE-CLOSURE-20261120-v1.md`,
 `docs/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md` and
 `docs/PDP10-GCC-STRING9-FOLD-REPAIR-20261120-v1.md`.
 The `va-arg-21.c` compiler companion preserves the actual
@@ -317,7 +321,7 @@ codegen recheck was not a full sweep.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v16.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v17.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves

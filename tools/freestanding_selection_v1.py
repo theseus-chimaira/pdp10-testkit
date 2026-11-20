@@ -14,10 +14,14 @@ SEARCH_SYMBOLS = ("strstr", "strpbrk", "strspn")
 BYTE_SYMBOLS = ("p10bcopy_v2", "p10bfill_v2", "p10bcmp_v2")
 DFLOAT_SYMBOLS = ("__kcc_floatdidf", "__kcc_fixdfdi")
 GCC_STDIO_SYMBOLS = ("sprintf", "vsprintf", "snprintf", "vsnprintf")
+CTYPE_C_LOCALE_SYMBOLS = ("isprint", "isspace")
 
 # Symbol-to-member ownership is shared by the installed KCC and GCC
-# freestanding archives. A single source file may export several symbols.
+# freestanding libraries.  The C-locale entry points have an independent
+# versioned archive, separate from the unchanged core libp10c-v2.a.
+# A single source file may export several symbols.
 MEMBERS = {
+    **{symbol: "kcc-libc-ctype-c-locale-v1.s" for symbol in CTYPE_C_LOCALE_SYMBOLS},
     **{symbol: "kcc-libc-string-v1.s" for symbol in STRING_SYMBOLS},
     **{symbol: "kcc-libc-%s-v1.s" % symbol
        for symbol in ("strlen", "strcmp", "strncmp") + SEARCH_SYMBOLS},
@@ -34,7 +38,11 @@ MEMBERS = {
 DEPENDENCIES = {"kcc-libc-memmove-v1.s": ("memcpy",)}
 
 REFERENCES = re.compile(
-    r"(?mi)^\s*(?:pushj\s+\d+\s*,\s*|jrst\s+|\.extern\s+)"
+    # GCC also materializes function addresses in .long/.word constants.
+    # Function-pointer uses must select the same real library member as
+    # direct PUSHJ calls; they cannot be treated as unresolved stubs.
+    r"(?mi)^\s*(?:pushj\s+\d+\s*,\s*|jrst\s+|\.extern\s+"
+    r"|\.(?:long|word)\s+)"
     r"([A-Za-z_][A-Za-z_0-9]*)\b")
 
 

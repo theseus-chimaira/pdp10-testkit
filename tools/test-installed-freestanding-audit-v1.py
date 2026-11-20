@@ -37,7 +37,8 @@ def main():
         for subdir in dirs:
             target = prefix / subdir
             target.mkdir(parents=True)
-            for name in set(AUDIT.MEMBERS.values()) | {"libp10c-v2.a"}:
+            for name in set(AUDIT.MEMBERS.values()) | {
+                    "libp10c-v2.a", "libp10ctype-c-locale-v1.a"}:
                 shutil.copyfile(installed / subdir / name, target / name)
         check(prefix, True)
         file = prefix / dirs[0] / "kcc-libc-memmove-v1.s"
@@ -56,7 +57,15 @@ def main():
         check(prefix, False)
         archive.write_bytes(data)
         check(prefix, True)
-    print("PASS: installed freestanding audit (baseline and 3 negative controls)")
+        ctype_archive = prefix / dirs[0] / "libp10ctype-c-locale-v1.a"
+        data = ctype_archive.read_bytes()
+        ctype_archive.write_bytes(data[:-1] + bytes([data[-1] ^ 1]))
+        check(prefix, False)
+        ctype_archive.write_bytes(data)
+        check(prefix, True)
+        ctype_archive.unlink()
+        check(prefix, False)
+    print("PASS: installed freestanding audit (baseline and 5 negative controls)")
 
 
 if __name__ == "__main__":
