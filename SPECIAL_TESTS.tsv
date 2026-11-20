@@ -128,6 +128,7 @@ p1-source-batches-v18	verify	python3	tools/audit-p1-source-batches-v18.py	host	y
 p1-990628-record-v1	verify	python3	tools/test-p1-990628-record-v1.py	host	yes	120
 p1-semantic-resolution-v20	verify	python3	tools/build-p1-semantic-resolution-v20.py	host	yes	120
 p1-source-batches-v19	verify	python3	tools/audit-p1-source-batches-v19.py	host	yes	120
+p1-920501-stdio-provider-v1	verify	python3	tools/test-p1-920501-stdio-provider-v1.py	host	yes	120
 p1-matrix-admission-v6	verify	python3	tools/test-p1-matrix-admission-v6.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120

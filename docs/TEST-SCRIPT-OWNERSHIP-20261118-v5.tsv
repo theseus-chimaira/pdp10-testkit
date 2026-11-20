@@ -172,5 +172,6 @@ tools/audit-p1-920501-manyargs-v1.py	module-helper	tools/test-p1-920501-manyargs
 tools/audit-compiler-ice-current-v1.py	module-helper	tools/test-compiler-ice-current-v1.py	Nine current native PDP-6 compiler ICE/signal profiles with exact historical source identities and archived output
 tools/audit-p1-960521-shifted-array-v1.py	module-helper	tools/test-p1-960521-shifted-array-v1.py	Original allocator-heavy 960521 timeout plus exact PDP6 bounded pointer/array assertion evidence
 tools/audit-p1-990628-record-v1.py	module-helper	tools/test-p1-990628-record-v1.py	Original two malloc-backed timeouts and six real native PDP6 memset and 101-word aggregate-copy assertions
+tools/audit-p1-920501-stdio-provider-v1.py	module-helper	tools/test-p1-920501-stdio-provider-v1.py	Source-pinned GCC original six real linker objects demonstrate duplicate vsprintf caused by default libc and formatter co-ownership
 tools/audit-p1-structret-hosted-v1.py	module-helper	tools/test-p1-structret-hosted-v1.py	Four original hosted formatter PASS reports and six independent aggregate-return companion outcomes
 tools/p1_matrix_post_admission_v1.py	module-helper	tools/audit-p1-matrix-admission-v6.py	Versioned authenticated 930513 original GCC optimization profiles after immutable admission v1-v6

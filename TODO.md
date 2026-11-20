@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-20, after six
 source-pinned original/deferred integrations): **2,298 compiler matrix
-sources**, **360 special entries**, and **529 owned script paths**.
+sources**, **361 special entries**, and **531 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v4.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v5.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 49 covered, zero partial, **18
@@ -19,9 +19,11 @@ stack/frame guest PASS) and `920501-8.c` (six substantive companion
 timeout), and `990628-1.c` (six real `memset`/record-copy PASS,
 original allocator-dependent timeouts retained). See v20 P1 and six
 focused 2026-11-20 closure reports.
-The noreturn
-`__builtin_abort` and duplicate-global `vsprintf` linker failures
-remain open; no full sweep has run.
+The noreturn `__builtin_abort` linkage and original `vsprintf` link
+failures remain open; the latter is now explained by competing
+formatter providers (not a proved linker implementation bug). The
+hosted `printf`/GCC variadic ABI still needs a correct provider.
+No full sweep has run.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -319,8 +321,11 @@ compiler sweep.
   without stdout/FILE stubs. Six PDP-6 profiles genuinely `run_fail`
   with a negative `sprintf` return (exit 41), after validating thirteen
   `va_arg` integer slots. Original KCC still times out; current original
-  GCC `dlink` fails with duplicate global `vsprintf`. All eight outcomes
-  and ten negative controls are source-pinned. Test construction is
+  GCC `dlink` fails with duplicate global `vsprintf`; the cause is
+  now traced to overlapping standalone GCC formatter and default libc
+  providers by exact three-case `dlink` replay. All eight original/
+  companion outcomes and ten negative controls are source-pinned.
+  Test construction is
   covered; compiler/runtime correctness is NOT established.
 - [x] Construct the bounded native `960521-1.c` shifted-array semantics
   oracle. The unchanged original remains active with two real SIMH
@@ -352,10 +357,15 @@ compiler sweep.
   and `putchar`, plus real hosted `stdout` and `stderr` objects.
   Distinguish absent functions from present-but-unverified `sprintf`,
   `malloc`, and other hosted services. Keep the separate
-  `980707-1.c` duplicate-global `exit` and `920501-8.c` duplicate-global
-  `vsprintf` linker defects high priority, separately from the tested
-  default-precision `sprintf` `%f` runtime failure. See
-  `docs/PDP10-PRESWEEP-STATE-20261120-v4.md`.
+  `980707-1.c` duplicate-global `exit` remains an unexplained linker
+  discrepancy. The GCC `920501-8.c` duplicate-global `vsprintf`
+  has a *diagnosed provider conflict* between selected GCC
+  `p10stdio-format-v2.s` and the default hosted libc archive, not a
+  proved implementation defect in `dlink`. Preserve that observed
+  link failure and independently repair coherent hosted GCC stdio ABI;
+  also retain the separate default-precision `sprintf` `%f` runtime
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v5.md` and
+  `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`.
 
 ## P1 deferred semantic-source closure (2026-11-19 baseline)
 
