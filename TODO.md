@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-20, after six
 source-pinned original/deferred integrations): **2,298 compiler matrix
-sources**, **362 special entries**, and **533 owned script paths**.
+sources**, **364 special entries**, and **537 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v6.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v7.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 49 covered, zero partial, **18
@@ -19,11 +19,31 @@ stack/frame guest PASS) and `920501-8.c` (six substantive companion
 timeout), and `990628-1.c` (six real `memset`/record-copy PASS,
 original allocator-dependent timeouts retained). See v20 P1 and six
 focused 2026-11-20 closure reports.
-The noreturn `__builtin_abort` linkage and original `vsprintf` link
-failures remain open; the latter is now explained by competing
-formatter providers (not a proved linker implementation bug). The
-hosted `printf`/GCC variadic ABI still needs a correct provider.
+The noreturn `__builtin_abort` linkage and original hosted `printf`
+dependency remain open. The old duplicate-global `vsprintf` failure
+under generic libc is explained by competing formatter providers
+(not a proved linker implementation bug). The hosted `printf`/GCC
+variadic ABI still needs a correct compiler-library provider.
 No full sweep has run.
+
+**Compiler-owned standard library policy (active normal matrix):**
+`run-tests.py` now uses the installed per-compiler `libp10c-v2.a`,
+not the generic `$PDP10_PREFIX/lib/libc.a`. The versioned runtime
+prefix and archive-hash checkpoint field prevent a previous hosted
+libc PASS from silently becoming a compiler-library PASS. Two
+bounded record-copy tests pass with real compiler `memset`, while
+six original KCC/GCC PDP-6 cells correctly link-fail on compiler-
+library-absent `malloc`, `isspace` or hosted `printf`. All eight
+outcomes and 28 artifacts are SHA256-pinned with 19 host negative
+controls. The old provider-dependent timeouts/duplicate-global links
+remain historical. See
+`docs/PDP10-COMPILER-STDLIB-RUNTIME-20261120-v1.md`.
+
+- [ ] Bring independently dispatched native guest test scripts under
+  the compiler-standard-library-only policy as well. Many direct
+  `p10run` invocations bypass the normal `run-tests.py` runtime prefix;
+  audit those entrypoints and preserve their real test/oracle contracts.
+  Do not start the full compiler or CPU sweep until this is resolved.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -370,7 +390,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v6.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v7.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 

@@ -15,6 +15,11 @@ import time
 from pathlib import Path
 from stubselect import STUB_SYMBOLS, selected_test_stubs
 from freestanding_selection_v1 import select_freestanding
+from compiler_stdlib_prefix_v1 import (
+    POLICY as COMPILER_STDLIB_POLICY, archive_path as compiler_stdlib_archive,
+    archive_sha256 as compiler_stdlib_sha256,
+    prepare as prepare_compiler_stdlib,
+    env_for_cell as compiler_stdlib_env)
 from compiler_negative_policy_v1 import (ICE_RE, check_kcc_rejection,
                                          check_gcc_rejection)
 from codegen_declared_oracles_v1 import (
@@ -375,7 +380,8 @@ def kill_process_group(proc, sig):
         pass
 
 
-def run_cmd(cmd, cwd, log_path, stdin_text=None, timeout=None, done_report_path=None):
+def run_cmd(cmd, cwd, log_path, stdin_text=None, timeout=None, done_report_path=None,
+            env=None):
     with open(log_path, 'a') as log:
         log.write('$ ' + ' '.join(shlex.quote(str(x)) for x in cmd) + '\n')
         log.flush()
@@ -383,11 +389,11 @@ def run_cmd(cmd, cwd, log_path, stdin_text=None, timeout=None, done_report_path=
             if stdin_text is not None:
                 p = subprocess.run([str(x) for x in cmd], cwd=str(cwd), input=stdin_text,
                                    text=True, stdout=log, stderr=subprocess.STDOUT,
-                                   timeout=timeout)
+                                   timeout=timeout, env=env)
                 return p.returncode
             p = subprocess.Popen([str(x) for x in cmd], cwd=str(cwd),
                                  stdout=log, stderr=subprocess.STDOUT,
-                                 start_new_session=True)
+                                 start_new_session=True, env=env)
             deadline = None
             if timeout is not None:
                 deadline = time.time() + timeout
@@ -784,6 +790,15 @@ def read_cell_status(outroot, src, cell):
            row.get('profile', ''), row.get('kind', ''))
     if key != cell_key(src, cell):
         return None
+    if cell.get('kind') == 'semantic':
+        # A historical PASS linked against the generic lib/libc.a must
+        # never be reused as evidence for the compiler-owned stdlib.
+        # Also invalidate a PASS after the installed compiler archive
+        # changes. This is specific to execution, not codegen-only tests.
+        if (row.get('runtime_library_policy') != COMPILER_STDLIB_POLICY or
+                row.get('runtime_library_sha256') !=
+                compiler_stdlib_sha256(PDP10_PREFIX, cell['compiler'])):
+            return None
     return row
 
 
@@ -797,6 +812,10 @@ def write_status_file(outroot, line):
         f.write('# transient restart checkpoint; COMPILER_MATRIX.tsv is the only matrix\n')
         for key in STATUS_FIELDS:
             f.write('%s=%s\n' % (key, row.get(key, '')))
+        if kind == 'semantic':
+            f.write('runtime_library_policy=%s\n' % COMPILER_STDLIB_POLICY)
+            f.write('runtime_library_sha256=%s\n' %
+                    compiler_stdlib_sha256(PDP10_PREFIX, compiler))
 
 
 
@@ -1231,8 +1250,19 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                 report = str(log_path)
             else:
                 report_path = rdir / (safe_name(src) + '.report.txt')
+                runtime_env = compiler_stdlib_env(
+                    outroot, PDP10_PREFIX, cell['compiler'])
+                with open(log_path, 'a') as log:
+                    log.write('runtime_library_policy=%s\n' %
+                              COMPILER_STDLIB_POLICY)
+                    log.write('runtime_library_archive=%s\n' %
+                              compiler_stdlib_archive(
+                                  PDP10_PREFIX, cell['compiler']))
+                    log.write('runtime_library_sha256=%s\n' %
+                              compiler_stdlib_sha256(
+                                  PDP10_PREFIX, cell['compiler']))
                 rc = run_cmd(cmd, ROOT, log_path, timeout=CELL_TIMEOUT,
-                             done_report_path=report_path)
+                             done_report_path=report_path, env=runtime_env)
                 report = str(report_path if report_path.is_file() else log_path)
                 step_exhausted = (rc != 0 and report_path.is_file() and
                                   (p10run_step_limit_exhausted(report_path)
@@ -1786,6 +1816,13 @@ def main():
     if 'gcc' in needed_compilers:
         bins['gcc'] = find_one('gcc')
 
+    # Prepare compiler-specific runtime prefixes before any concurrent
+    # semantic cells. Do not add the installed generic lib/libc.a:
+    # p10run would silently pull unrelated hosted OS implementations.
+    semantic_compilers = {cell['compiler'] for _, cell in semantic_run}
+    if semantic_compilers:
+        prepare_compiler_stdlib(outroot, PDP10_PREFIX, semantic_compilers)
+
     setup_log = outroot / 'setup.log'
     with setup_log.open('a', encoding='utf-8') as f:
         f.write('--- run %s ---\n' % time.strftime('%Y%m%d-%H%M%S'))
@@ -1800,6 +1837,13 @@ def main():
         f.write('jobs=%d\n' % args.jobs)
         f.write('matrix=COMPILER_MATRIX.tsv\n')
         f.write('checkpoint_model=per-cell status\n')
+        f.write('semantic_runtime_library_policy=%s\n' %
+                COMPILER_STDLIB_POLICY)
+        for compiler in sorted(semantic_compilers):
+            f.write('compiler_stdlib_%s=%s\n' % (
+                compiler, compiler_stdlib_archive(PDP10_PREFIX, compiler)))
+            f.write('compiler_stdlib_%s_sha256=%s\n' % (
+                compiler, compiler_stdlib_sha256(PDP10_PREFIX, compiler)))
         f.write('kcc=%s\n' % bins.get('kcc', 'not-selected'))
         f.write('gcc=%s\n' % bins.get('gcc', 'not-selected'))
         f.write('p10run=%s\n' % bins.get('p10run', 'not-needed'))

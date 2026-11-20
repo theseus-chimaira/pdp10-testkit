@@ -174,5 +174,7 @@ tools/audit-p1-960521-shifted-array-v1.py	module-helper	tools/test-p1-960521-shi
 tools/audit-p1-990628-record-v1.py	module-helper	tools/test-p1-990628-record-v1.py	Original two malloc-backed timeouts and six real native PDP6 memset and 101-word aggregate-copy assertions
 tools/audit-p1-920501-stdio-provider-v1.py	module-helper	tools/test-p1-920501-stdio-provider-v1.py	Source-pinned GCC original six real linker objects demonstrate duplicate vsprintf caused by default libc and formatter co-ownership
 tools/audit-p1-980707-ctype-provider-v1.py	module-helper	tools/test-p1-980707-ctype-provider-v1.py	Six current KCC source linker objects and five actual links isolate conflicting exit and abort ownership from hosted ctype libc
+tools/audit-compiler-stdlib-runtime-v1.py	module-helper	tools/test-compiler-stdlib-runtime-v1.py	Six compiler-only hosted symbol link failures and two genuine PDP6 compiler stdlib guest successes with SHA-pinned logs
+tools/compiler_stdlib_prefix_v1.py	module-helper	tools/test-compiler-stdlib-prefix-v1.py	Compiler stdlib-only guest prefix selection with exact archive provenance and restart checkpoint policy
 tools/audit-p1-structret-hosted-v1.py	module-helper	tools/test-p1-structret-hosted-v1.py	Four original hosted formatter PASS reports and six independent aggregate-return companion outcomes
 tools/p1_matrix_post_admission_v1.py	module-helper	tools/audit-p1-matrix-admission-v6.py	Versioned authenticated 930513 original GCC optimization profiles after immutable admission v1-v6

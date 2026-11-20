@@ -250,8 +250,8 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,298 compiler-matrix sources**, **362 special registrations**
-and **533 owned script paths**, with zero unowned test sources and zero
+report **2,298 compiler-matrix sources**, **364 special registrations**
+and **537 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
@@ -283,14 +283,25 @@ codegen recheck was not a full sweep.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v6.md`.
-The GCC original `920501-8.c` duplicate-global `vsprintf` diagnostic
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v7.md`.
+**Current normal semantic runner policy:** use only the installed
+compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
+generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
+the actual target compiler and canonical libgcc, and invalidates
+legacy semantic PASS checkpoints from a different libc provider.
+Two real native PDP-6 compiler-library guest PASS and six genuine
+original-source missing-hosted-function link failures are verified.
+See `docs/PDP10-COMPILER-STDLIB-RUNTIME-20261120-v1.md`. Independently
+dispatched legacy guest scripts still need the same runtime-policy
+enforcement before a full suite execution.
+Under the **previous generic/hosted-libc policy**, the GCC original
+`920501-8.c` duplicate-global `vsprintf` diagnostic
 is now traced to overlapping real formatter providers: selected
 `p10stdio-format-v2.s` and default `lib/libc.a` for hosted `printf`.
 The exact three-case linker replay is documented in
 `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`.
 Correct GCC hosted printf/varargs execution is not established.
-The KCC original `980707-1.c` duplicate-global `exit` has also been
+The previous KCC original `980707-1.c` duplicate-global `exit` has also been
 traced to **two real runtime providers**: the testkit CRT's
 `exit`/`abort` and default libc's own entrypoints, pulled by `isspace`.
 Five source-pinned links and their unresolved guest termination ABI
