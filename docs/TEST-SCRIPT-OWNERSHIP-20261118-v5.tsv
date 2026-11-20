@@ -151,3 +151,4 @@ tools/audit-p1-batch4-libc-contract-v1.py	module-helper	tools/test-p1-batch4-lib
 tools/audit-p1-batch4-variadic-contract-v1.py	module-helper	tools/test-p1-batch4-variadic-contract-v1.py	SHA-pinned Batch 4 variadic source, target stdio header and six-cell simulator evidence validator
 tools/audit-p1-batch4-hosted-contract-v1.py	module-helper	tools/test-p1-batch4-hosted-contract-v1.py	SHA-pinned Batch 4 hosted sources, installed header, linker maps and SIMH timeout evidence validator
 tools/audit-p1-batch5-contract-v1.py	module-helper	tools/test-p1-batch5-contract-v1.py	SHA-pinned Batch 5 ten original hosted sources and twenty-cell linker/simulator prerequisite validator
+tools/audit-p1-batch6-contract-v1.py	module-helper	tools/test-p1-batch6-contract-v1.py	SHA-pinned Batch 6 nine original sources and eighteen-cell compiler/linker/simulator prerequisite evidence validator

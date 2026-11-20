@@ -102,6 +102,19 @@ compiler sweep.
   workaround. The audit has nine negative controls. See
   `docs/PDP10-P1-BATCH5-CONTRACT-20261120-v1.md`. All ten original
   obligations remain blocked. No full sweep, stubs, or compiler edits.
+  Batch 6 is now SHA-pinned and narrowly probed: nine unchanged
+  original sources with 18 installed PDP-6 KCC/noopt and GCC/O0
+  cells; 8 compile_fail, 4 link_fail, 5 SIMH timeout, 1 real guest
+  run_fail, 0 pass. Exact diagnostics include KCC computed-goto
+  pointer restrictions, missing stderr/stdout/__builtin_printf/putchar,
+  KCC packed-pointer/stdio prototype rejection and GCC target stdio.h.
+  GCC old.tort.c HALTs at __test_exit=0327 octal; its non-TOPS20
+  terminal exit(256) also requires explicit target-aware oracle
+  policy before success may be claimed. The audit has ten negative
+  controls. No original or compiler edits. See
+  `docs/PDP10-P1-BATCH6-CONTRACT-20261120-v1.md`. All nine remain
+  blocked; selected PDP-6 prerequisite triage for Batches 4-6 is
+  complete, but the P1 source-oracle closure gate remains open.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;
@@ -176,6 +189,10 @@ architecture-correctness testing into a P1 source batch.
 - [ ] Work Batch 4 (10 ABI/ISA/libc), Batch 5
   (10 hosted), and Batch 6 (9 hosted). Preserve source profile
   evidence and update current resolution state after each closure.
+  The source-pinned *prerequisite triage* of all three batches is now
+  complete for installed PDP-6 KCC/noopt and GCC/O0. Exact source
+  oracle construction and acceptance remain open; a historical
+  blocker is not closed by classifying its failure.
 
 Current **actionable P1 oracle backlog: 29** (one partial and twenty-eight blocked).
 The 28 C sources are already scheduled in the normal compiler matrix;
