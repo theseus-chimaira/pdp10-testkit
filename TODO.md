@@ -19,6 +19,17 @@ and four focused 2026-11-20 closure reports. The noreturn
 `__builtin_abort` and duplicate-global `vsprintf` linker failures
 remain open; no full sweep has run.
 
+**Current compiler ICE checkpoint:** All nine historically recorded
+native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
+reproduced in fresh targeted codegen executions. Five GCC profiles
+report `instantiate_virtual_regs_1`, one GCC `cc1` segfaults, and
+the three KCC profiles show two internal diagnostics plus a silent
+SIGSEGV on `line4.c` independently confirmed as signal -11.
+The source/profile/log/status evidence is SHA256-pinned and guarded by
+ten negative controls. These compiler defects have highest repair
+priority but no compiler repository was changed. See
+`docs/PDP10-COMPILER-ICE-CURRENT-20261120-v1.md`.
+
 **Priority decision:** All *new* AAP emulator architecture-correctness
 work is **P3**, not P1 or P2: ASHC/IDIV and other instruction reference
 semantics, real ILLOP/PDLOV/PI and device interrupts, exact opcode/mode

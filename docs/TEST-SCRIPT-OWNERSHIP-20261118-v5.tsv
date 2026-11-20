@@ -169,5 +169,6 @@ tools/audit-p1-matrix-admission-v6.py	module-helper	tools/test-p1-matrix-admissi
 tools/audit-p1-930513-original-v1.py	module-helper	tools/test-p1-930513-original-v1.py	Six real original 930513 floating sprintf pointer-call guest reports and map digests
 tools/audit-p1-980605-stack-v1.py	module-helper	tools/test-p1-980605-stack-v1.py	Nine PDP-6 original and exact-sized 100000-byte companion reports with archived maps and assembly
 tools/audit-p1-920501-manyargs-v1.py	module-helper	tools/test-p1-920501-manyargs-v1.py	Original KCC timeout and GCC duplicate vsprintf plus six real companion run-fail checkpoints
+tools/audit-compiler-ice-current-v1.py	module-helper	tools/test-compiler-ice-current-v1.py	Nine current native PDP-6 compiler ICE/signal profiles with exact historical source identities and archived output
 tools/audit-p1-structret-hosted-v1.py	module-helper	tools/test-p1-structret-hosted-v1.py	Four original hosted formatter PASS reports and six independent aggregate-return companion outcomes
 tools/p1_matrix_post_admission_v1.py	module-helper	tools/audit-p1-matrix-admission-v6.py	Versioned authenticated 930513 original GCC optimization profiles after immutable admission v1-v6

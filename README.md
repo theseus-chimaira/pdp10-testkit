@@ -271,6 +271,11 @@ companion PASS), and `920501-8.c` (six substantive variadic-companion
 failures). Completing a test oracle does not make the compiler pass.
 The pre-existing noreturn regression is scheduled, but all four
 targeted GCC PDP-6 profiles currently link-fail on `__builtin_abort`.
+Nine historical compiler ICE/signal source/profile pairs were also
+revalidated with the installed native PDP-6 compilers; all nine remain
+`compiler_ice`, with source- and report-pinned evidence in
+`docs/PDP10-COMPILER-ICE-CURRENT-20261120-v1.md`. This targeted
+codegen recheck was not a full sweep.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
