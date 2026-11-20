@@ -1,0 +1,7 @@
+source	source_sha256	profile	status	fail_id_octal	archive_member	report_sha256
+tests/semantic/regression/pdp10-large-struct-return-v1.c	144ac5f05455e69a0d72eb2ad41d4d707aa4a672af3926cdc7106a0d97c8e754	kcc-pdp6-noopt	timeout	-	pdp6/kcc-pdp6-noopt.report.txt	551fc40711132ec2740b9aaa1d03ca59d7c1f5cf951799119dcb583d9793e1c1
+tests/semantic/regression/pdp10-large-struct-return-v1.c	144ac5f05455e69a0d72eb2ad41d4d707aa4a672af3926cdc7106a0d97c8e754	kcc-pdp6-opt	timeout	-	pdp6/kcc-pdp6-opt.report.txt	551fc40711132ec2740b9aaa1d03ca59d7c1f5cf951799119dcb583d9793e1c1
+tests/semantic/regression/pdp10-large-struct-return-v1.c	144ac5f05455e69a0d72eb2ad41d4d707aa4a672af3926cdc7106a0d97c8e754	gcc-pdp6-o0	run_fail	000000000003	pdp6/gcc-pdp6-o0.report.txt	62ef3c414a3e38f0b9a38c69a3c63288cdc5cd91ded523fa10cec7520ad184e1
+tests/semantic/regression/pdp10-large-struct-return-v1.c	144ac5f05455e69a0d72eb2ad41d4d707aa4a672af3926cdc7106a0d97c8e754	gcc-pdp6-o1	pass	000000000000	pdp6/gcc-pdp6-o1.report.txt	8bf84f8b9d3505bb27a540600f4d60a5815ba707a9a0788461c17ac70249a7f2
+tests/semantic/regression/pdp10-large-struct-return-v1.c	144ac5f05455e69a0d72eb2ad41d4d707aa4a672af3926cdc7106a0d97c8e754	gcc-pdp6-o2	pass	000000000000	pdp6/gcc-pdp6-o2.report.txt	a0424fcfda1e58befa42f98cdb6b2ce9e3f57fb19b1464e819c401a12be97031
+tests/semantic/regression/pdp10-large-struct-return-v1.c	144ac5f05455e69a0d72eb2ad41d4d707aa4a672af3926cdc7106a0d97c8e754	gcc-pdp6-os	pass	000000000000	pdp6/gcc-pdp6-os.report.txt	8897cffcd1dba9f79d8bd096aeda51258883d2e5ca96d36048d6c3dcafe92b23

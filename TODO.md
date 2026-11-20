@@ -128,6 +128,17 @@ compiler sweep.
   `docs/PDP10-P1-BATCH6-CONTRACT-20261120-v1.md`. All nine remain
   blocked; selected PDP-6 prerequisite triage for Batches 4-6 is
   complete, but the P1 source-oracle closure gate remains open.
+  The return-value oracle gap in `struct-ret-1.c` (discarded
+  structure fields) and `920726-1.c` (discarded uninitialized
+  scalar and structure) now has two freestanding C89 companions,
+  `pdp10-large-struct-return-v1.c` and
+  `pdp10-variadic-return-types-v1.c`, registered in the normal
+  matrix. Twelve actual PDP-6 profile reports: five pass, five
+  executed assertion failures, two SIMH timeouts. Source/report
+  SHA256s, genuine compressed guest reports and 12 negative
+  controls are checked by `tools/test-p1-return-oracles-v1.py`.
+  Original hosted tests remain blocked. See
+  `docs/PDP10-P1-RETURN-ORACLES-20261120-v1.md`.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;

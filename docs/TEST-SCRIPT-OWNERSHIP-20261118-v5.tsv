@@ -153,3 +153,4 @@ tools/audit-p1-batch4-hosted-contract-v1.py	module-helper	tools/test-p1-batch4-h
 tools/audit-p1-batch5-contract-v1.py	module-helper	tools/test-p1-batch5-contract-v1.py	SHA-pinned Batch 5 ten original hosted sources and twenty-cell linker/simulator prerequisite validator
 tools/audit-p1-batch6-contract-v1.py	module-helper	tools/test-p1-batch6-contract-v1.py	SHA-pinned Batch 6 nine original sources and eighteen-cell compiler/linker/simulator prerequisite evidence validator
 tools/p1_source_replacement_v1.py	module-helper	tools/test-p1-native-byteptr-replacement-v1.py	Exact one-source retired import migration to native PDP-10 pointer test
+tools/audit-p1-return-oracles-v1.py	module-helper	tools/test-p1-return-oracles-v1.py	Two source-pinned return-value ABI oracles and twelve archived PDP-6 guest outcomes
