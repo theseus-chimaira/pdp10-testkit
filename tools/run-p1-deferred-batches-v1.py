@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261119-v6.tsv'
+PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv'
 PROBE = ROOT / 'tools/probe-deferred-libc-v1.py'
 EXPECTED = {4: 10, 5: 10, 6: 9}
 

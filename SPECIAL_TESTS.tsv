@@ -72,6 +72,9 @@ p1-arith-random-generator-v1	verify	python3	tools/generate-pdp10-arith-rand-v1.p
 p1-original-karatsuba-generator-v1	verify	python3	tools/generate-pdp10-wide-karatsuba-v1.py	host	yes	120
 p1-semantic-resolution-v7	verify	python3	tools/build-p1-semantic-resolution-v7.py	host	yes	120
 p1-source-batches-v6	verify	python3	tools/audit-p1-source-batches-v6.py	host	yes	120
+p1-semantic-resolution-v8	verify	python3	tools/build-p1-semantic-resolution-v8.py	host	yes	120
+p1-source-batches-v7	verify	python3	tools/audit-p1-source-batches-v7.py	host	yes	120
+p1-packed-blocker-classification-v1	verify	python3	tools/test-p1-packed-blocker-classification-v1.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

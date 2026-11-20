@@ -7,7 +7,7 @@ import csv
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261119-v6.tsv'
+PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv'
 
 
 def read(path):
