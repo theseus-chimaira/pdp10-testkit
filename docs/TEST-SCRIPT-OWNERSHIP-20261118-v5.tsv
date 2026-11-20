@@ -143,7 +143,7 @@ tools/admit-p1-deferred-matrix-v1.py	manual-tool		Explicit matrix admission writ
 tools/run-p1-batch4-deferred-v1.py	manual-tool		On-demand batch compiler execution probe; no automatic sweep invocation
 tools/run-p1-deferred-batches-v1.py	manual-tool		On-demand deferred batch compiler probe; no automatic sweep invocation
 tools/summarize-p1-deferred-batches-v1.py	manual-tool		On-demand offline archived batch report summarizer
-tools/p1_matrix_admissions_v1.py	module-helper	tools/audit-test-inventory-v1.py	SHA-pinned 28-source later-admission validator imported by inventory and duplicate-owner audits
+tools/p1_matrix_admissions_v1.py	module-helper	tools/audit-test-inventory-v1.py	SHA-pinned 28-source historical later-admission validator imported by inventory and duplicate-owner audits
 tools/freestanding_selection_v1.py	module-helper	tools/run-tests.py	Shared freestanding member dependency selector used by semantic runner
 tools/audit-installed-freestanding-v1.py	module-helper	tools/test-installed-freestanding-audit-v1.py	Installed freestanding archive source and dependency validator
 tools/audit-p1-runtime-prerequisites-v1.py	module-helper	tools/test-p1-runtime-prerequisites-v1.py	Frozen P1 hosted runtime and varargs prerequisite manifest validator
@@ -155,3 +155,5 @@ tools/audit-p1-batch6-contract-v1.py	module-helper	tools/test-p1-batch6-contract
 tools/p1_source_replacement_v1.py	module-helper	tools/test-p1-native-byteptr-replacement-v1.py	Exact one-source retired import migration to native PDP-10 pointer test
 tools/audit-p1-return-oracles-v1.py	module-helper	tools/test-p1-return-oracles-v1.py	Two source-pinned return-value ABI oracles and twelve archived PDP-6 guest outcomes
 tools/audit-p1-matrix-admission-v1.py	module-helper	tools/test-p1-matrix-admission-v1.py	Source-pinned native P1 matrix scheduling, 29 unresolved obligations and three archived compiler smoke outcomes
+tools/audit-p1-matrix-admission-v2.py	module-helper	tools/test-p1-matrix-admission-v2.py	Current source-pinned native P1 admission: 28 unresolved obligations and archived compiler smoke reports
+tools/audit-p1-prefetch-invalid-v1.py	module-helper	tools/test-p1-prefetch-invalid-v1.py	Native-width invalid-address prefetch and four source-pinned PDP-6 guest PASS reports

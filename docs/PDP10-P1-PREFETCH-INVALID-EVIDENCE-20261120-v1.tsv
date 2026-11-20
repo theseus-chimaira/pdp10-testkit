@@ -1,0 +1,5 @@
+source	source_sha256	profile	status	archive_member	report_sha256
+tests/semantic/regression/pdp10-prefetch-invalid-address-v1.c	48c9115c99198f78e57b3361517eb72dffd63613cd8918ef20b25dc1073d27ec	gcc-pdp6-o0	pass	pdp6/gcc-pdp6-o0.report.txt	bbce0d8000d23dab737e296f290e1c55b960569ce7b9e3ddda06f2ec4367bef8
+tests/semantic/regression/pdp10-prefetch-invalid-address-v1.c	48c9115c99198f78e57b3361517eb72dffd63613cd8918ef20b25dc1073d27ec	gcc-pdp6-o1	pass	pdp6/gcc-pdp6-o1.report.txt	e1b34a08d6b9e7dc9ca604b33f71d7f8c9174b95b06a93fd9af1672653ccdae1
+tests/semantic/regression/pdp10-prefetch-invalid-address-v1.c	48c9115c99198f78e57b3361517eb72dffd63613cd8918ef20b25dc1073d27ec	gcc-pdp6-o2	pass	pdp6/gcc-pdp6-o2.report.txt	55e028398d4614dca138f1b3471b77aa3d2dbd94ff8ac426519dae0c7a6d7961
+tests/semantic/regression/pdp10-prefetch-invalid-address-v1.c	48c9115c99198f78e57b3361517eb72dffd63613cd8918ef20b25dc1073d27ec	gcc-pdp6-os	pass	pdp6/gcc-pdp6-os.report.txt	977d1ded99e8da53a9f44d35b2f49426a53441d3cc4cbe4427e19134865ab004

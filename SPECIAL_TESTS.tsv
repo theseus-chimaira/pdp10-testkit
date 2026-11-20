@@ -87,6 +87,10 @@ p1-batch6-contract-v1	verify	python3	tools/test-p1-batch6-contract-v1.py	host	ye
 p1-native-byteptr-replacement-v1	verify	python3	tools/test-p1-native-byteptr-replacement-v1.py	host	yes	120
 p1-return-oracles-v1	verify	python3	tools/test-p1-return-oracles-v1.py	host	yes	120
 p1-matrix-admission-v1	verify	python3	tools/test-p1-matrix-admission-v1.py	host	yes	120
+p1-prefetch-invalid-v1	verify	python3	tools/test-p1-prefetch-invalid-v1.py	host	yes	120
+p1-semantic-resolution-v10	verify	python3	tools/build-p1-semantic-resolution-v10.py	host	yes	120
+p1-source-batches-v9	verify	python3	tools/audit-p1-source-batches-v9.py	host	yes	120
+p1-matrix-admission-v2	verify	python3	tools/test-p1-matrix-admission-v2.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

@@ -16,7 +16,7 @@ from p1_source_replacement_v1 import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v8.tsv'
+PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v9.tsv'
 PROBE = ROOT / 'tools/probe-deferred-libc-v1.py'
 EXPECTED = {4: 10, 5: 10, 6: 9}
 

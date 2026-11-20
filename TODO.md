@@ -97,7 +97,10 @@ compiler sweep.
   original SHA-pinned slots, 18 PDP-6 compiler cells and one
   unexecuted KL10 ISA fixture. The current evidence distribution
   is 2 pass, 4 run_fail, 4 link_fail, 4 compile_fail, 4 timeout.
-  Batch 4 closure remains 0 covered/1 partial/9 blocked.
+  Batch 4 now has its original invalid-address prefetch intent
+  covered by a native-width companion (four actual PDP-6 GCC PASS
+  reports). Current closure is **1 covered/0 partial/9 blocked**.
+  See `docs/PDP10-P1-PREFETCH-INVALID-CLOSURE-20261120-v1.md`.
   `docs/PDP10-P1-BATCH4-RECONCILED-20261120-v1.md` and its
   registered host audit document the exact evidence provenance.
   Batch 5 now has a source-SHA-pinned prerequisite probe of all ten
@@ -143,8 +146,8 @@ compiler sweep.
   compiler matrix scheduling: all 28 unresolved C obligations already
   had PDP-6 KCC/GCC entries; 162 more native profile columns were
   activated for 24 original sources (192 additional runnable cells).
-  The total is 297 scheduled native compiler/profile cells, **not**
-  297 passes. Six portable ABI/compiler sources have KA10/KI10/KS10
+  The v1 scope had 297 scheduled native compiler/profile cells,
+  **not** 297 passes. Six portable ABI/compiler sources have KA10/KI10/KS10
   KCC+GCC native pending cells; four KCC hosted originals have
   additional KA10/KI10/KS10 KCC pending cells; fourteen other sources
   have additional PDP-6 GCC optimization cells. Three resource-gated
@@ -155,6 +158,19 @@ compiler sweep.
   putchar link failure) are checksum-pinned. The audit has 16
   negative controls. See
   `docs/PDP10-P1-MATRIX-ADMISSION-20261120-v1.md`.
+  Current v2 unresolved-source admission excludes the newly covered
+  prefetch obligation, without disabling its matrix profiles:
+  **27 unresolved C originals**, one KL10 ISA fixture, 144 added
+  profile columns and 273 native runnable compiler/mode cells.
+  See `docs/PDP10-P1-MATRIX-ADMISSION-20261120-v2.md`.
+  The native invalid-address prefetch oracle uses a full 36-bit
+  (9-bit-byte) width and 65 original-style read and write hint
+  expressions; all four PDP-6 GCC opt levels complete and PASS
+  with checksummed real guest evidence. Seven negative controls
+  verify the closure. The live v10 P1 resolution is now
+  **39 covered, 0 partial, 28 blocked**; source batches v9 have
+  **31 covered, 0 partial, 28 blocked**. No test was weakened and
+  no hardware-prefetch instruction is claimed.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;
@@ -172,7 +188,7 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v8 ledger counts **38 covered, 1 partial, 28 blocked**.
+current v10 ledger counts **39 covered, 0 partial, 28 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
@@ -234,8 +250,8 @@ architecture-correctness testing into a P1 source batch.
   oracle construction and acceptance remain open; a historical
   blocker is not closed by classifying its failure.
 
-Current **actionable P1 oracle backlog: 29** (one partial and twenty-eight blocked).
-The 28 C sources are already scheduled in the normal compiler matrix;
+Current **actionable P1 oracle backlog: 28** (zero partial, twenty-eight blocked).
+The 27 unresolved C sources are already scheduled in the normal compiler matrix;
 registration does not resolve missing oracles or establish runtime PASS.
 The separate KL10 assembly port is an assembly-only DAS regression.
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources
