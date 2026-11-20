@@ -146,6 +146,9 @@ p1-source-batches-v24	verify	python3	tools/audit-p1-source-batches-v24.py	host	y
 kcc-vaend-repair-v1	verify	python3	tools/test-kcc-vaend-repair-v1.py	host	yes	120
 p1-semantic-resolution-v26	verify	python3	tools/build-p1-semantic-resolution-v26.py	host	yes	120
 p1-source-batches-v25	verify	python3	tools/audit-p1-source-batches-v25.py	host	yes	120
+gcc-string9-fold-repair-v1	verify	python3	tools/test-gcc-string9-fold-repair-v1.py	host	yes	120
+p1-semantic-resolution-v27	verify	python3	tools/build-p1-semantic-resolution-v27.py	host	yes	120
+p1-source-batches-v26	verify	python3	tools/audit-p1-source-batches-v26.py	host	yes	120
 p1-920501-stdio-provider-v1	verify	python3	tools/test-p1-920501-stdio-provider-v1.py	host	yes	120
 p1-980707-ctype-provider-v1	verify	python3	tools/test-p1-980707-ctype-provider-v1.py	host	yes	120
 compiler-stdlib-prefix-v1	verify	python3	tools/test-compiler-stdlib-prefix-v1.py	host	yes	120

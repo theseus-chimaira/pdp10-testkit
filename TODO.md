@@ -1,12 +1,12 @@
 # PDP-10 testkit — outstanding work
 
 Current ownership and registration baseline (2026-11-20, after eleven
-source-pinned original/deferred integrations): **2,304 compiler matrix
-sources**, **384 special entries**, and **557 owned script paths**.
+source-pinned original/deferred integrations): **2,305 compiler matrix
+sources**, **387 special entries**, and **560 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v15.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v16.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 54 covered, zero partial, **13
@@ -33,6 +33,12 @@ missing), and `va-arg-21.c` (four native GCC PASS, two native KCC
 commit `5fa3510` and verified on the installed PDP-6 toolchain:
 six va_end guest PASS plus two KCC variadic ABI PASS. See live v26
 P1 and the new `PDP10-KCC-VAEND-HEADER-REPAIR-20261120-v1.md`.
+The owning GCC 3.2 builtins string9 representation bug was also
+corrected: 12 post-repair native GCC PDP-6 guest PASS, four genuine
+prior GCC `run_fail` ID 1 on a new constant-string test, and two
+separate KCC `run_fail` ID 6 for octal `\400` retained. Live P1
+resolution is now v27. See
+`docs/PDP10-GCC-STRING9-FOLD-REPAIR-20261120-v1.md`.
 The noreturn `__builtin_abort` linkage and original hosted `printf`
 dependency remain open. The old duplicate-global `vsprintf` failure
 under generic libc is explained by competing formatter providers
@@ -154,6 +160,24 @@ remain historical. See
   unchanged upstream original, other CPUs and the complete variadic
   ABI remain open. See
   `docs/PDP10-KCC-VAEND-HEADER-REPAIR-20261120-v1.md`.
+
+- [x] Repair GCC 3.2 builtins `c_strlen` handling of PDP-10
+  two-host-byte `STRING_CST` and prevent raw-host 9-bit string folds.
+  Preserve the target-aware constant `memcpy` expansion. The old
+  GCC compiler failed the independent high-9-bit string oracle in
+  all four PDP-6 profiles at ID 1; the installed rebuilt compiler
+  PASSes all four, plus four `strcpy` and four original token-scanner
+  PDP-6 replays. All 18 native results (including two KCC failures),
+  90 raw artifacts and eleven negative controls are pinned.
+  Original `ctype.h`/`isspace` remains unavailable. See
+  `docs/PDP10-GCC-STRING9-FOLD-REPAIR-20261120-v1.md`.
+
+- [ ] Investigate KCC native PDP-6 9-bit string escape truncation:
+  both noopt/opt FAIL the new constant-string compiler test at
+  `fail_id=6`, `strlen("\\400x") == 2`. KCC emits the leading
+  `\\400` as literal byte zero, causing early termination. Correct
+  the owning KCC lexer/string emitter rather than changing or
+  masking the shared semantic test. Preserve native guest reports.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -500,7 +524,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v15.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v16.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
@@ -512,7 +536,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the current v26 ledger has **54 covered, 0 partial, 13 blocked**.
+the current v27 ledger has **54 covered, 0 partial, 13 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 

@@ -250,15 +250,15 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,304 compiler-matrix sources**, **384 special registrations**
-and **557 owned script paths**, with zero unowned test sources and zero
+report **2,305 compiler-matrix sources**, **387 special registrations**
+and **560 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
 historical import disposition must not be read as present compiler PASS.
 
 The live P1 source-specific construction ledger is
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v26.tsv`:
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v27.tsv`:
 **54 covered, zero partial, 13 blocked**. The frozen 59-source batch
 ledger now has 46 covered and 13 blocked; no original is deleted or
 renumbered. Eleven recent deferred-source intentions have real,
@@ -283,13 +283,18 @@ The new `20020406-1.c` companion has six native KCC/GCC PDP-6 PASS
 for its exact recursive DUPFF input/cofactor pointer swap; its
 unchanged hosted original still link-fails on compiler `malloc`.
 See `docs/PDP10-P1-20020406-RECURSIVE-SWAP-CLOSURE-20261120-v1.md`.
-The `980707-1.c` space-token compiler companion has three native
-KCC/GCC PDP-6 PASS and three optimized GCC guest FAIL at the first
-token pointer. An independent literal `strcpy` memory oracle isolates
-the same optimized GCC code-generation defect: it emits only the
-initial space instead of the full copied string. The historical
-original still cannot compile/link without real target ctype/isspace.
-See `docs/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md`.
+The `980707-1.c` space-token companion and independent literal
+`strcpy` oracle each had three historical optimized GCC PDP-6
+`run_fail`, caused by host `strlen` misreading the two-host-byte
+9-bit `STRING_CST` encoding. The owning GCC `builtins.c` was
+corrected and `cc1` reinstalled; all four GCC PDP-6 profiles now
+PASS both existing tests. A separate high-9-bit constant-string
+test has four original GCC `run_fail` ID 1, four corrected GCC
+PASS, and two still-failing KCC `run_fail` ID 6 for high octal
+`\400`. The unchanged original still needs real hosted `ctype.h`
+and `isspace`. See
+`docs/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md` and
+`docs/PDP10-GCC-STRING9-FOLD-REPAIR-20261120-v1.md`.
 The `va-arg-21.c` compiler companion preserves the actual
 `va_end(**ap_ptr++)` expression and second `ap_ptr++`. Historical
 native KCC noopt/opt reports recorded `run_fail` at ID 4 while four
@@ -312,7 +317,7 @@ codegen recheck was not a full sweep.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v15.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v16.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
