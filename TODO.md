@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-20, after eleven
 source-pinned original/deferred integrations): **2,304 compiler matrix
-sources**, **381 special entries**, and **554 owned script paths**.
+sources**, **384 special entries**, and **557 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v14.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v15.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 54 covered, zero partial, **13
@@ -28,8 +28,11 @@ scanner 3 PASS/3 GCC opt `run_fail`, independent real `strcpy` literal
 oracle 3 PASS/3 GCC opt `run_fail`, original `ctype.h`/`isspace`
 missing), and `va-arg-21.c` (four native GCC PASS, two native KCC
 `run_fail` at `va_end(**ap_ptr++)` side-effect ID 4, original
-`malloc`/`vprintf` link failures preserved). See live v25 P1 and
-eleven focused 2026-11-20 closure reports.
+`malloc`/`vprintf` link failures preserved). The native KCC
+`va_end` header-side-effect failure has since been fixed in KCC
+commit `5fa3510` and verified on the installed PDP-6 toolchain:
+six va_end guest PASS plus two KCC variadic ABI PASS. See live v26
+P1 and the new `PDP10-KCC-VAEND-HEADER-REPAIR-20261120-v1.md`.
 The noreturn `__builtin_abort` linkage and original hosted `printf`
 dependency remain open. The old duplicate-global `vsprintf` failure
 under generic libc is explained by competing formatter providers
@@ -129,15 +132,28 @@ remain historical. See
   side-effect oracle using real `va_list`, `va_start`, `va_arg`,
   the original `va_end(**ap_ptr++)`, and a second pointer increment
   skipping the NULL sentinel. Four native GCC PDP-6 profiles PASS;
-  native KCC noopt/opt both `run_fail` at `fail_id=4` because installed
-  KCC `stdarg.h` expands `va_end(ap)` to `((void)0)`, discarding
-  `ap_ptr++`. The unchanged original still link-fails on missing
+  the historical native KCC noopt/opt both `run_fail` at `fail_id=4`
+  because the original KCC `stdarg.h` expanded `va_end(ap)` to
+  `((void)0)`, discarding `ap_ptr++`. The unchanged original still
+  link-fails on missing
   `vprintf` (KCC) or `malloc` (GCC). The eight outcomes, both exact
   installed header snapshots, 38 SHA256-pinned raw archive members
-  and eleven negative controls are preserved. **Fix KCC's owning
-  compiler-header definition**, not the testkit; the original hosted
+  and eleven negative controls are preserved. KCC's owning
+  compiler-header definition was subsequently corrected; the hosted
   allocator/formatting environment remains unverified. See
   `docs/PDP10-P1-VAARG21-VAEND-CLOSURE-20261120-v1.md`.
+
+- [x] Fix the owning KCC `va_end` macro argument-evaluation bug,
+  without changing the testkit source or replacing the target libc.
+  KCC commit `5fa3510` uses `((void)(ap))` rather than `((void)0)`;
+  the identical corrected header is installed into `$PDP10_PREFIX`.
+  The pre-fix two KCC PDP-6 assertion failures stay archived.
+  A new no-override native test run has six `va_end` PASS and two
+  KCC noopt/opt variadic-return PASS, with 41 pinned raw artifacts
+  and ten negative controls. Full hosted `malloc`/`vprintf` for the
+  unchanged upstream original, other CPUs and the complete variadic
+  ABI remain open. See
+  `docs/PDP10-KCC-VAEND-HEADER-REPAIR-20261120-v1.md`.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -484,7 +500,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v14.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v15.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
@@ -496,7 +512,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the current v25 ledger has **54 covered, 0 partial, 13 blocked**.
+the current v26 ledger has **54 covered, 0 partial, 13 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 

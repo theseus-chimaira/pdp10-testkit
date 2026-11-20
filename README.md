@@ -250,15 +250,15 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,304 compiler-matrix sources**, **381 special registrations**
-and **554 owned script paths**, with zero unowned test sources and zero
+report **2,304 compiler-matrix sources**, **384 special registrations**
+and **557 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
 historical import disposition must not be read as present compiler PASS.
 
 The live P1 source-specific construction ledger is
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v25.tsv`:
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v26.tsv`:
 **54 covered, zero partial, 13 blocked**. The frozen 59-source batch
 ledger now has 46 covered and 13 blocked; no original is deleted or
 renumbered. Eleven recent deferred-source intentions have real,
@@ -291,11 +291,15 @@ initial space instead of the full copied string. The historical
 original still cannot compile/link without real target ctype/isspace.
 See `docs/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md`.
 The `va-arg-21.c` compiler companion preserves the actual
-`va_end(**ap_ptr++)` expression and second `ap_ptr++`, with four native
-GCC PDP-6 PASS and two KCC `run_fail` at ID 4. The installed KCC
-`stdarg.h` omits evaluation of the `va_end` macro argument; the
-unchanged original still fails linking on hosted `malloc` or
-`vprintf`. See `docs/PDP10-P1-VAARG21-VAEND-CLOSURE-20261120-v1.md`.
+`va_end(**ap_ptr++)` expression and second `ap_ptr++`. Historical
+native KCC noopt/opt reports recorded `run_fail` at ID 4 while four
+GCC profiles passed. The KCC owning header now evaluates the argument
+exactly once (KCC commit `5fa3510`), and the corrected header was
+installed. All six freshly selected PDP-6 companion profiles PASS,
+plus both KCC variadic-return regression profiles. The unchanged
+original still fails linking on hosted `malloc` or `vprintf`. See
+`docs/PDP10-P1-VAARG21-VAEND-CLOSURE-20261120-v1.md` and
+`docs/PDP10-KCC-VAEND-HEADER-REPAIR-20261120-v1.md`.
 Completing a test oracle does not make the compiler or unavailable
 hosted allocator pass.
 The pre-existing noreturn regression is scheduled, but all four
@@ -308,7 +312,7 @@ codegen recheck was not a full sweep.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v14.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v15.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
