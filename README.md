@@ -250,30 +250,36 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,294 compiler-matrix sources**, **347 special registrations**
-and **511 owned script paths**, with zero unowned test sources and zero
+report **2,296 compiler-matrix sources**, **353 special registrations**
+and **519 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
 historical import disposition must not be read as present compiler PASS.
 
 The live P1 source-specific construction ledger is
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v16.tsv`:
-**45 covered, zero partial, 22 blocked**. The frozen 59-source batch
-ledger now has 37 covered and 22 blocked; no original is deleted or
-renumbered. Two additional intact deferred-source intentions have real,
-archived PDP-6 evidence: `930513-1.c` (six native KCC/GCC PASS) and
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v18.tsv`:
+**47 covered, zero partial, 20 blocked**. The frozen 59-source batch
+ledger now has 39 covered and 20 blocked; no original is deleted or
+renumbered. Four recent deferred-source intentions have real,
+archived PDP-6 evidence: `930513-1.c` (six native KCC/GCC PASS),
 `struct-ret-1.c` (four original GCC PASS with a separate asserting
-aggregate-return companion retaining one run failure and two timeouts).
+aggregate-return companion retaining one run failure and two timeouts),
+`980605-1.c` (three original PASS and six exact-sized live-stack
+companion PASS), and `920501-8.c` (six substantive variadic-companion
+`run_fail` at `sprintf` exit 41, plus retained original timeout/link
+failures). Completing a test oracle does not make the compiler pass.
 The pre-existing noreturn regression is scheduled, but all four
 targeted GCC PDP-6 profiles currently link-fail on `__builtin_abort`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v1.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v2.md`.
 The exact evidence and negative controls are in the adjacent
 `PDP10-P1-930513-ORIGINAL-CLOSURE-20261120-v1.md` and
-`PDP10-P1-STRUCTRET-HOSTED-CLOSURE-20261120-v1.md`.
+`PDP10-P1-STRUCTRET-HOSTED-CLOSURE-20261120-v1.md`,
+`PDP10-P1-980605-STACK-CLOSURE-20261120-v1.md`, and
+`PDP10-P1-920501-MANYARGS-CLOSURE-20261120-v1.md`.
 The 21 manual roots are pinned in
 `docs/PDP10-MANUAL-ROOTS-20261120-v1.tsv`; the dispatch regressions
 compare exact IDs, groups and paths without executing those manual

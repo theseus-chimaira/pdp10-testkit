@@ -115,6 +115,12 @@ p1-source-batches-v14	verify	python3	tools/audit-p1-source-batches-v14.py	host	y
 p1-structret-hosted-v1	verify	python3	tools/test-p1-structret-hosted-v1.py	host	yes	120
 p1-semantic-resolution-v16	verify	python3	tools/build-p1-semantic-resolution-v16.py	host	yes	120
 p1-source-batches-v15	verify	python3	tools/audit-p1-source-batches-v15.py	host	yes	120
+p1-980605-stack-v1	verify	python3	tools/test-p1-980605-stack-v1.py	host	yes	120
+p1-semantic-resolution-v17	verify	python3	tools/build-p1-semantic-resolution-v17.py	host	yes	120
+p1-source-batches-v16	verify	python3	tools/audit-p1-source-batches-v16.py	host	yes	120
+p1-920501-manyargs-v1	verify	python3	tools/test-p1-920501-manyargs-v1.py	host	yes	120
+p1-semantic-resolution-v18	verify	python3	tools/build-p1-semantic-resolution-v18.py	host	yes	120
+p1-source-batches-v17	verify	python3	tools/audit-p1-source-batches-v17.py	host	yes	120
 p1-matrix-admission-v6	verify	python3	tools/test-p1-matrix-admission-v6.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
