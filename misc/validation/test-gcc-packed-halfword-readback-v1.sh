@@ -22,10 +22,9 @@ if [ -n "${P10TK_GCC_CC1_DIR:-}" ]; then
     }
 fi
 
-# The staged fix is verified at O0 and O1.  O2/Os still have a distinct
-# optimized dynamic-field extraction defect; set P10TK_PACKED_PROFILES to
-# reproduce those failures without silently declaring them passing.
-for opt in ${P10TK_PACKED_PROFILES:-O0 O1}; do
+# Check every supported optimization level. The exact original upstream
+# source and the independent static/dynamic halfword regression must agree.
+for opt in ${P10TK_PACKED_PROFILES:-O0 O1 O2 Os}; do
     case "$opt" in
         O0|O1|O2|Os) ;;
         *) echo "invalid packed halfword profile: $opt" >&2; exit 2 ;;

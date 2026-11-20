@@ -1,5 +1,9 @@
 # GCC PDP-10 packed 18-bit field readback (2026-11-20, v1)
 
+**Historical staged result only.** A subsequent physical-word alignment
+correction also makes O2/Os pass. See
+PDP10-GCC-PACKED-HALFWORD-READBACK-20261120-v2.md for current status.
+
 Status: staged GCC 3.2 fix verified by PDP-6 execution at O0/O1.
 This is not proof of O2/Os correctness and does not install a compiler.
 No full sweep or original-source modification was performed.
