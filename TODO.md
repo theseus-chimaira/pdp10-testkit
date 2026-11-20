@@ -1,17 +1,17 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-20, after nine
-source-pinned original/deferred integrations): **2,301 compiler matrix
-sources**, **375 special entries**, and **548 owned script paths**.
+Current ownership and registration baseline (2026-11-20, after ten
+source-pinned original/deferred integrations): **2,303 compiler matrix
+sources**, **378 special entries**, and **551 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v12.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v13.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
-**Live P1 construction ledger:** 52 covered, zero partial, **15
+**Live P1 construction ledger:** 53 covered, zero partial, **14
 blocked** across 67 historical deferred identities; frozen batches
-44 covered, 15 blocked. Recent original-source/companion integrations
+45 covered, 14 blocked. Recent original-source/companion integrations
 are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
 `run_fail` at the real sprintf `%f` contract), and `960521-1.c`
@@ -23,8 +23,10 @@ original compiler-only `malloc`/`printf` unresolved), and `920810-1.c`
 (six real compiler-library `memcpy`/`memset` guest PASS, original
 `malloc` link failures preserved), and `20020406-1.c` (six genuine
 native recursive input/output-slot swapping guest PASS, original
-hosted `malloc` unresolved). See live v23 P1 and nine focused
-2026-11-20 closure reports.
+hosted `malloc` unresolved), and `980707-1.c` (native token-pointer
+scanner 3 PASS/3 GCC opt `run_fail`, independent real `strcpy` literal
+oracle 3 PASS/3 GCC opt `run_fail`, original `ctype.h`/`isspace`
+missing). See live v24 P1 and ten focused 2026-11-20 closure reports.
 The noreturn `__builtin_abort` linkage and original hosted `printf`
 dependency remain open. The old duplicate-global `vsprintf` failure
 under generic libc is explained by competing formatter providers
@@ -105,6 +107,20 @@ remain historical. See
   archived; the unreachable original algebra and hosted
   malloc/calloc/printf are **not** verified. See
   `docs/PDP10-P1-20020406-RECURSIVE-SWAP-CLOSURE-20261120-v1.md`.
+
+- [x] Construct `980707-1.c` compiler-only 9-bit token-pointer and
+  independent literal `strcpy` memory oracles without a fake ctype
+  provider. The unchanged original still has genuine missing
+  `isspace` linkage (KCC noopt) and missing target `ctype.h` (GCC O0).
+  Each six-profile PDP-6 companion has KCC noopt/opt and GCC O0 PASS,
+  plus GCC O1/O2/Os native `run_fail`: scanner ID 8 (first token),
+  standalone volatile string-byte check ID 3 (second byte missing).
+  Optimized GCC emitted only one `DPB` for the literal `" a b"`,
+  confirming a compiler code-generation regression. All 14 outcomes,
+  65 SHA256-pinned raw outputs and 11 fail-closed mutation controls
+  are preserved. Original hosted ctype and the GCC defect remain
+  unresolved. See
+  `docs/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md`.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -451,7 +467,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v12.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v13.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
@@ -463,7 +479,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the current v23 ledger has **52 covered, 0 partial, 15 blocked**.
+the current v24 ledger has **53 covered, 0 partial, 14 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
