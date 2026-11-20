@@ -1,21 +1,23 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-20, after four
-source-pinned original/deferred integrations): **2,296 compiler matrix
-sources**, **353 special entries**, and **519 owned script paths**.
+Current ownership and registration baseline (2026-11-20, after five
+source-pinned original/deferred integrations): **2,297 compiler matrix
+sources**, **357 special entries**, and **525 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v2.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v3.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
-**Live P1 construction ledger:** 47 covered, zero partial, **20
+**Live P1 construction ledger:** 48 covered, zero partial, **19
 blocked** across 67 historical deferred identities; frozen batches
-39 covered, 20 blocked. Recent original-source/companion integrations
+40 covered, 19 blocked. Recent original-source/companion integrations
 are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
-`run_fail` at the real sprintf `%f` contract). See the v18 P1 ledger
-and four focused 2026-11-20 closure reports. The noreturn
+`run_fail` at the real sprintf `%f` contract), and `960521-1.c`
+(six bounded shifted-array guest PASS; original remains a real malloc
+timeout). See v19 P1 and five focused 2026-11-20 closure reports.
+The noreturn
 `__builtin_abort` and duplicate-global `vsprintf` linker failures
 remain open; no full sweep has run.
 
@@ -318,6 +320,13 @@ compiler sweep.
   GCC `dlink` fails with duplicate global `vsprintf`. All eight outcomes
   and ten negative controls are source-pinned. Test construction is
   covered; compiler/runtime correctness is NOT established.
+- [x] Construct the bounded native `960521-1.c` shifted-array semantics
+  oracle. The unchanged original remains active with two real SIMH
+  timeouts and an impossible bare 65536-word *allocation-only* request.
+  Six KCC/GCC PDP-6 cells PASS the separate two-array test with
+  `*b++`, `b[-1]`, both guards and every stored word. Eight guest
+  outcomes, 24 source-pinned archive artifacts and ten host negative
+  controls pass. No malloc implementation or full-memory PASS is claimed.
 - [x] Repair pre-existing manual-dispatch contract drift: the live
   registry has 21 individually gated roots rather than the historical
   18; pin all 21 exact IDs/groups/paths in the versioned manual-root
@@ -336,7 +345,7 @@ compiler sweep.
   `980707-1.c` duplicate-global `exit` and `920501-8.c` duplicate-global
   `vsprintf` linker defects high priority, separately from the tested
   default-precision `sprintf` `%f` runtime failure. See
-  `docs/PDP10-PRESWEEP-STATE-20261120-v2.md`.
+  `docs/PDP10-PRESWEEP-STATE-20261120-v3.md`.
 
 ## P1 deferred semantic-source closure (2026-11-19 baseline)
 
@@ -346,7 +355,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the live v18 ledger has **47 covered, 0 partial, 20 blocked**.
+the live v19 ledger has **48 covered, 0 partial, 19 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
@@ -408,8 +417,8 @@ architecture-correctness testing into a P1 source batch.
   oracle construction and acceptance remain open; a historical
   blocker is not closed by classifying its failure.
 
-Current **actionable P1 oracle backlog: 20** (zero partial, twenty blocked).
-The 19 unresolved C-source intents are represented by their original
+Current **actionable P1 oracle backlog: 19** (zero partial, nineteen blocked).
+The 18 unresolved C-source intents are represented by their original
 matrix source or an explicitly registered native replacement;
 registration does not resolve missing oracles or establish runtime PASS.
 The separate KL10 assembly port is an assembly-only DAS regression.
@@ -427,11 +436,11 @@ for provenance; it must never shrink or be renumbered.
 - [x] Keep **6 partially covered intents** actionable, preserving
   each specific missing operation or simulator diagnosis; distinguish
   5 recorded companion assertion failures from one actual SIMH timeout.
-- [ ] Complete the remaining **20 live blocked intents** (17 hosted
+- [ ] Complete the remaining **19 live blocked intents** (16 hosted
   runtime, two libc linkage and one KL10 ISA/assembler source). The
-  v18 source-specific ledger is authoritative; historical baseline
+  v19 source-specific ledger is authoritative; historical baseline
   breakdowns are not additional independent work. Do not label
-  these 20 intents as 20 proved compiler defects.
+  these 19 intents as 19 proved compiler defects.
 - [ ] Finish the six partial exact-original oracles; the four
   partially covered GNU-prefetch original forms and union overlay are not
   inferred from successful companions. Resolve the nested-closure
@@ -2212,11 +2221,11 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: **2,296 unique source rows**. The 28 late
+- `COMPILER_MATRIX.tsv`: **2,297 unique source rows**. The 28 late
   original-source admissions remain test registrations, not compiler PASS.
-- `SPECIAL_TESTS.tsv`: **353 entries**; dispatch is statically verified, not comprehensively
+- `SPECIAL_TESTS.tsv`: **357 entries**; dispatch is statically verified, not comprehensively
   executed.
-- Script inventory: **519 owned shell/Python scripts**, including direct,
+- Script inventory: **525 owned shell/Python scripts**, including direct,
   delegated, module, entrypoint and manual-tool roles. Both inventory and
   script-ownership auditors PASS. These checks provide no guest-runtime
   evidence; the previous 21-test host checkpoint remains documented at
