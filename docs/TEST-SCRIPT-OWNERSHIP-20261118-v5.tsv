@@ -166,3 +166,6 @@ tools/audit-p1-920726-hosted-closure-v1.py	module-helper	tools/test-p1-920726-ho
 tools/audit-p1-matrix-admission-v5.py	module-helper	tools/test-p1-matrix-admission-v5.py	Current 25 unresolved P1 obligations with preserved native matrix profiles
 tools/audit-p1-960327-original-v1.py	module-helper	tools/test-p1-960327-original-v1.py	Nine real source-pinned native 960327 stack/sprintf assertion PASS reports and linker maps
 tools/audit-p1-matrix-admission-v6.py	module-helper	tools/test-p1-matrix-admission-v6.py	Current 24 unresolved P1 obligations with untouched original matrix profiles
+tools/audit-p1-930513-original-v1.py	module-helper	tools/test-p1-930513-original-v1.py	Six real original 930513 floating sprintf pointer-call guest reports and map digests
+tools/audit-p1-structret-hosted-v1.py	module-helper	tools/test-p1-structret-hosted-v1.py	Four original hosted formatter PASS reports and six independent aggregate-return companion outcomes
+tools/p1_matrix_post_admission_v1.py	module-helper	tools/audit-p1-matrix-admission-v6.py	Versioned authenticated 930513 original GCC optimization profiles after immutable admission v1-v6

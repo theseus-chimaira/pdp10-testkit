@@ -18,6 +18,7 @@ import tarfile
 from p1_source_replacement_v1 import (
     HISTORICAL_PATH, current_path_for, source_matches_historical,
 )
+from p1_matrix_post_admission_v1 import is_proven_extension
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "docs/PDP10-P1-MATRIX-ADMISSION-20261120-v4.tsv"
@@ -164,7 +165,9 @@ def validate(manifest, matrix, ledger):
         for opt in EXTRA_OPTS:
             col = "pdp6_gcc_" + opt
             want = "pending" if col in planned else "no_test"
-            if matrix_row[col] != want:
+            if (matrix_row[col] != want and
+                    not is_proven_extension(current, col, want,
+                                            matrix_row[col])):
                 raise ValueError("incorrect PDP-6 GCC opt admission: " + col)
             if col in planned:
                 actual_native_cells += 1

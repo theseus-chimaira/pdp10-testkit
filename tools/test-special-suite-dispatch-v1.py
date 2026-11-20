@@ -19,6 +19,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 os.environ.setdefault('PDP10_PREFIX', str(Path.home() / 'cross'))
 MODULE = ROOT / 'tools/run-misc-suites.py'
+MANUAL_ROOTS = ROOT / 'docs/PDP10-MANUAL-ROOTS-20261120-v1.tsv'
 
 
 def require(condition, reason):
@@ -119,7 +120,7 @@ def main():
         dispatcher.run = original_run
 
     # A single selected test must never implicitly launch its entire group
-    # or turn one of the 19 explicit manual roots into automatic coverage.
+    # or turn any source-pinned manual root into automatic coverage.
     by_id = {r['id']: r for r in registered}
     require(len(by_id) == len(registered), 'duplicate registered test ID')
     enabled_id = 'test-script-ownership-v4'
@@ -200,12 +201,21 @@ def main():
                              stderr=subprocess.PIPE, check=True)
     expected_manual = [r['id'] for r in registered
                        if r['enabled'] == 'manual']
+    with MANUAL_ROOTS.open(encoding='ascii', newline='') as stream:
+        pinned = list(csv.DictReader(stream, delimiter='\t'))
+    require(pinned and tuple(pinned[0]) == ('id', 'group', 'path'),
+            'invalid manual-root contract fields')
+    actual_manual = [(r['id'], r['group'], r['path']) for r in registered
+                     if r['enabled'] == 'manual']
+    pinned_manual = [(r['id'], r['group'], r['path']) for r in pinned]
+    require(actual_manual == pinned_manual and len(pinned_manual) == 21,
+            'manual-root set changed; explicitly review and version contract')
     listed = [line.split('\t', 1)[0] for line in
               listing.stdout.splitlines()]
     require(listed == expected_manual,
             'list-manual dropped, reordered or invented manual roots')
-    require(len(listed) == 18,
-            'current standalone manual gate count changed; review policy')
+    require(listed == [r['id'] for r in pinned],
+            'manual-root listing does not match reviewed contract')
 
     total_enabled = sum(r['enabled'] == 'yes' and
                         not (r['group'] == 'das' and r['profile'] == 'nested')

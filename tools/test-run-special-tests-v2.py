@@ -3,6 +3,7 @@
 import importlib.util
 from pathlib import Path
 from unittest.mock import patch
+import csv
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
@@ -14,9 +15,15 @@ rows = runner.entries()
 manual = [row for row in rows if row["enabled"] == "manual"]
 selectable = [row for row in manual if runner.eligible(row)]
 native = [row for row in manual if runner.native(row)]
-assert len(manual) == 18, len(manual)
+with (ROOT / "docs/PDP10-MANUAL-ROOTS-20261120-v1.tsv").open(
+        encoding="ascii", newline="") as stream:
+    pinned = list(csv.DictReader(stream, delimiter="\t"))
+assert pinned and tuple(pinned[0]) == ("id", "group", "path")
+assert [(r["id"], r["group"], r["path"]) for r in manual] == [
+    (r["id"], r["group"], r["path"]) for r in pinned]
+assert len(pinned) == 21, len(pinned)
 assert len(native) == 0, len(native)
-assert len(selectable) == 18, len(selectable)
+assert len(selectable) == len(pinned), len(selectable)
 assert not set(x["id"] for x in native) & set(x["id"] for x in selectable)
 
 calls = []
@@ -50,4 +57,5 @@ with patch.object(runner.subprocess, "run", side_effect=fake_run):
     assert not calls
     assert runner.main(["list"]) == 0
     assert not calls
-print("special runner dispatch v2: PASS (18 selectable, 0 native roots)")
+print("special runner dispatch v2: PASS (%d selectable, 0 native roots)" %
+      len(pinned))

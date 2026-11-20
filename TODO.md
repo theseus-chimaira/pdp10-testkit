@@ -1,13 +1,22 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-20, after native
-byte-pointer replacement): **2,289 compiler matrix sources**,
-**316 special entries**, and **464 owned script paths**.
+Current ownership and registration baseline (2026-11-20, after two
+source-pinned original/deferred integrations): **2,294 compiler matrix
+sources**, **347 special entries**, and **511 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-REGISTRY-GATE-20261119-v1.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v1.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
+
+**Live P1 construction ledger:** 45 covered, zero partial, **22
+blocked** across 67 historical deferred identities; frozen batches
+37 covered, 22 blocked. The newly integrated original-source oracles
+are `930513-1.c` (six PDP-6 KCC/GCC guest PASS) and `struct-ret-1.c`
+(four original GCC PASS, plus separately asserted return ABI companion
+with retained failures). See v16 P1 resolution and the two focused
+2026-11-20 closure reports. The actual noreturn `__builtin_abort`
+link failures remain open; no full sweep has run.
 
 **Priority decision:** All *new* AAP emulator architecture-correctness
 work is **P3**, not P1 or P2: ASHC/IDIV and other instruction reference
@@ -274,15 +283,43 @@ compiler sweep.
   narrowly scoped synthetic harness checks.
 - [ ] Finish host-only preflight, documentation reconciliation, and source
   provenance checks before authorizing the large compiler/CPU sweep.
+- [x] Inspect compiler-testkit branch consolidation: only `main` and
+  `origin/main` exist; internal review refs are not development branches.
+  Leave every other repository untouched.
+- [x] Admit the intact `930513-1.c` original in GCC PDP-6 O1/O2/Os,
+  verify all six PDP-6 KCC/GCC profiles with real buffered `sprintf`,
+  and preserve source/map/report hashes with nine negative controls.
+- [x] Close `struct-ret-1.c` test **construction** using four real GCC
+  original-source guest PASS results plus independent large-return ABI
+  companion checking all previously discarded fields. Preserve GCC O0
+  real `run_fail` and KCC two real timeouts in the companion.
+- [x] Repair pre-existing manual-dispatch contract drift: the live
+  registry has 21 individually gated roots rather than the historical
+  18; pin all 21 exact IDs/groups/paths in the versioned manual-root
+  manifest. Both exact-ID dispatch regressions now PASS without running
+  any of the manual tests.
+- [x] Reconcile original P1 matrix-admission audits v1-v6 with later
+  source-pinned `930513-1.c` optimization-profile admissions. The
+  narrowly scoped verified exception retains all six historical
+  admission manifests and their 16 negative controls; no new source
+  or unapproved CPU/profile registration is accepted.
+- [ ] Investigate verified missing callable symbols `__builtin_abort`,
+  `__fixunssfsi`, `isprint`, `isspace`, `_eexit`, `__builtin_printf`,
+  and `putchar`, plus real hosted `stdout` and `stderr` objects.
+  Distinguish absent functions from present-but-unverified `sprintf`,
+  `malloc`, and other hosted services. Keep the separate
+  `980707-1.c` duplicate-global `exit` linker defect high priority.
+  See `docs/PDP10-PRESWEEP-STATE-20261120-v1.md`.
 
-## P1 deferred semantic-source closure (2026-11-19 v1)
+## P1 deferred semantic-source closure (2026-11-19 baseline)
 
 **Initial actionable P1 source obligations: 59, not 67.** The historical
 import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v14 ledger counts **43 covered, 0 partial, 24 blocked**.
+historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
+the live v16 ledger has **45 covered, 0 partial, 22 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
@@ -344,8 +381,9 @@ architecture-correctness testing into a P1 source batch.
   oracle construction and acceptance remain open; a historical
   blocker is not closed by classifying its failure.
 
-Current **actionable P1 oracle backlog: 24** (zero partial, twenty-four blocked).
-The 23 unresolved C sources are already scheduled in the normal compiler matrix;
+Current **actionable P1 oracle backlog: 22** (zero partial, twenty-two blocked).
+The 21 unresolved C-source intents are represented by their original
+matrix source or an explicitly registered native replacement;
 registration does not resolve missing oracles or establish runtime PASS.
 The separate KL10 assembly port is an assembly-only DAS regression.
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources
@@ -2148,12 +2186,11 @@ Theseus identity; tests belong in `pdp10-testkit`, not `pdp10-doc`.
 
 ## Current baseline (not a completion claim)
 
-- `COMPILER_MATRIX.tsv`: **2,289 unique source rows**. The 28 late
+- `COMPILER_MATRIX.tsv`: **2,294 unique source rows**. The 28 late
   original-source admissions remain test registrations, not compiler PASS.
-- `SPECIAL_TESTS.tsv`: **296 entries**: 272 enabled direct, 18 manual
-  and six nested; dispatch is statically verified, not comprehensively
+- `SPECIAL_TESTS.tsv`: **347 entries**; dispatch is statically verified, not comprehensively
   executed.
-- Script inventory: **435 owned shell/Python scripts**, including direct,
+- Script inventory: **511 owned shell/Python scripts**, including direct,
   delegated, module, entrypoint and manual-tool roles. Both inventory and
   script-ownership auditors PASS. These checks provide no guest-runtime
   evidence; the previous 21-test host checkpoint remains documented at

@@ -218,7 +218,7 @@ resume, output and timeout controls. A pending entry is not a passing
 execution result. Full sweeps are operator-selected.
 
 `SPECIAL_TESTS.tsv` records standalone specialized tests, including
-18 deliberately manual roots. The 25 booted native toolchain tests are
+21 deliberately manual roots. The 25 booted native toolchain tests are
 registered exclusively in `daimos-testkit`. `./run-misc-tests.sh` is the
 special-suite entry point; `verify` runs the broader verify/compatibility
 and validation groups, **not** merely a fast static ownership audit.
@@ -247,7 +247,41 @@ it is not silently replaced by `DAIMOS/tools/host`.
 | `tools/` | Matrix runners and static integrity/ownership audits |
 | `tests/todo/generic/` | Retained historical generic candidates; some canonical compiler gates are active matrix tests |
 
-## Current static integration state (2026-11-19)
+## Current pre-sweep state (2026-11-20)
+
+The active `pdp10-testkit` registration and source-ownership auditors
+report **2,294 compiler-matrix sources**, **347 special registrations**
+and **511 owned script paths**, with zero unowned test sources and zero
+unconnected scripts. No full compiler/CPU/optimization sweep has run
+in this preparation stage. The historical upstream classification
+retains 551 active, 67 deferred, 58 removed and one nonportable source;
+historical import disposition must not be read as present compiler PASS.
+
+The live P1 source-specific construction ledger is
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v16.tsv`:
+**45 covered, zero partial, 22 blocked**. The frozen 59-source batch
+ledger now has 37 covered and 22 blocked; no original is deleted or
+renumbered. Two additional intact deferred-source intentions have real,
+archived PDP-6 evidence: `930513-1.c` (six native KCC/GCC PASS) and
+`struct-ret-1.c` (four original GCC PASS with a separate asserting
+aggregate-return companion retaining one run failure and two timeouts).
+The pre-existing noreturn regression is scheduled, but all four
+targeted GCC PDP-6 profiles currently link-fail on `__builtin_abort`.
+
+For the current outstanding source names, genuinely missing runtime
+symbols, test ownership, branch state and **explicit stop point before
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v1.md`.
+The exact evidence and negative controls are in the adjacent
+`PDP10-P1-930513-ORIGINAL-CLOSURE-20261120-v1.md` and
+`PDP10-P1-STRUCTRET-HOSTED-CLOSURE-20261120-v1.md`.
+The 21 manual roots are pinned in
+`docs/PDP10-MANUAL-ROOTS-20261120-v1.tsv`; the dispatch regressions
+compare exact IDs, groups and paths without executing those manual
+tests. Historical admission v1-v6 audits also accept only the three
+new source-pinned GCC profiles for `930513-1.c`, preserving all
+previously prohibited registrations and negative controls.
+
+## Historical static integration state (2026-11-19 snapshot)
 
 - Compiler matrix: **2,261** sources, including forty-nine substantive
   companions for formerly vacuous or width-dependent upstream tests.
