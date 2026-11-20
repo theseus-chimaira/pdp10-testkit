@@ -57,6 +57,14 @@ compiler sweep.
   historical-vs-current hash differences; preserve all observed failures.
   See docs/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.md.
 - [ ] Identify exact remaining P1 libc/header/varargs prerequisites, distinguishing hosted malloc, I/O, alloca, missing runtime helpers and GNU built-ins from available freestanding symbols. No fake libc stubs.
+  Batch 4 slots 3/4 now have pinned installed-toolchain evidence:
+  `991112-1.c` needs real `isprint` with both KCC/GCC link failing;
+  GCC `conversion.c` needs real `__fixunssfsi`, whereas KCC links
+  and fails its executed guest assertion. A host audit verifies both
+  absent exports in selected installed runtime members and checks
+  four exact source/profile outcomes, with six negative controls.
+  Both sources remain blocked. See
+  `docs/PDP10-P1-BATCH4-LIBC-CONTRACT-20261120-v1.md`.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;

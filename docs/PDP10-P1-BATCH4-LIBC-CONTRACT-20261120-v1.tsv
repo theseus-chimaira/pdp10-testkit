@@ -1,0 +1,5 @@
+source	source_sha256	compiler	profile	status	missing_symbol
+tests/todo/generic/991112-1.c	8c6dd7a6a2a80914012a04aa95b1ab303b678087036b4c19df63e2f700aee9c4	kcc	kcc-pdp6-noopt	link_fail	isprint
+tests/todo/generic/991112-1.c	8c6dd7a6a2a80914012a04aa95b1ab303b678087036b4c19df63e2f700aee9c4	gcc	gcc-pdp6-o0	link_fail	isprint
+tests/semantic/upstream/pdp10/pdp10/conversion.c	2736912e40e1dabd84f7f193ddaaf5ddf9bf00e76edb0cca0611b3f49e5c1beb	kcc	kcc-pdp6-noopt	run_fail	-
+tests/semantic/upstream/pdp10/pdp10/conversion.c	2736912e40e1dabd84f7f193ddaaf5ddf9bf00e76edb0cca0611b3f49e5c1beb	gcc	gcc-pdp6-o0	link_fail	__fixunssfsi
