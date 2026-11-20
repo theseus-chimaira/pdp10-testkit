@@ -163,9 +163,14 @@ def test_reserved_compiler_exits(runner, outroot):
     require([runner.p10run_failure_status(rc, diagnostic) for rc, diagnostic in
              ((0, ''), (1, 'dlink: undefined symbol\np10run: link failed\n'),
               (1, 'FAIL: __test_exit: got 1 expected 0\n'),
-              (124, 'p10run: link failed\n'))] ==
-            ['pass', 'link_fail', 'run_fail', 'timeout'],
-            'p10run link, guest assertion and timeout are conflated')
+              (124, 'p10run: link failed\n'),
+              (125, ''), (126, ''), (127, ''),
+              (-9, ''), (139, ''),
+              (127, 'p10run: link failed\n'))] ==
+            ['pass', 'link_fail', 'run_fail', 'timeout',
+             'setup_fail', 'setup_fail', 'setup_fail',
+             'setup_fail', 'setup_fail', 'setup_fail'],
+            'p10run link, guest assertion, launcher and timeout are conflated')
     require('link_fail' in runner.FAIL_STATUSES,
             'linker failures must not be skipped as unknown status')
 

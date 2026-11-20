@@ -44,3 +44,14 @@ must be reviewed and explicitly versioned, not silently accepted.
 Still open: individual runtime/link/varargs ABI diagnoses, source-specific
 oracle policies, installed header contracts, and missing hosted-service
 policy. The full matrix sweep remains deferred.
+
+## Host launcher versus guest outcome
+
+The semantic runner now treats p10run's reserved launcher exits 125-127
+and host signal termination as `setup_fail`, rather than attributing
+them to a PDP-10 assertion (`run_fail`). A nonzero ordinary return with
+`p10run: link failed` remains `link_fail`; an actual guest assertion
+failure remains `run_fail`; timeout remains `timeout`. This classification
+does not infer which hosted service is missing and does not turn any
+failed test into a pass. Synthetic accounting checks cover the precedence
+and the distinct failure outcomes without executing the compiler matrix.

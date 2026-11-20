@@ -1058,6 +1058,10 @@ def p10run_failure_status(returncode, output):
         return 'pass'
     if returncode == 124:
         return 'timeout'
+    # These are launcher failures, not PDP-10 program failures. A host
+    # process killed by a signal likewise provides no guest assertion.
+    if returncode in (125, 126, 127) or returncode < 0 or returncode >= 128:
+        return 'setup_fail'
     if 'p10run: link failed' in output:
         return 'link_fail'
     return 'run_fail'

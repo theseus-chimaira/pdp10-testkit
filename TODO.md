@@ -1201,6 +1201,11 @@ The next eight batches are documented in
   production linker, benchmark whole-word paths against byte loops, and
   investigate remaining hosted I/O/allocation/varargs dependencies. See
   `docs/P10-FREESTANDING-LIBC-20261014-v2.md`.
+  Host-only P1 runner accounting now separates p10run launcher exits and
+  host signals (`setup_fail`) from linker failures (`link_fail`) and guest
+  assertions (`run_fail`), with synthetic regression checks; see
+  `docs/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.md`. Source-specific
+  runtime integration and real ABI validation remain open.
 
 ## P1 — immediately after semantic classifications: libc ASM optimization verification
 
