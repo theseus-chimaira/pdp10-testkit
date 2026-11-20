@@ -99,6 +99,7 @@ p1-variadic-vla-original-v1	verify	python3	tools/test-p1-variadic-vla-original-v
 p1-semantic-resolution-v12	verify	python3	tools/build-p1-semantic-resolution-v12.py	host	yes	120
 p1-source-batches-v11	verify	python3	tools/audit-p1-source-batches-v11.py	host	yes	120
 p1-matrix-admission-v4	verify	python3	tools/test-p1-matrix-admission-v4.py	host	yes	120
+p1-fp-signed-conversion-v1	verify	python3	tools/test-p1-fp-signed-conversion-v1.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

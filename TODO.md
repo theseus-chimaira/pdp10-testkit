@@ -200,6 +200,19 @@ compiler sweep.
   v11 have **33 covered, 0 partial, 26 blocked**.
   The full conversion test remains blocked on genuine
   `__fixunssfsi` linkage and unverified GNU long-long paths.
+  A new native freestanding, source-pinned C89 diagnostic
+  `pdp10-fp-signed-conversion-v1.c` now independently checks
+  signed integer-to-float/double and float/double-to-integer
+  conversions without unsigned helper dependencies. Each
+  compiler actually executes all four direction groups before
+  reporting a failure mask. Across six PDP-6 profiles, GCC
+  O0/O1/O2/Os fail only the int-to-float group; KCC noopt
+  fails both integer-to-FP groups; KCC opt fails all four.
+  The original `conversion.c` **remains blocked**, because
+  unsigned and GNU long-long conversion paths are not covered.
+  The companion's source and all six guest reports/maps are
+  SHA256-pinned with seven negative controls. See
+  `docs/PDP10-P1-FP-SIGNED-CONVERSION-20261120-v1.md`.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;
