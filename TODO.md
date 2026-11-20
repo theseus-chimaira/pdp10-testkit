@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-20, after six
 source-pinned original/deferred integrations): **2,298 compiler matrix
-sources**, **361 special entries**, and **531 owned script paths**.
+sources**, **362 special entries**, and **533 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v5.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v6.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 49 covered, zero partial, **18
@@ -158,9 +158,11 @@ compiler sweep.
   absent in the observed compile failures. KCC builtin-noret rejects
   _exit and GCC builtin-noret needs unresolved _eexit at O0.
   KCC 980707-1.c reports dlink 'duplicate global: exit' despite one
-  DEF exit across the six input objects: preserve this concrete
-  assembler/linker inconsistency for later toolchain work, not a
-  workaround. The audit has nine negative controls. See
+  DEF exit across the six explicit inputs. The current five-case
+  archive replay identifies another hosted `exit`/`abort` provider
+  introduced from libc when resolving `isspace`: not a proved linker
+  implementation fault. Correct guest termination/ctype ABI remains
+  open. The historical batch audit has nine negative controls. See
   `docs/PDP10-P1-BATCH5-CONTRACT-20261120-v1.md`. All ten original
   obligations remain blocked. No full sweep, stubs, or compiler edits.
   Batch 6 is now SHA-pinned and narrowly probed: nine unchanged
@@ -357,15 +359,20 @@ compiler sweep.
   and `putchar`, plus real hosted `stdout` and `stderr` objects.
   Distinguish absent functions from present-but-unverified `sprintf`,
   `malloc`, and other hosted services. Keep the separate
-  `980707-1.c` duplicate-global `exit` remains an unexplained linker
-  discrepancy. The GCC `920501-8.c` duplicate-global `vsprintf`
+  `980707-1.c` duplicate-global `exit` is now explained by hosted libc
+  pulling its own `exit`/`abort` to supply `isspace`, conflicting with
+  the test CRT's termination helpers. The original remains link-fail:
+  removing the helpers is not an execution-valid fix. Its five actual
+  link comparisons and six negative controls are source-pinned.
+  The GCC `920501-8.c` duplicate-global `vsprintf`
   has a *diagnosed provider conflict* between selected GCC
   `p10stdio-format-v2.s` and the default hosted libc archive, not a
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v5.md` and
-  `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`.
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v6.md`,
+  `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
+  `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
 ## P1 deferred semantic-source closure (2026-11-19 baseline)
 
