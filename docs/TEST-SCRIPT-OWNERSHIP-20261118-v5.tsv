@@ -157,3 +157,5 @@ tools/audit-p1-return-oracles-v1.py	module-helper	tools/test-p1-return-oracles-v
 tools/audit-p1-matrix-admission-v1.py	module-helper	tools/test-p1-matrix-admission-v1.py	Source-pinned native P1 matrix scheduling, 29 unresolved obligations and three archived compiler smoke outcomes
 tools/audit-p1-matrix-admission-v2.py	module-helper	tools/test-p1-matrix-admission-v2.py	Current source-pinned native P1 admission: 28 unresolved obligations and archived compiler smoke reports
 tools/audit-p1-prefetch-invalid-v1.py	module-helper	tools/test-p1-prefetch-invalid-v1.py	Native-width invalid-address prefetch and four source-pinned PDP-6 guest PASS reports
+tools/audit-p1-packed-original-oracle-v1.py	module-helper	tools/test-p1-packed-original-oracle-v1.py	Two actually executed original packed-aggregate PDP-6 failures and resolved target runtime symbols
+tools/audit-p1-matrix-admission-v3.py	module-helper	tools/test-p1-matrix-admission-v3.py	Current 27 unresolved P1 obligations with archived native compiler smoke results
