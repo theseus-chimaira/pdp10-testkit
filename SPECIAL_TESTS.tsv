@@ -134,6 +134,9 @@ p1-source-batches-v20	verify	python3	tools/audit-p1-source-batches-v20.py	host	y
 p1-920810-child-copy-v1	verify	python3	tools/test-p1-920810-child-copy-v1.py	host	yes	120
 p1-semantic-resolution-v22	verify	python3	tools/build-p1-semantic-resolution-v22.py	host	yes	120
 p1-source-batches-v21	verify	python3	tools/audit-p1-source-batches-v21.py	host	yes	120
+p1-20020406-recursive-swap-v1	verify	python3	tools/test-p1-20020406-recursive-swap-v1.py	host	yes	120
+p1-semantic-resolution-v23	verify	python3	tools/build-p1-semantic-resolution-v23.py	host	yes	120
+p1-source-batches-v22	verify	python3	tools/audit-p1-source-batches-v22.py	host	yes	120
 p1-920501-stdio-provider-v1	verify	python3	tools/test-p1-920501-stdio-provider-v1.py	host	yes	120
 p1-980707-ctype-provider-v1	verify	python3	tools/test-p1-980707-ctype-provider-v1.py	host	yes	120
 compiler-stdlib-prefix-v1	verify	python3	tools/test-compiler-stdlib-prefix-v1.py	host	yes	120
