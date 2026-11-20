@@ -1053,7 +1053,16 @@ def codegen_macro_probe(cell, source_directives, cdir, bins, log_path):
     return 'policy_fail'
 
 
-def p10run_failure_status(returncode, output):
+def p10run_step_limit_exhausted(report_path):
+    """Inspect the simulator report without loading its trace into RAM."""
+    try:
+        with open(report_path, 'r', errors='replace') as stream:
+            return any('Step expired, PC:' in line for line in stream)
+    except OSError:
+        return False
+
+
+def p10run_failure_status(returncode, output, step_limit_exhausted=False):
     """Distinguish an unresolved/failed target link from a guest failure.
 
     A p10run return code alone cannot differentiate a target linker error
@@ -1070,6 +1079,11 @@ def p10run_failure_status(returncode, output):
         return 'setup_fail'
     if 'p10run: link failed' in output:
         return 'link_fail'
+    # SIMH's STEP command can stop normally after its instruction budget
+    # without executing HALT or the test's exit path.  The startup's
+    # initial __test_exit=1 is then not a failed guest assertion.
+    if step_limit_exhausted:
+        return 'timeout'
     return 'run_fail'
 
 
@@ -1176,7 +1190,10 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                 required = needed_kcc_runtime_symbols(asm_text)
                 runtime_files = []
                 if required:
-                    runtime_files, setup_error = kcc_runtime_fragments(cell['machine'], required)
+                    runtime_files, runtime_error = kcc_runtime_fragments(
+                        cell['machine'], required)
+                    if runtime_error and setup_error is None:
+                        setup_error = runtime_error
                     cmd += [str(path) for path in runtime_files]
                 with open(log_path, 'a') as log:
                     log.write('kcc_runtime_required=%s\n' % (','.join(required) if required else 'none'))
@@ -1194,7 +1211,10 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                 rc = run_cmd(cmd, ROOT, log_path, timeout=CELL_TIMEOUT,
                              done_report_path=report_path)
                 report = str(report_path if report_path.is_file() else log_path)
-                status = p10run_failure_status(rc, read_text(log_path))
+                step_exhausted = (rc != 0 and report_path.is_file() and
+                                  p10run_step_limit_exhausted(report_path))
+                status = p10run_failure_status(
+                    rc, read_text(log_path), step_exhausted)
                 if status == 'pass' and perf_profile:
                     # Profiling is post-correctness; reject missing/incomplete
                     # counters instead of silently reporting zero instructions.

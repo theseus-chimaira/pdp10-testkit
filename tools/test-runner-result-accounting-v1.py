@@ -173,6 +173,22 @@ def test_reserved_compiler_exits(runner, outroot):
             'p10run link, guest assertion, launcher and timeout are conflated')
     require('link_fail' in runner.FAIL_STATUSES,
             'linker failures must not be skipped as unknown status')
+    report = outroot / 'step-exhausted-v1.report.txt'
+    report.write_text('Step expired, PC: 001256 (JUMPGE 6,1260)\n',
+                      encoding='ascii')
+    require(runner.p10run_step_limit_exhausted(report),
+            'SIMH step exhaustion not detected')
+    require(runner.p10run_failure_status(
+                1, 'FAIL: __test_exit: got 1 expected 0\n',
+                runner.p10run_step_limit_exhausted(report)) == 'timeout',
+            'unfinished simulator steps classified as guest assertion')
+    require(runner.p10run_failure_status(
+                1, 'p10run: link failed\n', True) == 'link_fail',
+            'step budget masked an actual link failure')
+    report.write_text('HALT instruction, PC: 000000\n', encoding='ascii')
+    require(not runner.p10run_step_limit_exhausted(report) and
+            runner.p10run_failure_status(1, '', False) == 'run_fail',
+            'guest abort falsely classified as step exhaustion')
 
 
 def test_kcc_dimode_helper_ownership(runner):
@@ -189,6 +205,44 @@ def test_kcc_dimode_helper_ownership(runner):
             'installed DImode runtime helper unavailable or duplicated')
     require(all(runner.runtime_defines_symbol(runner.read_text(files[0]), sym)
                 for sym in symbols), 'installed DImode entrypoint absent')
+
+
+def test_preserve_first_missing_libc_error(runner, outroot):
+    """A valid KCC runtime helper cannot erase an earlier libc setup error."""
+    source = 'tests/semantic/kcc-libc-freestanding-v1.c'
+    cell = {'compiler': 'kcc', 'profile': 'kcc-pdp6-noopt',
+            'machine': 'pdp6', 'arch': 'pdp6', 'family': 'native',
+            'optname': 'noopt', 'kind': 'semantic'}
+    old_compile = runner.compile_to_asm
+    old_find = runner.find_kcc_freestanding
+    old_cmd = runner.run_cmd
+
+    def compiled(_cell, _source, asm, _log, _bins):
+        asm.write_text('.text\nmain:\n pushj 17,memcpy\n'
+                       ' pushj 17,__kcc_umoddi3\n popj 17,\n',
+                       encoding='ascii')
+        return 'pass'
+
+    def forbidden(*_args, **_kwargs):
+        raise AssertionError('p10run launched after missing libc member')
+
+    try:
+        runner.compile_to_asm = compiled
+        runner.find_kcc_freestanding = lambda _name: None
+        runner.run_cmd = forbidden
+        status = runner.run_semantic_cell(
+            1, 1, source, cell, outroot, {'p10run': Path('/unused')},
+            None, announce=False)
+        require(status == 'setup_fail',
+                'later KCC runtime success erased a missing-libc failure')
+        log = runner.cell_dir(outroot, source, cell) / 'cell.log'
+        require('missing kcc freestanding libc fragment' in
+                log.read_text(encoding='utf8'),
+                'first missing-libc setup diagnostic was lost')
+    finally:
+        runner.compile_to_asm = old_compile
+        runner.find_kcc_freestanding = old_find
+        runner.run_cmd = old_cmd
 
 
 def test_real_negative_policy_path(runner, outroot):
@@ -240,6 +294,7 @@ def main():
         test_worker_failure(runner, outroot)
         test_reserved_compiler_exits(runner, outroot)
         test_kcc_dimode_helper_ownership(runner)
+        test_preserve_first_missing_libc_error(runner, outroot)
         test_real_negative_policy_path(runner, outroot)
     print('Runner result accounting: PASS (restart, failures, workers, '
           'reserved compiler exit codes, KCC DImode helper ownership)')
