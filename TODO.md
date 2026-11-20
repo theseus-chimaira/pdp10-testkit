@@ -1,24 +1,26 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-20, after six
-source-pinned original/deferred integrations): **2,298 compiler matrix
-sources**, **366 special entries**, and **539 owned script paths**.
+Current ownership and registration baseline (2026-11-20, after seven
+source-pinned original/deferred integrations): **2,299 compiler matrix
+sources**, **369 special entries**, and **542 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261120-v9.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261120-v10.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
-**Live P1 construction ledger:** 49 covered, zero partial, **18
+**Live P1 construction ledger:** 50 covered, zero partial, **17
 blocked** across 67 historical deferred identities; frozen batches
-41 covered, 18 blocked. Recent original-source/companion integrations
+42 covered, 17 blocked. Recent original-source/companion integrations
 are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
 `run_fail` at the real sprintf `%f` contract), and `960521-1.c`
 (six bounded shifted-array guest PASS; original remains a real malloc
-timeout), and `990628-1.c` (six real `memset`/record-copy PASS,
-original allocator-dependent timeouts retained). See v20 P1 and six
-focused 2026-11-20 closure reports.
+timeout), `990628-1.c` (six real `memset`/record-copy PASS,
+original allocator-dependent timeouts retained), and `941014-2.c`
+(three real compiler-oracle PASS, three GCC optimized `run_fail`,
+original compiler-only `malloc`/`printf` unresolved). See live v21 P1
+and seven focused 2026-11-20 closure reports.
 The noreturn `__builtin_abort` linkage and original hosted `printf`
 dependency remain open. The old duplicate-global `vsprintf` failure
 under generic libc is explained by competing formatter providers
@@ -50,6 +52,13 @@ remain historical. See
   dispatcher and tool/host-builder exceptions (`tools`, `kcc-host`,
   `das`) before the full sweep. Do not turn their library requirements
   into unrelated hosted OS libc links or silently change test oracles.
+  A limited static scan found 73 potential direct `p10run` caller/helper
+  scripts across registered compiler guest groups and delegates, with
+  no additional explicit generic-libc link inputs in normal `misc/`
+  guest scripts beyond the two fixed formatter cases. This is not a
+  guarantee for arbitrary raw execution: implicit `p10run` archive
+  selection still depends on the invocation environment. See the
+  v10 pre-sweep report.
 - [x] Fix the two raw-invocable GCC `p10stdio` production formatter
   compatibility scripts to link the installed GCC compiler
   `libp10c-v2.a` archive directly, never the generic `lib/libc.a`.
@@ -60,6 +69,16 @@ remain historical. See
   reject accidental hosted-libc reuse or false guest results.
   Remaining raw scripts still require explicit ownership review.
   See `docs/PDP10-GCC-STDIO-DIRECT-COMPILER-ARCHIVE-20261120-v1.md`.
+
+- [x] Construct the original `941014-2.c` volatile-short compiler
+  oracle without fake hosted malloc/printf. The historical original
+  source still has two compiler-library link failures. The C89 native
+  companion passes KCC noopt/opt and GCC O0, but GCC O1 fails with
+  `fail_id=11` and O2/Os with `fail_id=16`. Thirty raw artifacts and
+  eleven mutation controls preserve these genuine optimization
+  failures. Construction is covered, compiler bugs and original
+  hosted runtime **not** fixed. See
+  `docs/PDP10-P1-941014-VOLATILE-SHORT-CLOSURE-20261120-v1.md`.
 
 **Current compiler ICE checkpoint:** All nine historically recorded
 native PDP-6 compiler ICE/signal cells (six GCC, three KCC) were
@@ -406,7 +425,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v9.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261120-v10.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
@@ -418,7 +437,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the live v20 ledger has **49 covered, 0 partial, 18 blocked**.
+the current v21 ledger has **50 covered, 0 partial, 17 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 

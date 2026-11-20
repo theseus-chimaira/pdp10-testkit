@@ -250,18 +250,18 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,298 compiler-matrix sources**, **366 special registrations**
-and **539 owned script paths**, with zero unowned test sources and zero
+report **2,299 compiler-matrix sources**, **369 special registrations**
+and **542 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
 historical import disposition must not be read as present compiler PASS.
 
 The live P1 source-specific construction ledger is
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v20.tsv`:
-**49 covered, zero partial, 18 blocked**. The frozen 59-source batch
-ledger now has 41 covered and 18 blocked; no original is deleted or
-renumbered. Six recent deferred-source intentions have real,
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v21.tsv`:
+**50 covered, zero partial, 17 blocked**. The frozen 59-source batch
+ledger now has 42 covered and 17 blocked; no original is deleted or
+renumbered. Seven recent deferred-source intentions have real,
 archived PDP-6 evidence: `930513-1.c` (six native KCC/GCC PASS),
 `struct-ret-1.c` (four original GCC PASS with a separate asserting
 aggregate-return companion retaining one run failure and two timeouts),
@@ -271,7 +271,11 @@ companion PASS), `920501-8.c` (six substantive variadic-companion
 failures), `960521-1.c` (two original SIMH timeouts and six
 native bounded shifted-array compiler PASS), and `990628-1.c`
 (two original malloc-backed timeouts and six 101-int struct-copy
-companion guest PASS). Completing a test oracle
+companion guest PASS), and `941014-2.c` (two genuine compiler-only
+stdlib link failures, three native compiler-semantic PASS and three
+optimized GCC guest `run_fail` at pointer/integer expression checks).
+See `docs/PDP10-P1-941014-VOLATILE-SHORT-CLOSURE-20261120-v1.md`.
+Completing a test oracle
 does not make the compiler or unavailable hosted allocator pass.
 The pre-existing noreturn regression is scheduled, but all four
 targeted GCC PDP-6 profiles currently link-fail on `__builtin_abort`.
@@ -283,7 +287,7 @@ codegen recheck was not a full sweep.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v9.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v10.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
