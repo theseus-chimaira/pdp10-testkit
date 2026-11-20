@@ -17,6 +17,10 @@ import sys
 
 from audit_consolidated_upstream_v21 import audit_consolidated_sources
 from p1_matrix_admissions_v1 import admitted_sources
+from p1_source_replacement_v1 import (
+    CURRENT_PATH, HISTORICAL_PATH, HISTORICAL_SHA,
+    source_matches_historical,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -300,6 +304,11 @@ def audit():
         if activation == "removed":
             if exists or registered:
                 problems.append("removed source still present/registered: %s" % rel)
+        elif (rel == HISTORICAL_PATH and
+              source_matches_historical(rel, HISTORICAL_SHA)):
+            if exists or registered or CURRENT_PATH not in matrix_paths:
+                problems.append("retired original has wrong matrix owner: " +
+                                rel)
         else:
             if not exists:
                 problems.append("missing retained upstream source: %s" % rel)

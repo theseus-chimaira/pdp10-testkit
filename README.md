@@ -78,10 +78,15 @@ The newly selected compiler profiles contain **15 GCC passes
 and 13 GCC runtime failures**, plus **six KCC passes and two
 KCC runtime failures**. `nestfunc-3.c` remains deferred:
 GCC O0/O1/O2 simulator runs timed out without readable status,
-while Os reached abort. The full-size XKL `old.tort.c` still
-requires hosted TOPS-20 support, and `packed-2.c` has no
-checked packing assertion. No original C source was changed
-or deleted in batch 17.
+while Os reached abort. At that time `old.tort.c` was
+deferred for nonportable system assumptions, and `packed-2.c`
+still had no checked packing assertion. No C source was
+changed during batch 17. The former `old.tort.c` was
+subsequently **deleted** and replaced by the native, hosted-I/O-free
+`tests/semantic/regression/pdp10-byte-pointer-torture-v1.c`.
+All six observed PDP-6 profiles are registered as real compiler
+assertion failures, not silently skipped. See
+`docs/PDP10-P1-NATIVE-BYTEPTR-REPLACEMENT-20261120-v1.md`.
 The eighteenth review connected five original test sources
 covering GNU 71-bit-capable fourth-argument passing, a
 struct-by-value argument after three scalars, block-scope

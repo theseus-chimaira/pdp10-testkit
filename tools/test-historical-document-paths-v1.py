@@ -13,6 +13,9 @@ from pathlib import Path
 import re
 import sys
 
+from p1_source_replacement_v1 import (
+    HISTORICAL_PATH, HISTORICAL_SHA, source_matches_historical,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY_REGISTRY = ROOT / 'docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv'
@@ -38,6 +41,22 @@ KNOWN_RETIRED = {
      'tests/todo/generic/pdp10/strct-varg-1.c'),
     ('docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md',
      'tests/semantic/upstream/wide-int/conversion.c'),
+    ('docs/PDP10-P1-BATCH6-PROBE-20261119-v1.md',
+     HISTORICAL_PATH),
+    ('docs/PDP10-P1-NATIVE-BYTEPTR-REPLACEMENT-20261120-v1.md',
+     HISTORICAL_PATH),
+    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v1.md',
+     HISTORICAL_PATH),
+    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v2.md',
+     HISTORICAL_PATH),
+    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v3.md',
+     HISTORICAL_PATH),
+    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v4.md',
+     HISTORICAL_PATH),
+    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v5.md',
+     HISTORICAL_PATH),
+    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v6.md',
+     HISTORICAL_PATH),
 }
 REPO_PATH = re.compile(
     r'`((?:\.{1,2}/)?(?:tests|tools|docs|misc|refs|support|workdir)/'
@@ -68,6 +87,8 @@ def relative_file(name):
 
 def audit():
     failures = []
+    if not source_matches_historical(HISTORICAL_PATH, HISTORICAL_SHA):
+        failures.append('reviewed native byte-pointer replacement missing')
     with LEGACY_REGISTRY.open(encoding='ascii', newline='') as file:
         legacy_rows = list(csv.DictReader(file, delimiter='\t'))
     with REGISTRY.open(encoding='ascii', newline='') as file:

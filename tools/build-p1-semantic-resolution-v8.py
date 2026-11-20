@@ -17,6 +17,8 @@ import hashlib
 from pathlib import Path
 import sys
 
+from p1_source_replacement_v1 import source_matches_historical
+
 ROOT = Path(__file__).resolve().parents[1]
 HIST = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
 CLASS = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
@@ -251,8 +253,7 @@ def authoritative():
     for row in original:
         name = row['classified_path']
         if (import_manifest[name]['activation'] != 'deferred' or
-                hashlib.sha256((ROOT / name).read_bytes()).hexdigest() !=
-                row['source_sha256'] or
+                not source_matches_historical(name, row['source_sha256']) or
                 baseline[name]['sha256'] != row['source_sha256']):
             raise ValueError('original source/disposition changed: ' + name)
     return original, coverage, baseline, matrix, evidence

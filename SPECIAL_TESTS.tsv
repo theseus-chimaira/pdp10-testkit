@@ -74,6 +74,8 @@ p1-semantic-resolution-v7	verify	python3	tools/build-p1-semantic-resolution-v7.p
 p1-source-batches-v6	verify	python3	tools/audit-p1-source-batches-v6.py	host	yes	120
 p1-semantic-resolution-v8	verify	python3	tools/build-p1-semantic-resolution-v8.py	host	yes	120
 p1-source-batches-v7	verify	python3	tools/audit-p1-source-batches-v7.py	host	yes	120
+p1-semantic-resolution-v9	verify	python3	tools/build-p1-semantic-resolution-v9.py	host	yes	120
+p1-source-batches-v8	verify	python3	tools/audit-p1-source-batches-v8.py	host	yes	120
 p1-packed-blocker-classification-v1	verify	python3	tools/test-p1-packed-blocker-classification-v1.py	host	yes	120
 p1-batch4-libc-contract-v1	verify	python3	tools/test-p1-batch4-libc-contract-v1.py	host	yes	120
 p1-batch4-variadic-contract-v1	verify	python3	tools/test-p1-batch4-variadic-contract-v1.py	host	yes	120
@@ -82,6 +84,7 @@ p1-batch4-reconciled-v1	verify	python3	tools/audit-p1-batch4-reconciled-v1.py	ho
 p1-batch4-reconciled-controls-v1	verify	python3	tools/test-p1-batch4-reconciled-v1.py	host	yes	120
 p1-batch5-contract-v1	verify	python3	tools/test-p1-batch5-contract-v1.py	host	yes	120
 p1-batch6-contract-v1	verify	python3	tools/test-p1-batch6-contract-v1.py	host	yes	120
+p1-native-byteptr-replacement-v1	verify	python3	tools/test-p1-native-byteptr-replacement-v1.py	host	yes	120
 p1-fp-hardware-oracle-coverage-v1	verify	python3	tools/verify-p1-fp-oracles-v1.py	host	yes	120
 p1-width-shift-oracle-generation-v1	verify	python3	tools/generate-pdp10-width-shifts-v1.py	host	yes	120
 pdp10-gcc-multidim-char-v1	compat	sh	tests/semantic/imported/gcc/pdp10-gcc-multidim-char-20261012.sh	host	yes	120

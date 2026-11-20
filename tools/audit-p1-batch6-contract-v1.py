@@ -12,6 +12,8 @@ import hashlib
 from pathlib import Path
 import re
 
+from p1_source_replacement_v1 import source_matches_historical
+
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "docs/PDP10-P1-BATCH6-CONTRACT-20261120-v1.tsv"
 FROZEN = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
@@ -91,11 +93,12 @@ def validate(rows, frozen, live):
     for i, original in enumerate(ORIGINALS):
         source = (ROOT / original).resolve()
         if (not source.is_relative_to(ROOT / "tests") or
-                not source.is_file() or
+                not source_matches_historical(
+                    original, assigned[i]["source_sha256"]) or
                 assigned[i]["original_source"] != original):
             raise ValueError("Batch 6 source moved or missing")
-        sha = hashlib.sha256(source.read_bytes()).hexdigest()
-        if (assigned[i]["source_sha256"] != sha or
+        sha = assigned[i]["source_sha256"]
+        if (not source_matches_historical(original, sha) or
                 live_map[original]["original_sha256"] != sha or
                 live_map[original]["p1_state"] != "blocked" or
                 live_map[original]["historical_disposition"] !=
@@ -154,10 +157,12 @@ def verify_evidence(rows, report_files):
                     not re.search(r"__P10RUN_EXPECT__ __test_exit [^\n]+\n"
                                   r"[^\n]*\t000000000327\b", report)):
                 raise ValueError("actual old.tort guest abort not preserved")
-            old = (ROOT / row["original_source"]).read_text()
-            if ("#ifdef TOPS20" not in old or
-                    "exit(256);" not in old):
-                raise ValueError("non-TOPS20 end-of-test policy changed")
+            # The original imported bytes were intentionally replaced by
+            # the native oracle. The report remains historical evidence
+            # for the old source, NOT the current matrix test.
+            if not source_matches_historical(
+                    row["original_source"], row["source_sha256"]):
+                raise ValueError("historical guest report identity lost")
         elif reason in REQUIRED_MESSAGES:
             for message in REQUIRED_MESSAGES[reason]:
                 if message not in report:

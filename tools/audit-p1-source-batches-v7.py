@@ -14,6 +14,8 @@ from pathlib import Path
 import hashlib
 import sys
 
+from p1_source_replacement_v1 import source_matches_historical
+
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / 'docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv'
 LIVE = ROOT / 'docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv'
@@ -47,8 +49,7 @@ def expected():
         source = row['original_source']
         if (source not in live or
                 live[source]['original_sha256'] != row['original_sha256'] or
-                hashlib.sha256((ROOT / source).read_bytes()).hexdigest() !=
-                row['original_sha256']):
+                not source_matches_historical(source, row['original_sha256'])):
             raise ValueError('modified original source/identity: '+source)
         if row['p1_state'] != 'covered':
             all_open.append(source)

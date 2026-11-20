@@ -9,9 +9,13 @@ import csv
 import hashlib
 from pathlib import Path
 
+from p1_source_replacement_v1 import (
+    HISTORICAL_PATH, current_path_for, source_matches_historical,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
-RESOLUTION = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
+RESOLUTION = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
 SCHEDULED = frozenset(("semantic", "run", "runtime", "ok", "pending",
                        "fail", "timeout", "error"))
 
@@ -34,9 +38,7 @@ def admitted_sources(upstream, matrix, problems):
     for row in unresolved:
         path = row["original_source"]
         source = ROOT / path
-        if (not source.is_file() or
-                hashlib.sha256(source.read_bytes()).hexdigest() !=
-                row["original_sha256"]):
+        if not source_matches_historical(path, row["original_sha256"]):
             problems.append("P1 late-admission source hash changed: " + path)
         if path.endswith(".s"):
             assembly.add(path)
@@ -49,10 +51,12 @@ def admitted_sources(upstream, matrix, problems):
             continue
         admitted.add(path)
         old = historic.get(path)
-        active = current.get(path)
+        active = current.get(current_path_for(path))
         if old is None or old["activation"] != "deferred":
             problems.append("P1 admission has no historical deferral: " + path)
-        if active is None or active["group"] != "semantic-upstream-deferred":
+        valid_group = ("semantic-regression" if path == HISTORICAL_PATH
+                       else "semantic-upstream-deferred")
+        if active is None or active["group"] != valid_group:
             problems.append("P1 admitted C source lacks matrix owner: " + path)
         elif any(active[column] not in SCHEDULED
                  for column in ("pdp6", "pdp6_gcc_o0")):

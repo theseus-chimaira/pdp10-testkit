@@ -1,9 +1,9 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-19, pre-sweep
-reconciliation): **2,289 compiler matrix sources**, **296 special entries**
-(272 enabled direct, 18 manual, six enabled-but-nested), and **435 owned
-script paths**. The authoritative counts come from `COMPILER_MATRIX.tsv`,
+Current ownership and registration baseline (2026-11-20, after native
+byte-pointer replacement): **2,289 compiler matrix sources**,
+**316 special entries**, and **464 owned script paths**.
+The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
 `docs/PDP10-PRESWEEP-REGISTRY-GATE-20261119-v1.md` for the live gate and
@@ -32,6 +32,17 @@ compiler sweep.
   audits now PASS with zero errors; no source or historical classification
   was rewritten. The 28 original C sources admitted from the frozen P1
   v7 resolution ledger retain their 56 scheduled PDP-6 matrix cells.
+- [x] Remove the obsolete system-specific `old.tort.c` entirely,
+  replace it with the freestanding, native-width semantic test
+  `pdp10-byte-pointer-torture-v1.c`, and schedule the replacement
+  in the regular compiler matrix for native PDP-10 CPUs. Six
+  installed PDP-6 KCC/GCC profiles execute real failing assertions;
+  no original-source test or compiler workaround is retained.
+  Versioned P1 resolution v9 and source batches v8 preserve only the
+  historical original SHA/evidence identity, while the active runner
+  and source ownership use the new file. The exact single-source
+  retirement is fail-closed and host-tested with five mutation checks.
+  See `docs/PDP10-P1-NATIVE-BYTEPTR-REPLACEMENT-20261120-v1.md`.
 - [x] Register the existing KCC C89 constant-expression fixture and the
   DAS assembly-port source owner; classify ad hoc batch-runner utilities
   as manual tools, not automatic tests. Register a host-only P1 admission
@@ -108,10 +119,12 @@ compiler sweep.
   run_fail, 0 pass. Exact diagnostics include KCC computed-goto
   pointer restrictions, missing stderr/stdout/__builtin_printf/putchar,
   KCC packed-pointer/stdio prototype rejection and GCC target stdio.h.
-  GCC old.tort.c HALTs at __test_exit=0327 octal; its non-TOPS20
-  terminal exit(256) also requires explicit target-aware oracle
-  policy before success may be claimed. The audit has ten negative
-  controls. No original or compiler edits. See
+  The archived `old.tort.c` observation HALTed with
+  __test_exit=0327 octal, but that import has since been **deleted**,
+  not retained or reinterpreted as a valid native test. Its replacement
+  is `pdp10-byte-pointer-torture-v1.c`; six focused PDP-6 matrix
+  profiles now reveal reproducible compiler/ABI failures. The
+  historical Batch 6 audit retains its ten negative controls. See
   `docs/PDP10-P1-BATCH6-CONTRACT-20261120-v1.md`. All nine remain
   blocked; selected PDP-6 prerequisite triage for Batches 4-6 is
   complete, but the P1 source-oracle closure gate remains open.
@@ -830,9 +843,10 @@ compiler check, not a full compiler/CPU/optimization sweep.
   Retain `nestfunc-3.c`, since GCC O0/O1/O2 SIMH execution
   times out with no examine status and Os reaches abort;
   do not label those three timeouts verified assertion failures.
-  Retain `old.tort.c` for real hosted XKL/TOPS20 pointer and
-  printf support (the native non-TOPS20 branch exits 256 even
-  on apparent success), and `packed-2.c`, whose only action
+  At that review date, `old.tort.c` required system-specific
+  pointer and printf support; it was later **deleted**, replaced
+  by the native matrix byte-pointer regression (2026-11-20).
+  `packed-2.c`, whose only action
   is storing zero into a packed member without any readback
   or packing-size oracle. No C source adaptation or deletion.
   Preserve source SHA256 and all exact compiler outcomes in

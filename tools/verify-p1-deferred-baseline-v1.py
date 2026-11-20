@@ -13,6 +13,10 @@ from pathlib import Path
 import sys
 import tarfile
 
+from p1_source_replacement_v1 import (
+    current_path_for, source_matches_historical,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 HISTORICAL = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
 CURRENT = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
@@ -125,14 +129,14 @@ def audit(results=RESULTS, archive=ARCHIVE):
                 if evidence is None:
                     errors.append('missing deferred evidence: ' + name)
                     continue
-                source_path = (ROOT / name).resolve()
+                source_path = (ROOT / current_path_for(name)).resolve()
                 if (not source_path.is_relative_to(ROOT / 'tests') or
                         not source_path.is_file()):
                     errors.append('missing deferred source: ' + name)
                     continue
                 digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
-                if (digest != row['source_sha256'] or
-                        digest != evidence['sha256'] or
+                if (not source_matches_historical(name, row['source_sha256']) or
+                        row['source_sha256'] != evidence['sha256'] or
                         row['disposition'] != evidence['disposition'] or
                         row['next_action'] != evidence['next_action'] or
                         name not in active or
@@ -156,7 +160,8 @@ def audit(results=RESULTS, archive=ARCHIVE):
                     if (hashlib.sha256(payload).hexdigest() !=
                             evidence[compiler + '_evidence_sha256'] or
                             ('SOURCE: %s\n' % name).encode('ascii') not in payload or
-                            ('SOURCE_SHA256: %s\n' % digest).encode('ascii')
+                            ('SOURCE_SHA256: %s\n' %
+                             row['source_sha256']).encode('ascii')
                             not in payload or
                             ('COMPILER: %s\n' % compiler).encode('ascii')
                             not in payload or

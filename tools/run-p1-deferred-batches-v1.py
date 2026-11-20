@@ -7,13 +7,16 @@ classified as requiring its ISA harness, never passed to a C compiler.
 
 import argparse
 import csv
-import hashlib
 from pathlib import Path
 import subprocess
 import sys
 
+from p1_source_replacement_v1 import (
+    current_path_for, source_matches_historical,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv'
+PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v8.tsv'
 PROBE = ROOT / 'tools/probe-deferred-libc-v1.py'
 EXPECTED = {4: 10, 5: 10, 6: 9}
 
@@ -36,15 +39,12 @@ def main():
         raise ValueError('frozen batch size mismatch')
     for row in rows:
         source = row['original_source']
-        path = ROOT / source
-        if (not path.is_file() or
-                hashlib.sha256(path.read_bytes()).hexdigest() !=
-                row['source_sha256']):
+        if not source_matches_historical(source, row['source_sha256']):
             raise ValueError('source provenance mismatch: ' + source)
     selected = rows[args.start - 1:args.start - 1 + args.limit]
     sources = []
     for row in selected:
-        source = row['original_source']
+        source = current_path_for(row['original_source'])
         if source.endswith('.s'):
             print('ISA-HARNESS-REQUIRED ' + source, flush=True)
         elif source.endswith('.c'):

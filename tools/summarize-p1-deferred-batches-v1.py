@@ -6,8 +6,10 @@ import collections
 import csv
 from pathlib import Path
 
+from p1_source_replacement_v1 import current_path_for
+
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv'
+PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v8.tsv'
 
 
 def read(path):
@@ -23,7 +25,7 @@ def main():
     args = parser.parse_args()
     plan = [r for r in read(PLAN) if r['batch'] == str(args.batch)]
     results = read(args.results)
-    expected = {(r['original_source'], compiler) for r in plan
+    expected = {(current_path_for(r['original_source']), compiler) for r in plan
                 if r['original_source'].endswith('.c')
                 for compiler in ('gcc', 'kcc')}
     observed = {(r['source'], r['compiler']) for r in results}
@@ -33,7 +35,8 @@ def main():
     counts = collections.Counter(r['status'] for r in results)
     with args.output.open('w', encoding='utf-8') as stream:
         stream.write('# P1 Batch %d deferred probe results v1\n\n' % args.batch)
-        stream.write('Original sources are unchanged. Results are real '
+        stream.write('Any retired source has a reviewed native replacement. '
+                     'Results are real '
                      'PDP-6 native KCC noopt and GCC O0 observations, '
                      'not semantic acceptance or compiler fixes.\n\n')
         stream.write('Observed cells: %d. ' % len(results))
@@ -42,7 +45,7 @@ def main():
         stream.write('.\n\n| Original source | KCC | GCC |\n'
                      '| --- | --- | --- |\n')
         for row in plan:
-            source = row['original_source']
+            source = current_path_for(row['original_source'])
             if source.endswith('.s'):
                 kcc = gcc = 'ISA harness required'
             else:
