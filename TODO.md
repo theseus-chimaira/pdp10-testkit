@@ -215,6 +215,21 @@ compiler sweep.
   scheduled native compiler/mode cells. Current live resolution
   v13 is **42 covered, 0 partial, 25 blocked**, source batches
   v12 are **34 covered, 0 partial, 25 blocked**.
+  The genuine GCC freestanding sprintf implementation now enables
+  original Batch 5 960327-1.c to execute its unchanged
+  stack-buffer/string-index assertion. Eight KCC native profiles
+  across PDP-6/KA10/KI10/KS10 and GCC PDP-6 O0 all PASS.
+  Nine real guest reports and nine linker maps are SHA256-pinned,
+  with eight host negative controls; no stubbed libc or altered
+  original source was used. Live P1 resolution v14 is now
+  **43 covered, 0 partial, 24 blocked**. The frozen source
+  batches v13 are **35 covered, 0 partial, 24 blocked**.
+  Current unresolved admission v6 has **23 C originals**
+  and one KL10 assembler fixture, with 102 additional native
+  profile columns and 207 scheduled compiler/mode cells.
+  See docs/PDP10-P1-960327-ORIGINAL-CLOSURE-20261120-v1.md.
+  991112-1.c remains blocked until a real linked isprint
+  implementation is tested, not a dummy test-only substitute.
   GCC stdio.h now declares real sprintf, vsprintf, snprintf and
   vsnprintf backed by libp10stdio-v1.a with genuine GCC stdarg.
   The registered compatibility suite verifies production archive
@@ -260,7 +275,7 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v13 ledger counts **42 covered, 0 partial, 25 blocked**.
+current v14 ledger counts **43 covered, 0 partial, 24 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
@@ -322,8 +337,8 @@ architecture-correctness testing into a P1 source batch.
   oracle construction and acceptance remain open; a historical
   blocker is not closed by classifying its failure.
 
-Current **actionable P1 oracle backlog: 25** (zero partial, twenty-five blocked).
-The 24 unresolved C sources are already scheduled in the normal compiler matrix;
+Current **actionable P1 oracle backlog: 24** (zero partial, twenty-four blocked).
+The 23 unresolved C sources are already scheduled in the normal compiler matrix;
 registration does not resolve missing oracles or establish runtime PASS.
 The separate KL10 assembly port is an assembly-only DAS regression.
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources

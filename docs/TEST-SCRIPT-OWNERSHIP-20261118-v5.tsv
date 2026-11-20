@@ -164,3 +164,5 @@ tools/audit-p1-matrix-admission-v4.py	module-helper	tools/test-p1-matrix-admissi
 tools/audit-p1-fp-signed-conversion-v1.py	module-helper	tools/test-p1-fp-signed-conversion-v1.py	Four native signed numeric conversion directions, six actual PDP-6 guest failure masks and source-pinned maps
 tools/audit-p1-920726-hosted-closure-v1.py	module-helper	tools/test-p1-920726-hosted-closure-v1.py	KCC/GCC 920726 original hosted formatting and independent native variadic return ABI verification
 tools/audit-p1-matrix-admission-v5.py	module-helper	tools/test-p1-matrix-admission-v5.py	Current 25 unresolved P1 obligations with preserved native matrix profiles
+tools/audit-p1-960327-original-v1.py	module-helper	tools/test-p1-960327-original-v1.py	Nine real source-pinned native 960327 stack/sprintf assertion PASS reports and linker maps
+tools/audit-p1-matrix-admission-v6.py	module-helper	tools/test-p1-matrix-admission-v6.py	Current 24 unresolved P1 obligations with untouched original matrix profiles

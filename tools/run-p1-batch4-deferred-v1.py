@@ -15,7 +15,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v12.tsv'
+PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v13.tsv'
 PROBE = ROOT / 'tools/probe-deferred-libc-v1.py'
 
 

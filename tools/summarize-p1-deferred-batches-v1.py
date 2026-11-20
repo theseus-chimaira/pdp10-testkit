@@ -9,7 +9,7 @@ from pathlib import Path
 from p1_source_replacement_v1 import current_path_for
 
 ROOT = Path(__file__).resolve().parents[1]
-PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v12.tsv'
+PLAN = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v13.tsv'
 
 
 def read(path):
