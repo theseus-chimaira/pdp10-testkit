@@ -13,6 +13,7 @@ STRING_SYMBOLS = ("strcpy", "strncpy", "strcat", "strncat", "strchr",
 SEARCH_SYMBOLS = ("strstr", "strpbrk", "strspn")
 BYTE_SYMBOLS = ("p10bcopy_v2", "p10bfill_v2", "p10bcmp_v2")
 DFLOAT_SYMBOLS = ("__kcc_floatdidf", "__kcc_fixdfdi")
+GCC_STDIO_SYMBOLS = ("sprintf", "vsprintf", "snprintf", "vsnprintf")
 
 # Symbol-to-member ownership is shared by the installed KCC and GCC
 # freestanding archives. A single source file may export several symbols.
@@ -37,7 +38,7 @@ REFERENCES = re.compile(
     r"([A-Za-z_][A-Za-z_0-9]*)\b")
 
 
-def select_freestanding(asm_text, machine):
+def select_freestanding(asm_text, machine, compiler=None):
     """Return (member filenames, owned symbols) in deterministic order.
 
     Do not override symbols implemented by the test itself. Only the PDP-6
@@ -47,11 +48,17 @@ def select_freestanding(asm_text, machine):
         r"(?m)^\s*([A-Za-z_][A-Za-z_0-9]*):", asm_text))
     references = set(REFERENCES.findall(asm_text))
     pending = sorted(references - defined)
+    members = dict(MEMBERS)
+    if compiler == "gcc":
+        # This member uses GCC's actual __builtin_va_list ABI, not
+        # the old KCC-specific sprintf/varargs entry in hosted libc.
+        members.update({symbol: "p10stdio-format-v1.s"
+                        for symbol in GCC_STDIO_SYMBOLS})
     selected = []
     owned = set()
     while pending:
         symbol = pending.pop(0)
-        member = MEMBERS.get(symbol)
+        member = members.get(symbol)
         if member is None or symbol in defined:
             continue
         if symbol in DFLOAT_SYMBOLS and machine != "pdp6":

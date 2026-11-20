@@ -162,3 +162,5 @@ tools/audit-p1-matrix-admission-v3.py	module-helper	tools/test-p1-matrix-admissi
 tools/audit-p1-variadic-vla-original-v1.py	module-helper	tools/test-p1-variadic-vla-original-v1.py	Original GNU VLA va_arg 10-byte semantic oracle with 4 real GCC guest failures and KCC compile rejection
 tools/audit-p1-matrix-admission-v4.py	module-helper	tools/test-p1-matrix-admission-v4.py	Current 26 unresolved P1 obligations and native-profile admission guard
 tools/audit-p1-fp-signed-conversion-v1.py	module-helper	tools/test-p1-fp-signed-conversion-v1.py	Four native signed numeric conversion directions, six actual PDP-6 guest failure masks and source-pinned maps
+tools/audit-p1-920726-hosted-closure-v1.py	module-helper	tools/test-p1-920726-hosted-closure-v1.py	KCC/GCC 920726 original hosted formatting and independent native variadic return ABI verification
+tools/audit-p1-matrix-admission-v5.py	module-helper	tools/test-p1-matrix-admission-v5.py	Current 25 unresolved P1 obligations with preserved native matrix profiles

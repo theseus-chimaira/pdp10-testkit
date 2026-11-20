@@ -109,10 +109,18 @@ compiler sweep.
   execute the ten-digit check but fail its assertion; KCC
   rejects the GNU variable-sized struct syntax at compilation.
   Both stages are source/report-SHA-pinned with seven negative
-  controls. Current Batch 4 is **3 covered/0 partial/7 blocked**.
+  controls. Real GCC-native buffer formatting now allows
+  920726-1.c to compile, link and PASS at O0/O2 on PDP-6,
+  KA10, KI10 and KS10; KCC opt/noopt also PASSes on all
+  four CPUs. Original sprintf/strlen/strcmp outputs and the
+  independent initialized scalar/struct return companion are
+  source-pinned. GCC still fails the companion's scalar-return
+  ABI assertion; no compiler pass is invented for it.
+  Current Batch 4 is **4 covered/0 partial/6 blocked**.
   See `docs/PDP10-P1-PREFETCH-INVALID-CLOSURE-20261120-v1.md`.
   See `docs/PDP10-P1-PACKED-ORIGINAL-ORACLE-20261120-v1.md`.
   See `docs/PDP10-P1-VARIADIC-VLA-ORIGINAL-20261120-v1.md`.
+  See `docs/PDP10-P1-920726-STDIO-CLOSURE-20261120-v1.md`.
   `docs/PDP10-P1-BATCH4-RECONCILED-20261120-v1.md` and its
   registered host audit document the exact evidence provenance.
   Batch 5 now has a source-SHA-pinned prerequisite probe of all ten
@@ -200,6 +208,19 @@ compiler sweep.
   v11 have **33 covered, 0 partial, 26 blocked**.
   The full conversion test remains blocked on genuine
   `__fixunssfsi` linkage and unverified GNU long-long paths.
+  With the installed GCC buffer formatter, current admission v5
+  removes the covered 920726-1.c obligation without deleting any
+  compiler-matrix cells: **24 unresolved C originals**, one KL10
+  assembler fixture, 105 extra native profile columns and 216
+  scheduled native compiler/mode cells. Current live resolution
+  v13 is **42 covered, 0 partial, 25 blocked**, source batches
+  v12 are **34 covered, 0 partial, 25 blocked**.
+  GCC stdio.h now declares real sprintf, vsprintf, snprintf and
+  vsnprintf backed by libp10stdio-v1.a with genuine GCC stdarg.
+  The registered compatibility suite verifies production archive
+  extraction and sixteen guest PASS runs across four CPU types;
+  stdout, FILE and printf/fprintf remain a distinct OS backend
+  obligation. Prior missing-header manifests remain historical.
   A new native freestanding, source-pinned C89 diagnostic
   `pdp10-fp-signed-conversion-v1.c` now independently checks
   signed integer-to-float/double and float/double-to-integer
@@ -230,7 +251,7 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v12 ledger counts **41 covered, 0 partial, 26 blocked**.
+current v13 ledger counts **42 covered, 0 partial, 25 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
@@ -292,8 +313,8 @@ architecture-correctness testing into a P1 source batch.
   oracle construction and acceptance remain open; a historical
   blocker is not closed by classifying its failure.
 
-Current **actionable P1 oracle backlog: 26** (zero partial, twenty-six blocked).
-The 25 unresolved C sources are already scheduled in the normal compiler matrix;
+Current **actionable P1 oracle backlog: 25** (zero partial, twenty-five blocked).
+The 24 unresolved C sources are already scheduled in the normal compiler matrix;
 registration does not resolve missing oracles or establish runtime PASS.
 The separate KL10 assembly port is an assembly-only DAS regression.
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources

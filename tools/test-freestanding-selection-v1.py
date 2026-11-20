@@ -4,8 +4,9 @@
 from freestanding_selection_v1 import select_freestanding
 
 
-def expect(source, machine, members, symbols):
-    got_members, got_symbols = select_freestanding(source, machine)
+def expect(source, machine, members, symbols, compiler=None):
+    got_members, got_symbols = select_freestanding(
+        source, machine, compiler)
     assert got_members == members, (got_members, members)
     assert got_symbols == set(symbols), (got_symbols, symbols)
 
@@ -32,7 +33,14 @@ def main():
            ["kcc-libc-dimode-float-pdp6-v1.s"], ("__kcc_floatdidf",))
     expect("pushj 17,__kcc_floatdidf\n", "ka10", [], ())
     expect("pushj 17,malloc\n", "pdp6", [], ())
-    print("PASS: freestanding member selection (11 host-only controls)")
+    expect("pushj 17,sprintf\n", "pdp6",
+           ["p10stdio-format-v1.s"], ("sprintf",), "gcc")
+    expect("pushj 17,vsnprintf\npushj 17,vsprintf\n", "ka10",
+           ["p10stdio-format-v1.s"], ("vsnprintf", "vsprintf"), "gcc")
+    expect("pushj 17,sprintf\n", "pdp6", [], (), "kcc")
+    expect("sprintf:\n popj 17,\n pushj 17,sprintf\n",
+           "pdp6", [], (), "gcc")
+    print("PASS: freestanding member selection (15 host-only controls)")
 
 
 if __name__ == "__main__":

@@ -1196,7 +1196,7 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
             # referenced by the test; never manufacture passing stub bodies.
             if cell['compiler'] in ('kcc', 'gcc'):
                 fragments, libc_symbols = select_freestanding(
-                    asm_text, cell['machine'])
+                    asm_text, cell['machine'], cell['compiler'])
                 stub_exclude.update(libc_symbols)
                 for fragment in fragments:
                     path = (find_kcc_freestanding(fragment) if cell['compiler'] == 'kcc'
