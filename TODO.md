@@ -103,9 +103,16 @@ compiler sweep.
   unchanged, directly executable original oracle: both PDP-6
   compilers link real memcpy and HALT with assertion failures,
   preserved as compiler bugs. No dummy runtime or altered test was
-  needed. Current Batch 4 is **2 covered/0 partial/8 blocked**.
+  needed. Original GNU VLA `va_arg` test `20020412-1.c`
+  is now also accepted as a genuine testkit oracle:
+  GCC PDP-6 O0/O1/O2/Os all compile, link real memcpy and
+  execute the ten-digit check but fail its assertion; KCC
+  rejects the GNU variable-sized struct syntax at compilation.
+  Both stages are source/report-SHA-pinned with seven negative
+  controls. Current Batch 4 is **3 covered/0 partial/7 blocked**.
   See `docs/PDP10-P1-PREFETCH-INVALID-CLOSURE-20261120-v1.md`.
   See `docs/PDP10-P1-PACKED-ORIGINAL-ORACLE-20261120-v1.md`.
+  See `docs/PDP10-P1-VARIADIC-VLA-ORIGINAL-20261120-v1.md`.
   `docs/PDP10-P1-BATCH4-RECONCILED-20261120-v1.md` and its
   registered host audit document the exact evidence provenance.
   Batch 5 now has a source-SHA-pinned prerequisite probe of all ten
@@ -184,6 +191,15 @@ compiler sweep.
   **40 covered, 0 partial, 27 blocked** and source batches v10
   have **32 covered, 0 partial, 27 blocked**. All earlier
   admission and resolution versions remain historical snapshots.
+  The latest v4 unresolved admission excludes the now-covered
+  `20020412-1.c` without removing its compiler-matrix profiles:
+  **25 unresolved C originals** and one KL10 assembler fixture,
+  108 additionally enabled native profile columns and 225
+  runnable native cells. The authoritative P1 resolution v12
+  is now **41 covered, 0 partial, 26 blocked**, source batches
+  v11 have **33 covered, 0 partial, 26 blocked**.
+  The full conversion test remains blocked on genuine
+  `__fixunssfsi` linkage and unverified GNU long-long paths.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;
@@ -201,7 +217,7 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v11 ledger counts **40 covered, 0 partial, 27 blocked**.
+current v12 ledger counts **41 covered, 0 partial, 26 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 
@@ -263,8 +279,8 @@ architecture-correctness testing into a P1 source batch.
   oracle construction and acceptance remain open; a historical
   blocker is not closed by classifying its failure.
 
-Current **actionable P1 oracle backlog: 27** (zero partial, twenty-seven blocked).
-The 26 unresolved C sources are already scheduled in the normal compiler matrix;
+Current **actionable P1 oracle backlog: 26** (zero partial, twenty-six blocked).
+The 25 unresolved C sources are already scheduled in the normal compiler matrix;
 registration does not resolve missing oracles or establish runtime PASS.
 The separate KL10 assembly port is an assembly-only DAS regression.
 The 59-source frozen batch plan still lists all ten completed Batch 1 sources

@@ -159,3 +159,5 @@ tools/audit-p1-matrix-admission-v2.py	module-helper	tools/test-p1-matrix-admissi
 tools/audit-p1-prefetch-invalid-v1.py	module-helper	tools/test-p1-prefetch-invalid-v1.py	Native-width invalid-address prefetch and four source-pinned PDP-6 guest PASS reports
 tools/audit-p1-packed-original-oracle-v1.py	module-helper	tools/test-p1-packed-original-oracle-v1.py	Two actually executed original packed-aggregate PDP-6 failures and resolved target runtime symbols
 tools/audit-p1-matrix-admission-v3.py	module-helper	tools/test-p1-matrix-admission-v3.py	Current 27 unresolved P1 obligations with archived native compiler smoke results
+tools/audit-p1-variadic-vla-original-v1.py	module-helper	tools/test-p1-variadic-vla-original-v1.py	Original GNU VLA va_arg 10-byte semantic oracle with 4 real GCC guest failures and KCC compile rejection
+tools/audit-p1-matrix-admission-v4.py	module-helper	tools/test-p1-matrix-admission-v4.py	Current 26 unresolved P1 obligations and native-profile admission guard
