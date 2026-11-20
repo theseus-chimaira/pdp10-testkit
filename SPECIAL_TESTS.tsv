@@ -22,6 +22,7 @@ gcc-packed-halfword-readback-v1	validation	sh	misc/validation/test-gcc-packed-ha
 gcc-9bit-data-section-v1	validation	sh	misc/validation/test-gcc-9bit-data-section-v1.sh	pdp6	yes	120
 freestanding-search-v1	compat	sh	misc/compat/test-freestanding-search-v1.sh	pdp6	yes	120
 gcc-p10stdio-v1	compat	sh	misc/compat/test-gcc-p10stdio-v1.sh	multi-cpu	yes	300
+gcc-p10stdio-v2	compat	sh	misc/compat/test-gcc-p10stdio-v2.sh	multi-cpu	yes	300
 installed-freestanding-archive-v1	compat	sh	misc/compat/test-installed-freestanding-archive-v1.sh	pdp6	yes	120
 kcc-dimode-scratch-preserve-v1	compat	sh	misc/compat/test-kcc-dimode-scratch-preserve-v1.sh	multi-cpu	yes	360
 aap-timing-trace-parser-v1	compat	python3	misc/compat/test-aap-timing-trace-v1.py	host	yes	60

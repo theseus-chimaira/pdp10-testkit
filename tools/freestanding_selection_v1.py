@@ -52,7 +52,7 @@ def select_freestanding(asm_text, machine, compiler=None):
     if compiler == "gcc":
         # This member uses GCC's actual __builtin_va_list ABI, not
         # the old KCC-specific sprintf/varargs entry in hosted libc.
-        members.update({symbol: "p10stdio-format-v1.s"
+        members.update({symbol: "p10stdio-format-v2.s"
                         for symbol in GCC_STDIO_SYMBOLS})
     selected = []
     owned = set()

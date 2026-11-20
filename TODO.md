@@ -221,6 +221,15 @@ compiler sweep.
   extraction and sixteen guest PASS runs across four CPU types;
   stdout, FILE and printf/fprintf remain a distinct OS backend
   obligation. Prior missing-header manifests remain historical.
+  The GCC v2 shared formatter is now separately verified by
+  `misc/compat/test-gcc-p10stdio-v2.sh` (16 native PDP-6/KA10/
+  KI10/KS10 compiler/CPU executions and real archive extraction).
+  Generic C stdio test ownership stays here. DAIMOS-specific
+  WRITECHAR console ABI and booted-guest tests are owned only
+  by `daimos-testkit/tests/validation/`; the recording-sink
+  ABI test passes eight cells, while the real DAIMOS console
+  guest remains blocked before application startup by boot/root
+  I/O. They are not part of this generic compiler test registry.
   A new native freestanding, source-pinned C89 diagnostic
   `pdp10-fp-signed-conversion-v1.c` now independently checks
   signed integer-to-float/double and float/double-to-integer

@@ -34,13 +34,16 @@ def main():
     expect("pushj 17,__kcc_floatdidf\n", "ka10", [], ())
     expect("pushj 17,malloc\n", "pdp6", [], ())
     expect("pushj 17,sprintf\n", "pdp6",
-           ["p10stdio-format-v1.s"], ("sprintf",), "gcc")
+           ["p10stdio-format-v2.s"], ("sprintf",), "gcc")
     expect("pushj 17,vsnprintf\npushj 17,vsprintf\n", "ka10",
-           ["p10stdio-format-v1.s"], ("vsnprintf", "vsprintf"), "gcc")
+           ["p10stdio-format-v2.s"], ("vsnprintf", "vsprintf"), "gcc")
     expect("pushj 17,sprintf\n", "pdp6", [], (), "kcc")
     expect("sprintf:\n popj 17,\n pushj 17,sprintf\n",
            "pdp6", [], (), "gcc")
-    print("PASS: freestanding member selection (15 host-only controls)")
+    # Console functions require a real DAIMOS WRITECHAR veneer; never
+    # load an OS-specific sink into the bare-metal compiler matrix.
+    expect("pushj 17,printf\n", "pdp6", [], (), "gcc")
+    print("PASS: freestanding member selection (16 host-only controls)")
 
 
 if __name__ == "__main__":
