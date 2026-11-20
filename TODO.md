@@ -89,6 +89,19 @@ compiler sweep.
   Batch 4 closure remains 0 covered/1 partial/9 blocked.
   `docs/PDP10-P1-BATCH4-RECONCILED-20261120-v1.md` and its
   registered host audit document the exact evidence provenance.
+  Batch 5 now has a source-SHA-pinned prerequisite probe of all ten
+  original hosted-runtime sources (KCC PDP-6 noopt and GCC PDP-6 O0):
+  20 cells, 3 pass, 10 compile_fail, 5 SIMH timeout, 2 link_fail.
+  Three executed KCC formatting/arithmetic passes are not P1 closure.
+  GCC target stdio/ctype/math headers and KCC target math.h are
+  absent in the observed compile failures. KCC builtin-noret rejects
+  _exit and GCC builtin-noret needs unresolved _eexit at O0.
+  KCC 980707-1.c reports dlink 'duplicate global: exit' despite one
+  DEF exit across the six input objects: preserve this concrete
+  assembler/linker inconsistency for later toolchain work, not a
+  workaround. The audit has nine negative controls. See
+  `docs/PDP10-P1-BATCH5-CONTRACT-20261120-v1.md`. All ten original
+  obligations remain blocked. No full sweep, stubs, or compiler edits.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;
