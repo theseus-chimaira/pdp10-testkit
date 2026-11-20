@@ -74,6 +74,21 @@ compiler sweep.
   the ignored structure return. All three P1 originals remain blocked.
   The report-aware SIMH `rc=124` classification is fixed and tested.
   See `docs/PDP10-P1-BATCH4-VARIADIC-CONTRACT-20261120-v1.md`.
+  Batch 4 hosted originals `20020406-1.c` and `920810-1.c`
+  now have exact installed-toolchain evidence: three SIMH
+  wall timeouts, one GCC missing-target-stdio.h compile failure.
+  Their KCC/GCC link maps resolve actual malloc/calloc/printf
+  or malloc/memcpy/memset symbols, but no guest completed the
+  assertions. A host-only source-pinned verifier checks four
+  outcomes and eight negative controls. See
+  `docs/PDP10-P1-BATCH4-HOSTED-CONTRACT-20261120-v1.md`.
+  Batch 4 prerequisite triage is now reconciled across ten
+  original SHA-pinned slots, 18 PDP-6 compiler cells and one
+  unexecuted KL10 ISA fixture. The current evidence distribution
+  is 2 pass, 4 run_fail, 4 link_fail, 4 compile_fail, 4 timeout.
+  Batch 4 closure remains 0 covered/1 partial/9 blocked.
+  `docs/PDP10-P1-BATCH4-RECONCILED-20261120-v1.md` and its
+  registered host audit document the exact evidence provenance.
 - [ ] Complete useful negative/diagnostic source selection and target/
   expected-output policy without implementing unused DejaGNU features.
 - [ ] Verify any missing assembler/linker/runtime test contracts;
@@ -91,7 +106,7 @@ import/disposition manifests retain 67 originally deferred source
 identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
-current v7 ledger counts **38 covered, 1 partial, 28 blocked**.
+current v8 ledger counts **38 covered, 1 partial, 28 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 

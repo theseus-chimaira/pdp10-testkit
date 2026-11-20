@@ -1,0 +1,5 @@
+source	source_sha256	compiler	profile	status	diagnosis
+tests/todo/generic/20020406-1.c	25ba3fe43fc4109bd2eb1a2fb651f9ca0443800db46e67d60b4946e9c3e90e7c	kcc	kcc-pdp6-noopt	timeout	simh-wall-timeout
+tests/todo/generic/20020406-1.c	25ba3fe43fc4109bd2eb1a2fb651f9ca0443800db46e67d60b4946e9c3e90e7c	gcc	gcc-pdp6-o0	timeout	simh-wall-timeout
+tests/todo/generic/920810-1.c	23405fde00c057160ef5881b0561d2e5921be68a07cb11f7b2f2e6e66952dbb5	kcc	kcc-pdp6-noopt	timeout	simh-wall-timeout
+tests/todo/generic/920810-1.c	23405fde00c057160ef5881b0561d2e5921be68a07cb11f7b2f2e6e66952dbb5	gcc	gcc-pdp6-o0	compile_fail	missing-gcc-stdio-header
