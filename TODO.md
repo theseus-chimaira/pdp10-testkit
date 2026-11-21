@@ -1,12 +1,12 @@
 # PDP-10 testkit — outstanding work
 
 Current ownership and registration baseline (2026-11-21, after the
-full original conversion repair): **2,317 compiler matrix sources**,
-**403 special entries**, and **576 owned script paths**.
+full original conversion repair and pointer locator): **2,318 compiler matrix
+sources**, **404 special entries**, and **577 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v20.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v21.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
@@ -591,6 +591,21 @@ compiler sweep.
   compatibility, then verify **actual KL10 guest HALT and original
   assertions**. The existing port runs only until `Step expired`
   and is **not** a native PASS. The P1 ledger remains 56/11.
+
+- [ ] Repair native 9/18/36-bit object-pointer conversions without
+  sacrificing the original byte/halfword stride, identity, or data.
+  The historical `old.tort.c` was replaced by its registered C89
+  pointer torture, which still genuinely fails in all six native
+  PDP-6 profiles (KCC noopt ID 10, KCC opt ID 12, GCC O0 ID 21,
+  GCC O1/O2/Os ID 28). An independent C89 roundtrip locator with an
+  actual volatile function-pointer `void *` call now PASSes all four
+  GCC profiles but KCC noopt/opt both report `01002` (octal):
+  18-bit pointer identity and 18-bit data read fail. Preserve
+  S=18 native and S=1 logical pointer representations through
+  function ABI and storage; do not substitute an integer or word
+  pointer workaround. Frozen evidence: 12 native cells, 60 raw
+  artifacts, 7 negative controls. Original P1 remains 56/11.
+  See `docs/PDP10-P1-OLD-TORT-VOID-POINTER-20261121-v1.md`.
 
 - [ ] Investigate verified missing callable symbols `__builtin_abort`,
   `__fixunssfsi`, `_eexit`, `__builtin_printf`,

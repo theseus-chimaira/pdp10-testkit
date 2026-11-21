@@ -249,12 +249,12 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current pre-sweep state (2026-11-21)
 
-The active `pdp10-testkit` registrations cover **2,317
-compiler-matrix sources**, **403 special registrations** and **576
-owned script paths**, with zero unowned test sources in the conversion
-scope. Three separately committed `v1735` compatibility shell scripts
-are still unregistered; the whole-worktree script-ownership audit
-reports six errors for those unrelated paths. No full compiler/CPU/
+The active `pdp10-testkit` registrations cover **2,318
+compiler-matrix sources**, **404 special registrations** and **577
+owned script paths**, with zero unowned test sources and zero
+unconnected scripts in the complete current worktree. The v1735
+ABI scripts and v1738 DAS phase-pair check are now registered and
+pass their real native/installed-tool checks. No full compiler/CPU/
 optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
@@ -344,9 +344,17 @@ required as link dependencies, and an exhausted KL10 step budget
 cannot be misclassified as native PASS. See
 `docs/PDP10-P1-920428-KL10-TOOLCHAIN-PREREQS-20261121-v1.md`.
 
+The historical `old.tort.c` replacement still fails in all six
+PDP-6 compiler profiles; a new **independent, C89 halfword-pointer
+`void *` roundtrip locator** passes all four GCC profiles but
+genuinely fails KCC noopt and opt with identity/data mask `01002`
+(octal). Both sources have 12 pinned native outcomes, 60 raw
+artifacts and seven negative controls. P1 is not reclassified;
+see `docs/PDP10-P1-OLD-TORT-VOID-POINTER-20261121-v1.md`.
+
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v20.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v21.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
