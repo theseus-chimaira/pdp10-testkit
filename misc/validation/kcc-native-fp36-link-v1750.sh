@@ -36,4 +36,14 @@ test -s "$native/runtime/fp36-signed-df-v1750.dobj"
 test -s "$native/runtime/fp36-unsigned-v1750.dobj"
 grep -F 'LINK ' "$work/native-build.log" | grep -F 'KPARSE.dxr' >/dev/null
 grep -F 'LINK ' "$work/native-build.log" | grep -F 'KGEN.dxr' >/dev/null
-echo 'PASS v1750: source-built KCC/KCPP/KPARSE/KGEN/KOPT link with exact FP36 compiler ABI'
+sh "$DAIMOS_REPO/scripts/stage-kcc-sources-v1.sh" \
+    "$KCC_REPO" "$work/staged" "$PDP10_PREFIX/bin/csix" \
+    "$PDP10_PREFIX/bin/s6text" "$DAIMOS_REPO" "$native" \
+    > "$work/stage.log" 2>&1 || {
+        tail -40 "$work/stage.log" >&2
+        exit 1
+    }
+test -s "$work/staged/BOOT/FP36.DARC"
+cmp "$native/runtime/fp36-conversions-v1750.a" "$work/staged/BOOT/FP36.DARC"
+grep -F 'BOOT/FP36.DARC' "$KCC_REPO/daimos.mk" | grep -F 'BOOT/LIBC.DARC' >/dev/null
+echo 'PASS v1750: five native KCC phases link and exact FP36 archive is staged for self-hosting'
