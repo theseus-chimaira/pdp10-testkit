@@ -28,8 +28,9 @@ blocked** across 67 historical deferred identities; frozen batches
 
 - [x] Eliminate `docs/`: relocate machine inputs to `manifests/`,
   referenced historical reports to `history/`, and retain only current
-  root state/README/TODO as active documentation. Verify all audit
-  consumers and historical source crosswalks after relocation.
+  root state/README/TODO as active documentation. Reconcile stale
+  README directory inventory, live registration counts, historical
+  report links and audit consumers; verify source crosswalks.
 - [x] Complete narrow real restart acceptance: GCC PDP-6 negative
   cell reruns interrupted/invalid/missing checkpoints and skips an
   existing PASS; host runner and ICE-only classification tests PASS.

@@ -18,10 +18,9 @@ status. v23 remains the authentic historical semantic/ICE baseline.
 ## v28 pre-sweep layout and restart acceptance
 
 The former `docs/` directory is eliminated. Active TSV/TXT machine
-manifests are under `manifests/` (272 files); historically referenced
-Markdown evidence is under `history/` (206 files); 93 unreferenced
-obsolete reports are removed from the working tree and retained in Git
-history. README, TODO and this root state are the active documentation.
+manifests are under `manifests/`; historically referenced Markdown
+evidence is under `history/`. Unreferenced obsolete reports were removed
+from the working tree and remain recoverable from Git history. README, TODO and this root state are the active documentation.
 Consumers and crosswalks were migrated and the inventory, ownership,
 source-provenance, registered fixture and boundary checks pass.
 
@@ -71,8 +70,8 @@ No full sweep or compiler implementation work was performed.
 
 ## v25 direct invocation and ownership maintenance
 
-The 2,358 source / 412 special-test / 123,576 cell integration counts
-are unchanged. Registered `badl-tables` and `gcc-char-word-boundary-v45`
+At the historical v25 checkpoint, the inventory comprised 2,358
+sources, 412 special tests and 123,576 scheduled cells. Registered `badl-tables` and `gcc-char-word-boundary-v45`
 now run their guest links against per-script GCC compiler-only libc
 prefixes, even when invoked without the dispatcher. Both tests passed
 raw and via `run-misc-tests.sh`, on their original two-CPU and four-opt

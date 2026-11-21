@@ -250,14 +250,16 @@ it is not silently replaced by `DAIMOS/tools/host`.
 | `tests/isa/` | CPU instruction and machine-specific semantics |
 | `misc/` | Registered special suites (`kcc-host`, `das`, `compat`, `validation`, `tools`) |
 | `refs/` | Reviewed historical source snapshots, not automatically runnable tests |
-| `docs/` | Test-specific policy, source decisions, historical evidence and versioned manifests |
+| `manifests/` | Machine-readable test manifests, ownership ledgers and source provenance |
+| `history/` | Retained historical reviews and test evidence |
+| `PROJECT-STATE-v28.md` | Current pre-sweep state and outstanding execution gate |
 | `tools/` | Matrix runners and static integrity/ownership audits |
 | `tests/todo/generic/` | Retained historical generic candidates; some canonical compiler gates are active matrix tests |
 
 ## Current pre-sweep state (2026-11-21)
 
 The active `pdp10-testkit` registrations cover **2,358
-compiler-matrix sources**, **412 special registrations** and **585
+compiler-matrix sources**, **413 special registrations** and **593
 owned script paths**, with zero unowned test sources and zero
 unconnected scripts in the complete current worktree. The v1735
 ABI scripts and v1738 DAS phase-pair check are now registered and

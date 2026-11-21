@@ -35,12 +35,12 @@ remain preserved for later review.
 
 ## Provenance and reproducibility
 
-`docs/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv` is an explicit
+`manifests/GCC-C-INAPPLICABLE-REMOVALS-20261117-v1.tsv` is an explicit
 **89-row tombstone manifest**. Each row records the GCC original path,
 original SHA256 hash, `batchXX-inapplicable` classification, deleted
 snapshot path, precise PDP-10 rejection rationale, and deletion action.
 The six original batch decision TSVs and the
-`docs/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv` ledger still contain
+`manifests/GCC-C-UNMIRRORED-OWNERSHIP-20261116-v1.tsv` ledger still contain
 all **679 original identities**. The 679-row preflight remains the
 immutable source-order and original-hash baseline, so subsequent
 50-source reviews do not silently shift their position.

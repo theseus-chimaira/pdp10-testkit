@@ -41,7 +41,7 @@ The other 16 manual roots were not executed in this sweep.
 reported problems: 109 broken local documentation path references,
 52 missing mapped current sources, and one changed mapped source.
 The dated source relink registry is
-`docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv`.
+`manifests/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv`.
 Do not weaken the checker or silently change source SHA256 values.
 Reconcile each missing/changed source against Git history and preserve
 historical report semantics before declaring this audit passing.
@@ -54,7 +54,7 @@ The 162-problem observation above is preserved as the original audit
 result. The historical path checker now passes with zero problems after
 relinking the moved sources and separately fingerprinting the reviewed
 stdarg adaptation. See
-`docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261119-v2.md`.
+`history/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261119-v2.md`.
 
 ## Follow-up: all manual roots exercised (2026-11-19)
 
@@ -62,5 +62,5 @@ All 19 standalone manual roots have now been attempted using current
 installed tools, with 13 passing and six not passing. The explicit
 source-bound deferred-libc diagnostic and the native DAS phase build
 completed successfully after routing/build-interface corrections.
-See `docs/PDP10-MANUAL-RUNTIME-SWEEP-20261119-v1.md` for individual
+See `history/PDP10-MANUAL-RUNTIME-SWEEP-20261119-v1.md` for individual
 results, actual benchmarks and outstanding defects.

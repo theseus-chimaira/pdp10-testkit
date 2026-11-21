@@ -3,8 +3,8 @@
 ## What was and was not changed
 
 The original 50-pair historical evidence manifest
-`docs/DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv` is unchanged. The new
-`docs/DEFERRED-SOURCE-DUPLICATES-20261117-v2.tsv` retains its nine original
+`manifests/DEFERRED-SOURCE-DUPLICATES-20261116-v1.tsv` is unchanged. The new
+`manifests/DEFERRED-SOURCE-DUPLICATES-20261117-v2.tsv` retains its nine original
 identity/hash/activation/disposition fields and adds, **for each pair**,
 a canonical owner, preserved non-owner path, individual source assertion,
 KCC/GCC profile gate, independently reconciled blockers, and evidence level.
