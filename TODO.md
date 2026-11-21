@@ -6,7 +6,7 @@ ICE-focused all-test integration): **2,358 compiler matrix sources**,
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v26.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v27.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
@@ -102,17 +102,20 @@ remain historical. See
   Four negative controls reject missing, duplicate, wrong-owner and
   newly added callers. See
   `docs/PDP10-HARNESS-RAW-P10RUN-CENSUS-20261121-v1.md`.
-- [ ] Audit direct raw `p10run` script invocations outside the official
+- [x] Review all 60 dispatcher-only raw `p10run` candidates for actual
+  compiler dependencies: 23 KCC, 8 GCC, 29 mixed. Preserve the
+  protected dispatcher as the supported entry point, rather than
+  silently allowing raw OS-libc linking. Ledger v2 SHA256-pins all
+  69 candidates and audit v2 fails closed on source changes. Native
+  GCC/KCC/mixed representative cases and four negative controls PASS.
+  See `docs/PDP10-HARNESS-RAW-P10RUN-REVIEW-20261121-v2.md`.
+- [x] Audit direct raw `p10run` script invocations outside the official
   dispatcher and tool/host-builder exceptions (`tools`, `kcc-host`,
   `das`) before the full sweep. Do not turn their library requirements
   into unrelated hosted OS libc links or silently change test oracles.
-  A limited static scan found 73 potential direct `p10run` caller/helper
-  scripts across registered compiler guest groups and delegates, with
-  no additional explicit generic-libc link inputs in normal `misc/`
-  guest scripts beyond the two fixed formatter cases. This is not a
-  guarantee for arbitrary raw execution: implicit `p10run` archive
-  selection still depends on the invocation environment. See the
-  v10 pre-sweep report.
+  Current v2 lexical census covers 69 candidates; 60 registered
+  scripts remain intentionally dispatcher-only. No arbitrary raw
+  execution guarantee is claimed. See the v27 pre-sweep state.
 - [x] Fix the two raw-invocable GCC `p10stdio` production formatter
   compatibility scripts to link the installed GCC compiler
   `libp10c-v2.a` archive directly, never the generic `lib/libc.a`.
