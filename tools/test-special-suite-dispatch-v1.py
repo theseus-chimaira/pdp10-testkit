@@ -19,7 +19,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 os.environ.setdefault('PDP10_PREFIX', str(Path.home() / 'cross'))
 MODULE = ROOT / 'tools/run-misc-suites.py'
-MANUAL_ROOTS = ROOT / 'docs/PDP10-MANUAL-ROOTS-20261120-v1.tsv'
+MANUAL_ROOTS = ROOT / 'docs/PDP10-MANUAL-ROOTS-20261121-v2.tsv'
 
 
 def require(condition, reason):
@@ -208,7 +208,7 @@ def main():
     actual_manual = [(r['id'], r['group'], r['path']) for r in registered
                      if r['enabled'] == 'manual']
     pinned_manual = [(r['id'], r['group'], r['path']) for r in pinned]
-    require(actual_manual == pinned_manual and len(pinned_manual) == 21,
+    require(actual_manual == pinned_manual and len(pinned_manual) == 22,
             'manual-root set changed; explicitly review and version contract')
     listed = [line.split('\t', 1)[0] for line in
               listing.stdout.splitlines()]

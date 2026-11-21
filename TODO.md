@@ -1,18 +1,39 @@
 # PDP-10 testkit — outstanding work
 
-Current ownership and registration baseline (2026-11-21, after the
-full original conversion repair and pointer locator): **2,318 compiler matrix
-sources**, **406 special entries**, and **579 owned script paths**.
+Current ownership and registration baseline (2026-11-21, after
+ICE-focused all-test integration): **2,358 compiler matrix sources**,
+**412 special entries**, and **585 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v23.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v24.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
 blocked** across 67 historical deferred identities; frozen batches
-48 covered, 11 blocked. Recent original-source/companion integrations
-are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
+48 covered, 11 blocked.
+
+- [x] Complete **ICE-focused test harness integration** without
+  repairing ordinary compiler/runtime defects. The runner owns all
+  67 historical P1 identities, 105 C-to-ISA codegen sources, and
+  both formerly omitted runtime-asserting VLA tests. The matrix
+  has 123,576 scheduled compiler/CPU/profile cells; explicit
+  `--exit-policy ice-only` preserves raw non-ICE failure statuses
+  while stopping on actual ICE/setup/missing source errors. The
+  native acceptance sample includes 175 guest/compiler cells with
+  582 SHA256-pinned artifacts and one **real** GCC O0 ICE in
+  original `991228-1.c`. Historical P1 semantic state remains
+  56 covered / 11 blocked. See
+  `docs/PDP10-HARNESS-ICE-FOCUSED-INTEGRATION-20261121-v1.md`.
+
+- [ ] Execute the full restartable 123,576-cell CPU/compiler/opt
+  matrix in ICE-only mode; do not treat its known non-ICE failures
+  as testkit integration blockers, and do not classify missing or
+  incomplete source cells as compiler success. Preserve separate
+  KL10 MACRO-10 original assembly observations.
+
+Recent original-source/companion integrations are `930513-1.c`,
+`struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
 `run_fail` at the real sprintf `%f` contract), and `960521-1.c`
 (six bounded shifted-array guest PASS; original remains a real malloc

@@ -7,9 +7,16 @@ successful negative test, even if the output also contains syntax errors.
 import re
 
 
+# A bare \bICE\b anywhere in a compiler log is *not* reliable: the
+# logged command may contain --out-dir .../p10tk-ice-only-... or a test
+# source named ice.c, while the actual diagnostic is a normal missing
+# header or syntax error.  Recognize ICE as a diagnostic, not a filename.
+# Keep the full historic GCC/KCC internal-error and crash signatures.
 ICE_RE = re.compile(
-    r'(?i)(internal compiler error|internal error|\bICE\b|segmentation fault|'
-    r'compiler (?:crash|abort)|please submit a (?:full )?bug report|'
+    r'(?im)(internal compiler error|internal error|'
+    r'^\s*(?:fatal(?: error)?:\s*)?ICE\b|:\s*ICE:|'
+    r'segmentation fault|compiler (?:crash|abort)|'
+    r'please submit a (?:full )?bug report|'
     r'assertion .* failed|fatal error: .*compiler)')
 
 KCC_ERRORS_RE = re.compile(r'(?m)^\? KCC - [1-9][0-9]* errors? detected\s*$')

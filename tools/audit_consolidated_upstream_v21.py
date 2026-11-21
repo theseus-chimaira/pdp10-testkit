@@ -363,7 +363,7 @@ def audit_consolidated_sources(upstream, matrix, problems,
 
 
 if __name__ == "__main__":
-    from p1_matrix_admissions_v1 import admitted_sources
+    from p1_matrix_admissions_v1 import admitted_sources, observed_originals
     # Standalone verification shares the upstream and matrix inventories.
     def current_rows(p, skip_comments=False):
         with (ROOT / p).open(encoding="utf8", newline="") as stream:
@@ -378,6 +378,8 @@ if __name__ == "__main__":
     current_matrix = current_rows("COMPILER_MATRIX.tsv", skip_comments=True)
     errors = []
     late_admissions = admitted_sources(current_upstream, current_matrix, errors)
+    late_admissions.update(observed_originals(current_upstream,
+                                              current_matrix, errors))
     audit_consolidated_sources(current_upstream, current_matrix, errors,
                                late_admissions=late_admissions)
     for error in errors:

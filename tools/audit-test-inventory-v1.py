@@ -16,7 +16,7 @@ import re
 import sys
 
 from audit_consolidated_upstream_v21 import audit_consolidated_sources
-from p1_matrix_admissions_v1 import admitted_sources
+from p1_matrix_admissions_v1 import admitted_sources, observed_originals
 from p1_source_replacement_v1 import (
     CURRENT_PATH, HISTORICAL_PATH, HISTORICAL_SHA,
     source_matches_historical,
@@ -244,6 +244,7 @@ def audit():
     special = list(rows(SPECIAL))
     upstream = list(rows(CLASSIFIED))
     late_admissions = admitted_sources(upstream, matrix, problems)
+    late_admissions.update(observed_originals(upstream, matrix, problems))
     matrix_paths = set(row["test"] for row in matrix)
     special_paths = set(row["path"] for row in special)
 

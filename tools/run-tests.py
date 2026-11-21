@@ -65,9 +65,17 @@ P10_TIMEOUT = os.environ.get('P10_SWEEP_TIMEOUT', str(max(1, CELL_TIMEOUT - 2)))
 PASS_STATUSES = set(['pass', 'compile_only', 'ok'])
 FAIL_STATUSES = set(['compiler_ice', 'unexpected_compile_success', 'compile_fail',
                     'link_fail', 'run_fail', 'timeout', 'policy_fail', 'setup_fail'])
+# A source may fail to compile, link or run without making the harness
+# unusable for compiler ICE hunting.  In the opt-in ice-only policy,
+# those observations remain failures in the raw result tables, but only
+# a compiler ICE, a harness/policy failure or an incomplete cell fails
+# the process.  Never accept missing/unrecognized statuses as success.
+HARNESS_FATAL_STATUSES = set(['compiler_ice', 'setup_fail', 'policy_fail',
+                             'not_run', 'running'])
 SEMANTIC_MATRIX_STATUSES = set(['semantic', 'run', 'runtime', 'ok', 'pending', 'fail', 'timeout', 'error'])
 NEGATIVE_MATRIX_STATUSES = set(['negative', 'ok', 'pending', 'fail', 'timeout', 'error'])
-CODEGEN_MATRIX_STATUSES = set(['codegen', 'ok', 'pending', 'fail', 'timeout', 'error'])
+CODEGEN_MATRIX_STATUSES = set(['codegen', 'isa', 'ok', 'pending', 'fail',
+                              'timeout', 'error'])
 DIAGNOSTIC_MATRIX_STATUSES = set(['diagnostic', 'ok', 'pending', 'fail', 'timeout', 'error'])
 INACTIVE_MATRIX_STATUSES = set(['', 'no_test', 'unsupported', 'obsolete'])
 STATUS_FIELDS = ['test', 'machine', 'compiler', 'profile', 'kind', 'status', 'elapsed', 'asm', 'report']
@@ -125,6 +133,39 @@ def split_rows():
     with open(ROOT / 'COMPILER_MATRIX.tsv', 'r', encoding='utf-8', errors='replace') as f:
         reader = csv.DictReader((l for l in f if l.strip() and not l.startswith('#')), delimiter='\t')
         return list(reader)
+
+
+def read_source_list(path, registered):
+    """Return an exact, nonempty selection with no silent matrix misses.
+
+    Source lists select already registered tests only.  They never
+    register a missing original or override its semantic outcome.
+    """
+    names = []
+    seen = set()
+    try:
+        with Path(path).expanduser().open('r', encoding='ascii') as stream:
+            for number, line in enumerate(stream, 1):
+                name = line.partition('#')[0].strip()
+                if not name:
+                    continue
+                parts = Path(name).parts
+                if (not name.startswith('tests/') or '..' in parts or
+                        not name.endswith('.c')):
+                    raise ValueError('invalid source path at line %d: %s' %
+                                     (number, name))
+                if name in seen:
+                    raise ValueError('duplicate source at line %d: %s' %
+                                     (number, name))
+                if name not in registered:
+                    raise ValueError('source not registered in matrix: ' + name)
+                seen.add(name)
+                names.append(name)
+    except (OSError, UnicodeError) as error:
+        raise ValueError('cannot read source selection: ' + str(error))
+    if not names:
+        raise ValueError('source selection is empty: ' + str(path))
+    return tuple(names)
 
 
 def safe_name(s):
@@ -539,6 +580,12 @@ def matrix_kind(group):
         return 'negative'
     if group.startswith('codegen'):
         return 'codegen'
+    if group == 'isa':
+        # The 105 pdp10-insn/*.c sources are compiler assembly/codegen
+        # tests with no runtime entry point.  Previously the known ISA
+        # matrix status was never scheduled by any runner.  Do not
+        # confuse these C-to-ISA tests with the separate KL10 .s guest.
+        return 'codegen'
     return None
 
 
@@ -638,10 +685,19 @@ Restart behavior:
     ap.add_argument('--kind', default=os.environ.get('P10_SWEEP_KIND', 'all'),
                     choices=('all', 'semantic', 'codegen', 'negative', 'diagnostic'),
                     help='test kind to run; default: all')
-    ap.add_argument('--source', default=None,
-                    help='run only this exact COMPILER_MATRIX.tsv source path')
+    source_group = ap.add_mutually_exclusive_group()
+    source_group.add_argument('--source', default=None,
+                              help='run only this exact COMPILER_MATRIX.tsv source path')
+    source_group.add_argument('--source-file', default=None, metavar='PATH',
+                              help='read exact matrix source paths, one per line; '
+                                   'comments and blanks allowed, duplicates rejected')
     ap.add_argument('--skip-failures', action='store_true',
                     help='also skip old failing cells, not only pass/compile_only cells')
+    ap.add_argument('--exit-policy', choices=('strict', 'ice-only'),
+                    default='strict',
+                    help='strict: fail on any non-PASS; ice-only: preserve all '
+                         'failures but exit nonzero only for compiler ICE, '
+                         'harness/policy failures or incomplete coverage')
     ap.add_argument('--reset', action='store_true',
                     help='remove selected cell checkpoints and current reports, then exit')
     ap.add_argument('--list-only', action='store_true',
@@ -1674,10 +1730,34 @@ def failure_count_from_counts(counts):
     return sum(v for k, v in counts.items() if k not in PASS_STATUSES)
 
 
+def exit_failure_count(counts, policy, missing_sources=(), ignored_status=None):
+    """Exit code policy, independent from honest raw failure accounting.
+
+    In ICE-only mode syntax errors, link failures, assertion failures and
+    guest timeouts remain in failures.tsv and in summary fail=.  They do
+    not block the compiler ICE integration sweep.  Unknown/incomplete
+    statuses and source registration mistakes are harness defects and
+    must always block.  This is not an assertion expectation override.
+    """
+    if policy == 'strict':
+        bad = failure_count_from_counts(counts)
+    elif policy == 'ice-only':
+        observed = set(['compile_fail', 'link_fail', 'run_fail', 'timeout',
+                        'unexpected_compile_success'])
+        allowed = PASS_STATUSES | observed
+        bad = sum(v for k, v in counts.items()
+                  if k in HARNESS_FATAL_STATUSES or k not in allowed)
+    else:
+        raise ValueError('unknown exit policy: ' + str(policy))
+    return bad + len(missing_sources) + sum((ignored_status or {}).values())
+
+
 def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, negative_test_count, diagnostic_test_count, scheduled_total,
                   selected_by_compiler, account, skipped, ran, new_pass, new_compile_only, new_fail, final_counts,
                   missing_sources, ignored_status):
     final_fail = failure_count_from_counts(final_counts)
+    exit_fail = exit_failure_count(final_counts, args.exit_policy,
+                                   missing_sources, ignored_status)
     with open(path, 'w', encoding='utf-8') as f:
         f.write('output=%s\n' % outroot)
         f.write('compiler_filter=%s\n' % args.compiler)
@@ -1685,6 +1765,9 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
         f.write('cpu_filter=%s\n' % args.cpu)
         f.write('opt_filter=%s\n' % args.opt)
         f.write('kind_filter=%s\n' % args.kind)
+        f.write('source_filter=%s\n' % (args.source or 'all'))
+        f.write('source_file=%s\n' % (args.source_file or 'none'))
+        f.write('exit_policy=%s\n' % args.exit_policy)
         f.write('checkpoint_model=per-cell status\n')
         f.write('matrix=COMPILER_MATRIX.tsv\n')
         f.write('semantic_tests=%d\n' % semantic_test_count)
@@ -1708,6 +1791,7 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
         for st in sorted(final_counts):
             f.write('%s=%d\n' % (st, final_counts[st]))
         f.write('fail=%d\n' % final_fail)
+        f.write('exit_fail=%d\n' % exit_fail)
         f.write('failures=%s\n' % (outroot / 'failures.tsv'))
         f.write('missing_source_rows=%d\n' % len(missing_sources))
         if missing_sources:
@@ -1773,6 +1857,15 @@ def main():
         if len(rows) != 1:
             die('source not uniquely registered in compiler matrix: ' +
                 args.source)
+    elif args.source_file is not None:
+        try:
+            names = set(read_source_list(
+                args.source_file, set(row['test'] for row in rows)))
+        except ValueError as error:
+            die(str(error))
+        rows = [row for row in rows if row['test'] in names]
+        if len(rows) != len(names):
+            die('source selection lost a matrix row')
     profiles_all = all_profiles()
     profiles = [p for p in profiles_all if profile_selected(p, compiler_filter, family_filter, cpu_filter, opt_filter)]
     kind_filter = None if args.kind == 'all' else args.kind
@@ -1805,7 +1898,15 @@ def main():
     if args.list_only:
         print_selection(args, outroot, semantic_test_count, codegen_test_count, negative_test_count, diagnostic_test_count, profiles,
                         scheduled_total, selected_by_compiler, account, old_status_counts, missing_sources, ignored_status)
-        return 0
+        # A dry-run is the principal full-matrix admission gate.  It
+        # must not print an apparently clean plan while dropping source
+        # rows or profile-kind mismatches (previously 36 VLA cells).
+        return 2 if missing_sources or ignored_status else 0
+
+    if missing_sources or ignored_status:
+        die('invalid matrix selection: %d missing source rows, %d '
+            'ignored source/profile statuses' %
+            (len(missing_sources), sum(ignored_status.values())))
 
     bins = {}
     if semantic_cells or any(cell['kind'] not in ('negative', 'diagnostic')
@@ -1833,6 +1934,8 @@ def main():
         f.write('cpu_filter=%s\n' % args.cpu)
         f.write('opt_filter=%s\n' % args.opt)
         f.write('kind_filter=%s\n' % args.kind)
+        f.write('source_filter=%s\n' % (args.source or 'all'))
+        f.write('source_file=%s\n' % (args.source_file or 'none'))
         f.write('skip_failures=%s\n' % ('yes' if args.skip_failures else 'no'))
         f.write('jobs=%d\n' % args.jobs)
         f.write('matrix=COMPILER_MATRIX.tsv\n')
@@ -1899,12 +2002,16 @@ def main():
                   selected_by_compiler, account, skipped, idx, passed, compile_only, failed, final_counts,
                   missing_sources, ignored_status)
     final_fail = failure_count_from_counts(final_counts)
+    exit_fail = exit_failure_count(final_counts, args.exit_policy,
+                                   missing_sources, ignored_status)
     print('complete: selected=%d old_green_skipped=%d ran=%d skipped=%d new_pass=%d new_compile_only=%d new_fail=%d' %
           (scheduled_total, account['old_green'], idx, skipped, passed, compile_only, failed))
     print('selected latest status: %s' % ' '.join('%s=%d' % (k, final_counts[k]) for k in sorted(final_counts)))
+    print('exit policy: %s, raw failures=%d, blocking=%d' %
+          (args.exit_policy, final_fail, exit_fail))
     print('summary:  %s' % summary)
     print('failures: %s' % (outroot / 'failures.tsv'))
-    return 0 if final_fail == 0 else 1
+    return 0 if exit_fail == 0 else 1
 
 
 if __name__ == '__main__':

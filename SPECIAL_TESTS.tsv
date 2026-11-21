@@ -405,3 +405,9 @@ das-phase-pair-v1738	das	sh	tests/isa/das-port/test-das-phase-pair-v1738.sh	fast
 p1-void-pointer-roundtrip-v1	verify	python3	tools/test-p1-byte-pointer-void-roundtrip-v1.py	host	yes	120
 p1-byte-pointer-canoncmp-v2	verify	python3	tools/test-p1-byte-pointer-canoncmp-v2.py	host	yes	120
 p1-byte-pointer-firstcall-v3	verify	python3	tools/test-p1-byte-pointer-firstcall-v3.py	host	yes	120
+p1-original-observation-harness-v1	verify	python3	tools/audit-p1-original-harness-v1.py	host	yes	120
+compiler-ice-only-harness-v1	verify	python3	tools/test-harness-ice-only-v1.py	host	yes	120
+isa-c-codegen-harness-v1	verify	python3	tools/audit-isa-c-harness-v1.py	host	yes	120
+harness-native-observation-evidence-v1	verify	python3	tools/audit-harness-integration-evidence-v1.py	host	yes	120
+harness-native-observation-negatives-v1	verify	python3	tools/test-harness-integration-evidence-v1.py	host	yes	120
+kcc-native-fp36-link-v1750	validation	sh	misc/validation/kcc-native-fp36-link-v1750.sh	host	manual	360

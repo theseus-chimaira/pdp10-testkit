@@ -249,8 +249,8 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current pre-sweep state (2026-11-21)
 
-The active `pdp10-testkit` registrations cover **2,320
-compiler-matrix sources**, **406 special registrations** and **579
+The active `pdp10-testkit` registrations cover **2,358
+compiler-matrix sources**, **412 special registrations** and **585
 owned script paths**, with zero unowned test sources and zero
 unconnected scripts in the complete current worktree. The v1735
 ABI scripts and v1738 DAS phase-pair check are now registered and
@@ -377,7 +377,25 @@ See `docs/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v23.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v24.md`.
+
+**ICE-focused full harness integration (2026-11-21):** All 67 P1
+historical identities now have a compiler/ISA harness owner, including
+38 newly registered unchanged C originals, the existing reviewed
+byte-pointer replacement and a separate KL10 MACRO-10 source. All
+105 original C-to-ISA compiler instruction tests are now dispatched;
+two VLA C tests with genuine runtime assertions were reclassified,
+restoring 36 formerly omitted semantic profile cells. The full
+compiler/CPU/optimization matrix has **123,576 scheduled cells**.
+The optional `--exit-policy ice-only` leaves all non-ICE failures
+intact in checkpoint reports but makes only compiler ICEs, harness
+errors and incomplete/missing cells fatal. `--source-file` supports
+explicit, source-validated group selection. The first 175 native
+PDP-6 original/ISA observations are SHA256-pinned (125 PASS, 49
+ordinary failures, one genuine GCC ICE in `991228-1.c`). The
+full 123,576-cell execution is **not** claimed. See
+`docs/PDP10-HARNESS-ICE-FOCUSED-INTEGRATION-20261121-v1.md`.
+
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
@@ -420,7 +438,7 @@ The exact evidence and negative controls are in the adjacent
 `PDP10-P1-960521-SHIFTED-ARRAY-CLOSURE-20261120-v1.md`, and
 `PDP10-P1-990628-RECORD-COPY-CLOSURE-20261120-v1.md`.
 The 21 manual roots are pinned in
-`docs/PDP10-MANUAL-ROOTS-20261120-v1.tsv`; the dispatch regressions
+`docs/PDP10-MANUAL-ROOTS-20261121-v2.tsv`; the dispatch regressions
 compare exact IDs, groups and paths without executing those manual
 tests. Historical admission v1-v6 audits also accept only the three
 new source-pinned GCC profiles for `930513-1.c`, preserving all

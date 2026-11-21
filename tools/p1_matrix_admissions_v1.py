@@ -7,6 +7,7 @@ normal compiler matrix; scheduling is not an assertion of compiler success.
 
 import csv
 import hashlib
+import importlib.util
 from pathlib import Path
 
 from p1_source_replacement_v1 import (
@@ -66,3 +67,35 @@ def admitted_sources(upstream, matrix, problems):
     if len(admitted) != 28 or assembly != {original_isa}:
         problems.append("P1 late admissions differ from 28 C + 1 KL10 ISA")
     return admitted
+
+
+def observed_originals(upstream, matrix, problems):
+    """Additional *observation-only* P1 originals, not semantic closures.
+
+    The historic deferred classifications and the old 28-source
+    admission policy stay intact. The new 67-source harness manifest
+    separately pins all 38 originals added for compiler ICE hunting.
+    Never use this list to claim a successful semantic guest test.
+    """
+    path = ROOT / "tools/audit-p1-original-harness-v1.py"
+    spec = importlib.util.spec_from_file_location("p10tk_p1_observations_v1",
+                                                  str(path))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    try:
+        ledger = module.read(module.LEDGER)
+        special = module.read(module.SPECIAL)
+        expected = module.build(ledger, matrix, special)
+        if expected != module.read(module.MANIFEST):
+            raise ValueError("P1 observation manifest not current")
+        observed = {r["matrix_source"] for r in expected
+                    if r["registration"] == "original-observation"}
+        historical = {r["classified_path"]: r for r in upstream}
+        if len(observed) != 38 or any(
+                historical.get(src, {}).get("activation") != "deferred"
+                for src in observed):
+            raise ValueError("P1 original observations lost deferred provenance")
+        return observed
+    except (OSError, KeyError, ValueError) as error:
+        problems.append("P1 original observation admission invalid: " + str(error))
+        return set()
