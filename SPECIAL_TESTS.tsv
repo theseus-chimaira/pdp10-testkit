@@ -29,9 +29,9 @@ aap-timing-trace-parser-v1	compat	python3	misc/compat/test-aap-timing-trace-v1.p
 pdp6-opcode-report-v1	compat	python3	misc/compat/test-pdp6-opcode-report-v1.py	host	yes	60
 pdp6-profile-comparison-v1	compat	python3	misc/compat/test-pdp6-profile-comparison-v1.py	host	yes	60
 deferred-libc-probe-v1	validation	python3	tools/probe-deferred-libc-v1.py	host	manual	120
-test-inventory-v1	verify	python3	tools/audit-test-inventory-v1.py	host	yes	120
+test-inventory-v2	verify	python3	tools/audit-test-inventory-v2.py	host	yes	120
 gcc-c-unmirrored-ownership-v1	verify	python3	tools/inventory-gcc-unmirrored-v1.py	host	yes	120
-test-script-ownership-v4	verify	python3	tools/audit-script-ownership-v4.py	host	yes	120
+test-script-ownership-v5	verify	python3	tools/audit-script-ownership-v5.py	host	yes	120
 test-pdp10-tools-registry-v2	verify	python3	tools/test-pdp10-tools-registry-v2.py	host	yes	120
 test-kcc-negative-policy-v1	verify	python3	tools/test-kcc-negative-policy-v1.py	host	yes	120
 test-gcc-negative-policy-v1	verify	python3	tools/test-gcc-negative-policy-v1.py	host	yes	120
@@ -203,7 +203,7 @@ gcc-packed-record-pointer-v1	compat	sh	misc/compat/test-gcc-packed-record-pointe
 packed-bitptr	compat	sh	misc/compat/test-packed-bitptr.sh	default	yes	120
 packed-bitptr-arith	compat	sh	misc/compat/test-packed-bitptr-arith.sh	default	yes	120
 no-xkl2-byte-extend	validation	sh	misc/validation/test-no-xkl2-byte-extend.sh	default	yes	120
-badl-tables	gcc-bare-libgcc	sh	misc/validation/test-badl-tables.sh	default	yes	120
+badl-tables	gcc-bare-libgcc	sh	misc/validation/test-badl-tables-v2.sh	default	yes	120
 adjbp-direct-marshalling	kcc-regression	sh	misc/kcc-regression/adjbp-direct-marshalling.sh	default	yes	120
 byteptr-register-incdec	kcc-regression	sh	misc/kcc-regression/byteptr-register-incdec.sh	default	yes	120
 dimode-div-helper-selection	kcc-regression	sh	misc/kcc-regression/dimode-div-helper-selection.sh	default	yes	120
@@ -373,7 +373,7 @@ p10fold-io-skip-v1	validation	sh	misc/validation/daimos-p10fold-io-skip-20261012
 p10fold-local-section-v1141	validation	sh	misc/validation/daimos-p10fold-local-section-v1141.sh	host	manual	240
 kcc-excluded-directive-v1070	validation	sh	misc/validation/kcc-excluded-long-directive-v1070.sh	pdp6	manual	120
 kcc-indptr-call-v1395	validation	sh	misc/validation/kcc-indptr-call-v1395/run-v1395.sh	pdp6	manual	120
-gcc-char-word-boundary-v45	validation	sh	misc/validation/pdp10-gcc-char-word-boundary-v45.sh	pdp6	yes	180
+gcc-char-word-boundary-v45	validation	sh	misc/validation/pdp10-gcc-char-word-boundary-v46.sh	pdp6	yes	180
 gcc-kcc-backend-20261012-v1	validation	sh	misc/validation/pdp10-gcc-kcc-backend-20261012-v1.sh	host	manual	360
 gcc-multidim-char-20261012-v1	validation	sh	misc/validation/pdp10-gcc-multidim-char-20261012-v1.sh	pdp6	yes	180
 linker-xip-format-v218	validation	sh	misc/validation/dlink-xip-v218.sh	host	manual	240

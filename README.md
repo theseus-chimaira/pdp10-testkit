@@ -206,7 +206,7 @@ export PDP10_PREFIX="$HOME/cross"
 export TMPDIR="${TMPDIR:-$HOME/tmp}"
 mkdir -p "$TMPDIR"
 ./run-tests.sh list
-python3 tools/audit-test-inventory-v1.py
+python3 tools/audit-test-inventory-v2.py
 python3 tools/test-testkit-boundary-v1.py --require-cross
 ```
 
@@ -218,7 +218,7 @@ resume, output and timeout controls. A pending entry is not a passing
 execution result. Full sweeps are operator-selected.
 
 `SPECIAL_TESTS.tsv` records standalone specialized tests, including
-21 deliberately manual roots. The 25 booted native toolchain tests are
+22 deliberately manual roots. The 25 booted native toolchain tests are
 registered exclusively in `daimos-testkit`. `./run-misc-tests.sh` is the
 special-suite entry point; `verify` runs the broader verify/compatibility
 and validation groups, **not** merely a fast static ownership audit.
@@ -377,7 +377,7 @@ See `docs/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v24.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v25.md`.
 
 **ICE-focused full harness integration (2026-11-21):** All 67 P1
 historical identities now have a compiler/ISA harness owner, including

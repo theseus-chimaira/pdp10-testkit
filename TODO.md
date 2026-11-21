@@ -6,7 +6,7 @@ ICE-focused all-test integration): **2,358 compiler matrix sources**,
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v24.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v25.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
@@ -88,6 +88,14 @@ remain historical. See
   dispatcher/provenance regression and incompatible-archive rejection.
   See `docs/PDP10-COMPILER-STDLIB-SPECIAL-DISPATCH-20261120-v1.md`.
 - [x] Isolate raw upstream CRT test `p10run` guest links with the installed KCC compiler freestanding archive; five real termination cases and two host harness regressions PASS. See `docs/PDP10-HARNESS-DIRECT-CRT-RUNTIME-20261121-v1.md`.
+- [x] Protect direct raw GCC BADL and character/word-boundary guests with
+  compiler-only runtime prefixes, while retaining real GCC driver/linker
+  provenance checks and all original native guest assertions. Both
+  raw and registered-dispatch modes PASS (BADL PDP-6/KA10, boundary
+  PDP-6 at four optimization levels). Superseded scripts now have
+  explicit ownership edges: inventory v2 and script-ownership v5 pass
+  with three fail-closed negative controls. See
+  `docs/PDP10-HARNESS-DIRECT-RUNTIME-20261121-v2.md`.
 - [ ] Audit direct raw `p10run` script invocations outside the official
   dispatcher and tool/host-builder exceptions (`tools`, `kcc-host`,
   `das`) before the full sweep. Do not turn their library requirements
