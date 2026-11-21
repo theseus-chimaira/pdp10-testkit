@@ -16,10 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = 'tests/semantic/regression/pdp10-signed-bitfields-operations-v1.c'
 ORIGINALS = ('tests/todo/generic/991118-1.c',
              'tests/todo/generic/bf64-1.c')
-LEDGER = ROOT / 'docs/PDP10-P1-BITFIELDS-OPERATIONS-RESULTS-20261119-v1.tsv'
+LEDGER = ROOT / 'manifests/PDP10-P1-BITFIELDS-OPERATIONS-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-bitfields-operations-20261119-v1.tar.gz'
-DEFERRED = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
-CLASSIFIED = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
+DEFERRED = ROOT / 'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+CLASSIFIED = ROOT / 'manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
 MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
 FIELDS = ('source', 'source_sha256', 'profile', 'status',
           'evidence_sha256', 'archive_member')

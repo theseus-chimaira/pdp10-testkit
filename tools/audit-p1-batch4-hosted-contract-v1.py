@@ -14,9 +14,9 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-P1-BATCH4-HOSTED-CONTRACT-20261120-v1.tsv"
-RESOLUTION = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
-BATCHES = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-BATCH4-HOSTED-CONTRACT-20261120-v1.tsv"
+RESOLUTION = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
+BATCHES = ROOT / "manifests/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
 FIELDS = ("source", "source_sha256", "compiler", "profile",
           "status", "diagnosis")
 FIRST = "tests/todo/generic/20020406-1.c"

@@ -22,9 +22,9 @@ import sys
 import tarfile
 
 ROOT=Path(__file__).resolve().parents[1]
-LEDGER=ROOT/'docs/PDP10-P1-BATCH3-FINAL-RESULTS-20261119-v1.tsv'
+LEDGER=ROOT/'manifests/PDP10-P1-BATCH3-FINAL-RESULTS-20261119-v1.tsv'
 ARCHIVE=ROOT/'refs/pdp10-p1-batch3-final-20261119-v1.tar.gz'
-HIST=ROOT/'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+HIST=ROOT/'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
 MATRIX=ROOT/'COMPILER_MATRIX.tsv'
 FIELDS=('original_source','original_sha256','source','source_sha256',
         'profile','status','kind','fail_id_octal','evidence_sha256','archive_member')

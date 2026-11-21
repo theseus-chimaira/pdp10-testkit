@@ -17,10 +17,10 @@ import tarfile
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/todo/generic/20020412-1.c"
 SHA = "e3ba27c686930bd2109700edb3c66a7d8b0d643f08be3cb89ae809aac6985c82"
-MANIFEST = ROOT / "docs/PDP10-P1-VARIADIC-VLA-ORIGINAL-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-VARIADIC-VLA-ORIGINAL-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-variadic-vla-original-evidence-20261120-v1.tar.gz"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-HISTORICAL = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v11.tsv"
+HISTORICAL = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v11.tsv"
 FIELDS = ("source", "source_sha256", "profile", "status",
           "evidence_member", "evidence_sha256", "map_member", "map_sha256")
 PROFILES = ("kcc-pdp6-noopt", "gcc-pdp6-o0", "gcc-pdp6-o1",

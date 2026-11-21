@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / 'docs/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.tsv'
+MANIFEST = ROOT / 'manifests/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.tsv'
 POLICIES = ('hosted-service-required', 'compiler-stack-runtime-review',
             'compiler-feature-review', 'variadic-abi-review',
             'freestanding-or-source-review')

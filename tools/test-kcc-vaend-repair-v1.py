@@ -16,7 +16,7 @@ import re
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-KCC-VAEND-REPAIR-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-KCC-VAEND-REPAIR-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-kcc-vaend-repair-20261120-v1.tar.gz"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 FIXED_HEADER = "headers/kcc-stdarg-fixed-v1.h"

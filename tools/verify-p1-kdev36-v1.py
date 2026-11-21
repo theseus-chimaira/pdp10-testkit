@@ -17,10 +17,10 @@ import tarfile
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = 'tests/todo/generic/980526-2.c'
 SOURCE = 'tests/semantic/regression/pdp10-kdev-36bit-encoding-v1.c'
-DEFERRED = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
-CURRENT = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
+DEFERRED = ROOT / 'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+CURRENT = ROOT / 'manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
 MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
-LEDGER = ROOT / 'docs/PDP10-P1-KDEV36-MATRIX-RESULTS-20261119-v1.tsv'
+LEDGER = ROOT / 'manifests/PDP10-P1-KDEV36-MATRIX-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-kdev36-pdp6-20261119-v1.tar.gz'
 FIELDS = ('source', 'source_sha256', 'profile', 'status',
           'evidence_sha256', 'archive_member')

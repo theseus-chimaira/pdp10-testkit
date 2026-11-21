@@ -13,7 +13,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v25.tsv"
+OUT = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v25.tsv"
 ORIGINAL = "tests/semantic/upstream/extensions/va-arg-21.c"
 COMPANION = "tests/semantic/regression/pdp10-vaend-pointer-sideeffect-v1.c"
 FIELDS = ("original_source", "original_sha256", "historical_disposition",

@@ -13,7 +13,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261121-v29.tsv"
+OUT = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261121-v29.tsv"
 SOURCE = "tests/semantic/upstream/pdp10/pdp10/conversion.c"
 COMPANIONS = (
     "tests/semantic/regression/pdp10-libgcc-di-float-abi-v1.c",

@@ -5,29 +5,36 @@ assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**
 the DAIMOS operating-system test suite.
 
+Current repository layout: `manifests/` holds machine-readable TSV/TXT
+inputs consumed by testkit audits, `history/` holds referenced historical
+reports, and `PROJECT-STATE-v28.md` is the current pre-sweep state.
+`docs/` has been retired. Superseded unreferenced reports remain in Git
+history. Use the protected `run-misc-tests.sh` dispatcher for special
+compiler tests and `run-tests.sh` for the restartable compiler matrix.
+
 Twenty-two bounded, ten-entry deferred reviews are recorded in
-`docs/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
-`docs/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH04-20261118-v11.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH05-20261118-v12.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH06-20261118-v13.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH07-20261118-v14.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH08-20261118-v15.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH09-20261118-v16.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH10-20261118-v17.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH11-20261118-v18.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH12-20261118-v19.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH13-20261118-v20.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH14-20261118-v22.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH15-20261118-v23.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH20-20261118-v28.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH21-20261118-v29.md` and
-`docs/PDP10-DEFERRED-INTEGRATION-BATCH22-20261118-v30.md`.
+`history/PDP10-DEFERRED-INTEGRATION-FIRST10-20261118-v8.md`,
+`history/PDP10-DEFERRED-INTEGRATION-NEXT10-20261118-v9.md`, and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH03-20261118-v10.md`, plus
+`history/PDP10-DEFERRED-INTEGRATION-BATCH04-20261118-v11.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH05-20261118-v12.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH06-20261118-v13.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH07-20261118-v14.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH08-20261118-v15.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH09-20261118-v16.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH10-20261118-v17.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH11-20261118-v18.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH12-20261118-v19.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH13-20261118-v20.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH14-20261118-v22.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH15-20261118-v23.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH16-20261118-v24.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH17-20261118-v25.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH18-20261118-v26.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH20-20261118-v28.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH21-20261118-v29.md` and
+`history/PDP10-DEFERRED-INTEGRATION-BATCH22-20261118-v30.md`.
 The thirteenth connected five GCC original sources, including two
 verified 71-bit reference-table shift tests, optimized-only builtin
 constant checks, a narrow bitfield-size comparison and four
@@ -42,10 +49,10 @@ active/active pairs with identical compiler profile vectors.
 No distinct assertion or supported compiler profile was lost.
 The canonical source and original SHA256/provenance for each pair
 are recorded in
-`docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md`
+`history/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md`
 and its TSV. All **16 outstanding compiler-specific blockers**
 from the retired deferred copies remain open in
-`docs/UPSTREAM-CONSOLIDATED-COMPILER-GATES-20261118-v21.tsv`.
+`manifests/UPSTREAM-CONSOLIDATED-COMPILER-GATES-20261118-v21.tsv`.
 The fourteenth bounded review, after consolidation, connected
 six original sources. GCC PDP-6 passes all checked optimization
 levels except `built-in-setjmp.c`, which passes O0 and **fails
@@ -86,7 +93,7 @@ subsequently **deleted** and replaced by the native, hosted-I/O-free
 `tests/semantic/regression/pdp10-byte-pointer-torture-v1.c`.
 All six observed PDP-6 profiles are registered as real compiler
 assertion failures, not silently skipped. See
-`docs/PDP10-P1-NATIVE-BYTEPTR-REPLACEMENT-20261120-v1.md`.
+`history/PDP10-P1-NATIVE-BYTEPTR-REPLACEMENT-20261120-v1.md`.
 The eighteenth review connected five original test sources
 covering GNU 71-bit-capable fourth-argument passing, a
 struct-by-value argument after three scalars, block-scope
@@ -187,12 +194,12 @@ opcode-coverage expansion and logical-tick validation are **P3**;
 they must not block P1 source admission or independently justified
 compiler/ABI test oracles. Existing AAP results remain valid evidence,
 but further AAP expansion is deferred until P3. See
-`docs/PDP10-P1-SOURCE-BATCHES-20261119-v1.md` and `TODO.md`.
+`history/PDP10-P1-SOURCE-BATCHES-20261119-v1.md` and `TODO.md`.
 
 The historical 150-file split is recorded in the v3 manifest. The
 71-file native re-home and current ownership rules are recorded in
-`docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` and
-`docs/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv`.
+`history/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` and
+`manifests/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv`.
 
 ## Usage
 
@@ -213,7 +220,7 @@ python3 tools/test-testkit-boundary-v1.py --require-cross
 `./run-tests.sh` runs selected compiler, CPU and optimization cells;
 its `list`, `list-kcc` and `list-gcc` commands only enumerate tests.
 `COMPILER_MATRIX.tsv` defines compiler applicability and expectations.
-Use `./run-tests.sh --help` and `docs/parallel-cells.md` for selector,
+Use `./run-tests.sh --help` and `history/parallel-cells.md` for selector,
 resume, output and timeout controls. A pending entry is not a passing
 execution result. Full sweeps are operator-selected.
 
@@ -227,7 +234,7 @@ executing them, or `./run-misc-tests.sh run-id TEST_ID` to execute
 exactly one enabled registered test. A manual root additionally requires
 `--manual`; nested DAS helpers and suite-prepared tools cannot be
 launched by ID. This is explicitly selected execution, not a new
-automatic suite. See `docs/PDP10-SPECIAL-RUNNER-20261119-v3.md`.
+automatic suite. See `history/PDP10-SPECIAL-RUNNER-20261119-v3.md`.
 Use the individual Python auditors above for host-only preflight.
 For named DAS groups use `das-fast`, `das`, or `das-native`.
 The independent PDP10-TOOLS suite is sourced from `../pdp10-tools`;
@@ -261,7 +268,7 @@ retains 551 active, 67 deferred, 58 removed and one nonportable source;
 historical import disposition must not be read as present compiler PASS.
 
 The live P1 source-specific construction ledger is
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261121-v29.tsv`:
+`manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261121-v29.tsv`:
 **56 covered, zero partial, 11 blocked**. The frozen 59-source batch
 ledger now has 48 covered and 11 blocked; no original is deleted or
 renumbered. Eleven recent deferred-source intentions have real,
@@ -280,12 +287,12 @@ optimized GCC guest `run_fail` at pointer/integer expression checks).
 The new `920810-1.c` compiler companion has six native KCC/GCC
 PDP-6 guest PASS using real compiler `memcpy` and `memset`, while its
 unchanged original link-fails on missing `malloc`. See
-`docs/PDP10-P1-941014-VOLATILE-SHORT-CLOSURE-20261120-v1.md` and
-`docs/PDP10-P1-920810-CHILD-COPY-CLOSURE-20261120-v1.md`.
+`history/PDP10-P1-941014-VOLATILE-SHORT-CLOSURE-20261120-v1.md` and
+`history/PDP10-P1-920810-CHILD-COPY-CLOSURE-20261120-v1.md`.
 The new `20020406-1.c` companion has six native KCC/GCC PDP-6 PASS
 for its exact recursive DUPFF input/cofactor pointer swap; its
 unchanged hosted original still link-fails on compiler `malloc`.
-See `docs/PDP10-P1-20020406-RECURSIVE-SWAP-CLOSURE-20261120-v1.md`.
+See `history/PDP10-P1-20020406-RECURSIVE-SWAP-CLOSURE-20261120-v1.md`.
 The `980707-1.c` space-token companion and independent literal
 `strcpy` oracle each had three historical optimized GCC PDP-6
 `run_fail`, caused by host `strlen` misreading the two-host-byte
@@ -299,9 +306,9 @@ target `ctype.h` now allow the **unchanged `980707-1.c` original**
 to PASS all six PDP-6 profiles. The unchanged `991112-1.c` original
 also PASSes six profiles; an independent C-locale classifier oracle
 PASSes all 512 nine-bit values plus EOF in each of the six profiles.
-See `docs/PDP10-P1-991112-C-LOCALE-CLOSURE-20261120-v1.md`,
-`docs/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md` and
-`docs/PDP10-GCC-STRING9-FOLD-REPAIR-20261120-v1.md`.
+See `history/PDP10-P1-991112-C-LOCALE-CLOSURE-20261120-v1.md`,
+`history/PDP10-P1-980707-SPACE-TOKEN-CLOSURE-20261120-v1.md` and
+`history/PDP10-GCC-STRING9-FOLD-REPAIR-20261120-v1.md`.
 The `va-arg-21.c` compiler companion preserves the actual
 `va_end(**ap_ptr++)` expression and second `ap_ptr++`. Historical
 native KCC noopt/opt reports recorded `run_fail` at ID 4 while four
@@ -310,8 +317,8 @@ exactly once (KCC commit `5fa3510`), and the corrected header was
 installed. All six freshly selected PDP-6 companion profiles PASS,
 plus both KCC variadic-return regression profiles. The unchanged
 original still fails linking on hosted `malloc` or `vprintf`. See
-`docs/PDP10-P1-VAARG21-VAEND-CLOSURE-20261120-v1.md` and
-`docs/PDP10-KCC-VAEND-HEADER-REPAIR-20261120-v1.md`.
+`history/PDP10-P1-VAARG21-VAEND-CLOSURE-20261120-v1.md` and
+`history/PDP10-KCC-VAEND-HEADER-REPAIR-20261120-v1.md`.
 Completing a test oracle does not make the compiler or unavailable
 hosted allocator pass.
 The pre-existing noreturn regression is scheduled, but all four
@@ -319,7 +326,7 @@ targeted GCC PDP-6 profiles currently link-fail on `__builtin_abort`.
 Nine historical compiler ICE/signal source/profile pairs were also
 revalidated with the installed native PDP-6 compilers; all nine remain
 `compiler_ice`, with source- and report-pinned evidence in
-`docs/PDP10-COMPILER-ICE-CURRENT-20261120-v1.md`. This targeted
+`history/PDP10-COMPILER-ICE-CURRENT-20261120-v1.md`. This targeted
 codegen recheck was not a full sweep.
 
 The **unchanged original `conversion.c` now PASSes all six native
@@ -332,8 +339,8 @@ and 17 mutation controls; eight earlier 36-bit conversion suites
 also PASS all six profiles (48 additional PASS). Genuine historical
 GCC link failures, original aborts and timeouts remain archived, not
 rewritten. This closes P1 Batch 4 slot 4. See
-`docs/PDP10-P1-CONVERSION-FULL-20261121-v1.md` and the prior
-`docs/PDP10-P1-CONVERSION-KCC-ORIGINAL-20261121-v1.md`.
+`history/PDP10-P1-CONVERSION-FULL-20261121-v1.md` and the prior
+`history/PDP10-P1-CONVERSION-KCC-ORIGINAL-20261121-v1.md`.
 
 The next frozen P1 source `920428-1.s` remains blocked on genuine
 KL10 MACRO-10 `DEFINE` expansion and runtime semantics. Focused
@@ -342,7 +349,7 @@ MACRO-10 `BYTE (9)0` packs identically to DAS 9-bit fields,
 `.DIRECTIVE KL10` is validated, unused externs are no longer
 required as link dependencies, and an exhausted KL10 step budget
 cannot be misclassified as native PASS. See
-`docs/PDP10-P1-920428-KL10-TOOLCHAIN-PREREQS-20261121-v1.md`.
+`history/PDP10-P1-920428-KL10-TOOLCHAIN-PREREQS-20261121-v1.md`.
 
 The historical `old.tort.c` replacement still fails in all six
 PDP-6 compiler profiles; a new **independent, C89 halfword-pointer
@@ -350,7 +357,7 @@ PDP-6 compiler profiles; a new **independent, C89 halfword-pointer
 genuinely fails KCC noopt and opt with identity/data mask `01002`
 (octal). Both sources have 12 pinned native outcomes, 60 raw
 artifacts and seven negative controls. P1 is not reclassified;
-see `docs/PDP10-P1-OLD-TORT-VOID-POINTER-20261121-v1.md`.
+see `history/PDP10-P1-OLD-TORT-VOID-POINTER-20261121-v1.md`.
 
 The follow-up owning KCC repair `4a61c53` also corrects a register
 liveness error when canonicalizing two representation-polymorphic
@@ -361,7 +368,7 @@ torture now PASSes KCC opt; KCC noopt decimal ID 10 and GCC O0 ID 21,
 GCC O1/O2/Os ID 28 remain real compiler failures. Post-fix
 evidence: 13 native PASS and five run_fail, 90 SHA256-pinned
 artifacts and seven mutation controls. P1 remains blocked at 56/11.
-See `docs/PDP10-P1-BYTE-POINTER-CANONCMP-20261121-v2.md`.
+See `history/PDP10-P1-BYTE-POINTER-CANONCMP-20261121-v2.md`.
 
 The final KCC first-call argument-liveness fix `551f406` now
 also makes the active large byte-pointer torture pass in **both
@@ -373,11 +380,11 @@ and GCC O1/O2/Os ID 28 failures. The v3 evidence pins 20 actual
 PDP-6 guest PASS and four run_fail, 120 raw artifacts and seven
 mutation controls. KCC noopt's previous SIMH octal `012` was
 **decimal ID 10**, not 12; this is corrected in the v2 notes.
-See `docs/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
+See `history/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v27.md`.
+the full sweep**, see `PROJECT-STATE-v28.md`.
 
 **ICE-focused full harness integration (2026-11-21):** All 67 P1
 historical identities now have a compiler/ISA harness owner, including
@@ -394,7 +401,7 @@ explicit, source-validated group selection. The first 175 native
 PDP-6 original/ISA observations are SHA256-pinned (125 PASS, 49
 ordinary failures, one genuine GCC ICE in `991228-1.c`). The
 full 123,576-cell execution is **not** claimed. See
-`docs/PDP10-HARNESS-ICE-FOCUSED-INTEGRATION-20261121-v1.md`.
+`history/PDP10-HARNESS-ICE-FOCUSED-INTEGRATION-20261121-v1.md`.
 
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
@@ -403,11 +410,11 @@ the actual target compiler and canonical libgcc, and invalidates
 legacy semantic PASS checkpoints from a different libc provider.
 Two real native PDP-6 compiler-library guest PASS and six genuine
 original-source missing-hosted-function link failures are verified.
-See `docs/PDP10-COMPILER-STDLIB-RUNTIME-20261120-v1.md`. The official
+See `history/PDP10-COMPILER-STDLIB-RUNTIME-20261120-v1.md`. The official
 registered special dispatcher now also isolates the compiler-owned
 stdlib for five compiler guest-test groups, with three selected real
 PDP-6 registered checks passing. See
-`docs/PDP10-COMPILER-STDLIB-SPECIAL-DISPATCH-20261120-v1.md`.
+`history/PDP10-COMPILER-STDLIB-SPECIAL-DISPATCH-20261120-v1.md`.
 Direct raw script invocations and host/tool-builder exceptions remain
 separate from this runtime-policy guarantee.
 The two GCC stdio production-formatter compatibility scripts now
@@ -416,20 +423,20 @@ explicitly link the installed compiler `libp10c-v2.a` rather than
 use a compiler-only temporary prefix when called directly. Both
 formatter archives link correctly to the compiler library, and all
 four selected PDP-6 O0 guest assertions pass. See
-`docs/PDP10-GCC-STDIO-DIRECT-COMPILER-ARCHIVE-20261120-v1.md`.
+`history/PDP10-GCC-STDIO-DIRECT-COMPILER-ARCHIVE-20261120-v1.md`.
 Under the **previous generic/hosted-libc policy**, the GCC original
 `920501-8.c` duplicate-global `vsprintf` diagnostic
 is now traced to overlapping real formatter providers: selected
 `p10stdio-format-v2.s` and default `lib/libc.a` for hosted `printf`.
 The exact three-case linker replay is documented in
-`docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`.
+`history/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`.
 Correct GCC hosted printf/varargs execution is not established.
 The previous KCC original `980707-1.c` duplicate-global `exit` has also been
 traced to **two real runtime providers**: the testkit CRT's
 `exit`/`abort` and default libc's own entrypoints, pulled by `isspace`.
 Five source-pinned links and their unresolved guest termination ABI
 are documented in
-`docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
+`history/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 The exact evidence and negative controls are in the adjacent
 `PDP10-P1-930513-ORIGINAL-CLOSURE-20261120-v1.md` and
 `PDP10-P1-STRUCTRET-HOSTED-CLOSURE-20261120-v1.md`,
@@ -438,7 +445,7 @@ The exact evidence and negative controls are in the adjacent
 `PDP10-P1-960521-SHIFTED-ARRAY-CLOSURE-20261120-v1.md`, and
 `PDP10-P1-990628-RECORD-COPY-CLOSURE-20261120-v1.md`.
 The 21 manual roots are pinned in
-`docs/PDP10-MANUAL-ROOTS-20261121-v2.tsv`; the dispatch regressions
+`manifests/PDP10-MANUAL-ROOTS-20261121-v2.tsv`; the dispatch regressions
 compare exact IDs, groups and paths without executing those manual
 tests. Historical admission v1-v6 audits also accept only the three
 new source-pinned GCC profiles for `930513-1.c`, preserving all
@@ -457,7 +464,7 @@ previously prohibited registrations and negative controls.
 - The full registered **host-only verify** group subsequently passed
   **21/21** on 2026-11-19 after reconciling two post-classification
   ownership decisions and four differential-helper annotations.  See
-  `docs/PDP10-HOST-VERIFICATION-20261119-v1.md`.  The separate manual
+  `history/PDP10-HOST-VERIFICATION-20261119-v1.md`.  The separate manual
   sweep remains 13 PASS / six not passing and is not a compiler-matrix
   acceptance claim.
 - The 16 original consolidated compiler gates are now **normal matrix**
@@ -466,31 +473,31 @@ previously prohibited registrations and negative controls.
   36 still fail and the two KCC PDP-6 profiles of `20011113-1.c`
   pass. The separate mutation/negative-control validation tests both
   source call paths without changing the original C file. Full historical
-  failure logs and checked hashes: `docs/PDP10-COMPILER-GATES-MATRIX-20261119-v1.md`.
+  failure logs and checked hashes: `history/PDP10-COMPILER-GATES-MATRIX-20261119-v1.md`.
 - The current **24/24** registered host-only verification tests pass,
   including P1 deferred-source provenance, DEC floating-point oracle
   evidence coverage and the independent target-width shift-table check.
   The PDP-6 width-shift regression passes all six tested KCC/GCC modes;
   further CPU semantics and open P1 deferred-source obligations remain.
-  See `docs/PDP10-P1-TEST-CONSTRUCTION-20261119-v1.md`.
+  See `history/PDP10-P1-TEST-CONSTRUCTION-20261119-v1.md`.
 - The full **67 x 2** deferred-source baseline is now captured, with
   original source SHA256 identities, exact GCC/KCC result distinctions,
   and 134 archived compiler/guest records. Five independently tested
   companion regressions are now in the normal matrix without promoting
   any vacuous historical source. See
-  `docs/PDP10-P1-DEFERRED-ROUND2-20261119-v1.md`.
+  `history/PDP10-P1-DEFERRED-ROUND2-20261119-v1.md`.
   All 26 new companion PDP-6 cells have archived, checksum-verified results
-  in `docs/PDP10-P1-COMPANION-MATRIX-RESULTS-20261119-v1.tsv`.
+  in `manifests/PDP10-P1-COMPANION-MATRIX-RESULTS-20261119-v1.tsv`.
 - Four more assertion-bearing GNU/packed/bitfield companions are now
   registered in the matrix, with 18 actual PDP-6 executions and
   explicit distinction between failing assertions and SIMH timeouts.
-  See `docs/PDP10-P1-NONASSERTING-COMPANIONS-20261119-v1.md`.
+  See `history/PDP10-P1-NONASSERTING-COMPANIONS-20261119-v1.md`.
 - GNU prefetch address side effects and independent 36-bit-word/71-bit
   multiplication now have ten more normal PDP-6 matrix executions;
   **14/14** original nonasserting sources have an explicit companion
   coverage classification (eight targeted, six partial) without changing
   or prematurely activating the originals. See
-  `docs/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
+  `history/PDP10-P1-PREFETCH-WIDE-20261119-v1.md`.
 - The latest registered host verification sweep is **54/54 PASS**.
   Earlier 24/24 and 27/27 milestones are historical counts, not the
   current verifier inventory. **The historical 67 deferred sources
@@ -504,9 +511,9 @@ previously prohibited registrations and negative controls.
   fixed source-hash-pinned batches of **10, 10, 10, 10, 10, and 9**;
   Batch 1 is **10/10 covered for test construction**, with unresolved
   compiler, linker and simulator outcomes retained for P2/P3. See
-  `docs/PDP10-P1-SOURCE-BATCHES-20261119-v3.md`,
-  `docs/PDP10-P1-BATCH1-FINAL-20261119-v1.md` and
-  `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v4.md`.
+  `history/PDP10-P1-SOURCE-BATCHES-20261119-v3.md`,
+  `history/PDP10-P1-BATCH1-FINAL-20261119-v1.md` and
+  `history/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v4.md`.
   Batch 2 is **10/10 complete for P1 construction**, with 30
   additional source/profile executions (26 normal matrix, four
   genuine instrumentation-option special runs), including a
@@ -515,26 +522,26 @@ previously prohibited registrations and negative controls.
   source/profile executions, including the original 1,000-case
   generator, native D-format cube root, exact Karatsuba bodies and
   three original prefetch families. Batch 4 is next. See
-  `docs/PDP10-P1-BATCH2-FINAL-20261119-v1.md`,
-  `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v6.md` and
-  `docs/PDP10-P1-SOURCE-BATCHES-20261119-v5.md`.
+  `history/PDP10-P1-BATCH2-FINAL-20261119-v1.md`,
+  `history/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v6.md` and
+  `history/PDP10-P1-SOURCE-BATCHES-20261119-v5.md`.
   Current evidence and priorities:
-  `docs/PDP10-P1-BATCH3-FINAL-20261119-v1.md`,
-  `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v7.md` and
-  `docs/PDP10-P1-SOURCE-BATCHES-20261119-v6.md`.
+  `history/PDP10-P1-BATCH3-FINAL-20261119-v1.md`,
+  `history/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v7.md` and
+  `history/PDP10-P1-SOURCE-BATCHES-20261119-v6.md`.
 - Native 36-bit Linux-style device-number encoding is tested by ten
   independent unsigned/modulo reference values on **all six** PDP-6
   KCC/GCC compiler profiles, without changing the original deferred
-  32-bit source; see `docs/PDP10-P1-KDEV36-20261119-v1.md`.
+  32-bit source; see `history/PDP10-P1-KDEV36-20261119-v1.md`.
 - Target-width random arithmetic now has a deterministic **36-case**
   signed/unsigned 9/18/36-bit quotient/remainder oracle. Two KCC
   modes pass; all four GCC profiles reach the same real assertion
-  failure. See `docs/PDP10-P1-DIVMOD-NATIVE-20261119-v1.md`.
+  failure. See `history/PDP10-P1-DIVMOD-NATIVE-20261119-v1.md`.
 - Signed 52/53-bit field XOR/OR and record-return paths now have
   independently calculated sign-extended expected values with actual
   GCC PDP-6 failures in all four optimization profiles. The original
   64-bit-assumption sources stay deferred. See
-  `docs/PDP10-P1-BITFIELDS-OPERATIONS-20261119-v1.md`.
+  `history/PDP10-P1-BITFIELDS-OPERATIONS-20261119-v1.md`.
 
 ## Verified integration state (2026-11-17)
 
@@ -556,24 +563,24 @@ previously prohibited registrations and negative controls.
 No full GCC/KCC or DAIMOS suite was run as part of the ownership split.
 The previously observed compiler failures remain recorded, without
 weakening their original assertions, in
-`docs/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md` and its failure TSV.
+`history/PDP10-INITIAL-REGRESSION-SWEEPS-20261117-v1.md` and its failure TSV.
 
 Subsequent focused prerequisite validation (no full matrix sweep) is in
-`docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261117-v1.md`, including
+`history/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261117-v1.md`, including
 DAS fast **10/10**, a new installed KCC/GCC freestanding archive and
 PDP-6 execution test, targeted KCC-host/compatibility fixes, and
 20 pilot cells from the 269-source deferred inventory. The
 SHA256-pinned outcomes and remaining gates are in
-`docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261117-v1.tsv`.
+`manifests/PDP10-DEFERRED-BLOCKER-TRIAGE-20261117-v1.tsv`.
 The next **2026-11-18 v2** focused checkpoint is
-`docs/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261118-v2.md`: split
+`history/PDP10-SPECIAL-DEFERRED-PREREQUISITES-20261118-v2.md`: split
 KCC-runtime prerequisite migration, 21/24 affected compatibility
 scripts passing (three real assertion failures retained), 5/5 KCC
 regression scripts passing, and 54 more deferred-source cells from
 libc/header batches. Its 269-row source-preserving results ledger is
-`docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v2.tsv`.
+`manifests/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v2.tsv`.
 The focused ABI/compiler repair checkpoint is
-`docs/PDP10-ABI-COMPILER-REGRESSIONS-20261118-v3.md`. KCC's
+`history/PDP10-ABI-COMPILER-REGRESSIONS-20261118-v3.md`. KCC's
 previously unpreserved DImode scratch ACs are repaired upstream
 (`948dd9f`), and the new registered five-target/two-mode regression
 passes **10/10** with the operational compiler. The mixed-call
@@ -581,15 +588,15 @@ fixture's erroneous octal constant is corrected. GCC's packed
 record-array pointer/storage mismatch remains a reproduced compiler
 failure, not a silently skipped test.
 The `2026-11-18 v4` focused checkpoint is
-`docs/PDP10-VARARGS-AND-GCC-ICE-20261118-v4.md`. The genuine GCC
+`history/PDP10-VARARGS-AND-GCC-ICE-20261118-v4.md`. The genuine GCC
 variable-sized `va_arg` ICE is repaired in `pdp10-gcc` `66f5a15`;
 the installed compiler passes a new 16-cell compile-only regression.
 Its original dynamic-aggregate semantic execution still fails and
 remains deferred. All 26 historically deferred `varargs-abi` sources
 (52 operational PDP-6 cells) are recorded, without activation, in
-`docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v4.tsv`.
+`manifests/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v4.tsv`.
 The `2026-11-18 v5` focused compiler repair is in
-`docs/PDP10-GCC-PACKED-RECORD-BYTEPOINTER-20261118-v5.md`. GCC
+`history/PDP10-GCC-PACKED-RECORD-BYTEPOINTER-20261118-v5.md`. GCC
 `c099c40` corrects nonvolatile explicitly packed nine-bit record
 strides and byte-pointer field reads/writes. The previously failing
 original test and a new stricter companion pass all 32 staged
@@ -597,7 +604,7 @@ CPU/optimization cells **and** all 32 operational installed-toolchain
 cells. This does not alter the deferred VLA-copy
 runtime blocker or imply a full matrix sweep.
 The unresolved VLA block-copy investigation is recorded separately in
-`docs/PDP10-GCC-VLA-AGGREGATE-COPY-20261118-v6.md`. The original
+`history/PDP10-GCC-VLA-AGGREGATE-COPY-20261118-v6.md`. The original
 runtime assertion still fails; scratch-only pointer conversion trials
 were insufficient and no compiler/libc change was deployed for them.
 
@@ -606,21 +613,21 @@ were insufficient and no compiler/libc change was deployed for them.
 - `TODO.md`: **open work**, source classification follow-ups and testkit
   verification priorities. Dated checked-off entries are historical
   milestones, not current registration totals.
-- `docs/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`: original registration,
+- `history/REGISTERED-TEST-PREFLIGHT-20261117-v1.md`: original registration,
   dispatcher and host-check preflight (historical snapshot).
-- `docs/GCC-C-FINAL105-REVIEW-20261117-v1.md`: completed historical GCC C
+- `history/GCC-C-FINAL105-REVIEW-20261117-v1.md`: completed historical GCC C
   classification; source-level TSVs preserve rejected/deferred decisions.
-- `docs/GCC-C-INAPPLICABLE-REMOVALS-REVIEW-20261117-v2.md`: original
+- `history/GCC-C-INAPPLICABLE-REMOVALS-REVIEW-20261117-v2.md`: original
   source tombstone justification and provenance.
-- `docs/PDP10-CODEGEN-DECLARED-ORACLES-20261117-v1.md` and
-  `docs/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`: implemented
+- `history/PDP10-CODEGEN-DECLARED-ORACLES-20261117-v1.md` and
+  `history/PDP10-DIAGNOSTIC-KCC-INTEGRATION-20261117-v1.md`: implemented
   compiler oracle policy, distinct from runtime results.
-- `docs/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`: DEC Type 166 hardware
+- `history/PDP6-FP-SIMH-FIDELITY-20261021-v1.md`: DEC Type 166 hardware
   evidence and the remaining floating-point characterization work.
-- `docs/PDP6-AAP-LOGICAL-TICK-OPTIMIZATION-20261015-v1.md`: historical
+- `history/PDP6-AAP-LOGICAL-TICK-OPTIMIZATION-20261015-v1.md`: historical
   processor timing work; DAIMOS-specific kernel coverage is now under
   `../daimos-testkit/tests/validation/`.
-- `docs/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261117-v1.md`: source-path
+- `history/PDP10-HISTORICAL-DOC-PATH-AUDIT-20261117-v1.md`: source-path
   reconciliation, historical-provenance crosswalk and missing-link
   regression policy (125 unchanged original source identities).
 

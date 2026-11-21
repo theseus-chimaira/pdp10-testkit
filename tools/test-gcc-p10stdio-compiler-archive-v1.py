@@ -25,7 +25,7 @@ FILES = (
     "misc/compat/test-gcc-p10stdio-v1.sh",
     "misc/compat/test-gcc-p10stdio-v2.sh",
 )
-EVIDENCE = ROOT / "docs/PDP10-GCC-STDIO-DIRECT-COMPILER-EVIDENCE-20261120-v1.tsv"
+EVIDENCE = ROOT / "manifests/PDP10-GCC-STDIO-DIRECT-COMPILER-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-gcc-stdio-direct-20261120-v1.tar.gz"
 COMPILER_ARCHIVE_SHA_V1 = (
     "ac09b8a362e4ea3ca8a7e69a2ca5a98af5a76cc85a7db909b6b3a134afb7ee41")

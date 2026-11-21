@@ -15,9 +15,9 @@ import re
 from p1_source_replacement_v1 import source_matches_historical
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-P1-BATCH6-CONTRACT-20261120-v1.tsv"
-FROZEN = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
-LIVE = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-BATCH6-CONTRACT-20261120-v1.tsv"
+FROZEN = ROOT / "manifests/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
+LIVE = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
 FIELDS = ("slot", "original_source", "source_sha256", "compiler",
           "profile", "status", "reason")
 ORIGINALS = (

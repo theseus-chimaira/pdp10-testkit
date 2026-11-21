@@ -14,8 +14,8 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv"
-DISPOSITIONS = ROOT / "docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv"
+SOURCE = ROOT / "manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv"
+DISPOSITIONS = ROOT / "manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv"
 VALID_CLASSES = frozenset((
     "compiler-ice-priority", "compiler-investigate", "evidence-retest",
     "feature-policy-decision",

@@ -13,7 +13,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v16.tsv"
+OUT = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v16.tsv"
 ORIGINAL = "tests/todo/generic/generic/struct-ret-1.c"
 COMPANION = "tests/semantic/regression/pdp10-large-struct-return-v1.c"
 

@@ -17,8 +17,8 @@ import tarfile
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/todo/generic/generic/struct-ret-1.c"
 SOURCE_SHA = "c9c28e7b4daa3d36e8be3590a722e8a22de63ce8d9e56927ed42bd03b7bccd74"
-PREVIOUS = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v15.tsv"
-MANIFEST = ROOT / "docs/PDP10-P1-STRUCTRET-HOSTED-EVIDENCE-20261120-v1.tsv"
+PREVIOUS = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v15.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-STRUCTRET-HOSTED-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-structret-hosted-20261120-v1.tar.gz"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 PROFILES = ("gcc-pdp6-o0", "gcc-pdp6-o1", "gcc-pdp6-o2", "gcc-pdp6-os")

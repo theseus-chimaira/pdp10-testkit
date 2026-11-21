@@ -16,9 +16,9 @@ import tarfile
 ROOT = Path(__file__).resolve().parents[1]
 ORIGINAL = 'tests/todo/generic/arith-ll.c'
 SOURCE = 'tests/semantic/regression/pdp10-wide-arithmetic-operators-v1.c'
-HIST = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
-CLASSIFIED = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
-LEDGER = ROOT / 'docs/PDP10-P1-ARITHLL-MATRIX-RESULTS-20261119-v1.tsv'
+HIST = ROOT / 'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+CLASSIFIED = ROOT / 'manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
+LEDGER = ROOT / 'manifests/PDP10-P1-ARITHLL-MATRIX-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-arithll-pdp6-20261119-v1.tar.gz'
 MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
 PROFILES = ('kcc-pdp6-opt', 'kcc-pdp6-noopt', 'gcc-pdp6-o0',

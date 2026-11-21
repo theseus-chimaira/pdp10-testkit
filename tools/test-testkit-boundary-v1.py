@@ -20,9 +20,9 @@ import sys
 
 
 PDP10 = Path(__file__).resolve().parents[1]
-MANIFEST = PDP10 / 'docs/TESTKIT-SCOPE-MIGRATION-20261117-v3.tsv'
-RETURN = PDP10 / 'docs/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv'
-KINIT_RETURN = PDP10 / 'docs/DAIMOS-KINIT-CODEGEN-RETURN-20261119-v1.tsv'
+MANIFEST = PDP10 / 'manifests/TESTKIT-SCOPE-MIGRATION-20261117-v3.tsv'
+RETURN = PDP10 / 'manifests/NATIVE-TOOLCHAIN-RETURN-20261119-v4.tsv'
+KINIT_RETURN = PDP10 / 'manifests/DAIMOS-KINIT-CODEGEN-RETURN-20261119-v1.tsv'
 RETURN_FIELDS = ('old_path', 'new_path', 'source_sha256', 'original_sha256')
 FIELDS = ('before', 'after', 'old_path', 'new_path',
           'original_sha256', 'resolution')
@@ -227,7 +227,7 @@ def audit(daimos):
     # historical reports or the migration manifest itself. Reject
     # references to any source path that has changed owner.
     documents = [PDP10 / 'README.md', PDP10 / 'TODO.md',
-                 PDP10 / 'docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md']
+                 PDP10 / 'history/TESTKIT-SCOPE-MIGRATION-20261119-v4.md']
     if daimos is not None:
         documents += [daimos / 'README.MD', daimos / 'TODO.MD',
                       daimos / 'STATUS.MD',

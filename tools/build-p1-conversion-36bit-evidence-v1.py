@@ -19,7 +19,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 TMP = Path(os.environ.get("TMPDIR") or Path.home() / "tmp")
-MANIFEST = ROOT / "docs/PDP10-P1-CONVERSION-36BIT-REPAIR-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-CONVERSION-36BIT-REPAIR-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-conversion-36bit-repair-20261120-v1.tar.gz"
 PROFILES = ("kcc-pdp6-noopt", "kcc-pdp6-opt", "gcc-pdp6-o0",
             "gcc-pdp6-o1", "gcc-pdp6-o2", "gcc-pdp6-os")

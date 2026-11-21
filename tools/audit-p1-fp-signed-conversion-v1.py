@@ -19,10 +19,10 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/semantic/regression/pdp10-fp-signed-conversion-v1.c"
 ORIGINAL = "tests/semantic/upstream/pdp10/pdp10/conversion.c"
 SHA = "90a627b3d14f427826fbc6291638824a485e95e65f1f451684b94a7c2ed468e5"
-MANIFEST = ROOT / "docs/PDP10-P1-FP-SIGNED-CONVERSION-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-FP-SIGNED-CONVERSION-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-fp-signed-conversion-evidence-20261120-v1.tar.gz"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-RESOLUTION = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v12.tsv"
+RESOLUTION = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v12.tsv"
 FIELDS = ("source", "source_sha256", "profile", "status",
           "failed_groups_octal", "report_member", "report_sha256",
           "map_member", "map_sha256")

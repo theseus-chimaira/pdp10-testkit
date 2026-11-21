@@ -16,8 +16,8 @@ from p1_source_replacement_v1 import (
 )
 
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-LIVE = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
-BATCH = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261120-v8.tsv"
+LIVE = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
+BATCH = ROOT / "manifests/PDP10-P1-SOURCE-BATCHES-20261120-v8.tsv"
 PROFILE_FAILURES = {
     "kcc-pdp6-opt": ("pdp6", "000000000014"),
     "kcc-pdp6-noopt": ("pdp6", "000000000012"),

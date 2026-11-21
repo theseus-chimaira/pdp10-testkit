@@ -17,8 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/todo/generic/930513-1.c"
 SOURCE_SHA = "0007986905cfa0ddbc7face84420a15d201b746a87e7a32440e5a4d3e442ba44"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-PREVIOUS = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v14.tsv"
-MANIFEST = ROOT / "docs/PDP10-P1-930513-ORIGINAL-EVIDENCE-20261120-v1.tsv"
+PREVIOUS = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v14.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-930513-ORIGINAL-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-930513-original-20261120-v1.tar.gz"
 FIELDS = ("source", "source_sha256", "profile", "cpu", "status",
           "report_member", "report_sha256", "map_member", "map_sha256")

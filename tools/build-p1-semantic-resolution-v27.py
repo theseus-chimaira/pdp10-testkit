@@ -13,7 +13,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v27.tsv"
+OUT = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v27.tsv"
 ORIGINAL = "tests/todo/generic/980707-1.c"
 FIELDS = ("original_source", "original_sha256", "historical_disposition",
           "p1_state", "compiler_followup", "evidence_source",

@@ -19,9 +19,9 @@ COMPANION = "tests/semantic/regression/pdp10-memcpy-child-inheritance-v1.c"
 ORIGINAL_SHA = "23405fde00c057160ef5881b0561d2e5921be68a07cb11f7b2f2e6e66952dbb5"
 COMPANION_SHA = "005d0573c2ad44d4881211a1c8b340b04cc4482e9c042d363f73e38a832e6a77"
 LIBRARY_SHA = "ac09b8a362e4ea3ca8a7e69a2ca5a98af5a76cc85a7db909b6b3a134afb7ee41"
-MANIFEST = ROOT / "docs/PDP10-P1-920810-CHILD-COPY-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-920810-CHILD-COPY-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-920810-child-copy-20261120-v1.tar.gz"
-PREVIOUS = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v21.tsv"
+PREVIOUS = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v21.tsv"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 FIELDS = ("role", "source", "source_sha256", "profile", "cpu", "status",
           "report_member", "report_sha256", "map_member", "map_sha256",

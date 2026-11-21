@@ -16,7 +16,7 @@ from p1_source_replacement_v1 import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RESOLUTION = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
+RESOLUTION = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
 SCHEDULED = frozenset(("semantic", "run", "runtime", "ok", "pending",
                        "fail", "timeout", "error"))
 

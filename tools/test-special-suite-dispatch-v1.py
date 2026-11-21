@@ -19,7 +19,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 os.environ.setdefault('PDP10_PREFIX', str(Path.home() / 'cross'))
 MODULE = ROOT / 'tools/run-misc-suites.py'
-MANUAL_ROOTS = ROOT / 'docs/PDP10-MANUAL-ROOTS-20261121-v2.tsv'
+MANUAL_ROOTS = ROOT / 'manifests/PDP10-MANUAL-ROOTS-20261121-v2.tsv'
 
 
 def require(condition, reason):
@@ -123,7 +123,7 @@ def main():
     # or turn any source-pinned manual root into automatic coverage.
     by_id = {r['id']: r for r in registered}
     require(len(by_id) == len(registered), 'duplicate registered test ID')
-    enabled_id = 'test-script-ownership-v4'
+    enabled_id = 'test-script-ownership-v6'
     manual_id = 'kcc-pdp6-rounded-fp-boundaries-v2'
     nested_id = next(r['id'] for r in registered
                      if r['group'] == 'das' and r['profile'] == 'nested')

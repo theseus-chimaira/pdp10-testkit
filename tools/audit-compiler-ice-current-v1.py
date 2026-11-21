@@ -14,9 +14,9 @@ import re
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-HISTORICAL = ROOT / "docs/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv"
+HISTORICAL = ROOT / "manifests/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-MANIFEST = ROOT / "docs/PDP10-COMPILER-ICE-CURRENT-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-COMPILER-ICE-CURRENT-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-compiler-ice-current-20261120-v1.tar.gz"
 FIELDS = ("source", "source_sha256", "compiler", "profile", "status",
           "diagnostic_class", "log_member", "log_sha256",

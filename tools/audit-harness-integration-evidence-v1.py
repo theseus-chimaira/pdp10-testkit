@@ -20,10 +20,10 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 TMP = Path(os.environ.get("TMPDIR") or Path.home() / "tmp")
-MANIFEST = ROOT / "docs/PDP10-HARNESS-NATIVE-OBSERVATIONS-20261121-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-HARNESS-NATIVE-OBSERVATIONS-20261121-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-harness-native-observations-20261121-v1.tar.gz"
-ORIGINALS = ROOT / "docs/PDP10-P1-HARNESS-OBSERVATIONS-20261121-v1.txt"
-ISA = ROOT / "docs/PDP10-ISA-C-SOURCES-20261121-v1.txt"
+ORIGINALS = ROOT / "manifests/PDP10-P1-HARNESS-OBSERVATIONS-20261121-v1.txt"
+ISA = ROOT / "manifests/PDP10-ISA-C-SOURCES-20261121-v1.txt"
 CASES = (
     ("original-gcc-o0", "p10tk-p1-observations-gcc-o0-20261121-v1",
      "gcc-pdp6-o0", ORIGINALS, 38),
@@ -55,7 +55,7 @@ COMPILER_SHAS = {
 ICE_SOURCE = "tests/semantic/upstream/extensions/991228-1.c"
 ORIGINAL_CODEGEN = frozenset(
     row.split("\t")[2]
-    for row in (ROOT / "docs/PDP10-P1-HARNESS-ORIGINALS-20261121-v1.tsv")
+    for row in (ROOT / "manifests/PDP10-P1-HARNESS-ORIGINALS-20261121-v1.tsv")
     .read_text(encoding="ascii").splitlines()[1:]
     if row.split("\t")[5] == "codegen-p1-original-observation")
 SUFFIX = {"status": ".status", "log": ".log.txt", "asm": ".s",

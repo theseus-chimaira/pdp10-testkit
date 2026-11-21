@@ -21,10 +21,10 @@ from p1_source_replacement_v1 import (
 from p1_matrix_post_admission_v1 import is_proven_extension
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-P1-MATRIX-ADMISSION-20261120-v2.tsv"
-LEDGER = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v10.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-MATRIX-ADMISSION-20261120-v2.tsv"
+LEDGER = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v10.tsv"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-SMOKE = ROOT / "docs/PDP10-P1-NATIVE-ADMISSION-SMOKE-20261120-v1.tsv"
+SMOKE = ROOT / "manifests/PDP10-P1-NATIVE-ADMISSION-SMOKE-20261120-v1.tsv"
 SMOKE_ARCHIVE = ROOT / "refs/p10tk-p1-native-admission-smoke-20261120-v1.tar.gz"
 FIELDS = ("original_source", "matrix_source", "source_sha256",
           "p1_state", "tier")

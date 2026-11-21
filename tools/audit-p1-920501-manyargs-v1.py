@@ -19,9 +19,9 @@ ORIGINAL = "tests/todo/generic/920501-8.c"
 ORIGINAL_SHA = "21884df76c9d24d4d4808d78de8e8a4e7909fffd1ee26a72f96f4be00a22b56a"
 COMPANION = "tests/semantic/regression/pdp10-variadic-manyargs-sprintf-v1.c"
 COMPANION_SHA = "3c0ca71e69bf55d9b13c9eff2715b856c8819a3e77a01ecfe730ab01fd4614d6"
-PREVIOUS = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v17.tsv"
+PREVIOUS = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v17.tsv"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-MANIFEST = ROOT / "docs/PDP10-P1-920501-MANYARGS-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-920501-MANYARGS-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-920501-manyargs-20261120-v1.tar.gz"
 PROFILES = (
     ("original", "kcc-pdp6-noopt", "timeout"),

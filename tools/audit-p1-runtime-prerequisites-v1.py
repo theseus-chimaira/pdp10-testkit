@@ -8,8 +8,8 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / 'docs/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v4.tsv'
-OUT = ROOT / 'docs/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.tsv'
+LEDGER = ROOT / 'manifests/PDP10-DEFERRED-BLOCKER-TRIAGE-20261118-v4.tsv'
+OUT = ROOT / 'manifests/PDP10-P1-RUNTIME-PREREQUISITES-20261119-v1.tsv'
 FIELDS = ('classified_path', 'source_sha256', 'current_path',
           'current_sha256', 'historical_area',
           'evidence_batch', 'kcc_pdp6_result', 'gcc_pdp6_result',
@@ -27,7 +27,7 @@ TOKENS = {
 def derive(ledger):
     rows = []
     seen = set()
-    with (ROOT / 'docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.tsv').open(newline='') as stream:
+    with (ROOT / 'manifests/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.tsv').open(newline='') as stream:
         aliases = {row['removed_path']: row['canonical_path']
                    for row in csv.DictReader(stream, delimiter='\t')}
     for entry in ledger:

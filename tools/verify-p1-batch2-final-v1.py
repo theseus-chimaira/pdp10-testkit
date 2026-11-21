@@ -20,9 +20,9 @@ import sys
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT/'docs/PDP10-P1-BATCH2-FINAL-RESULTS-20261119-v1.tsv'
+LEDGER = ROOT/'manifests/PDP10-P1-BATCH2-FINAL-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT/'refs/pdp10-p1-batch2-final-20261119-v1.tar.gz'
-HIST = ROOT/'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+HIST = ROOT/'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
 MATRIX = ROOT/'COMPILER_MATRIX.tsv'
 MATRIX_DIR = 'pdp10-batch2-remaining-matrix-v1'
 INSTRUMENTED_DIR = 'pdp10-eeprof-real-options-matrix-v1'

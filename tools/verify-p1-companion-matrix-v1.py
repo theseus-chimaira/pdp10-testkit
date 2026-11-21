@@ -14,7 +14,7 @@ import sys
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / 'docs/PDP10-P1-COMPANION-MATRIX-RESULTS-20261119-v1.tsv'
+RESULTS = ROOT / 'manifests/PDP10-P1-COMPANION-MATRIX-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-companions-pdp6-20261119-v1.tar.gz'
 MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
 FIELDS = ('source', 'source_sha256', 'compiler', 'profile', 'status',

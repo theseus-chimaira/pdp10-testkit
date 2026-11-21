@@ -17,8 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/semantic/regression/pdp10-prefetch-invalid-address-v1.c"
 ORIGINAL = "tests/semantic/upstream/extensions/builtin-prefetch-6.c"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-HISTORICAL = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
-LEDGER = ROOT / "docs/PDP10-P1-PREFETCH-INVALID-EVIDENCE-20261120-v1.tsv"
+HISTORICAL = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
+LEDGER = ROOT / "manifests/PDP10-P1-PREFETCH-INVALID-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-prefetch-invalid-evidence-20261120-v1.tar.gz"
 FIELDS = ("source", "source_sha256", "profile", "status",
           "archive_member", "report_sha256")

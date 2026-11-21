@@ -13,10 +13,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/semantic/upstream/extensions/20010518-2.c"
-OLD = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v7.tsv"
-NEW = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
-OLD_BATCH = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261119-v6.tsv"
-NEW_BATCH = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
+OLD = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v7.tsv"
+NEW = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
+OLD_BATCH = ROOT / "manifests/PDP10-P1-SOURCE-BATCHES-20261119-v6.tsv"
+NEW_BATCH = ROOT / "manifests/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
 
 
 def read(path):

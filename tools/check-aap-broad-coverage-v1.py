@@ -9,7 +9,7 @@ import csv
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MATRIX = ROOT / 'docs/PDP6-AAP-BROAD-COVERAGE-GATE-20261015-v1.tsv'
+MATRIX = ROOT / 'manifests/PDP6-AAP-BROAD-COVERAGE-GATE-20261015-v1.tsv'
 
 
 def rows():

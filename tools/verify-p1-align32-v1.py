@@ -11,10 +11,10 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = 'tests/semantic/regression/pdp10-aligned32-array-strides-v1.c'
 ORIGINALS = ('tests/semantic/upstream/extensions/20010904-1.c',
              'tests/semantic/upstream/extensions/20010904-2.c')
-HIST = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
-CLASSIFIED = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
+HIST = ROOT / 'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+CLASSIFIED = ROOT / 'manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
 MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
-LEDGER = ROOT / 'docs/PDP10-P1-ALIGN32-RESULTS-20261119-v1.tsv'
+LEDGER = ROOT / 'manifests/PDP10-P1-ALIGN32-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-align32-pdp6-20261119-v1.tar.gz'
 FIELDS = ('source', 'source_sha256', 'profile', 'status',
           'evidence_sha256', 'archive_member')

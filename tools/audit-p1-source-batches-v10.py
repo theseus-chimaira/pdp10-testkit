@@ -17,9 +17,9 @@ import sys
 from p1_source_replacement_v1 import source_matches_historical
 
 ROOT = Path(__file__).resolve().parents[1]
-BASELINE = ROOT / 'docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv'
-LIVE = ROOT / 'docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v11.tsv'
-OUT = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261120-v10.tsv'
+BASELINE = ROOT / 'manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv'
+LIVE = ROOT / 'manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v11.tsv'
+OUT = ROOT / 'manifests/PDP10-P1-SOURCE-BATCHES-20261120-v10.tsv'
 FIELDS = ('batch', 'slot', 'original_source', 'source_sha256',
           'baseline_state', 'baseline_disposition', 'live_state',
           'remaining_action')

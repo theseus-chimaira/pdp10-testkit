@@ -14,7 +14,7 @@ import re
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-COMPILER-STDLIB-RUNTIME-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-COMPILER-STDLIB-RUNTIME-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-compiler-stdlib-runtime-20261120-v1.tar.gz"
 LIB_SHA = "ac09b8a362e4ea3ca8a7e69a2ca5a98af5a76cc85a7db909b6b3a134afb7ee41"
 FIELDS = ("role", "source", "source_sha256", "compiler", "profile",

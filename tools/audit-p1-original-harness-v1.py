@@ -21,11 +21,11 @@ from p1_source_replacement_v1 import (
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-LEDGER = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261121-v29.tsv"
+LEDGER = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261121-v29.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
-MANIFEST = ROOT / "docs/PDP10-P1-HARNESS-ORIGINALS-20261121-v1.tsv"
-OBSERVATION_LIST = ROOT / "docs/PDP10-P1-HARNESS-OBSERVATIONS-20261121-v1.txt"
-ALL_C_LIST = ROOT / "docs/PDP10-P1-HARNESS-ALL-C-20261121-v1.txt"
+MANIFEST = ROOT / "manifests/PDP10-P1-HARNESS-ORIGINALS-20261121-v1.tsv"
+OBSERVATION_LIST = ROOT / "manifests/PDP10-P1-HARNESS-OBSERVATIONS-20261121-v1.txt"
+ALL_C_LIST = ROOT / "manifests/PDP10-P1-HARNESS-ALL-C-20261121-v1.txt"
 ISA = "tests/semantic/upstream/support/920428-1.s"
 FIELDS = ("original_source", "original_sha256", "matrix_source",
           "registration", "historical_p1_state", "matrix_group",

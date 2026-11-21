@@ -15,10 +15,10 @@ import sys
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / 'docs/PDP10-P1-PREFETCH-WIDE-MATRIX-RESULTS-20261119-v1.tsv'
+LEDGER = ROOT / 'manifests/PDP10-P1-PREFETCH-WIDE-MATRIX-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-prefetch-wide-pdp6-20261119-v1.tar.gz'
 MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
-CLASSIFICATION = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
+CLASSIFICATION = ROOT / 'manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
 PREFETCH = 'tests/semantic/regression/pdp10-prefetch-address-effects-v1.c'
 WIDE = 'tests/semantic/regression/pdp10-wide-multiply-36bit-v1.c'
 FIELDS = ('source', 'source_sha256', 'compiler', 'profile', 'status',

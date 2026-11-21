@@ -20,9 +20,9 @@ COMPANION = "tests/semantic/regression/pdp10-volatile-short-offset-v1.c"
 ORIGINAL_SHA = "2e4ed285b175681b5c72b1de67f95329e915e0e2b88d25e004a68389f245cae9"
 COMPANION_SHA = "fed85b731df2c480eed32c1c3c174e6c19ebcb36ab546e63ff20f401495d3c26"
 LIBRARY_SHA = "ac09b8a362e4ea3ca8a7e69a2ca5a98af5a76cc85a7db909b6b3a134afb7ee41"
-MANIFEST = ROOT / "docs/PDP10-P1-941014-VOLATILE-SHORT-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-941014-VOLATILE-SHORT-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-941014-volatile-short-20261120-v1.tar.gz"
-PREVIOUS = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v20.tsv"
+PREVIOUS = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v20.tsv"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 FIELDS = ("role", "source", "source_sha256", "profile", "cpu",
           "status", "failure_id", "report_member", "report_sha256",

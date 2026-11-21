@@ -14,8 +14,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-MANIFEST = ROOT / "docs/PDP10-ISA-C-HARNESS-20261121-v1.tsv"
-SOURCE_LIST = ROOT / "docs/PDP10-ISA-C-SOURCES-20261121-v1.txt"
+MANIFEST = ROOT / "manifests/PDP10-ISA-C-HARNESS-20261121-v1.tsv"
+SOURCE_LIST = ROOT / "manifests/PDP10-ISA-C-SOURCES-20261121-v1.txt"
 FIELDS = ("source", "source_sha256", "matrix_group",
           "active_compiler_columns")
 ACTIVE = frozenset(("isa", "pending", "codegen", "ok", "fail",

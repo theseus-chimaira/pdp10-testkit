@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MATHEMATICAL_C = ROOT / 'tests/semantic/kcc-pdp6-rounded-fp-boundaries-v2.c'
 HARDWARE_C = ROOT / 'tests/semantic/kcc-pdp6-fp-hardware-case9-v1.c'
 CASE9_MODEL = ROOT / 'misc/validation/analyze-aap-pdp6-emnf-case9-v1.py'
-REGISTRY = ROOT / 'docs/PDP10-FP-HARDWARE-ORACLES-20261119-v1.tsv'
+REGISTRY = ROOT / 'manifests/PDP10-FP-HARDWARE-ORACLES-20261119-v1.tsv'
 CPUS = ('pdp6', 'ka10', 'ki10', 'ks10', 'kl10')
 CASE = re.compile(r'^\s*\{\s*([-+]?\d+\.\d+F),\s*'
                   r'([-+]?\d+\.\d+F),\s*(0[0-7]+)UL,\s*([01])\s*\},?\s*$',

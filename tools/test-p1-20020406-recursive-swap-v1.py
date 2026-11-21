@@ -19,9 +19,9 @@ COMPANION = "tests/semantic/regression/pdp10-duptree-recursive-pointer-swap-v1.c
 ORIGINAL_SHA = "25ba3fe43fc4109bd2eb1a2fb651f9ca0443800db46e67d60b4946e9c3e90e7c"
 COMPANION_SHA = "27b29ef587c6ac726bce5f84f83e6946b2f8d5f93ee4a0aad723584d51b73302"
 LIBRARY_SHA = "ac09b8a362e4ea3ca8a7e69a2ca5a98af5a76cc85a7db909b6b3a134afb7ee41"
-MANIFEST = ROOT / "docs/PDP10-P1-20020406-RECURSIVE-SWAP-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-20020406-RECURSIVE-SWAP-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-20020406-recursive-swap-20261120-v1.tar.gz"
-PREVIOUS = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v22.tsv"
+PREVIOUS = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v22.tsv"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 FIELDS = ("role", "source", "source_sha256", "profile", "cpu", "status",
           "report_member", "report_sha256", "map_member", "map_sha256",

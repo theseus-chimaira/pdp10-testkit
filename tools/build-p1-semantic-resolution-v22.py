@@ -12,7 +12,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v22.tsv"
+OUT = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v22.tsv"
 ORIGINAL = "tests/todo/generic/920810-1.c"
 COMPANION = "tests/semantic/regression/pdp10-memcpy-child-inheritance-v1.c"
 FIELDS = ("original_source", "original_sha256", "historical_disposition",

@@ -51,7 +51,7 @@ added GCC header-chain options to `pp-include-next-v1.c`, and restored
 KCC source-directory include lookup and collision-free short output names.
 No compiler behavior or test assertion was changed. Genuine GCC and KCC
 failures remain scheduled; their exact cell list and classifications are
-in `docs/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv`.
+in `manifests/PDP10-INITIAL-SWEEP-FAILURES-20261117-v1.tsv`.
 
 ## Known remaining regressions
 

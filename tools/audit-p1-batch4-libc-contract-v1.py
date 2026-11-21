@@ -14,7 +14,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-P1-BATCH4-LIBC-CONTRACT-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-BATCH4-LIBC-CONTRACT-20261120-v1.tsv"
 EXPECTED = {
     ("tests/todo/generic/991112-1.c", "kcc"):
         ("kcc-pdp6-noopt", "link_fail", "isprint"),

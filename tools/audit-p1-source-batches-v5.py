@@ -15,9 +15,9 @@ import hashlib
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-BASELINE = ROOT / 'docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv'
-LIVE = ROOT / 'docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v6.tsv'
-OUT = ROOT / 'docs/PDP10-P1-SOURCE-BATCHES-20261119-v5.tsv'
+BASELINE = ROOT / 'manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv'
+LIVE = ROOT / 'manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v6.tsv'
+OUT = ROOT / 'manifests/PDP10-P1-SOURCE-BATCHES-20261119-v5.tsv'
 FIELDS = ('batch', 'slot', 'original_source', 'source_sha256',
           'baseline_state', 'baseline_disposition', 'live_state',
           'remaining_action')

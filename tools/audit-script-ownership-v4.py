@@ -13,7 +13,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / 'docs/TEST-SCRIPT-OWNERSHIP-20261118-v5.tsv'
+LEDGER = ROOT / 'manifests/TEST-SCRIPT-OWNERSHIP-20261118-v5.tsv'
 REGISTRY = ROOT / 'SPECIAL_TESTS.tsv'
 FIELDS = ('path', 'disposition', 'owner', 'reason')
 DISPATCHED_GROUPS = frozenset((

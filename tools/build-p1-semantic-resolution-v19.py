@@ -13,7 +13,7 @@ import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v19.tsv"
+OUT = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v19.tsv"
 ORIGINAL = "tests/todo/generic/960521-1.c"
 COMPANION = "tests/semantic/regression/pdp10-shifted-array-boundary-v1.c"
 

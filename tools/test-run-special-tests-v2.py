@@ -15,7 +15,7 @@ rows = runner.entries()
 manual = [row for row in rows if row["enabled"] == "manual"]
 selectable = [row for row in manual if runner.eligible(row)]
 native = [row for row in manual if runner.native(row)]
-with (ROOT / "docs/PDP10-MANUAL-ROOTS-20261121-v2.tsv").open(
+with (ROOT / "manifests/PDP10-MANUAL-ROOTS-20261121-v2.tsv").open(
         encoding="ascii", newline="") as stream:
     pinned = list(csv.DictReader(stream, delimiter="\t"))
 assert pinned and tuple(pinned[0]) == ("id", "group", "path")

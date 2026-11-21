@@ -116,7 +116,7 @@ def check_coverage():
     require(len(isa) == 105 and len(set(isa)) == 105,
             "C-to-ISA compiler test inventory incomplete")
     isa_source = RUNNER.read_source_list(
-        ROOT / "docs/PDP10-ISA-C-SOURCES-20261121-v1.txt", set(by_source))
+        ROOT / "manifests/PDP10-ISA-C-SOURCES-20261121-v1.txt", set(by_source))
     require(tuple(isa) == isa_source,
             "source-pinned ISA C tests are not selectable")
     kcc6 = [p for p in profiles if p["compiler"] == "kcc" and
@@ -139,12 +139,12 @@ def check_coverage():
             == "ice-only", "ICE-only CLI option not exposed")
     require(RUNNER.parse_args([]).exit_policy == "strict",
             "default strict exit behavior changed")
-    manifest = ROOT / "docs/PDP10-P1-HARNESS-OBSERVATIONS-20261121-v1.txt"
+    manifest = ROOT / "manifests/PDP10-P1-HARNESS-OBSERVATIONS-20261121-v1.txt"
     names = RUNNER.read_source_list(manifest, set(by_source))
     require(len(names) == 38 and len(set(names)) == 38,
             "original-source selection is not 38 unique matrix tests")
     all_c = RUNNER.read_source_list(
-        ROOT / "docs/PDP10-P1-HARNESS-ALL-C-20261121-v1.txt",
+        ROOT / "manifests/PDP10-P1-HARNESS-ALL-C-20261121-v1.txt",
         set(by_source))
     require(len(all_c) == 66 and set(names).issubset(all_c),
             "historical P1 source sweep loses original owners")

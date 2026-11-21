@@ -16,8 +16,8 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-DISPOSITION = ROOT / 'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
-CLASSIFICATION = ROOT / 'docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
+DISPOSITION = ROOT / 'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+CLASSIFICATION = ROOT / 'manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv'
 PROBER = ROOT / 'tools/probe-deferred-libc-v1.py'
 FIELDS = ('source', 'sha256', 'disposition', 'compiler', 'cpu',
           'optimization', 'observed', 'review', 'report')

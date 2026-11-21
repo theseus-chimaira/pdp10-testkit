@@ -15,7 +15,7 @@ import re
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-GCC-STRING9-FOLD-REPAIR-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-GCC-STRING9-FOLD-REPAIR-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-gcc-string9-fold-repair-20261120-v1.tar.gz"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SOURCES = {

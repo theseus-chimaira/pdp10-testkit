@@ -15,9 +15,9 @@ import re
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-MANIFEST = ROOT / "docs/PDP10-P1-BATCH5-CONTRACT-20261120-v1.tsv"
-FROZEN = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
-LIVE = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-BATCH5-CONTRACT-20261120-v1.tsv"
+FROZEN = ROOT / "manifests/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
+LIVE = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v8.tsv"
 FIELDS = ("slot", "original_source", "source_sha256", "compiler",
           "profile", "status", "reason")
 NAMES = ("930513-1.c", "941014-2.c", "960327-1.c", "960521-1.c",

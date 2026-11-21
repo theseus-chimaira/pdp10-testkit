@@ -13,7 +13,7 @@ import sys
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / 'docs/PDP10-P1-NONASSERTING-COMPANION-RESULTS-20261119-v1.tsv'
+RESULTS = ROOT / 'manifests/PDP10-P1-NONASSERTING-COMPANION-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT / 'refs/pdp10-p1-nonasserting-companions-20261119-v1.tar.gz'
 MATRIX = ROOT / 'COMPILER_MATRIX.tsv'
 NAMES = ('pdp10-bitfield-array-writeback-v1',

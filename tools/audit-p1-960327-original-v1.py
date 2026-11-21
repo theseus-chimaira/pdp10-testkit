@@ -16,9 +16,9 @@ import tarfile
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/todo/generic/960327-1.c"
 SOURCE_SHA = "4bec9f2b308084b20c8be0672382c8d787b83438283c9aa37bcb7fa985a77e3f"
-HISTORICAL = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v13.tsv"
+HISTORICAL = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v13.tsv"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-MANIFEST = ROOT / "docs/PDP10-P1-960327-HOSTED-EVIDENCE-20261120-v1.tsv"
+MANIFEST = ROOT / "manifests/PDP10-P1-960327-HOSTED-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-960327-hosted-20261120-v1.tar.gz"
 FIELDS = ("source", "source_sha256", "profile", "cpu", "status",
           "report_member", "report_sha256", "map_member", "map_sha256")

@@ -18,48 +18,48 @@ from p1_source_replacement_v1 import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-LEGACY_REGISTRY = ROOT / 'docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv'
-REGISTRY = ROOT / 'docs/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261119-v2.tsv'
-ADDITIONAL_REGISTRY = ROOT / 'docs/HISTORICAL-ADDITIONAL-SOURCE-RELINK-20261119-v1.tsv'
+LEGACY_REGISTRY = ROOT / 'manifests/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261117-v1.tsv'
+REGISTRY = ROOT / 'manifests/HISTORICAL-SEMANTIC-SOURCE-RELINK-20261119-v2.tsv'
+ADDITIONAL_REGISTRY = ROOT / 'manifests/HISTORICAL-ADDITIONAL-SOURCE-RELINK-20261119-v1.tsv'
 EXPECTED = {
-    'docs/KCC-HEADER-SEMANTIC-RETEST-20261014-v3.md': 46,
-    'docs/SEMANTIC-IMPORT-BATCHES-20261014-v11.md': 31,
-    'docs/SEMANTIC-IMPORT-BATCHES-20261014-v12.md': 36,
-    'docs/SEMANTIC-IMPORT-FINAL-20261014-v13.md': 12,
+    'history/KCC-HEADER-SEMANTIC-RETEST-20261014-v3.md': 46,
+    'history/SEMANTIC-IMPORT-BATCHES-20261014-v11.md': 31,
+    'history/SEMANTIC-IMPORT-BATCHES-20261014-v12.md': 36,
+    'history/SEMANTIC-IMPORT-FINAL-20261014-v13.md': 12,
 }
 # Exact retired/absent paths allowed in dated documentation.  Adding a
 # different dead link to any documentation file must not silently pass.
 KNOWN_RETIRED = {
     ('TODO.md', 'tests/todo/codegen'),
     ('TODO.md', 'tests/todo/negative'),
-    ('docs/CODEGEN-IMPORT-AUDIT-20261014.md', 'tests/todo/codegen'),
-    ('docs/SPECIAL-SCRIPT-OWNERSHIP-AUDIT-20261116-v2.md',
+    ('history/CODEGEN-IMPORT-AUDIT-20261014.md', 'tests/todo/codegen'),
+    ('history/SPECIAL-SCRIPT-OWNERSHIP-AUDIT-20261116-v2.md',
      'misc/das/check-das-native-image.py'),
-    ('docs/PDP10-DEFERRED-INTEGRATION-BATCH11-20261118-v18.md',
+    ('history/PDP10-DEFERRED-INTEGRATION-BATCH11-20261118-v18.md',
      'tests/semantic/upstream/pdp10/pdp10/990106-2.c'),
-    ('docs/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md',
+    ('history/PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.md',
      'tests/todo/generic/pdp10/strct-varg-1.c'),
-    ('docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md',
+    ('history/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.md',
      'tests/semantic/upstream/wide-int/conversion.c'),
-    ('docs/PDP10-P1-BATCH6-PROBE-20261119-v1.md',
+    ('history/PDP10-P1-BATCH6-PROBE-20261119-v1.md',
      HISTORICAL_PATH),
-    ('docs/PDP10-P1-NATIVE-BYTEPTR-REPLACEMENT-20261120-v1.md',
+    ('history/PDP10-P1-NATIVE-BYTEPTR-REPLACEMENT-20261120-v1.md',
      HISTORICAL_PATH),
-    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v1.md',
+    ('history/PDP10-P1-SOURCE-BATCHES-20261119-v1.md',
      HISTORICAL_PATH),
-    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v2.md',
+    ('history/PDP10-P1-SOURCE-BATCHES-20261119-v2.md',
      HISTORICAL_PATH),
-    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v3.md',
+    ('history/PDP10-P1-SOURCE-BATCHES-20261119-v3.md',
      HISTORICAL_PATH),
-    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v4.md',
+    ('history/PDP10-P1-SOURCE-BATCHES-20261119-v4.md',
      HISTORICAL_PATH),
-    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v5.md',
+    ('history/PDP10-P1-SOURCE-BATCHES-20261119-v5.md',
      HISTORICAL_PATH),
-    ('docs/PDP10-P1-SOURCE-BATCHES-20261119-v6.md',
+    ('history/PDP10-P1-SOURCE-BATCHES-20261119-v6.md',
      HISTORICAL_PATH),
 }
 REPO_PATH = re.compile(
-    r'`((?:\.{1,2}/)?(?:tests|tools|docs|misc|refs|support|workdir)/'
+    r'`((?:\.{1,2}/)?(?:tests|tools|history|manifests|misc|refs|support|workdir)/'
     r'[^`\s$*{}<>|]+)`')
 FIELDS = ('document', 'historical_path', 'current_path', 'sha256',
           'historical_git_blob', 'basis', 'current_sha256')
@@ -193,7 +193,7 @@ def audit():
         if key in supplemental_seen:
             failures.append('duplicate supplemental source: ' + str(key))
         supplemental_seen.add(key)
-        if (not doc.startswith('docs/') or not before.startswith('tests/') or
+        if (not doc.startswith('history/') or not before.startswith('tests/') or
                 not after.startswith('tests/') or
                 row['historical_git_blob'] !=
                 ADDITIONAL_SOURCE_COMMIT + ':' + before or
@@ -231,7 +231,7 @@ def audit():
     # source is not a broken instruction so long as it stays in its
     # original reviewed historical context.
     markdown_files = ([ROOT / 'README.md', ROOT / 'TODO.md'] +
-                      sorted((ROOT / 'docs').glob('*.md')))
+                      sorted((ROOT / 'history').glob('*.md')))
     seen_retired = set()
     for path in markdown_files:
         name = str(path.relative_to(ROOT))

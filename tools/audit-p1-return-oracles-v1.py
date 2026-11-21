@@ -14,7 +14,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-LIVE = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
+LIVE = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v9.tsv"
 FIELDS = ("source", "source_sha256", "profile", "status",
           "fail_id_octal", "archive_member", "report_sha256")
 PROFILES = ("kcc-pdp6-noopt", "kcc-pdp6-opt", "gcc-pdp6-o0",
@@ -27,7 +27,7 @@ CASES = (
         "original": "tests/todo/generic/generic/struct-ret-1.c",
         "disposition": "hosted-runtime",
         "name": "pdp10-large-struct-return-v1",
-        "records": "docs/PDP10-P1-STRUCTRET-ORACLE-EVIDENCE-20261120-v1.tsv",
+        "records": "manifests/PDP10-P1-STRUCTRET-ORACLE-EVIDENCE-20261120-v1.tsv",
         "archive": "refs/p10tk-p1-structret-oracle-evidence-20261120-v1.tar.gz",
         "stages": ("timeout", "timeout", "run_fail", "pass", "pass", "pass"),
         "failure_ids": ("-", "-", "000000000003", "000000000000",
@@ -45,7 +45,7 @@ CASES = (
         "original": "tests/todo/generic/920726-1.c",
         "disposition": "varargs-abi",
         "name": "pdp10-variadic-return-types-v1",
-        "records": "docs/PDP10-P1-VARARGSRETURN-ORACLE-EVIDENCE-20261120-v1.tsv",
+        "records": "manifests/PDP10-P1-VARARGSRETURN-ORACLE-EVIDENCE-20261120-v1.tsv",
         "archive": "refs/p10tk-p1-varargsreturn-oracle-evidence-20261120-v1.tar.gz",
         "stages": ("pass", "pass", "run_fail", "run_fail",
                    "run_fail", "run_fail"),

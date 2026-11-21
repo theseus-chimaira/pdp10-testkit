@@ -15,13 +15,13 @@ from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-BATCH = ROOT / "docs/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
-ORIGINAL = ROOT / "docs/PDP10-P1-BATCH4-PROBE-20261119-v1.tsv"
-CURRENT = ROOT / "docs/PDP10-P1-BATCH4-RECONCILED-20261120-v1.tsv"
+BATCH = ROOT / "manifests/PDP10-P1-SOURCE-BATCHES-20261120-v7.tsv"
+ORIGINAL = ROOT / "manifests/PDP10-P1-BATCH4-PROBE-20261119-v1.tsv"
+CURRENT = ROOT / "manifests/PDP10-P1-BATCH4-RECONCILED-20261120-v1.tsv"
 REVISED = (
-    ROOT / "docs/PDP10-P1-BATCH4-LIBC-CONTRACT-20261120-v1.tsv",
-    ROOT / "docs/PDP10-P1-BATCH4-VARIADIC-CONTRACT-20261120-v1.tsv",
-    ROOT / "docs/PDP10-P1-BATCH4-HOSTED-CONTRACT-20261120-v1.tsv",
+    ROOT / "manifests/PDP10-P1-BATCH4-LIBC-CONTRACT-20261120-v1.tsv",
+    ROOT / "manifests/PDP10-P1-BATCH4-VARIADIC-CONTRACT-20261120-v1.tsv",
+    ROOT / "manifests/PDP10-P1-BATCH4-HOSTED-CONTRACT-20261120-v1.tsv",
 )
 FIELDS = ("slot", "original_source", "source_sha256",
           "compiler", "status", "evidence")

@@ -17,8 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "tests/semantic/upstream/extensions/20010518-2.c"
 SHA = "7ed1a5988dbf615d39ff021a1b3c69b37f82d3a457a6d99ff74468e755a3e7b9"
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
-HISTORICAL = ROOT / "docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v10.tsv"
-LEDGER = ROOT / "docs/PDP10-P1-PACKED-ORIGINAL-EVIDENCE-20261120-v1.tsv"
+HISTORICAL = ROOT / "manifests/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v10.tsv"
+LEDGER = ROOT / "manifests/PDP10-P1-PACKED-ORIGINAL-EVIDENCE-20261120-v1.tsv"
 ARCHIVE = ROOT / "refs/p10tk-p1-packed-original-evidence-20261120-v1.tar.gz"
 FIELDS = ("source", "source_sha256", "profile", "status", "report_member",
           "report_sha256", "map_member", "map_sha256")

@@ -16,16 +16,16 @@ import tarfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MAP = ROOT / "docs/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.tsv"
-GATES = ROOT / "docs/UPSTREAM-CONSOLIDATED-COMPILER-GATES-20261118-v21.tsv"
-GATE_RESULTS = (ROOT / "docs" /
+MAP = ROOT / "manifests/UPSTREAM-DUPLICATE-CONSOLIDATION-20261118-v21.tsv"
+GATES = ROOT / "manifests/UPSTREAM-CONSOLIDATED-COMPILER-GATES-20261118-v21.tsv"
+GATE_RESULTS = (ROOT / "manifests" /
                 "PDP10-COMPILER-GATES-MATRIX-RESULTS-20261119-v1.tsv")
 GATE_EVIDENCE = (ROOT / "refs" /
                  "compiler-gates-pdp6-matrix-20261119-v1.tar.gz")
-BEFORE = ROOT / "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v15.tsv"
-BEFORE_DEFERRED = ROOT / "docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv"
-BEFORE_REVIEW = ROOT / "docs/DEFERRED-SOURCE-DUPLICATES-20261118-v19.tsv"
-STDARG_PATCH_LEDGER = (ROOT / "docs" /
+BEFORE = ROOT / "manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v15.tsv"
+BEFORE_DEFERRED = ROOT / "manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v14.tsv"
+BEFORE_REVIEW = ROOT / "manifests/DEFERRED-SOURCE-DUPLICATES-20261118-v19.tsv"
+STDARG_PATCH_LEDGER = (ROOT / "manifests" /
                        "PDP10-DEFERRED-INTEGRATION-BATCH19-20261118-v27.tsv")
 STDARG_CANONICAL = "tests/todo/generic/varargs/strct-varg-1.c"
 STDARG_TARGET_PREFIX = (
@@ -374,7 +374,7 @@ if __name__ == "__main__":
                                        delimiter="\t"))
 
     current_upstream = current_rows(
-        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv")
+        "manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv")
     current_matrix = current_rows("COMPILER_MATRIX.tsv", skip_comments=True)
     errors = []
     late_admissions = admitted_sources(current_upstream, current_matrix, errors)

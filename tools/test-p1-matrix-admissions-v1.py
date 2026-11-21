@@ -19,7 +19,7 @@ def read_tsv(name, comments=False):
 
 def check():
     upstream = read_tsv(
-        "docs/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv")
+        "manifests/SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv")
     matrix = read_tsv("COMPILER_MATRIX.tsv", comments=True)
     problems = []
     admitted = admitted_sources(upstream, matrix, problems)

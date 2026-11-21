@@ -11,7 +11,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT / 'docs/RAW-P10RUN-CALLERS-20261121-v1.tsv'
+LEDGER = ROOT / 'manifests/RAW-P10RUN-CALLERS-20261121-v1.tsv'
 TOKENS = re.compile(r'\$\{?P10RUN\b|\$\{?p10run\b|\bP10RUN_BIN\b|(?:["\']|/)bin/p10run\b|["\']bin/p10run["\']')
 # Literal executable invocation, not declarations, comments or documentation.
 DIRECT = re.compile(r'\$\{?P10RUN\b|\$\{?p10run\b|["\']bin/p10run["\']|/bin/p10run\b|\bP10RUN_BIN\b')
@@ -41,7 +41,7 @@ def audit():
         rows = list(csv.DictReader(f, delimiter='\t'))
     with (ROOT / 'SPECIAL_TESTS.tsv').open(encoding='utf8', newline='') as f:
         registry = {r['path']: r for r in csv.DictReader(f, delimiter='\t')}
-    with (ROOT / 'docs/TEST-SCRIPT-OWNERSHIP-20261121-v6.tsv').open(
+    with (ROOT / 'manifests/TEST-SCRIPT-OWNERSHIP-20261121-v6.tsv').open(
             encoding='utf8', newline='') as f:
         historical = {r['path']: r for r in csv.DictReader(f, delimiter='\t')}
     found = candidates()

@@ -19,10 +19,10 @@ import sys
 import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
-LEDGER = ROOT/'docs/PDP10-P1-BATCH2-FIRST-RESULTS-20261119-v1.tsv'
+LEDGER = ROOT/'manifests/PDP10-P1-BATCH2-FIRST-RESULTS-20261119-v1.tsv'
 ARCHIVE = ROOT/'refs/pdp10-p1-batch2-first-20261119-v1.tar.gz'
 MATRIX = ROOT/'COMPILER_MATRIX.tsv'
-HIST = ROOT/'docs/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
+HIST = ROOT/'manifests/SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv'
 MATRIX_DIR = 'pdp10-batch2-admission-matrix-20261119-v1'
 FIELDS = ('original_source','source','source_sha256','profile',
           'status','kind','fail_id_octal','evidence_sha256','archive_member')

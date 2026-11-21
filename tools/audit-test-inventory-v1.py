@@ -26,13 +26,13 @@ from p1_source_replacement_v1 import (
 ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
-CLASSIFIED = (ROOT / "docs" /
+CLASSIFIED = (ROOT / "manifests" /
               "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv")
-DEFERRED_DISPOSITIONS = (ROOT / "docs" /
+DEFERRED_DISPOSITIONS = (ROOT / "manifests" /
                          "SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv")
-GCC_TARGET_FEASIBILITY = (ROOT / "docs" /
+GCC_TARGET_FEASIBILITY = (ROOT / "manifests" /
                           "GCC-PDP10-TARGET-FEASIBILITY-20261116-v1.tsv")
-GCC_TARGET_REVIEW = (ROOT / "docs" /
+GCC_TARGET_REVIEW = (ROOT / "manifests" /
                      "GCC-PDP10-TARGET-OWNERSHIP-20261117-v2.tsv")
 REQUIRED_ACTIVATIONS = frozenset(("active", "deferred", "removed",
                                   "stress-nonportable"))
