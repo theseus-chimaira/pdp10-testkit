@@ -250,7 +250,7 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-21)
 
 The active `pdp10-testkit` registrations cover **2,317
-compiler-matrix sources**, **398 special registrations** and **571
+compiler-matrix sources**, **403 special registrations** and **576
 owned script paths**, with zero unowned test sources in the conversion
 scope. Three separately committed `v1735` compatibility shell scripts
 are still unregistered; the whole-worktree script-ownership audit
@@ -334,6 +334,15 @@ GCC link failures, original aborts and timeouts remain archived, not
 rewritten. This closes P1 Batch 4 slot 4. See
 `docs/PDP10-P1-CONVERSION-FULL-20261121-v1.md` and the prior
 `docs/PDP10-P1-CONVERSION-KCC-ORIGINAL-20261121-v1.md`.
+
+The next frozen P1 source `920428-1.s` remains blocked on genuine
+KL10 MACRO-10 `DEFINE` expansion and runtime semantics. Focused
+DAS, DLINK and P10RUN defects have been corrected and authenticated:
+MACRO-10 `BYTE (9)0` packs identically to DAS 9-bit fields,
+`.DIRECTIVE KL10` is validated, unused externs are no longer
+required as link dependencies, and an exhausted KL10 step budget
+cannot be misclassified as native PASS. See
+`docs/PDP10-P1-920428-KL10-TOOLCHAIN-PREREQS-20261121-v1.md`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before

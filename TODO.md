@@ -2,7 +2,7 @@
 
 Current ownership and registration baseline (2026-11-21, after the
 full original conversion repair): **2,317 compiler matrix sources**,
-**398 special entries**, and **571 owned script paths**.
+**403 special entries**, and **576 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
@@ -571,6 +571,26 @@ compiler sweep.
   frozen batches **48 covered / 11 blocked**. No full matrix/CPU
   sweep is authorized until the other eleven sources close. See
   `docs/PDP10-P1-CONVERSION-FULL-20261121-v1.md`.
+
+- [x] Repair the tested KL10 assembler/linker/result-accounting
+  prerequisites for frozen P1 `920428-1.s` without relabeling
+  the original as covered. DAS now parses exact `.DIRECTIVE KL10`
+  and `BYTE (9)0` syntax; the MACRO-10 and DAS 9-bit byte fixtures
+  produce byte-identical DOBJ. DLINK requires definitions only
+  for actual unresolved symbol relocations, so unused declared
+  `%ONE/%BADX*` imports do not pull unnecessary archive members;
+  a real `%ONE` relocation still fails. P10RUN now rejects a
+  KL10 `Step expired` reason even if the initial exit word is zero.
+  See `docs/PDP10-P1-920428-KL10-TOOLCHAIN-PREREQS-20261121-v1.md`.
+
+- [ ] Finish the **unchanged** KL10 MACRO-10 original
+  `tests/semantic/upstream/support/920428-1.s` at frozen Batch 4,
+  slot 8. The original now reaches `unknown op DEFINE` after the
+  verified syntax fixes. Implement the real nested `OWGBP` and
+  `GIW` `DEFINE` expansion, `%ONE` relocation and real `..main`
+  compatibility, then verify **actual KL10 guest HALT and original
+  assertions**. The existing port runs only until `Step expired`
+  and is **not** a native PASS. The P1 ledger remains 56/11.
 
 - [ ] Investigate verified missing callable symbols `__builtin_abort`,
   `__fixunssfsi`, `_eexit`, `__builtin_printf`,

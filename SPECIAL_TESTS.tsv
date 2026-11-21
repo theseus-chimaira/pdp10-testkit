@@ -397,3 +397,8 @@ p1-conversion-full-evidence-v1	verify	python3	tools/build-p1-conversion-full-v1.
 p1-conversion-full-negatives-v1	verify	python3	tools/test-p1-conversion-full-v1.py	host	yes	120
 p1-semantic-resolution-v29	verify	python3	tools/build-p1-semantic-resolution-v29.py	host	yes	120
 p1-source-batches-v28	verify	python3	tools/audit-p1-source-batches-v28.py	host	yes	120
+p1-920428-kl10-toolchain-prereqs-v1	verify	python3	tools/test-p1-920428-kl10-toolchain-prereqs-v1.py	kl10	yes	120
+kcc-stack-push-v1735	compat	sh	misc/compat/test-kcc-stack-push-v1735.sh	ks10	yes	120
+kcc-gcc-direct-abi-v1735	compat	sh	misc/compat/test-kcc-gcc-direct-abi-v1735.sh	ks10	yes	120
+mixed-call-depth-v1735	compat	sh	misc/compat/test-mixed-call-depth-v1735.sh	ks10	yes	120
+das-phase-pair-v1738	das	sh	tests/isa/das-port/test-das-phase-pair-v1738.sh	fast	yes	120

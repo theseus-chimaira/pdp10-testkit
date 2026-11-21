@@ -83,6 +83,14 @@ SUPPORT_SOURCE_OWNERS = {
         "misc/compat/test-p10byte-blt-v3.sh",
     "tests/isa/das-port/920428-1-das-v1.s":
         "misc/das/check-920428-port-v1.sh",
+    "tests/isa/das-port/pdp10-macro10-byte-directive-v1.s":
+        "tools/test-p1-920428-kl10-toolchain-prereqs-v1.py",
+    "tests/isa/das-port/pdp10-das-byte-equivalent-v1.s":
+        "tools/test-p1-920428-kl10-toolchain-prereqs-v1.py",
+    "tests/isa/das-port/pdp10-unused-extern-link-v1.s":
+        "tools/test-p1-920428-kl10-toolchain-prereqs-v1.py",
+    "tests/isa/das-port/pdp10-used-extern-negative-v1.s":
+        "tools/test-p1-920428-kl10-toolchain-prereqs-v1.py",
     "tests/semantic/utf9-codec-pdp6-v1.c":
         "misc/compat/test-utf9-pdp6-runtime-v1.sh",
     "tests/semantic/utf9-codec-pdp6-v2.c":
