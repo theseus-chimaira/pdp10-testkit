@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-21, after the
 full original conversion repair and pointer locator): **2,318 compiler matrix
-sources**, **404 special entries**, and **577 owned script paths**.
+sources**, **405 special entries**, and **578 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v21.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v22.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
@@ -606,6 +606,20 @@ compiler sweep.
   pointer workaround. Frozen evidence: 12 native cells, 60 raw
   artifacts, 7 negative controls. Original P1 remains 56/11.
   See `docs/PDP10-P1-OLD-TORT-VOID-POINTER-20261121-v1.md`.
+
+- [x] Correct the independent optimized KCC S=18 pointer equality
+  register-liveness defect: the second canonicalization clobbered
+  the first pointer's accumulator, even though the actual pointer
+  words were equal. KCC commit `4a61c53` preserves one temporary
+  pointer on the stack, restores both VREGs before the conditional
+  skip, and adds no permanent RAM. The indirect function-pointer
+  C89 multi-argument regression now PASSes all six native PDP-6
+  profiles; the earlier `void *` source stays 6/6 PASS and the
+  full replacement torture advances to **KCC opt PASS**. KCC noopt
+  ID 12 and GCC original fail IDs 21/28 are distinct and remain
+  blocked. The v2 evidence pins 18 cells, 90 raw artifacts and
+  seven controls. See
+  `docs/PDP10-P1-BYTE-POINTER-CANONCMP-20261121-v2.md`.
 
 - [ ] Investigate verified missing callable symbols `__builtin_abort`,
   `__fixunssfsi`, `_eexit`, `__builtin_printf`,

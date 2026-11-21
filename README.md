@@ -249,8 +249,8 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current pre-sweep state (2026-11-21)
 
-The active `pdp10-testkit` registrations cover **2,318
-compiler-matrix sources**, **404 special registrations** and **577
+The active `pdp10-testkit` registrations cover **2,319
+compiler-matrix sources**, **405 special registrations** and **578
 owned script paths**, with zero unowned test sources and zero
 unconnected scripts in the complete current worktree. The v1735
 ABI scripts and v1738 DAS phase-pair check are now registered and
@@ -352,9 +352,20 @@ genuinely fails KCC noopt and opt with identity/data mask `01002`
 artifacts and seven negative controls. P1 is not reclassified;
 see `docs/PDP10-P1-OLD-TORT-VOID-POINTER-20261121-v1.md`.
 
+The follow-up owning KCC repair `4a61c53` also corrects a register
+liveness error when canonicalizing two representation-polymorphic
+byte/halfword pointers for equality. The independent multi-argument
+C89 halfword-pointer source now PASSes all six PDP-6 profiles,
+as does the earlier `void *` roundtrip source. The full pointer
+torture now PASSes KCC opt; KCC noopt ID 12 and GCC O0 ID 21,
+GCC O1/O2/Os ID 28 remain real compiler failures. Post-fix
+evidence: 13 native PASS and five run_fail, 90 SHA256-pinned
+artifacts and seven mutation controls. P1 remains blocked at 56/11.
+See `docs/PDP10-P1-BYTE-POINTER-CANONCMP-20261121-v2.md`.
+
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v21.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v22.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
