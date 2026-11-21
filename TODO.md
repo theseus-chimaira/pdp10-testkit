@@ -5,8 +5,9 @@ ICE-focused all-test integration): **2,358 compiler matrix sources**,
 **413 special entries**, and **593 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
-are dated historical records, not current inventory totals. See
-`PROJECT-STATE-v28.md` for the live gate and
+are dated historical records, not current inventory totals. The
+current architecture and runner policy are documented in `README.md`;
+this file tracks the remaining execution gate. See
 `history/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
@@ -38,7 +39,9 @@ blocked** across 67 historical deferred identities; frozen batches
   matrix in ICE-only mode; do not treat its known non-ICE failures
   as testkit integration blockers, and do not classify missing or
   incomplete source cells as compiler success. Preserve separate
-  KL10 MACRO-10 original assembly observations.
+  KL10 MACRO-10 original assembly observations. Restart from the
+  existing per-cell checkpoints when available; retain raw failure
+  records and the real GCC O0 `991228-1.c` ICE as a blocking result.
 
 Recent original-source/companion integrations are `930513-1.c`,
 `struct-ret-1.c`, `980605-1.c` (six exact-sized
@@ -123,7 +126,8 @@ remain historical. See
   into unrelated hosted OS libc links or silently change test oracles.
   Current v2 lexical census covers 69 candidates; 60 registered
   scripts remain intentionally dispatcher-only. No arbitrary raw
-  execution guarantee is claimed. See the v27 pre-sweep state.
+  execution guarantee is claimed. See
+  `history/PDP10-HARNESS-RAW-P10RUN-REVIEW-20261121-v2.md`.
 - [x] Fix the two raw-invocable GCC `p10stdio` production formatter
   compatibility scripts to link the installed GCC compiler
   `libp10c-v2.a` archive directly, never the generic `lib/libc.a`.

@@ -7,7 +7,8 @@ the DAIMOS operating-system test suite.
 
 Current repository layout: `manifests/` holds machine-readable TSV/TXT
 inputs consumed by testkit audits, `history/` holds referenced historical
-reports, and `PROJECT-STATE-v28.md` is the current pre-sweep state.
+reports. The current harness state and remaining execution gate are
+maintained in `README.md` and `TODO.md`.
 `docs/` has been retired. Superseded unreferenced reports remain in Git
 history. Use the protected `run-misc-tests.sh` dispatcher for special
 compiler tests and `run-tests.sh` for the restartable compiler matrix.
@@ -252,7 +253,6 @@ it is not silently replaced by `DAIMOS/tools/host`.
 | `refs/` | Reviewed historical source snapshots, not automatically runnable tests |
 | `manifests/` | Machine-readable test manifests, ownership ledgers and source provenance |
 | `history/` | Retained historical reviews and test evidence |
-| `PROJECT-STATE-v28.md` | Current pre-sweep state and outstanding execution gate |
 | `tools/` | Matrix runners and static integrity/ownership audits |
 | `tests/todo/generic/` | Retained historical generic candidates; some canonical compiler gates are active matrix tests |
 
@@ -384,9 +384,9 @@ mutation controls. KCC noopt's previous SIMH octal `012` was
 **decimal ID 10**, not 12; this is corrected in the v2 notes.
 See `history/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
 
-For the current outstanding source names, genuinely missing runtime
-symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `PROJECT-STATE-v28.md`.
+For outstanding work and the **explicit stop point before the full
+sweep**, see `TODO.md`. Source-specific historical evidence is retained
+in `history/` and source ownership is recorded in `manifests/`.
 
 **ICE-focused full harness integration (2026-11-21):** All 67 P1
 historical identities now have a compiler/ISA harness owner, including
@@ -401,9 +401,23 @@ intact in checkpoint reports but makes only compiler ICEs, harness
 errors and incomplete/missing cells fatal. `--source-file` supports
 explicit, source-validated group selection. The first 175 native
 PDP-6 original/ISA observations are SHA256-pinned (125 PASS, 49
-ordinary failures, one genuine GCC ICE in `991228-1.c`). The
+ordinary failures, one genuine GCC O0 ICE in `991228-1.c` at line 14,
+`instantiate_virtual_regs_1`). The 582 raw artifacts are in
+`refs/p10tk-harness-native-observations-20261121-v1.tar.gz`
+(SHA256 `4da19df1011d4e86bf6d340cbcc11bb295da73ace3d0b06d159582d35be60fc3`). The
 full 123,576-cell execution is **not** claimed. See
 `history/PDP10-HARNESS-ICE-FOCUSED-INTEGRATION-20261121-v1.md`.
+
+**Pre-sweep restart acceptance (2026-11-21):** A real GCC PDP-6
+negative cell was run, skipped on restart with a green checkpoint,
+and skipped with `--skip-failures`. Simulated `running`, invalid and
+missing checkpoints each triggered a fresh compiler execution and
+restored PASS. Runner accounting, ICE-only classification, ownership,
+source-provenance and fixture integrity audits passed. This bounded
+acceptance does not constitute a full compiler matrix sweep. The
+60 registered dispatcher-only raw `p10run` scripts remain dispatcher-
+only (23 KCC, 8 GCC, 29 mixed); the v2 census pins all 69 callers.
+See `history/PDP10-HARNESS-RAW-P10RUN-REVIEW-20261121-v2.md`.
 
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
