@@ -87,6 +87,7 @@ remain historical. See
   bytes match. Three exact registered guest tests PASS, with a host-only
   dispatcher/provenance regression and incompatible-archive rejection.
   See `docs/PDP10-COMPILER-STDLIB-SPECIAL-DISPATCH-20261120-v1.md`.
+- [x] Isolate raw upstream CRT test `p10run` guest links with the installed KCC compiler freestanding archive; five real termination cases and two host harness regressions PASS. See `docs/PDP10-HARNESS-DIRECT-CRT-RUNTIME-20261121-v1.md`.
 - [ ] Audit direct raw `p10run` script invocations outside the official
   dispatcher and tool/host-builder exceptions (`tools`, `kcc-host`,
   `das`) before the full sweep. Do not turn their library requirements

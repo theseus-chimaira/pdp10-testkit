@@ -277,7 +277,7 @@ check-gcc-symbol-length	verify	python3	tools/check-gcc-symbol-length.py	default	
 test-stubselect	verify	python3	tools/test-stubselect.py	default	yes	120
 verify-type-semantics	verify	python3	tools/verify-type-semantics.py	default	yes	120
 verify-wide-int-adapters	verify	python3	tools/verify-wide-int-adapters.py	default	yes	120
-upstream-crt-v1	validation	sh	misc/validation/test-upstream-crt-v1.sh	pdp6	yes	120
+upstream-crt-v1	validation	sh	misc/validation/test-upstream-crt-v2.sh	pdp6	yes	120
 utf9-pdp6-runtime-v1	compat	sh	misc/compat/test-utf9-pdp6-runtime-v1.sh	pdp6	yes	120
 apr-pulse-clock-v1	compat	sh	misc/compat/test-apr-pulse-clock-v1.sh	host	yes	120
 apr-device-layout-v1	compat	sh	misc/compat/test-aap-apr-device-layout-v1.sh	host	yes	120
