@@ -250,8 +250,8 @@ it is not silently replaced by `DAIMOS/tools/host`.
 ## Current pre-sweep state (2026-11-20)
 
 The active `pdp10-testkit` registration and source-ownership auditors
-report **2,311 compiler-matrix sources**, **392 special registrations**
-and **565 owned script paths**, with zero unowned test sources and zero
+report **2,314 compiler-matrix sources**, **394 special registrations**
+and **567 owned script paths**, with zero unowned test sources and zero
 unconnected scripts. No full compiler/CPU/optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
@@ -319,20 +319,24 @@ revalidated with the installed native PDP-6 compilers; all nine remain
 `docs/PDP10-COMPILER-ICE-CURRENT-20261120-v1.md`. This targeted
 codegen recheck was not a full sweep.
 
-The original `conversion.c` is still P1-blocked, but five verified
-native PDP-6 36-bit signed/unsigned conversion suites now PASS all
-KCC/GCC optimization profiles: **30 native guest PASS**. Genuine
-compiler bugs in normalization, 36-bit unsigned fraction retention,
-rounding ties and signed minimum conversion have been repaired in
-their owning repositories. Its original GNU 71-bit runtime and KCC
-double-boundary/`fnear` errors remain outstanding; 48 outcomes,
-230 SHA256-pinned raw outputs and 13 negative controls preserve
-both PASS and FAIL. See
+The **unchanged original `conversion.c` now PASSes native PDP-6 KCC
+noopt/opt**. Eight separate signed/unsigned 36-bit conversion
+regressions PASS all six KCC/GCC native PDP-6 profiles (48 PASS).
+KCC compiler commit `bea2680` fixes target-width FP constant
+folding, D-format constant encodings and exact signed integer/DF
+conversions. Current evidence pins 52 actual native guest PASS,
+eight genuine original/line-map GCC link failures on missing GNU
+71-bit `__fixunssfdi`, 289 raw artifacts and 14 negative controls.
+KCC original execution is verified, but the joint P1 source remains
+**blocked** until the original GCC profiles also have genuine
+construction coverage. See
+`docs/PDP10-P1-CONVERSION-KCC-ORIGINAL-20261121-v1.md` and the
+previous archived 36-bit baseline in
 `docs/PDP10-P1-CONVERSION-36BIT-REPAIR-20261120-v1.md`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261120-v18.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v19.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves

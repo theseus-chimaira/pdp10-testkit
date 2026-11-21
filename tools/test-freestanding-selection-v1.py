@@ -50,6 +50,16 @@ def main():
     expect("pushj 17,__kcc_fixsfsi\n", "pdp6",
            ["kcc-libc-fp36-pdp6-v1.s"],
            ("__kcc_fixsfsi",))
+    expect("pushj 17,__kcc_fixdfsi\n", "pdp6",
+           ["kcc-libc-fp36-signed-df-pdp6-v1.s",
+            "kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_fixdfsi", "__kcc_fixunsdfsi", "__kcc_floatunsidf"))
+    expect("pushj 17,__kcc_floatsidf\n", "pdp6",
+           ["kcc-libc-fp36-signed-df-pdp6-v1.s",
+            "kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_floatsidf", "__kcc_fixunsdfsi", "__kcc_floatunsidf"))
+    expect("pushj 17,__kcc_fixdfsi\n", "ka10", [], ())
+    expect("pushj 17,__kcc_floatsidf\n", "ka10", [], ())
     expect("pushj 17,__kcc_floatdidf\n", "ka10", [], ())
     expect("pushj 17,malloc\n", "pdp6", [], ())
     expect("pushj 17,sprintf\n", "pdp6",
@@ -70,7 +80,7 @@ def main():
     # Console functions require a real DAIMOS WRITECHAR veneer; never
     # load an OS-specific sink into the bare-metal compiler matrix.
     expect("pushj 17,printf\n", "pdp6", [], (), "gcc")
-    print("PASS: freestanding member selection (27 host-only controls)")
+    print("PASS: freestanding member selection (31 host-only controls)")
 
 
 if __name__ == "__main__":

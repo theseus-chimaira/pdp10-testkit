@@ -37,10 +37,16 @@ MEMBERS = {
        for symbol in DFLOAT_SYMBOLS},
     **{symbol: "kcc-libc-fp36-pdp6-v1.s"
        for symbol in UFLOAT_SYMBOLS},
+    "__kcc_fixdfsi": "kcc-libc-fp36-signed-df-pdp6-v1.s",
+    "__kcc_floatsidf": "kcc-libc-fp36-signed-df-pdp6-v1.s",
 }
 
 # Explicit cross-member dependencies, including tail calls.
-DEPENDENCIES = {"kcc-libc-memmove-v1.s": ("memcpy",)}
+DEPENDENCIES = {
+    "kcc-libc-memmove-v1.s": ("memcpy",),
+    "kcc-libc-fp36-signed-df-pdp6-v1.s": ("__kcc_fixunsdfsi",
+                                                  "__kcc_floatunsidf"),
+}
 
 REFERENCES = re.compile(
     # GCC also materializes function addresses in .long/.word constants.
@@ -74,7 +80,8 @@ def select_freestanding(asm_text, machine, compiler=None):
         member = members.get(symbol)
         if member is None or symbol in defined:
             continue
-        if symbol in DFLOAT_SYMBOLS + UFLOAT_SYMBOLS and machine != "pdp6":
+        if symbol in DFLOAT_SYMBOLS + UFLOAT_SYMBOLS + (
+                "__kcc_fixdfsi", "__kcc_floatsidf") and machine != "pdp6":
             continue
         owned.add(symbol)
         if member not in selected:

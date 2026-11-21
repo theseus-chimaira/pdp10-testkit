@@ -391,3 +391,5 @@ p1-prerequisite-probe-plan-v1	verify	python3	tools/test-p1-prerequisite-probe-pl
 p1-prerequisite-probe-planner-v1	validation	python3	tools/plan-p1-prerequisite-probes-v1.py	host	manual	120
 p1-conversion-36bit-evidence-v1	verify	python3	tools/build-p1-conversion-36bit-evidence-v1.py	host	yes	120
 p1-conversion-36bit-negatives-v1	verify	python3	tools/test-p1-conversion-36bit-repair-v1.py	host	yes	120
+p1-conversion-kcc-original-evidence-v1	verify	python3	tools/build-p1-conversion-kcc-original-v1.py	host	yes	120
+p1-conversion-kcc-original-negatives-v1	verify	python3	tools/test-p1-conversion-kcc-original-v1.py	host	yes	120

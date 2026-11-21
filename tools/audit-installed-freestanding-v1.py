@@ -34,6 +34,8 @@ def audit(prefix):
     # SHA-frozen core compiler C archive, and must match for both ABIs.
     ctype_archives = [d / "libp10ctype-c-locale-v1.a" for d in (kcc, gcc)]
     float_archives = [d / "libp10fp36-pdp6-v1.a" for d in (kcc, gcc)]
+    signed_df_archives = [d / "libp10fp36-signed-df-pdp6-v1.a"
+                          for d in (kcc, gcc)]
     for archive in archives:
         if not archive.is_file():
             problems.append("missing installed archive: " + str(archive))
@@ -56,6 +58,13 @@ def audit(prefix):
         if (hashlib.sha256(float_archives[0].read_bytes()).digest() !=
                 hashlib.sha256(float_archives[1].read_bytes()).digest()):
             problems.append("installed KCC/GCC unsigned-FP archives differ")
+    for archive in signed_df_archives:
+        if not archive.is_file() or archive.is_symlink():
+            problems.append("missing or linked compiler signed-DF archive: " + str(archive))
+    if all(p.is_file() and not p.is_symlink() for p in signed_df_archives):
+        if (hashlib.sha256(signed_df_archives[0].read_bytes()).digest() !=
+                hashlib.sha256(signed_df_archives[1].read_bytes()).digest()):
+            problems.append("installed KCC/GCC signed-DF archives differ")
 
     members = sorted(set(MEMBERS.values()))
     actual = {}
@@ -115,7 +124,7 @@ def audit(prefix):
             print("ERROR: " + problem, file=sys.stderr)
         return 1
     print("PASS: installed freestanding selector: %d exports, %d members, "
-          "KCC/GCC core, C-locale and unsigned-FP archive parity" %
+          "KCC/GCC core, C-locale, FP36 and signed-DF archive parity" %
           (len(all_exports), len(members)))
     return 0
 
