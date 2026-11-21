@@ -1,17 +1,17 @@
 # PDP-10 testkit — outstanding work
 
 Current ownership and registration baseline (2026-11-21, after the
-KCC original conversion repair): **2,314 compiler matrix sources**,
-**394 special entries**, and **567 owned script paths**.
+full original conversion repair): **2,317 compiler matrix sources**,
+**398 special entries**, and **571 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v19.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v20.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
-**Live P1 construction ledger:** 55 covered, zero partial, **12
+**Live P1 construction ledger:** 56 covered, zero partial, **11
 blocked** across 67 historical deferred identities; frozen batches
-47 covered, 12 blocked. Recent original-source/companion integrations
+48 covered, 11 blocked. Recent original-source/companion integrations
 are `930513-1.c`, `struct-ret-1.c`, `980605-1.c` (six exact-sized
 stack/frame guest PASS) and `920501-8.c` (six substantive companion
 `run_fail` at the real sprintf `%f` contract), and `960521-1.c`
@@ -557,12 +557,20 @@ compiler sweep.
   authentic historical evidence. See
   `docs/PDP10-P1-CONVERSION-KCC-ORIGINAL-20261121-v1.md`.
 
-- [ ] Complete the **GCC** GNU 71-bit `conversion.c` source: all four
-  original GCC PDP-6 profiles still require real `__fixunssfdi`
-  and possibly later 71-bit ABI helpers. KCC original execution is
-  now verified, but construction coverage for the joint P1 source
-  remains blocked until the full unchanged original has faithful
-  GCC execution/coverage. Do not run the full compiler sweep early.
+- [x] Close P1 Batch 4 slot 4, the **unchanged original GNU
+  `conversion.c`**, with all six native PDP-6 KCC/GCC profile PASS.
+  Owning GCC `bca60ef` installs six real 71-bit compiler-owned SF/DF
+  conversion helpers and KCC `bea2680` supplies exact 36-bit signed
+  D-format/constant folding. Twenty-four new guest executions
+  include six unchanged original, six assertion-line, four direct
+  C89 raw 71-bit ABI and eight original GNU section PASS. All 129
+  archived raw artifacts are SHA256-pinned and 17 negative controls
+  fail closed. The earlier 48 36-bit profile PASS remain verified.
+  Historical KCC/GCC original failures retain their frozen evidence.
+  The authoritative P1 ledger now has **56 covered / 11 blocked**,
+  frozen batches **48 covered / 11 blocked**. No full matrix/CPU
+  sweep is authorized until the other eleven sources close. See
+  `docs/PDP10-P1-CONVERSION-FULL-20261121-v1.md`.
 
 - [ ] Investigate verified missing callable symbols `__builtin_abort`,
   `__fixunssfsi`, `_eexit`, `__builtin_printf`,
@@ -583,7 +591,7 @@ compiler sweep.
   proved implementation defect in `dlink`. Preserve that observed
   link failure and independently repair coherent hosted GCC stdio ABI;
   also retain the separate default-precision `sprintf` `%f` runtime
-  failure. See `docs/PDP10-PRESWEEP-STATE-20261121-v19.md`,
+  failure. See `docs/PDP10-PRESWEEP-STATE-20261121-v20.md`,
   `docs/PDP10-P1-920501-STDIO-PROVIDER-CLOSURE-20261120-v1.md`, and
   `docs/PDP10-P1-980707-CTYPE-PROVIDER-CLOSURE-20261120-v1.md`.
 
@@ -595,7 +603,7 @@ identities for provenance. The source-pinned resolution ledger
 `docs/PDP10-P1-SEMANTIC-RESOLUTION-20261119-v1.tsv` established the
 baseline of 8 `covered`, 6 `partial`, and 53 `blocked` intents. The
 historical v14 ledger counts **43 covered, 0 partial, 24 blocked**;
-the current v28 ledger has **55 covered, 0 partial, 12 blocked**.
+the current v29 ledger has **56 covered, 0 partial, 11 blocked**.
 
 ## P1 work batches (2026-11-19 v1)
 

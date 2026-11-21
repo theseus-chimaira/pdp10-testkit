@@ -247,20 +247,23 @@ it is not silently replaced by `DAIMOS/tools/host`.
 | `tools/` | Matrix runners and static integrity/ownership audits |
 | `tests/todo/generic/` | Retained historical generic candidates; some canonical compiler gates are active matrix tests |
 
-## Current pre-sweep state (2026-11-20)
+## Current pre-sweep state (2026-11-21)
 
-The active `pdp10-testkit` registration and source-ownership auditors
-report **2,314 compiler-matrix sources**, **394 special registrations**
-and **567 owned script paths**, with zero unowned test sources and zero
-unconnected scripts. No full compiler/CPU/optimization sweep has run
+The active `pdp10-testkit` registrations cover **2,317
+compiler-matrix sources**, **398 special registrations** and **571
+owned script paths**, with zero unowned test sources in the conversion
+scope. Three separately committed `v1735` compatibility shell scripts
+are still unregistered; the whole-worktree script-ownership audit
+reports six errors for those unrelated paths. No full compiler/CPU/
+optimization sweep has run
 in this preparation stage. The historical upstream classification
 retains 551 active, 67 deferred, 58 removed and one nonportable source;
 historical import disposition must not be read as present compiler PASS.
 
 The live P1 source-specific construction ledger is
-`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261120-v28.tsv`:
-**55 covered, zero partial, 12 blocked**. The frozen 59-source batch
-ledger now has 47 covered and 12 blocked; no original is deleted or
+`docs/PDP10-P1-SEMANTIC-RESOLUTION-20261121-v29.tsv`:
+**56 covered, zero partial, 11 blocked**. The frozen 59-source batch
+ledger now has 48 covered and 11 blocked; no original is deleted or
 renumbered. Eleven recent deferred-source intentions have real,
 archived PDP-6 evidence: `930513-1.c` (six native KCC/GCC PASS),
 `struct-ret-1.c` (four original GCC PASS with a separate asserting
@@ -319,24 +322,22 @@ revalidated with the installed native PDP-6 compilers; all nine remain
 `docs/PDP10-COMPILER-ICE-CURRENT-20261120-v1.md`. This targeted
 codegen recheck was not a full sweep.
 
-The **unchanged original `conversion.c` now PASSes native PDP-6 KCC
-noopt/opt**. Eight separate signed/unsigned 36-bit conversion
-regressions PASS all six KCC/GCC native PDP-6 profiles (48 PASS).
-KCC compiler commit `bea2680` fixes target-width FP constant
-folding, D-format constant encodings and exact signed integer/DF
-conversions. Current evidence pins 52 actual native guest PASS,
-eight genuine original/line-map GCC link failures on missing GNU
-71-bit `__fixunssfdi`, 289 raw artifacts and 14 negative controls.
-KCC original execution is verified, but the joint P1 source remains
-**blocked** until the original GCC profiles also have genuine
-construction coverage. See
-`docs/PDP10-P1-CONVERSION-KCC-ORIGINAL-20261121-v1.md` and the
-previous archived 36-bit baseline in
-`docs/PDP10-P1-CONVERSION-36BIT-REPAIR-20261120-v1.md`.
+The **unchanged original `conversion.c` now PASSes all six native
+PDP-6 KCC/GCC profiles**, including every GCC GNU-only 71-bit cast
+assertion. GCC commit `bca60ef` fixes six genuine 71-bit compiler
+libgcc entry points; KCC commit `bea2680` fixes the preceding signed
+D-format and target-width constant-folding defects. New evidence
+authenticates 24 native original/71-bit ABI PASS, 129 raw artifacts
+and 17 mutation controls; eight earlier 36-bit conversion suites
+also PASS all six profiles (48 additional PASS). Genuine historical
+GCC link failures, original aborts and timeouts remain archived, not
+rewritten. This closes P1 Batch 4 slot 4. See
+`docs/PDP10-P1-CONVERSION-FULL-20261121-v1.md` and the prior
+`docs/PDP10-P1-CONVERSION-KCC-ORIGINAL-20261121-v1.md`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v19.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v20.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves

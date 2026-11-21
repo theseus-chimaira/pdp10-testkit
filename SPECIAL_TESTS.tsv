@@ -393,3 +393,7 @@ p1-conversion-36bit-evidence-v1	verify	python3	tools/build-p1-conversion-36bit-e
 p1-conversion-36bit-negatives-v1	verify	python3	tools/test-p1-conversion-36bit-repair-v1.py	host	yes	120
 p1-conversion-kcc-original-evidence-v1	verify	python3	tools/build-p1-conversion-kcc-original-v1.py	host	yes	120
 p1-conversion-kcc-original-negatives-v1	verify	python3	tools/test-p1-conversion-kcc-original-v1.py	host	yes	120
+p1-conversion-full-evidence-v1	verify	python3	tools/build-p1-conversion-full-v1.py	host	yes	120
+p1-conversion-full-negatives-v1	verify	python3	tools/test-p1-conversion-full-v1.py	host	yes	120
+p1-semantic-resolution-v29	verify	python3	tools/build-p1-semantic-resolution-v29.py	host	yes	120
+p1-source-batches-v28	verify	python3	tools/audit-p1-source-batches-v28.py	host	yes	120
