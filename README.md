@@ -377,7 +377,7 @@ See `docs/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
 
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v25.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v26.md`.
 
 **ICE-focused full harness integration (2026-11-21):** All 67 P1
 historical identities now have a compiler/ISA harness owner, including

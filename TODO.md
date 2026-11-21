@@ -6,7 +6,7 @@ ICE-focused all-test integration): **2,358 compiler matrix sources**,
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v25.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v26.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
@@ -96,6 +96,12 @@ remain historical. See
   explicit ownership edges: inventory v2 and script-ownership v5 pass
   with three fail-closed negative controls. See
   `docs/PDP10-HARNESS-DIRECT-RUNTIME-20261121-v2.md`.
+- [x] Establish a fail-closed raw `p10run` source census. The registered
+  `raw-p10run-audit-v1` checks 69 current candidate scripts, with 60
+  dispatcher-only scripts explicitly left unreviewed for direct use.
+  Four negative controls reject missing, duplicate, wrong-owner and
+  newly added callers. See
+  `docs/PDP10-HARNESS-RAW-P10RUN-CENSUS-20261121-v1.md`.
 - [ ] Audit direct raw `p10run` script invocations outside the official
   dispatcher and tool/host-builder exceptions (`tools`, `kcc-host`,
   `das`) before the full sweep. Do not turn their library requirements
