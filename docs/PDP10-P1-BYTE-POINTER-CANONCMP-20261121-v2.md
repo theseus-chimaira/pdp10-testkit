@@ -40,7 +40,7 @@ evidence is authenticated independently and remains immutable.
 | --- | --- | --- | --- |
 | `pdp10-void-pointer-roundtrip-locator-v1.c` | 4 PASS | PASS | PASS |
 | `pdp10-halfptr-multiarg-identity-v1.c` | 4 PASS | PASS | PASS |
-| `pdp10-byte-pointer-torture-v1.c` | 4 run_fail (21/28/28/28) | run_fail ID 12 | **PASS** |
+| `pdp10-byte-pointer-torture-v1.c` | 4 run_fail (21/28/28/28) | run_fail decimal ID 10 | **PASS** |
 
 Both small sources have real 9/18/36-bit object data assertions,
 an indirect volatile function-pointer boundary, and pointer identity
@@ -71,9 +71,17 @@ ABI scripts pass, and the previously closed native 71-bit historical
 
 ## Still open and next steps
 
-KCC noopt still has a **distinct** identity failure at ID 12 in
-the larger pointer-torture source, despite passing both new focused
-oracles. GCC O0 still fails at ID 21 (9-bit readback); GCC O1/O2/Os
+KCC noopt still has a **distinct** identity failure at decimal ID 10
+in the larger pointer-torture source, despite passing both new focused
+oracles. The SIMH report displays `000000000012` in octal; this is
+decimal 10, **not** decimal 12. A minimal follow-up with a 9-bit
+check before the 18-bit check confirms that noopt aborts in the
+**first 9-bit check**, before calling the halfword checker. Physical
+PDP-6 register inspection at its pointer compare records the
+native S=9 pointer `001100002503` versus `000000001511`, a word
+address derived from transient stack state. KCC noopt is failing
+to preserve the incoming byte pointer through its indirect call.
+GCC O0 still fails at ID 21 (9-bit readback); GCC O1/O2/Os
 still fail at ID 28 (18-bit array stride). These three compiler
 behavior groups require actual owning code fixes.
 

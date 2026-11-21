@@ -33,7 +33,7 @@ The independent halfword-pointer C89 multi-argument regression now
 PASSes six native PDP-6 profiles. The earlier independent
 9/18/36-bit `void *` roundtrip also remains six-profile PASS.
 The full existing 9/18/36-bit pointer torture now has one
-**KCC opt PASS**, KCC noopt `run_fail` ID 12, GCC O0 `run_fail`
+**KCC opt PASS**, KCC noopt `run_fail` decimal ID 10, GCC O0 `run_fail`
 ID 21 and GCC O1/O2/Os `run_fail` ID 28.
 
 Current source-pinned evidence is

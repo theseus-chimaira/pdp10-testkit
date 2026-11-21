@@ -2,11 +2,11 @@
 
 Current ownership and registration baseline (2026-11-21, after the
 full original conversion repair and pointer locator): **2,318 compiler matrix
-sources**, **405 special entries**, and **578 owned script paths**.
+sources**, **406 special entries**, and **579 owned script paths**.
 The authoritative counts come from `COMPILER_MATRIX.tsv`,
 `SPECIAL_TESTS.tsv`, and their registered audits. Checked milestones below
 are dated historical records, not current inventory totals. See
-`docs/PDP10-PRESWEEP-STATE-20261121-v22.md` for the live gate and
+`docs/PDP10-PRESWEEP-STATE-20261121-v23.md` for the live gate and
 `docs/TESTKIT-SCOPE-MIGRATION-20261119-v4.md` for the historical split.
 
 **Live P1 construction ledger:** 56 covered, zero partial, **11
@@ -596,7 +596,8 @@ compiler sweep.
   sacrificing the original byte/halfword stride, identity, or data.
   The historical `old.tort.c` was replaced by its registered C89
   pointer torture, which still genuinely fails in all six native
-  PDP-6 profiles (KCC noopt ID 10, KCC opt ID 12, GCC O0 ID 21,
+  PDP-6 profiles at the historical v1 checkpoint (KCC noopt
+  decimal ID 10, KCC opt decimal ID 12, GCC O0 ID 21,
   GCC O1/O2/Os ID 28). An independent C89 roundtrip locator with an
   actual volatile function-pointer `void *` call now PASSes all four
   GCC profiles but KCC noopt/opt both report `01002` (octal):
@@ -616,10 +617,27 @@ compiler sweep.
   C89 multi-argument regression now PASSes all six native PDP-6
   profiles; the earlier `void *` source stays 6/6 PASS and the
   full replacement torture advances to **KCC opt PASS**. KCC noopt
-  ID 12 and GCC original fail IDs 21/28 are distinct and remain
-  blocked. The v2 evidence pins 18 cells, 90 raw artifacts and
+  decimal ID 10 (SIMH octal `012`) and GCC fail IDs 21/28 were
+  still blocked at v2. The v2 evidence pins 18 cells, 90 raw artifacts and
   seven controls. See
   `docs/PDP10-P1-BYTE-POINTER-CANONCMP-20261121-v2.md`.
+
+- [x] Fix KCC direct-ABI incoming argument liveness across a nested
+  call. The `ccdecl.c` first-call-drop optimization now requires an
+  exactly single-use parameter; later references use the existing
+  call-preserved AC binding. The unchanged active C89 9/18/36-bit
+  pointer torture now **PASSES KCC noopt and opt**. Three focused
+  C89 pointer oracles pass six PDP-6 profiles each; the larger
+  source still fails the GCC O0 and GCC O1/O2/Os profiles.
+  The v3 evidence has 24 cells (20 actual PASS, four real GCC
+  failures), 120 raw artifacts, and seven negative controls.
+  See `docs/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
+
+- [ ] Fix the still-real **GCC** byte-pointer compiler defects
+  from the same active C89 source: GCC O0 byte-pointer data check
+  at decimal ID 21; GCC O1/O2/Os 18-bit array-stride check at
+  decimal ID 28. Do not equate KCC full replacement PASS with
+  a fully covered historical removed `old.tort.c` original.
 
 - [ ] Investigate verified missing callable symbols `__builtin_abort`,
   `__fixunssfsi`, `_eexit`, `__builtin_printf`,

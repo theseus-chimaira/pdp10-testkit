@@ -404,3 +404,4 @@ mixed-call-depth-v1735	compat	sh	misc/compat/test-mixed-call-depth-v1735.sh	ks10
 das-phase-pair-v1738	das	sh	tests/isa/das-port/test-das-phase-pair-v1738.sh	fast	yes	120
 p1-void-pointer-roundtrip-v1	verify	python3	tools/test-p1-byte-pointer-void-roundtrip-v1.py	host	yes	120
 p1-byte-pointer-canoncmp-v2	verify	python3	tools/test-p1-byte-pointer-canoncmp-v2.py	host	yes	120
+p1-byte-pointer-firstcall-v3	verify	python3	tools/test-p1-byte-pointer-firstcall-v3.py	host	yes	120

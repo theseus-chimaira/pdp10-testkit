@@ -249,8 +249,8 @@ it is not silently replaced by `DAIMOS/tools/host`.
 
 ## Current pre-sweep state (2026-11-21)
 
-The active `pdp10-testkit` registrations cover **2,319
-compiler-matrix sources**, **405 special registrations** and **578
+The active `pdp10-testkit` registrations cover **2,320
+compiler-matrix sources**, **406 special registrations** and **579
 owned script paths**, with zero unowned test sources and zero
 unconnected scripts in the complete current worktree. The v1735
 ABI scripts and v1738 DAS phase-pair check are now registered and
@@ -357,15 +357,27 @@ liveness error when canonicalizing two representation-polymorphic
 byte/halfword pointers for equality. The independent multi-argument
 C89 halfword-pointer source now PASSes all six PDP-6 profiles,
 as does the earlier `void *` roundtrip source. The full pointer
-torture now PASSes KCC opt; KCC noopt ID 12 and GCC O0 ID 21,
+torture now PASSes KCC opt; KCC noopt decimal ID 10 and GCC O0 ID 21,
 GCC O1/O2/Os ID 28 remain real compiler failures. Post-fix
 evidence: 13 native PASS and five run_fail, 90 SHA256-pinned
 artifacts and seven mutation controls. P1 remains blocked at 56/11.
 See `docs/PDP10-P1-BYTE-POINTER-CANONCMP-20261121-v2.md`.
 
+The final KCC first-call argument-liveness fix `551f406` now
+also makes the active large byte-pointer torture pass in **both
+native KCC PDP-6 profiles**. A new C89 test reproduces the
+initial S=9 indirect call followed by an S=18 indirect call.
+All three focused pointer tests PASS all six KCC/GCC profiles,
+while the larger replacement still has genuine GCC O0 ID 21
+and GCC O1/O2/Os ID 28 failures. The v3 evidence pins 20 actual
+PDP-6 guest PASS and four run_fail, 120 raw artifacts and seven
+mutation controls. KCC noopt's previous SIMH octal `012` was
+**decimal ID 10**, not 12; this is corrected in the v2 notes.
+See `docs/PDP10-P1-BYTE-POINTER-FIRSTCALL-20261121-v3.md`.
+
 For the current outstanding source names, genuinely missing runtime
 symbols, test ownership, branch state and **explicit stop point before
-the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v22.md`.
+the full sweep**, see `docs/PDP10-PRESWEEP-STATE-20261121-v23.md`.
 **Current normal semantic runner policy:** use only the installed
 compiler-owned `libp10c-v2.a` (separately for KCC and GCC), never the
 generic/DAIMOS libc. It prepares an isolated `p10run` prefix, preserves
