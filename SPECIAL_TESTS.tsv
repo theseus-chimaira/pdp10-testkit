@@ -421,3 +421,4 @@ kcc-switch-longlong-abi-v1	validation	sh	misc/validation/test-kcc-switch-longlon
 kcc-function-pointer-prototype-scope-v1	validation	sh	misc/validation/test-kcc-function-pointer-prototype-scope-v1.sh	multi-cpu	yes	120
 kcc-float-to-dimode-v1	validation	sh	misc/validation/test-kcc-float-to-dimode-v1.sh	multi-cpu	yes	120
 kcc-dimode-wide-constant-compare-v1	validation	sh	misc/validation/test-kcc-dimode-wide-constant-compare-v1.sh	multi-cpu	yes	120
+dlink-rh18-negative-displacement-v1	validation	sh	misc/validation/test-dlink-rh18-negative-displacement-v1.sh	multi-cpu	yes	180

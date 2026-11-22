@@ -1,4 +1,5 @@
 path	owner	runtime	direct_policy	sha256	evidence
+misc/validation/test-dlink-rh18-negative-displacement-v1.sh	registered	mixed	dispatcher-only	10a939cc9e6788aa29b38461ce3d6fcd09dc1db068918ab192170e6e15b17e54	kcc+gcc-source
 misc/compat/test-freestanding-search-v1.sh	registered	mixed	dispatcher-only	4d4a0ee434ad1e235265b6f0bb7ff153a537301ab602da2fee8fa8f875558ac1	kcc+gcc-source
 misc/compat/test-gcc-callee-save-pushpop.sh	registered	gcc	dispatcher-only	c16ba6d9dcfd7bb08ceca966d7c92f0e3c3d4cf52e463f448d39bd7c5ebcca31	gcc-source
 misc/compat/test-gcc-cross-word-bitfield.sh	registered	gcc	dispatcher-only	4f4c81d23e21075efa9af993436c5cf46bdf9b1f94a12b78a5aebb5863638d64	gcc-source
