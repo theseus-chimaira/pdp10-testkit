@@ -58,6 +58,7 @@ misc/validation/test-gcc-packed-halfword-readback-v1.sh	registered	gcc	dispatche
 misc/validation/test-kcc-71bit-floatcast-v1.sh	registered	kcc	dispatcher-only	ac620f0e8e99fee5eea92b11507bae55931c0c1482ce5f328a29c8d15085776b	kcc-source
 misc/validation/test-kcc-aap-dimode-float-pdp6-v1.py	registered	kcc	dispatcher-only	93d59b3291878584bb628044fedcd1f4a4524dfc285d853f1d11433a1fae29f1	kcc-source
 misc/validation/test-kcc-dimode-float-pdp6-v1.sh	registered	kcc	dispatcher-only	7bfe5c86f0ae6209add21f03af06d5a360b4cfcd05998fc2fd006e0d6248d764	kcc-source
+misc/validation/test-kcc-float-to-dimode-v1.sh	registered	kcc	dispatcher-only	5b6935f46e4fdf084b60d0074e89813842db56ea4431cf7fdcdbff980dfc2488	kcc-source
 misc/validation/test-kcc-dimode-storage-v1.sh	registered	kcc	dispatcher-only	1e2c5a07fb6b1791c8bf239958484a6076593b1523ad380ba63d9089b5d372b9	kcc-source
 misc/validation/test-kcc-pdp6-dimode-nativefloat-v1.sh	registered	kcc	dispatcher-only	e04d133cedb6b0e51c1f258d5178a5cd22f4d300df0c1332001e944b572c0a1b	kcc-source
 misc/validation/test-kcc-pdp6-float-fold-v1.sh	registered	kcc	dispatcher-only	6cb7620ab4a8c5e2ff3029f2a13d5aebef5527f29e03b7835a329cac90f3b8fb	kcc-source

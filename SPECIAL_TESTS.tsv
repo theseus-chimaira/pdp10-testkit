@@ -419,3 +419,4 @@ kcc-hicmp-codegen-v1	validation	sh	misc/validation/test-kcc-hicmp-codegen-v1.sh	
 kcc-subbp-constant-v1	validation	sh	misc/validation/test-kcc-subbp-constant-v1.sh	multi-cpu	yes	120
 kcc-switch-longlong-abi-v1	validation	sh	misc/validation/test-kcc-switch-longlong-abi-v1.sh	multi-cpu	yes	120
 kcc-function-pointer-prototype-scope-v1	validation	sh	misc/validation/test-kcc-function-pointer-prototype-scope-v1.sh	multi-cpu	yes	120
+kcc-float-to-dimode-v1	validation	sh	misc/validation/test-kcc-float-to-dimode-v1.sh	multi-cpu	yes	120
