@@ -415,3 +415,4 @@ harness-native-observation-negatives-v1	verify	python3	tools/test-harness-integr
 kcc-native-fp36-link-v1750	validation	sh	misc/validation/kcc-native-fp36-link-v1750.sh	host	manual	360
 kcc-fp-range-diagnostics-v1	validation	sh	misc/validation/test-kcc-fp-range-diagnostics-v1.sh	pdp6	yes	120
 kcc-empty-array-diagnostic-v1	validation	sh	misc/validation/test-kcc-empty-array-diagnostic-v1.sh	pdp6	yes	120
+kcc-hicmp-codegen-v1	validation	sh	misc/validation/test-kcc-hicmp-codegen-v1.sh	multi-cpu	yes	120
