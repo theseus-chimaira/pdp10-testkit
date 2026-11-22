@@ -417,3 +417,4 @@ kcc-fp-range-diagnostics-v1	validation	sh	misc/validation/test-kcc-fp-range-diag
 kcc-empty-array-diagnostic-v1	validation	sh	misc/validation/test-kcc-empty-array-diagnostic-v1.sh	pdp6	yes	120
 kcc-hicmp-codegen-v1	validation	sh	misc/validation/test-kcc-hicmp-codegen-v1.sh	multi-cpu	yes	120
 kcc-subbp-constant-v1	validation	sh	misc/validation/test-kcc-subbp-constant-v1.sh	multi-cpu	yes	120
+kcc-switch-longlong-abi-v1	validation	sh	misc/validation/test-kcc-switch-longlong-abi-v1.sh	multi-cpu	yes	120
