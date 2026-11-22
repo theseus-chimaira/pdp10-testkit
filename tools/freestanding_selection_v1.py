@@ -60,8 +60,9 @@ REFERENCES = re.compile(
 def select_freestanding(asm_text, machine, compiler=None):
     """Return (member filenames, owned symbols) in deterministic order.
 
-    Do not override symbols implemented by the test itself. Only the PDP-6
-    software D-format ABI is admitted for the dedicated conversion member.
+    Do not override symbols implemented by the test itself. The conversion
+    helpers are selected by actual emitted symbol references, not by the
+    simulator CPU: KCC can emit these calls in base and other profiles too.
     """
     defined = set(re.findall(
         r"(?m)^\s*([A-Za-z_][A-Za-z_0-9]*):", asm_text))
@@ -79,9 +80,6 @@ def select_freestanding(asm_text, machine, compiler=None):
         symbol = pending.pop(0)
         member = members.get(symbol)
         if member is None or symbol in defined:
-            continue
-        if symbol in DFLOAT_SYMBOLS + UFLOAT_SYMBOLS + (
-                "__kcc_fixdfsi", "__kcc_floatsidf") and machine != "pdp6":
             continue
         owned.add(symbol)
         if member not in selected:

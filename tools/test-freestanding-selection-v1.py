@@ -37,7 +37,8 @@ def main():
     expect("pushj 17,__kcc_floatunsidf\n", "pdp6",
            ["kcc-libc-fp36-pdp6-v1.s"],
            ("__kcc_floatunsidf",))
-    expect("pushj 17,__kcc_floatunsidf\n", "ka10", [], ())
+    expect("pushj 17,__kcc_floatunsidf\n", "ka10",
+           ["kcc-libc-fp36-pdp6-v1.s"], ("__kcc_floatunsidf",))
     expect("pushj 17,__kcc_fixunssfsi\n", "pdp6",
            ["kcc-libc-fp36-pdp6-v1.s"],
            ("__kcc_fixunssfsi",))
@@ -58,9 +59,16 @@ def main():
            ["kcc-libc-fp36-signed-df-pdp6-v1.s",
             "kcc-libc-fp36-pdp6-v1.s"],
            ("__kcc_floatsidf", "__kcc_fixunsdfsi", "__kcc_floatunsidf"))
-    expect("pushj 17,__kcc_fixdfsi\n", "ka10", [], ())
-    expect("pushj 17,__kcc_floatsidf\n", "ka10", [], ())
-    expect("pushj 17,__kcc_floatdidf\n", "ka10", [], ())
+    expect("pushj 17,__kcc_fixdfsi\n", "ka10",
+           ["kcc-libc-fp36-signed-df-pdp6-v1.s",
+            "kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_fixdfsi", "__kcc_fixunsdfsi", "__kcc_floatunsidf"))
+    expect("pushj 17,__kcc_floatsidf\n", "ki10",
+           ["kcc-libc-fp36-signed-df-pdp6-v1.s",
+            "kcc-libc-fp36-pdp6-v1.s"],
+           ("__kcc_floatsidf", "__kcc_fixunsdfsi", "__kcc_floatunsidf"))
+    expect("pushj 17,__kcc_floatdidf\n", "ks10",
+           ["kcc-libc-dimode-float-pdp6-v1.s"], ("__kcc_floatdidf",))
     expect("pushj 17,malloc\n", "pdp6", [], ())
     expect("pushj 17,sprintf\n", "pdp6",
            ["p10stdio-format-v2.s"], ("sprintf",), "gcc")
