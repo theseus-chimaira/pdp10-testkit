@@ -1,5 +1,20 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-22 v1817: source-linked DAS relocation identity PASS
+
+The recovered historical v1453 symbol-difference fixtures are now
+registered here, their correct compiler/assembler testkit owner.
+The host DAS object assembler now rejects differences between distinct
+undefined exports or separate relocated sections, while accepting same-
+section and identical-external-symbol cancellation. The source-linked
+`das-fast` suite passed 13/13. The older native relmap test received a
+missing bounded `dsys_writechar` diagnostic mock; the same missing-link
+failure occurs against old source. Native DAS1/DAS2 assembly and DXR
+link pass, with byte-identical phase source output versus the baseline.
+No native guest behavior claim. See
+`misc/das/symbol-difference-v1817/README-v1817.md`.
+
+
 This repository tests GCC and KCC compiler behavior, PDP-6/PDP-10
 assembler and linker formats, ABI contracts, optimization and processor
 ISA execution. Targets include PDP-6, KA10, KI10 and KS10. It is **not**

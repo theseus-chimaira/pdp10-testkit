@@ -18,6 +18,23 @@ static unsigned int map_length;
 static unsigned int output_length;
 static int fail_next_read;
 
+/* Native DAS diagnostics write to descriptor 2 even in a source-linked
+ * host test.  Supply that syscall as a bounded mock instead of leaving
+ * the existing output_emit error path with an unresolved reference.
+ * Word-I/O assertions below remain unchanged.
+ */
+static char diag_bytes[256];
+static unsigned int diag_used;
+
+int dsys_writechar(int fd, int ch)
+{
+    if (fd != DSYS_STDERR || ch < 0 || ch > 127 ||
+        diag_used >= sizeof(diag_bytes))
+        return -1;
+    diag_bytes[diag_used++] = (char)ch;
+    return 0;
+}
+
 static kword_t *mock_store(int fd, unsigned int **pos,
                             unsigned int **length, unsigned int *cap)
 {
