@@ -68,3 +68,4 @@ misc/validation/test-kcc-pdp6-rounded-fp-boundaries-v2.sh	registered	kcc	dispatc
 misc/validation/test-p1-gate15-calls-v1.py	registered	kcc	dispatcher-only	1f95192510f427b6a49de32bbbf18cbfd554dc1a004b6760ec7183fe73228cdd	kcc-source
 misc/validation/test-upstream-crt-v1.sh	superseded	historical	historical	6a1bcb765e150ebe4495305094010098d04f5a36b49f914fbd7530dac0a88be7	historical
 misc/validation/test-upstream-crt-v2.sh	registered	kcc	isolated	ecf700bacae171043b0407bd4d4cdeed8dc676b6529f07e77deb73059a185371	previously-isolated
+misc/validation/test-kcc-adjbp-runtime-v1.sh	registered	kcc	isolated	186e9e1a8df4ed14804ba60f9339a75353408e1f9478ad6ec1724cf27d874079	previously-isolated
