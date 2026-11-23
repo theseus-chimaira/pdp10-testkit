@@ -71,6 +71,25 @@ previously installed GCC (`workdir/static-pointer-adjacent-20261123-v30`).
 All 19 statuses matched exactly: nine passes, two compile-only and
 eight pre-existing runtime failures in two separate sources.
 
+## Existing upstream GCC link failure closed (verified v8)
+
+All 44 originally `link_fail` configurations of the unchanged upstream
+source `tests/semantic/upstream/generic/20021101-1.c` were rerun using
+the repaired staged GCC and the official target-execution harness.
+The original compiler emitted a bad RH18 relocation for a static
+initializer of the form `(int *)((char *)&x.a[2] - 8)`, and `dlink`
+rejected the object with `RH18 relocation overflow`. That initializer
+uses precisely the mixed word/byte pointer cast and negative byte
+offset corrected here. After the fix, **all 44 configurations pass**
+compilation, assembly, linking, and guest execution, not just linking.
+
+The 44 old failure keys and 44 new successful keys match exactly, with
+no missing or duplicate configurations. Evidence:
+`workdir/static-pointer-upstream-link-20261123-v32/results-v1.tsv`.
+This closes 44 of the 560 previously observed linker failures; the
+other 516 original failures have not been exhaustively rerun after
+the compiler repair and are not claimed resolved.
+
 These results cover local 18-bit right-half pointer relocation. They
 do not establish extended-pointer correctness or resolution of the
 unrelated runtime failures. The installed compiler was not replaced.
