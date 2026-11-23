@@ -1,9 +1,10 @@
 /*
  * GCC PDP-10 noreturn regression, freestanding C89 with GCC attributes.
  *
- * The historical builtin-noret-1.c requires an unsupported _eexit
- * external symbol on this target; it cannot establish the useful
- * noreturn code-generation contract.  This companion isolates:
+ * The historical builtin-noret-1.c originally referenced unsupported
+ * _eexit because the GCC driver omitted the __pdp10__ predefine.
+ * Its original 16 GCC cells now pass with that macro restored.
+ * This companion additionally isolates:
  *
  *  - the standard abort and exit noreturn calls;
  *  - __builtin_abort, independently of a function declaration;
