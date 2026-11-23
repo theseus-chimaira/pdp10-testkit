@@ -57,6 +57,19 @@ The original run is saved under
 The final restored-guard run is saved under
 `workdir/static-pointer-rh18-20261123-v31/results-v1.tsv`.
 
+## Consolidated additional pointer oracle (v14)
+
+An independently written source previously left untracked in the testkit
+checkout, `tests/semantic/p10-static-pointer-rh18-v1.c`, was validated
+and retained as a second registered 44-profile GCC semantic test.
+Unlike the first regression, it constructs pointers dynamically inside
+`main` and compares them to standalone and aggregate static initializers
+that cast `int *` to `char *`, subtract eight bytes, and cast back.
+All 44 executions passed using the staged repaired compiler; the full
+result table is in
+`workdir/static-pointer-orphan-20261123-v1/results-v1.tsv`.
+Its original source is preserved without rewriting it.
+
 ## Regression checks
 
 The exact 414 original GCC ICE cells were rerun against the repaired
