@@ -1,5 +1,19 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-23 v16: interrupted sweep, ICE and CHAR_BIT repairs
+
+The interrupted full sweep was resumed without losing existing PASS
+checkpoints. Four `running` plus ten missing cells of the same
+struct-return regression now pass (54/54 overall). A clean, correctly
+prefixed GCC installation replaced a stale `cc1`: the two recorded O0
+signbit compiler ICEs and all 32 explicit nine-bit-`CHAR_BIT`
+compilation failures now pass their original guest tests. The current
+partial census is 6,978 recorded checkpoints: 2,829 PASS,
+3,090 `compile_only`, 1,059 `run_fail`, and no `compiler_ice`,
+`compile_fail` or `running` statuses. This is not a completed full
+123,576-cell sweep. See
+`history/PDP10-FULL-SWEEP-CHECKPOINT-RECOVERY-20261123-v16.md`.
+
 ## 2026-11-22 v1817: source-linked DAS relocation identity PASS
 
 The recovered historical v1453 symbol-difference fixtures are now
