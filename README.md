@@ -1,5 +1,25 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v32: reachability-aware KCC static-inline output
+
+The hosted KCC now folds identical function-designator comparisons
+before generation and omits unreachable statement suffixes even in
+`-n`, preserving goto and switch targets. Deferred `static inline`
+body emission uses actual assembler symbol references instead of
+parser counts. The unchanged `20011115-1.c` now passes the four KCC
+cells that previously linked against `undefined_reference`; the
+targeted 22-profile tests cover transitive/recursive calls, a function
+pointer and external relocations. The staged broad strict selection
+passed 216/216, plus a separate 22/22 control-flow regression.
+The source-pinned final acceptance selection is
+`manifests/PDP10-KCC-STATIC-INLINE-ACCEPTANCE-SOURCES-20261124-v32.txt`.
+The 34 exact original KCC linker failures now give **30 PASS and four
+real `puts` link_fail**. Existing GNU extended-asm parsing remains
+unimplemented and is not counted as an inline regression; the
+codegen policy for `static` label `$helper` was corrected and verified
+on old and new compilers. Native KGEN spool support remains separate.
+See `history/PDP10-KCC-STATIC-INLINE-REACHABILITY-20261124-v32.md`.
+
 ## 2026-11-24 v30/v31: KCC repairs for 26 former link failures
 
 The KCC preprocessor now correctly rescans function-like macros across

@@ -1,5 +1,18 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 KCC v32:** The Unix-hosted compiler's `static inline`
+reachability and function-address comparison bug is repaired:
+the four historical `20011115-1.c` link errors now pass. The staged
+strict 216-cell suite and extra 22-cell branch/label regression pass.
+The exact historical 34-cell KCC linker set has 30 PASS and four
+`puts` link failures (the latter require a real hosted console and
+must not be stubbed out). Native DAIMOS KGEN still needs an equivalent
+disk-based deferred-assembly emission path compatible with its file
+services; the Unix `tmpfile()` implementation is intentionally
+host-only. The preexisting 22-cell GNU extended-assembly constraint
+syntax rejection remains separate language feature work. See
+`history/PDP10-KCC-STATIC-INLINE-REACHABILITY-20261124-v32.md`.
+
 **2026-11-24 KCC v30/v31 installed:** Macro-rescan and real
 function-local `alloca` have been repaired and independently verified:
 118/118 fresh KCC strict acceptance cells PASS on the installed compiler.
