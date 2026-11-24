@@ -1,5 +1,14 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v40a: GCC exact-type runtime verification
+
+Staged GCC review commit 71d4100 (repair/packed-ice-v40a) completed
+all 852 exact historical compile-failure cells: 148 PASS, 704 runtime
+assertion failures, zero compile/link failures. All 165 former ICEs
+execute but fail. 32 packed-record guard runs passed. Candidate not
+merged or installed: packed-copy semantics remain open.
+See `history/GCC-PACKED-ICE-REPLAY-20261124-v40a.md`.
+
 ## 2026-11-24 v39b: compiler-neutral PDP-10 integer types
 
 The shared exact-width type interface is now `support/common/pdp10-types.h`,

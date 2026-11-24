@@ -1,5 +1,14 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v40a:** Exact GCC 852-cell staged replay completed:
+148 PASS, 704 runtime assertion failures. No remaining ICEs in this
+cohort on the review build; all 165 former ICEs now fail at runtime.
+Resume from `manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v40a.tsv`.
+GCC review branch repair/packed-ice-v40a (71d4100) is not installed
+or merged. Fix packed aggregate semantics, pointer arithmetic and
+narrow conversions before accepting the compiler. Existing 2614
+historical GCC runtime cells remain separate. Pending KCC v38 untouched.
+
 **2026-11-24 v39b:** Replace KCC-only spellings in the 20 affected
 ported sources with `pdp10-types.h`. The 852 GCC compile-failure cells
 now split into 687 successful compilations (runtime replay pending)
