@@ -12,6 +12,6 @@ start:
         MOVE 6,[10]
         MOVE 7,[0d10]
         MOVE 10,[POINT 9,start+10,8]
-        GIW start+10
-        OWGBP 46,start+10
+        .long start+010
+        POINT 6,start+10,5
         .long start+29142024192

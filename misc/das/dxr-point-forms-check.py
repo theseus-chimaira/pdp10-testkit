@@ -24,10 +24,6 @@ def rb(n, relocs):
 def point(size,y,pos,ind=0,xr=0):
     return (((35-pos)&0o77)<<30)|((size&0o77)<<24)|((ind&1)<<22)|((xr&0o17)<<18)|(y&HALF)
 
-def owgbp(size,low,y):
-    high=low+size-1
-    return (((35-high)&0o77)<<30)|((size&0o77)<<24)|(y&HALF)
-
 image_words=9
 exp=[
     word(six('DXR'),0),
@@ -37,14 +33,14 @@ exp=[
     mem(0o254,4,0),
     point(7,7,34,1,3),
     8,
-    owgbp(6,0,7),
-    owgbp(18,18,9),
+    point(6,7,5),
+    point(18,9,35),
     0,
     point(9,7,35,1,2),
 ]+rb(image_words,[0,1,3,4,5,6,8])
 got=read_words(sys.argv[1])
 if got!=exp:
-    print('DXR POINT/GIW/OWGBP forms mismatch', file=sys.stderr)
+    print('DXR local POINT/word address forms mismatch', file=sys.stderr)
     print('expected:', ['%012o'%x for x in exp], file=sys.stderr)
     print('got:     ', ['%012o'%x for x in got], file=sys.stderr)
     raise SystemExit(1)

@@ -35,16 +35,23 @@ Independent second emulator (v56e):
   Installed DAS baseline: 21 selectors incorrectly emitted as local P/S
   pointers, five before-first selectors rejected (0/26 correct). See
   `manifests/PDP10-DAS-OWGBP-BASELINE-20261124-v56c.tsv`.
-- [ ] Correct DAS OWGBP encoding and local-address test oracles that
+- [x] Correct DAS OWGBP encoding and local-address test oracles that
   incorrectly expect a local P/S pointer for OWGBP.
-- [ ] Preserve 30 address bits and six selector/control bits; support
+- [x] Preserve 30 address bits and six selector/control bits; support
   absolute and symbolic expressions, signed addends and overflow checks.
-- [ ] Define versioned object relocation records for global addresses,
+- [x] Define versioned object relocation records for global addresses,
   including local versus external symbols. Reject unsupported combinations.
-- [ ] Keep existing DOBJ1 files and RH18/LH18 output byte-compatible;
+- [x] Keep existing DOBJ1 files and RH18/LH18 output byte-compatible;
   do not add resident native assembler state for host-only relocations.
-- [ ] Audit archive, objdump, folding and relocation consumers; fail closed
+- [x] Audit archive, objdump, folding and relocation consumers; fail closed
   on unsupported extended objects rather than truncate addresses.
+
+EA02 v56h: DOBJ2 uses typed local/symbol ADDR30 records with signed
+36-bit addends of at most 30-bit magnitude. The legacy DXR linker,
+p10fold and p10super explicitly reject DOBJ2; darc preserves its
+members and objdump displays the new records. The independent oracle
+passes all 26 selectors, mixed relocations and malformed-input guards.
+The installed production tools remain unchanged until acceptance.
 
 ## EA03: Host-only link and execution transport
 
@@ -59,6 +66,10 @@ Independent second emulator (v56e):
 
 ## EA04: GCC C compiler and runtime
 
+- [x] Correct global static pointer initializers, constant selector
+  conversions, signed ADJBP folding and nested initializer casts (v56i).
+  Verify object contents in all four optimization modes. These are
+  object-generation checks, not extended runtime passes.
 - [ ] Establish four optimization profiles (O0/O1/O2/Os) with staged GCC.
 - [ ] Audit supported code models; reject unsupported combinations.
 - [ ] Fix extended record-array ICE in expr.c and all demonstrated

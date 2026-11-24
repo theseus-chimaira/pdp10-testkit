@@ -28,8 +28,8 @@ def ascii_word(s):
     return w&MASK
 # Layout: text statements 0..5 plus one literal at 6.
 image_words=7
-# OWGBP 70,ptr: selector 70 -> size 9 low 0 high 8 => P field 35-high=27.
-owgbp_70_ptr=(27<<30)|(9<<24)|3
+# Local POINT 9,ptr,8: P=27, S=9, Y=3.
+point_9_ptr=(27<<30)|(9<<24)|3
 exp=[
     word(six('DXR'),0),
     word(image_words,0),
@@ -39,19 +39,7 @@ exp=[
     4,
     ascii_word('HELLO'),
     ascii_word('A\0'),
-    owgbp_70_ptr,
-]+rb(image_words,[0,1,3,8-2]) # image relocation offsets 0,1,3,6
-# Fix comment: offset 6 is literal, header-adjusted index 8 in exp.
-exp=[
-    word(six('DXR'),0),
-    word(image_words,0),
-    mem(0o201,1,3),
-    mem(0o201,2,6),
-    mem(0o254,4,0),
-    4,
-    ascii_word('HELLO'),
-    ascii_word('A\0'),
-    owgbp_70_ptr,
+    point_9_ptr,
 ]+rb(image_words,[0,1,3,6])
 got=read_words(sys.argv[1])
 if got!=exp:

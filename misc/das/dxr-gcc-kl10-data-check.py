@@ -38,7 +38,7 @@ expected = [
     1,
     0,
     int('010040000000', 8),
-    5,
+    int('2001000', 8),
     0,
 ]
 if image != expected:
@@ -47,6 +47,6 @@ if image != expected:
     print('got:     ', ['%012o' % x for x in image], file=sys.stderr)
     raise SystemExit(1)
 reloc = words[2 + image_words:]
-if len(reloc) != reloc_words or reloc != [1 << (35 - 4)]:
-    raise SystemExit('GIW relocation bitmap mismatch')
+if len(reloc) != reloc_words or reloc != [0]:
+    raise SystemExit('absolute GIW must not have an RH18 relocation')
 print('DAS KL10 GCC data syntax contract passed')
