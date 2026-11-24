@@ -1,5 +1,25 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v24/v25: all historical timeout clusters resolved
+
+KCC now keeps 71-bit relational true-edges visible across a buffered
+conditional return, and restricts 71-bit multiply scratch registers
+to the real volatile AC range so callee-preserved structure pointers
+cannot be destroyed by `MUL` result pairs. The two formerly timed-
+out KCC sources `20020402-3.c` and `20001203-2.c` pass **22/22**
+each; new red-old/green-new KCC regressions v24/v25 also pass
+**22/22** each (88/88 strict combined). This resolves the final
+22 timeout records from the original 135-timeout snapshot. GCC
+packed by-value field semantics remain a separate open defect.
+See `history/PDP10-KCC-WIDE-CONDITIONAL-RETURN-20261124-v24.md`
+and `history/PDP10-KCC-MULTIPLY-PRESERVED-REGISTER-20261124-v25.md`.
+The corrected separate scratch policy also passes 440/440 additional
+KCC long-long/DImode regression cells, including all 22 formerly
+ICE-producing div/mod cells, under strict exit policy.
+The final four-source KCC acceptance was independently repeated:
+88/88 PASS with the final rebuilt compiler, giving 528 passing
+cells across the two fresh acceptance selections.
+
 ## 2026-11-24 v23: packed-argument byte-copy loop termination
 
 The compiler's counted byte-copy expansion now emits one SOJN-style
