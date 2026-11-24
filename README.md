@@ -1,5 +1,23 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v35a: native floating-point range applicability
+
+`tests/semantic/upstream/generic/960405-1.c` assumes a long-double
+exponent range reaching 5.948657e4931L. Native PDP-10 single and double
+formats have an 8-bit exponent; increasing fraction precision cannot
+make this constant representable. Mark every matrix column for this
+source unsupported, including GCC and KCC. The original v28 failure
+cohort loses 66 actionable cells (22 KCC compile_fail and 44 GCC
+run_fail); none is counted as PASS. Preserve the original source and
+historical results. The exact exclusion manifest is
+`manifests/PDP10-V28-TARGET-INAPPLICABLE-FLOAT-20261124-v35a.tsv`.
+The existing KCC range-diagnostic validation passes on base and pdp6.
+Static runner selection confirms zero scheduled floating-range cells
+and all 66 addressing-test cells unchanged. The PDP-10-specific
+`20020527-1.c` exercises compensated base/index displacements, not a
+requirement for extended memory, and remains active for backend repair.
+No full sweep or compiler installation was performed for this change.
+
 ## 2026-11-24 v34: KCC macro argument recursion suppression
 
 KCC margs() previously recreated argument tokens with tokize(), losing

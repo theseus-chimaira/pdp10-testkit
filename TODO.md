@@ -1,5 +1,12 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v35a:** Exclude `960405-1.c` from semantic scheduling on
+all native target profiles (66 historical failures, not passes).
+Retain its existing KCC overflow diagnostic validation and the full
+PDP-10 addressing regression `20020527-1.c` as separate coverage.
+Filter the v35a exclusion manifest out of future exact v28 replays;
+the runner intentionally rejects inactive cells in explicit cell lists.
+
 **2026-11-24 v33:** The four historical CPP tests with diagnostic-only
 `puts` calls now report the failed source line through `main`'s return
 value. All assertions are preserved, and the ownership audit pins the
