@@ -1,9 +1,10 @@
 /* Preserved KCC byte-pointer void round-trip semantics. */
 volatile int __test_exit;
 
-typedef signed _KCCtype_char9 char9;
-typedef unsigned _KCCtype_char9 uchar9;
-typedef signed _KCCtype_char18 short18;
+#include "pdp10-types.h"
+typedef pdp10_int9_t char9;
+typedef pdp10_uint9_t uchar9;
+typedef pdp10_int18_t short18;
 
 struct rec {
     char9 c9[4];

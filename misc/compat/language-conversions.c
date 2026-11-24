@@ -1,4 +1,4 @@
-#include "daimos-language.h"
+#include "pdp10-types.h"
 
 typedef long long daimos_int71_t;
 typedef unsigned long long daimos_uint71_t;
@@ -22,10 +22,10 @@ check_word_to_wide(void)
 static int
 check_narrow_to_wide(void)
 {
-    daimos_int6_t s6;
-    daimos_uint6_t u6;
-    daimos_int18_t s18;
-    daimos_uint18_t u18;
+    pdp10_int6_t s6;
+    pdp10_uint6_t u6;
+    pdp10_int18_t s18;
+    pdp10_uint18_t u18;
 
     s6 = -040;
     u6 = 077;

@@ -1,6 +1,7 @@
 /* Preserved regression source from gnu-packed-nested-wholecopy.sh. */
 volatile int __test_exit;
-typedef unsigned _KCCtype_char16 u16;
+#include "pdp10-types.h"
+typedef pdp10_uint16_t u16;
 struct inner {
     u16 x;
     unsigned int y:5;

@@ -1,11 +1,12 @@
 volatile int __test_exit;
-typedef signed _KCCtype_char6 c6;
-typedef signed _KCCtype_char7 c7;
-typedef signed _KCCtype_char8 c8;
-typedef signed _KCCtype_char9 c9;
-typedef signed _KCCtype_char16 c16;
-typedef signed _KCCtype_char18 c18;
-typedef signed _KCCtype_int32 c32;
+#include "pdp10-types.h"
+typedef pdp10_int6_t c6;
+typedef pdp10_int7_t c7;
+typedef pdp10_int8_t c8;
+typedef pdp10_int9_t c9;
+typedef pdp10_int16_t c16;
+typedef pdp10_int18_t c18;
+typedef pdp10_int32_t c32;
 static c6 a6[20]; static c7 a7[20]; static c8 a8[20]; static c9 a9[20];
 static c16 a16[20]; static c18 a18[20]; static c32 a32[20];
 int d6(p,q) c6*p,*q; { return p-q; }

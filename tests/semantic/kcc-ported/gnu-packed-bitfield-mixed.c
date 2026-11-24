@@ -1,7 +1,8 @@
 /* Preserved regression source from gnu-packed-bitfield-mixed.sh. */
 volatile int __test_exit;
-typedef unsigned _KCCtype_char16 u16;
-typedef unsigned _KCCtype_int32 u32;
+#include "pdp10-types.h"
+typedef pdp10_uint16_t u16;
+typedef pdp10_uint32_t u32;
 struct mix {
     unsigned char a;
     unsigned int b:5;

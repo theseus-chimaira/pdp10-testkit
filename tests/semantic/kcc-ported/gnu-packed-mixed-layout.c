@@ -1,10 +1,11 @@
 /* Preserved regression source from gnu-packed-mixed-layout.sh. */
 volatile int __test_exit;
-typedef unsigned _KCCtype_char16 u16;
-typedef unsigned _KCCtype_char18 u18;
-typedef unsigned _KCCtype_int32 u32;
-typedef signed _KCCtype_int32 s32;
-typedef signed _KCCtype_char16 s16;
+#include "pdp10-types.h"
+typedef pdp10_uint16_t u16;
+typedef pdp10_uint18_t u18;
+typedef pdp10_uint32_t u32;
+typedef pdp10_int32_t s32;
+typedef pdp10_int16_t s16;
 struct p16 { unsigned char a; u16 b; unsigned char c; } __attribute__((packed));
 struct p18 { unsigned char a; u18 b; unsigned char c; } __attribute__((packed));
 static struct p16 a16[2];

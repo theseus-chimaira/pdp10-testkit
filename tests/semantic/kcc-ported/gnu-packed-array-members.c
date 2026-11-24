@@ -1,8 +1,9 @@
 /* Preserved regression source from gnu-packed-array-members.sh. */
 volatile int __test_exit;
-typedef unsigned _KCCtype_char16 u16;
-typedef unsigned _KCCtype_char18 u18;
-typedef unsigned _KCCtype_int32 u32;
+#include "pdp10-types.h"
+typedef pdp10_uint16_t u16;
+typedef pdp10_uint18_t u18;
+typedef pdp10_uint32_t u32;
 struct pa {
     unsigned char tag;
     u16 a16[2];

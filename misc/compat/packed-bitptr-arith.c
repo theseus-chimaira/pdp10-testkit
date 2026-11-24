@@ -1,21 +1,22 @@
-#include "daimos-language.h"
+#include "pdp10-types.h"
+#include "test-compiler-compat.h"
 
 volatile int __test_exit;
 
 struct packed_bits_v23 {
     unsigned int pre:5;
-    daimos_uint16_t a[3];
+    pdp10_uint16_t a[3];
     unsigned int post:4;
-} DAIMOS_PACKED;
+} PDP10_PACKED;
 
 static struct packed_bits_v23 obj;
 
-static daimos_uint16_t rd(daimos_uint16_t *p, int i)
+static pdp10_uint16_t rd(pdp10_uint16_t *p, int i)
 {
     return p[i];
 }
 
-static void wr(daimos_uint16_t *p, int i, daimos_uint16_t v)
+static void wr(pdp10_uint16_t *p, int i, pdp10_uint16_t v)
 {
     p[i] = v;
 }

@@ -1,5 +1,17 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v39b: compiler-neutral PDP-10 integer types
+
+The shared exact-width type interface is now `support/common/pdp10-types.h`,
+with `pdp10_intN_t` / `pdp10_uintN_t` names and explicit compiler detection.
+Compiler attributes live in `test-compiler-compat.h`. Twenty ported tests
+use the same operations and width semantics under both compilers.
+The exact-width stride test retains separate documented char16 sizeof
+expectations. Compilation-only replay: 687/852 GCC cells compile,
+165 GCC ICEs remain (four packed-aggregate sources); 426/426 KCC guard
+cells compile. Runtime outcomes are not inferred from compilation.
+No compiler source change or full sweep.
+
 ## 2026-11-24 v37d: KCC runtime repairs
 
 Installed exact replay: 97/103 historical runtime cells PASS; six remain.

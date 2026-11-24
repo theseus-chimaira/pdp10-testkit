@@ -1,7 +1,8 @@
 /* Preserved regression source from exact-width-32-semantics.sh. */
 volatile int __test_exit;
-typedef signed _KCCtype_int32 s32;
-typedef unsigned _KCCtype_int32 u32;
+#include "pdp10-types.h"
+typedef pdp10_int32_t s32;
+typedef pdp10_uint32_t u32;
 struct pair32 { s32 a; u32 b; };
 static s32 gs = (s32)020000000000;
 static u32 gu = (u32)037777777777;

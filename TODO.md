@@ -1,5 +1,13 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v39b:** Replace KCC-only spellings in the 20 affected
+ported sources with `pdp10-types.h`. The 852 GCC compile-failure cells
+now split into 687 successful compilations (runtime replay pending)
+and 165 actual GCC ICEs. Prioritize packed aggregate ICEs in
+`manifests/PDP10-V28-GCC-REMAINING-COMPILE-20261124-v39b.tsv`.
+426/426 matching KCC cells compile. Do not treat compilation as
+semantic PASS. The independent v38 KCC work is not included here.
+
 **2026-11-24 v37d:** Six historical KCC runtime failures remain (enum
 bit-field policy, Karatsuba union arithmetic, prime interval step budget).
 97/103 installed historical cells and 66/66 new regression cells passed.

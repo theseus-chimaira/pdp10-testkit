@@ -1,10 +1,10 @@
-#include "daimos-language.h"
+#include "pdp10-types.h"
 
 static int
 check6(void)
 {
-    daimos_int6_t s[2];
-    daimos_uint6_t u[2];
+    pdp10_int6_t s[2];
+    pdp10_uint6_t u[2];
     s[0] = 037;
     s[1] = 040;
     u[0] = 077;
@@ -16,8 +16,8 @@ check6(void)
 static int
 check7(void)
 {
-    daimos_int7_t s;
-    daimos_uint7_t u;
+    pdp10_int7_t s;
+    pdp10_uint7_t u;
     s = 0100;
     u = 0200;
     return s == -0100 && u == 0;
@@ -26,8 +26,8 @@ check7(void)
 static int
 check8(void)
 {
-    daimos_int8_t s;
-    daimos_uint8_t u;
+    pdp10_int8_t s;
+    pdp10_uint8_t u;
     s = 0200;
     u = 0400;
     return s == -0200 && u == 0;
@@ -36,8 +36,8 @@ check8(void)
 static int
 check9(void)
 {
-    daimos_int9_t s[2];
-    daimos_uint9_t u[2];
+    pdp10_int9_t s[2];
+    pdp10_uint9_t u[2];
     s[0] = 0377;
     s[1] = 0400;
     u[0] = 0777;
@@ -49,8 +49,8 @@ check9(void)
 static int
 check18(void)
 {
-    daimos_int18_t s[2];
-    daimos_uint18_t u[2];
+    pdp10_int18_t s[2];
+    pdp10_uint18_t u[2];
     s[0] = 0377777;
     s[1] = 0400000;
     u[0] = 0777777;
@@ -62,10 +62,10 @@ check18(void)
 static int
 check16_32(void)
 {
-    daimos_int16_t s16;
-    daimos_uint16_t u16;
-    daimos_int32_t s32;
-    daimos_uint32_t u32;
+    pdp10_int16_t s16;
+    pdp10_uint16_t u16;
+    pdp10_int32_t s32;
+    pdp10_uint32_t u32;
 
     s16 = 0100000;
     u16 = 0200000;
@@ -83,8 +83,8 @@ main(void)
     if (!check8()) return 3;
     if (!check9()) return 4;
     if (!check18()) return 5;
-    if (!DAIMOS_HAVE_EXACT_INT6 || !DAIMOS_HAVE_EXACT_INT18) return 6;
-    if (!DAIMOS_HAVE_EXACT_INT16 || !DAIMOS_HAVE_EXACT_INT32) return 7;
+    if (!PDP10_HAVE_EXACT_INT6 || !PDP10_HAVE_EXACT_INT18) return 6;
+    if (!PDP10_HAVE_EXACT_INT16 || !PDP10_HAVE_EXACT_INT32) return 7;
     if (!check16_32()) return 8;
     return 0;
 }

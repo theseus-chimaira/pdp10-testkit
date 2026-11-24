@@ -7,7 +7,7 @@ pdp10_setup_env
 tmp=$TMPDIR/p10tk-representation-adapter-$$
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
 mkdir -p "$tmp"
-cp "$root/support/common/daimos-language.h" "$tmp/"
+cp "$root/support/common/pdp10-types.h" "$tmp/"
 cp "$root/support/common/raw72.h" "$tmp/"
 cp "$root/misc/compat/representation-adapter.h" "$tmp/"
 
