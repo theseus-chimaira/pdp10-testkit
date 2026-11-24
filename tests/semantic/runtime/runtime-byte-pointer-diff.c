@@ -74,8 +74,15 @@ int seed;                                                                 \
   return 1;                                                               \
 }
 
-DECL_PTR_DIFF_TEST(c6,    char6,    -31,     -31,     30,      30,      -7,      -7,      0100)
+/* The GCC PDP-10 built-in char6 is UNSIGNED (SIXBIT storage), while KCC
+   exposes a signed char6.  Use the explicitly signed int6 alias for the
+   common six-bit signed arithmetic oracle.  Separately verify the GCC
+   built-in char6 unsigned contract so neither behavior goes untested. */
+DECL_PTR_DIFF_TEST(c6,    int6,     -31,     -31,     30,      30,      -7,      -7,      0100)
 DECL_PTR_DIFF_TEST(uc6,   uchar6,   63,      63,      17,      17,      42,      42,      0120)
+#if defined(__GNUC__) && defined(__PDP10__)
+DECL_PTR_DIFF_TEST(c6builtin, char6, -31,   33,      30,      30,      -7,      57,      0600)
+#endif
 DECL_PTR_DIFF_TEST(c7,    char7,    -63,     -63,     62,      62,      -9,      -9,      0140)
 DECL_PTR_DIFF_TEST(uc7,   uchar7,   127,     127,     33,      33,      77,      77,      0160)
 DECL_PTR_DIFF_TEST(c8,    char8,    -127,    -127,    126,     126,     -11,     -11,     0200)
@@ -102,6 +109,9 @@ int seed;
 
   if (!test_ptr_diff_c6(seed)) return 0;
   if (!test_ptr_diff_uc6(seed)) return 0;
+#if defined(__GNUC__) && defined(__PDP10__)
+  if (!test_ptr_diff_c6builtin(seed)) return 0;
+#endif
   if (!test_ptr_diff_c7(seed)) return 0;
   if (!test_ptr_diff_uc7(seed)) return 0;
   if (!test_ptr_diff_c8(seed)) return 0;

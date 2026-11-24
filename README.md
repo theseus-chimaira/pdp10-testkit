@@ -1,5 +1,20 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v18: short16 pointer and byte-pointer correctness
+
+The GCC short16 byte-pointer handling now normalizes generic dynamic
+indices and constant symbolic addresses consistently, loads signed
+16-bit scalar values at their true width, and preserves the result
+register across native/logical pointer adjustment. The new registered
+`pdp10-short16-pointer-scaling-v18.c` test passes all 36 GCC cells in
+an isolated checkpoint directory. The older comprehensive byte-pointer
+test now passes its 9 GCC O0 profiles; 11 optimized run failures and
+16 timeouts remain recorded. The common six-bit test uses the signed
+`int6` contract and additionally tests GCC's unsigned SIXBIT `char6`.
+The four preceding unsigned-division source groups were also rerun
+against the updated compiler: 144/144 GCC PASS in isolation.
+See `history/PDP10-SHORT16-BYTEPTR-REPAIR-20261124-v18.md`.
+
 ## 2026-11-24 v17: unsigned SI division and remainder runtime repair
 
 One GCC backend defect accounted for 108 observed runtime failures:
