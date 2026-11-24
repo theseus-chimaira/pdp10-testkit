@@ -1,5 +1,19 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v51d:** Historical GCC exact-type cohort closed on review
+e7cf4fa: 88 packed-record cells recovered in v48g, final 44 in v51d.
+132/132 targeted cells and 265/265 cumulative guards pass. The exact
+remaining manifest v51d is empty. The separate 2520 historical runtime
+cells remain; resume the v46 memory/string investigation.
+New shared exact32 pointer regression fails at its first static packed
+pointer assertion on all 22 KCC profiles, on both installed v43 and
+review v49b; do not count this as an optimization regression.
+All 132 GCC speed cells measured: 33/33 each for O1/O0, Os/O0 speed,
+Os/O0 size, O2/O1; 12/33 O2/Os pass and 21 fail. Parallel historical
+audit v5: 1360 measurements, 212 distinct O2 regression configurations.
+Investigate on the current compiler, prioritizing RAM and speed.
+No full sweep, merge, installation or native RAM measurement.
+
 **2026-11-24 v47a:** Close 44 void-pointer runtime cells on review
 eef83fe. Remaining 132 exact-type cells:
 `manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v47a.tsv`.
