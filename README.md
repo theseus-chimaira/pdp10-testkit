@@ -1,3 +1,22 @@
+## Emulator execution matrix (v56l)
+
+`EMULATOR_MATRIX.tsv` is the CPU/address-model/backend capability ledger.
+The compiler matrix is still `COMPILER_MATRIX.tsv`. Replay uses the exact
+linked deposit image and exit expectations from an existing compiler sweep;
+it does not compile again or modify its checkpoints.
+
+```sh
+python3 tools/run-emulator-matrix-v56l.py --plan --out-dir workdir/emulator-plan-v56l
+python3 tools/run-emulator-matrix-v56l.py --from-dir workdir/gcc-global-init-local-guards-v56i --cpu ks10 --emulator all --out-dir workdir/emulator-replay-v56l -j 4
+```
+
+Use a fresh versioned output directory per invocation. Results distinguish
+primary recorded observations, independent passes/failures, unavailable
+executables, missing runtime images and pending adapters. Only SIMH and
+KLH10 currently have accepted runtime paths; KX10 and TS10 are registered
+but not yet enabled. KL10 C profiles await runtime/linker admission.
+The optional regression is `./run-misc-tests.sh run-id emulator-matrix-v56l --manual`.
+
 # PDP-10 compiler, assembler and CPU testkit
 
 ## 2026-11-24 v47a: exact-type recheck and void roundtrip

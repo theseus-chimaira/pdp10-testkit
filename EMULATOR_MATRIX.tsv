@@ -1,0 +1,20 @@
+# Runtime backend dimension of COMPILER_MATRIX.tsv; only architectural CPU matches.
+# pending_profile: ISA supported but compiler/runtime CPU profile not admitted.
+# pending_adapter: backend cannot yet replay and independently verify linked C images.
+cpu	address_model	emulator	executable	override_env	state	adapter
+pdp6	local	simh	pdp6	SIMH_PDP6	active	primary
+ka10	local	simh	pdp10-ka	SIMH_KA	active	primary
+ki10	local	simh	pdp10-ki	SIMH_KI	active	primary
+ks10	local	simh	pdp10-ks	SIMH_KS	active	primary
+ks10	local	klh10	kn10-ks	KLH10_KS	active	klh10-local
+ks10	local	ts10	ts10	TS10	pending_adapter	none
+kl10a	local	simh	pdp10-kl	SIMH_KL	pending_profile	none
+kl10a	local	ts10	ts10	TS10	pending_adapter	none
+kl10b	local	simh	pdp10-kl	SIMH_KL	pending_profile	none
+kl10b	local	klh10	kn10-kl	KLH10_KL	pending_profile	klh10-local
+kl10b	local	kx10	kx10	KX10	pending_adapter	none
+kl10b	local	ts10	ts10	TS10	pending_adapter	none
+kl10b	extended	simh	pdp10-kl	SIMH_KL	pending_profile	none
+kl10b	extended	klh10	kn10-kl	KLH10_KL	pending_profile	none
+kl10b	extended	kx10	kx10	KX10	pending_adapter	none
+kl10b	extended	ts10	ts10	TS10	pending_adapter	none

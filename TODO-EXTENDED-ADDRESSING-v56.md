@@ -104,3 +104,19 @@ The installed production tools remain unchanged until acceptance.
   after each completed stage; commit and push each verified repair.
 - [ ] Install only accepted toolchain artifacts through local.tar.gz under
   PDP10_PREFIX. DAIMOS implementation remains out of scope.
+
+## Additional emulator matrix (v56l)
+
+- [x] Register supported CPU/address-model pairs for SIMH, KLH10, KX10
+  and TS10 in EMULATOR_MATRIX.tsv.
+- [x] Replay unchanged linked KS10 GCC/KCC images on KLH10, preserving
+  primary compiler results and original guest exit oracles.
+- [ ] Finish KX10 build installation and independently verified image
+  loading / guest memory observation adapter.
+- [ ] Complete TS10 build and verified KS10/KL10A/KL10B replay adapter.
+- [ ] Admit genuine KL10A local and KL10B local/extended compiler cells
+  when their runtime and linker prerequisites are accepted.
+
+Pending backend rows are not compiler failures or passes. The existing
+compiler matrix is unchanged; all supported execution pairs are planned
+without falsely admitting unsupported CPUs or unverified backends.

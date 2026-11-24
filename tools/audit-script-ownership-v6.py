@@ -101,6 +101,7 @@ def audit():
                 allowed = {
                     'compat-entrypoint': {'misc/tools/run.sh'},
                     'entrypoint': {'tools/run-tests.py',
+                                   'tools/run-emulator-matrix-v56l.py',
                                    'tools/run-misc-suites.py'},
                     'manual-tool': {'tools/audit-gcc-c-feasibility-v1.py',
                                     'tools/census-cross-repo-v1.py',
