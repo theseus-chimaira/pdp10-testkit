@@ -73,8 +73,14 @@ fi
 run_mode()
 {
     mode=$1
-    total=0
-    for src in $all_src; do total=$((total + 1)); done
+    wideprobe="$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-wide-literal-v36b.c"
+    if [ "${KCC_PHASE_WIDE_ONLY:-0}" = 1 ]; then
+        set -- "$wideprobe"
+    else
+        # shellcheck disable=SC2086
+        set -- $all_src "$wideprobe"
+    fi
+    total=$#
     case "$mode" in
     opt) optflag=-O ;;
     noopt) optflag=-n ;;
@@ -82,8 +88,11 @@ run_mode()
     esac
 
     n=0
-    for src in $all_src; do
-        b=${src%.c}
+    for src do
+        b=${src##*/}
+        b=${b%.c}
+        # Native phase paths have a 102-character limit.
+        if [ "$src" = "$wideprobe" ]; then b=wide36; fi
         n=$((n + 1))
         printf 'phase-byte-identity %s [%02d/%02d] %s\n' "$mode" "$n" "$total" "$src"
 
@@ -134,6 +143,13 @@ run_mode()
             # therefore cannot be byte-identical at -O.  At -n bindopt
             # is disabled, so enforce complete phase identity there.
             test -s "$work/kopt-kir/$b-$mode.s"
+            if [ "$src" = "$wideprobe" ]; then
+                # The 36-bit escape has nonzero bits above the host's
+                # usual 32-bit int. Also retain the Unicode wide value.
+                grep -Eq '\.word[[:space:]]+0?44321263611([[:space:]]|$)' "$work/kopt-kir/$b-$mode.s"
+                grep -Eq '\.word[[:space:]]+0?373000([[:space:]]|$)' "$work/kopt-kir/$b-$mode.s"
+                echo "KIR1 wide string word transport: PASS ($mode)"
+            fi
         fi
     done
 

@@ -30,7 +30,7 @@ C99
     "$work/check.c" "$KCC_REPO/ccsrc.c" -o "$work/check"
 "$work/check" "$work/input.s6"
 "$PDP10_PREFIX/bin/kcc" -Pgnu99 -x=pdp6 -m=gas \
-    -DHOST_DAIMOS=1 -DHOST_UNIX=0 -I"$KCC_REPO/self/include" \
+    -DHOST_DAIMOS=1 -DHOST_UNIX=0 -I"$KCC_REPO/self/include" -I"$KCC_REPO" \
     -S "$KCC_REPO/ccsrc.c" -o "$work/ccsrc.s" >/dev/null
 "$PDP10_PREFIX/bin/das" -F -C -O "$work/ccsrc.dobj" "$work/ccsrc.s"
 [ -s "$work/ccsrc.dobj" ]

@@ -1,5 +1,20 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v36c: KCC native wide and high-byte literals
+
+The hosted KCC now implements wide-character constants and wide string
+arrays using the existing 36-bit int type and wchar_t typedef. Mixed
+prefixes promote only the current literal; ordinary narrow storage
+remains compact. Explicit literal flags preserve encoded octets through
+KIR1. The host byte source reader no longer strips bit 7; native packed
+ASCII and C-SIX decoding remain unchanged. Installed exact replay:
+44/44 original cells (22 compile failures and 22 runtime failures),
+22/22 new wide-literal regression cells. KCC historical backlog is now
+103 runtime failures; no compilation or link failures remain. Targeted
+hosted split-phase transport and native PDP-6 module cross-compilation
+passed; native phase execution and GCC are not claimed. See
+`history/KCC-LITERAL-REPAIRS-20261124-v36c.md`.
+
 ## 2026-11-24 v36a: KCC-only historical failure scope
 
 The installed C99 scope recheck passes 4/4 additional original cells.

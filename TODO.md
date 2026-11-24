@@ -1,15 +1,12 @@
 # PDP-10 testkit — outstanding work
 
-**2026-11-24 v36a:** KCC-only historical repair scope: 147 actionable
-cells remain (22 wide-string compilation failures and 125 runtime
-failures). Four C99 scope runtime cells passed the installed replay.
-GNU empty structures are intentionally unsupported for KCC (22 cells),
-not a hardware limitation or a PASS. All 44 GCC cells stay active.
-The v35e results remain historical. Use the exact remaining-cell
-manifest `manifests/PDP10-V28-KCC-REMAINING-20261124-v36a.tsv`.
-GCC work, including 852 KCC-specific type cases and 4 weak aliases,
-is deferred. Wide literals must reuse existing 36-bit integer types;
-ordinary narrow strings must retain their compact storage.
+**2026-11-24 v36c:** Remaining KCC cohort: 103 runtime failures,
+zero compilation and linker failures. The two literal sources passed
+44/44 installed cells. The new regression passed 22/22 KCC profiles;
+GCC is pending, not excluded. Continue from
+`manifests/PDP10-V28-KCC-REMAINING-20261124-v36c.tsv` only.
+GNU empty structures remain intentionally unsupported in KCC (22 cells).
+GCC work remains deferred. No full sweep performed.
 
 **2026-11-24 v35b:** Universally target-inapplicable semantic tests
 are removed rather than retained as all-unsupported rows. The only
