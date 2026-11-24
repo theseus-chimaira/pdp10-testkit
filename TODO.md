@@ -1,5 +1,14 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v33:** The four historical CPP tests with diagnostic-only
+`puts` calls now report the failed source line through `main`'s return
+value. All assertions are preserved, and the ownership audit pins the
+exact diagnostic transformation against the unchanged upstream sources.
+The 20 historical link-failing cells (16 GCC, four KCC) need future
+execution verification; do not mark them PASS yet. No emulator or
+console backend and no `puts` implementation are needed for these
+tests. Genuine console tests remain separate. No sweep was started.
+
 **2026-11-24 KCC v32:** The Unix-hosted compiler's `static inline`
 reachability and function-address comparison bug is repaired:
 the four historical `20011115-1.c` link errors now pass. The staged

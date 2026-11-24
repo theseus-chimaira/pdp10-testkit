@@ -1,5 +1,20 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v33: console-free historical CPP diagnostics
+
+The four historical semantic sources `digraphs.c`, `macro1.c`,
+`paste2.c` and `strify3.c` now return `__LINE__` from `main` on an
+assertion failure instead of printing a message and calling `abort`.
+All assertion expressions and success returns are unchanged. The
+existing `__test_exit` oracle records the nonzero failure line.
+Upstream snapshots and historical batch manifests remain unchanged;
+the ownership audit requires the exact diagnostic-only adaptation.
+This removes the source-level `puts` dependency behind 16 GCC and
+four KCC historical link failures. No console backend, emulator
+integration or libc implementation is involved. No compilation,
+guest run or sweep has been performed; all 20 cells await verification.
+Historical results below remain as recorded.
+
 ## 2026-11-24 v32: reachability-aware KCC static-inline output
 
 The hosted KCC now folds identical function-designator comparisons

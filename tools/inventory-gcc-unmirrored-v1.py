@@ -255,6 +255,35 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def cpp_diagnostic_adaptation_v33(owner, expected, historical_hash):
+    """Allow only the four approved console-free failure diagnostics.
+
+    Keep the historical batch hashes and upstream snapshots immutable.
+    The current owner must match the exact transformation byte for byte.
+    """
+    owners = {
+        'tests/semantic/gcc-historical-b08-v1/digraphs.c',
+        'tests/semantic/gcc-historical-b09-v1/macro1.c',
+        'tests/semantic/gcc-historical-b09-v1/paste2.c',
+        'tests/semantic/gcc-historical-b09-v1/strify3.c',
+    }
+    if owner not in owners:
+        return expected, historical_hash
+    replacements = (
+        (b'extern int puts (const char *);\n', b''),
+        (b'extern void abort (void);\n', b''),
+        (b'#define err(str) do { puts(str); abort(); } while (0)\n',
+         b'/* Report the failed assertion line through the bare-metal exit oracle. */\n'
+         b'#define err(str) do { return __LINE__; } while (0)\n'),
+    )
+    if (digest(expected) != historical_hash or
+            any(expected.count(old) != 1 for old, _ in replacements)):
+        raise ValueError('v33 historical diagnostic source mismatch: ' + owner)
+    for old, new in replacements:
+        expected = expected.replace(old, new)
+    return expected, digest(expected)
+
+
 def token_grams(data):
     """Cheap similarity hints, NOT semantic or assertion equivalence."""
     source = data.decode('latin-1')
@@ -909,9 +938,11 @@ def verify_sources():
             expected = (b'/* codegen-kcc-preprocess: source */\n' + original_data
                         if owner.endswith(('if-sc.c', 'if-unary.c', 'include1.c'))
                         else original_data)
+            expected, expected_hash = cpp_diagnostic_adaptation_v33(
+                owner, expected, row['integrated_sha256'])
             src = ROOT / owner
             if (not src.is_file() or src.read_bytes() != expected or
-                    digest(src.read_bytes()) != row['integrated_sha256']):
+                    digest(src.read_bytes()) != expected_hash):
                 errors.append('batch08 adapted source mismatch: ' + path)
         elif (scope != 'none' or row['test_kind'] or owner or
               row['integrated_sha256'] or row['gcc_profiles'] or
@@ -1000,9 +1031,11 @@ def verify_sources():
             original_data = snapshot_path(path).read_bytes()
             expected = (b'/* codegen-kcc-preprocess: source */\n'
                         if owner.rsplit('/', 1)[-1] in preprocess9 else b'') + original_data
+            expected, expected_hash = cpp_diagnostic_adaptation_v33(
+                owner, expected, row['integrated_sha256'])
             src = ROOT / owner
             if (not src.is_file() or src.read_bytes() != expected or
-                    digest(src.read_bytes()) != row['integrated_sha256']):
+                    digest(src.read_bytes()) != expected_hash):
                 errors.append('batch09 adapted source mismatch: ' + path)
         elif (scope != 'none' or row['test_kind'] or owner or
               row['integrated_sha256'] or row['gcc_profiles'] or

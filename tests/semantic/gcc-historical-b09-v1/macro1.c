@@ -4,11 +4,10 @@
 
 /* Tests various macro abuse is correctly expanded.  */
 
-extern int puts (const char *);
-extern void abort (void);
 extern int strcmp(const char *s1, const char *s2);
 
-#define err(str) do { puts(str); abort(); } while (0)
+/* Report the failed assertion line through the bare-metal exit oracle. */
+#define err(str) do { return __LINE__; } while (0)
 #define j(x, y) x + y
 #define k(x, y) j(x + 2, y +
 #define glue(x, y) x ## y

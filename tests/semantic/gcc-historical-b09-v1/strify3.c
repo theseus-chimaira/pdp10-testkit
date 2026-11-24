@@ -9,9 +9,8 @@
    Neil Booth, 24 Sep 2001.  */
 
 extern int strcmp (const char *, const char *);
-extern int puts (const char *);
-extern void abort (void);
-#define err(str) do { puts(str); abort(); } while (0)
+/* Report the failed assertion line through the bare-metal exit oracle. */
+#define err(str) do { return __LINE__; } while (0)
 
 #define str(x) #x
 #define xstr(x) str(x)
