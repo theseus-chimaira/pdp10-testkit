@@ -185,4 +185,3 @@ tools/audit-script-ownership-v4.py	superseded	tools/audit-script-ownership-v5.py
 tools/audit-test-inventory-v1.py	superseded	tools/audit-test-inventory-v2.py	Previous inventory auditor retained; v2 recognizes current BADL owner and preserves historical evidence
 tools/audit-raw-p10run-v1.py	superseded	tools/audit-raw-p10run-v2.py	Versioned v2 compiler evidence and SHA256-pinned source review replaces v1 lexical census
 tools/audit-script-ownership-v5.py	superseded	tools/audit-script-ownership-v6.py	Versioned ownership audit tracks superseded raw p10run census and itself
-tools/run-emulator-matrix-v56l.py	entrypoint		Independent emulator execution dimension of canonical compiler cells
