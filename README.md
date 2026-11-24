@@ -1,5 +1,13 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v45b: GCC floating conversion repairs
+
+Review 5c89d46 recovers 30 historical floating-point cells.
+44 new boundary regression cells and 76 existing guards pass.
+The 16 packed-unaligned complex failures still reproduce.
+Staged backlog 2696 cells. See history/GCC-FLOAT-CONVERSION-REPAIRS-20261124-v45b.md.
+No installation or full sweep.
+
 ## 2026-11-24 v44b: GCC small repairs and string folding
 
 Review f11b292 passes 264 targeted GCC cells; 22 KCC string checks

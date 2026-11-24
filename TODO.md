@@ -1,5 +1,10 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v45b:** All 30 historical floating conversion cells
+recovered on review 5c89d46; 44 new and 76 existing guards pass.
+16 packed-complex cells still fail and belong to aggregate work.
+Staged backlog 2696. Cumulative acceptance and installation pending.
+
 **2026-11-24 v44b:** 108 historical GCC cells recovered in
 v44/v44b, staged backlog 2726. Remaining exact-type cells 176.
 Continue smaller floating-point and complex groups, then other
