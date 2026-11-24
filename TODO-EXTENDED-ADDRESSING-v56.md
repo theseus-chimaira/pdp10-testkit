@@ -26,8 +26,8 @@ Independent second emulator (v56e):
 - [x] Build and install KLH10 KL10B and KS10 under PDP10_PREFIX.
 - [x] Replay local execution on both models, cross-section positive and
   negative controls on KL10B, and all 92 global ISA assertions on KLH10.
-- [ ] Integrate optional KLH10 execution into the common C matrix after
-  the host-only extended image transport is available (EA03/EA04).
+- [x] Use KLH10 only in dedicated extended-address regression tests.
+  Do not add CPU profiles or emulator backends to COMPILER_MATRIX.tsv.
 
 ## EA02: Define and implement assembler/object relocation contract
 
@@ -55,11 +55,13 @@ The installed production tools remain unchanged until acceptance.
 
 ## EA03: Host-only link and execution transport
 
-- [ ] Support explicit section placement for code, data and stack, and
-  cross-section symbol resolution. No change to DAIMOS DXR formats.
-- [ ] Add a separate host-only execution transport for extended programs,
+- [x] Initial host-only explicit TEXT, DATA and BSS placement and
+  cross-section symbol resolution, with an independently mapped stack.
+  No changes to DAIMOS DXR formats.
+- [ ] Support multiple TEXT placement ranges and cross-section C calls.
+- [x] Add a separate host-only execution transport for extended programs,
   preserving physical/virtual address distinction and sparse placement.
-- [ ] Add nonzero-section startup, exact HALT/sentinel validation and
+- [x] Add nonzero-section startup, exact HALT/sentinel validation and
   negative controls to the test harness. Preserve local profile behavior.
 - [ ] Exercise relocation at nonzero sections and section boundaries,
   including function pointers, static initializers and external symbols.
@@ -70,7 +72,12 @@ The installed production tools remain unchanged until acceptance.
   conversions, signed ADJBP folding and nested initializer casts (v56i).
   Verify object contents in all four optimization modes. These are
   object-generation checks, not extended runtime passes.
-- [ ] Establish four optimization profiles (O0/O1/O2/Os) with staged GCC.
+- [x] Execute dedicated native pointer C regression at O0/O1/O2/Os
+  with independently mapped code, data, BSS and global stack on SIMH
+  and KLH10 (v56m/v56n/v56o).
+- [x] Correct DAS XMOVEI opcode 0415 and GCC native extended halfword
+  loads/stores. Local packed bit-pointer representation remains unchanged;
+  global exact-width packed pointers need further work.
 - [ ] Audit supported code models; reject unsupported combinations.
 - [ ] Fix extended record-array ICE in expr.c and all demonstrated
   incorrect pointer arithmetic, conversions and address materialization.
@@ -80,8 +87,9 @@ The installed production tools remain unchanged until acceptance.
   function pointers and cross-section control flow.
 - [ ] Build and validate extended libgcc and freestanding C runtime;
   audit global byte subtraction tables and memory/string operations.
-- [ ] Verify multi-section tests before admitting existing C sources to a
-  separate extended-address failure matrix. No C++ acceptance requirement.
+- [ ] Verify multi-section tests in dedicated regressions outside the
+  existing compiler matrix. No additional CPU/emulator profiles or C++
+  acceptance requirement.
 
 ## EA05: KCC C compiler and common ABI
 
