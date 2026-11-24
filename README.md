@@ -1,5 +1,17 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v17: unsigned SI division and remainder runtime repair
+
+One GCC backend defect accounted for 108 observed runtime failures:
+unsigned 36-bit numerators lost bit 35 in the low accumulator of the
+70-bit DIV instruction. Rebuilt GCC now passes all 108 original
+division, remainder, and combined div/mod cells. A new C89
+constant-divisor test is registered in the matrix and passes all 36
+GCC cells. The matrix now has 124,091 scheduled cells; 52,636 have
+checkpoints, including 2,927 still-recorded `run_fail` statuses and
+four interrupted `running` statuses. No complete-sweep claim.
+See `history/PDP10-GCC-UNSIGNED-DIVMOD-RUNTIME-20261124-v17.md`.
+
 ## 2026-11-23 v16: interrupted sweep, ICE and CHAR_BIT repairs
 
 The interrupted full sweep was resumed without losing existing PASS
