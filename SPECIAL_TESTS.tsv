@@ -431,3 +431,4 @@ klh10-isa-v56e	validation	python3	tools/test-klh10-isa-v56e.py	multi-cpu	manual	
 dobj2-global-address-v56h	validation	python3	tools/test-dobj2-global-address-v56h.py	host	manual	120
 gcc-global-static-pointer-v56i	validation	python3	tools/test-gcc-global-static-pointer-v56i.py	kl10	manual	120
 kl10b-extended-link-v56m	validation	python3	tools/test-kl10b-extended-link-v56m.py	kl10	manual	240
+gcc-global-record-v56p	validation	python3	tools/test-gcc-global-record-v56p.py	kl10	manual	240

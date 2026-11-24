@@ -79,8 +79,14 @@ The installed production tools remain unchanged until acceptance.
   loads/stores. Local packed bit-pointer representation remains unchanged;
   global exact-width packed pointers need further work.
 - [ ] Audit supported code models; reject unsupported combinations.
-- [ ] Fix extended record-array ICE in expr.c and all demonstrated
-  incorrect pointer arithmetic, conversions and address materialization.
+- [x] Fix extended native record-array ICE in expr.c, dynamic member
+  address construction and invalid aligned-global-byte-load shortcut.
+  Native 9/18-bit pointer differences use 30-bit address coordinates
+  and selector differences rather than runtime tables (v56q). Both
+  dedicated record and existing switch regressions pass all four
+  optimization modes on SIMH and KLH10.
+- [ ] Investigate remaining pointer widths, exact-width packed objects,
+  aggregate layouts and integer multiply code generation separately.
 - [ ] Verify native byte/halfword/word pointers and explicit-width packed
   data, signed differences, side effects, static and indirect addressing.
 - [ ] Validate global stack, direct/indirect calls, aggregate ABI, varargs,

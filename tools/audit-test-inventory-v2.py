@@ -41,6 +41,8 @@ REQUIRED_ACTIVATIONS = frozenset(("active", "deferred", "removed",
 # executed by an owning registered script/source; they must not be scheduled
 # as independent main programs.  Keep this map strict so new orphans fail.
 SUPPORT_SOURCE_OWNERS = {
+    "tests/codegen/kl10/gcc-global-record-pointer-v56p.c":
+        "tools/test-gcc-global-record-v56p.py",
     "tests/codegen/kl10/gcc-global-execution-v56m.c":
         "tools/test-kl10b-extended-link-v56m.py",
     "tests/codegen/kl10/gcc-global-static-pointer-v56h.c":

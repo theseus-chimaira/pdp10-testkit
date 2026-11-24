@@ -78,7 +78,7 @@ def deposits(path):
     return phys,mapword,entry
 
 
-def execute(path, work, expected, halt_pc, want=0):
+def execute(path, work, expected, halt_pc, want=0, steps=10000):
     phys,mapped,entry=deposits(path)
     probes={1:want,6:0o765,0o17:STACK}
     probes.update({mapped(a):w for a,w in expected.items()})
@@ -87,7 +87,7 @@ def execute(path, work, expected, halt_pc, want=0):
     ini=work/'extended-v56m-run.ini'
     lines=['set cpu kl10b','set cpu 256K','set cpu noidle','set cpu history=100']
     lines += [f'deposit {a:o} {w:012o}' for a,w in sorted(phys.items())]
-    lines += ['deposit pc 100','step 10000','examine pc_sect','examine t20_page']
+    lines += ['deposit pc 100',f'step {steps:d}','examine pc_sect','examine t20_page']
     lines += [f'examine {a:o}' for a in probes]+['show cpu history=40','quit']
     ini.write_text('\n'.join(lines)+'\n')
     sim=os.environ.get('SIMH_KL') or str(Path(os.environ['PDP10_PREFIX'])/'bin/pdp10-kl')
