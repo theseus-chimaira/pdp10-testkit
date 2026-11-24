@@ -1,5 +1,10 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v43:** Historical KCC six-cell backlog closed by
+installed b57fa3e; 169 staged guards and seven compatibility scripts
+passed. Remaining KCC work is native-phase verification and RAM
+measurement, not those six historical failures. No full sweep.
+
 **2026-11-24 v42a:** 132 further historical cells recovered.
 544/544 selected historical cells pass. Remaining 308 cells:
 `manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v42a.tsv`.

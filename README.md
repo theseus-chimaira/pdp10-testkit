@@ -1,5 +1,13 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v43: historical KCC runtime closure
+
+KCC b57fa3e installed. Six previously failing cells still failed on the
+previous installed compiler, then all six passed on the rebased repair.
+169 staged guards and seven compatibility scripts passed. Zero active
+KCC failures remain in the tracked historical v28 cohort, not a full
+matrix claim. See `history/KCC-RUNTIME-CLOSURE-20261124-v43.md`.
+
 ## 2026-11-24 v42a: GCC explicit packed element counts
 
 Review d30e21b passes 544/544 historical cells (132 recoveries,
