@@ -168,6 +168,41 @@ def read_source_list(path, registered):
     return tuple(names)
 
 
+def read_failure_cell_list(path):
+    """Read exact prior failures for a bounded, independently run replay.
+
+    This is only a *selection*: old statuses never become new expected
+    outcomes.  Every selected cell must still exist in the active matrix,
+    and the normal runner applies the original unmodified semantic oracle.
+    """
+    keys = set()
+    required = ('test', 'machine', 'compiler', 'profile', 'kind', 'status')
+    try:
+        with Path(path).expanduser().open('r', encoding='utf-8',
+                                          newline='') as stream:
+            reader = csv.DictReader(stream, delimiter='\t')
+            if not reader.fieldnames or not all(f in reader.fieldnames
+                                                 for f in required):
+                raise ValueError('cell list requires TSV fields: ' +
+                                 ','.join(required))
+            for lineno, row in enumerate(reader, 2):
+                key = tuple((row.get(f) or '').strip() for f in required[:5])
+                status = (row.get('status') or '').strip()
+                if not key[0].startswith('tests/') or not key[0].endswith('.c'):
+                    raise ValueError('invalid source at line %d' % lineno)
+                if status not in FAIL_STATUSES | set(['running', 'not_run']):
+                    raise ValueError('not a failing/incomplete cell at line %d: %s' %
+                                     (lineno, status))
+                if not all(key) or key in keys:
+                    raise ValueError('incomplete/duplicate cell at line %d' % lineno)
+                keys.add(key)
+    except (OSError, UnicodeError) as error:
+        raise ValueError('cannot read cell selection: ' + str(error))
+    if not keys:
+        raise ValueError('empty cell selection: ' + str(path))
+    return keys
+
+
 def safe_name(s):
     s = s.replace('/', '_').replace('.c', '')
     return re.sub(r'[^A-Za-z0-9_.-]+', '_', s)
@@ -691,6 +726,9 @@ Restart behavior:
     source_group.add_argument('--source-file', default=None, metavar='PATH',
                               help='read exact matrix source paths, one per line; '
                                    'comments and blanks allowed, duplicates rejected')
+    source_group.add_argument('--cell-file', default=None, metavar='PATH',
+                              help='replay only exact failing/incomplete cells '
+                                   'listed in prior checkpoint TSV (no PASS cells)')
     ap.add_argument('--skip-failures', action='store_true',
                     help='also skip old failing cells, not only pass/compile_only cells')
     ap.add_argument('--exit-policy', choices=('strict', 'ice-only'),
@@ -1767,6 +1805,7 @@ def write_summary(path, outroot, args, semantic_test_count, codegen_test_count, 
         f.write('kind_filter=%s\n' % args.kind)
         f.write('source_filter=%s\n' % (args.source or 'all'))
         f.write('source_file=%s\n' % (args.source_file or 'none'))
+        f.write('cell_file=%s\n' % (args.cell_file or 'none'))
         f.write('exit_policy=%s\n' % args.exit_policy)
         f.write('checkpoint_model=per-cell status\n')
         f.write('matrix=COMPILER_MATRIX.tsv\n')
@@ -1852,6 +1891,7 @@ def main():
     validate_filter_combo(family_filter, cpu_filter)
 
     rows = split_rows()
+    requested_cells = None
     if args.source is not None:
         rows = [row for row in rows if row.get('test') == args.source]
         if len(rows) != 1:
@@ -1866,10 +1906,32 @@ def main():
         rows = [row for row in rows if row['test'] in names]
         if len(rows) != len(names):
             die('source selection lost a matrix row')
+    elif args.cell_file is not None:
+        try:
+            requested_cells = read_failure_cell_list(args.cell_file)
+        except ValueError as error:
+            die(str(error))
+        names = set(k[0] for k in requested_cells)
+        rows = [row for row in rows if row.get('test') in names]
+        if len(rows) != len(names):
+            die('cell selection contains sources not uniquely registered '
+                'in COMPILER_MATRIX.tsv: %s' %
+                ','.join(sorted(names - set(r['test'] for r in rows))))
     profiles_all = all_profiles()
     profiles = [p for p in profiles_all if profile_selected(p, compiler_filter, family_filter, cpu_filter, opt_filter)]
     kind_filter = None if args.kind == 'all' else args.kind
     semantic_cells, codegen_cells, missing_sources, ignored_status = build_cells(rows, profiles, kind_filter)
+    if requested_cells is not None:
+        found = set(cell_key(src, cell) for src, cell in
+                    semantic_cells + codegen_cells)
+        unregistered = requested_cells - found
+        if unregistered:
+            die('cell selection has %d missing/inactive matrix cells; '
+                'first: %s' % (len(unregistered), sorted(unregistered)[0]))
+        semantic_cells = [(src, cell) for src, cell in semantic_cells
+                          if cell_key(src, cell) in requested_cells]
+        codegen_cells = [(src, cell) for src, cell in codegen_cells
+                         if cell_key(src, cell) in requested_cells]
     scheduled_total = len(semantic_cells) + len(codegen_cells)
     selected_by_compiler = selected_counts_by_compiler(semantic_cells, codegen_cells)
     semantic_test_count, codegen_test_count, negative_test_count = known_test_counts(rows)
@@ -1936,6 +1998,7 @@ def main():
         f.write('kind_filter=%s\n' % args.kind)
         f.write('source_filter=%s\n' % (args.source or 'all'))
         f.write('source_file=%s\n' % (args.source_file or 'none'))
+        f.write('cell_file=%s\n' % (args.cell_file or 'none'))
         f.write('skip_failures=%s\n' % ('yes' if args.skip_failures else 'no'))
         f.write('jobs=%d\n' % args.jobs)
         f.write('matrix=COMPILER_MATRIX.tsv\n')

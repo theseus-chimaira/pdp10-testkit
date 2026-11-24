@@ -553,6 +553,17 @@ For outstanding work and the **explicit stop point before the full
 sweep**, see `TODO.md`. Source-specific historical evidence is retained
 in `history/` and source ownership is recorded in `manifests/`.
 
+**Exact historical failure replay (v28):** The runner accepts
+`--cell-file PATH`, a TSV with fields `test`, `machine`, `compiler`,
+`profile`, `kind`, and `status`. Only actual failing or incomplete
+historical cells can be selected; a PASS row, duplicate, unknown or
+inactive matrix cell is rejected. The current `COMPILER_MATRIX.tsv`
+still owns each cell and its unchanged test oracle. Use a **new**
+versioned `--out-dir` to avoid rewriting previous full-sweep
+checkpoints. The selection can be reviewed with `--list-only`.
+`tools/test-exact-failure-selection-v28.py` validates the parser,
+selection identity and fail-closed handling of invalid manifests.
+
 **ICE-focused full harness integration (2026-11-21):** All 67 P1
 historical identities now have a compiler/ISA harness owner, including
 38 newly registered unchanged C originals, the existing reviewed
