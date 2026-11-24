@@ -24,6 +24,9 @@ KL10B simulator. This is an ISA reference, not compiler acceptance.
 ## EA02: Define and implement assembler/object relocation contract
 
 - [x] Audit selector and indirect-word encodings against KL10B execution.
+  Installed DAS baseline: 21 selectors incorrectly emitted as local P/S
+  pointers, five before-first selectors rejected (0/26 correct). See
+  `manifests/PDP10-DAS-OWGBP-BASELINE-20261124-v56c.tsv`.
 - [ ] Correct DAS OWGBP encoding and local-address test oracles that
   incorrectly expect a local P/S pointer for OWGBP.
 - [ ] Preserve 30 address bits and six selector/control bits; support
