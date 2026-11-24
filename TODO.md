@@ -1,5 +1,11 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v42:** 88 more historical packed-pointer runtime cells
+recovered; 412/412 historical acceptance and 44/44 packed-slice PASS.
+440 remain in `manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v42.tsv`.
+Follow-on v42a candidate d30e21b has promising probes; acceptance
+pending. No compiler installation or full sweep.
+
 **2026-11-24 v41b:** Recover 176 packed aggregate runtime cells.
 324/324 historical acceptance cells pass, 44/44 new packed-copy
 regression cells pass, and 32/32 existing pointer guards pass.

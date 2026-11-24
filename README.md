@@ -1,5 +1,13 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v42: exact16 packed pointer subtraction
+
+Staged GCC review commit 3c547c4 passes 412/412 historical cells
+(88 recoveries, 324 guards), plus 44/44 packed-slice checks.
+440 exact-type failures remain. See
+`history/GCC-PACKED-POINTER-REPAIRS-20261124-v42.md`.
+Compiler not merged or installed.
+
 ## 2026-11-24 v41b: GCC packed aggregate runtime repairs
 
 Staged review commit d4867fe passes 324/324 selected historical cells,
