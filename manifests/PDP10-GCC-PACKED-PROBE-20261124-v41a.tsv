@@ -1,0 +1,15 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/kcc-ported/gnu-packed-array-members.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-array-members.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-bitfield-mixed.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-bitfield-mixed.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-union.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-union.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-chained-assignment.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-chained-assignment.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-mixed-layout.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-mixed-layout.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-nested-byvalue.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-nested-byvalue.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-nested-wholecopy.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-nested-wholecopy.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail

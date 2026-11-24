@@ -1,5 +1,14 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v41b:** Recover 176 packed aggregate runtime cells.
+324/324 historical acceptance cells pass, 44/44 new packed-copy
+regression cells pass, and 32/32 existing pointer guards pass.
+Continue from `manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v41b.tsv`
+(528 cells). Fix indirect packed pointer addressing and exact-width
+conversions next. Review branch d4867fe not installed. Diagnostic
+branch 61b50b5 improves constant array stores but has no complete
+new PASS. Original 2614 GCC runtime failures remain separate.
+
 **2026-11-24 v40a:** Exact GCC 852-cell staged replay completed:
 148 PASS, 704 runtime assertion failures. No remaining ICEs in this
 cohort on the review build; all 165 former ICEs now fail at runtime.

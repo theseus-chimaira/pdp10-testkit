@@ -1,5 +1,14 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v41b: GCC packed aggregate runtime repairs
+
+Staged review commit d4867fe passes 324/324 selected historical cells,
+including 176 newly recovered cells and all 148 previous PASS guards.
+All 165 former ICE cells now PASS. New packed-slice regression 44/44
+and existing pointer guard 32/32 PASS. 528 runtime cells remain in
+the exact-type cohort. Candidate not installed or merged. See
+`history/GCC-PACKED-RUNTIME-REPAIRS-20261124-v41b.md`.
+
 ## 2026-11-24 v40a: GCC exact-type runtime verification
 
 Staged GCC review commit 71d4100 (repair/packed-ice-v40a) completed
