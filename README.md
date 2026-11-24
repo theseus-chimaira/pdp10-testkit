@@ -1,5 +1,15 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v27: KS10 optimized signed byte-pointer loads
+
+GCC now retains exact signed nine-bit and eighteen-bit dereferences
+of encoded pointers, rather than replacing them with whole-word
+loads based on the pointer container's alignment. Constant `POINT 18`
+loads select the correct left/right half. The full byte-pointer test
+and a new dedicated v27 test each pass 36/36 GCC profiles under
+strict exit policy, using separate independent checkpoint directories.
+See `history/PDP10-KS10-SIGNED-BYTEPTR-LOAD-20261124-v27.md`.
+
 ## 2026-11-24 v26: GCC packed parameter field extraction
 
 GCC now lowers 9-bit packed fields of by-value formal struct
