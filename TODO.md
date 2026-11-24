@@ -1,5 +1,19 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v52b:** GCC review `ea38970` (based on v51d `e7cf4fa`)
+flushes the last buffered word of independent constant-pool objects.
+16/16 formerly failing fixed-string initializer cells now pass; guards:
+164 semantic PASS, 36 compile-only, zero failures. Fresh v51d memory
+replay: 39/121 PASS, 82 runtime failures. Exact historical reconciliation
+recovers 55 distinct cells (12 strcmp, 27 libc, 16 fixed initializer),
+leaving **2465 historical runtime cells across 91 sources**. Resume from
+`manifests/PDP10-V28-GCC-RUNTIME-REMAINING-20261124-v52b.tsv`.
+Next: 66 reproducible aligned memset/memcpy cells; partial-word lowering
+uses inconsistent byte/word addresses. Review all remaining cells on
+the cumulative candidate, especially ABI, volatile packed references,
+extended addressing, stack costs and previous guards. No master merge,
+installation, full sweep or native memory measurements.
+
 **2026-11-24 v51d:** Historical GCC exact-type cohort closed on review
 e7cf4fa: 88 packed-record cells recovered in v48g, final 44 in v51d.
 132/132 targeted cells and 265/265 cumulative guards pass. The exact
