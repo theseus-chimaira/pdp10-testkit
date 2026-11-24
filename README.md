@@ -1,5 +1,16 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v36a: KCC-only historical failure scope
+
+The installed C99 scope recheck passes 4/4 additional original cells.
+GNU empty aggregate support is explicitly outside KCC scope: the 22
+KCC cells of `20000801-3.c` are unsupported, with all 44 GCC cells
+unchanged. This is a compiler feature-policy exclusion, not a target
+architecture limitation or a successful test. The original source and
+historical observations are retained. Remaining KCC: 147 cells
+(22 wide literal compilation failures, 125 runtime failures).
+No compiler change or full sweep was performed.
+
 ## 2026-11-24 v35e: historical compiler repairs and native floating range
 
 The exact installed replay recovered 126 original v28 failures (64 GCC,

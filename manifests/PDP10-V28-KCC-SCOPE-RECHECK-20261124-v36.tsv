@@ -1,0 +1,5 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/gcc-historical-b06-v1/c99-scope-1.c	pdp6	kcc	kcc-pdp6-opt	semantic	run_fail
+tests/semantic/gcc-historical-b06-v1/c99-scope-1.c	pdp6	kcc	kcc-base-opt	semantic	run_fail
+tests/semantic/gcc-historical-b06-v1/c99-scope-1.c	pdp6	kcc	kcc-pdp6-noopt	semantic	run_fail
+tests/semantic/gcc-historical-b06-v1/c99-scope-1.c	pdp6	kcc	kcc-base-noopt	semantic	run_fail
