@@ -8,6 +8,9 @@ loads based on the pointer container's alignment. Constant `POINT 18`
 loads select the correct left/right half. The full byte-pointer test
 and a new dedicated v27 test each pass 36/36 GCC profiles under
 strict exit policy, using separate independent checkpoint directories.
+Ten adjacent regression source groups passed another 392/392 GCC
+cells, strict exit policy: 464/464 fresh distinct GCC PASS results
+in total, without skipped previous green checkpoints.
 See `history/PDP10-KS10-SIGNED-BYTEPTR-LOAD-20261124-v27.md`.
 
 ## 2026-11-24 v26: GCC packed parameter field extraction

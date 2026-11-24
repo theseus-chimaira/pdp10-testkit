@@ -57,5 +57,15 @@ fixture, its v26 permanent regression and the v18/v19/v20/v23
 pointer/copy-loop regressions, were rerun independently at
 `workdir/pdp10-byteptr-ks10-v27-independent-adjacent`:
 **224/224 PASS** with strict exit policy, no skipped old greens.
-The two direct 36-cell runs and adjacent 224 cells total
-**296/296 passing GCC cells**.
+
+An additional, broader ten-source independent sweep also covered
+v17 unsigned division, historic wide-integer/control-flow tests,
+the earlier pointer/copy-loop regressions and the v26 packed-byvalue
+suite. It passed **392/392 GCC cells**, strict exit policy, with no
+previous PASS results skipped. Its checkpoint is
+`workdir/pdp10-byteptr-ks10-v27-regress`.
+The expanded 392-cell run includes the six-source 224-cell selection,
+so the latter is not double-counted. Together with the two primary
+36-cell suites the final verified total is **464/464 distinct GCC
+cells passing**. Other compiler/runtime failures and full-matrix
+acceptance remain independent open tasks.
