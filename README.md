@@ -1,5 +1,23 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v30/v31: KCC repairs for 26 former link failures
+
+The KCC preprocessor now correctly rescans function-like macros across
+replacement-list boundaries without un-hiding object-like macros (v30).
+Real KCC `alloca` and `__builtin_alloca` direct calls use the existing
+caller VLA frame (v31), without a fake runtime helper. The original
+`macro3.c` and `20020314-1.c` failures now pass 4/4 and 22/22
+KCC profiles; the new regressions, historical `macro6.c`, and existing
+VLA tests form a **118/118 fresh strict PASS** acceptance set, verified
+both staged and with the installed KCC. The *same 34 original KCC
+link-failing cells* independently retested as **26 PASS, 8 link_fail**:
+four genuine unused-static-inline symbol relocations and four hosted
+`puts` requirements remain open. The KCC-specific macro regression
+also exposed a separate, still-open 33-cell optimized GCC runtime
+failure (exit code 7) in its character-string assertion. Nothing was
+reclassified as PASS or silenced. See
+`history/PDP10-KCC-LINKER-MACRO-ALLOCA-20261124-v31.md`.
+
 ## 2026-11-24 v29: reproduce all v28 historical link failures
 
 The complete v28 exact known-error replay ended at 327 PASS and 3,889

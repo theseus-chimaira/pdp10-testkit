@@ -1,0 +1,7 @@
+tests/semantic/gcc-historical-b09-v1/macro3.c
+tests/semantic/gcc-historical-b09-v1/macro6.c
+tests/semantic/regression/kcc-macro-boundary-rescan-v30.c
+tests/todo/generic/20020314-1.c
+tests/semantic/regression/kcc-alloca-stack-lifetime-v31.c
+tests/semantic/base/base_vla.c
+tests/semantic/kcc-modern/kcc_modern_vla_scope.c

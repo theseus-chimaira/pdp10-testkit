@@ -1,5 +1,18 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 KCC v30/v31 installed:** Macro-rescan and real
+function-local `alloca` have been repaired and independently verified:
+118/118 fresh KCC strict acceptance cells PASS on the installed compiler.
+In the exact 34 original KCC link-failing cells, 26 now pass and eight
+remain `link_fail`. The four 20011115-1.c cells need a correct
+reachability-aware `static inline` function emission policy; avoiding
+the comparison alone leaves an actual unresolved relocation. The four
+macro1.c `puts` cells require real console I/O, not a bare-metal
+placeholder. A new KCC-specific macro regression also returns 7 in
+33 GCC O1/O2/Os profiles; triage that GCC byte-string case separately,
+without changing its assertions. See
+`history/PDP10-KCC-LINKER-MACRO-ALLOCA-20261124-v31.md`.
+
 **2026-11-24 v29 linker triage before the full sweep:** All 50
 historical v28 link-failing cells were independently rerun (50/50
 `link_fail`, 0 PASS/ICE/timeout; no old-green skips). The exact
