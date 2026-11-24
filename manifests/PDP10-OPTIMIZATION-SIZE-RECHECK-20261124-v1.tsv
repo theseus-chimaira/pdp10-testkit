@@ -1,0 +1,15 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/upstream/wide-int/20001221-1.c	pdp6	kcc	kcc-pdp6-noopt	semantic	not_run
+tests/semantic/upstream/wide-int/20001221-1.c	pdp6	kcc	kcc-pdp6-opt	semantic	not_run
+tests/semantic/upstream/wide-int/20001221-1.c	ks10	kcc	kcc-ks10-noopt	semantic	not_run
+tests/semantic/upstream/wide-int/20001221-1.c	ks10	kcc	kcc-ks10-opt	semantic	not_run
+tests/semantic/upstream/generic/921019-2.c	pdp6	kcc	kcc-pdp6-noopt	semantic	not_run
+tests/semantic/upstream/generic/921019-2.c	pdp6	kcc	kcc-pdp6-opt	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	pdp6	gcc	gcc-pdp6-o0	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	pdp6	gcc	gcc-pdp6-o1	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	pdp6	gcc	gcc-pdp6-o2	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	pdp6	gcc	gcc-pdp6-os	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	ks10	gcc	gcc-ks10-o0	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	ks10	gcc	gcc-ks10-o1	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	ks10	gcc	gcc-ks10-o2	semantic	not_run
+tests/semantic/upstream/extensions/20011024-1.c	ks10	gcc	gcc-ks10-os	semantic	not_run

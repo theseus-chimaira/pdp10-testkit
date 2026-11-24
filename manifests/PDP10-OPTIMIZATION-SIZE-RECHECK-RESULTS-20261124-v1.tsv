@@ -1,0 +1,17 @@
+run	test	compiler	machine	family	kind	baseline	candidate	metric	before	after	verdict	raw_verdict	before_status	after_status	before_text	after_text
+optimization-size-recheck-stage-v1	tests/semantic/upstream/wide-int/20001221-1.c	kcc	pdp6	kcc-pdp6	semantic	noopt	opt	words	22	23	regressed	regressed	pass	pass	22	23
+optimization-size-recheck-stage-v1	tests/semantic/upstream/wide-int/20001221-1.c	kcc	pdp6	kcc-pdp6	semantic	noopt	opt	text	22	23	regressed	regressed	pass	pass	22	23
+optimization-size-recheck-stage-v1	tests/semantic/upstream/wide-int/20001221-1.c	kcc	ks10	kcc-ks10	semantic	noopt	opt	words	19	20	regressed	regressed	pass	pass	19	20
+optimization-size-recheck-stage-v1	tests/semantic/upstream/wide-int/20001221-1.c	kcc	ks10	kcc-ks10	semantic	noopt	opt	text	19	20	regressed	regressed	pass	pass	19	20
+optimization-size-recheck-stage-v1	tests/semantic/upstream/generic/921019-2.c	kcc	pdp6	kcc-pdp6	semantic	noopt	opt	words	38	41	regressed	regressed	pass	pass	38	41
+optimization-size-recheck-stage-v1	tests/semantic/upstream/generic/921019-2.c	kcc	pdp6	kcc-pdp6	semantic	noopt	opt	text	38	41	regressed	regressed	pass	pass	38	41
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	pdp6	gcc-pdp6	semantic	o0	o1	ticks	519	563	regressed	regressed	pass	pass	36	47
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	pdp6	gcc-pdp6	semantic	o1	o2	ticks	563	562	improved	improved	pass	pass	47	48
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	pdp6	gcc-pdp6	semantic	o0	os	ticks	519	556	regressed	regressed	pass	pass	36	44
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	pdp6	gcc-pdp6	semantic	o0	os	words	49	57	regressed	regressed	pass	pass	36	44
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	pdp6	gcc-pdp6	semantic	o0	os	text	36	44	regressed	regressed	pass	pass	36	44
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	ks10	gcc-ks10	semantic	o0	o1	ticks	460	475	regressed	regressed	pass	pass	40	51
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	ks10	gcc-ks10	semantic	o1	o2	ticks	475	475	equal	equal	pass	pass	51	52
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	ks10	gcc-ks10	semantic	o0	os	ticks	460	470	regressed	regressed	pass	pass	40	44
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	ks10	gcc-ks10	semantic	o0	os	words	53	57	regressed	regressed	pass	pass	40	44
+optimization-size-recheck-stage-v1	tests/semantic/upstream/extensions/20011024-1.c	gcc	ks10	gcc-ks10	semantic	o0	os	text	40	44	regressed	regressed	pass	pass	40	44
