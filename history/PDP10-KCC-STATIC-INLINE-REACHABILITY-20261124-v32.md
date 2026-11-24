@@ -107,6 +107,12 @@ original `macro1.c` source's dependency on a real hosted `puts`
 console. Those are not compiler bugs and no dummy output routine was
 introduced in the bare-metal compiler library.
 
+The final installed-compiler historical replay used the separate
+`workdir/kcc-known-link-independent-final-v32` directory: all 34
+cells ran afresh, with 30 PASS, four link_fail and **zero old-green
+skips**. This is independent of the full fresh 238/238 strict
+installed-compiler acceptance directory.
+
 ## Reproduction
 
 From `pdp10-testkit`, with the installed KCC:
@@ -120,7 +126,7 @@ python3 tools/run-tests.py --compiler kcc --exit-policy strict -j4 \
 
 python3 tools/run-tests.py --exit-policy ice-only -j4 \
     --cell-file manifests/PDP10-KCC-V29-LINK-FAIL-CELLS-20261124-v31.tsv \
-    --out-dir workdir/kcc-known-link-installed-v32
+    --out-dir workdir/kcc-known-link-independent-final-v32
 ```
 
 The second run's `ice-only` policy retains all four actual `link_fail`
