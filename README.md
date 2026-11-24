@@ -1,5 +1,20 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v21: timeout triage, valid source and trampoline stack fix
+
+The 135 previous timeouts were traced to seven source identities.
+Sixteen were already fixed by the v20 byte-pointer backend repair.
+An upstream postincrement oracle had undefined behavior because
+`a[0]` was uninitialized; after initializing it, 66/66 GCC/KCC
+matrix cells PASS. GCC's trampoline address rounding also placed
+nested-function code outside the stack frame, producing 33 genuine
+timeouts; the repaired compact BLT implementation passes all
+44 GCC test cells. The wide-integer, packed-aggregate and two KCC
+optimizer clusters remain unresolved. See
+`history/PDP10-TIMEOUT-TRIAGE-20261124-v21.md`.
+The final installed-compiler acceptance run covered four registered
+sources: **218/218 GCC/KCC PASS** in isolation, strict exit policy.
+
 ## 2026-11-24 v20: short16 reverse pointer and optimizer timeout
 
 The GCC logical S=1 branch now uses typed visible RTL byte-pointer
