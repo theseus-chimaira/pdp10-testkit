@@ -1,5 +1,16 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v23: packed-argument byte-copy loop termination
+
+The compiler's counted byte-copy expansion now emits one SOJN-style
+atomic decrement-and-back-edge instruction. The 27 old simulator
+timeouts from `gnu-packed-byvalue.c` have been eliminated, although
+all 44 GCC cells now report a separate, still-open packed-by-value
+ABI/field-access runtime failure. The permanent C89 termination
+regression passes 36/36 GCC cells under strict policy. The historical
+135-timeout baseline is now 113 resolved, 22 remaining (KCC).
+See `history/PDP10-GCC-PACKED-COPY-LOOP-TIMEOUT-20261124-v23.md`.
+
 ## 2026-11-24 v22: extended-integer negation timeout recovery
 
 All 36 previously timed-out GCC profiles of upstream wide-integer
