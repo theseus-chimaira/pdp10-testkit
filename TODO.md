@@ -1,5 +1,23 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v55c/v55d:** GCC master `8a214a9` preserves typed C
+pointer differences until RTL expansion, evaluates each operand once,
+and computes native local nine-bit/halfword distances directly. The
+invalid raw-pointer compensation and late peephole are removed;
+physical global first-byte extraction and frontend tree-code build
+dependencies are corrected. All 99 selected historical runtime cells
+recover; the new regression changes 44 compiler ICEs on v54b into 44
+passes on v55c. Related replay: 300 pass, 36 compile-only, 44 known
+switch failures; all 844 cumulative guards pass. Remaining:
+**2124 historical runtime cells across 80 sources**. Next investigate
+`base_switch_byteptr_live.c` (44 failures), where dynamic record-array
+member indexing loses the enclosing record displacement. Resume from
+`manifests/PDP10-V28-GCC-RUNTIME-REMAINING-20261124-v55d.tsv`.
+The 44 repaired cross-word images grow by 163 aggregate words; the
+844 previously correct guard images grow by 115 aggregate words.
+Full sweep, extended addressing, C++ acceptance, calibrated speed/native
+RAM and production installation remain outstanding.
+
 **2026-11-24 v54b/v54c:** All 20 GCC repair commits consolidated into
 master e64cb87; obsolete local and remote repair refs removed, with
 their exact tips recorded in the consolidation manifest. Master
