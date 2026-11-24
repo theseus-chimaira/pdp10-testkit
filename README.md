@@ -1,5 +1,18 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v19: indexed constant byte-pointer construction
+
+GCC now preserves the 36-bit P/S selector when adding a register
+index to a constant local byte pointer. The `*addsi3` emitter uses
+MOVEI+HRLI for this exact case, preserving the single MOVEI for
+ordinary word addresses. The new v19 regression passes 36/36 GCC
+matrix cells. The broad byte-pointer O1 rerun still reports eight
+timeouts and one runtime failure: advancing past the former octal
+`0250` failure is not a full pass. See
+`history/PDP10-INDEXED-BYTEPTR-REPAIR-20261124-v19.md`.
+The v18 short16 and v17 unsigned division test groups were also
+rerun against v19: all 180/180 GCC cells passed in isolation.
+
 ## 2026-11-24 v18: short16 pointer and byte-pointer correctness
 
 The GCC short16 byte-pointer handling now normalizes generic dynamic
