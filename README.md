@@ -1,5 +1,11 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v37d: KCC runtime repairs
+
+Installed exact replay: 97/103 historical runtime cells PASS; six remain.
+Three new regressions pass all 66 KCC cells. See
+`history/KCC-RUNTIME-REPAIRS-20261124-v37d.md`. No GCC run or full sweep.
+
 ## 2026-11-24 v36c: KCC native wide and high-byte literals
 
 The hosted KCC now implements wide-character constants and wide string

@@ -1,5 +1,11 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v37d:** Six historical KCC runtime failures remain (enum
+bit-field policy, Karatsuba union arithmetic, prime interval step budget).
+97/103 installed historical cells and 66/66 new regression cells passed.
+Resume from `manifests/PDP10-V28-KCC-REMAINING-20261124-v37d.tsv`.
+Zero historical compile/link failures; GCC deferred.
+
 **2026-11-24 v36c:** Remaining KCC cohort: 103 runtime failures,
 zero compilation and linker failures. The two literal sources passed
 44/44 installed cells. The new regression passed 22/22 KCC profiles;

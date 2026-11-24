@@ -1,0 +1,7 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/regression/pdp10-enum-code-bitfield-switch-v1.c	pdp6	kcc	kcc-pdp6-noopt	semantic	run_fail
+tests/semantic/regression/pdp10-enum-code-bitfield-switch-v1.c	pdp6	kcc	kcc-pdp6-opt	semantic	run_fail
+tests/semantic/regression/pdp10-original-prime-interval-v1.c	pdp6	kcc	kcc-pdp6-noopt	semantic	run_fail
+tests/semantic/regression/pdp10-original-prime-interval-v1.c	pdp6	kcc	kcc-pdp6-opt	semantic	run_fail
+tests/semantic/regression/pdp10-original-wide-karatsuba-v1.c	pdp6	kcc	kcc-pdp6-noopt	semantic	run_fail
+tests/semantic/regression/pdp10-original-wide-karatsuba-v1.c	pdp6	kcc	kcc-pdp6-opt	semantic	run_fail
