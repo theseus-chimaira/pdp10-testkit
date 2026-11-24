@@ -1,0 +1,6 @@
+tests/semantic/regression/kcc-macro-argument-hideset-v34.c
+tests/semantic/regression/kcc-macro-boundary-rescan-v30.c
+tests/semantic/gcc-historical-b09-v1/macro1.c
+tests/semantic/gcc-historical-b09-v1/macro3.c
+tests/semantic/gcc-historical-b09-v1/macro6.c
+tests/semantic/gcc-historical-b09-v1/strp1.c

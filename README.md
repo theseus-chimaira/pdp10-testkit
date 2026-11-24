@@ -1,5 +1,17 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v34: KCC macro argument recursion suppression
+
+KCC margs() previously recreated argument tokens with tokize(), losing
+IS_MHID when they came from an already expanded replacement list.
+This re-enabled recursive macros: stpcpy(stpcpy(9)) incorrectly
+expanded to 2 + M(2 + 2 + M(9)) instead of 2 + M(2 + M(9)).
+Preserving permanent suppression in the copied token fixes the root
+cause without adding token storage. All four original macro1.c KCC
+cells passed; the six-source staged acceptance passed 60/60, and
+the exact installed v34 replay passed 20/20 (16 GCC, four KCC).
+See history/PDP10-KCC-MACRO-ARGUMENT-HIDESET-20261124-v34.md.
+
 ## 2026-11-24 v33: console-free historical CPP diagnostics
 
 The four historical semantic sources `digraphs.c`, `macro1.c`,
@@ -11,8 +23,9 @@ Upstream snapshots and historical batch manifests remain unchanged;
 the ownership audit requires the exact diagnostic-only adaptation.
 This removes the source-level `puts` dependency behind 16 GCC and
 four KCC historical link failures. No console backend, emulator
-integration or libc implementation is involved. No compilation,
-guest run or sweep has been performed; all 20 cells await verification.
+integration or libc implementation is involved. The v33 exact replay
+passed 16 GCC cells and exposed four KCC semantic failures in macro1.c;
+all 20 cells passed on the installed v34 compiler.
 Historical results below remain as recorded.
 
 ## 2026-11-24 v32: reachability-aware KCC static-inline output
