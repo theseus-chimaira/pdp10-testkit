@@ -1,5 +1,18 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v53b:** GCC reviews `fcad43e` and `e64cb87` correct
+aligned memcpy/memset lowering and eliminate redundant native-word
+pointer conversions. Both candidates pass all 66 historical failures,
+44 new regression cells and 208 guards. Remaining: **2399 historical
+runtime cells across 89 sources**. Resume from
+`manifests/PDP10-V28-GCC-RUNTIME-REMAINING-20261124-v53b.tsv`.
+All 66 repaired object images shrink from v53a to v53b. PDP-6 memcpy
+timing remains unresolved: repeated identical-image measurements vary
+widely; do not infer calibrated performance. Next replay byte-pointer,
+subword ABI and packed-aggregate cohorts on the cumulative candidate.
+Full sweep, extended-address acceptance, native RAM and installation
+remain outstanding.
+
 **2026-11-24 v52b:** GCC review `ea38970` (based on v51d `e7cf4fa`)
 flushes the last buffered word of independent constant-pool objects.
 16/16 formerly failing fixed-string initializer cells now pass; guards:
