@@ -1,5 +1,13 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v44b: GCC small repairs and string folding
+
+Review f11b292 passes 264 targeted GCC cells; 22 KCC string checks
+also pass. Together with v44 arithmetic and narrow-conversion
+repairs, 108 historical cells recovered. Staged backlog 2726.
+See history/GCC-STRING-FOLD-REPAIRS-20261124-v44b.md.
+No compiler installation or full sweep.
+
 ## 2026-11-24 v43: historical KCC runtime closure
 
 KCC b57fa3e installed. Six previously failing cells still failed on the

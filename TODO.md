@@ -1,5 +1,11 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v44b:** 108 historical GCC cells recovered in
+v44/v44b, staged backlog 2726. Remaining exact-type cells 176.
+Continue smaller floating-point and complex groups, then other
+subsystems. Review f11b292 is not merged or installed; cumulative
+acceptance remains pending. Weak-symbol semantics remain unsupported.
+
 **2026-11-24 v43:** Historical KCC six-cell backlog closed by
 installed b57fa3e; 169 staged guards and seven compatibility scripts
 passed. Remaining KCC work is native-phase verification and RAM
