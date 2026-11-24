@@ -21,6 +21,14 @@ EA01 complete in v56b/v56c: both startup controls and all 92 instruction
 assertions plus 20 physical memory observations pass on the installed
 KL10B simulator. This is an ISA reference, not compiler acceptance.
 
+Independent second emulator (v56e):
+
+- [x] Build and install KLH10 KL10B and KS10 under PDP10_PREFIX.
+- [x] Replay local execution on both models, cross-section positive and
+  negative controls on KL10B, and all 92 global ISA assertions on KLH10.
+- [ ] Integrate optional KLH10 execution into the common C matrix after
+  the host-only extended image transport is available (EA03/EA04).
+
 ## EA02: Define and implement assembler/object relocation contract
 
 - [x] Audit selector and indirect-word encodings against KL10B execution.
