@@ -1,5 +1,21 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v54b/v54c:** All 20 GCC repair commits consolidated into
+master e64cb87; obsolete local and remote repair refs removed, with
+their exact tips recorded in the consolidation manifest. Master
+6716c5b then fixes native word-stride record array scalar references:
+88/88 historical cells, 44/44 new regressions and 394/394 cumulative
+guards pass. All 88 corrected object images are smaller. Testkit
+0f73d90 independently corrects two plain-char signedness oracles;
+88/88 pass on unchanged v53b (not compiler repairs). Remaining:
+**2223 historical runtime cells across 85 sources**. The two cross-word
+pre/postincrement and switch byte-pointer tests still fail 88/88 on
+v54b; investigate pointer difference lowering and integer reassociation
+before further aggregate work. Resume with
+`manifests/PDP10-V28-GCC-RUNTIME-REMAINING-20261124-v54c.tsv`.
+Full sweep, extended addressing, calibrated speed/native RAM and
+production installation remain outstanding.
+
 **2026-11-24 v53b:** GCC reviews `fcad43e` and `e64cb87` correct
 aligned memcpy/memset lowering and eliminate redundant native-word
 pointer conversions. Both candidates pass all 66 historical failures,
