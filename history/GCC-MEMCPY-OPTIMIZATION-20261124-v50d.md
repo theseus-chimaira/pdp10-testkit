@@ -16,7 +16,7 @@ v50c images, assembly and normalized run scripts equal v50d.
 
 20011024-1.c: all 11 size pairs improve, Os 38 words against 49 or
 53 unoptimized, formerly 57 on PDP6 and KS10. PDP6 ticks:
-O0 519, O1 182, O2 182, Os 182. KS10: 460,173,174,173.
+O0 519, O1 182, O2 182, Os 182. KS10: 460,173,174,174.
 Across both sources, 22/22 O1 and Os faster than O0,
 22/22 Os smaller, 11 O2/O1 improvements, 8 ties, 3 regressions
 (all three KS10 profiles of 20011024-1.c, one tick).
