@@ -1,5 +1,21 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v29: reproduce all v28 historical link failures
+
+The complete v28 exact known-error replay ended at 327 PASS and 3,889
+raw failures across 4,216 selected cells, with no timeout or ICE.
+Its 50 remaining linker failures have been independently rerun as
+50/50 fresh `link_fail`, with no old-green skips. The versioned
+six-column selection is
+`manifests/PDP10-V28-LINKER-FAILURE-CELLS-20261124-v29.tsv`.
+Root causes: 22 KCC `alloca` (missing compiler stack builtin),
+20 GCC/KCC `puts` (intentional bare-machine I/O boundary), four KCC
+unreachable `static inline` definitions retaining a real external
+relocation, and four KCC incorrect C99 macro-rescan outputs.
+No library placeholder, test oracle change, or linker patch was made;
+none of the 50 is claimed fixed. See
+`history/PDP10-V28-KNOWN-LINK-FAILURE-TRIAGE-20261124-v29.md`.
+
 ## 2026-11-24 v27: KS10 optimized signed byte-pointer loads
 
 GCC now retains exact signed nine-bit and eighteen-bit dereferences

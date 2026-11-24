@@ -1,5 +1,18 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v29 linker triage before the full sweep:** All 50
+historical v28 link-failing cells were independently rerun (50/50
+`link_fail`, 0 PASS/ICE/timeout; no old-green skips). The exact
+selection and original-symbol breakdown are preserved in the v29
+manifest and history report. Follow-up compiler defects are KCC
+macro rescan/hideset (4 cells), KCC unused static-inline emission
+(4 cells), and KCC real `alloca`/dynamic stack semantics (22 cells).
+The remaining 20 GCC/KCC `puts` cells require an actual console
+runtime, intentionally absent from the bare-machine compiler stdlib;
+do not add silent hosted libc or a fake I/O stub. This is a completed
+error census, NOT a claim that the 50 links now succeed. See
+`history/PDP10-V28-KNOWN-LINK-FAILURE-TRIAGE-20261124-v29.md`.
+
 Current ownership and registration baseline (2026-11-21, after
 ICE-focused all-test integration): **2,358 compiler matrix sources**,
 **413 special entries**, and **593 owned script paths**.
