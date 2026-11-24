@@ -1,5 +1,11 @@
 # PDP-10 testkit — outstanding work
 
+**Active extended-address work (v56):** see
+`TODO-EXTENDED-ADDRESSING-v56.md`. GCC and KCC C toolchains only;
+shared host tool prerequisites as needed, no DAIMOS implementation.
+C++ acceptance is explicitly out of scope. The local-address backlog
+is preserved separately.
+
 **2026-11-24 v55c/v55d:** GCC master `8a214a9` preserves typed C
 pointer differences until RTL expansion, evaluates each operand once,
 and computes native local nine-bit/halfword distances directly. The
