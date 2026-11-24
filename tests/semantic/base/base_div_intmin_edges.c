@@ -7,7 +7,8 @@ volatile int got3;
 volatile int got4;
 volatile int got5;
 
-#if CPU_PDP6 || CPU_KA || CPU_KI || CPU_KS || CPU_KL0 || CPU_KLX || defined(__PDP10_BASE__) || defined(__PDP10_PDP10__) || defined(__PDP10_166__) || defined(__PDP10_KA10__) || defined(__PDP10_KI10__)
+/* All PDP-10 processors use the same 36-bit integer width. */
+#if defined(__pdp10__) || defined(__COMPILER_KCC__)
 #define BASE_INT_MIN (-0400000000000)
 #define BASE_DIV3_EXPECT (-11453246119)
 #else

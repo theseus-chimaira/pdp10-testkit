@@ -7,15 +7,18 @@ volatile int got3;
 volatile int got4;
 volatile int got5;
 
-#if CPU_PDP6 || CPU_KA || CPU_KI || CPU_KS || CPU_KL0 || CPU_KLX || defined(__PDP10_BASE__) || defined(__PDP10_PDP10__) || defined(__PDP10_166__) || defined(__PDP10_KA10__) || defined(__PDP10_KI10__)
+/* All PDP-10 processors use the same 36-bit integer width. */
+#if defined(__pdp10__) || defined(__COMPILER_KCC__)
 #define BASE_INT_MIN (-0400000000000)
 #define BASE_NEG_HALF (-0200000000000)
 #define BASE_POS_HALF (0200000000000)
+#define BASE_NEG_QUARTER (-0100000000000)
 #define BASE_NEG_HALF_PLUS1 (-0177777777777)
 #else
 #define BASE_INT_MIN (-2147483647 - 1)
 #define BASE_NEG_HALF (-1073741824)
 #define BASE_POS_HALF (1073741824)
+#define BASE_NEG_QUARTER (-536870912)
 #define BASE_NEG_HALF_PLUS1 (-1073741823)
 #endif
 
@@ -47,7 +50,7 @@ int main()
     got3 = modi(a + 1, 2);
     if (got3 != -1) { fail_id = 4; return 1; }
     got4 = divi(BASE_POS_HALF, -2);
-    if (got4 != -0100000000000) { fail_id = 5; return 1; }
+    if (got4 != BASE_NEG_QUARTER) { fail_id = 5; return 1; }
     got5 = modi(BASE_POS_HALF + 1, 2);
     if (got5 != 1) { fail_id = 6; return 1; }
     return 0;
