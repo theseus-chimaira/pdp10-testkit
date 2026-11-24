@@ -1,5 +1,17 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v22: extended-integer negation timeout recovery
+
+All 36 previously timed-out GCC profiles of upstream wide-integer
+test `950612-1.c` now PASS. The backend no longer branches into a
+literal-pool `AOJA` during doubleword negation; it uses direct
+conditional high-word correction. A fresh isolated strict run of
+five source groups passed 284/284 GCC/KCC cells without skipped
+checks. The original timeout baseline is now 86/135 repaired or
+invalidated, with 49 unresolved in GCC packed-aggregate and KCC
+optimizer sources. See
+`history/PDP10-WIDE-INT-NEGATION-TIMEOUT-20261124-v22.md`.
+
 ## 2026-11-24 v21: timeout triage, valid source and trampoline stack fix
 
 The 135 previous timeouts were traced to seven source identities.
