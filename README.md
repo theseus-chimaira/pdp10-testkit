@@ -1,5 +1,13 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v47a: exact-type recheck and void roundtrip
+
+Review eef83fe recovers all 44 void-pointer roundtrip cells after
+176 failures reproduced on v45b. 32 packed-pointer guards and the
+mixed-compiler pointer ABI check pass. 132 packed-record exact-type
+failures remain. Staged backlog 2652. See
+history/GCC-EXACT-TYPE-RECHECK-20261124-v47a.md.
+
 ## 2026-11-24 v45b: GCC floating conversion repairs
 
 Review 5c89d46 recovers 30 historical floating-point cells.

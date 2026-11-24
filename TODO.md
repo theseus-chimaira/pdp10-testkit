@@ -1,5 +1,11 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v47a:** Close 44 void-pointer runtime cells on review
+eef83fe. Remaining 132 exact-type cells:
+`manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v47a.tsv`.
+Prioritize mixed packed-record pointer layout and cross-word fields.
+Defer the v46 memory/string cohort. No GCC installation or full sweep.
+
 **2026-11-24 v45b:** All 30 historical floating conversion cells
 recovered on review 5c89d46; 44 new and 76 existing guards pass.
 16 packed-complex cells still fail and belong to aggregate work.
