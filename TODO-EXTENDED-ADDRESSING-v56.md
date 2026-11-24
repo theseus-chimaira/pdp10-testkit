@@ -85,8 +85,12 @@ The installed production tools remain unchanged until acceptance.
   and selector differences rather than runtime tables (v56q). Both
   dedicated record and existing switch regressions pass all four
   optimization modes on SIMH and KLH10.
-- [ ] Investigate remaining pointer widths, exact-width packed objects,
-  aggregate layouts and integer multiply code generation separately.
+- [x] Verify native 6/7/8-bit array loads/stores, signed differences,
+  adjustment, static offsets, aligned word-pointer and null conversions
+  (v56s). Replace correction tables with bounded shifts/additions; save
+  77-83 linked words in the regression.
+- [ ] Investigate exact-width packed objects, additional aggregate layouts
+  and integer multiply code generation separately.
 - [ ] Verify native byte/halfword/word pointers and explicit-width packed
   data, signed differences, side effects, static and indirect addressing.
 - [ ] Validate global stack, direct/indirect calls, aggregate ABI, varargs,

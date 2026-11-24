@@ -432,3 +432,4 @@ dobj2-global-address-v56h	validation	python3	tools/test-dobj2-global-address-v56
 gcc-global-static-pointer-v56i	validation	python3	tools/test-gcc-global-static-pointer-v56i.py	kl10	manual	120
 kl10b-extended-link-v56m	validation	python3	tools/test-kl10b-extended-link-v56m.py	kl10	manual	240
 gcc-global-record-v56p	validation	python3	tools/test-gcc-global-record-v56p.py	kl10	manual	240
+gcc-global-narrow-v56r	validation	python3	tools/test-gcc-global-narrow-v56r.py	kl10	manual	240
