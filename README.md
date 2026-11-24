@@ -1,5 +1,19 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v26: GCC packed parameter field extraction
+
+GCC now lowers 9-bit packed fields of by-value formal struct
+parameters into distinct signed/unsigned RTL extracts before
+optimization can merge the common containing-word MEM. Late
+ADD/MOVE lowering retains exact field width and signedness.
+The formerly failing original `gnu-packed-byvalue.c` now passes
+44/44 GCC profiles; the new C89 signed/unsigned 3/6/11/20-byte
+regression passes 36/36. Combined strict verification: 80/80 PASS.
+Eight neighboring GCC source groups additionally passed 312/312
+cells under strict policy. The v26 validation total is 392/392
+fresh GCC PASS cells, without skipped old green records.
+See `history/PDP10-GCC-PACKED-BYVALUE-FIELDS-20261124-v26.md`.
+
 ## 2026-11-24 v24/v25: all historical timeout clusters resolved
 
 KCC now keeps 71-bit relational true-edges visible across a buffered
