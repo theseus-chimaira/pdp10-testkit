@@ -1,5 +1,16 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v20: short16 reverse pointer and optimizer timeout
+
+The GCC logical S=1 branch now uses typed visible RTL byte-pointer
+arithmetic instead of an opaque untyped reverse-IBP search that could
+be speculated into native S=16 paths. The 16 recorded simulator
+timeouts in `runtime-byte-pointer-diff.c` are eliminated; 33/36 GCC
+profiles now PASS, while three KS10 optimized load cases remain
+failed. The new v20 short16 regression passes 36/36 and six prior
+sources pass 216/216 unchanged. See
+`history/PDP10-SHORT16-REVERSE-POINTER-20261124-v20.md`.
+
 ## 2026-11-24 v19: indexed constant byte-pointer construction
 
 GCC now preserves the 36-bit P/S selector when adding a register
