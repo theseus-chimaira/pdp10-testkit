@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MATRIX = ROOT / "COMPILER_MATRIX.tsv"
 SPECIAL = ROOT / "SPECIAL_TESTS.tsv"
 CLASSIFIED = (ROOT / "manifests" /
-              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261118-v25.tsv")
+              "SEMANTIC-UPSTREAM-CLASSIFICATION-20261124-v26.tsv")
 DEFERRED_DISPOSITIONS = (ROOT / "manifests" /
                          "SEMANTIC-DEFERRED-DISPOSITION-20261118-v24.tsv")
 GCC_TARGET_FEASIBILITY = (ROOT / "manifests" /
@@ -41,6 +41,8 @@ REQUIRED_ACTIVATIONS = frozenset(("active", "deferred", "removed",
 # executed by an owning registered script/source; they must not be scheduled
 # as independent main programs.  Keep this map strict so new orphans fail.
 SUPPORT_SOURCE_OWNERS = {
+    "tests/diagnostic/kcc-fp-range-960405-1-v35b.c":
+        "misc/validation/test-kcc-fp-range-diagnostics-v1.sh",
     "tests/semantic/kcc-pdp6-fp-hardware-case9-v1.c":
         "misc/validation/test-kcc-pdp6-fp-hardware-case9-v1.sh",
     "tests/semantic/kcc-pdp6-negative-halfway-aap-v3.c":

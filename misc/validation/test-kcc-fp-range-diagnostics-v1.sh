@@ -11,7 +11,7 @@ fi
 mkdir -p "$TMPDIR"
 PDP10_PREFIX="${PDP10_PREFIX:-$HOME/cross}"
 root=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
-source="$root/tests/semantic/upstream/generic/960405-1.c"
+source="$root/tests/diagnostic/kcc-fp-range-960405-1-v35b.c"
 work=$(mktemp -d "$TMPDIR/p10tk-kcc-fp-range-v1.XXXXXX")
 trap 'rm -rf "$work"' EXIT HUP INT TERM
 

@@ -1,5 +1,17 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v35b: retire universally target-inapplicable tests
+
+Drop a semantic matrix row only when its test requires a feature absent
+from every supported PDP-10 target, not merely because a compiler does
+not implement it yet. The audit found one all-unsupported row:
+`960405-1.c`. It is removed from the matrix and semantic source tree.
+The exact original bytes survive only as the companion fixture
+`tests/diagnostic/kcc-fp-range-960405-1-v35b.c` for the existing overflow
+diagnostic script. Current upstream classification v26 records removal;
+older manifests and the v35a historical exclusion ledger are unchanged.
+No further scheduled cells were removed (v35a already excluded 66).
+
 ## 2026-11-24 v35a: native floating-point range applicability
 
 `tests/semantic/upstream/generic/960405-1.c` assumes a long-double

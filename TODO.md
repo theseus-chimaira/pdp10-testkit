@@ -1,5 +1,11 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v35b:** Universally target-inapplicable semantic tests
+are removed rather than retained as all-unsupported rows. The only
+such row, `960405-1.c`, is retired; its exact bytes remain a diagnostic
+fixture owned by the existing KCC overflow check. Do not retire tests
+for missing compiler implementations or partially supported targets.
+
 **2026-11-24 v35a:** Exclude `960405-1.c` from semantic scheduling on
 all native target profiles (66 historical failures, not passes).
 Retain its existing KCC overflow diagnostic validation and the full
