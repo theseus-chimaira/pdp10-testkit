@@ -1,5 +1,14 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v35e:** The installed 126-cell original-failure replay
+passes completely; new regression sources pass 132/132. Three feature
+gaps remain from this repair selection: KCC wide strings (22 cells),
+GNU empty structures (22 cells), GCC/DAS/DLINK weak linkage (4 cells).
+Retain these in the active matrix; no feature has been faked or marked
+hardware-inapplicable. The 852 GCC KCC-specific type failures and
+other runtime failures remain separate. Exact remaining feature cells:
+`manifests/PDP10-V28-FEATURE-GAPS-20261124-v35e.tsv`.
+
 **2026-11-24 v35b:** Universally target-inapplicable semantic tests
 are removed rather than retained as all-unsupported rows. The only
 such row, `960405-1.c`, is retired; its exact bytes remain a diagnostic

@@ -1,0 +1,5 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/gcc-historical-b13-v1/wkali-1.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/gcc-historical-b13-v1/wkali-1.c	pdp6	gcc	gcc-pdp6-o1	semantic	run_fail
+tests/semantic/gcc-historical-b13-v1/wkali-1.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/gcc-historical-b13-v1/wkali-1.c	pdp6	gcc	gcc-pdp6-os	semantic	run_fail

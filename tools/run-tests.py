@@ -1091,6 +1091,13 @@ def compile_to_asm(cell, src, asm_path, log_path, bins, extra_options=()):
         # just as the KCC preprocessor tests do.  Do not use KCC flags:
         # the two compiler command lines have independent contracts.
         extra_gcc = directives(ROOT / src).get('codegen-gcc-extra', [])
+        # Historical batch06 runtime tests require ISO C99. Keep the
+        # immutable sources intact and select the original language mode.
+        if src in (
+                'tests/semantic/gcc-historical-b06-v1/c99-complit-1.c',
+                'tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c',
+                'tests/semantic/gcc-historical-b06-v1/c99-scope-2.c'):
+            extra_gcc = extra_gcc + ['-std=iso9899:1999', '-pedantic-errors']
         cmd = [str(bins['gcc']), '-S', cell['opt'], '-march=' + cell['arch']] + list(extra_options) + extra_gcc + [
                '-I' + str(ROOT / 'support/gcc'),
                '-I' + str(ROOT / 'support/common'),

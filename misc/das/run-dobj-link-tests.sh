@@ -198,6 +198,45 @@ case "$line" in
         exit 1
         ;;
 esac
+# Exported assignments must retain the assigned section and offset,
+# not a .set generation number or a flattened absolute address.
+cat > "$WORK/export-alias-v35e.s" <<'EOS'
+.globl ta,da,ba,ea
+.set ta,t+1
+.set da,d+1
+.set ba,b+1
+.text
+        .word 0
+t:
+        .word 0
+        .word 0123456
+.data
+        .word 0
+d:
+        .word 0
+        .word 0654321
+.equ ea,d+1
+.bss
+        .space 1
+b:
+        .space 2
+EOS
+"$DAS" -C -O "$WORK/export-alias-v35e.dobj" "$WORK/export-alias-v35e.s"
+"$OBJDUMP" "$WORK/export-alias-v35e.dobj" > "$WORK/export-alias-v35e.dump"
+awk '
+    $2 == "DEF" && $4 == "000000,,000002" {
+        if ($3 == ".text" && $5 == "ta") t++
+        if ($3 == ".data" && $5 == "da") d++
+        if ($3 == ".bss" && $5 == "ba") b++
+        if ($3 == ".data" && $5 == "ea") e++
+    }
+    END { exit !(t == 1 && d == 1 && b == 1 && e == 1) }
+' "$WORK/export-alias-v35e.dump" || {
+    cat "$WORK/export-alias-v35e.dump" >&2
+    echo "DOBJ test: exported assignment section or offset lost" >&2
+    exit 1
+}
+
 "$DARC" -o "$WORK/libtest.darc" "$WORK/helper.dobj" "$WORK/unused.dobj"
 "$DLINK" -o "$WORK/out.dxr" "$WORK/main.dobj" "$WORK/libtest.darc"
 "$DXRCHECK" -q "$WORK/out.dxr"

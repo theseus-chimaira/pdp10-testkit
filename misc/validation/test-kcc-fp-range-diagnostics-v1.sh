@@ -24,7 +24,7 @@ for profile in base pdp6; do
         exit 1
     fi
     if ! grep -q 'Floating constant overflow' "$work/$profile.log" ||
-        ! grep -q 'error detected' "$work/$profile.log" ||
+        ! grep -Eq 'errors? detected' "$work/$profile.log" ||
         grep -q 'Internal error' "$work/$profile.log"; then
         cat "$work/$profile.log" >&2
         echo "FAIL: incorrect overflow diagnostic ($profile)" >&2

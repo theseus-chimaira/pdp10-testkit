@@ -1,0 +1,3 @@
+test	machine	compiler	profile	kind	status
+tests/todo/generic/20010124-1.c	pdp6	kcc	kcc-pdp6-opt	semantic	compile_fail
+tests/todo/generic/20010124-1.c	pdp6	kcc	kcc-pdp6-noopt	semantic	compile_fail

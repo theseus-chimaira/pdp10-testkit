@@ -1,5 +1,24 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v35e: historical compiler repairs and native floating range
+
+The exact installed replay recovered 126 original v28 failures (64 GCC,
+62 KCC). GCC/DAS strong aliases pass 8/8; GCC local addressing passes
+44/44, including the 11 former run failures; strict C99 mode fixes 12
+GCC cells. KCC C99 control scopes, compound literal lvalues, object-like
+macro #, GNU void return, GNU alignment and void pointer arithmetic
+recover 62 cells. See `history/PDP10-COMPILER-REPAIRS-20261124-v35e.md`.
+The adapted floating-point test `pdp10-long-double-fold-range-v35c.c`
+preserves the original addition/multiplication comparison within native
+range and adds an independent expected-value oracle. Hosted KCC decimal
+literal parsing now avoids repeated digit rounding. Both this test and
+`kcc-gnu-align-void-pointer-v35e.c` pass all 66 installed profiles each.
+The overflow diagnostic, 88 staged VLA/macro guards and DAS object/link
+integration including nonzero-offset exported assignments also pass.
+The original cohort now has 3639 actionable failures, 184 recovered
+and 66 retired for target range; the two new tests are not included in
+that historical count. No full sweep or native compiler run was done.
+
 ## 2026-11-24 v35b: retire universally target-inapplicable tests
 
 Drop a semantic matrix row only when its test requires a feature absent

@@ -1,0 +1,13 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/gcc-historical-b06-v1/c99-complit-1.c	pdp6	gcc	gcc-pdp6-o0	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-complit-1.c	pdp6	gcc	gcc-pdp6-o1	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-complit-1.c	pdp6	gcc	gcc-pdp6-o2	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-complit-1.c	pdp6	gcc	gcc-pdp6-os	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	pdp6	gcc	gcc-pdp6-o0	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	pdp6	gcc	gcc-pdp6-o1	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	pdp6	gcc	gcc-pdp6-o2	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-fordecl-1.c	pdp6	gcc	gcc-pdp6-os	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-scope-2.c	pdp6	gcc	gcc-pdp6-o0	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-scope-2.c	pdp6	gcc	gcc-pdp6-o1	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-scope-2.c	pdp6	gcc	gcc-pdp6-o2	semantic	compile_fail
+tests/semantic/gcc-historical-b06-v1/c99-scope-2.c	pdp6	gcc	gcc-pdp6-os	semantic	compile_fail
