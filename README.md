@@ -1,5 +1,12 @@
 # PDP-10 compiler, assembler and CPU testkit
 
+## 2026-11-24 v42a: GCC explicit packed element counts
+
+Review d30e21b passes 544/544 historical cells (132 recoveries,
+412 guards). The exact-type cohort has 308 failures remaining.
+See `history/GCC-PACKED-ELEMENT-REPAIRS-20261124-v42a.md`.
+No installation or master merge.
+
 ## 2026-11-24 v42: exact16 packed pointer subtraction
 
 Staged GCC review commit 3c547c4 passes 412/412 historical cells

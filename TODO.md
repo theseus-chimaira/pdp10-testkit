@@ -1,5 +1,12 @@
 # PDP-10 testkit — outstanding work
 
+**2026-11-24 v42a:** 132 further historical cells recovered.
+544/544 selected historical cells pass. Remaining 308 cells:
+`manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v42a.tsv`.
+Continue pointer postincrement, scalar selectors and stack arguments.
+Review d30e21b not installed. Separate earlier 2614 runtime failures
+remain untouched.
+
 **2026-11-24 v42:** 88 more historical packed-pointer runtime cells
 recovered; 412/412 historical acceptance and 44/44 packed-slice PASS.
 440 remain in `manifests/PDP10-V28-GCC-EXACT-TYPE-RUNTIME-REMAINING-20261124-v42.tsv`.
