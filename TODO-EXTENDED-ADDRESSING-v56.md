@@ -14,12 +14,16 @@ backlog, not an extended-address failure count.
 - [x] Demonstrate global indirect read, OWGBP LDB/DPB, section 2 call
   and return with a section 3 stack, without a DAIMOS dependency.
 - [x] Register reproducible positive and negative controls; record evidence.
-- [ ] Extend to all architectural OWGBP selectors, IBP/ADJBP, boundary
+- [x] Extend to all architectural OWGBP selectors, IBP/ADJBP, boundary
   crossings, XMOVEI and XBLT, with independently specified encodings.
+
+EA01 complete in v56b/v56c: both startup controls and all 92 instruction
+assertions plus 20 physical memory observations pass on the installed
+KL10B simulator. This is an ISA reference, not compiler acceptance.
 
 ## EA02: Define and implement assembler/object relocation contract
 
-- [ ] Audit selector and indirect-word encodings against KL10B execution.
+- [x] Audit selector and indirect-word encodings against KL10B execution.
 - [ ] Correct DAS OWGBP encoding and local-address test oracles that
   incorrectly expect a local P/S pointer for OWGBP.
 - [ ] Preserve 30 address bits and six selector/control bits; support
