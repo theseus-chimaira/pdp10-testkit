@@ -7,7 +7,9 @@ volatile int got3;
 volatile int got4;
 volatile int got5;
 
-#ifdef __COMPILER_KCC__
+/* Plain char is unsigned by default on both PDP-10 compilers.
+   GCC also supports -fsigned-char; use its declared target mode. */
+#if defined(__COMPILER_KCC__) || defined(__CHAR_UNSIGNED__)
 #define EXPECT_RC_NEG 507
 #define EXPECT_MIX_NEG 4709
 #define EXPECT_MIX_RET 59523
