@@ -143,8 +143,13 @@ The installed production tools remain unchanged until acceptance.
   RTL addend range (v57u): 4944 relocations and linked words across
   eight widths and four optimization profiles. Fix host int truncation
   of native ADJBP counts.
-- [ ] Verify symbolic addends beyond signed 30-bit RTL range, packed
-  symbolic edge cases, remaining cast semantics and aggregate layouts.
+- [x] Verify packed exact16/32 signed symbolic endpoints and chained
+  adjustments (v57v): 17280 object relocations and 17280 linked words.
+  Diagnose overflowing exact-width constant symbolic adjustments before
+  masking; 16 rejection controls reproduce opposite-sign baseline adds.
+- [ ] Implement wider symbolic addends and validate all remaining
+  out-of-range symbolic paths (including native and direct aggregate
+  construction), remaining cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
