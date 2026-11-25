@@ -152,9 +152,17 @@ The installed production tools remain unchanged until acceptance.
   words, 64 distinct code literal checks, 16 extreme displacement
   object checks, 16 impossible-addend rejection controls, eight runtime
   profiles. Replace v57v signed-range rejection with correct relocation.
-- [ ] Extend wide symbolic RTL to remaining native adjustment, word
-  address, aggregate construction and cast paths. Validate actual
-  link placement constraints and remaining combined expressions.
+- [x] Wide native scalar adjustment and word-address constant arithmetic
+  (v57zb): 9888 relocations and linked words, 192 distinct required
+  wide code relocations, eight positive function-return executions.
+  Fix chained native initializers and negative native literal output.
+- [ ] Validate wide symbolic cast chains, aggregate construction, indirect
+  address consumers, extreme native displacement rejection and remaining
+  combined expressions.
+- [ ] Retain v57zb ADJBP diagnostic discrepancy: for six-bit pointer
+  0460002001000 and count 027777777777, SIMH returns 0530002000777
+  instead of 0534002000777; KLH10 passes the same diagnostic image.
+  Existing dynamic boundary tests pass. No emulator changes in scope.
 - [ ] Remaining cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
