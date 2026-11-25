@@ -89,8 +89,19 @@ The installed production tools remain unchanged until acceptance.
   adjustment, static offsets, aligned word-pointer and null conversions
   (v56s). Replace correction tables with bounded shifts/additions; save
   77-83 linked words in the regression.
-- [ ] Investigate exact-width packed objects, additional aggregate layouts
-  and integer multiply code generation separately.
+- [x] Verify 36-bit unsigned multiplication and normalized 71-bit wide
+  multiplication. Fix common 71-to-36 truncation, including register and
+  memory paths; preserve raw72. Dedicated extended and local tests pass
+  (v56x); no changes to historical matrix statuses.
+- [x] Verify direct, constant-index exact16/32 packed field loads/stores
+  and neighboring bitfield preservation in extended mode (v56t/v56x).
+- [ ] Implement exact-width global C pointer representation and arithmetic.
+  Baseline exact16 pointer call/roundtrip emits local/global hybrid
+  literals; packed exact32 pointer initializer ICE is reproducible.
+  Hardware two-word global byte-pointer literals work for direct fields,
+  but escaping C pointers need a compact software ABI shared with KCC.
+- [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
+  and dynamic packed member indices.
 - [ ] Verify native byte/halfword/word pointers and explicit-width packed
   data, signed differences, side effects, static and indirect addressing.
 - [ ] Validate global stack, direct/indirect calls, aggregate ABI, varargs,
