@@ -156,9 +156,15 @@ The installed production tools remain unchanged until acceptance.
   (v57zb): 9888 relocations and linked words, 192 distinct required
   wide code relocations, eight positive function-return executions.
   Fix chained native initializers and negative native literal output.
-- [ ] Validate wide symbolic cast chains, aggregate construction, indirect
-  address consumers, extreme native displacement rejection and remaining
-  combined expressions.
+- [x] Wide symbolic casts through void, exact16/32, and aligned native
+  conversions (v58a): 24848 object relocations and linked words, 728
+  distinct required code relocations, eight runtime profiles. Preserve
+  independent displacement and existing selector conversion policies.
+- [x] Native scalar displacement limits (v58a): 64 exact extreme
+  objects and 64 impossible displacement rejection controls.
+- [ ] Validate wide direct aggregate construction, indirect address
+  consumers and remaining combined expressions. Arbitrary misaligned
+  native-to-native conversion semantics remain open.
 - [ ] Retain v57zb ADJBP diagnostic discrepancy: for six-bit pointer
   0460002001000 and count 027777777777, SIMH returns 0530002000777
   instead of 0534002000777; KLH10 passes the same diagnostic image.
