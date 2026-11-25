@@ -110,8 +110,14 @@ The installed production tools remain unchanged until acceptance.
   signed access, static positive/negative offsets, dynamic arithmetic,
   subtraction and ordering. Five dedicated cases pass O0/O1/O2/Os on
   SIMH and KLH10. Mixed compiler ABI remains open.
+- [x] GCC extended void-pointer round trips and tested mixed-width casts
+  (v57n): preserve exact-width and explicit subbyte tags, retain canonical
+  standard C void/character pointers, shared packed conversion tables,
+  nulls, symbolic initializers, comparison and side effects. Fix direct
+  dynamic packed exact32 reads/stores. Two fixtures, 16 executions pass.
 - [ ] Verify exact-width pointer arithmetic over the entire address range
-  at compiler level, mixed-width conversions and void-pointer round trips.
+  at compiler level, including cross-section physical access, and remaining
+  aligned/misaligned cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
