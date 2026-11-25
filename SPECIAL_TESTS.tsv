@@ -434,3 +434,4 @@ kl10b-extended-link-v56m	validation	python3	tools/test-kl10b-extended-link-v56m.
 gcc-global-record-v56p	validation	python3	tools/test-gcc-global-record-v56p.py	kl10	manual	240
 gcc-global-narrow-v56r	validation	python3	tools/test-gcc-global-narrow-v56r.py	kl10	manual	240
 gcc-global-wide-v56u	validation	python3	tools/test-gcc-global-wide-v56u.py	multi-cpu	manual	240
+gcc-global-exact-model-v56y	validation	python3	tools/test-gcc-global-exact-model-v56y.py	kl10	manual	240

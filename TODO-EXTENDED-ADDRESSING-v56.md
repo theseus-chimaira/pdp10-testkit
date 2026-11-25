@@ -95,6 +95,11 @@ The installed production tools remain unchanged until acceptance.
   (v56x); no changes to historical matrix statuses.
 - [x] Verify direct, constant-index exact16/32 packed field loads/stores
   and neighboring bitfield preservation in extended mode (v56t/v56x).
+- [x] Host-only tagged ADDR30 emission via `%GADDR(tag,address)` and
+  independent one-word exact16/32 pointer-model execution (v56y).
+  All 36 packed bit positions and native exact-width slots validated;
+  3398 arithmetic rows and 75 field read/write rows per execution.
+  This validates the candidate representation, not compiler lowering.
 - [ ] Implement exact-width global C pointer representation and arithmetic.
   Baseline exact16 pointer call/roundtrip emits local/global hybrid
   literals; packed exact32 pointer initializer ICE is reproducible.
