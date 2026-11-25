@@ -74,24 +74,25 @@ def main():
                     address=syms[target]+add;assert 0<=address<=MASK
                     assert words[textcount+off+i]==(tag<<30)|address,(name,i,work)
             print('PASS linked',key,opt,total,'words',flush=True)
-    # The packed tag and signed addend occupy all 36 bits in RTL.
-    # Just outside that range the compiler must not emit an opposite-sign
-    # relocation. Test each width and direction separately.
+    # v57v diagnosed the first offsets outside signed 30 bits. Since
+    # v57x these are representable: require their exact wide relocations.
     for width in (16,32):
         n=(1<<29)*36//width
         for direction,count in (('positive',n),('negative',-n-1)):
+            word,bit=divmod(5+count*width,36)
             src=work/f'overflow-{width}-{direction}.c'
             src.write_text(f'typedef unsigned int u __attribute__((size ({width})));\nextern struct r {{ unsigned pre:5; u a[9]; }} __attribute__((packed)) b;\nu *p=b.a+({count}L);\n',encoding='ascii')
             for opt in ('O0','O1','O2','Os'):
-                s=work/f'overflow-{width}-{direction}-{opt}.s';log=s.with_suffix('.log')
+                s=work/f'overflow-{width}-{direction}-{opt}.s';log=s.with_suffix('.log');o=s.with_suffix('.dobj')
                 ret=subprocess.run([gcc,'-march=kl10','-mextended','-'+opt,'-S',src,'-o',s],capture_output=True,text=True,timeout=60)
                 log.write_text(ret.stdout+ret.stderr)
-                if args.probe_overflow:
-                    assert not ret.returncode,(log,ret.stderr)
-                    print('BASELINE accepted overflow',width,direction,opt,flush=True)
-                else:
-                    assert ret.returncode and 'global pointer relocation addend out of signed 30-bit range' in ret.stderr,(log,ret.stderr)
-                    print('PASS rejected overflow',width,direction,opt,flush=True)
+                assert not ret.returncode,(log,ret.stderr)
+                subprocess.run([das,'-C','-O',o,s],check=True,timeout=60)
+                _,sections,symbols,rel,_=m.obj.read_object(o)
+                _,_,sec,off=next(row for row in symbols if row[0]=='p')
+                add=((word+(1<<29))%(1<<30))-(1<<29) if args.probe_overflow else word
+                assert rel[sec,off]==(6,0,'b',add) and sections[sec][off]==(bit+1)<<30,(width,direction,opt,work)
+                print('BASELINE wrong' if args.probe_overflow else 'PASS wide',width,direction,opt,flush=True)
 
 
 if __name__=='__main__':main()

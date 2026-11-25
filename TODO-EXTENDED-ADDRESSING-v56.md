@@ -147,9 +147,15 @@ The installed production tools remain unchanged until acceptance.
   adjustments (v57v): 17280 object relocations and 17280 linked words.
   Diagnose overflowing exact-width constant symbolic adjustments before
   masking; 16 rejection controls reproduce opposite-sign baseline adds.
-- [ ] Implement wider symbolic addends and validate all remaining
-  out-of-range symbolic paths (including native and direct aggregate
-  construction), remaining cast semantics and aggregate layouts.
+- [x] Independent symbol/selector/displacement RTL for wide packed
+  exact16/32 symbolic adjustments (v57x): 14472 relocations and linked
+  words, 64 distinct code literal checks, 16 extreme displacement
+  object checks, 16 impossible-addend rejection controls, eight runtime
+  profiles. Replace v57v signed-range rejection with correct relocation.
+- [ ] Extend wide symbolic RTL to remaining native adjustment, word
+  address, aggregate construction and cast paths. Validate actual
+  link placement constraints and remaining combined expressions.
+- [ ] Remaining cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
