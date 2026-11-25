@@ -100,9 +100,14 @@ The installed production tools remain unchanged until acceptance.
   All 36 packed bit positions and native exact-width slots validated;
   3398 arithmetic rows and 75 field read/write rows per execution.
   This validates the candidate representation, not compiler lowering.
-- [ ] Implement exact-width global C pointer representation and arithmetic.
+- [x] GCC exact32 global typed pointers (v57d): native word slots,
+  packed tags 1..36, static and dynamic member addresses, automatic
+  word-addressed records, typed accesses, signed arithmetic and both
+  branch/boolean relational ordering. New and historical fixtures pass
+  all four optimization profiles on SIMH and KLH10.
+- [ ] Implement exact16 global C pointer representation and arithmetic.
   Baseline exact16 pointer call/roundtrip emits local/global hybrid
-  literals; packed exact32 pointer initializer ICE is reproducible.
+  literals. Exact32 static initializer ICE is resolved by v57d.
   Hardware two-word global byte-pointer literals work for direct fields,
   but escaping C pointers need a compact software ABI shared with KCC.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
