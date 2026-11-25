@@ -128,9 +128,11 @@ The installed production tools remain unchanged until acceptance.
   optimization profile, 34288 total, independent full-range oracle.
   Fix premature generic C-unit folding and share the host coordinate
   calculation. This is an object-generation check, not runtime execution.
-- [ ] Verify remaining constant-folded pointer differences/comparisons,
-  symbolic relocation edge cases, ordinary hardware byte/halfword/word
-  boundary operations, cast semantics and aggregate layouts.
+- [x] Verify absolute constant-folded exact16/32 same-array differences
+  and comparisons (v57r): 8572 differences and 25716 comparisons per
+  profile, 137152 total; repair rejected differences and wrong ordering.
+- [ ] Verify symbolic relocation edge cases, ordinary hardware byte/
+  halfword/word boundary operations, cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
