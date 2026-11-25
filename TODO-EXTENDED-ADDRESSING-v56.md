@@ -105,11 +105,15 @@ The installed production tools remain unchanged until acceptance.
   word-addressed records, typed accesses, signed arithmetic and both
   branch/boolean relational ordering. New and historical fixtures pass
   all four optimization profiles on SIMH and KLH10.
-- [ ] Implement exact16 global C pointer representation and arithmetic.
-  Baseline exact16 pointer call/roundtrip emits local/global hybrid
-  literals. Exact32 static initializer ICE is resolved by v57d.
-  Hardware two-word global byte-pointer literals work for direct fields,
-  but escaping C pointers need a compact software ABI shared with KCC.
+- [x] GCC exact16 global typed pointers (v57i): native two-per-word
+  slots 045/054 octal, packed bit-position tags, standalone scalars,
+  signed access, static positive/negative offsets, dynamic arithmetic,
+  subtraction and ordering. Five dedicated cases pass O0/O1/O2/Os on
+  SIMH and KLH10. Mixed compiler ABI remains open.
+- [ ] Verify exact-width pointer arithmetic over the entire address range
+  at compiler level, mixed-width conversions and void-pointer round trips.
+- [ ] Minimize exact-width inline arithmetic/access code, including
+  shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
   and dynamic packed member indices.
 - [ ] Verify native byte/halfword/word pointers and explicit-width packed
