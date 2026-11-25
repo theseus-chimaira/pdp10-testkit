@@ -43,12 +43,21 @@ def read_image(path):
     return entry,ranges,words[8:]
 
 
-def deposits(path):
+def deposits(path, extra_words=None):
+    extra_words = extra_words or {}
     entry,ranges,words = read_image(path)
     # Small host-only execution fixture: allocate pages on demand, never
     # allocate the address-space holes between sections. Reserve pages 0/2
     # for bootstrap/EPT and page tables separately from guest frames.
-    sections = sorted({0, STACK>>18} | {b>>18 for b,n in ranges if n})
+    # Explicit test-only memory outside the linked ranges. This permits
+    # boundary probes without making a dense image or relaxing dlink.
+    for a,w in extra_words.items():
+        if not MASK < a <= ADDR or not 0 <= w < (1<<36):
+            raise ValueError('invalid extra test word')
+        if any(b <= a < b+n for b,n in ranges) or STACK <= a < STACK+0o1000:
+            raise ValueError('extra test word overlaps linked image or stack')
+    sections = sorted({0, STACK>>18} | {b>>18 for b,n in ranges if n}
+                      | {a>>18 for a in extra_words})
     if sections[-1] > 0o37:
         raise ValueError('test fixture supports sections 0..37 octal')
     tables = {s:i+3 for i,s in enumerate(sections)}
@@ -75,11 +84,12 @@ def deposits(path):
     if any(n and b < STACK+0o1000 and STACK < b+n for b,n in ranges):
         raise ValueError('stack overlap')
     for a in range(STACK,STACK+0o1000,512):mapword(a)
+    for a,w in sorted(extra_words.items()):phys[mapword(a)]=w
     return phys,mapword,entry
 
 
-def execute(path, work, expected, halt_pc, want=0, steps=10000):
-    phys,mapped,entry=deposits(path)
+def execute(path, work, expected, halt_pc, want=0, steps=10000, extra_words=None):
+    phys,mapped,entry=deposits(path, extra_words)
     probes={1:want,6:0o765,0o17:STACK}
     probes.update({mapped(a):w for a,w in expected.items()})
     # SIMH automatically reads simh.ini in its working directory.

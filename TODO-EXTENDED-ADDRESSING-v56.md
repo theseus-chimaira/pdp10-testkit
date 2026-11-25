@@ -115,8 +115,16 @@ The installed production tools remain unchanged until acceptance.
   standard C void/character pointers, shared packed conversion tables,
   nulls, symbolic initializers, comparison and side effects. Fix direct
   dynamic packed exact32 reads/stores. Two fixtures, 16 executions pass.
-- [ ] Verify exact-width pointer arithmetic over the entire address range
-  at compiler level, including cross-section physical access, and remaining
+- [x] Verify compiler-generated dynamic exact-width pointer arithmetic
+  across the 30-bit address-coordinate range (v57o): 4286 host-oracled
+  rows, seven checks per row, all four optimization profiles on SIMH
+  and KLH10. High virtual addresses are arithmetic-only ABI probes.
+- [x] Verify typed exact16/32 physical accesses across page and section
+  boundaries (v57o): 450 signed/unsigned field rows and 58 non-crossing
+  cases with the next section unmapped, eight executions. Host-only
+  explicit sparse test mappings; no P10X format or linker change.
+- [ ] Verify full-range constant-folded pointer arithmetic, ordinary
+  hardware byte/halfword/word boundary operations and remaining
   aligned/misaligned cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.

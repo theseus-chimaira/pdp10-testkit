@@ -438,3 +438,5 @@ gcc-global-exact-model-v56y	validation	python3	tools/test-gcc-global-exact-model
 gcc-global-exact32-v56z	validation	python3	tools/test-gcc-global-exact32-v56z.py	kl10	manual	240
 gcc-global-exact16-v57e	validation	python3	tools/test-gcc-global-exact16-v57e.py	kl10	manual	240
 gcc-global-void-cast-v57j	validation	python3	tools/test-gcc-global-void-cast-v57j.py	kl10	manual	240
+gcc-global-exact-range-v57o	validation	python3	tools/test-gcc-global-exact-range-v57o.py	kl10	manual	240
+gcc-global-exact-boundary-v57o	validation	python3	tools/test-gcc-global-exact-boundary-v57o.py	kl10	manual	240
