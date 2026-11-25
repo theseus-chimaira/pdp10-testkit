@@ -123,9 +123,14 @@ The installed production tools remain unchanged until acceptance.
   boundaries (v57o): 450 signed/unsigned field rows and 58 non-crossing
   cases with the next section unmapped, eight executions. Host-only
   explicit sparse test mappings; no P10X format or linker change.
-- [ ] Verify full-range constant-folded pointer arithmetic, ordinary
-  hardware byte/halfword/word boundary operations and remaining
-  aligned/misaligned cast semantics and aggregate layouts.
+- [x] Verify absolute constant-folded scalar exact16/32 pointer addition
+  and subtraction of element counts (v57q): 8572 static words per
+  optimization profile, 34288 total, independent full-range oracle.
+  Fix premature generic C-unit folding and share the host coordinate
+  calculation. This is an object-generation check, not runtime execution.
+- [ ] Verify remaining constant-folded pointer differences/comparisons,
+  symbolic relocation edge cases, ordinary hardware byte/halfword/word
+  boundary operations, cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
