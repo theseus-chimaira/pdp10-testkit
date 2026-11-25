@@ -135,8 +135,12 @@ The installed production tools remain unchanged until acceptance.
   boundary operations (v57s): 1835 arithmetic and 88 memory rows per
   execution, eight executions. Repair extended switch vectors and
   native pointer ordering, retaining local code generation.
-- [ ] Verify symbolic relocation edge cases, native constant-folded
-  arithmetic/relations, remaining cast semantics and aggregate layouts.
+- [x] Verify absolute scalar native constant-folded pointer adjustment,
+  differences and relations (v57t): 73400 object-word checks over six
+  canonical native widths and four optimization profiles. Share the
+  exact-width scalar front-end hooks; no target runtime overhead.
+- [ ] Verify symbolic relocation edge cases, remaining cast semantics
+  and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts
