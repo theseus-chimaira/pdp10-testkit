@@ -139,8 +139,12 @@ The installed production tools remain unchanged until acceptance.
   differences and relations (v57t): 73400 object-word checks over six
   canonical native widths and four optimization profiles. Share the
   exact-width scalar front-end hooks; no target runtime overhead.
-- [ ] Verify symbolic relocation edge cases, remaining cast semantics
-  and aggregate layouts.
+- [x] Native scalar symbolic ADDR30 adjustment within signed 30-bit
+  RTL addend range (v57u): 4944 relocations and linked words across
+  eight widths and four optimization profiles. Fix host int truncation
+  of native ADJBP counts.
+- [ ] Verify symbolic addends beyond signed 30-bit RTL range, packed
+  symbolic edge cases, remaining cast semantics and aggregate layouts.
 - [ ] Minimize exact-width inline arithmetic/access code, including
   shared quotient/remainder computation and constant-position access.
 - [ ] Verify additional aggregate layouts, arbitrary packed pointer casts

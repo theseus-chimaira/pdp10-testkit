@@ -444,3 +444,4 @@ gcc-global-exact-constant-v57p	validation	python3	tools/test-gcc-global-exact-co
 gcc-global-exact-compare-v57r	validation	python3	tools/test-gcc-global-exact-compare-v57r.py	kl10	manual	240
 gcc-global-native-boundary-v57s	validation	python3	tools/test-gcc-global-native-boundary-v57s.py	kl10	manual	240
 gcc-global-native-constant-v57t	validation	python3	tools/test-gcc-global-native-constant-v57t.py	kl10	manual	240
+gcc-global-symbolic-v57u	validation	python3	tools/test-gcc-global-symbolic-v57u.py	kl10	manual	240
