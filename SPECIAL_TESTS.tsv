@@ -187,6 +187,7 @@ kcc-gcc-varargs-matrix	compat	sh	misc/compat/test-kcc-gcc-varargs-matrix.sh	defa
 kcc-gcc-layout-edge	compat	sh	misc/compat/test-kcc-gcc-layout-edge.sh	default	yes	120
 kcc-gcc-negative-dimode	compat	sh	misc/compat/test-kcc-gcc-negative-dimode.sh	default	yes	120
 gcc-dimode-divmod	compat	sh	misc/compat/test-gcc-dimode-divmod.sh	default	yes	120
+gcc-wide-divider-v59m	compat	python3	misc/compat/test-gcc-wide-divider-v59m.py	multi-cpu	yes	120
 kcc-gcc-runtime-helper	compat	sh	misc/compat/test-kcc-gcc-runtime-helper.sh	default	yes	120
 kcc-gcc-reloc	compat	sh	misc/compat/test-kcc-gcc-reloc.sh	default	yes	120
 kcc-gcc-direct-abi	compat	sh	misc/compat/test-kcc-gcc-direct-abi.sh	default	yes	120
