@@ -71,9 +71,9 @@ def main():
            ["kcc-libc-dimode-float-pdp6-v1.s"], ("__kcc_floatdidf",))
     expect("pushj 17,malloc\n", "pdp6", [], ())
     expect("pushj 17,sprintf\n", "pdp6",
-           ["p10stdio-format-v2.s"], ("sprintf",), "gcc")
+           ["p10stdio-format-v3.s"], ("sprintf",), "gcc")
     expect("pushj 17,vsnprintf\npushj 17,vsprintf\n", "ka10",
-           ["p10stdio-format-v2.s"], ("vsnprintf", "vsprintf"), "gcc")
+           ["p10stdio-format-v3.s"], ("vsnprintf", "vsprintf"), "gcc")
     expect("pushj 17,isprint\n", "pdp6",
            ["kcc-libc-ctype-c-locale-v1.s"], ("isprint",), "kcc")
     expect(".long isprint\n.long isspace\n", "pdp6",
@@ -87,11 +87,11 @@ def main():
     expect("isprint:\n popj 17,\n.word 0,,isprint\n", "pdp6", [], (), "gcc")
     expect("isprint:\n popj 17,\n.long isprint\n", "pdp6", [], (), "gcc")
     expect("pushj 17,sprintf\n", "pdp6",
-           ["p10stdio-format-v2.s"], ("sprintf",), "kcc")
+           ["p10stdio-format-v3.s"], ("sprintf",), "kcc")
     expect("movei 1,sprintf\n", "pdp6",
-           ["p10stdio-format-v2.s"], ("sprintf",), "gcc")
+           ["p10stdio-format-v3.s"], ("sprintf",), "gcc")
     expect("movei 2,sprintf\n", "pdp6",
-           ["p10stdio-format-v2.s"], ("sprintf",), "kcc")
+           ["p10stdio-format-v3.s"], ("sprintf",), "kcc")
     expect("sprintf:\n movei 1,sprintf\n", "pdp6", [], (), "kcc")
     expect("sprintf:\n popj 17,\n pushj 17,sprintf\n",
            "pdp6", [], (), "gcc")

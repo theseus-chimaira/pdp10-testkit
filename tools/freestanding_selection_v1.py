@@ -74,7 +74,7 @@ def select_freestanding(asm_text, machine, compiler=None):
     if compiler in ("gcc", "kcc"):
         # Each compiler has its own build of the shared C source.
         # Never pass a private va_list across compiler boundaries.
-        members.update({symbol: "p10stdio-format-v2.s"
+        members.update({symbol: "p10stdio-format-v3.s"
                         for symbol in BUFFER_STDIO_SYMBOLS})
     selected = []
     owned = set()
