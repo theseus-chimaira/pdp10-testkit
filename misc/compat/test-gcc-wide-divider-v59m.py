@@ -4,9 +4,12 @@ import os
 from pathlib import Path
 import random
 import subprocess
+import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'tools'))
+from compiler_stdlib_prefix_v1 import prepare_script_prefix
 B = 1 << 35
 LIMIT = 1 << 71
 MASK = (1 << 36) - 1
@@ -69,6 +72,8 @@ def main():
               'fail_id: .block 1', 'saved_sp: .block 1']
     with tempfile.TemporaryDirectory(prefix='gcc-wide-divider-v59m.', dir=tmp) as path:
         work = Path(path)
+        active = prepare_script_prefix(work, prefix, 'gcc')
+        env = dict(os.environ, PDP10_PREFIX=str(active))
         source = work / 'oracle.s'
         source.write_text('\n'.join(lines)+'\n', encoding='ascii')
         for cpu in ('pdp6', 'ka10', 'ki10', 'ks10'):
@@ -77,7 +82,8 @@ def main():
                             '--step-limit', '3000000', '--timeout', '18',
                             '--workdir', str(work/cpu), '--name', 'wide-divider-v59m',
                             '--expect', '__test_exit=0', '--expect', 'fail_id=0',
-                            str(ROOT/'support/crt0-upstream-v1.s'), str(source)], check=True)
+                            str(ROOT/'support/crt0-upstream-v1.s'), str(source)],
+                           env=env, check=True)
             print('%s: PASS (%d direct helper calls)' % (cpu, count), flush=True)
 
 
