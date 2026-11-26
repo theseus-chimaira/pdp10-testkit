@@ -271,6 +271,42 @@ def test_preserve_first_missing_libc_error(runner, outroot):
         runner.run_cmd = old_cmd
 
 
+def test_missing_gcc_libc_error(runner, outroot):
+    """Missing GCC runtime members must identify the failed prerequisite."""
+    source = 'tests/todo/generic/991112-1.c'
+    cell = {'compiler': 'gcc', 'profile': 'gcc-pdp6-o0',
+            'machine': 'pdp6', 'arch': 'pdp6', 'family': 'native',
+            'opt': '-O0', 'kind': 'semantic'}
+    old_compile = runner.compile_to_asm
+    old_find = runner.find_gcc_freestanding
+    old_cmd = runner.run_cmd
+
+    def compiled(_cell, _source, asm, _log, _bins):
+        asm.write_text('.text\nmain:\n pushj 17,isprint\n popj 17,\n',
+                       encoding='ascii')
+        return 'pass'
+
+    def forbidden(*_args, **_kwargs):
+        raise AssertionError('p10run launched after missing GCC libc member')
+
+    try:
+        runner.compile_to_asm = compiled
+        runner.find_gcc_freestanding = lambda _name: None
+        runner.run_cmd = forbidden
+        status = runner.run_semantic_cell(
+            1, 1, source, cell, outroot, {'p10run': Path('/unused')},
+            None, announce=False)
+        require(status == 'setup_fail', 'missing GCC member not a setup failure')
+        log = runner.cell_dir(outroot, source, cell) / 'cell.log'
+        require('SETUP_FAIL missing gcc freestanding libc fragment: '
+                'kcc-libc-ctype-c-locale-v1.s' in log.read_text(encoding='utf8'),
+                'missing GCC member diagnostic was lost')
+    finally:
+        runner.compile_to_asm = old_compile
+        runner.find_gcc_freestanding = old_find
+        runner.run_cmd = old_cmd
+
+
 def test_real_negative_policy_path(runner, outroot):
     """Use the actual negative runner, faking only the compiler invocation."""
     source = 'tests/negative/upstream-gcc/gcc-dg-noncompile/20010425-1.c'
@@ -321,6 +357,7 @@ def main():
         test_reserved_compiler_exits(runner, outroot)
         test_kcc_dimode_helper_ownership(runner)
         test_preserve_first_missing_libc_error(runner, outroot)
+        test_missing_gcc_libc_error(runner, outroot)
         test_real_negative_policy_path(runner, outroot)
     print('Runner result accounting: PASS (restart, failures, workers, '
           'reserved compiler exit codes, KCC DImode helper ownership)')

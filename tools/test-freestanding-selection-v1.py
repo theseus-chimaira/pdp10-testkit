@@ -81,6 +81,10 @@ def main():
            ("isprint", "isspace"), "gcc")
     expect(".word isprint\n", "pdp6",
            ["kcc-libc-ctype-c-locale-v1.s"], ("isprint",), "gcc")
+    expect(".word 0,,isprint\n.word 0 ,, isspace\n", "pdp6",
+           ["kcc-libc-ctype-c-locale-v1.s"],
+           ("isprint", "isspace"), "gcc")
+    expect("isprint:\n popj 17,\n.word 0,,isprint\n", "pdp6", [], (), "gcc")
     expect("isprint:\n popj 17,\n.long isprint\n", "pdp6", [], (), "gcc")
     expect("pushj 17,sprintf\n", "pdp6", [], (), "kcc")
     expect("sprintf:\n popj 17,\n pushj 17,sprintf\n",

@@ -1342,11 +1342,9 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                     log.write('kcc_runtime_required=%s\n' % (','.join(required) if required else 'none'))
                     log.write('kcc_runtime_files=%s\n' %
                               (','.join(str(path) for path in runtime_files) if runtime_files else 'none'))
-                    if setup_error:
-                        log.write('SETUP_FAIL %s\n' % setup_error)
-            else:
-                pass
             if setup_error:
+                with open(log_path, 'a') as log:
+                    log.write('SETUP_FAIL %s\n' % setup_error)
                 status = 'setup_fail'
                 report = str(log_path)
             else:

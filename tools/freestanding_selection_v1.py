@@ -53,7 +53,8 @@ REFERENCES = re.compile(
     # Function-pointer uses must select the same real library member as
     # direct PUSHJ calls; they cannot be treated as unresolved stubs.
     r"(?mi)^\s*(?:pushj\s+\d+\s*,\s*|jrst\s+|\.extern\s+"
-    r"|\.(?:long|word)\s+)"
+    # A local-address relocation may use a numeric left half (0,,symbol).
+    r"|\.(?:long|word)\s+(?:[+-]?[0-9]+\s*,,\s*)?)"
     r"([A-Za-z_][A-Za-z_0-9]*)\b")
 
 
