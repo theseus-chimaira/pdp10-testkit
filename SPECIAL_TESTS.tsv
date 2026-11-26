@@ -45,6 +45,7 @@ test-run-special-tests-v2	verify	python3	tools/test-run-special-tests-v2.py	host
 test-kcc-special-output-decoding-v1	verify	python3	tools/test-kcc-special-output-decoding-v1.py	host	yes	120
 test-codegen-declared-oracles-v1	verify	python3	tools/test-codegen-declared-oracles-v1.py	host	yes	120
 test-registered-fixture-integrity-v1	verify	python3	tools/test-registered-fixture-integrity-v1.py	host	yes	120
+conversion-scope-v59r	verify	python3	tools/test-conversion-scope-v59r.py	host	yes	120
 test-diagnostic-oracles-v1	verify	python3	tools/test-diagnostic-oracles-v1.py	host	yes	120
 deferred-disposition-v1	verify	python3	tools/verify-deferred-disposition-v1.py	host	yes	120
 p1-deferred-source-provenance-v1	verify	python3	tools/run-p1-deferred-evidence-v1.py	host	yes	120
