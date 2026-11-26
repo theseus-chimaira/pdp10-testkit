@@ -256,8 +256,8 @@ def _legacy_loop(lines):
     errors = []
     for name in ("simple", "with_continue"):
         body = bodies.get(name, [])
-        if not _has(body, r"addi\s+[0-7]+,1"):
-            errors.append(name + ": missing pointer increment")
+        if not _has(body, r"addi\s+0?1[0-4],1"):
+            errors.append(name + ": missing preserved induction pointer increment")
         bases = sum(bool(re.search(r"movei\s+[0-7]+,-[0-9]+\(17\)", line, re.I)) for line in body)
         if bases > 1:
             errors.append(name + ": rebuilt array base")

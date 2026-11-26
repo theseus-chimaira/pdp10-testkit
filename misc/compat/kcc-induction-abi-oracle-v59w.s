@@ -1,0 +1,107 @@
+.text
+.globl main
+.globl fail_id
+.globl ind_tail_target
+.globl ind_call_target
+main:
+    movem 17,saved_sp
+    movei 10,154
+    movei 11,155
+    movei 12,156
+    movei 13,157
+    movei 14,160
+    movei 15,161
+    movei 16,162
+    movei 1,1
+    movem 1,fail_id
+    movei 1,13
+    pushj 17,ind_return
+    caie 1,21
+     jrst failed
+    came 17,saved_sp
+     jrst failed
+    caie 10,154
+     jrst failed
+    caie 11,155
+     jrst failed
+    caie 12,156
+     jrst failed
+    caie 13,157
+     jrst failed
+    caie 14,160
+     jrst failed
+    caie 15,161
+     jrst failed
+    caie 16,162
+     jrst failed
+    movei 1,2
+    movem 1,fail_id
+    movei 1,13
+    pushj 17,ind_tail
+    caie 1,22
+     jrst failed
+    came 17,saved_sp
+     jrst failed
+    caie 10,154
+     jrst failed
+    caie 11,155
+     jrst failed
+    caie 12,156
+     jrst failed
+    caie 13,157
+     jrst failed
+    caie 14,160
+     jrst failed
+    caie 15,161
+     jrst failed
+    caie 16,162
+     jrst failed
+    movei 1,3
+    movem 1,fail_id
+    movei 1,3
+    pushj 17,ind_vla
+    caie 1,307
+     jrst failed
+    came 17,saved_sp
+     jrst failed
+    caie 10,154
+     jrst failed
+    caie 11,155
+     jrst failed
+    caie 12,156
+     jrst failed
+    caie 13,157
+     jrst failed
+    caie 14,160
+     jrst failed
+    caie 15,161
+     jrst failed
+    caie 16,162
+     jrst failed
+    setzm fail_id
+    setz 1,
+    popj 17,
+ind_tail_target:
+    caie 10,154
+     jrst failed
+    caie 11,155
+     jrst failed
+    caie 12,156
+     jrst failed
+    caie 13,157
+     jrst failed
+    caie 14,160
+     jrst failed
+    caie 15,161
+     jrst failed
+    caie 16,162
+     jrst failed
+ind_call_target:
+    addi 1,7
+    popj 17,
+failed:
+    movei 1,1
+    popj 17,
+.bss
+fail_id: .block 1
+saved_sp: .block 1

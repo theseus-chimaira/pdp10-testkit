@@ -27,6 +27,7 @@ gcc-p10stdio-daimos-link-v1	compat	sh	misc/compat/test-gcc-p10stdio-daimos-link-
 gcc-p10stdio-v2	compat	sh	misc/compat/test-gcc-p10stdio-v2.sh	multi-cpu	yes	300
 kcc-p10stdio-v59u	compat	sh	misc/compat/test-kcc-p10stdio-v59u.sh	multi-cpu	yes	300
 p10stdio-float-archive-v59v	compat	sh	misc/compat/test-p10stdio-float-archive-v59v.sh	host	yes	120
+kcc-induction-abi-v59w	compat	sh	misc/compat/test-kcc-induction-abi-v59w.sh	multi-cpu	yes	120
 installed-freestanding-archive-v1	compat	sh	misc/compat/test-installed-freestanding-archive-v1.sh	pdp6	yes	120
 kcc-dimode-scratch-preserve-v1	compat	sh	misc/compat/test-kcc-dimode-scratch-preserve-v1.sh	multi-cpu	yes	360
 kcc-return-address-v59q	compat	sh	misc/compat/test-kcc-return-address-v59q.sh	multi-cpu	yes	360
