@@ -16,7 +16,7 @@ DFLOAT_SYMBOLS = ("__kcc_floatdidf", "__kcc_fixdfdi")
 UFLOAT_SYMBOLS = ("__kcc_floatunssisf", "__kcc_floatunsidf",
                   "__kcc_fixunssfsi", "__kcc_fixunsdfsi",
                   "__kcc_floatsisf", "__kcc_fixsfsi")
-GCC_STDIO_SYMBOLS = ("sprintf", "vsprintf", "snprintf", "vsnprintf")
+BUFFER_STDIO_SYMBOLS = ("sprintf", "vsprintf", "snprintf", "vsnprintf")
 CTYPE_C_LOCALE_SYMBOLS = ("isprint", "isspace")
 
 # Symbol-to-member ownership is shared by the installed KCC and GCC
@@ -54,6 +54,7 @@ REFERENCES = re.compile(
     # direct PUSHJ calls; they cannot be treated as unresolved stubs.
     r"(?mi)^\s*(?:pushj\s+\d+\s*,\s*|jrst\s+|\.extern\s+"
     # A local-address relocation may use a numeric left half (0,,symbol).
+    r"|movei\s+\d+\s*,\s*"
     r"|\.(?:long|word)\s+(?:[+-]?[0-9]+\s*,,\s*)?)"
     r"([A-Za-z_][A-Za-z_0-9]*)\b")
 
@@ -70,11 +71,11 @@ def select_freestanding(asm_text, machine, compiler=None):
     references = set(REFERENCES.findall(asm_text))
     pending = sorted(references - defined)
     members = dict(MEMBERS)
-    if compiler == "gcc":
-        # This member uses GCC's actual __builtin_va_list ABI, not
-        # the old KCC-specific sprintf/varargs entry in hosted libc.
+    if compiler in ("gcc", "kcc"):
+        # Each compiler has its own build of the shared C source.
+        # Never pass a private va_list across compiler boundaries.
         members.update({symbol: "p10stdio-format-v2.s"
-                        for symbol in GCC_STDIO_SYMBOLS})
+                        for symbol in BUFFER_STDIO_SYMBOLS})
     selected = []
     owned = set()
     while pending:

@@ -25,6 +25,7 @@ freestanding-search-v1	compat	sh	misc/compat/test-freestanding-search-v1.sh	pdp6
 gcc-p10stdio-v1	compat	sh	misc/compat/test-gcc-p10stdio-v1.sh	multi-cpu	yes	300
 gcc-p10stdio-daimos-link-v1	compat	sh	misc/compat/test-gcc-p10stdio-daimos-link-v1.sh	host	yes	120
 gcc-p10stdio-v2	compat	sh	misc/compat/test-gcc-p10stdio-v2.sh	multi-cpu	yes	300
+kcc-p10stdio-v59u	compat	sh	misc/compat/test-kcc-p10stdio-v59u.sh	multi-cpu	yes	300
 installed-freestanding-archive-v1	compat	sh	misc/compat/test-installed-freestanding-archive-v1.sh	pdp6	yes	120
 kcc-dimode-scratch-preserve-v1	compat	sh	misc/compat/test-kcc-dimode-scratch-preserve-v1.sh	multi-cpu	yes	360
 kcc-return-address-v59q	compat	sh	misc/compat/test-kcc-return-address-v59q.sh	multi-cpu	yes	360

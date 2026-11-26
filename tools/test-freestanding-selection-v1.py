@@ -86,13 +86,19 @@ def main():
            ("isprint", "isspace"), "gcc")
     expect("isprint:\n popj 17,\n.word 0,,isprint\n", "pdp6", [], (), "gcc")
     expect("isprint:\n popj 17,\n.long isprint\n", "pdp6", [], (), "gcc")
-    expect("pushj 17,sprintf\n", "pdp6", [], (), "kcc")
+    expect("pushj 17,sprintf\n", "pdp6",
+           ["p10stdio-format-v2.s"], ("sprintf",), "kcc")
+    expect("movei 1,sprintf\n", "pdp6",
+           ["p10stdio-format-v2.s"], ("sprintf",), "gcc")
+    expect("movei 2,sprintf\n", "pdp6",
+           ["p10stdio-format-v2.s"], ("sprintf",), "kcc")
+    expect("sprintf:\n movei 1,sprintf\n", "pdp6", [], (), "kcc")
     expect("sprintf:\n popj 17,\n pushj 17,sprintf\n",
            "pdp6", [], (), "gcc")
     # Console functions require a real DAIMOS WRITECHAR veneer; never
     # load an OS-specific sink into the bare-metal compiler matrix.
     expect("pushj 17,printf\n", "pdp6", [], (), "gcc")
-    print("PASS: freestanding member selection (31 host-only controls)")
+    print("PASS: freestanding member selection (34 host-only controls)")
 
 
 if __name__ == "__main__":
