@@ -1,0 +1,48 @@
+test	reason	previous_failed_cells
+tests/codegen/upstream-gcc/compile/20000120-2.c	GNU89 extern inline definition semantics	22
+tests/codegen/upstream-gcc/compile/20000211-1.c	zero-size aggregates or arrays	22
+tests/codegen/upstream-gcc/compile/20000319-1.c	zero-size aggregates or arrays	22
+tests/codegen/upstream-gcc/compile/20000326-2.c	block-local labels	22
+tests/codegen/upstream-gcc/compile/20000518-1.c	block-local labels	22
+tests/codegen/upstream-gcc/compile/20000804-1.c	complex arithmetic	22
+tests/codegen/upstream-gcc/compile/20001222-1.c	complex arithmetic	22
+tests/codegen/upstream-gcc/compile/20010226-1.c	nested functions or trampolines	22
+tests/codegen/upstream-gcc/compile/20010313-1.c	GNU machine modes	22
+tests/codegen/upstream-gcc/compile/20010605-1.c	nested functions or trampolines	22
+tests/codegen/upstream-gcc/compile/20010903-2.c	nested functions or trampolines	22
+tests/codegen/upstream-gcc/compile/20011023-1.c	nested functions or trampolines	22
+tests/codegen/upstream-gcc/compile/20011119-1.c	weak or alias linkage	22
+tests/codegen/upstream-gcc/compile/20011119-2.c	weak or alias linkage	22
+tests/codegen/upstream-gcc/compile/20020210-1.c	GNU variable-length structure members	22
+tests/codegen/upstream-gcc/compile/20020303-1.c	weak or alias linkage	22
+tests/codegen/upstream-gcc/compile/20020309-1.c	nested functions or trampolines	22
+tests/codegen/upstream-gcc/compile/920415-1.c	block-local labels	22
+tests/codegen/upstream-gcc/compile/920428-4.c	GNU variable-length structure members	22
+tests/codegen/upstream-gcc/compile/920501-16.c	GNU variable-length structure members	22
+tests/codegen/upstream-gcc/compile/920501-22.c	zero-size aggregates or arrays	22
+tests/codegen/upstream-gcc/compile/920928-5.c	zero-size aggregates or arrays	22
+tests/codegen/upstream-gcc/compile/930118-1.c	block-local labels	22
+tests/codegen/upstream-gcc/compile/930506-2.c	nested functions or trampolines	22
+tests/codegen/upstream-gcc/compile/941019-1.c	complex arithmetic	22
+tests/codegen/upstream-gcc/compile/951116-1.c	nested functions or trampolines	22
+tests/codegen/upstream-gcc/compile/960221-1.c	GNU empty initializer	22
+tests/codegen/upstream-gcc/compile/980506-2.c	GNU machine modes	22
+tests/codegen/upstream-gcc/compile/980511-1.c	zero-size aggregates or arrays	22
+tests/codegen/upstream-gcc/compile/981001-2.c	weak or alias linkage	22
+tests/codegen/upstream-gcc/compile/981006-1.c	block-local labels	22
+tests/codegen/upstream-gcc/compile/981022-1.c	GNU conditional lvalue	22
+tests/codegen/upstream-gcc/compile/981223-1.c	complex arithmetic	22
+tests/codegen/upstream-gcc/compile/991213-1.c	complex arithmetic	22
+tests/codegen/upstream-gcc/compile/init-3.c	zero-size aggregates or arrays	22
+tests/codegen/upstream-gcc/compile/zero-strct-1.c	zero-size aggregates or arrays	22
+tests/codegen/upstream-gcc/gcc-dg/20020115-1.c	GNU machine modes	22
+tests/semantic/upstream/extensions/20020227-1.c	complex arithmetic	22
+tests/semantic/upstream/extensions/20020411-1.c	complex arithmetic	22
+tests/semantic/upstream/extensions/920415-1.c	block-local labels	22
+tests/semantic/upstream/extensions/920721-4.c	block-local labels	2
+tests/semantic/upstream/generic/nestfunc-3.c	nested functions or trampolines	22
+tests/todo/generic/20010924-1.c	GNU initialized flexible member	22
+tests/todo/generic/20020412-1.c	GNU variable-length structure members	8
+tests/todo/generic/921215-1.c	nested functions or trampolines	22
+tests/todo/generic/931002-1.c	nested functions or trampolines	22
+tests/todo/generic/960416-1.c	GNU scalar to union cast	22
