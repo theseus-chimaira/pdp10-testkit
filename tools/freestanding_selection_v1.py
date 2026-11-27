@@ -17,6 +17,8 @@ UFLOAT_SYMBOLS = ("__kcc_floatunssisf", "__kcc_floatunsidf",
                   "__kcc_fixunssfsi", "__kcc_fixunsdfsi",
                   "__kcc_floatsisf", "__kcc_fixsfsi")
 BUFFER_STDIO_SYMBOLS = ("sprintf", "vsprintf", "snprintf", "vsnprintf")
+HEAP_SYMBOLS = ("malloc", "free", "calloc", "realloc", "p10heap_init_v1")
+HEAP_MEMBER = "p10heap-arena-v1.s"
 CTYPE_C_LOCALE_SYMBOLS = ("isprint", "isspace")
 
 # Symbol-to-member ownership is shared by the installed KCC and GCC
@@ -76,6 +78,10 @@ def select_freestanding(asm_text, machine, compiler=None):
         # Never pass a private va_list across compiler boundaries.
         members.update({symbol: "p10stdio-format-v3.s"
                         for symbol in BUFFER_STDIO_SYMBOLS})
+        # A partial test-defined allocator must not collide with this
+        # single-member provider. Explicit initialization remains possible.
+        if not defined.intersection(HEAP_SYMBOLS):
+            members.update({symbol: HEAP_MEMBER for symbol in HEAP_SYMBOLS})
     selected = []
     owned = set()
     while pending:
@@ -88,3 +94,9 @@ def select_freestanding(asm_text, machine, compiler=None):
             selected.append(member)
             pending.extend(DEPENDENCIES.get(member, ()))
     return selected, owned
+
+
+def heap_startup_required(asm_text, fragments):
+    """The harness initializes only its own heap, not a client's arena."""
+    return (HEAP_MEMBER in fragments
+            and "p10heap_init_v1" not in set(REFERENCES.findall(asm_text)))

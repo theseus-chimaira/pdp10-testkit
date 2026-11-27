@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Host-only positive/negative controls for freestanding member selection."""
 
-from freestanding_selection_v1 import select_freestanding
+from freestanding_selection_v1 import select_freestanding, heap_startup_required
 
 
 def expect(source, machine, members, symbols, compiler=None):
@@ -98,7 +98,21 @@ def main():
     # Console functions require a real DAIMOS WRITECHAR veneer; never
     # load an OS-specific sink into the bare-metal compiler matrix.
     expect("pushj 17,printf\n", "pdp6", [], (), "gcc")
-    print("PASS: freestanding member selection (34 host-only controls)")
+    for compiler in ("gcc", "kcc"):
+        expect("pushj 17,malloc\n", "pdp6",
+               ["p10heap-arena-v1.s"], ("malloc",), compiler)
+        expect("pushj 17,calloc\npushj 17,free\n", "pdp6",
+               ["p10heap-arena-v1.s"], ("calloc", "free"), compiler)
+        expect("malloc:\n popj 17,\n pushj 17,free\n", "pdp6",
+               [], (), compiler)
+        for asm, initialize in (
+            ("pushj 17,malloc\n", True),
+            ("pushj 17,p10heap_init_v1\npushj 17,malloc\n", False),
+            ("pushj 17,strlen\n", False),
+        ):
+            fragments, _ = select_freestanding(asm, "pdp6", compiler)
+            assert heap_startup_required(asm, fragments) == initialize
+    print("PASS: freestanding member selection (46 host-only controls)")
 
 
 if __name__ == "__main__":

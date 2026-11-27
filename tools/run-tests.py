@@ -14,7 +14,7 @@ import sys
 import time
 from pathlib import Path
 from stubselect import STUB_SYMBOLS, selected_test_stubs
-from freestanding_selection_v1 import select_freestanding
+from freestanding_selection_v1 import select_freestanding, heap_startup_required
 from compiler_stdlib_prefix_v1 import (
     POLICY as COMPILER_STDLIB_POLICY, archive_path as compiler_stdlib_archive,
     archive_sha256 as compiler_stdlib_sha256,
@@ -1318,6 +1318,11 @@ def run_semantic_cell(idx, total, src, cell, outroot, bins, libgcc1, announce=Tr
                 fragments, libc_symbols = select_freestanding(
                     asm_text, cell['machine'], cell['compiler'])
                 stub_exclude.update(libc_symbols)
+                if heap_startup_required(asm_text, fragments):
+                    heap_startup = ('support/crt0-upstream-heap-v59x.s'
+                                    if upstream_startup else 'support/crt0-heap-v59x.s')
+                    cmd[cmd.index(str(ROOT / startup))] = str(ROOT / heap_startup)
+                    cmd.append(str(ROOT / 'support/heap-environment-v59x.s'))
                 for fragment in fragments:
                     path = (find_kcc_freestanding(fragment) if cell['compiler'] == 'kcc'
                             else find_gcc_freestanding(fragment))
