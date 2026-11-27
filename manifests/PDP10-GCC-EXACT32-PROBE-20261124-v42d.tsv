@@ -1,0 +1,4 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/kcc-ported/exact-width-32-semantics.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/exact-width-32-semantics.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/exact-width-32-semantics.c	ks10	gcc	gcc-ks10-o2	semantic	run_fail

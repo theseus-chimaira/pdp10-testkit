@@ -1,0 +1,6 @@
+test	machine	compiler	profile	kind	status
+tests/semantic/kcc-ported/gnu-packed-bitptr-callabi.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-bitptr-callabi.c	ks10	gcc	gcc-ks10-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-bitptr-callincdec.c	pdp6	gcc	gcc-pdp6-o0	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-bitptr-callincdec.c	pdp6	gcc	gcc-pdp6-o2	semantic	run_fail
+tests/semantic/kcc-ported/gnu-packed-bitptr-callincdec.c	ks10	gcc	gcc-ks10-o2	semantic	run_fail
