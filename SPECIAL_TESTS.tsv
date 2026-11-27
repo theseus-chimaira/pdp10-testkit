@@ -461,3 +461,4 @@ gcc-global-packed-symbolic-v57v	validation	python3	tools/test-gcc-global-packed-
 gcc-global-wide-packed-symbolic-v57w	validation	python3	tools/test-gcc-global-wide-packed-symbolic-v57w.py	kl10	manual	240
 gcc-global-wide-native-symbolic-v57y	validation	python3	tools/test-gcc-global-wide-native-symbolic-v57y.py	kl10	manual	240
 gcc-global-wide-cast-v58a	validation	python3	tools/test-gcc-global-wide-cast-v58a.py	kl10	manual	240
+ts10-quit-v60d	compat	sh	misc/compat/test-ts10-quit-v60d.sh	host	manual	30
