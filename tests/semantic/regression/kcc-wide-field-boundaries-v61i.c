@@ -143,11 +143,13 @@ static int precision_check(void)
 }
 
 /* Packed arrays may start at arbitrary native byte phases. */
-struct __attribute__((packed)) packed { unsigned pad:7; signed long long field:40; unsigned tail:7; };
+struct packed { unsigned pad:7; signed long long field:40; unsigned tail:7; } __attribute__((packed));
 static volatile struct packed pk[2] = {{0123,-3LL,045},{045,-5LL,0123}};
 static int packed_check(void)
 {
     int i;
+    /* Exact six-byte stride, not an ordinary two-word aggregate. */
+    if (sizeof(struct packed) != 6 || sizeof(pk) != 12) return 4;
     for (i = 0; i < 2; ++i) {
         if (pk[i].field != -3LL - 2*i) return 1;
         pk[i].field ^= 2LL;
