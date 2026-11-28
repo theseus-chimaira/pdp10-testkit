@@ -36,6 +36,25 @@ BAD = (
     '__attribute__((size(7))) struct S { int member; } x;',
 )
 
+def codegen_source(use_attribute):
+    """Equivalent storage widths must use the same code-generation path."""
+    lines = []
+    for width in (6, 7, 8, 9, 16, 18, 32, 36):
+        for sign in ('signed', 'unsigned'):
+            name = sign[0] + str(width)
+            if use_attribute:
+                decl = f'{sign} int {name} __attribute__((size({width})))'
+            else:
+                native = ('_KCCtype_int32' if width == 32 else 'int' if width == 36
+                          else f'_KCCtype_char{width}')
+                decl = f'{sign} {native} {name}'
+            lines.append('typedef ' + decl + ';')
+            lines.append(f'int read_{name}(volatile {name} *p,int i) {{return p[i];}}')
+            lines.append(f'void write_{name}(volatile {name} *p,int i,int value) {{p[i]=value;}}')
+            lines.append(f'int diff_{name}({name} *a,{name} *b) {{return a-b;}}')
+    return '\n'.join(lines) + '\n'
+
+
 def main():
     tmp = Path(os.environ.get('TMPDIR') or Path.home() / 'tmp')
     tmp.mkdir(parents=True, exist_ok=True)
@@ -55,7 +74,18 @@ def main():
                         if failed:
                             raise AssertionError((cpu, opts, body, result.stdout))
                         count += 1
-    print('PASS: %d literal-size and scope checks' % count)
+                assembly = []
+                for use_attribute in (True, False):
+                    source.write_text(codegen_source(use_attribute), encoding='ascii')
+                    result = subprocess.run([str(KCC), '-Pgnu99', '-S', '-v=nostats',
+                        '-x='+cpu, '-R=unit', *opts, str(source)], cwd=work,
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=20)
+                    if result.returncode:
+                        raise AssertionError((cpu, opts, result.stdout))
+                    assembly.append((work / 'unit.s').read_bytes())
+                if assembly[0] != assembly[1]:
+                    raise AssertionError((cpu, opts, 'Native width code generation differs'))
+    print('PASS: %d literal-size and scope checks, 8 equivalent assembly comparisons' % count)
 
 if __name__ == '__main__':
     main()
