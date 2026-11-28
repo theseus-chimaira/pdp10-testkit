@@ -112,7 +112,7 @@ def main():
                         '-I'+str(source_root), '-o',str(writer),
                         str(ROOT/'misc/tools/dobj1-writer-kind-v61q.c'),
                         str(source_root/'dobj.c')], check=True, timeout=30)
-        subprocess.run([str(writer)],check=True,timeout=30)
+        subprocess.run([str(writer),str(work/'writer.dobj')],check=True,timeout=30)
         print('PASS: %d host DOBJ1 consumer checks' % count)
 
 

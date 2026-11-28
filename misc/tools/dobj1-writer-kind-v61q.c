@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(void)
+int main(int argc, char **argv)
 {
     struct dobj_object o;
     struct dobj_word data;
@@ -11,6 +11,7 @@ int main(void)
     struct dobj_symbol sym;
     FILE *f;
     int kind, rc, good;
+    if (argc != 2) return 1;
     memset(&o, 0, sizeof(o));
     memset(&r, 0, sizeof(r));
     memset(&sym, 0, sizeof(sym));
@@ -24,7 +25,7 @@ int main(void)
     sym.sec = DOBJ_SEC_DATA;
     r.loc_sec = DOBJ_SEC_DATA;
     for (kind = -1; kind <= 8; ++kind) {
-        f = tmpfile();
+        f = fopen(argv[1], "w+b");
         if (f == NULL) return 1;
         r.type = kind;
         r.symbol = (kind == 2 || kind == 4) ? 1UL : 0UL;

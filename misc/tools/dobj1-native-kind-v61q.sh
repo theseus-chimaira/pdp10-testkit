@@ -9,7 +9,13 @@ TMPDIR=${TMPDIR:-$HOME/tmp}
 export TMPDIR
 mkdir -p "$TMPDIR"
 work=$(mktemp -d "$TMPDIR/dobj1-native-kind-v61q.XXXXXX")
-trap 'rm -rf "$work"' EXIT HUP INT TERM
+cleanup() {
+    rc=$?
+    if [ "$rc" -eq 0 ]; then rm -rf "$work";
+    else echo "Native reader failure evidence: $work" >&2; fi
+}
+trap cleanup EXIT
+trap 'exit 1' HUP INT TERM
 export PATH="$PDP10_PREFIX/bin:$PATH"
 for cpu in pdp6 ka10 ki10 ks10; do
     for mode in opt noopt; do
