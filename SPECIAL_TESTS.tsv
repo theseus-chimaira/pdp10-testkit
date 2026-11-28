@@ -470,3 +470,5 @@ kcc-size-attribute-v61n	kcc-regression	python3	tools/test-kcc-size-attribute-v61
 das-byte-label-expressions-v61o	das	python3	tools/test-das-byte-label-expressions-v61o.py	fast	yes	120
 kcc-static-label-difference-v61o	kcc-regression	python3	tools/test-kcc-static-label-difference-v61o.py	multi-cpu	yes	120
 kcc-external-void-v61p	kcc-regression	python3	tools/test-kcc-external-void-v61p.py	multi-cpu	yes	180
+dobj1-reloc-kinds-v61q	validation	python3	tools/test-dobj1-reloc-kinds-v61q.py	host	yes	120
+dobj1-native-kind-v61q	kcc-regression	sh	misc/tools/dobj1-native-kind-v61q.sh	multi-cpu	yes	180
