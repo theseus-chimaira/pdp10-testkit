@@ -469,3 +469,4 @@ kcc-hidden-prototype-v61l	kcc-regression	python3	tools/test-kcc-hidden-prototype
 kcc-size-attribute-v61n	kcc-regression	python3	tools/test-kcc-size-attribute-v61n.py	multi-cpu	yes	120
 das-byte-label-expressions-v61o	das	python3	tools/test-das-byte-label-expressions-v61o.py	fast	yes	120
 kcc-static-label-difference-v61o	kcc-regression	python3	tools/test-kcc-static-label-difference-v61o.py	multi-cpu	yes	120
+kcc-external-void-v61p	kcc-regression	python3	tools/test-kcc-external-void-v61p.py	multi-cpu	yes	180
