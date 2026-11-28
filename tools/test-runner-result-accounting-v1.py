@@ -233,6 +233,20 @@ def test_kcc_dimode_helper_ownership(runner):
                 for sym in symbols), 'installed DImode entrypoint absent')
 
 
+def test_kcc_df_helper_ownership(runner):
+    symbols = ("__kcc_dfadd_rt_v62a", "__kcc_dfsub_rt_v62a",
+               "__kcc_dfmul_rt_v62a", "__kcc_dfdiv_rt_v62a")
+    files, error = runner.kcc_runtime_fragments("pdp6", symbols)
+    require(error is None and len(files) == 4,
+            "D-format core or operation member missing or duplicated")
+    for sym in symbols:
+        require(any(runner.runtime_defines_symbol(runner.read_text(f), sym)
+                    for f in files), "D-format entrypoint absent: " + sym)
+    files, error = runner.kcc_runtime_fragments("ka10", symbols[:1])
+    require(error is None and len(files) == 2,
+            "D-format add must select only add and core")
+
+
 def test_preserve_first_missing_libc_error(runner, outroot):
     """A valid KCC runtime helper cannot erase an earlier libc setup error."""
     source = 'tests/semantic/kcc-libc-freestanding-v1.c'
@@ -356,6 +370,7 @@ def main():
         test_worker_failure(runner, outroot)
         test_reserved_compiler_exits(runner, outroot)
         test_kcc_dimode_helper_ownership(runner)
+        test_kcc_df_helper_ownership(runner)
         test_preserve_first_missing_libc_error(runner, outroot)
         test_missing_gcc_libc_error(runner, outroot)
         test_real_negative_policy_path(runner, outroot)

@@ -45,6 +45,9 @@ run_case() {
         test -f "$helper" || { echo 'missing installed $KDFAD helper' >&2; exit 2; }
         set -- "$helper"
     fi
+    if grep -Fq '__kcc_dfadd_rt_v62a' "$main_s" "$callee_s"; then
+        set -- "$@" "$KCC_LIBDIR/kccrt-dfadd-v62a.s" "$KCC_LIBDIR/kccrt-dfcore-v62a.s"
+    fi
     "$P10RUN" --machine ks10 --mode deposit --exec-mode step \
         --step-limit 2000000 --timeout 25 --workdir "$tmp/$name" \
         --name "$name" --expect __test_exit=0 \

@@ -84,7 +84,8 @@ run_mode()
             "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-df-sf-rounding-v61w.c" \
             "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-extern-scope-v61y.c" \
             "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-pair-push-v61z.c" \
-            "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-large-layout-v61z.c"
+            "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-large-layout-v61z.c" \
+            "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-df-full-arithmetic-v62a.c"
     fi
     total=$#
     case "$mode" in
@@ -106,6 +107,7 @@ run_mode()
             kcc-extern-scope-v61y) b=scope61y ;;
             kcc-pair-push-v61z) b=pair61z ;;
             kcc-large-layout-v61z) b=layout61z ;;
+            kcc-df-full-arithmetic-v62a) b=df62a ;;
         esac
         n=$((n + 1))
         printf 'phase-byte-identity %s [%02d/%02d] %s\n' "$mode" "$n" "$total" "$src"

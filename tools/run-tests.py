@@ -101,7 +101,9 @@ DIRECTIVE_RE = re.compile(
 LABEL_RE = re.compile(r'^\s*(?:[A-Za-z_.$%][A-Za-z0-9_.$%]*:\s*)?([A-Za-z][A-Za-z0-9_.]*)\b')
 KCC_RUNTIME_SYMBOLS = ('$ADJBP', '$KDFAD', '$KDFSB', '$KDFMP', '$KDFDV', '$ZERO',
                        '__kcc_divdi3', '__kcc_moddi3', '__kcc_udivdi3',
-                       '__kcc_umoddi3')
+                       '__kcc_umoddi3',
+                       '__kcc_dfadd_rt_v62a', '__kcc_dfsub_rt_v62a',
+                       '__kcc_dfmul_rt_v62a', '__kcc_dfdiv_rt_v62a')
 KCC_RUNTIME_MACHINE_STEMS = {
     '$ADJBP': 'adjbp',
     '$KDFAD': 'kdfad',
@@ -115,7 +117,13 @@ KCC_RUNTIME_COMMON_FILES = {
     '__kcc_moddi3': 'kccrt-dimode-div.s',
     '__kcc_udivdi3': 'kccrt-dimode-div.s',
     '__kcc_umoddi3': 'kccrt-dimode-div.s',
+    '__kcc_dfadd_rt_v62a': 'kccrt-dfadd-v62a.s',
+    '__kcc_dfsub_rt_v62a': 'kccrt-dfadd-v62a.s',
+    '__kcc_dfmul_rt_v62a': 'kccrt-dfmul-v62a.s',
+    '__kcc_dfdiv_rt_v62a': 'kccrt-dfdiv-v62a.s',
 }
+KCC_DF62_SYMBOLS = ('__kcc_dfadd_rt_v62a', '__kcc_dfsub_rt_v62a',
+                    '__kcc_dfmul_rt_v62a', '__kcc_dfdiv_rt_v62a')
 KCC_RUNTIME_MACHINE_PREFIX = {
     'pdp6': 'pdp6rt',
     'ka10': 'ka10rt',
@@ -273,6 +281,16 @@ def kcc_runtime_fragments(machine, required_symbols):
             continue
         if path not in paths:
             paths.append(path)
+    if any(symbol in KCC_DF62_SYMBOLS for symbol in required_symbols):
+        core = find_kcc_rt('kccrt-dfcore-v62a.s')
+        if core is None:
+            missing_files.append('D-format:kccrt-dfcore-v62a.s')
+        elif not all(runtime_defines_symbol(read_text(core), sym) for sym in
+                     ('__kcc_dfenter_v62a', '__kcc_dfround_v62a',
+                      '__kcc_dfpack_v62a', '__kcc_dfzero_v62a')):
+            wrong_files.append('D-format:' + str(core))
+        elif core not in paths:
+            paths.append(core)
     if missing_files:
         return paths, 'missing runtime fragment(s): %s' % ','.join(missing_files)
     if wrong_files:
