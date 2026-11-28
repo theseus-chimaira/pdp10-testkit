@@ -78,7 +78,10 @@ run_mode()
         set -- "$wideprobe"
     else
         # shellcheck disable=SC2086
-        set -- $all_src "$wideprobe"
+        set -- $all_src "$wideprobe" \
+            "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-oldstyle-parameter-objects-v61w.c" \
+            "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-vla-parameter-bounds-v61w.c" \
+            "$KCC_TESTKIT_ROOT/tests/semantic/regression/kcc-df-sf-rounding-v61w.c"
     fi
     total=$#
     case "$mode" in
@@ -93,6 +96,11 @@ run_mode()
         b=${b%.c}
         # Native phase paths have a 102-character limit.
         if [ "$src" = "$wideprobe" ]; then b=wide36; fi
+        case "$b" in
+            kcc-oldstyle-parameter-objects-v61w) b=param61w ;;
+            kcc-vla-parameter-bounds-v61w) b=vla61w ;;
+            kcc-df-sf-rounding-v61w) b=round61w ;;
+        esac
         n=$((n + 1))
         printf 'phase-byte-identity %s [%02d/%02d] %s\n' "$mode" "$n" "$total" "$src"
 
