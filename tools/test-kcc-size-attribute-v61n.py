@@ -74,6 +74,15 @@ def main():
                         if failed:
                             raise AssertionError((cpu, opts, body, result.stdout))
                         count += 1
+                source.write_text(GOOD[0] + '\n', encoding='ascii')
+                for mode in ('c89', 'c99', 'gnu89'):
+                    result = subprocess.run([str(KCC), '-P'+mode, '-S', '-v=nostats',
+                        '-x='+cpu, '-R=unit', *opts, str(source)], cwd=work,
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=20)
+                    failed = (result.returncode != 0 if mode == 'gnu89' else
+                              check_kcc_rejection(result.returncode, result.stdout) is not None)
+                    if failed:
+                        raise AssertionError((cpu, mode, opts, result.stdout))
                 assembly = []
                 for use_attribute in (True, False):
                     source.write_text(codegen_source(use_attribute), encoding='ascii')
@@ -85,7 +94,7 @@ def main():
                     assembly.append((work / 'unit.s').read_bytes())
                 if assembly[0] != assembly[1]:
                     raise AssertionError((cpu, opts, 'Native width code generation differs'))
-    print('PASS: %d literal-size and scope checks, 8 equivalent assembly comparisons' % count)
+    print('PASS: %d literal-size and scope checks, 24 language-mode checks, 8 equivalent assembly comparisons' % count)
 
 if __name__ == '__main__':
     main()
