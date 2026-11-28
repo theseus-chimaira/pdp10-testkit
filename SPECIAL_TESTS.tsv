@@ -465,3 +465,4 @@ ts10-quit-v60d	compat	sh	misc/compat/test-ts10-quit-v60d.sh	host	manual	30
 kcc-void-indirection-v61f	kcc-regression	python3	tools/test-kcc-void-indirection-v61f.py	multi-cpu	yes	120
 kcc-field-fragments-v61h	kcc-regression	python3	tools/test-kcc-field-fragments-v61h.py	multi-cpu	yes	120
 kcc-literal-difference-v61k	kcc-regression	python3	tools/test-kcc-literal-difference-v61k.py	multi-cpu	yes	120
+kcc-hidden-prototype-v61l	kcc-regression	python3	tools/test-kcc-hidden-prototype-v61l.py	multi-cpu	yes	120
