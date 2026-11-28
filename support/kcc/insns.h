@@ -105,10 +105,8 @@ extern int kcc_jffo();
 #define __builtin_ffs(X) kcc_ffs((Sint)(X))
 #define __builtin_pdp10_jffo(X) kcc_jffo((uSint)(X))
 
-typedef char *__builtin_va_list;
-#define __builtin_va_start(AP, LAST) ((AP) = (char *)&(LAST))
-#define __builtin_va_arg(AP, TYPE) (*(TYPE *)((AP) -= sizeof(TYPE)))
-#define __builtin_va_end(AP) ((void)0)
+/* KCC supplies native GNU variadic builtins since v61j. Do not
+ * shadow their types or word-rounded stack-slot semantics. */
 
 #define ROTL(X, N) (((X) << (N)) + ((X) >> (36 - (N))))
 #define ROTR(X, N) (((X) >> (N)) + ((X) << (36 - (N))))
